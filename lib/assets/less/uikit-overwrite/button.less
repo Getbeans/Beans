@@ -1,0 +1,55 @@
+/* Button modifiers
+ ========================================================================== */
+
+ /* Prevent uk-form from overwriting the color */
+.uk-button-primary {
+    color: @button-primary-color!important;
+}
+
+.hook-button() {
+    border-radius: @global-border-radius;
+}
+
+.hook-button-large() {
+    border-radius: @global-border-radius;
+}
+
+.hook-button-misc() {
+
+    /*  Reset border-radius */
+    .uk-button-group > .uk-button:not(:first-child):not(:last-child),
+    .uk-button-group > div:not(:first-child):not(:last-child) .uk-button {
+        border-radius: 0;
+    }
+
+    .uk-button-group > .uk-button:first-child,
+    .uk-button-group > div:first-child .uk-button {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .uk-button-group > .uk-button:last-child,
+    .uk-button-group > div:last-child .uk-button {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+
+    /* Collapse border */
+    .uk-button-group > .uk-button:nth-child(n+2),
+    .uk-button-group > div:nth-child(n+2) .uk-button {
+        margin-left: -1px;
+    }
+
+    /*
+     * Create position context to superimpose the successor elements border
+     * Known issue: If you use an `a` element as button and an icon inside,
+     * the active state will not work if you click the icon inside the button
+     * Workaround: Just use a `button` or `input` element as button
+     */
+
+    .uk-button-group .uk-button:active {
+        position: relative;
+    }
+
+}

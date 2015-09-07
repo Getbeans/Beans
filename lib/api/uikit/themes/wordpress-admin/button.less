@@ -1,0 +1,119 @@
+@button-height: 28px;
+@button-line-height: 26px;
+@button-padding-horizontal: 12px;
+@button-font-size: 13px;
+@button-background: #f7f7f7;
+@button-color: #555;
+
+@button-hover-background:                       #f5f5f5;
+@button-active-background:                      #eee;
+
+@button-primary-background:                     #2ea2cc;
+@button-primary-hover-background:               #1e8cbe;
+@button-primary-active-background:              #1b7aa6;
+
+@button-success-hover-background:               #73B045;
+@button-success-active-background:              #689F3D;
+
+@button-danger-hover-background:                #BE2941;
+@button-danger-active-background:               #AC253A;
+
+/* new vars */
+@button-border-color: #ccc;
+@button-hover-border-color: #999;
+@button-active-border-color: @button-hover-border-color;
+@button-border-radius: 3px;
+@button-box-shadow: inset 0 1px 0 #fff,0 1px 0 rgba(0,0,0,.08);
+@button-hover-box-shadow: @button-box-shadow;
+@button-active-box-shadow: inset 0 1px 0 #fff,0 1px 0 rgba(0,0,0,.08);
+
+@button-primary-border-color: #0074a2;
+@button-primary-hover-border-color: #0074a2;
+@button-primary-active-border-color: #005684;
+@button-primary-box-shadow: inset 0 1px 0 rgba(120,200,230,.5),0 1px 0 rgba(0,0,0,.15);
+@button-primary-hover-box-shadow: inset 0 1px 0 rgba(120,200,230,.6);
+@button-primary-active-box-shadow: inset 0 1px 0 rgba(0,0,0,.1);
+
+@button-success-border-color: #74A03F;
+@button-success-hover-border-color: @button-success-border-color;
+@button-success-active-border-color: #659A3C;
+@button-success-box-shadow: inset 0 1px 0 rgba(199,225,167,.5),0 1px 0 rgba(0,0,0,.15);
+@button-success-hover-box-shadow: inset 0 1px 0 rgba(199,225,167,.6);
+@button-success-active-box-shadow: inset 0 1px 0 rgba(0,0,0,.1);
+
+@button-danger-border-color: #AB253A;
+@button-danger-hover-border-color: #A22337;
+@button-danger-active-border-color: #982033;
+@button-danger-box-shadow: inset 0 1px 0 rgba(224,84,105,.5),0 1px 0 rgba(0,0,0,.15);
+@button-danger-hover-box-shadow: inset 0 1px 0 rgba(224,84,105,.6);
+@button-danger-active-box-shadow: inset 0 1px 0 rgba(0,0,0,.1);
+
+.hook-button() {
+	border: 1px solid @button-border-color;
+	border-radius: @button-border-radius;
+	box-sizing: border-box;
+	white-space: nowrap;
+	cursor: pointer;
+	display: inline-block;
+	vertical-align: top;
+	box-shadow: @button-box-shadow;
+
+	&:hover {
+		border-color:@button-hover-border-color;
+		box-shadow: @button-hover-box-shadow;
+	}
+
+	&:active {
+		border-color:@button-active-border-color;
+		box-shadow: @button-active-box-shadow;
+	}
+
+	&.uk-button-primary {
+		border: 1px solid @button-primary-border-color;
+		box-shadow: @button-primary-box-shadow;
+
+		&:hover {
+			border-color:@button-primary-hover-border-color;
+			box-shadow: @button-primary-hover-box-shadow;
+		}
+
+		&:active {
+			border-color:@button-primary-active-border-color;
+			box-shadow: @button-primary-active-box-shadow;
+		}
+
+	}
+
+	&.uk-button-success {
+		border: 1px solid @button-success-border-color;
+		box-shadow: @button-success-box-shadow;
+
+		&:hover {
+			border-color:@button-success-hover-border-color;
+			box-shadow: @button-success-hover-box-shadow;
+		}
+
+		&:active {
+			border-color:@button-success-active-border-color;
+			box-shadow: @button-success-active-box-shadow;
+		}
+
+	}
+
+	&.uk-button-danger {
+		border: 1px solid @button-danger-border-color;
+		box-shadow: @button-danger-box-shadow;
+
+		&:hover {
+			border-color:@button-danger-hover-border-color;
+			box-shadow: @button-danger-hover-box-shadow;
+		}
+
+		&:active {
+			border-color:@button-danger-active-border-color;
+			box-shadow: @button-danger-active-box-shadow;
+		}
+
+	}
+
+}

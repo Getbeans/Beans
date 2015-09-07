@@ -1,0 +1,137 @@
+/* Header
+ ========================================================================== */
+
+.tm-header {
+    border-bottom: 1px solid @global-border;
+}
+
+
+/* Branding
+ ========================================================================== */
+
+.tm-site-branding,
+.tm-site-branding a {
+    font-size: 24px;
+    line-height: 24px;
+    color: @base-heading-color;
+    font-weight: 200;
+    text-decoration: none;
+}
+
+
+/* Main
+ ========================================================================== */
+
+.tm-main {
+    background-color: #FAFAFA;
+}
+
+
+/* Article
+ ========================================================================== */
+
+.tm-article-image {
+    margin-top: @utility-margin + ( @utility-margin / 2 );
+    margin-bottom: @utility-margin + ( @utility-margin / 2 );
+}
+
+article > .tm-article-image:first-child,
+article header > .tm-article-image:first-child {
+    margin-top: 0;
+}
+
+/* Phone landscape and smaller */
+
+@media (max-width: @breakpoint-small) {
+
+    article.uk-panel-box {
+        padding: 20px 15px;
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+
+}
+
+
+/* Comments
+ ========================================================================== */
+
+.tm-comments {
+    margin-top: @grid-gutter-vertical;
+    margin-bottom: @grid-gutter-vertical;
+}
+
+.tm-comment-links a {
+    font-size: @text-small-font-size;
+    margin-bottom: 0;
+}
+
+.form-allowed-tags code {
+    white-space: normal;
+    display: block;
+}
+
+/* Comment form
+ ========================================================================== */
+
+.comment-respond {
+    margin-top: @grid-gutter-vertical;
+}
+
+.comment-reply-title > small a {
+    margin-top: -3px;
+}
+
+
+/* Widgets
+ ========================================================================== */
+
+.tm-widget .uk-list ul {
+    padding-left: 0;
+}
+
+.widget_calendar table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.widget_calendar #next {
+    text-align: right;
+}
+
+[class*="widget_recent"] ul li:not( :last-of-type ),
+.widget_archives ul li:not( :last-of-type ),
+.widget_categories ul li:not( :last-of-type ),
+.widget_meta ul li:not( :last-of-type ) {
+    margin-bottom: 5px;
+}
+
+
+/* Footer
+ ========================================================================== */
+
+.tm-footer {
+    border-top: 1px solid @global-border;
+}
+
+
+/* WordPress theme requirement
+ ========================================================================== */
+
+.alignleft {
+    display: block;
+    margin-right: @utility-align-horizontal;
+    float: left;
+}
+
+.alignright {
+    display: block;
+    margin-left: @utility-align-horizontal;
+    float: right;
+}
+
+.aligncenter {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -1,0 +1,386 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Beans\n"
+"POT-Creation-Date: 2015-08-26 11:50+0200\n"
+"PO-Revision-Date: 2015-08-26 11:49+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.4\n"
+"X-Poedit-Basepath: ../..\n"
+"X-Poedit-WPHeader: style.css\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: lib/admin/options.php:27
+msgctxt "term meta"
+msgid "Layout"
+msgstr ""
+
+#: lib/admin/options.php:58
+msgctxt "post meta"
+msgid "Layout"
+msgstr ""
+
+#: lib/admin/options.php:65
+msgid "Post Options"
+msgstr ""
+
+#: lib/admin/wp-customize.php:34
+msgid "Logo Image"
+msgstr ""
+
+#: lib/admin/wp-customize.php:40
+msgid "Branding"
+msgstr ""
+
+#: lib/admin/wp-customize.php:51 lib/admin/wp-customize.php:59
+msgid "Default Layout"
+msgstr ""
+
+#: lib/admin/wp-customize.php:66
+msgid "Viewport Width"
+msgstr ""
+
+#: lib/admin/wp-customize.php:87
+msgid "Viewport Height"
+msgstr ""
+
+#: lib/admin/wp-customize.php:108
+msgid "Preview Tools"
+msgstr ""
+
+#. Theme Name of the plugin/theme
+#. Author of the plugin/theme
+#: lib/api/admin-menu.php:25
+msgid "Beans"
+msgstr ""
+
+#: lib/api/admin-menu.php:37
+msgid "Beans Settings"
+msgstr ""
+
+#: lib/api/admin-menu.php:37
+msgid "Version "
+msgstr ""
+
+#: lib/api/admin-menu.php:56
+msgid "Enable development mode"
+msgstr ""
+
+#: lib/api/admin-menu.php:63
+msgid "Mode options"
+msgstr ""
+
+#: lib/api/compiler/class-options.php:45
+msgid "Compile all WordPress styles"
+msgstr ""
+
+#: lib/api/compiler/class-options.php:58
+msgid "Compile all WordPress scripts"
+msgstr ""
+
+#: lib/api/compiler/class-options.php:66
+msgid "Compiler options"
+msgstr ""
+
+#: lib/api/compiler/class-options.php:94
+msgid "Cache flushed successfully!"
+msgstr ""
+
+#: lib/api/compiler/class-options.php:107
+msgid "Flush assets cache"
+msgstr ""
+
+#: lib/api/compiler/class-options.php:118
+msgid "Styles are not compiled in development mode."
+msgstr ""
+
+#: lib/api/compiler/class-options.php:128
+msgid "Scripts are not compiled in development mode."
+msgstr ""
+
+#: lib/api/fields/types/field.php:61
+msgid "More..."
+msgstr ""
+
+#: lib/api/fields/types/image.php:52
+msgid "Add Image"
+msgid_plural "Add Images"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/api/image/class-options.php:41
+msgid "Images options"
+msgstr ""
+
+#: lib/api/image/class-options.php:69
+msgid "Images flushed successfully!"
+msgstr ""
+
+#: lib/api/image/class-options.php:82
+msgid "Flush images"
+msgstr ""
+
+#: lib/api/layout/functions.php:275
+msgid "Use Default"
+msgstr ""
+
+#: lib/api/options/class.php:39 lib/api/post-meta/class.php:32
+#: lib/api/wp-customize/class.php:25
+msgid "Undefined"
+msgstr ""
+
+#: lib/api/options/class.php:196
+msgid "Settings saved successfully!"
+msgstr ""
+
+#: lib/api/options/class.php:198
+msgid "Settings could not be saved, please try again."
+msgstr ""
+
+#: lib/api/options/class.php:210
+msgid "Settings reset successfully!"
+msgstr ""
+
+#: lib/api/options/class.php:212
+msgid "Settings could not be reset, please try again."
+msgstr ""
+
+#: lib/api/widget/functions.php:53
+msgid "Hello"
+msgstr ""
+
+#: lib/render/menu.php:23
+msgid "Navigation"
+msgstr ""
+
+#: lib/render/menu.php:26 lib/templates/fragments/breadcrumb.php:25
+msgid "Home"
+msgstr ""
+
+#: lib/render/menu.php:46
+msgid "Primary Menu"
+msgstr ""
+
+#: lib/render/widget-area.php:19
+msgid "Sidebar Primary"
+msgstr ""
+
+#: lib/render/widget-area.php:24
+msgid "Sidebar Secondary"
+msgstr ""
+
+#: lib/render/widget-area.php:30
+msgid "Off-Canvas Menu"
+msgstr ""
+
+#: lib/templates/fragments/breadcrumb.php:81
+msgid "Results:"
+msgstr ""
+
+#: lib/templates/fragments/breadcrumb.php:90
+msgid "Author Archives:"
+msgstr ""
+
+#: lib/templates/fragments/breadcrumb.php:97
+msgid "Tag Archives:"
+msgstr ""
+
+#: lib/templates/fragments/breadcrumb.php:104
+msgid "Archives:"
+msgstr ""
+
+#: lib/templates/fragments/breadcrumb.php:111
+msgid "404"
+msgstr ""
+
+#: lib/templates/fragments/comments.php:20
+#, php-format
+msgctxt "beans"
+msgid "%s Comment"
+msgid_plural "%s Comments"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/templates/fragments/comments.php:87
+msgid "Trackback"
+msgstr ""
+
+#: lib/templates/fragments/comments.php:98
+msgid "Pingback"
+msgstr ""
+
+#: lib/templates/fragments/comments.php:110
+msgid "Awaiting Moderation"
+msgstr ""
+
+#: lib/templates/fragments/comments.php:122
+msgid "Moderator"
+msgstr ""
+
+#: lib/templates/fragments/comments.php:203
+msgid "Edit"
+msgstr ""
+
+#: lib/templates/fragments/comments.php:218
+msgid "Link"
+msgstr ""
+
+#: lib/templates/fragments/comments.php:240
+msgid "No comment yet, add your voice below!"
+msgstr ""
+
+#: lib/templates/fragments/comments.php:258
+msgid "Comments are closed for this article!"
+msgstr ""
+
+#: lib/templates/fragments/comments.php:293
+#: lib/templates/fragments/post.php:428 lib/templates/fragments/post.php:497
+msgid "Previous"
+msgstr ""
+
+#: lib/templates/fragments/comments.php:311
+#: lib/templates/fragments/post.php:439 lib/templates/fragments/post.php:583
+msgid "Next"
+msgstr ""
+
+#: lib/templates/fragments/comments.php:353
+msgid "Add a Comment"
+msgstr ""
+
+#: lib/templates/fragments/comments.php:360
+msgid "Post Comment"
+msgstr ""
+
+#: lib/templates/fragments/comments.php:427
+msgid "Name"
+msgstr ""
+
+#: lib/templates/fragments/comments.php:455
+#, php-format
+msgid "Email %s"
+msgstr ""
+
+#: lib/templates/fragments/comments.php:484
+msgid "Website"
+msgstr ""
+
+#: lib/templates/fragments/comments.php:534
+msgid "Comment *"
+msgstr ""
+
+#: lib/templates/fragments/footer.php:24
+#, php-format
+msgid "&#x000A9; %1$s - %2$s. All rights reserved."
+msgstr ""
+
+#: lib/templates/fragments/footer.php:45
+#, php-format
+msgid "%1$s theme for WordPress."
+msgstr ""
+
+#: lib/templates/fragments/header.php:81
+#, php-format
+msgid "Page %s"
+msgstr ""
+
+#: lib/templates/fragments/menu.php:65
+msgid "Menu"
+msgstr ""
+
+#: lib/templates/fragments/menu.php:113
+msgid "Whoops, your site does not have a menu!"
+msgstr ""
+
+#: lib/templates/fragments/post-shortcodes.php:17
+msgid "Posted on "
+msgstr ""
+
+#: lib/templates/fragments/post-shortcodes.php:39
+msgid "By "
+msgstr ""
+
+#: lib/templates/fragments/post-shortcodes.php:69
+msgid "Leave a comment"
+msgstr ""
+
+#: lib/templates/fragments/post-shortcodes.php:71
+msgid "1 comment"
+msgstr ""
+
+#: lib/templates/fragments/post-shortcodes.php:73
+#, php-format
+msgid "%s comments"
+msgstr ""
+
+#: lib/templates/fragments/post-shortcodes.php:100
+msgid "Tagged with: "
+msgstr ""
+
+#: lib/templates/fragments/post-shortcodes.php:120
+msgid "Filed under: "
+msgstr ""
+
+#: lib/templates/fragments/post.php:64
+msgid "Search results for: "
+msgstr ""
+
+#: lib/templates/fragments/post.php:247
+msgid "Continue reading"
+msgstr ""
+
+#: lib/templates/fragments/post.php:271
+msgid "Pages:"
+msgstr ""
+
+#: lib/templates/fragments/post.php:617
+msgid "Whoops, no result found!"
+msgstr ""
+
+#: lib/templates/fragments/post.php:629
+msgid "It looks like nothing was found at this location. Maybe try a search?"
+msgstr ""
+
+#: lib/templates/fragments/post.php:663
+msgid "This post is protected. To view it, enter the password below!"
+msgstr ""
+
+#: lib/templates/fragments/post.php:677
+msgid "Password"
+msgstr ""
+
+#: lib/templates/fragments/post.php:685
+msgid "Submit"
+msgstr ""
+
+#: lib/templates/fragments/searchform.php:30
+msgid "Search"
+msgstr ""
+
+#: lib/templates/fragments/widget.php:83
+#, php-format
+msgid "%s does not have any widget assigned!"
+msgstr ""
+
+#: lib/templates/fragments/widget.php:103
+msgid "Read feed"
+msgstr ""
+
+#. Theme URI of the plugin/theme
+#. Author URI of the plugin/theme
+msgid "http://www.getbeans.io"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"The most innovative theme for WordPress. The real magic is under the hood."
+msgstr ""
