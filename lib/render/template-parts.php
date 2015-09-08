@@ -45,11 +45,17 @@ beans_add_smart_action( 'beans_content', 'beans_loop_template' );
  * Echo loop template part.
  *
  * @since 1.0.0
+ *
+ * @param string $id Optional. The loop ID is used to filter the loop WP_Query arguments.
  */
-function beans_loop_template() {
+function beans_loop_template( $id = false ) {
+
+	// Set default loop id.
+	if ( !$id )
+		$id = 'main';
 
 	// Only run new query if a filter is set.
-	if ( $_has_filter = has_filter( 'beans_loop_query_args' ) ) :
+	if ( $_has_filter = beans_has_filters( "beans_loop_query_args[_{$id}]" ) ) :
 
 		global $wp_query;
 
@@ -58,16 +64,16 @@ function beans_loop_template() {
 	     *
 	     * @since 1.0.0
 	     */
-	    if ( $args = apply_filters( 'beans_loop_query_args', false ) )
+	    if ( $args = beans_apply_filters( "beans_loop_query_args[_{$id}]", false ) )
 			$wp_query = new WP_Query( $args );
 
 	endif;
 
 	// Allow overwrite.
-	if ( locate_template( 'loop.php', true ) != '' )
+	if ( locate_template( 'loop.php', true, false ) != '' )
 		return;
 
-	require_once( BEANS_STRUCTURE_PATH . 'loop.php' );
+	require( BEANS_STRUCTURE_PATH . 'loop.php' );
 
 	// Only reset the query if a filter is set.
 	if ( $_has_filter )
