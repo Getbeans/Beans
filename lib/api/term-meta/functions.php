@@ -9,8 +9,8 @@
  * @since 1.0.0
  *
  * @param string $field_id The term meta id searched.
- * @param mixed  $default  The default value to return if the term meta value doesn't exist.
- * @param int    $term_id  Overwrite the current term id.
+ * @param mixed  $default  Optional. The default value to return if the term meta value doesn't exist.
+ * @param int    $term_id  Optional. Overwrite the current term id.
  *
  * @return mixed Save data if the term meta value exists, otherwise set the default value.
  */

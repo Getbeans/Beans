@@ -84,7 +84,7 @@ function beans_remove_output( $id ) {
  *                                 (e.g. class=""). Setting it to 'false' will only display
  *                                 the attribute name (e.g. data-example). Setting it to 'null' will not
  *                                 display anything.
- * @param mixed  $var              Additional variables passed to the functions hooked to <tt>$id</tt>.
+ * @param mixed  $var              Optional. Additional variables passed to the functions hooked to <tt>$id</tt>.
  *
  * @return string The output.
  */
@@ -151,7 +151,7 @@ function beans_open_markup( $id, $tag, $attributes = array() ) {
  *                                 (e.g. class=""). Setting it to 'false' will only display
  *                                 the attribute name (e.g. data-example). Setting it to 'null' will not
  *                                 display anything.
- * @param mixed  $var              Additional variables passed to the functions hooked to <tt>$id</tt>.
+ * @param mixed  $var              Optional. Additional variables passed to the functions hooked to <tt>$id</tt>.
  *
  * @return string The output.
  */
@@ -252,7 +252,7 @@ function beans_modify_markup( $id, $markup, $priority = 10, $args = 1 ) {
  * @since 1.0.0
  *
  * @param string $id             The markup ID.
- * @param bool   $remove_actions Whether elements attached to a markup should be removed or not. This must be used
+ * @param bool   $remove_actions Optional. Whether elements attached to a markup should be removed or not. This must be used
  * with absolute caution.
  *
  * @return bool Will always return true.
@@ -419,7 +419,7 @@ function beans_add_attribute( $id, $attribute, $value ) {
  * @param string $id        The markup ID.
  * @param string $attribute Name of the HTML attribute to target.
  * @param string $value     Value which should be replaced.
- * @param string $new_value Replacement value. If set to '' will display the attribute value as empty
+ * @param string $new_value Optional. Replacement value. If set to '' will display the attribute value as empty
  *                          (e.g. class=""). Setting it to 'false' will only display the attribute name
  *                          (e.g. data-example). Setting it to 'null' will not display anything.
  *
@@ -446,7 +446,7 @@ function beans_replace_attribute( $id, $attribute, $value, $new_value = null ) {
  *
  * @param string $id        The markup ID.
  * @param string $attribute Name of the HTML attribute to target.
- * @param string $value     Name of the value to remove. Set it to 'false' to completely remove the attribute.
+ * @param string $value     Optional. Name of the value to remove. Set it to 'false' to completely remove the attribute.
  *
  * @return array All targeted markup attributes remaining.
  */

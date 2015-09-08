@@ -229,7 +229,7 @@ function beans_get_layout_class( $id ) {
  *
  * @since 1.0.0
  *
- * @param bool $add_default Whether the 'default_fallback' element is added or not.
+ * @param bool $add_default Optional. Whether the 'default_fallback' element is added or not.
  *
  * @return array Layouts ready for Beans 'imageradio' option type.
  */
