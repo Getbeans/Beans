@@ -112,10 +112,10 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 
 		// Prevent empty WP link attributes.
 		foreach ( $_link_attr as $attr => $value )
-			if ( !empty( $value ) )
-				$link_attr[$attr] = $value;
+			if ( empty( $value ) )
+				$_link_attr[$attr] = null;
 
-		$link_attr = apply_filters( 'nav_menu_link_attributes', $link_attr, $item, $args );
+		$link_attr = apply_filters( 'nav_menu_link_attributes', $_link_attr, $item, $args );
 
 		// Set wp item attributes as defaults.
 		$item_attr = array(
