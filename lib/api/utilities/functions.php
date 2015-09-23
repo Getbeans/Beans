@@ -117,25 +117,12 @@ function beans_path_to_url( $path ) {
 
     // Standardize backslashes.
     $path = str_replace( '\\', '/', $path );
-	$abspath = str_replace( '\\', '/', ABSPATH );
+	$root = beans_abspath();
 
-	// Make sure to remove the server root for subfolder installs.
-	$explode = explode( ABSPATH, $path );
+	if ( stripos( $path, $root ) !== false )
+		$path = str_replace( $root, '', $path );
 
-	if ( !empty( $explode ) ) {
-
-		if ( isset( $explode[1] ) )
-			$path = $explode[1];
-		else
-			$path = $explode[0];
-
-	} else {
-
-		$path = str_replace( $abspath, '', $path );
-
-	}
-
-    return trailingslashit( site_url() ) . ltrim( $path, '/' );
+	return home_url( $path );
 
 }
 
@@ -157,32 +144,41 @@ function beans_url_to_path( $url ) {
 	if ( preg_match( '#^(\/\/)#', $url ) )
 		$url = 'http:' . $url;
 
-	// Make sure it is a url and treat it so.
-	if ( $domain = beans_get( 'host', parse_url( $url ) ) ) {
-
-		// Stop here and return url if it isn't internal.
-		if ( stripos( site_url(), $domain ) === false )
-			return $url;
-
-		$path = str_replace( site_url(), '', $url );
-
-	}
-	// Treat path.
-	else {
-
-		$path = $url;
-
-	}
+	// Parse url.
+	$url = parse_url( $url, PHP_URL_PATH );
 
 	// Standardize backslashes.
-    $path = str_replace( '\\', '/', $path );
-	$abspath = str_replace( '\\', '/', ABSPATH );
+    $path = str_replace( '\\', '/', $url );
+    $root = beans_abspath();
 
-	// Add root of it doesn't exist.
-    if ( strpos( $path, untrailingslashit( $abspath ) ) === false )
-    	$path = untrailingslashit( $abspath ) . $path;
+   	// Add root of it doesn't exist.
+    if ( strpos( realpath( $path ), $root ) === false )
+    	$path = $root . $path;
 
     return $path;
+
+}
+
+
+/**
+ * Return the real server absolute path.
+ *
+ * This function returns the server absolute path without using $_SERVER['DOCUMENT_ROOT'] which could cause issues
+ * depending on the server config.
+ *
+ * @since 1.1.3
+ *
+ *
+ * @return string Server absolute path.
+ */
+function beans_abspath() {
+
+	$abspath = untrailingslashit( ABSPATH );
+
+   	if ( ( $subfolder = parse_url( site_url(), PHP_URL_PATH ) ) !== '' )
+   		$abspath = rtrim( $abspath, untrailingslashit( $subfolder ) );
+
+   	return str_replace( '\\', '/', $abspath );
 
 }
 
