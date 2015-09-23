@@ -80,27 +80,27 @@ class _Beans_Page_Compiler {
 				continue;
 
 			if ( !$args = beans_get( $id, $$set_global->registered ) )
-	    		continue;
+				continue;
 
-	    	if ( $args->deps )
-	    		foreach ( $this->compile_enqueued( $type, $args->deps ) as $dep_id => $dep_src )
-	    			$fragments[$dep_id] = $dep_src;
+			if ( $args->deps )
+				foreach ( $this->compile_enqueued( $type, $args->deps ) as $dep_id => $dep_src )
+					$fragments[$dep_id] = $dep_src;
 
-	    	if ( $type == 'style' ) {
+			if ( $type == 'style' ) {
 
-	    		// Add compiler media query if set.
-	    		if ( $args->args != 'all' )
-	    			$args->src = add_query_arg( array( 'beans_compiler_media_query' => $args->args ), $args->src );
+				// Add compiler media query if set.
+				if ( $args->args != 'all' )
+					$args->src = add_query_arg( array( 'beans_compiler_media_query' => $args->args ), $args->src );
 
-	    		wp_dequeue_style( $id );
+				wp_dequeue_style( $id );
 
-	    	} elseif ( $type == 'script' ) {
+			} elseif ( $type == 'script' ) {
 
-	    		$this->dequeued_scripts[$id] = $args->src;
+				$this->dequeued_scripts[$id] = $args->src;
 
-	    	}
+			}
 
-	     	$fragments[$id] = $args->src;
+			$fragments[$id] = $args->src;
 
 		}
 
@@ -126,9 +126,9 @@ class _Beans_Page_Compiler {
 		foreach ( $this->dequeued_scripts as $id => $src ) {
 
 			if ( !$args = beans_get( $id, $wp_scripts->registered ) )
-	    		continue;
+				continue;
 
-	    	if ( isset( $args->extra['data'] ) )
+			if ( isset( $args->extra['data'] ) )
 				$localized .= $args->extra['data'] . "\n";
 
 			wp_dequeue_script( $id );

@@ -19,16 +19,16 @@ function beans_do_register_default_menu() {
 		return;
 
 	// Set up default menu.
-    wp_update_nav_menu_item(
-    	wp_create_nav_menu( __( 'Navigation', 'beans' ) ),
-    	0,
-    	array(
-	        'menu-item-title' =>  __( 'Home', 'beans' ),
-	        'menu-item-classes' => 'home',
-	        'menu-item-url' => home_url( '/' ),
-	        'menu-item-status' => 'publish'
-    	)
-    );
+	wp_update_nav_menu_item(
+		wp_create_nav_menu( __( 'Navigation', 'beans' ) ),
+		0,
+		array(
+			'menu-item-title' =>  __( 'Home', 'beans' ),
+			'menu-item-classes' => 'home',
+			'menu-item-url' => home_url( '/' ),
+			'menu-item-status' => 'publish'
+		)
+	);
 
 }
 

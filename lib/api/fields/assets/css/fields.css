@@ -150,14 +150,14 @@
 }
 .bs-field .bs-image-wrap img {
 	position: absolute;
-    margin: auto;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    max-height: 100%;
-    max-width: 100%;
-    padding: 2px;
+	margin: auto;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	max-height: 100%;
+	max-width: 100%;
+	padding: 2px;
 	box-sizing: border-box;
 }
 .bs-field .bs-image-template {
@@ -229,14 +229,14 @@
 .bs-field .ui-slider-handle {
 	background: #bbb;
 	border-radius: 8px;
-    display: block;
-    height: 16px;
+	display: block;
+	height: 16px;
 	width: 16px;
-    margin: -13px 0 0 -8px;
-    position: absolute;
-    cursor: pointer;
-    box-shadow: none;
-    outline: 0;
+	margin: -13px 0 0 -8px;
+	position: absolute;
+	cursor: pointer;
+	box-shadow: none;
+	outline: 0;
 }
 .bs-field .ui-slider-handle.ui-state-active {
 	background: #aaa;
@@ -289,7 +289,7 @@
 }
 @media (min-width: 768px) {
 	.bs-options .metabox-holder .meta-box-sortables {
-	    width: 75%;
+		width: 75%;
 	  }
 	.bs-options .metabox-holder.column .meta-box-sortables {
 		width: 50%;

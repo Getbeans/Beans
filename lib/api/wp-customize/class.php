@@ -50,7 +50,7 @@ class _Beans_WP_Customize {
 
 			if ( $field['type'] === 'group' )
 				foreach ( $field['fields'] as $_field )
-				 	$this->add_setting( $wp_customize, $_field );
+					$this->add_setting( $wp_customize, $_field );
 
 			$this->add_setting( $wp_customize, $field );
 			$this->add_control( $wp_customize, $field );
@@ -71,9 +71,9 @@ class _Beans_WP_Customize {
 		$wp_customize->add_section(
 			$this->section,
 			array(
-			    'title' => $this->args['title'],
-			    'priority' => $this->args['priority'],
-			    'description' => $this->args['description'],
+				'title' => $this->args['title'],
+				'priority' => $this->args['priority'],
+				'description' => $this->args['description'],
 			)
 		);
 

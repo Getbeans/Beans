@@ -135,10 +135,10 @@ function beans_get_images_dir() {
 	$wp_upload_dir = wp_upload_dir();
 
 	/**
-     * Filter the edited images directory.
-     *
-     * @since 1.0.0
-     */
+	 * Filter the edited images directory.
+	 *
+	 * @since 1.0.0
+	 */
 	$dir = apply_filters( 'beans_images_dir', trailingslashit( $wp_upload_dir['basedir'] ) . 'beans/images/' );
 
 	return trailingslashit( $dir );

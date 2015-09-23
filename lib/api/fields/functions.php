@@ -75,7 +75,7 @@ function beans_register_fields( array $fields, $context, $section ) {
  */
 function beans_get_fields( $context, $section = false ) {
 
-    if ( !class_exists( '_Beans_Fields' ) )
+	if ( !class_exists( '_Beans_Fields' ) )
 		return;
 
 	$class = new _Beans_Fields();

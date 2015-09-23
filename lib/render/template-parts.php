@@ -60,11 +60,11 @@ function beans_loop_template( $id = false ) {
 		global $wp_query;
 
 		/**
-	     * Filter the beans loop query. This can be used for custom queries.
-	     *
-	     * @since 1.0.0
-	     */
-	    if ( $args = beans_apply_filters( "beans_loop_query_args[_{$id}]", false ) )
+		 * Filter the beans loop query. This can be used for custom queries.
+		 *
+		 * @since 1.0.0
+		 */
+		if ( $args = beans_apply_filters( "beans_loop_query_args[_{$id}]", false ) )
 			$wp_query = new WP_Query( $args );
 
 	endif;

@@ -115,8 +115,8 @@ function beans_path_to_url( $path ) {
 	if ( preg_match( '#^(http|https|\/\/|data)#', $path ) == true )
 		return $path;
 
-    // Standardize backslashes.
-    $path = str_replace( '\\', '/', $path );
+	// Standardize backslashes.
+	$path = str_replace( '\\', '/', $path );
 	$root = beans_abspath();
 
 	if ( stripos( $path, $root ) !== false )
@@ -148,14 +148,14 @@ function beans_url_to_path( $url ) {
 	$url = parse_url( $url, PHP_URL_PATH );
 
 	// Standardize backslashes.
-    $path = str_replace( '\\', '/', $url );
-    $root = beans_abspath();
+	$path = str_replace( '\\', '/', $url );
+	$root = beans_abspath();
 
-   	// Add root of it doesn't exist.
-    if ( strpos( realpath( $path ), $root ) === false )
-    	$path = $root . $path;
+	// Add root of it doesn't exist.
+	if ( strpos( realpath( $path ), $root ) === false )
+		$path = $root . $path;
 
-    return $path;
+	return $path;
 
 }
 
@@ -175,10 +175,10 @@ function beans_abspath() {
 
 	$abspath = untrailingslashit( ABSPATH );
 
-   	if ( ( $subfolder = parse_url( site_url(), PHP_URL_PATH ) ) !== '' )
-   		$abspath = rtrim( $abspath, untrailingslashit( $subfolder ) );
+	if ( ( $subfolder = parse_url( site_url(), PHP_URL_PATH ) ) !== '' )
+		$abspath = rtrim( $abspath, untrailingslashit( $subfolder ) );
 
-   	return str_replace( '\\', '/', $abspath );
+	return str_replace( '\\', '/', $abspath );
 
 }
 
@@ -280,9 +280,9 @@ function beans_count_recursive( $array, $depth = false, $count_parent = true ) {
 
 	foreach ( $array as $_array )
 		 if ( is_array( $_array ) )
-		 	$count += beans_count_recursive( $_array, $depth - 1, $count_parent );
+			$count += beans_count_recursive( $_array, $depth - 1, $count_parent );
 		 else
-		 	$count += 1;
+			$count += 1;
 
 	return $count;
 
@@ -308,7 +308,7 @@ function beans_in_multi_array( $needle, $haystack, $strict = false ) {
 
 	foreach ( (array) $haystack as $value )
 		if ( is_array( $value ) && beans_in_multi_array( $needle , $value ) )
-	    	return true;
+			return true;
 
 	return false;
 
@@ -332,7 +332,7 @@ function beans_multi_array_key_exists( $needle, $haystack ) {
 
 	foreach ( $haystack as $value )
 		if ( is_array( $value ) && beans_multi_array_key_exists( $needle , $value ) )
-	    	return true;
+			return true;
 
 	return false;
 

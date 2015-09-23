@@ -466,9 +466,9 @@ function beans_remove_attribute( $id, $attribute, $value = null ) {
  */
 function _beans_is_html_dev_mode() {
 
-    if ( defined( 'BEANS_HTML_DEV_MODE' ) )
-        return BEANS_HTML_DEV_MODE;
+	if ( defined( 'BEANS_HTML_DEV_MODE' ) )
+		return BEANS_HTML_DEV_MODE;
 
-    return get_option( 'beans_dev_mode', false );
+	return get_option( 'beans_dev_mode', false );
 
 }

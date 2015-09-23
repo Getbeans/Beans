@@ -599,30 +599,30 @@ function _beans_render_action( $hook ) {
  */
 function _beans_unique_action_id( $callback ) {
 
-    if ( is_string( $callback ) )
-        return $callback;
+	if ( is_string( $callback ) )
+		return $callback;
 
-    if ( is_object( $callback ) )
-        $callback = array( $callback, '' );
-    else
-        $callback = (array) $callback;
+	if ( is_object( $callback ) )
+		$callback = array( $callback, '' );
+	else
+		$callback = (array) $callback;
 
-    // Treat object.
-    if ( is_object( $callback[0] ) ) {
+	// Treat object.
+	if ( is_object( $callback[0] ) ) {
 
-        if ( function_exists( 'spl_object_hash' ) )
-            return spl_object_hash( $callback[0] ) . $callback[1];
+		if ( function_exists( 'spl_object_hash' ) )
+			return spl_object_hash( $callback[0] ) . $callback[1];
 
-        return get_class( $callback[0] ) . $callback[1];
+		return get_class( $callback[0] ) . $callback[1];
 
-    }
-    // Treat static method.
-    elseif ( is_string( $callback[0] ) ) {
+	}
+	// Treat static method.
+	elseif ( is_string( $callback[0] ) ) {
 
-        return $callback[0] . '::' . $callback[1];
+		return $callback[0] . '::' . $callback[1];
 
-    }
+	}
 
-    return md5( $callback );
+	return md5( $callback );
 
 }

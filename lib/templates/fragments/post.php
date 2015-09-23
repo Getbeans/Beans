@@ -258,9 +258,9 @@ function beans_post_more_link() {
 				) );
 		$output .= beans_close_markup( 'beans_previous_icon[_more_link]', 'i' );
 
-    $output .= beans_close_markup( 'beans_post_more_link', 'a' );
+	$output .= beans_close_markup( 'beans_post_more_link', 'a' );
 
-    return $output;
+	return $output;
 
 }
 
@@ -354,9 +354,9 @@ function beans_previous_post_link( $output, $format, $link, $post ) {
 
 		$output .= beans_output( 'beans_previous_text[_post_navigation]', $text );
 
-    $output .= beans_close_markup( 'beans_previous_link[_post_navigation]', 'a' );
+	$output .= beans_close_markup( 'beans_previous_link[_post_navigation]', 'a' );
 
-    return $output;
+	return $output;
 
 }
 
@@ -390,9 +390,9 @@ function beans_next_post_link( $output, $format, $link, $post ) {
 
 		$output .= beans_close_markup( 'beans_previous_icon[_post_navigation]', 'i' );
 
-    $output .= beans_close_markup( 'beans_next_link[_post_navigation]', 'a' );
+	$output .= beans_close_markup( 'beans_next_link[_post_navigation]', 'a' );
 
-    return $output;
+	return $output;
 
 }
 
@@ -660,12 +660,12 @@ beans_add_smart_action( 'the_password_form', 'beans_post_password_form' );
  */
 function beans_post_password_form() {
 
-    global $post;
+	global $post;
 
-    $label = 'pwbox-' . ( empty( $post->ID ) ? rand() : $post->ID );
+	$label = 'pwbox-' . ( empty( $post->ID ) ? rand() : $post->ID );
 
-    // Notice.
-    $output = beans_open_markup( 'beans_password_form_notice', 'p', array( 'class' => 'uk-alert uk-alert-warning' ) );
+	// Notice.
+	$output = beans_open_markup( 'beans_password_form_notice', 'p', array( 'class' => 'uk-alert uk-alert-warning' ) );
 
 		$output .= beans_output( 'beans_password_form_notice_text', __( 'This post is protected. To view it, enter the password below!', 'beans' ) );
 
@@ -694,6 +694,6 @@ function beans_post_password_form() {
 
 	$output .= beans_close_markup( 'beans_password_form', 'form' );
 
-    return $output;
+	return $output;
 
 }

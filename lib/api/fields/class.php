@@ -104,7 +104,7 @@ class _Beans_Fields {
 	 */
 	private function standardize_field( $field ) {
 
-	    // Set defaults.
+		// Set defaults.
 		$defaults = array(
 			'label' => false,
 			'description' => false,
@@ -257,17 +257,17 @@ class _Beans_Fields {
 				return get_option( $field_id, $default );
 			break;
 
-		    case 'post_meta':
+			case 'post_meta':
 				return beans_get_post_meta( $field_id, $default );
-		    break;
+			break;
 
-		    case 'term_meta':
-		        return beans_get_term_meta( $field_id, $default );
-		    break;
+			case 'term_meta':
+				return beans_get_term_meta( $field_id, $default );
+			break;
 
-		    case 'wp_customize':
-		        return get_theme_mod( $field_id, $default );
-		    break;
+			case 'wp_customize':
+				return get_theme_mod( $field_id, $default );
+			break;
 
 		}
 
