@@ -50,11 +50,14 @@ add_action( 'beans_init', 'beans_add_theme_support' );
 function beans_add_theme_support() {
 
 	add_theme_support( 'menus' );
-	add_theme_support( 'offcanvas-menu' );
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'automatic-feed-links' );
 	add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form', 'gallery', 'caption'  ) );
 	add_theme_support( 'custom-header', array( 'header-text' => false ) );
+
+	// Beans specific.
+	add_theme_support( 'offcanvas-menu' );
+	add_theme_support( 'beans-default-styling' );
 
 }
 

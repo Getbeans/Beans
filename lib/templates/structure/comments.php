@@ -11,7 +11,7 @@
 if ( post_password_required() )
 	return;
 
-echo beans_open_markup( 'beans_comments', 'div', array( 'id' => 'comments', 'class' => 'tm-comments uk-panel-box' ) );
+echo beans_open_markup( 'beans_comments', 'div', array( 'id' => 'comments', 'class' => 'tm-comments' . ( current_theme_supports( 'beans-default-styling' ) ? ' uk-panel-box' : null ) ) );
 
 	if ( comments_open( get_the_ID() ) ) :
 

@@ -52,6 +52,10 @@ function beans_enqueue_uikit_components() {
 	// Add the theme style as a uikit fragment to have access to all the variables.
 	beans_compiler_add_fragment( 'uikit', BEANS_ASSETS_URL . 'less/style.less', 'less' );
 
+	// Add the theme default style as a uikit fragment only if the theme supports it.
+	if ( current_theme_supports( 'beans-default-styling' ) )
+		beans_compiler_add_fragment( 'uikit', BEANS_ASSETS_URL . 'less/default.less', 'less' );
+
 }
 
 

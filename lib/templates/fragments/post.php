@@ -615,7 +615,7 @@ beans_add_smart_action( 'beans_no_post', 'beans_no_post' );
  */
 function beans_no_post() {
 
-	echo beans_open_markup( 'beans_post', 'article', array( 'class' => 'tm-no-article uk-article uk-panel-box' ) );
+	echo beans_open_markup( 'beans_post', 'article', array( 'class' => 'tm-no-article uk-article' . ( current_theme_supports( 'beans-default-styling' ) ? ' uk-panel-box' : null ) ) );
 
 		echo beans_open_markup( 'beans_post_header', 'header' );
 

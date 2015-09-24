@@ -30,7 +30,7 @@ do_action( 'beans_before_loop' );
 
 			$article_attributes = array(
 				'id' => get_the_ID(),
-				'class' => implode( ' ', get_post_class( array( 'uk-article', 'uk-panel-box' ) ) ),
+				'class' => implode( ' ', get_post_class( array( 'uk-article', ( current_theme_supports( 'beans-default-styling' ) ? 'uk-panel-box' : null ) ) ) ),
 				'itemscope' => 'itemscope',
 				'itemtype' => 'http://schema.org/CreativeWork'
 			);
