@@ -24,14 +24,14 @@ function beans_do_register_term_meta() {
 	$fields = array(
 		array(
 			'id' => 'beans_layout',
-			'label' => _x( 'Layout', 'term meta', 'beans' ),
+			'label' => _x( 'Layout', 'term meta', 'tm-beans' ),
 			'type' => 'radio',
 			'default' => 'default_fallback',
 			'options' => beans_get_layouts_for_options( true )
 		)
 	);
 
-	beans_register_term_meta( $fields, array( 'category', 'post_tag' ), 'beans' );
+	beans_register_term_meta( $fields, array( 'category', 'post_tag' ), 'tm-beans' );
 
 }
 
@@ -55,13 +55,13 @@ function beans_do_register_post_meta() {
 	$fields = array(
 		array(
 			'id' => 'beans_layout',
-			'label' => _x( 'Layout', 'post meta', 'beans' ),
+			'label' => _x( 'Layout', 'post meta', 'tm-beans' ),
 			'type' => 'radio',
 			'default' => 'default_fallback',
 			'options' => beans_get_layouts_for_options( true )
 		)
 	);
 
-	beans_register_post_meta( $fields, array( 'post', 'page' ), 'beans', array( 'title' => __( 'Post Options', 'beans' ) ) );
+	beans_register_post_meta( $fields, array( 'post', 'page' ), 'tm-beans', array( 'title' => __( 'Post Options', 'tm-beans' ) ) );
 
 }

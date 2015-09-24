@@ -36,7 +36,7 @@ class _Beans_Options {
 	public function register( $section, $args ) {
 
 		$defaults = array(
-			'title' => __( 'Undefined', 'beans' ),
+			'title' => __( 'Undefined', 'tm-beans' ),
 			'context' => 'normal'
 		);
 
@@ -193,9 +193,9 @@ class _Beans_Options {
 	public function save_notices() {
 
 		if ( $this->success )
-			echo '<div id="message" class="updated"><p>' . __( 'Settings saved successfully!', 'beans' ) . '</p></div>';
+			echo '<div id="message" class="updated"><p>' . __( 'Settings saved successfully!', 'tm-beans' ) . '</p></div>';
 		else
-			echo '<div id="message" class="error"><p>' . __( 'Settings could not be saved, please try again.', 'beans' ) . '</p></div>';
+			echo '<div id="message" class="error"><p>' . __( 'Settings could not be saved, please try again.', 'tm-beans' ) . '</p></div>';
 
 
 	}
@@ -207,9 +207,9 @@ class _Beans_Options {
 	public function reset_notices() {
 
 		if ( $this->success )
-			echo '<div id="message" class="updated"><p>' . __( 'Settings reset successfully!', 'beans' ) . '</p></div>';
+			echo '<div id="message" class="updated"><p>' . __( 'Settings reset successfully!', 'tm-beans' ) . '</p></div>';
 		else
-			echo '<div id="message" class="error"><p>' . __( 'Settings could not be reset, please try again.', 'beans' ) . '</p></div>';
+			echo '<div id="message" class="error"><p>' . __( 'Settings could not be reset, please try again.', 'tm-beans' ) . '</p></div>';
 
 	}
 

@@ -22,7 +22,7 @@ class _Beans_Admin {
 	 */
 	public function admin_menu() {
 
-		add_options_page( __( 'Beans', 'beans' ), __( 'Beans', 'beans' ), 'manage_options', 'beans_settings', array( $this, 'display_screen' ) );
+		add_options_page( __( 'Beans', 'tm-beans' ), __( 'Beans', 'tm-beans' ), 'manage_options', 'beans_settings', array( $this, 'display_screen' ) );
 
 	}
 
@@ -34,7 +34,7 @@ class _Beans_Admin {
 
 		echo '<div class="wrap">';
 
-			echo '<h2>' . __( 'Beans Settings', 'beans' ) . '<span style="float: right; font-size: 10px; color: #888;">' . __( 'Version ', 'beans' ) . BEANS_VERSION . '</span></h2>';
+			echo '<h2>' . __( 'Beans Settings', 'tm-beans' ) . '<span style="float: right; font-size: 10px; color: #888;">' . __( 'Version ', 'tm-beans' ) . BEANS_VERSION . '</span></h2>';
 
 			echo beans_options( 'beans_settings' );
 
@@ -53,14 +53,14 @@ class _Beans_Admin {
 		$fields = array(
 			array(
 				'id' => 'beans_dev_mode',
-				'checkbox_label' => __( 'Enable development mode', 'beans' ),
+				'checkbox_label' => __( 'Enable development mode', 'tm-beans' ),
 				'type' => 'checkbox',
 				'description' => 'This option should be enabled while your website is in development.'
 			)
 		);
 
 		beans_register_options( $fields, 'beans_settings', 'mode_options', array(
-			'title' => __( 'Mode options', 'beans' ),
+			'title' => __( 'Mode options', 'tm-beans' ),
 			'context' => beans_get( 'beans_settings', $wp_meta_boxes ) ? 'column' : 'normal' // Check of other beans boxes.
 		) );
 

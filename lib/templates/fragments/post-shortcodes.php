@@ -14,7 +14,7 @@ add_shortcode( 'beans_post_meta_date', 'beans_post_meta_date_shortcode' );
  */
 function beans_post_meta_date_shortcode() {
 
-	echo beans_output( 'beans_post_meta_date_prefix', __( 'Posted on ', 'beans' ) );
+	echo beans_output( 'beans_post_meta_date_prefix', __( 'Posted on ', 'tm-beans' ) );
 
 	echo beans_open_markup( 'beans_post_meta_date', 'time', array(
 		'datetime' => get_the_time( 'c' ),
@@ -37,7 +37,7 @@ add_shortcode( 'beans_post_meta_author', 'beans_post_meta_author_shortcode' );
  */
 function beans_post_meta_author_shortcode() {
 
-	beans_output( 'beans_post_meta_author_prefix', __( 'By ', 'beans' ) ) ;
+	beans_output( 'beans_post_meta_author_prefix', __( 'By ', 'tm-beans' ) ) ;
 
 	echo beans_open_markup( 'beans_post_meta_author', 'a', array(
 		'href' => esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
@@ -71,11 +71,11 @@ function beans_post_meta_comments_shortcode() {
 	$comments_number = (int) get_comments_number( $post->ID );
 
 	if ( $comments_number < 1 )
-		$comment_text = beans_output( 'beans_post_meta_empty_comment_text', __( 'Leave a comment', 'beans' ) );
+		$comment_text = beans_output( 'beans_post_meta_empty_comment_text', __( 'Leave a comment', 'tm-beans' ) );
 	else if ( $comments_number === 1 )
-		$comment_text = beans_output( 'beans_post_meta_comments_text_singular', __( '1 comment', 'beans' ) );
+		$comment_text = beans_output( 'beans_post_meta_comments_text_singular', __( '1 comment', 'tm-beans' ) );
 	else
-		$comment_text = beans_output( 'beans_post_meta_comments_text_plurial', __( '%s comments', 'beans' ) );
+		$comment_text = beans_output( 'beans_post_meta_comments_text_plurial', __( '%s comments', 'tm-beans' ) );
 
 	echo beans_open_markup( 'beans_post_meta_comments', 'a', array(
 		'href' => esc_url( get_comments_link() )
@@ -102,7 +102,7 @@ function beans_post_meta_tags_shortcode() {
 	if ( !$tags || is_wp_error( $tags ) )
 		return;
 
-	echo beans_output( 'beans_post_meta_tags_prefix', __( 'Tagged with: ', 'beans' ) ) . $tags;
+	echo beans_output( 'beans_post_meta_tags_prefix', __( 'Tagged with: ', 'tm-beans' ) ) . $tags;
 
 
 }
@@ -122,6 +122,6 @@ function beans_post_meta_categories_shortcode() {
 	if ( !$categories || is_wp_error( $categories ) )
 		return;
 
-	echo beans_output( 'beans_post_meta_categories_prefix', __( 'Filed under: ', 'beans' ) ) . $categories;
+	echo beans_output( 'beans_post_meta_categories_prefix', __( 'Filed under: ', 'tm-beans' ) ) . $categories;
 
 }

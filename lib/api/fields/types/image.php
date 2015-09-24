@@ -49,7 +49,7 @@ function beans_field_image( $field ) {
 	$hide = !$multiple && is_numeric( $field['value'] ) ? 'style="display: none"' : '';
 
 	echo '<a href="#" class="bs-add-image button button-small" ' . $hide . '>';
-		echo _n( 'Add Image', 'Add Images', ( $multiple ? 2 : 1 ), 'beans' );
+		echo _n( 'Add Image', 'Add Images', ( $multiple ? 2 : 1 ), 'tm-beans' );
 	echo '</a>';
 
 	echo '<input type="hidden" name="' . $field['name'] . '" value="">';

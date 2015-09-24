@@ -22,7 +22,7 @@ class _Beans_WP_Customize {
 	public function __construct( $section, $args ) {
 
 		$defaults = array(
-			'title' => __( 'Undefined', 'beans' ),
+			'title' => __( 'Undefined', 'tm-beans' ),
 			'priority' => 30,
 			'description' => false
 		);

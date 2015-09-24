@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Beans\n"
-"POT-Creation-Date: 2015-08-26 11:50+0200\n"
-"PO-Revision-Date: 2015-08-26 11:49+0200\n"
+"POT-Creation-Date: 2015-09-24 10:50+0200\n"
+"PO-Revision-Date: 2015-09-24 10:50+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -205,76 +205,81 @@ msgstr ""
 
 #: lib/templates/fragments/comments.php:20
 #, php-format
-msgctxt "beans"
 msgid "%s Comment"
 msgid_plural "%s Comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/templates/fragments/comments.php:87
+#: lib/templates/fragments/comments.php:92
 msgid "Trackback"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:98
+#: lib/templates/fragments/comments.php:103
 msgid "Pingback"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:110
+#: lib/templates/fragments/comments.php:115
 msgid "Awaiting Moderation"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:122
+#: lib/templates/fragments/comments.php:127
 msgid "Moderator"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:203
+#: lib/templates/fragments/comments.php:154
+#, php-format
+msgctxt "1: date, 2: time"
+msgid "%1$s at %2$s"
+msgstr ""
+
+#: lib/templates/fragments/comments.php:211
 msgid "Edit"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:218
+#: lib/templates/fragments/comments.php:226
 msgid "Link"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:240
+#: lib/templates/fragments/comments.php:248
 msgid "No comment yet, add your voice below!"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:258
+#: lib/templates/fragments/comments.php:266
 msgid "Comments are closed for this article!"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:293
-#: lib/templates/fragments/post.php:428 lib/templates/fragments/post.php:497
+#: lib/templates/fragments/comments.php:301
+#: lib/templates/fragments/post.php:435 lib/templates/fragments/post.php:504
 msgid "Previous"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:311
-#: lib/templates/fragments/post.php:439 lib/templates/fragments/post.php:583
+#: lib/templates/fragments/comments.php:319
+#: lib/templates/fragments/post.php:446 lib/templates/fragments/post.php:590
 msgid "Next"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:353
+#: lib/templates/fragments/comments.php:361
 msgid "Add a Comment"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:360
+#: lib/templates/fragments/comments.php:368
 msgid "Post Comment"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:427
+#: lib/templates/fragments/comments.php:435
 msgid "Name"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:455
+#: lib/templates/fragments/comments.php:463
 #, php-format
 msgid "Email %s"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:484
+#: lib/templates/fragments/comments.php:492
 msgid "Website"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:534
+#: lib/templates/fragments/comments.php:542
 msgid "Comment *"
 msgstr ""
 
@@ -293,11 +298,11 @@ msgstr ""
 msgid "Page %s"
 msgstr ""
 
-#: lib/templates/fragments/menu.php:65
+#: lib/templates/fragments/menu.php:67
 msgid "Menu"
 msgstr ""
 
-#: lib/templates/fragments/menu.php:113
+#: lib/templates/fragments/menu.php:115
 msgid "Whoops, your site does not have a menu!"
 msgstr ""
 
@@ -305,60 +310,60 @@ msgstr ""
 msgid "Posted on "
 msgstr ""
 
-#: lib/templates/fragments/post-shortcodes.php:39
+#: lib/templates/fragments/post-shortcodes.php:40
 msgid "By "
 msgstr ""
 
-#: lib/templates/fragments/post-shortcodes.php:69
+#: lib/templates/fragments/post-shortcodes.php:74
 msgid "Leave a comment"
 msgstr ""
 
-#: lib/templates/fragments/post-shortcodes.php:71
+#: lib/templates/fragments/post-shortcodes.php:76
 msgid "1 comment"
 msgstr ""
 
-#: lib/templates/fragments/post-shortcodes.php:73
+#: lib/templates/fragments/post-shortcodes.php:78
 #, php-format
 msgid "%s comments"
 msgstr ""
 
-#: lib/templates/fragments/post-shortcodes.php:100
+#: lib/templates/fragments/post-shortcodes.php:105
 msgid "Tagged with: "
 msgstr ""
 
-#: lib/templates/fragments/post-shortcodes.php:120
+#: lib/templates/fragments/post-shortcodes.php:125
 msgid "Filed under: "
 msgstr ""
 
-#: lib/templates/fragments/post.php:64
+#: lib/templates/fragments/post.php:67
 msgid "Search results for: "
 msgstr ""
 
-#: lib/templates/fragments/post.php:247
+#: lib/templates/fragments/post.php:254
 msgid "Continue reading"
 msgstr ""
 
-#: lib/templates/fragments/post.php:271
+#: lib/templates/fragments/post.php:278
 msgid "Pages:"
 msgstr ""
 
-#: lib/templates/fragments/post.php:617
+#: lib/templates/fragments/post.php:624
 msgid "Whoops, no result found!"
 msgstr ""
 
-#: lib/templates/fragments/post.php:629
+#: lib/templates/fragments/post.php:636
 msgid "It looks like nothing was found at this location. Maybe try a search?"
 msgstr ""
 
-#: lib/templates/fragments/post.php:663
+#: lib/templates/fragments/post.php:670
 msgid "This post is protected. To view it, enter the password below!"
 msgstr ""
 
-#: lib/templates/fragments/post.php:677
+#: lib/templates/fragments/post.php:684
 msgid "Password"
 msgstr ""
 
-#: lib/templates/fragments/post.php:685
+#: lib/templates/fragments/post.php:692
 msgid "Submit"
 msgstr ""
 

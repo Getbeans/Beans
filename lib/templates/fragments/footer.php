@@ -21,7 +21,7 @@ function beans_footer_content() {
 		) );
 
 			echo beans_output( 'beans_footer_credit_text', sprintf(
-				__( '&#x000A9; %1$s - %2$s. All rights reserved.', 'beans' ),
+				__( '&#x000A9; %1$s - %2$s. All rights reserved.', 'tm-beans' ),
 				date( "Y" ),
 				get_bloginfo( 'name' )
 			) );
@@ -42,7 +42,7 @@ function beans_footer_content() {
 		) );
 
 			echo beans_output( 'beans_footer_credit_right_text', sprintf(
-				__( '%1$s theme for WordPress.', 'beans' ),
+				__( '%1$s theme for WordPress.', 'tm-beans' ),
 				$framework_link
 			) );
 

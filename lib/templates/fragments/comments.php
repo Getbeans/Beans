@@ -17,7 +17,7 @@ function beans_comments_title() {
 	echo beans_open_markup( 'beans_comments_title', 'h2' );
 
 		echo beans_output( 'beans_comments_title_text', sprintf(
-			_nx( '%s Comment', '%s Comments', get_comments_number(), 'beans' ),
+			_n( '%s Comment', '%s Comments', get_comments_number(), 'tm-beans' ),
 			number_format_i18n( get_comments_number() )
 		) );
 
@@ -89,7 +89,7 @@ function beans_comment_badges() {
 
 		echo beans_open_markup( 'beans_trackback_badge', 'span', array( 'class' => 'uk-badge uk-margin-small-left' ) );
 
-			echo beans_output( 'beans_trackback_text', __( 'Trackback', 'beans' ) );
+			echo beans_output( 'beans_trackback_text', __( 'Trackback', 'tm-beans' ) );
 
 		echo beans_close_markup( 'beans_trackback_badge', 'span' );
 
@@ -100,7 +100,7 @@ function beans_comment_badges() {
 
 		echo beans_open_markup( 'beans_pingback_badge', 'span', array( 'class' => 'uk-badge uk-margin-small-left' ) );
 
-			echo beans_output( 'beans_pingback_text', __( 'Pingback', 'beans' ) );
+			echo beans_output( 'beans_pingback_text', __( 'Pingback', 'tm-beans' ) );
 
 		echo beans_close_markup( 'beans_pingback_badge', 'span' );
 
@@ -112,7 +112,7 @@ function beans_comment_badges() {
 
 		echo beans_open_markup( 'beans_moderation_badge', 'span', array( 'class' => 'uk-badge uk-margin-small-left uk-badge-warning' ) );
 
-			echo beans_output( 'beans_moderation_text', __( 'Awaiting Moderation', 'beans' ) );
+			echo beans_output( 'beans_moderation_text', __( 'Awaiting Moderation', 'tm-beans' ) );
 
 		echo beans_close_markup( 'beans_moderation_badge', 'span' );
 
@@ -124,7 +124,7 @@ function beans_comment_badges() {
 
 		echo beans_open_markup( 'beans_moderator_badge', 'span', array( 'class' => 'uk-badge uk-margin-small-left' ) );
 
-			echo beans_output( 'beans_moderator_text', __( 'Moderator', 'beans' ) );
+			echo beans_output( 'beans_moderator_text', __( 'Moderator', 'tm-beans' ) );
 
 		echo beans_close_markup( 'beans_moderator_badge', 'span' );
 
@@ -150,11 +150,11 @@ function beans_comment_metadata() {
 			'itemprop' => 'commentTime'
 		) );
 
-			printf(
-				_x( beans_output( 'beans_comment_time_text', '%1$s at %2$s' ), '1: date, 2: time', 'beans' ),
+			echo beans_output( 'beans_comment_time_text', sprintf(
+				_x( '%1$s at %2$s', '1: date, 2: time', 'tm-beans' ),
 				get_comment_date(),
 				get_comment_time()
-			);
+			) );
 
 		echo beans_close_markup( 'beans_comment_time', 'time' );
 
@@ -208,7 +208,7 @@ function beans_comment_links() {
 					'href' => esc_url( get_edit_comment_link( $comment->comment_ID ) )
 				) );
 
-					echo beans_output( 'beans_comment_edit_text', __( 'Edit', 'beans' ) );
+					echo beans_output( 'beans_comment_edit_text', __( 'Edit', 'tm-beans' ) );
 
 				echo beans_close_markup( 'beans_comment_item_link[_edit]', 'a' );
 
@@ -223,7 +223,7 @@ function beans_comment_links() {
 				'href' => esc_url( get_comment_link( $comment->comment_ID ) )
 			) );
 
-				echo beans_output( 'beans_comment_link_text', __( 'Link', 'beans' ) );
+				echo beans_output( 'beans_comment_link_text', __( 'Link', 'tm-beans' ) );
 
 			echo beans_close_markup( 'beans_comment_item_link[_link]', 'a' );
 
@@ -245,7 +245,7 @@ function beans_no_comment() {
 
 	echo beans_open_markup( 'beans_no_comment', 'p', 'class=uk-text-muted' );
 
-		echo beans_output( 'beans_no_comment_text', __( 'No comment yet, add your voice below!', 'beans' ) );
+		echo beans_output( 'beans_no_comment_text', __( 'No comment yet, add your voice below!', 'tm-beans' ) );
 
 	echo beans_close_markup( 'beans_no_comment', 'p' );
 
@@ -263,7 +263,7 @@ function beans_comments_closed() {
 
 	echo beans_open_markup( 'beans_comments_closed', 'p', array( 'class' => 'uk-alert uk-alert-warning uk-margin-bottom-remove' ) );
 
-		echo beans_output( 'beans_comments_closed_text', __( 'Comments are closed for this article!', 'beans' ) );
+		echo beans_output( 'beans_comments_closed_text', __( 'Comments are closed for this article!', 'tm-beans' ) );
 
 	echo beans_close_markup( 'beans_comments_closed', 'p' );
 
@@ -298,7 +298,7 @@ function beans_comments_navigation() {
 				$previous_icon .= beans_close_markup( 'beans_previous_icon[_comments_navigation]', 'i' );
 
 				echo get_previous_comments_link(
-					$previous_icon . beans_output( 'beans_previous_text[_comments_navigation]', __( 'Previous', 'beans' ) )
+					$previous_icon . beans_output( 'beans_previous_text[_comments_navigation]', __( 'Previous', 'tm-beans' ) )
 				);
 
 			echo beans_close_markup( 'beans_comments_navigation_item[_previous]', 'li' );
@@ -316,7 +316,7 @@ function beans_comments_navigation() {
 				$next_icon .= beans_close_markup( 'beans_previous_icon[_comments_navigation]', 'i' );
 
 				echo get_next_comments_link(
-					beans_output( 'beans_next_text[_comments_navigation]', __( 'Next', 'beans' ) ) . $next_icon
+					beans_output( 'beans_next_text[_comments_navigation]', __( 'Next', 'tm-beans' ) ) . $next_icon
 				);
 
 			echo beans_close_markup( 'beans_comments_navigation_item_[_next]', 'li' );
@@ -358,14 +358,14 @@ function beans_comment_form() {
 	$output = beans_open_markup( 'beans_comment_form_wrap', 'div', array( 'class' => 'uk-form tm-comment-form-wrap' ) );
 
 		$output .= beans_render_function( 'comment_form', array(
-			'title_reply' => beans_output( 'beans_comment_form_title_text', __( 'Add a Comment', 'beans' ) )
+			'title_reply' => beans_output( 'beans_comment_form_title_text', __( 'Add a Comment', 'tm-beans' ) )
 		) );
 
 	$output .= beans_close_markup( 'beans_comment_form_wrap', 'div' );
 
 	$submit = beans_open_markup( 'beans_comment_form_submit', 'button', array( 'class' => 'uk-button uk-button-primary', 'type' => 'submit') );
 
-		$submit .= beans_output( 'beans_comment_form_submit_text', __( 'Post Comment', 'beans' ) );
+		$submit .= beans_output( 'beans_comment_form_submit_text', __( 'Post Comment', 'tm-beans' ) );
 
 	$submit .= beans_close_markup( 'beans_comment_form_submit', 'button' );
 
@@ -432,7 +432,7 @@ function beans_comment_form_fields( $fields ) {
 
 			$author .= beans_open_markup( 'beans_comment_form_legend[_name]', 'legend' );
 
-				$author .= beans_output( 'beans_comment_form_legend_text[_name]', __( 'Name', 'beans' ) );
+				$author .= beans_output( 'beans_comment_form_legend_text[_name]', __( 'Name', 'tm-beans' ) );
 
 			$author .= beans_close_markup( 'beans_comment_form_legend[_name]', 'legend' );
 
@@ -460,7 +460,7 @@ function beans_comment_form_fields( $fields ) {
 
 			$email .= beans_open_markup( 'beans_comment_form_legend[_email]', 'legend' );
 
-				$email .= beans_output( 'beans_comment_form_legend_text[_email]', sprintf( __( 'Email %s', 'beans' ), ( get_option( 'require_name_email' ) ? ' *' : '' ) ) );
+				$email .= beans_output( 'beans_comment_form_legend_text[_email]', sprintf( __( 'Email %s', 'tm-beans' ), ( get_option( 'require_name_email' ) ? ' *' : '' ) ) );
 
 			$email .= beans_close_markup( 'beans_comment_form_legend[_email]', 'legend' );
 
@@ -489,7 +489,7 @@ function beans_comment_form_fields( $fields ) {
 
 			$url .= beans_open_markup( 'beans_comment_form_legend', 'legend' );
 
-				$url .= beans_output( 'beans_comment_form_legend_text[_url]', __( 'Website', 'beans' ) );
+				$url .= beans_output( 'beans_comment_form_legend_text[_url]', __( 'Website', 'tm-beans' ) );
 
 			$url .= beans_close_markup( 'beans_comment_form_legend[_url]', 'legend' );
 
@@ -539,7 +539,7 @@ function beans_comment_form_comment() {
 
 			echo beans_open_markup( 'beans_comment_form_legend[_comment]', 'legend' );
 
-				echo beans_output( 'beans_comment_form_legend_text[_comment]', __( 'Comment *', 'beans' ) );
+				echo beans_output( 'beans_comment_form_legend_text[_comment]', __( 'Comment *', 'tm-beans' ) );
 
 			echo beans_close_markup( 'beans_comment_form_legend[_comment]', 'legend' );
 

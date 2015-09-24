@@ -109,7 +109,7 @@ add_action( 'beans_init', 'beans_load_textdomain' );
  */
 function beans_load_textdomain() {
 
-	load_theme_textdomain( 'beans', BEANS_LANGUAGES_PATH );
+	load_theme_textdomain( 'tm-beans', BEANS_LANGUAGES_PATH );
 
 }
 

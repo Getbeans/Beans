@@ -272,7 +272,7 @@ function beans_get_layouts_for_options( $add_default = false ) {
 	$layouts = apply_filters( 'beans_layouts', $layouts );
 
 	if ( $add_default )
-		$layouts = array_merge( array( 'default_fallback' => __( 'Use Default', 'beans' ) ), $layouts );
+		$layouts = array_merge( array( 'default_fallback' => __( 'Use Default', 'tm-beans' ) ), $layouts );
 
 	return $layouts;
 

@@ -64,7 +64,7 @@ function beans_primary_menu_offcanvas_button() {
 
 		echo beans_close_markup( 'beans_primary_menu_offcanvas_button_icon', 'i' );
 
-		echo beans_output( 'beans_offcanvas_menu_button', __( 'Menu', 'beans' ) );
+		echo beans_output( 'beans_offcanvas_menu_button', __( 'Menu', 'tm-beans' ) );
 
 	echo beans_close_markup( 'beans_primary_menu_offcanvas_button', 'a' );
 
@@ -112,7 +112,7 @@ function beans_no_menu_notice() {
 
 	echo beans_open_markup( 'beans_no_menu_notice', 'p', array( 'class' => 'uk-alert uk-alert-warning' ) );
 
-		echo beans_output( 'beans_no_menu_notice_text', __( 'Whoops, your site does not have a menu!', 'beans' ) );
+		echo beans_output( 'beans_no_menu_notice_text', __( 'Whoops, your site does not have a menu!', 'tm-beans' ) );
 
 	echo beans_close_markup( 'beans_no_menu_notice', 'p' );
 

@@ -80,7 +80,7 @@ function beans_no_widget() {
 
 	echo beans_open_markup( 'beans_no_widget_notice', 'p', array( 'class' => 'uk-alert uk-alert-warning' ) );
 
-		echo beans_output( 'beans_no_widget_notice_text', sprintf( __( '%s does not have any widget assigned!', 'beans' ), beans_get_widget_area( 'name' ) ) );
+		echo beans_output( 'beans_no_widget_notice_text', sprintf( __( '%s does not have any widget assigned!', 'tm-beans' ), beans_get_widget_area( 'name' ) ) );
 
 	echo beans_close_markup( 'beans_no_widget_notice', 'p' );
 
@@ -100,7 +100,7 @@ function beans_widget_rss_content() {
 
 	$options = beans_get_widget( 'options' );
 
-	return '<p><a class="uk-button" href="' . $options ['url'] . '" target="_blank">' . __( 'Read feed', 'beans' ) . '</a><p>';
+	return '<p><a class="uk-button" href="' . $options ['url'] . '" target="_blank">' . __( 'Read feed', 'tm-beans' ) . '</a><p>';
 
 }
 

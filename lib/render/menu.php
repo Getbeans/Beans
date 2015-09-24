@@ -20,10 +20,10 @@ function beans_do_register_default_menu() {
 
 	// Set up default menu.
 	wp_update_nav_menu_item(
-		wp_create_nav_menu( __( 'Navigation', 'beans' ) ),
+		wp_create_nav_menu( __( 'Navigation', 'tm-beans' ) ),
 		0,
 		array(
-			'menu-item-title' =>  __( 'Home', 'beans' ),
+			'menu-item-title' =>  __( 'Home', 'tm-beans' ),
 			'menu-item-classes' => 'home',
 			'menu-item-url' => home_url( '/' ),
 			'menu-item-status' => 'publish'
@@ -43,7 +43,7 @@ beans_add_smart_action( 'after_setup_theme', 'beans_do_register_nav_menus' );
 function beans_do_register_nav_menus() {
 
 	register_nav_menus( array(
-		'primary' => __( 'Primary Menu', 'beans' ),
+		'primary' => __( 'Primary Menu', 'tm-beans' ),
 	) );
 
 }

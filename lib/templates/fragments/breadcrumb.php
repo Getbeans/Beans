@@ -22,7 +22,7 @@ function beans_breadcrumb() {
 	global $post;
 
 	$breadcrumbs = array();
-	$breadcrumbs[home_url()] = __( 'Home', 'beans' );
+	$breadcrumbs[home_url()] = __( 'Home', 'tm-beans' );
 
 	// Single posts.
 	if ( is_single() && get_post_type() == 'post' ) {
@@ -78,7 +78,7 @@ function beans_breadcrumb() {
 	// Searches.
 	else if ( is_search() ) {
 
-		$breadcrumbs[] = __( 'Results:', 'beans' ) . ' ' . get_search_query();
+		$breadcrumbs[] = __( 'Results:', 'tm-beans' ) . ' ' . get_search_query();
 
 	}
 
@@ -87,28 +87,28 @@ function beans_breadcrumb() {
 
 		$author = get_queried_object();
 
-		$breadcrumbs[] = __( 'Author Archives:', 'beans' ) . ' ' . $author->display_name;
+		$breadcrumbs[] = __( 'Author Archives:', 'tm-beans' ) . ' ' . $author->display_name;
 
 	}
 
 	// Tag archives.
 	else if ( is_tag() ) {
 
-		$breadcrumbs[] = __( 'Tag Archives:', 'beans' ) . ' ' . single_tag_title( '', false );
+		$breadcrumbs[] = __( 'Tag Archives:', 'tm-beans' ) . ' ' . single_tag_title( '', false );
 
 	}
 
 	// Date archives.
 	else if ( is_date() ) {
 
-		$breadcrumbs[] = __( 'Archives:', 'beans' ) . ' ' . get_the_time( 'F Y' );
+		$breadcrumbs[] = __( 'Archives:', 'tm-beans' ) . ' ' . get_the_time( 'F Y' );
 
 	}
 
 	// 404.
 	else if ( is_404() ) {
 
-		$breadcrumbs[] = __( '404', 'beans' );
+		$breadcrumbs[] = __( '404', 'tm-beans' );
 
 	}
 
