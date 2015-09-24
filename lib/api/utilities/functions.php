@@ -117,12 +117,24 @@ function beans_path_to_url( $path ) {
 
 	// Standardize backslashes.
 	$path = str_replace( '\\', '/', $path );
-	$root = beans_abspath();
+	$root = str_replace( '\\', '/', untrailingslashit( ABSPATH ) );
 
+	// Set host.
+	$host = untrailingslashit( site_url() );
+
+	// Remove subfolder if necessary. Her we don't use $_SERVER variables on purpose to make it as solid as possible on all types of server setup.
+	if ( ( $subfolder = parse_url( $host, PHP_URL_PATH ) ) !== '' ) {
+
+		$root = preg_replace( '#' . untrailingslashit( preg_quote( $subfolder ) ) . '$#', '', $root );
+		$host = preg_replace( '#' . untrailingslashit( preg_quote( $subfolder ) ) . '$#', '', $host );
+
+	}
+
+	// Remove root if necessary.
 	if ( stripos( $path, $root ) !== false )
 		$path = str_replace( $root, '', $path );
 
-	return home_url( $path );
+	return trailingslashit( $host ) . ltrim( $path, '/' );
 
 }
 
@@ -149,36 +161,17 @@ function beans_url_to_path( $url ) {
 
 	// Standardize backslashes.
 	$path = str_replace( '\\', '/', $url );
-	$root = beans_abspath();
+	$root = str_replace( '\\', '/', untrailingslashit( ABSPATH ) );
+
+	// Remove subfolder if necessary. Here we don't use $_SERVER variables on purpose to make it as solid as possible on all types of server setup.
+	if ( ( $subfolder = parse_url( site_url(), PHP_URL_PATH ) ) !== '' )
+		$root = preg_replace( '#' . untrailingslashit( preg_quote( $subfolder ) ) . '$#', '', $root );
 
 	// Add root of it doesn't exist.
 	if ( strpos( realpath( $path ), $root ) === false )
 		$path = $root . $path;
 
 	return $path;
-
-}
-
-
-/**
- * Return the real server absolute path.
- *
- * This function returns the server absolute path without using $_SERVER['DOCUMENT_ROOT'] which could cause issues
- * depending on the server config.
- *
- * @since 1.1.3
- *
- *
- * @return string Server absolute path.
- */
-function beans_abspath() {
-
-	$abspath = untrailingslashit( ABSPATH );
-
-	if ( ( $subfolder = parse_url( site_url(), PHP_URL_PATH ) ) !== '' )
-		$abspath = rtrim( $abspath, untrailingslashit( $subfolder ) );
-
-	return str_replace( '\\', '/', $abspath );
 
 }
 
