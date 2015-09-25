@@ -137,7 +137,8 @@ function beans_path_to_url( $path ) {
 
 			// Add the blog path for multsites.
 			if ( !is_main_site() && ( $blogdetails = get_blog_details( get_current_blog_id() ) ) )
-				$host = untrailingslashit( $host ) . $blogdetails->path;
+				if ( !( defined( 'WP_SITEURL' ) ) || ( defined( 'WP_SITEURL' ) && site_url() == WP_SITEURL ) )
+					$host = untrailingslashit( $host ) . $blogdetails->path;
 
 		}
 
@@ -146,6 +147,9 @@ function beans_path_to_url( $path ) {
 	// Remove root if necessary.
 	if ( stripos( $path, $root ) !== false )
 		$path = str_replace( $root, '', $path );
+	// Add an extra step which is only used for extremely rare case.
+	elseif ( stripos( $path, beans_get( 'DOCUMENT_ROOT', $_SERVER ) ) !== false )
+		$path = str_replace( beans_get( 'DOCUMENT_ROOT', $_SERVER ), '', $path );
 
 	return trailingslashit( $host ) . ltrim( $path, '/' );
 
@@ -165,7 +169,7 @@ function beans_path_to_url( $path ) {
  */
 function beans_url_to_path( $url ) {
 
-	static $blogdetails;
+	static $root, $blogdetails;
 
 	// Fix protocole.
 	if ( preg_match( '#^(\/\/)#', $url ) )
@@ -176,12 +180,24 @@ function beans_url_to_path( $url ) {
 
 	// Standardize backslashes.
 	$path = str_replace( '\\', '/', $url );
-	$root = str_replace( '\\', '/', untrailingslashit( ABSPATH ) );
 
 	// Remove subfolder if necessary.
 	if ( ( $subfolder = parse_url( site_url(), PHP_URL_PATH ) ) !== '' ) {
 
-		$root = preg_replace( '#' . untrailingslashit( preg_quote( $subfolder ) ) . '$#', '', $root );
+		// Set root if it isn't cached.
+		if ( !$root ) {
+
+			// Standardize backslashes.
+			$root = str_replace( '\\', '/', untrailingslashit( ABSPATH ) );
+
+			// Remove subfolder.
+			$root = preg_replace( '#' . untrailingslashit( preg_quote( $subfolder ) ) . '$#', '', $root );
+
+			// Add an extra step which is only used for extremely rare case.
+			if ( defined( 'WP_SITEURL' ) && ( $subfolder = parse_url( WP_SITEURL, PHP_URL_PATH ) ) !== '' )
+				$root = preg_replace( '#' . untrailingslashit( preg_quote( $subfolder ) ) . '$#', '', $root );
+
+		}
 
 		// Remove the blog path for multsites.
 		if ( !is_main_site() ) {
