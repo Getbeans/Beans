@@ -111,22 +111,35 @@ function beans_remove_dir( $dir_path ) {
  */
 function beans_path_to_url( $path ) {
 
+	static $root, $host;
+
 	// Stop here if it is already a url or data format.
 	if ( preg_match( '#^(http|https|\/\/|data)#', $path ) == true )
 		return $path;
 
 	// Standardize backslashes.
 	$path = str_replace( '\\', '/', $path );
-	$root = str_replace( '\\', '/', untrailingslashit( ABSPATH ) );
 
-	// Set host.
-	$host = untrailingslashit( site_url() );
+	// Set root and host if it isn't cached.
+	if ( !$root ) {
 
-	// Remove subfolder if necessary. Her we don't use $_SERVER variables on purpose to make it as solid as possible on all types of server setup.
-	if ( ( $subfolder = parse_url( $host, PHP_URL_PATH ) ) !== '' ) {
+		// Standardize backslashes.
+		$root = str_replace( '\\', '/', untrailingslashit( ABSPATH ) );
 
-		$root = preg_replace( '#' . untrailingslashit( preg_quote( $subfolder ) ) . '$#', '', $root );
-		$host = preg_replace( '#' . untrailingslashit( preg_quote( $subfolder ) ) . '$#', '', $host );
+		// Set host.
+		$host = untrailingslashit( site_url() );
+
+		// Remove subfolder if necessary.
+		if ( ( $subfolder = parse_url( $host, PHP_URL_PATH ) ) !== '' ) {
+
+			$root = preg_replace( '#' . untrailingslashit( preg_quote( $subfolder ) ) . '$#', '', $root );
+			$host = preg_replace( '#' . untrailingslashit( preg_quote( $subfolder ) ) . '$#', '', $host );
+
+			// Add the blog path for multsites.
+			if ( !is_main_site() && ( $blogdetails = get_blog_details( get_current_blog_id() ) ) )
+				$host = untrailingslashit( $host ) . $blogdetails->path;
+
+		}
 
 	}
 
@@ -152,6 +165,8 @@ function beans_path_to_url( $path ) {
  */
 function beans_url_to_path( $url ) {
 
+	static $blogdetails;
+
 	// Fix protocole.
 	if ( preg_match( '#^(\/\/)#', $url ) )
 		$url = 'http:' . $url;
@@ -163,15 +178,29 @@ function beans_url_to_path( $url ) {
 	$path = str_replace( '\\', '/', $url );
 	$root = str_replace( '\\', '/', untrailingslashit( ABSPATH ) );
 
-	// Remove subfolder if necessary. Here we don't use $_SERVER variables on purpose to make it as solid as possible on all types of server setup.
-	if ( ( $subfolder = parse_url( site_url(), PHP_URL_PATH ) ) !== '' )
+	// Remove subfolder if necessary.
+	if ( ( $subfolder = parse_url( site_url(), PHP_URL_PATH ) ) !== '' ) {
+
 		$root = preg_replace( '#' . untrailingslashit( preg_quote( $subfolder ) ) . '$#', '', $root );
 
-	// Add root of it doesn't exist.
-	if ( strpos( realpath( $path ), $root ) === false )
-		$path = $root . $path;
+		// Remove the blog path for multsites.
+		if ( !is_main_site() ) {
 
-	return $path;
+			// Set blogdetails if it isn't cached.
+			if ( !$blogdetails )
+				$blogdetails = get_blog_details( get_current_blog_id() );
+
+			$path = preg_replace( '#^(\/?)' . trailingslashit( preg_quote( ltrim( $blogdetails->path, '/' ) ) ) . '#', '', $path );
+
+		}
+
+	}
+
+	// Add root of it doesn't exist.
+	if ( strpos( $path, $root ) === false )
+		$path = trailingslashit( $root ) . ltrim( $path, '/' );
+
+	return realpath( $path );
 
 }
 
