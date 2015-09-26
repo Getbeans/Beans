@@ -99,7 +99,8 @@ class _Beans_WP_Customize {
 				'default' => beans_get( 'default', $field ),
 				'type' => $field['db_type'],
 				'capability' => $field['capability'],
-				'transport' => $field['transport']
+				'transport' => $field['transport'],
+				'sanitize_callback' => array( $this, 'sanitize' )
 			)
 		);
 
@@ -127,6 +128,16 @@ class _Beans_WP_Customize {
 				$field
 			)
 		);
+
+	}
+
+
+	/**
+	 * Sanatize value.
+	 */
+	private function sanitize( $value ) {
+
+		return $value;
 
 	}
 
