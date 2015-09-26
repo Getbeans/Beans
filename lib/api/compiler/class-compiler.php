@@ -116,7 +116,7 @@ class _Beans_Compiler {
 
 			// Only check file time for internal files.
 			if ( strpos( $fragment, $_SERVER['HTTP_HOST'] ) !== false || preg_match( '#^\/[^\/]#', $fragment ) == true )
-				$fragments_filemtime[$id] = filemtime( beans_url_to_path( $fragment ) );
+				$fragments_filemtime[$id] = @filemtime( beans_url_to_path( $fragment ) );
 
 		}
 
