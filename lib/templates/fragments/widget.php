@@ -120,7 +120,7 @@ function beans_modify_widget_content_attributes( $attributes ) {
 
 	$type = beans_get_widget( 'type' );
 
-	$include = array(
+	$target = array(
 		'archives',
 		'categories',
 		'links',
@@ -132,7 +132,7 @@ function beans_modify_widget_content_attributes( $attributes ) {
 
 	$current_class = isset( $attributes['class'] ) ? $attributes['class'] . ' ' : '';
 
-	if ( in_array( beans_get_widget( 'type' ), $include ) )
+	if ( in_array( beans_get_widget( 'type' ), $target ) )
 		$attributes['class'] = $current_class . 'uk-list';
 
 	if ( $type == 'calendar' )
