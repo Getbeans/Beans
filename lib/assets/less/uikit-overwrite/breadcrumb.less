@@ -10,3 +10,34 @@
 .hook-breadcrumb() {
 	font-weight: @breadcrumb-font-weight;
 }
+
+
+/* Phone landscape and bigger */
+
+@media (max-width: @breakpoint-medium) {
+
+	.uk-breadcrumb li:not( :first-of-type ) a {
+
+		span {
+			display: none;
+		}
+
+		&:after {
+			content: "...";
+		}
+
+	}
+
+	.uk-breadcrumb li:last-of-type {
+		max-width: 150px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+
+		&:after {
+			content: "...";
+		}
+
+	}
+
+}

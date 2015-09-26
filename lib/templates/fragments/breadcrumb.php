@@ -27,7 +27,9 @@ function beans_breadcrumb() {
 	// Single posts.
 	if ( is_single() && get_post_type() == 'post' ) {
 
-		$breadcrumbs[] = get_the_category_list( ', ' );
+		foreach ( get_categories() as $category )
+			$breadcrumbs[esc_url( get_category_link( $category->term_id ) )] = $category->name;
+
 		$breadcrumbs[] = get_the_title();
 
 	}
@@ -128,7 +130,12 @@ function beans_breadcrumb() {
 						'href' => $breadcrumb_url
 					) );
 
-						echo $breadcrumb;
+						// Used for mobile devices.
+						echo beans_open_markup( 'beans_breadcrumb_item_link_inner', 'span');
+
+							echo $breadcrumb;
+
+						echo beans_close_markup( 'beans_breadcrumb_item_link_inner', 'span' );
 
 					echo beans_close_markup( 'beans_breadcrumb_item_link', 'a' );
 
