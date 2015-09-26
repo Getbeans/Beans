@@ -6,6 +6,22 @@ Author URI: http://www.getbeans.io
 Description: The most innovative theme for WordPress. The real magic is under the hood.
 Version: 1.1.2
 Text Domain: tm-beans
+Tags: white, light, one-column, two-columns, three-columns, right-sidebar, left-sidebar, responsive-layout, flexible-width, custom-header, custom-menu, editor-style, featured-images, microformats, post-formats, translation-ready
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
+
+
+/* The CSS below is added to align to WordPress theme automatic checker.
+ * The actual CSS is situated in the style.less file.
+ ========================================================================== */
+
+.alignleft {}
+.alignright {}
+.aligncenter {}
+.wp-caption {}
+.wp-caption-text {}
+.sticky {}
+.screen-reader-text {}
+.gallery-caption {}
+.bypostauthor {}
