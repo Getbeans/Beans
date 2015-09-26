@@ -20,22 +20,6 @@ function beans_head_meta() {
 }
 
 
-beans_add_smart_action( 'beans_head', 'beans_head_title' );
-
-/**
- * Echo head title.
- *
- * @since 1.0.0
- */
-function beans_head_title() {
-
-	echo '<title>';
-		wp_title( '|', true, 'right' );
-	echo '</title>';
-
-}
-
-
 beans_add_smart_action( 'wp_head', 'beans_head_pingback');
 
 /**
@@ -46,41 +30,6 @@ beans_add_smart_action( 'wp_head', 'beans_head_pingback');
 function beans_head_pingback() {
 
 	echo '<link rel="pingback" href="' . get_bloginfo( 'pingback_url' ) . '">' . "\n";
-
-}
-
-// Filter.
-beans_add_smart_action( 'wp_title', 'beans_wp_title', 10, 2 );
-
-/**
- * Modify head wp title.
- *
- * @since 1.0.0
- *
- * @param string $title The WordPress default title.
- * @param string $sep The title separator.
- *
- * @return string The modified title.
- */
-function beans_wp_title( $title, $sep ) {
-
-	global $page, $paged;
-
-	if ( is_feed() )
-		return $title;
-
-	// Add the blog name.
-	$title .= get_bloginfo( 'name' );
-
-	// Add the blog description for the home/front page.
-	if ( ( $site_description = get_bloginfo( 'description', 'display' ) ) && ( is_home() || is_front_page() ) )
-		$title .= " $sep $site_description";
-
-	// Add a page number if necessary.
-	if ( $paged >= 2 || $page >= 2 )
-		$title .= " $sep " . sprintf( __( 'Page %s', 'tm-beans' ), max( $paged, $page ) );
-
-	return $title;
 
 }
 
