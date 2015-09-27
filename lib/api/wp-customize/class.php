@@ -135,7 +135,7 @@ class _Beans_WP_Customize {
 	/**
 	 * Sanatize value.
 	 */
-	private function sanitize( $value ) {
+	public function sanitize( $value ) {
 
 		return $value;
 
