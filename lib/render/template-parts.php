@@ -189,3 +189,16 @@ function beans_footer_template() {
 	get_footer();
 
 }
+
+
+/**
+ * Set the content width based on Beans default layout.
+ *
+ * This is mainly added to align to WordPress.org requirements.
+ *
+ * @since 1.2.0
+ *
+ * @ignore
+ */
+if ( !isset( $content_width ) )
+	$content_width = 800;
