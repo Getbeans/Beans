@@ -11,7 +11,7 @@ class _Beans_Admin {
 	 */
 	public function __construct() {
 
-		add_action( 'admin_menu', array( $this, 'admin_menu' ), 20 );
+		add_action( 'admin_menu', array( $this, 'admin_menu' ), 150 );
 		add_action( 'admin_init', array( $this, 'register' ), 20 );
 
 	}
@@ -22,7 +22,7 @@ class _Beans_Admin {
 	 */
 	public function admin_menu() {
 
-		add_options_page( __( 'Beans', 'tm-beans' ), __( 'Beans', 'tm-beans' ), 'manage_options', 'beans_settings', array( $this, 'display_screen' ) );
+		add_theme_page( __( 'Settings', 'tm-beans' ), __( 'Settings', 'tm-beans' ), 'manage_options', 'beans_settings', array( $this, 'display_screen' ) );
 
 	}
 
