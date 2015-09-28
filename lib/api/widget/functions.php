@@ -41,6 +41,10 @@
  */
 function beans_register_widget_area( $args = array(), $widget_control = array() ) {
 
+    // Stop here if the id isn't set.
+    if ( !$id = beans_get( 'id', $args ) )
+        return;
+
     /**
      * Filter the default arguments used by the widget area.
      *
@@ -53,8 +57,6 @@ function beans_register_widget_area( $args = array(), $widget_control = array() 
         'beans_widget_badge_content' => __( 'Hello', 'tm-beans' )
     ) );
 
-
-    $id = beans_get( 'id', $args );
     /**
      * Filter the arguments used by the widget area.
      *

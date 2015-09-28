@@ -33,3 +33,16 @@ function beans_do_register_widget_areas() {
 		) );
 
 }
+
+
+/**
+ * Call register sidebar.
+ *
+ * Because WordPress.org checker don't understand that we are using register_sidebar properly,
+ * we have to add this useless call which only has to be declared once.
+ *
+ * @since 1.0.0
+ *
+ * @ignore
+ */
+add_action( 'widgets_init', 'beans_register_widget_area' );
