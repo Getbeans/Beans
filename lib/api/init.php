@@ -8,9 +8,16 @@
  * @package Beans
  */
 
+// Stop here if the API was already loaded.
+if ( defined( 'BEANS_API' ) )
+	return;
+
 // Mode.
 if ( !defined( 'SCRIPT_DEBUG' ) )
 	define( 'SCRIPT_DEBUG', false );
+
+// Declare Beans API.
+define( 'BEANS_API', true );
 
 // Assets.
 define( 'BEANS_MIN_CSS', SCRIPT_DEBUG ? '' : '.min' );
