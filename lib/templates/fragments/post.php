@@ -102,7 +102,7 @@ function beans_post_meta() {
 
 		foreach ( $meta_items as $meta => $priority ) {
 
-			if ( !$content = beans_render_function( 'do_shortcode', "[beans_post_meta_$meta]" ) )
+			if ( !$content = beans_render_function( 'do_action', "beans_post_meta_$meta" ) )
 				continue;
 
 			echo beans_open_markup( "beans_post_meta_item[_{$meta}]", 'li' );
