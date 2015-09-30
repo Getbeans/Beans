@@ -83,7 +83,7 @@ function beans_define_constants() {
 	define( 'BEANS_VERSION', '1.2-beta1' );
 
 	// Define paths.
-	define( 'BEANS_THEME_PATH', trailingslashit( get_template_directory() ) );
+	define( 'BEANS_THEME_PATH', wp_normalize_path( trailingslashit( get_template_directory() ) ) );
 	define( 'BEANS_PATH', BEANS_THEME_PATH . 'lib/' );
 	define( 'BEANS_ASSETS_PATH', BEANS_PATH . 'assets/' );
 	define( 'BEANS_LANGUAGES_PATH', BEANS_PATH . 'languages/' );

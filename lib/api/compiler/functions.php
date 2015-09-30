@@ -250,7 +250,7 @@ function beans_get_compiler_dir( $admin = false ) {
 	 */
 	$dir = apply_filters( 'beans_compiler_dir', trailingslashit( $wp_upload_dir['basedir'] ) . $suffix, $admin );
 
-	return trailingslashit( $dir );
+	return wp_normalize_path( trailingslashit( $dir ) );
 
 }
 

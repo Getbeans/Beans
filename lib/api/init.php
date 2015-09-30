@@ -24,7 +24,7 @@ define( 'BEANS_MIN_CSS', SCRIPT_DEBUG ? '' : '.min' );
 define( 'BEANS_MIN_JS', SCRIPT_DEBUG ? '' : '.min' );
 
 // Path.
-define( 'BEANS_API_COMPONENTS_PATH', trailingslashit( dirname( __FILE__ ) ) );
+define( 'BEANS_API_COMPONENTS_PATH', wp_normalize_path( trailingslashit( dirname( __FILE__ ) ) ) );
 define( 'BEANS_API_COMPONENTS_ADMIN_PATH', BEANS_API_COMPONENTS_PATH . 'admin/' );
 
 // Load dependencies here as it is used further down.

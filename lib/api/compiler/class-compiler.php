@@ -244,9 +244,10 @@ class _Beans_Compiler {
 
 				$get_content = $this->get_function_content();
 
+
 			}
-			// Treat internal file.
-			elseif ( strpos( $fragment, $_SERVER['HTTP_HOST'] ) !== false || preg_match( '#^\/[^\/]#', $fragment ) == true ) {
+			// Treat file.
+			else {
 
 				$get_content = $this->get_internal_content();
 
@@ -255,16 +256,10 @@ class _Beans_Compiler {
 					$get_content = $this->get_remote_content();
 
 			}
-			// Treat external file.
-			elseif ( preg_match( '#^(http|\/\/)#', $fragment ) == true ) {
 
-				$get_content = $this->get_remote_content();
-
-			} else {
-
+			// Stop here if no content.
+			if ( !$get_content )
 				continue;
-
-			}
 
 			// Add the content.
 			if ( $this->compiler['type'] == 'style' ) {

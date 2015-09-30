@@ -118,15 +118,13 @@ function beans_path_to_url( $path ) {
 		return $path;
 
 	// Standardize backslashes.
-	$path = str_replace( '\\', '/', $path );
+	$path = wp_normalize_path( $path );
 
 	// Set root and host if it isn't cached.
 	if ( !$root ) {
 
-		// Standardize backslashes.
-		$root = str_replace( '\\', '/', untrailingslashit( ABSPATH ) );
-
-		// Set host.
+		// Standardize backslashes set host.
+		$root = wp_normalize_path( untrailingslashit( ABSPATH ) );
 		$host = untrailingslashit( site_url() );
 
 		// Remove subfolder if necessary.
@@ -175,20 +173,24 @@ function beans_url_to_path( $url ) {
 	if ( preg_match( '#^(\/\/)#', $url ) )
 		$url = 'http:' . $url;
 
-	// Parse url.
+	// Parse url and standardize backslashes.
 	$url = parse_url( $url, PHP_URL_PATH );
+	$path = wp_normalize_path( $url );
 
-	// Standardize backslashes.
-	$path = str_replace( '\\', '/', $url );
+	// Set root if it isn't cached yet.
+	if ( !$root ) {
+
+		// Standardize backslashes and remove windows drive for local installs.
+		$root = wp_normalize_path( untrailingslashit( ABSPATH ) );
+		$set_root = true;
+
+	}
 
 	// Remove subfolder if necessary.
 	if ( ( $subfolder = parse_url( site_url(), PHP_URL_PATH ) ) !== '' ) {
 
 		// Set root if it isn't cached.
-		if ( !$root ) {
-
-			// Standardize backslashes.
-			$root = str_replace( '\\', '/', untrailingslashit( ABSPATH ) );
+		if ( isset( $set_root ) ) {
 
 			// Remove subfolder.
 			$root = preg_replace( '#' . untrailingslashit( preg_quote( $subfolder ) ) . '$#', '', $root );
@@ -212,11 +214,15 @@ function beans_url_to_path( $url ) {
 
 	}
 
+	// Remove Windows drive for local installs if the root isn't cached yet.
+	if ( isset( $set_root ) )
+		$root = preg_replace( '#^[A-Z]\:#i', '', $root );
+
 	// Add root of it doesn't exist.
 	if ( strpos( $path, $root ) === false )
 		$path = trailingslashit( $root ) . ltrim( $path, '/' );
 
-	return realpath( $path );
+	return wp_normalize_path( realpath( $path ) );
 
 }
 

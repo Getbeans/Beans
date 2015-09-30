@@ -141,6 +141,6 @@ function beans_get_images_dir() {
 	 */
 	$dir = apply_filters( 'beans_images_dir', trailingslashit( $wp_upload_dir['basedir'] ) . 'beans/images/' );
 
-	return trailingslashit( $dir );
+	return wp_normalize_path( trailingslashit( $dir ) );
 
 }

@@ -111,10 +111,9 @@ class _Beans_Uikit {
 
 		// Define uikit src directory.
 		$directories = array( BEANS_API_COMPONENTS_PATH . 'uikit/src/less/' . $type );
-
 		// Add the registered theme directories.
 		foreach ( $_beans_uikit_enqueued_items['themes'] as $id => $directory )
-			$directories[] = untrailingslashit( $directory );
+			$directories[] = wp_normalize_path( untrailingslashit( $directory ) );
 
 		return $directories;
 
