@@ -217,7 +217,7 @@ function beans_comment_links() {
 		endif;
 
 		// Link.
-		echo beans_open_markup( 'beans_comment_item[_link}', 'li' );
+		echo beans_open_markup( 'beans_comment_item[_link]', 'li' );
 
 			echo beans_open_markup( 'beans_comment_item_link[_link]', 'a', array(
 				'href' => esc_url( get_comment_link( $comment->comment_ID ) )
