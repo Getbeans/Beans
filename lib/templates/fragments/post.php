@@ -164,7 +164,7 @@ function beans_post_image() {
 	) );
 
 	if ( empty( $edit_small_args ) )
-		$image_small = beans_get_post_attachment( $post->ID, 'small' );
+		$image_small = beans_get_post_attachment( $post->ID, 'thumbnail' );
 	else
 		$image_small = beans_edit_post_attachment( $post->ID, $edit_small_args );
 
