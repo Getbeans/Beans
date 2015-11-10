@@ -69,11 +69,9 @@ function beans_loop_template( $id = false ) {
 
 	endif;
 
-	// Allow overwrite.
-	if ( locate_template( 'loop.php', true, false ) != '' )
-		return;
-
-	require( BEANS_STRUCTURE_PATH . 'loop.php' );
+	// Allow overwrite. Require the default loop.php if not overwrite is found.
+	if ( locate_template( 'loop.php', true, false ) == '' )
+		require( BEANS_STRUCTURE_PATH . 'loop.php' );
 
 	// Only reset the query if a filter is set.
 	if ( $_has_filter )
