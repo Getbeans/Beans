@@ -171,7 +171,6 @@ class _Beans_Compiler {
 			return false;
 
 		@chmod( $this->cache_dir . '/' . $this->compiler['filename'], 0755 );
-
 		@fclose( $file_handle );
 
 		return true;
@@ -290,15 +289,14 @@ class _Beans_Compiler {
 		$fragment = beans_url_to_path( $this->current_fragment );
 
 		// Stop here if it isn't a valid file.
-		if ( !file_exists( $fragment ) || filesize( $fragment ) === 0 )
+		if ( !file_exists( $fragment ) || @filesize( $fragment ) === 0 )
 			return false;
 
 		// Handle content.
-		$temp_handler = fopen( $fragment, 'r' );
+		$temp_handler = @fopen( $fragment, 'r' );
+		$content = $this->replace_css_url( @fread( $temp_handler, @filesize( $fragment ) ) );
 
-			$content = $this->replace_css_url( fread( $temp_handler, filesize( $fragment ) ) );
-
-		fclose( $temp_handler );
+		@fclose( $temp_handler );
 
 		return $content;
 
