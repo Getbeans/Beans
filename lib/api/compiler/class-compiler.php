@@ -314,6 +314,10 @@ class _Beans_Compiler {
 		if ( preg_match( '#^\/\/#', $fragment ) == true )
 			$fragment = preg_replace( '#^\/\/#', 'http://', $fragment );
 
+		// Add domain if it is local but could not be fetched as a file.
+		elseif ( preg_match( '#^\/#', $fragment ) == true )
+			$fragment = site_url( $fragment );
+
 		$request = wp_remote_get( $fragment );
 
 		// If failed to get content, try with ssl url, otherwise go to next fragment.
