@@ -169,7 +169,11 @@ function beans_url_to_path( $url ) {
 
 	static $root, $blogdetails;
 
-	// Fix protocole.
+	// Stop here if it is not an internal url.
+	if ( stripos( $url, parse_url( site_url(), PHP_URL_HOST ) ) === false )
+		return beans_sanitize_path( $url );
+
+	// Fix protocole. It isn't needed to set SSL as it is only used to parse the URL.
 	if ( preg_match( '#^(\/\/)#', $url ) )
 		$url = 'http:' . $url;
 
@@ -216,13 +220,36 @@ function beans_url_to_path( $url ) {
 
 	// Remove Windows drive for local installs if the root isn't cached yet.
 	if ( isset( $set_root ) )
-		$root = preg_replace( '#^[A-Z]\:#i', '', $root );
+		$root = beans_sanitize_path( $root );
 
 	// Add root of it doesn't exist.
 	if ( strpos( $path, $root ) === false )
 		$path = trailingslashit( $root ) . ltrim( $path, '/' );
 
-	return wp_normalize_path( realpath( $path ) );
+	return beans_sanitize_path( $path );
+
+}
+
+
+/**
+ * Sanitize path.
+ *
+ * @since 1.0.0
+ *
+ * @param string $path Path to be sanitize. Accepts absolute and relative internal paths.
+ *
+ * @return string Sanitize path.
+ */
+function beans_sanitize_path( $path ) {
+
+	// Try to convert it to real path.
+	if ( false !== realpath( $path ) )
+		$path = realpath( $path );
+
+	// Remove Windows drive for local installs if the root isn't cached yet.
+	$path = preg_replace( '#^[A-Z]\:#i', '', $path );
+
+	return wp_normalize_path( $path );
 
 }
 
