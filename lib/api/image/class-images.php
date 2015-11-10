@@ -32,14 +32,6 @@ class _Beans_Image_Editor {
 
 
 	/**
-	 * Path.
-	 *
-	 * @type string
-	 */
-	private $path;
-
-
-	/**
 	 * Rebuilt path.
 	 *
 	 * @type string
@@ -55,6 +47,11 @@ class _Beans_Image_Editor {
 		$this->src = $src;
 		$this->args = $args;
 		$this->output = $output;
+		$local_source = beans_url_to_path( $this->src );
+
+		// Treat internal files as such if possible.
+		if ( file_exists( $local_source ) )
+			$this->src = $local_source;
 
 	}
 
@@ -67,10 +64,36 @@ class _Beans_Image_Editor {
 		$this->setup();
 
 		// Try to create image if it doesn't exist.
-		if ( !file_exists( $this->rebuilt_path ) )
+		if ( !file_exists( $this->rebuilt_path ) ) {
+
 			// Return orginial image source if it can't be edited.
-			if ( !$this->edit() )
-				return $this->src;
+			if ( !$this->edit() ) {
+
+				$array = array(
+					'src' => $this->src,
+					'width' => null,
+					'height' => null
+				);
+
+				switch ( $this->output ) {
+
+					case 'STRING':
+						return $this->src;
+					break;
+
+					case 'ARRAY_N':
+						return array_values( $array );
+					break;
+
+					case 'OBJECT':
+						return (object) $array;
+					break;
+
+				}
+
+			}
+
+		}
 
 		$src = beans_path_to_url( $this->rebuilt_path );
 
@@ -102,15 +125,11 @@ class _Beans_Image_Editor {
 	 */
 	private function setup() {
 
-		$wp_upload_dir = wp_upload_dir();
 		$upload_dir = beans_get_images_dir();
-		$path = beans_url_to_path( $this->src );
-		$info = pathinfo( $path );
+		$info = pathinfo( $this->src );
 		$query = substr( md5( @serialize( $this->args ) ), 0, 7 );
 		$extension = $info['extension'];
 		$filename = str_replace( '.' . $extension, '', $info['basename'] );
-
-		$this->path = $path;
 		$this->rebuilt_path = "{$upload_dir}{$filename}-{$query}.{$extension}";
 
 	}
@@ -122,7 +141,7 @@ class _Beans_Image_Editor {
 	private function edit() {
 
 		// Prepare editor.
-		$editor = wp_get_image_editor( $this->path );
+		$editor = wp_get_image_editor( $this->src );
 
 		// Stop here if there was an error.
 		if ( is_wp_error( $editor ) )
@@ -145,6 +164,25 @@ class _Beans_Image_Editor {
 			return false;
 
 		return true;
+
+	}
+
+
+	function get_images_dir() {
+
+		$wp_upload_dir = wp_upload_dir();
+		$dir = path_join( parse_url( $wp_upload_dir['baseurl'], PHP_URL_PATH ), 'beans/images/' );
+
+		return wp_normalize_path( trailingslashit( $dir ) );
+
+	}
+
+	function get_images_url() {
+
+		$wp_upload_dir = wp_upload_dir();
+		$dir = path_join( parse_url( $wp_upload_dir['baseurl'], PHP_URL_PATH ), 'beans/images/' );
+
+		return wp_normalize_path( trailingslashit( $dir ) );
 
 	}
 

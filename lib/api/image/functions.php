@@ -116,7 +116,7 @@ function beans_edit_post_attachment( $post_id, $args = array() ) {
 	$attachement = beans_get_post_attachment( $post_id, 'full' );
 
 	if ( !$edited = beans_edit_image( $attachement->src, $args, 'ARRAY_A' ) )
-		return false;
+		return $attachement;
 
 	return (object) array_merge( (array) $attachement, $edited );
 
