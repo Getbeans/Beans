@@ -135,6 +135,10 @@ class _Beans_Page_Compiler {
 
 		}
 
+		// Stop here if there isn't any content to add.
+		if ( empty( $localized ) )
+			return;
+
 		// Add localized content since it was removed with dequeue scripts.
 		echo '<script type="text/javascript">';
 			echo $localized;
