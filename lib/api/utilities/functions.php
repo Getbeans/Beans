@@ -234,7 +234,7 @@ function beans_url_to_path( $url ) {
 /**
  * Sanitize path.
  *
- * @since 1.0.0
+ * @since 1.2.1
  *
  * @param string $path Path to be sanitize. Accepts absolute and relative internal paths.
  *
