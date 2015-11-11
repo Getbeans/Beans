@@ -84,7 +84,7 @@ class _Beans_Page_Compiler {
 
 			if ( $args->deps )
 				foreach ( $this->compile_enqueued( $type, $args->deps ) as $dep_id => $dep_src )
-					if ( !empty( $dep_sr ) )
+					if ( !empty( $dep_src ) )
 						$fragments[$dep_id] = $dep_src;
 
 			if ( $type == 'style' ) {
