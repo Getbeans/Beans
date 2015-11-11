@@ -243,10 +243,12 @@ class _Beans_Compiler {
 
 				$get_content = $this->get_function_content();
 
-
 			}
 			// Treat file.
 			else {
+
+				if ( !$this->validate_extention( $fragment ) )
+					continue;
 
 				$get_content = $this->get_internal_content();
 
@@ -408,6 +410,22 @@ class _Beans_Compiler {
 		}
 
 		return $content;
+
+	}
+
+
+	/**
+	 * Validate allowed file format.
+	 */
+	public function validate_extention( $fragment ) {
+
+		$allowed_format = array( 'css', 'less', 'js' );
+		$path_info = pathinfo( $fragment );
+
+		if ( in_array( beans_get( 'extension', $path_info ), $allowed_format ) )
+			return true;
+
+		return false;
 
 	}
 
