@@ -138,9 +138,7 @@ function beans_includes() {
 	if ( is_admin() ) {
 
 		require_once( BEANS_ADMIN_PATH . 'options.php' );
-
-		if ( is_super_admin() )
-			require_once( BEANS_ADMIN_PATH . 'updater.php' );
+		require_once( BEANS_ADMIN_PATH . 'updater.php' );
 
 	}
 
