@@ -26,9 +26,11 @@ function beans_render_function( $callback ) {
 	if ( !is_callable( $callback ) )
 		return;
 
+	$args = func_get_args();
+
 	ob_start();
 
-		call_user_func_array( $callback, array_slice( func_get_args(), 1 ) );
+		call_user_func_array( $callback, array_slice( $args, 1 ) );
 
 	return ob_get_clean();
 

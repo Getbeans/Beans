@@ -160,8 +160,9 @@ function beans_selfclose_markup( $id, $tag, $attributes = array() ) {
 	global $_temp_beans_selfclose_markup;
 
 	$_temp_beans_selfclose_markup = true;
+	$args = func_get_args();
 
-	return call_user_func_array( 'beans_open_markup', func_get_args() );
+	return call_user_func_array( 'beans_open_markup', $args );
 
 }
 
