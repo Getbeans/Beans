@@ -90,6 +90,7 @@ function beans_get_post_attachment( $post_id, $size = 'full' ) {
  *
  * @since 1.0.0
  *
+ * @param string $post_id The post id.
  * @param array  $args {
  *      Array of arguments used by the image editor.
  *
