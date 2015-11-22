@@ -127,7 +127,7 @@ function beans_breadcrumb() {
 				echo beans_open_markup( 'beans_breadcrumb_item', 'li' );
 
 					echo beans_open_markup( 'beans_breadcrumb_item_link', 'a', array(
-						'href' => $breadcrumb_url
+						'href' => esc_url( $breadcrumb_url )
 					) );
 
 						// Used for mobile devices.
