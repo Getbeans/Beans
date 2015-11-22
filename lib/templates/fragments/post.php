@@ -23,7 +23,7 @@ function beans_post_title() {
 	if ( !is_singular() ) {
 
 		$title_link = beans_open_markup( 'beans_post_title_link', 'a', array(
-			'href' => get_permalink(),
+			'href' => esc_url( get_permalink() ),
 			'title' => the_title_attribute( 'echo=0' ),
 			'rel' => 'bookmark'
 		) );
@@ -172,7 +172,7 @@ function beans_post_image() {
 
 		if ( !is_singular() )
 			echo beans_open_markup( 'beans_post_image_link', 'a', array(
-				'href' => get_permalink(),
+				'href' => esc_url( get_permalink() ),
 				'title' => the_title_attribute( 'echo=0' )
 			) );
 
@@ -247,7 +247,7 @@ function beans_post_more_link() {
 	global $post;
 
 	$output = beans_open_markup( 'beans_post_more_link', 'a', array(
-		'href' => get_permalink() . "#more-{$post->ID}",
+		'href' => esc_url( get_permalink() ) . "#more-{$post->ID}",
 		'class' => 'more-link',
 	) );
 
@@ -341,7 +341,7 @@ function beans_previous_post_link( $output, $format, $link, $post ) {
 	$text = strip_tags( $output );
 
 	$output = beans_open_markup( 'beans_previous_link[_post_navigation]', 'a', array(
-		'href' => get_permalink( $post ),
+		'href' => esc_url( get_permalink( $post ) ),
 		'ref' => 'previous',
 		'title' => esc_html( $post->post_title )
 	) );
@@ -377,7 +377,7 @@ function beans_next_post_link( $output, $format, $link, $post ) {
 	$text = strip_tags( $output );
 
 	$output = beans_open_markup( 'beans_next_link[_post_navigation]', 'a', array(
-		'href' => get_permalink( $post ),
+		'href' => esc_url( get_permalink( $post ) ),
 		'rel' => 'next',
 		'title' => esc_html( $post->post_title )
 	) );
