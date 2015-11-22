@@ -51,7 +51,7 @@ function beans_favicon() {
 
 	echo beans_selfclose_markup( 'beans_favicon', 'link', array(
 		'rel' => 'Shortcut Icon',
-		'href' => $path,
+		'href' => esc_url( $path ),
 		'type' => 'image/x-icon',
 	) );
 
@@ -96,8 +96,8 @@ function beans_site_branding() {
 	if ( $logo = get_theme_mod( 'beans_logo_image', false ) )
 		$name = beans_selfclose_markup( 'beans_logo_image', 'img', array(
 			'class' => 'tm-logo',
-			'src' => $logo,
-			'alt' => $name,
+			'src' => esc_url( $logo ),
+			'alt' => esc_attr( $name ),
 		) );
 
 	echo beans_open_markup( 'beans_site_branding', 'div', array(
