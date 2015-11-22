@@ -343,7 +343,7 @@ function beans_previous_post_link( $output, $format, $link, $post ) {
 	$output = beans_open_markup( 'beans_previous_link[_post_navigation]', 'a', array(
 		'href' => get_permalink( $post ),
 		'ref' => 'previous',
-		'title' => $post->post_title
+		'title' => esc_html( $post->post_title )
 	) );
 
 		$output .= beans_open_markup( 'beans_previous_icon[_post_navigation]', 'i', array(
@@ -379,7 +379,7 @@ function beans_next_post_link( $output, $format, $link, $post ) {
 	$output = beans_open_markup( 'beans_next_link[_post_navigation]', 'a', array(
 		'href' => get_permalink( $post ),
 		'rel' => 'next',
-		'title' => $post->post_title
+		'title' => esc_html( $post->post_title )
 	) );
 
 		$output .= beans_output( 'beans_next_text[_post_navigation]', $text );
