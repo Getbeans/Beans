@@ -180,13 +180,13 @@ function beans_post_image() {
 
 				echo beans_selfclose_markup( 'beans_post_image_small_item', 'source', array(
 					'media' => '(max-width: ' . $image_small->width . 'px)',
-					'srcset' => $image_small->src,
+					'srcset' => esc_url( $image_small->src ),
 				), $image_small );
 
 				echo beans_selfclose_markup( 'beans_post_image_item', 'img', array(
 					'width' => $image->width,
 					'height' => $image->height,
-					'src' => $image->src,
+					'src' => esc_url( $image->src ),
 					'alt' => esc_attr( $image->alt ),
 					'itemprop' => 'image'
 				), $image );
