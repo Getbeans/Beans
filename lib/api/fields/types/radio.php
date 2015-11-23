@@ -33,9 +33,9 @@ function beans_field_radio( $field ) {
 
 		$i = 0; foreach ( $field['options'] as $id => $radio ) {
 
-			$checked = $id == $field['value'] ? ' checked="checked"' : null;
-
-			$has_image = @getimagesize( $radio ) ? 'bs-has-image' : false;
+			$checked = ( $id == $field['value'] ) ? ' checked="checked"' : null;
+			$extensions = array( 'jpg', 'jpeg', 'jpe',  'gif',  'png',  'bmp',   'tif',  'tiff', 'ico' );
+			$has_image = in_array( beans_get( 'extension', pathinfo( $radio ) ), $extensions ) ? 'bs-has-image' : false;
 
 			echo '<label class="' . $has_image . '">';
 
