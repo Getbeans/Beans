@@ -49,10 +49,10 @@ function beans_add_filter( $id, $callback, $priority = 10, $args = 1 ) {
  *
  * @param string $id    A unique string used as a reference. Sub-hook(s) must be set in square brackets. Each sub-
  *                      hook will create a filter. For instance, 'hook[_sub_hook]' will create a
- *                      'hook_name' filter as well as a 'hook_sub_hook' filter. The id may contain
+ *                      'hook_name' filter as well as a 'hook[_sub_hook]' filter. The id may contain
  *                      multiple sub hooks such as 'hook[_sub_hook][_sub_sub_hook]'.
- *                      In this case, four filters will be created 'hook', 'hook_sub_hook',
- *                      'hook_sub_sub_hook' and 'hook_sub_hook_sub_sub_hook'. Sub-hooks
+ *                      In this case, four filters will be created 'hook', 'hook[_sub_hook]',
+ *                      'hook[_sub_sub_hook]' and 'hook[_sub_hook][_sub_sub_hook]'. Sub-hooks
  *                      always run the parent filter first, so a filter set to the parent will apply
  *                      to all sub-filters.
  * @param mixed  $value The value on which the filters hooked to <tt>$id</tt> are applied to it.
@@ -68,32 +68,50 @@ function beans_apply_filters( $id, $value ) {
 	if ( !preg_match_all( '#\[(.*?)\]#', $args[0], $matches ) )
 		return call_user_func_array( 'apply_filters', $args );
 
-	// Apply base filter.
-	$base_args = $args;
-	$base_args[0] = preg_replace( '#\[(.*?)\]#', '', $id );
-	$filter = call_user_func_array( 'apply_filters', $base_args );
+	$prefix = current( explode( '[', $args[0] ) );
+	$variable_prefix = $prefix;
+	$suffix = preg_replace( '/^.*\]\s*/', '', $args[0] );
 
-	// Apply sub filters.
-	for ( $i = 0 ; $i < count( $matches[0] ) ; $i++ ) {
+	// Base filter.
+	$args[0] = $prefix . $suffix;
+	$value = call_user_func_array( 'apply_filters', $args );
 
-		$_id = str_replace( $matches[0][$i], $matches[1][$i], $id );
-		$_id = preg_replace( '#\[(.*?)\]#', '', $_id );
+	foreach ( $matches[0] as $subfilter ) {
 
-		$args[0] = $_id;
-		$args[1] = $filter;
+		// First level filter.
+		$args[0] = $prefix . $subfilter . $suffix;
+		$args[1] = $value;
+		$value = call_user_func_array( 'apply_filters', $args );
 
-		$filter = call_user_func_array( 'apply_filters', $args );
+		// First level filter whithout square brackets for backwards compatibility.
+		$args[0] = preg_replace( '#(\[|\])#', '', $args[0] );
+		$args[1] = $value;
+		$value = call_user_func_array( 'apply_filters', $args );
+
+		// Mid level filter.
+		$args[0] = str_replace( $subfilter, '', $id );
+		$args[1] = $value;
+		$value = call_user_func_array( 'apply_filters', $args );
+
+		// Mid level filter whithout square brackets for backwards compatibility.
+		$args[0] = preg_replace( '#(\[|\])#', '', $args[0] );
+		$args[1] = $value;
+		$value = call_user_func_array( 'apply_filters', $args );
+
+		// Accumulated filter.
+		$variable_prefix = $variable_prefix . $subfilter;
+		$args[0] = $variable_prefix . $suffix;
+		$args[1] = $value;
+		$value = call_user_func_array( 'apply_filters', $args );
+
+		// Accumulated filter whithout square brackets for backwards compatibility.
+		$args[0] = preg_replace( '#(\[|\])#', '', $args[0] );
+		$args[1] = $value;
+		$value = call_user_func_array( 'apply_filters', $args );
 
 	}
 
-	if ( !preg_match( '#\[.*\]\[.*\]#', $id ) )
-		return $filter;
-
-	// Apply combined sub filters.
-	$args[0] = preg_replace( '#(\[|\])#', '', $id );
-	$args[1] = $filter;
-
-	return call_user_func_array( 'apply_filters', $args );
+	return $value;
 
 }
 
