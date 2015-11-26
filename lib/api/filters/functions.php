@@ -78,36 +78,29 @@ function beans_apply_filters( $id, $value ) {
 
 	foreach ( $matches[0] as $subfilter ) {
 
-		// First level filter.
-		$args[0] = $prefix . $subfilter . $suffix;
-		$args[1] = $value;
-		$value = call_user_func_array( 'apply_filters', $args );
-
-		// First level filter whithout square brackets for backwards compatibility.
-		$args[0] = preg_replace( '#(\[|\])#', '', $args[0] );
-		$args[1] = $value;
-		$value = call_user_func_array( 'apply_filters', $args );
-
-		// Mid level filter.
-		$args[0] = str_replace( $subfilter, '', $id );
-		$args[1] = $value;
-		$value = call_user_func_array( 'apply_filters', $args );
-
-		// Mid level filter whithout square brackets for backwards compatibility.
-		$args[0] = preg_replace( '#(\[|\])#', '', $args[0] );
-		$args[1] = $value;
-		$value = call_user_func_array( 'apply_filters', $args );
-
-		// Accumulated filter.
+		// Cascade sub-hooks.
 		$variable_prefix = $variable_prefix . $subfilter;
-		$args[0] = $variable_prefix . $suffix;
-		$args[1] = $value;
-		$value = call_user_func_array( 'apply_filters', $args );
 
-		// Accumulated filter whithout square brackets for backwards compatibility.
-		$args[0] = preg_replace( '#(\[|\])#', '', $args[0] );
-		$args[1] = $value;
-		$value = call_user_func_array( 'apply_filters', $args );
+		// Set all sub-hooks combinations.
+		$levels = array(
+			$prefix . $subfilter . $suffix,
+			str_replace( $subfilter, '', $id ),
+			$variable_prefix . $suffix
+		);
+
+		// Apply sub-filters.
+		foreach ( $levels as $level ) {
+
+			$args[0] = $level;
+			$args[1] = $value;
+			$value = call_user_func_array( 'apply_filters', $args );
+
+			// Apply filter whithout square brackets for backwards compatibility.
+			$args[0] = preg_replace( '#(\[|\])#', '', $args[0] );
+			$args[1] = $value;
+			$value = call_user_func_array( 'apply_filters', $args );
+
+		}
 
 	}
 
@@ -140,24 +133,41 @@ function beans_has_filters( $id, $callback = false ) {
 	if ( !preg_match_all( '#\[(.*?)\]#', $id, $matches ) )
 		return has_filter( $id, $callback );
 
-	// Check combined sub filters.
-	if ( has_filter( $id, $callback ) )
+	$prefix = current( explode( '[', $id ) );
+	$variable_prefix = $prefix;
+	$suffix = preg_replace( '/^.*\]\s*/', '', $id );
+
+	// Check base filter.
+	if ( has_filter( $prefix . $suffix, $callback ) )
 		return true;
 
-	$matches[0] = array_reverse( $matches[0] );
-	$matches[1] = array_reverse( $matches[1] );
+	foreach ( $matches[0] as $subfilter ) {
 
-	// Check sub filters.
-	for ( $i = 0 ; $i < count( $matches[0] ) ; $i++ ) {
+		// Cascade sub-hooks.
+		$variable_prefix = $variable_prefix . $subfilter;
 
-		$_id = str_replace( $matches[0][$i], $matches[1][$i], $id );
+		// Set all sub-hooks combinations.
+		$levels = array(
+			$prefix . $subfilter . $suffix,
+			str_replace( $subfilter, '', $id ),
+			$variable_prefix . $suffix
+		);
 
-		if ( has_filter( $_id = preg_replace( '#\[(.*?)\]#', '', $_id ), $callback ) )
-			return true;
+		// Apply sub-filters.
+		foreach ( $levels as $level ) {
+
+			if ( has_filter( $level, $callback ) )
+				return true;
+
+			// Check filter whithout square brackets for backwards compatibility.
+			if ( has_filter( preg_replace( '#(\[|\])#', '', $level ), $callback ) )
+				return true;
+
+		}
 
 	}
 
-	return has_filter( preg_replace( '#\[(.*?)\]#', '', $id ), $callback );
+	return false;
 
 }
 
