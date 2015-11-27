@@ -76,7 +76,7 @@ class _Beans_Page_Compiler {
 		foreach ( $depedencies as $id ) {
 
 			// Don't compile admin bar assets.
-			if ( in_array( $id, array( 'admin-bar', 'open-sans', 'dashicons' ) ) )
+			if ( in_array( $id, array( 'admin-bar', 'debug-bar', 'open-sans', 'dashicons' ) ) )
 				continue;
 
 			if ( !$args = beans_get( $id, $$set_global->registered ) )

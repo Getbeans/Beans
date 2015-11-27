@@ -393,12 +393,12 @@ class _Beans_Compiler {
 
 			}
 
-			if ( _beans_is_compiler_dev_mode() === false )
+			if ( !_beans_is_compiler_dev_mode() )
 				$content = $this->strip_whitespace( $content );
 
 		}
 
-		if ( $this->compiler['type'] == 'script' && _beans_is_compiler_dev_mode() === false && $this->compiler['minify_js'] ) {
+		if ( $this->compiler['type'] == 'script' && !_beans_is_compiler_dev_mode() && $this->compiler['minify_js'] ) {
 
 			if ( !class_exists( 'JSMin' ) )
 				require_once( BEANS_API_COMPONENTS_PATH . 'compiler/vendors/js-minifier.php' );
