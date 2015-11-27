@@ -235,6 +235,10 @@ class _Beans_Compiler {
 		// Looo through fragments.
 		foreach ( $this->compiler['fragments'] as $fragment ) {
 
+			// Stop here if the fragment is empty.
+			if ( empty( $fragment ) )
+				continue;
+
 			// Set the current fragment used by other functions.
 			$this->current_fragment = $fragment;
 
@@ -247,9 +251,6 @@ class _Beans_Compiler {
 			// Treat file.
 			else {
 
-				if ( !$this->validate_extention( $fragment ) )
-					continue;
-
 				$get_content = $this->get_internal_content();
 
 				// Try remote content if the internal content returned false.
@@ -258,8 +259,8 @@ class _Beans_Compiler {
 
 			}
 
-			// Stop here if no content.
-			if ( !$get_content )
+			// Stop here if no content or content is an html page.
+			if ( !$get_content || preg_match( '#^\s*\<#', $get_content ) )
 				continue;
 
 			// Add the content.
@@ -410,22 +411,6 @@ class _Beans_Compiler {
 		}
 
 		return $content;
-
-	}
-
-
-	/**
-	 * Validate allowed file format.
-	 */
-	public function validate_extention( $fragment ) {
-
-		$allowed_format = array( 'css', 'less', 'js' );
-		$path_info = pathinfo( $fragment );
-
-		if ( in_array( beans_get( 'extension', $path_info ), $allowed_format ) )
-			return true;
-
-		return false;
 
 	}
 
