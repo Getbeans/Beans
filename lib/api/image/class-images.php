@@ -167,23 +167,4 @@ class _Beans_Image_Editor {
 
 	}
 
-
-	function get_images_dir() {
-
-		$wp_upload_dir = wp_upload_dir();
-		$dir = path_join( parse_url( $wp_upload_dir['baseurl'], PHP_URL_PATH ), 'beans/images/' );
-
-		return wp_normalize_path( trailingslashit( $dir ) );
-
-	}
-
-	function get_images_url() {
-
-		$wp_upload_dir = wp_upload_dir();
-		$dir = path_join( parse_url( $wp_upload_dir['baseurl'], PHP_URL_PATH ), 'beans/images/' );
-
-		return wp_normalize_path( trailingslashit( $dir ) );
-
-	}
-
 }
