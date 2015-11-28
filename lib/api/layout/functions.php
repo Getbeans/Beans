@@ -272,7 +272,10 @@ function beans_get_layouts_for_options( $add_default = false ) {
 	$layouts = apply_filters( 'beans_layouts', $layouts );
 
 	if ( $add_default )
-		$layouts = array_merge( array( 'default_fallback' => __( 'Use Default', 'tm-beans' ) ), $layouts );
+		$layouts = array_merge( array( 'default_fallback' => sprintf(
+			__( 'Use Default Layout (%s)',  'tm-beans' ),
+			'<a href="' . admin_url( 'customize.php?autofocus[control]=beans_layout' ) . '">' . _x( 'Modify', 'Default layout', 'tm-beans' ) . '</a>'
+		) ), $layouts );
 
 	return $layouts;
 
