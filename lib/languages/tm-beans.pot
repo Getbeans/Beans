@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Beans\n"
-"POT-Creation-Date: 2015-09-24 10:50+0200\n"
-"PO-Revision-Date: 2015-09-24 10:50+0200\n"
+"POT-Creation-Date: 2015-11-28 12:29+0200\n"
+"PO-Revision-Date: 2015-11-28 12:29+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -58,10 +58,8 @@ msgstr ""
 msgid "Preview Tools"
 msgstr ""
 
-#. Theme Name of the plugin/theme
-#. Author of the plugin/theme
 #: lib/api/admin-menu.php:25
-msgid "Beans"
+msgid "Settings"
 msgstr ""
 
 #: lib/api/admin-menu.php:37
@@ -76,16 +74,38 @@ msgstr ""
 msgid "Enable development mode"
 msgstr ""
 
+#: lib/api/admin-menu.php:58
+msgid "This option should be enabled while your website is in development."
+msgstr ""
+
 #: lib/api/admin-menu.php:63
 msgid "Mode options"
+msgstr ""
+
+#: lib/api/compiler/class-options.php:35
+msgid ""
+"Clear CSS and Javascript cached files. New cached versions will be compiled "
+"on page load."
 msgstr ""
 
 #: lib/api/compiler/class-options.php:45
 msgid "Compile all WordPress styles"
 msgstr ""
 
+#: lib/api/compiler/class-options.php:48
+msgid ""
+"Compile and cache all the CSS files that have been enqueued to the WordPress "
+"head."
+msgstr ""
+
 #: lib/api/compiler/class-options.php:58
 msgid "Compile all WordPress scripts"
+msgstr ""
+
+#: lib/api/compiler/class-options.php:61
+msgid ""
+"Compile and cache all the Javascript files that have been enqueued to the "
+"WordPress head."
 msgstr ""
 
 #: lib/api/compiler/class-options.php:66
@@ -118,6 +138,10 @@ msgid_plural "Add Images"
 msgstr[0] ""
 msgstr[1] ""
 
+#: lib/api/image/class-options.php:36
+msgid "Clear all edited images. New images will be created on page load."
+msgstr ""
+
 #: lib/api/image/class-options.php:41
 msgid "Images options"
 msgstr ""
@@ -130,8 +154,14 @@ msgstr ""
 msgid "Flush images"
 msgstr ""
 
-#: lib/api/layout/functions.php:275
-msgid "Use Default"
+#: lib/api/layout/functions.php:276
+#, php-format
+msgid "Use Default Layout (%s)"
+msgstr ""
+
+#: lib/api/layout/functions.php:277
+msgctxt "Default layout"
+msgid "Modify"
 msgstr ""
 
 #: lib/api/options/class.php:39 lib/api/post-meta/class.php:32
@@ -155,7 +185,7 @@ msgstr ""
 msgid "Settings could not be reset, please try again."
 msgstr ""
 
-#: lib/api/widget/functions.php:53
+#: lib/api/widget/functions.php:57
 msgid "Hello"
 msgstr ""
 
@@ -183,23 +213,23 @@ msgstr ""
 msgid "Off-Canvas Menu"
 msgstr ""
 
-#: lib/templates/fragments/breadcrumb.php:81
+#: lib/templates/fragments/breadcrumb.php:83
 msgid "Results:"
 msgstr ""
 
-#: lib/templates/fragments/breadcrumb.php:90
+#: lib/templates/fragments/breadcrumb.php:92
 msgid "Author Archives:"
 msgstr ""
 
-#: lib/templates/fragments/breadcrumb.php:97
+#: lib/templates/fragments/breadcrumb.php:99
 msgid "Tag Archives:"
 msgstr ""
 
-#: lib/templates/fragments/breadcrumb.php:104
+#: lib/templates/fragments/breadcrumb.php:106
 msgid "Archives:"
 msgstr ""
 
-#: lib/templates/fragments/breadcrumb.php:111
+#: lib/templates/fragments/breadcrumb.php:113
 msgid "404"
 msgstr ""
 
@@ -283,6 +313,11 @@ msgstr ""
 msgid "Comment *"
 msgstr ""
 
+#: lib/templates/fragments/deprecated.php:57
+#, php-format
+msgid "Page %s"
+msgstr ""
+
 #: lib/templates/fragments/footer.php:24
 #, php-format
 msgid "&#x000A9; %1$s - %2$s. All rights reserved."
@@ -291,11 +326,6 @@ msgstr ""
 #: lib/templates/fragments/footer.php:45
 #, php-format
 msgid "%1$s theme for WordPress."
-msgstr ""
-
-#: lib/templates/fragments/header.php:81
-#, php-format
-msgid "Page %s"
 msgstr ""
 
 #: lib/templates/fragments/menu.php:67
@@ -314,24 +344,24 @@ msgstr ""
 msgid "By "
 msgstr ""
 
-#: lib/templates/fragments/post-shortcodes.php:74
+#: lib/templates/fragments/post-shortcodes.php:73
 msgid "Leave a comment"
 msgstr ""
 
-#: lib/templates/fragments/post-shortcodes.php:76
+#: lib/templates/fragments/post-shortcodes.php:75
 msgid "1 comment"
 msgstr ""
 
-#: lib/templates/fragments/post-shortcodes.php:78
+#: lib/templates/fragments/post-shortcodes.php:77
 #, php-format
 msgid "%s comments"
 msgstr ""
 
-#: lib/templates/fragments/post-shortcodes.php:105
+#: lib/templates/fragments/post-shortcodes.php:104
 msgid "Tagged with: "
 msgstr ""
 
-#: lib/templates/fragments/post-shortcodes.php:125
+#: lib/templates/fragments/post-shortcodes.php:124
 msgid "Filed under: "
 msgstr ""
 
@@ -378,6 +408,11 @@ msgstr ""
 
 #: lib/templates/fragments/widget.php:103
 msgid "Read feed"
+msgstr ""
+
+#. Theme Name of the plugin/theme
+#. Author of the plugin/theme
+msgid "Beans"
 msgstr ""
 
 #. Theme URI of the plugin/theme
