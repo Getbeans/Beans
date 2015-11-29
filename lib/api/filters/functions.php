@@ -40,10 +40,10 @@ function beans_add_filter( $id, $callback, $priority = 10, $args = 1 ) {
  * Call the functions added to a filter hook.
  *
  * This function is similar to {@link http://codex.wordpress.org/Function_Reference/apply_filters apply_filters()}
- * with the exception of creating sub-filters if it is told to do so.
+ * with the exception of creating sub-hooks if it is told to do so.
  *
- * Sub-filters must be set in square brackets as part of the filter id argument. Sub-filters are cascaded
- * in a similar way to CSS classes.
+ * Sub-hooks must be set in square brackets as part of the filter id argument. Sub-hooks are cascaded
+ * in a similar way to CSS classes. Maximum 3 sub-hooks allowed.
  *
  * @since 1.0.0
  *
@@ -54,7 +54,7 @@ function beans_add_filter( $id, $callback, $priority = 10, $args = 1 ) {
  *                      In this case, four filters will be created 'hook', 'hook[_sub_hook]',
  *                      'hook[_sub_sub_hook]' and 'hook[_sub_hook][_sub_sub_hook]'. Sub-hooks
  *                      always run the parent filter first, so a filter set to the parent will apply
- *                      to all sub-filters.
+ *                      to all sub-hooks. Maximum 3 sub-hooks allowed.
  * @param mixed  $value The value on which the filters hooked to <tt>$id</tt> are applied to it.
  * @param mixed  $var   Additional variables passed to the functions hooked to <tt>$id</tt>.
  *
@@ -64,7 +64,7 @@ function beans_apply_filters( $id, $value ) {
 
 	$args = func_get_args();
 
-	// Return simple filter if no subfilter is set.
+	// Return simple filter if no sub-hook is set.
 	if ( !preg_match_all( '#\[(.*?)\]#', $args[0], $matches ) )
 		return call_user_func_array( 'apply_filters', $args );
 
@@ -76,19 +76,20 @@ function beans_apply_filters( $id, $value ) {
 	$args[0] = $prefix . $suffix;
 	$value = call_user_func_array( 'apply_filters', $args );
 
-	foreach ( $matches[0] as $subfilter ) {
+	foreach ( $matches[0] as $i => $subhook ) {
+
+		$variable_prefix = $variable_prefix . $subhook;
+		$levels = array( $prefix . $subhook . $suffix );
 
 		// Cascade sub-hooks.
-		$variable_prefix = $variable_prefix . $subfilter;
+		if ( $i > 0 ) {
 
-		// Set all sub-hooks combinations.
-		$levels = array(
-			$prefix . $subfilter . $suffix,
-			str_replace( $subfilter, '', $id ),
-			$variable_prefix . $suffix
-		);
+			$levels[] = str_replace( $subhook, '', $id );
+			$levels[] = $variable_prefix . $suffix;
 
-		// Apply sub-filters.
+		}
+
+		// Apply sub-hooks.
 		foreach ( $levels as $level ) {
 
 			$args[0] = $level;
@@ -104,6 +105,7 @@ function beans_apply_filters( $id, $value ) {
 
 	}
 
+
 	return $value;
 
 }
@@ -113,7 +115,7 @@ function beans_apply_filters( $id, $value ) {
  * Check if any filter has been registered for a hook.
  *
  * This function is similar to {@link http://codex.wordpress.org/Function_Reference/has_filters has_filters()}
- * with the exception of checking sub-filters if it is told to do so.
+ * with the exception of checking sub-hooks if it is told to do so.
  *
  * @since 1.0.0
  *
@@ -129,7 +131,7 @@ function beans_apply_filters( $id, $value ) {
  */
 function beans_has_filters( $id, $callback = false ) {
 
-	// Check simple filter if no subfilter is set.
+	// Check simple filter if no subhook is set.
 	if ( !preg_match_all( '#\[(.*?)\]#', $id, $matches ) )
 		return has_filter( $id, $callback );
 
@@ -141,19 +143,20 @@ function beans_has_filters( $id, $callback = false ) {
 	if ( has_filter( $prefix . $suffix, $callback ) )
 		return true;
 
-	foreach ( $matches[0] as $subfilter ) {
+	foreach ( $matches[0] as $i => $subhook ) {
+
+		$variable_prefix = $variable_prefix . $subhook;
+		$levels = array( $prefix . $subhook . $suffix );
 
 		// Cascade sub-hooks.
-		$variable_prefix = $variable_prefix . $subfilter;
+		if ( $i > 0 ) {
 
-		// Set all sub-hooks combinations.
-		$levels = array(
-			$prefix . $subfilter . $suffix,
-			str_replace( $subfilter, '', $id ),
-			$variable_prefix . $suffix
-		);
+			$levels[] = str_replace( $subhook, '', $id );
+			$levels[] = $variable_prefix . $suffix;
 
-		// Apply sub-filters.
+		}
+
+		// Apply sub-hooks.
 		foreach ( $levels as $level ) {
 
 			if ( has_filter( $level, $callback ) )
