@@ -550,7 +550,7 @@ function _beans_render_action( $hook ) {
 
 	$args = func_get_args();
 
-	// Return simple action if no subaction is set.
+	// Return simple action if no sub-hook is set.
 	if ( !preg_match_all( '#\[(.*?)\]#', $args[0], $matches ) )
 		if ( has_filter( $args[0] ) )
 			return call_user_func_array( 'beans_render_function', array_merge( array( 'do_action' ), $args ) );
@@ -558,34 +558,46 @@ function _beans_render_action( $hook ) {
 			return false;
 
 	$output = null;
+	$prefix = current( explode( '[', $args[0] ) );
+	$variable_prefix = $prefix;
+	$suffix = preg_replace( '/^.*\]\s*/', '', $args[0] );
 
-	// Base filter.
-	$base_args = $args;
-	$base_args[0] = preg_replace( '#\[(.*?)\]#', '', $hook );
-
-	if ( has_filter( $base_args[0] ) )
-		$output .= call_user_func_array( 'beans_render_function', array_merge( array( 'do_action' ), $base_args ) );
-
-	// Make short filters.
-	for ( $i = 0 ; $i < count( $matches[0] ) ; $i++ ) {
-
-		$_hook = str_replace( $matches[0][$i], $matches[1][$i], $hook );
-		$_hook = preg_replace( '#\[(.*?)\]#', '', $_hook );
-		$args[0] = $_hook;
-
-		if ( has_filter( $args[0] ) )
-			$output .= call_user_func_array( 'beans_render_function', array_merge( array( 'do_action' ), $args ) );
-
-	}
-
-	if ( !preg_match( '#\[.*\]\[.*\]#', $hook ) )
-		return $output;
-
-	// Make final filter.
-	$args[0] = preg_replace( '#(\[|\])#', '', $hook );
+	// Base hook.
+	$args[0] = $prefix . $suffix;
 
 	if ( has_filter( $args[0] ) )
 		$output .= call_user_func_array( 'beans_render_function', array_merge( array( 'do_action' ), $args ) );
+
+	foreach ( $matches[0] as $i => $subhook ) {
+
+		$variable_prefix = $variable_prefix . $subhook;
+		$levels = array( $prefix . $subhook . $suffix );
+
+		// Cascade sub-hooks.
+		if ( $i > 0 ) {
+
+			$levels[] = str_replace( $subhook, '', $hook );
+			$levels[] = $variable_prefix . $suffix;
+
+		}
+
+		// Apply sub-hooks.
+		foreach ( $levels as $level ) {
+
+			$args[0] = $level;
+
+			if ( has_filter( $args[0] ) )
+				$output .= call_user_func_array( 'beans_render_function', array_merge( array( 'do_action' ), $args ) );
+
+			// Apply filter whithout square brackets for backwards compatibility.
+			$args[0] = preg_replace( '#(\[|\])#', '', $args[0] );
+
+			if ( has_filter( $args[0] ) )
+				$output .= call_user_func_array( 'beans_render_function', array_merge( array( 'do_action' ), $args ) );
+
+		}
+
+	}
 
 	return $output;
 

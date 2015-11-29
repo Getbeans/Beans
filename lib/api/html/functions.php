@@ -74,7 +74,7 @@ function beans_remove_output( $id ) {
  *
  * @since 1.0.0
  *
- * @param string $id               A unique string used as a reference. The $id argument may contain sub-filter(s).
+ * @param string $id               A unique string used as a reference. The $id argument may contain sub-hooks(s).
  * @param string|bool $tag         The HTML tag. If set to False or empty, the markup HTML tag will be removed but
  *                                 the actions hook will be called. If set the Null, both markup HTML tag and actions
  *                                 hooks will be removed.
