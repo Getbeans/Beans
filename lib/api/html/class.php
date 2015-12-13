@@ -80,10 +80,18 @@ class _Beans_Attributes {
 	 */
 	public function replace( $attributes ) {
 
-		if ( $this->new_value )
-			$attributes[$this->attribute] = str_replace( $this->value, $this->new_value, $attributes[$this->attribute] );
-		else
+		if ( $this->new_value ) {
+
+			if ( isset( $attributes[$this->attribute] ) )
+				$attributes[$this->attribute] = str_replace( $this->value, $this->new_value, $attributes[$this->attribute] );
+			else
+				$attributes[$this->attribute] = $this->new_value;
+
+		} else {
+
 			$attributes[$this->attribute] = $this->value;
+
+		}
 
 		return $attributes;
 
