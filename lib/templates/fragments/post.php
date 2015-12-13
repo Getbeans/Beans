@@ -33,7 +33,6 @@ function beans_post_title() {
 		$title_link .= beans_close_markup( 'beans_post_title_link', 'a' );
 
 		$title = $title_link;
-
 		$title_tag = 'h2';
 
 	}
@@ -507,8 +506,6 @@ function beans_posts_pagination() {
 
 			echo beans_close_markup( 'beans_posts_pagination_item[_previous]', 'li' );
 
-
-
 		}
 
 		// Links.
@@ -549,7 +546,6 @@ function beans_posts_pagination() {
 
 			}
 
-
 			// Integer.
 			if ( $link == $current ) {
 
@@ -576,7 +572,6 @@ function beans_posts_pagination() {
 			}
 
 		}
-
 
 		// Next.
 		if ( get_next_posts_link() ) {
