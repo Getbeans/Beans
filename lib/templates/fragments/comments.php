@@ -328,9 +328,6 @@ function beans_comments_navigation() {
 }
 
 
-
-
-
 beans_add_smart_action( 'beans_after_open_comments', 'beans_comment_form_divider' );
 
 /**
@@ -343,7 +340,6 @@ function beans_comment_form_divider() {
 	echo beans_selfclose_markup( 'beans_comment_form_divider', 'hr', array( 'class' => 'uk-article-divider' ) );
 
 }
-
 
 
 beans_add_smart_action( 'beans_after_open_comments', 'beans_comment_form' );
@@ -403,6 +399,71 @@ function beans_comment_cancel_reply_link( $html, $link, $text ) {
 
 
 // Filter.
+beans_add_smart_action( 'comment_form_field_comment', 'beans_comment_form_comment' );
+
+/**
+ * Echo comment textarea field.
+ *
+ * This function replaces the default WordPress comment textarea field.
+ *
+ * @since 1.0.0
+ */
+function beans_comment_form_comment() {
+
+	$output = beans_open_markup( 'beans_comment_form[_comment]', 'p', array( 'class' => 'uk-margin-top' ) );
+
+		/**
+		 * Filter whether the comment form textarea legend should load or not.
+		 *
+		 * @since 1.0.0
+		 */
+		if ( beans_apply_filters( 'beans_comment_form_legend[_comment]', true ) ) {
+
+			$output .= beans_open_markup( 'beans_comment_form_legend[_comment]', 'legend' );
+
+				$output .= beans_output( 'beans_comment_form_legend_text[_comment]', __( 'Comment *', 'tm-beans' ) );
+
+			$output .= beans_close_markup( 'beans_comment_form_legend[_comment]', 'legend' );
+
+		}
+
+		$output .= beans_open_markup( 'beans_comment_form_field[_comment]', 'textarea', array(
+			'id' => 'comment',
+			'class' => 'uk-width-1-1',
+			'name' => 'comment',
+			'required' => '',
+			'rows' => 8,
+		) );
+
+		$output .= beans_close_markup( 'beans_comment_form_field[_comment]', 'textarea' );
+
+	$output .= beans_close_markup( 'beans_comment_form[_comment]', 'p' );
+
+	return $output;
+
+}
+
+
+beans_add_smart_action( 'comment_form_before_fields', 'beans_comment_before_fields', 9999 );
+
+/**
+ * Echo comment fields opening wraps.
+ *
+ * This function must be attached to the WordPress 'comment_form_before_fields' action which is only called if
+ * the user is not logged in.
+ *
+ * @since 1.0.0
+ */
+function beans_comment_before_fields() {
+
+	echo beans_open_markup( 'beans_comment_fields_wrap', 'div', array( 'class' => 'uk-width-medium-1-1' ) );
+
+		echo beans_open_markup( 'beans_comment_fields_inner_wrap', 'div', array( 'class' => 'uk-grid' ) );
+
+}
+
+
+// Filter.
 beans_add_smart_action( 'comment_form_default_fields', 'beans_comment_form_fields' );
 
 /**
@@ -421,7 +482,7 @@ function beans_comment_form_fields( $fields ) {
 	$commenter = wp_get_current_commenter();
 
 	// Author.
-	$author = beans_open_markup( 'beans_comment_form[_name]', 'div', array( 'class' => 'uk-width-medium-1-3 uk-margin-bottom' ) );
+	$author = beans_open_markup( 'beans_comment_form[_name]', 'div', array( 'class' => 'uk-width-medium-1-3' ) );
 
 		/**
 		 * Filter whether the comment form name legend should load or not.
@@ -449,7 +510,7 @@ function beans_comment_form_fields( $fields ) {
 	$author .= beans_close_markup( 'beans_comment_form[_name]', 'div' );
 
 	// Email.
-	$email = beans_open_markup( 'beans_comment_form[_email]', 'div', array( 'class' => 'uk-width-medium-1-3 uk-margin-bottom' ) );
+	$email = beans_open_markup( 'beans_comment_form[_email]', 'div', array( 'class' => 'uk-width-medium-1-3' ) );
 
 		/**
 		 * Filter whether the comment form email legend should load or not.
@@ -478,7 +539,7 @@ function beans_comment_form_fields( $fields ) {
 	$email .= beans_close_markup( 'beans_comment_form[_email]', 'div' );
 
 	// Url.
-	$url = beans_open_markup( 'beans_comment_form[_website]', 'div', array( 'class' => 'uk-width-medium-1-3 uk-margin-bottom' ) );
+	$url = beans_open_markup( 'beans_comment_form[_website]', 'div', array( 'class' => 'uk-width-medium-1-3' ) );
 
 		/**
 		 * Filter whether the comment form url legend should load or not.
@@ -512,76 +573,10 @@ function beans_comment_form_fields( $fields ) {
 	);
 
 	return $fields;
-
 }
 
 
-// Filter.
-beans_add_smart_action( 'comment_form_field_comment', 'beans_comment_form_comment' );
-
-/**
- * Echo comment textarea field.
- *
- * This function replaces the default WordPress comment textarea field.
- *
- * @since 1.0.0
- */
-function beans_comment_form_comment() {
-
-	echo beans_open_markup( 'beans_comment_form[_comment]', 'p', array( 'class' => 'uk-width-medium-1-1' ) );
-
-		/**
-		 * Filter whether the comment form textarea legend should load or not.
-		 *
-		 * @since 1.0.0
-		 */
-		if ( beans_apply_filters( 'beans_comment_form_legend[_comment]', true ) ) {
-
-			echo beans_open_markup( 'beans_comment_form_legend[_comment]', 'legend' );
-
-				echo beans_output( 'beans_comment_form_legend_text[_comment]', __( 'Comment *', 'tm-beans' ) );
-
-			echo beans_close_markup( 'beans_comment_form_legend[_comment]', 'legend' );
-
-		}
-
-		echo beans_open_markup( 'beans_comment_form_field[_comment]', 'textarea', array(
-			'id' => 'comment',
-			'class' => 'uk-width-1-1',
-			'name' => 'comment',
-			'required' => '',
-			'rows' => 8,
-		) );
-
-		echo beans_close_markup( 'beans_comment_form_field[_comment]', 'textarea' );
-
-	echo beans_close_markup( 'beans_comment_form[_comment]', 'p' );
-
-}
-
-
-beans_add_smart_action( 'comment_form_before_fields', 'beans_comment_before_fields' );
-
-/**
- * Echo comment fields opening wraps.
- *
- * This function must be attached to the WordPress 'comment_form_before_fields' action which is only called if
- * the user is not logged in.
- *
- * @since 1.0.0
- */
-function beans_comment_before_fields() {
-
-	echo beans_open_markup( 'beans_comment_all_fields_wrap', 'div', array( 'class' => 'uk-grid' ) );
-
-		echo beans_open_markup( 'beans_comment_fields_wrap', 'div', array( 'class' => 'uk-width-medium-1-1' ) );
-
-			echo beans_open_markup( 'beans_comment_fields_inner_wrap', 'div', array( 'class' => 'uk-grid' ) );
-
-}
-
-
-beans_add_smart_action( 'comment_form_after_fields', 'beans_comment_form_after_fields' );
+beans_add_smart_action( 'comment_form_after_fields', 'beans_comment_form_after_fields', 3 );
 
 /**
  * Echo comment fields closing wraps.
@@ -593,11 +588,8 @@ beans_add_smart_action( 'comment_form_after_fields', 'beans_comment_form_after_f
  */
 function beans_comment_form_after_fields() {
 
-			echo beans_close_markup( 'beans_comment_fields_inner_wrap', 'div' );
+		echo beans_close_markup( 'beans_comment_fields_inner_wrap', 'div' );
 
-		echo beans_close_markup( 'beans_comment_fields_wrap', 'div' );
-
-	// Add the all field closing wrap after textarea.
-	echo _beans_add_anonymous_action( 'comment_form_field_comment', array( 'beans_close_markup', array( 'beans_comment_all_fields_wrap', 'div' ) ) );
+	echo beans_close_markup( 'beans_comment_fields_wrap', 'div' );
 
 }
