@@ -32,21 +32,13 @@ function beans_updater( $value ) {
 	// Query Beans REST API if the transient is expired.
 	if ( empty( $data ) ) {
 
-		$args = array(
-			'timeout' => 15,
-			'sslverify' => false
-		);
-
-		$response = wp_remote_get( 'http://www.getbeans.io/rest-api/', $args );
-
-		if ( is_wp_error( $response ) )
-			return $value;
+		$response = wp_remote_get( 'http://www.getbeans.io/rest-api/', array( 'sslverify' => false ) );
 
 		// Retrieve data from the body and decode json format.
 		$data = json_decode( wp_remote_retrieve_body( $response ), true );
 
 		// Stop here if the is an error.
-		if ( isset( $data['error'] ) ) {
+		if ( is_wp_error( $response ) || isset( $data['error'] ) ) {
 
 			// Set temporary transient.
 			set_site_transient( 'beans_updater', array( 'version' => $current_version ), 30 * MINUTE_IN_SECONDS );
