@@ -72,3 +72,17 @@ function beans_enqueue_assets() {
 		wp_enqueue_script( 'comment-reply' );
 
 }
+
+
+beans_add_smart_action( 'after_setup_theme', 'beans_add_editor_assets' );
+
+/**
+ * Add Beans editor assets.
+ *
+ * @since 1.2.5
+ */
+function beans_add_editor_assets() {
+
+	add_editor_style( BEANS_ASSETS_URL . 'css/editor' . BEANS_MIN_CSS . '.css' );
+
+}
