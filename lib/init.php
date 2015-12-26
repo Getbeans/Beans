@@ -66,6 +66,7 @@ function beans_add_theme_support() {
 	// Beans specific.
 	add_theme_support( 'offcanvas-menu' );
 	add_theme_support( 'beans-default-styling' );
+	add_theme_support( 'beans-post-image', array( 'responsive', 'resize' ) );
 
 }
 
