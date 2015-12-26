@@ -134,25 +134,24 @@ function beans_post_image() {
 	// Set image theme support array.
 	$support = beans_get( 0, get_theme_support( 'beans-post-image' ), array() );
 
-	/**
-	 * Filter the arguments used by {@see beans_edit_image()} to edit the post image.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param bool|array $edit_args Arguments used by {@see beans_edit_image()}. Set to false to use WordPress
-	 *                              large size.
-	 */
-	$edit_args = apply_filters( 'beans_edit_post_image_args', array(
-		'resize' => array( 800, false )
-	) );
+	if ( ! in_array( 'wp', $support ) ) {
 
-	if ( empty( $edit_args ) || !in_array( 'resize', $support ) )
-		$image = beans_get_post_attachment( $post->ID, 'large' );
-	else
-		$image = beans_edit_post_attachment( $post->ID, $edit_args );
+		/**
+		 * Filter the arguments used by {@see beans_edit_image()} to edit the post image.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param bool|array $edit_args Arguments used by {@see beans_edit_image()}. Set to false to use WordPress
+		 *                              large size.
+		 */
+		$edit_args = apply_filters( 'beans_edit_post_image_args', array(
+			'resize' => array( 800, false )
+		) );
 
-	// Only apply if the theme supports it.
-	if ( $responsive = in_array( 'responsive', $support ) ) {
+		if ( empty( $edit_args ) )
+			$image = beans_get_post_attachment( $post->ID, 'large' );
+		else
+			$image = beans_edit_post_attachment( $post->ID, $edit_args );
 
 		/**
 		 * Filter the arguments used by {@see beans_edit_image()} to edit the post small image.
@@ -168,7 +167,7 @@ function beans_post_image() {
 			'resize' => array( 480, false )
 		) );
 
-		if ( empty( $edit_small_args ) || !in_array( 'resize', $support ) )
+		if ( empty( $edit_small_args ) )
 			$image_small = beans_get_post_attachment( $post->ID, 'thumbnail' );
 		else
 			$image_small = beans_edit_post_attachment( $post->ID, $edit_small_args );
@@ -185,20 +184,27 @@ function beans_post_image() {
 
 			echo beans_open_markup( 'beans_post_image_item_wrap', 'picture' );
 
-				// Only add if the theme supports it.
-				if ( $responsive )
+				if ( in_array( 'wp', $support ) ) {
+
+					// Beans API isn't available, use wp_get_attachment_image_attributes filter instead.
+					the_post_thumbnail();
+
+				} else {
+
 					echo beans_selfclose_markup( 'beans_post_image_small_item', 'source', array(
 						'media' => '(max-width: ' . $image_small->width . 'px)',
 						'srcset' => esc_url( $image_small->src ),
 					), $image_small );
 
-				echo beans_selfclose_markup( 'beans_post_image_item', 'img', array(
-					'width' => $image->width,
-					'height' => $image->height,
-					'src' => esc_url( $image->src ),
-					'alt' => esc_attr( $image->alt ),
-					'itemprop' => 'image'
-				), $image );
+					echo beans_selfclose_markup( 'beans_post_image_item', 'img', array(
+						'width' => $image->width,
+						'height' => $image->height,
+						'src' => esc_url( $image->src ),
+						'alt' => esc_attr( $image->alt ),
+						'itemprop' => 'image'
+					), $image );
+
+				}
 
 			echo beans_close_markup( 'beans_post_image_item_wrap', 'picture' );
 
