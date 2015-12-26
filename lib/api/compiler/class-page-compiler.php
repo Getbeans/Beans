@@ -50,7 +50,10 @@ class _Beans_Page_Compiler {
 			return;
 
 		if ( $scripts = $this->compile_enqueued( 'script' ) )
-			beans_compile_js_fragments( 'beans', $scripts, array( 'in_footer' => true, 'version' => null ) );
+			beans_compile_js_fragments( 'beans', $scripts, array(
+				'in_footer' => ( 'aggressive' === get_option( 'beans_compile_all_scripts_mode', 'aggressive' ) ) ? true : false,
+				'version' => null
+			) );
 
 	}
 

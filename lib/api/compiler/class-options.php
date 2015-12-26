@@ -18,7 +18,7 @@ class _Beans_Compiler_Options {
 		add_action( 'admin_notices', array( $this, 'admin_notice' ) );
 		add_action( 'beans_field_flush_cache', array( $this, 'option' ) );
 		add_action( 'beans_field_description_beans_compile_all_styles_append_markup', array( $this, 'maybe_disable_style_notice' ) );
-		add_action( 'beans_field_description_beans_compile_all_scripts_append_markup', array( $this, 'maybe_disable_scripts_notice' ) );
+		add_action( 'beans_field_description_beans_compile_all_scripts_group_append_markup', array( $this, 'maybe_disable_scripts_notice' ) );
 
 	}
 
@@ -53,12 +53,27 @@ class _Beans_Compiler_Options {
 		if ( beans_get_component_support( 'wp_scripts_compiler' ) )
 			$fields = array_merge( $fields, array(
 				array(
-					'id' => 'beans_compile_all_scripts',
-					'label' => false,
-					'checkbox_label' => __( 'Compile all WordPress scripts', 'tm-beans' ),
-					'type' => 'checkbox',
-					'default' => false,
-					'description' => __( 'Compile and cache all the Javascript files that have been enqueued to the WordPress head.', 'tm-beans' )
+					'id' => 'beans_compile_all_scripts_group',
+					'label' => __( 'Compile all WordPress scripts', 'tm-beans' ),
+					'type' => 'group',
+					'fields' => array(
+						array(
+							'id' => 'beans_compile_all_scripts',
+							'type' => 'activation',
+							'default' => false
+						),
+						array(
+							'id' => 'beans_compile_all_scripts_mode',
+							'type' => 'select',
+							'default' => array( 'aggressive' ),
+							'attributes' => array( 'style' => 'margin: -3px 0 0 -8px;' ),
+							'options' => array(
+								'aggressive' => 'Aggressive',
+								'standard' => 'Standard'
+							)
+						),
+					),
+					'description' => __( 'Compile and cache all the Javascript files that have been enqueued to the WordPress head.<!--more-->JavaSript is outputted in the footer if the level is set to <strong>Aggressive</strong> and might conflict with some third party plugins which are not following WordPress standards.', 'tm-beans' )
 				)
 			) );
 
