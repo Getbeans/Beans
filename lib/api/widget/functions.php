@@ -23,7 +23,7 @@
  *
  * @since 1.0.0
  *
- * @param array $args          {
+ * @param array $args {
  *     Optional. Arguments used by the widget area.
  *
  *     @type string $id                      Optional. The unique identifier by which the widget area will be called.
@@ -35,8 +35,8 @@
  *     @type bool   $beans_show_widget_title    Optional. Whether to show the widget title or not. Default true.
  *     @type bool   $beans_show_widget_badge    Optional. Whether to show the widget badge or not. Default false.
  *     @type bool   $beans_widget_badge_content Optional. The badge content. This may contain widget shortcodes
- *                                           {@see beans_widget_shortcodes(). Default 'Hello'.
- *
+ *                                           {@see beans_widget_shortcodes()}. Default 'Hello'.
+ * }
  * @return string The widget area ID is added to the $wp_registered_sidebars globals when the widget area is setup.
  */
 function beans_register_widget_area( $args = array(), $widget_control = array() ) {
