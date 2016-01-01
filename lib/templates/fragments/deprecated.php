@@ -64,7 +64,7 @@ function beans_wp_title( $title, $sep ) {
 /**
  * Deprecated shortcodes.
  *
- * We declare the shortcodes for backward compatibility porpuses but it should be used for further development.
+ * We declare the shortcodes for backward compatibility purposes but it shouldn't be used for further development.
  *
  * @deprecated 1.2.0
  *
