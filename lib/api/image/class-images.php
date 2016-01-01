@@ -126,7 +126,7 @@ class _Beans_Image_Editor {
 	private function setup() {
 
 		$upload_dir = beans_get_images_dir();
-		$info = pathinfo( $this->src );
+		$info = pathinfo( preg_replace( '#\?.*#', '', $this->src ) );
 		$query = substr( md5( @serialize( $this->args ) ), 0, 7 );
 		$extension = $info['extension'];
 		$filename = str_replace( '.' . $extension, '', $info['basename'] );
