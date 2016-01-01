@@ -35,6 +35,11 @@ function beans_load_dependencies() {
 	beans_add_api_component_support( 'wp_styles_compiler' );
 	beans_add_api_component_support( 'wp_scripts_compiler' );
 
+	/**
+	 * Fires after Beans API loads.
+	 *
+	 * @since 1.0.0
+	 */
 	do_action( 'beans_after_load_api' );
 
 }
@@ -66,7 +71,6 @@ function beans_add_theme_support() {
 	// Beans specific.
 	add_theme_support( 'offcanvas-menu' );
 	add_theme_support( 'beans-default-styling' );
-	add_theme_support( 'beans-post-image' );
 
 }
 

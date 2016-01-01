@@ -126,15 +126,19 @@ beans_add_smart_action( 'beans_post_body', 'beans_post_image', 5 );
  */
 function beans_post_image() {
 
-	if ( !has_post_thumbnail() || !( $support = get_theme_support( 'beans-post-image' ) ) )
+	if ( !has_post_thumbnail() || !current_theme_supports( 'post-thumbnails' ) )
 		return false;
 
 	global $post;
 
-	// Set image theme support array.
-	$support = beans_get( 0, get_theme_support( 'beans-post-image' ), array() );
-
-	if ( ! in_array( 'wp', $support ) ) {
+	/**
+	 * Filter whether Beans should handle the image edition (resize) or let WP do so.
+	 *
+	 * @since 1.2.5
+	 *
+	 * @param bool $edit True to use Beans Image API to handle the image edition (resize), false to let {@link http://codex.wordpress.org/Function_Reference/the_post_thumbnail the_post_thumbnail()} taking care of it. Default true.
+	 */
+	if ( $edit = apply_filters( 'beans_post_image_edit', true ) ) {
 
 		/**
 		 * Filter the arguments used by {@see beans_edit_image()} to edit the post image.
@@ -184,12 +188,7 @@ function beans_post_image() {
 
 			echo beans_open_markup( 'beans_post_image_item_wrap', 'picture' );
 
-				if ( in_array( 'wp', $support ) ) {
-
-					// Beans API isn't available, use wp_get_attachment_image_attributes filter instead.
-					the_post_thumbnail();
-
-				} else {
+				if ( $edit ) {
 
 					echo beans_selfclose_markup( 'beans_post_image_small_item', 'source', array(
 						'media' => '(max-width: ' . $image_small->width . 'px)',
@@ -203,6 +202,11 @@ function beans_post_image() {
 						'alt' => esc_attr( $image->alt ),
 						'itemprop' => 'image'
 					), $image );
+
+				} else {
+
+					// Beans API isn't available, use wp_get_attachment_image_attributes filter instead.
+					the_post_thumbnail();
 
 				}
 
