@@ -256,6 +256,23 @@ function beans_get_compiler_dir( $admin = false ) {
 
 
 /**
+ * Get beans compiler url.
+ *
+ * @since 1.2.6
+ *
+ * @return string Compiler directory.
+ */
+function beans_get_compiler_url( $admin = false ) {
+
+	$wp_upload_dir = wp_upload_dir();
+	$suffix = $admin ? 'beans/admin-compiler/' : 'beans/compiler/';
+
+	return trailingslashit( $wp_upload_dir['baseurl'] ) . $suffix;
+
+}
+
+
+/**
  * Check if development mode is enabled taking in consideration legacy constant.
  *
  * @ignore
