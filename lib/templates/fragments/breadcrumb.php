@@ -37,7 +37,7 @@ function beans_breadcrumb() {
 	if ( is_single() && $post_type == 'post' ) {
 
 		foreach ( get_the_category( $post->ID ) as $category )
-			$breadcrumbs[esc_url( get_category_link( $category->term_id ) )] = $category->name;
+			$breadcrumbs[get_category_link( $category->term_id )] = $category->name;
 
 		$breadcrumbs[] = get_the_title();
 
