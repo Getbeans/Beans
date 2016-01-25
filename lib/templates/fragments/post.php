@@ -138,7 +138,9 @@ function beans_post_image() {
 	 *
 	 * @param bool $edit True to use Beans Image API to handle the image edition (resize), false to let {@link http://codex.wordpress.org/Function_Reference/the_post_thumbnail the_post_thumbnail()} taking care of it. Default true.
 	 */
-	if ( $edit = apply_filters( 'beans_post_image_edit', true ) ) {
+	$edit = apply_filters( 'beans_post_image_edit', true );
+
+	if ( $edit ) {
 
 		/**
 		 * Filter the arguments used by {@see beans_edit_image()} to edit the post image.
