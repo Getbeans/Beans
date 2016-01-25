@@ -244,13 +244,16 @@ function beans_get_compiler_dir( $admin = false ) {
 	$suffix = $admin ? 'beans/admin-compiler/' : 'beans/compiler/';
 
 	/**
-	 * Filter the beans compiler directory.
+	 * Deprecated. Filter the beans compiler directory.
+	 *
+	 * This filter is deprecated for security and compatibility purposes.
 	 *
 	 * @since 1.0.0
+	 * @deprecated 1.3.0
 	 */
-	$dir = apply_filters( 'beans_compiler_dir', trailingslashit( $wp_upload_dir['basedir'] ) . $suffix, $admin );
+	$deprecated = apply_filters( 'beans_compiler_dir', false, $admin );
 
-	return wp_normalize_path( trailingslashit( $dir ) );
+	return wp_normalize_path( trailingslashit( $wp_upload_dir['basedir'] ) . $suffix );
 
 }
 
