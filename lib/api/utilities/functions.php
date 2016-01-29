@@ -142,6 +142,12 @@ function beans_path_to_url( $path ) {
 
 		}
 
+		$explode = beans_get( 0, explode( '/' , trailingslashit( ltrim( $subfolder, '/' ) ) ) );
+
+		// Maybe re-add tilde from host.
+		if ( stripos( $explode, '~' ) !== false )
+			$host = trailingslashit( $host ) . $explode;
+
 	}
 
 	// Remove root if necessary.
@@ -182,6 +188,12 @@ function beans_url_to_path( $url ) {
 	// Parse url and standardize backslashes.
 	$url = parse_url( $url, PHP_URL_PATH );
 	$path = wp_normalize_path( $url );
+	$explode = beans_get( 0, explode( '/' , trailingslashit( ltrim( $path, '/' ) ) ) );
+
+	// Maybe remove tilde from path.
+	if ( stripos( $explode, '~' ) !== false ) {
+		$path = preg_replace( '#\~[^/]*\/#', '', $path );
+	}
 
 	// Set root if it isn't cached yet.
 	if ( !$root ) {
