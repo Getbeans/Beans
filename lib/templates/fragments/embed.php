@@ -2,7 +2,7 @@
 /**
  * Extends WordPress Embed.
  *
- * @package Render\Embed
+ * @package Fragments\Embed
  */
 
 // Filter.

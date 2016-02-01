@@ -159,7 +159,6 @@ function beans_includes() {
 	require_once( BEANS_RENDER_PATH . 'widget-area.php' );
 	require_once( BEANS_RENDER_PATH . 'walker.php' );
 	require_once( BEANS_RENDER_PATH . 'menu.php' );
-	require_once( BEANS_RENDER_PATH . 'embed.php' );
 
 }
 

@@ -26,6 +26,7 @@ function beans_load_global_fragments() {
 	beans_load_fragment_file( 'post-shortcodes' );
 	beans_load_fragment_file( 'post' );
 	beans_load_fragment_file( 'widget-area' );
+	beans_load_fragment_file( 'embed' );
 	beans_load_fragment_file( 'deprecated' );
 
 }
