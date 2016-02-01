@@ -21,6 +21,24 @@ function beans_header_template() {
 }
 
 
+beans_add_smart_action( 'beans_site_prepend_markup', 'beans_header_partial_template' );
+
+/**
+ * Echo header partial template part.
+ *
+ * @since 1.2.6
+ */
+function beans_header_partial_template() {
+
+	// Allow overwrite.
+	if ( locate_template( 'header-partial.php', true, false ) != '' )
+		return;
+
+	require( BEANS_STRUCTURE_PATH . 'header-partial.php' );
+
+}
+
+
 beans_add_smart_action( 'beans_load_document', 'beans_content_template' );
 
 /**
@@ -171,6 +189,24 @@ function beans_sidebar_secondary_template() {
 		return;
 
 	get_sidebar( 'secondary' );
+
+}
+
+
+beans_add_smart_action( 'beans_site_append_markup', 'beans_footer_partial_template' );
+
+/**
+ * Echo footer partial template part.
+ *
+ * @since 1.2.6
+ */
+function beans_footer_partial_template() {
+
+	// Allow overwrite.
+	if ( locate_template( 'footer-partial.php', true, false ) != '' )
+		return;
+
+	require( BEANS_STRUCTURE_PATH . 'footer-partial.php' );
 
 }
 

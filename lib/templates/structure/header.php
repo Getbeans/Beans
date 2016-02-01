@@ -36,26 +36,6 @@ echo beans_open_markup( 'beans_html', 'html', str_replace( ' ', '&', str_replace
 
 		echo beans_open_markup( 'beans_site', 'div', array( 'class' => 'tm-site' ) );
 
-			echo beans_open_markup( 'beans_header', 'header', array(
-				'class' => 'tm-header uk-block',
-				'role' => 'banner',
-				'itemscope' => 'itemscope',
-				'itemtype' => 'http://schema.org/WPHeader'
-			) );
-
-				echo beans_open_markup( 'beans_fixed_wrap[_header]', 'div', 'class=uk-container uk-container-center' );
-
-					/**
-					 * Fires in the header.
-					 *
-					 * @since 1.0.0
-					 */
-					do_action( 'beans_header' );
-
-				echo beans_close_markup( 'beans_fixed_wrap[_header]', 'div' );
-
-			echo beans_close_markup( 'beans_header', 'header' );
-
 			echo beans_open_markup( 'beans_main', 'main', array( 'class' => 'tm-main uk-block' ) );
 
 				echo beans_open_markup( 'beans_fixed_wrap[_main]', 'div', 'class=uk-container uk-container-center' );
