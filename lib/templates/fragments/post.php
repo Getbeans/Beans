@@ -714,3 +714,172 @@ function beans_post_password_form() {
 	return $output;
 
 }
+
+
+// Filter.
+beans_add_smart_action( 'post_gallery', 'beans_post_gallery', 10, 3 );
+
+/**
+ * Modify WP {@link https://codex.wordpress.org/Function_Reference/gallery_shortcode Gallery Shortcode} output.
+ *
+ * This implements the functionality of the Gallery Shortcode for displaying WordPress images in a post.
+ *
+ * @since 1.2.6
+ *
+ * @param string $output   The gallery output. Default empty.
+ * @param array  $attr     Attributes of the {@link https://codex.wordpress.org/Function_Reference/gallery_shortcode gallery_shortcode()}.
+ * @param int    $instance Unique numeric ID of this gallery shortcode instance.
+ *
+ * @return string HTML content to display gallery.
+ */
+function beans_post_gallery( $output, $attr, $instance ) {
+
+	$post = get_post();
+	$html5 = current_theme_supports( 'html5', 'gallery' );
+	$defaults = array(
+		'order' => 'ASC',
+		'orderby' => 'menu_order ID',
+		'id' => $post ? $post->ID : 0,
+		'itemtag' => $html5 ? 'figure' : 'dl',
+		'icontag' => $html5 ? 'div' : 'dt',
+		'captiontag' => $html5 ? 'figcaption' : 'dd',
+		'columns' => 3,
+		'size' => 'thumbnail',
+		'include' => '',
+		'exclude' => '',
+		'link' => ''
+	);
+	$atts = shortcode_atts( $defaults, $attr, 'gallery' );
+	$id = intval( $atts['id'] );
+
+	// Set attachements.
+	if ( !empty( $atts['include'] ) ) {
+
+		$_attachments = get_posts( array(
+			'include' => $atts['include'],
+			'post_status' => 'inherit',
+			'post_type' => 'attachment',
+			'post_mime_type' => 'image',
+			'order' => $atts['order'],
+			'orderby' => $atts['orderby']
+		) );
+
+		$attachments = array();
+
+		foreach ( $_attachments as $key => $val )
+			$attachments[$val->ID] = $_attachments[$key];
+
+	} elseif ( !empty( $atts['exclude'] ) ) {
+
+		$attachments = get_children( array(
+			'post_parent' => $id,
+			'exclude' => $atts['exclude'],
+			'post_status' => 'inherit',
+			'post_type' => 'attachment',
+			'post_mime_type' => 'image',
+			'order' => $atts['order'],
+			'orderby' => $atts['orderby']
+		) );
+
+	} else {
+
+		$attachments = get_children( array(
+			'post_parent' => $id,
+			'post_status' => 'inherit',
+			'post_type' => 'attachment',
+			'post_mime_type' => 'image',
+			'order' => $atts['order'],
+			'orderby' => $atts['orderby']
+		) );
+
+	}
+
+	// Stop here if no attachment.
+	if ( empty( $attachments ) )
+		return '';
+
+	if ( is_feed() ) {
+
+		$output = "\n";
+
+		foreach ( $attachments as $att_id => $attachment )
+			$output .= wp_get_attachment_link( $att_id, $atts['size'], true ) . "\n";
+
+		return $output;
+
+	}
+
+	// Valid tags.
+	$valid_tags = wp_kses_allowed_html( 'post' );
+	$validate = array(
+		'itemtag',
+		'captiontag',
+		'icontag'
+	);
+
+	// Validate tags.
+	foreach ( $validate as $tag )
+		if ( !isset( $valid_tags[$atts[$tag]] ) )
+			$atts[$tag] = $defaults[$tag];
+
+	// Set variables used in the output.
+	$columns = intval( $atts['columns'] );
+	$size_class = sanitize_html_class( $atts['size'] );
+
+	// WP adds the opening div in the gallery_style filter (weird), so we follow it as don't want to break people's site.
+	$gallery_div = beans_open_markup( "beans_post_gallery[_{$id}]", 'div', array(
+		'class' => "uk-grid uk-grid-width-small-1-{$columns} gallery galleryid-{$id} gallery-columns-{$columns} gallery-size-{$size_class}",
+		'data-uk-grid-margin' => false
+	), $id, $columns );
+
+	/**
+	 * Apply WP core filter. Filter the default gallery shortcode CSS styles.
+	 *
+	 * Documented in WordPress.
+	 *
+	 * @ignore
+	 */
+	$output = apply_filters( 'gallery_style', $gallery_div );
+
+		$i = 0; foreach ( $attachments as $attachment_id => $attachment ) {
+
+			$attr = ( trim( $attachment->post_excerpt ) ) ? array( 'aria-describedby' => "gallery-{$instance}-{$id}" ) : '';
+			$image_meta = wp_get_attachment_metadata( $attachment_id );
+			$orientation = '';
+
+			if ( isset( $image_meta['height'], $image_meta['width'] ) )
+				$orientation = ( $image_meta['height'] > $image_meta['width'] ) ? 'portrait' : 'landscape';
+
+			// Set the image output.
+			if ( 'none' === $atts['link'] )
+				$image_output = wp_get_attachment_image( $attachment_id, $atts['size'], false, $attr );
+			else
+				$image_output = wp_get_attachment_link( $attachment_id, $atts['size'], ( 'file' !== $atts['link'] ), false, false, $attr );
+
+			$output .= beans_open_markup( "beans_post_gallery_item[_{$attachment_id}]", $atts['itemtag'], array( 'class' => 'gallery-item' ) );
+
+				$output .= beans_open_markup( "beans_post_gallery_icon[_{$attachment_id}]", $atts['icontag'], array( 'class' => "gallery-icon {$orientation}" ) );
+
+					$output .= beans_output( "beans_post_gallery_icon[_{$attachment_id}]", $image_output, $attachment_id, $atts );
+
+				$output .= beans_close_markup( "beans_post_gallery_icon[_{$attachment_id}]", $atts['icontag'] );
+
+				if ( $atts['captiontag'] && trim( $attachment->post_excerpt ) ) {
+
+					$output .= beans_open_markup( "beans_post_gallery_caption[_{$attachment_id}]", $atts['captiontag'], array( 'class' => 'wp-caption-text gallery-caption' ) );
+
+						$output .= beans_output( "beans_post_gallery_caption_text[_{$attachment_id}]", wptexturize( $attachment->post_excerpt ) );
+
+					$output .= beans_close_markup( "beans_post_gallery_caption[_{$attachment_id}]", $atts['captiontag'] );
+
+				}
+
+			$output .= beans_close_markup( "beans_post_gallery_item[_{$attachment_id}]", $atts['itemtag'] );
+
+		}
+
+	$output .= beans_close_markup( "beans_post_gallery[_{$id}]", 'div' );
+
+	return $output;
+
+}
