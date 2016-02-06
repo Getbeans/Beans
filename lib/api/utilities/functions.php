@@ -284,11 +284,10 @@ function beans_get( $needle, $haystack = false, $default = null ) {
 	if ( $haystack === false )
 		$haystack = $_GET;
 
-	if ( is_array( $haystack ) && isset( $haystack[$needle] ) )
-		return $haystack[$needle];
+	$haystack = (array) $haystack;
 
-	if ( is_object( $haystack ) && isset( $haystack->$needle ) )
-		return $haystack->$needle;
+	if ( isset( $haystack[$needle] ) )
+		return $haystack[$needle];
 
 	return $default;
 
