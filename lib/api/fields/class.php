@@ -220,7 +220,7 @@ class _Beans_Fields {
 			if ( in_array( $type, self::$field_assets_hook_loaded ) )
 				continue;
 
-			do_action( "beans_field_enqueue_scripts_$type" );
+			do_action( "beans_field_enqueue_scripts_{$type}" );
 
 			// Set flag that field is loaded.
 			self::$field_assets_hook_loaded[$type] = $type;
