@@ -30,7 +30,8 @@ class _Beans_WP_Customize {
 		$this->section = $section;
 		$this->args = array_merge( $defaults, $args );
 
-		add_action( 'customize_register', array( $this, 'add' ) );
+		// Add section, settings and controls.
+		$this->add();
 
 		beans_add_attribute( 'beans_field_label', 'class', 'customize-control-title' );
 
@@ -40,7 +41,9 @@ class _Beans_WP_Customize {
 	/**
 	 * Add section, settings and controls.
 	 */
-	public function add( $wp_customize ) {
+	private function add() {
+
+		global $wp_customize;
 
 		$this->add_section( $wp_customize );
 

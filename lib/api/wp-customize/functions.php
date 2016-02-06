@@ -9,7 +9,7 @@
 /**
  * Register WP Customize Options.
  *
- * This function should only be invoked through the 'init' action.
+ * This function should only be invoked through the 'customize_register' action.
  *
  * @since 1.0.0
  *
