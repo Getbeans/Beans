@@ -19,7 +19,7 @@ function beans_do_enqueue_wp_customize_assets() {
 }
 
 
-beans_add_smart_action( 'init', 'beans_do_register_wp_customize_options' );
+beans_add_smart_action( 'customize_register', 'beans_do_register_wp_customize_options' );
 
 /**
  * Add Beans options to the WordPress Customizer.
