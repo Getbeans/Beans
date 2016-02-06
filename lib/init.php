@@ -151,7 +151,8 @@ function beans_includes() {
 	require_once( BEANS_ASSETS_PATH . 'assets.php' );
 
 	// Include customizer.
-	require_once( BEANS_ADMIN_PATH . 'wp-customize.php' );
+	if ( is_customize_preview() )
+		require_once( BEANS_ADMIN_PATH . 'wp-customize.php' );
 
 	// Include renderers.
 	require_once( BEANS_RENDER_PATH . 'template-parts.php' );

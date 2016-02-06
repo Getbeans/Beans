@@ -51,7 +51,7 @@ function beans_register_wp_customize_options( array $fields, $section, $args = a
 	$fields = apply_filters( "beans_wp_customize_fields_{$section}", _beans_pre_standardize_fields( $fields ) );
 
 	// Stop here if the current page isn't concerned.
-	if ( !class_exists( 'WP_Customize_Manager' ) )
+	if ( !is_customize_preview() )
 		return;
 
 	// Stop here if the field can't be registered.
