@@ -4,7 +4,7 @@
  *
  * @ignore
  */
-class _Beans_Admin {
+final class _Beans_Admin {
 
 	/**
 	 * Constructor.

@@ -6,7 +6,7 @@
  *
  * @package API\Html
  */
-class _Beans_Attributes {
+final class _Beans_Attributes {
 
 	/**
 	 * Markup id.

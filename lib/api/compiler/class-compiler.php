@@ -6,7 +6,7 @@
  *
  * @package API\Compiler
  */
-class _Beans_Compiler {
+final class _Beans_Compiler {
 
 	/**
 	 * Compiler arguments.

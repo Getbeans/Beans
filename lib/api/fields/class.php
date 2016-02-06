@@ -6,7 +6,7 @@
  *
  * @package API\Fields
  */
-class _Beans_Fields {
+final class _Beans_Fields {
 
 	/**
 	 * Fields.

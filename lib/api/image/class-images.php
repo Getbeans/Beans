@@ -6,7 +6,7 @@
  *
  * @package API\Image
  */
-class _Beans_Image_Editor {
+final class _Beans_Image_Editor {
 
 	/**
 	 * Source.

@@ -6,7 +6,7 @@
  *
  * @package API\Uikit
  */
-class _Beans_Uikit {
+final class _Beans_Uikit {
 
 	/**
 	 * Compile enqueued items.

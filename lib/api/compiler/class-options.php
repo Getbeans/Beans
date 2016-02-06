@@ -6,7 +6,7 @@
  *
  * @package API\Compiler
  */
-class _Beans_Compiler_Options {
+final class _Beans_Compiler_Options {
 
 	/**
 	 * Constructor.

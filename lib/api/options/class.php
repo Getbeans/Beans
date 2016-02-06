@@ -6,7 +6,7 @@
  *
  * @package API\Options
  */
-class _Beans_Options {
+final class _Beans_Options {
 
 	/**
 	 * Metabox arguments.

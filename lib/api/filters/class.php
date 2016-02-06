@@ -6,7 +6,7 @@
  *
  * @package API\Filters
  */
-class _Beans_Anonymous_Filters {
+final class _Beans_Anonymous_Filters {
 
 	/**
 	 * Callback.
