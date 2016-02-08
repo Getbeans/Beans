@@ -103,7 +103,6 @@ function beans_post_meta_tags_shortcode() {
 
 	echo beans_output( 'beans_post_meta_tags_prefix', __( 'Tagged with: ', 'tm-beans' ) ) . $tags;
 
-
 }
 
 
