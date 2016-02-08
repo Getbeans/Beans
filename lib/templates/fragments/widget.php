@@ -100,7 +100,7 @@ function beans_widget_rss_content() {
 
 	$options = beans_get_widget( 'options' );
 
-	return '<p><a class="uk-button" href="' . $options ['url'] . '" target="_blank">' . __( 'Read feed', 'tm-beans' ) . '</a><p>';
+	return '<p><a class="uk-button" href="' . beans_get( 'url', $options ) . '" target="_blank">' . __( 'Read feed', 'tm-beans' ) . '</a><p>';
 
 }
 
