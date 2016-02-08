@@ -551,3 +551,28 @@ function _beans_widget_subfilters() {
     return '[_' . implode( '][_', $subfilters ) . ']';
 
 }
+
+
+add_action( 'the_widget', '_beans_force_the_widget', 10, 3 );
+
+/**
+ * Force atypical widget added using the_widget() to have a correctly registered id.
+ *
+ * @ignore
+ */
+function _beans_force_the_widget( $widget, $instance, $args ) {
+
+    global $wp_widget_factory;
+
+    $widget_obj = $wp_widget_factory->widgets[$widget];
+
+    if ( !$widget_obj instanceof WP_Widget )
+        return;
+
+    // Stop here if the widget correctly contain an id.
+    if ( stripos( $widget_obj->id, beans_get( 'before_widget', $args ) ) !== false )
+        return;
+
+    printf( '<!--widget-%1$s-->', $widget_obj->id );
+
+}
