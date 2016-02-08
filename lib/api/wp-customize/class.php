@@ -6,7 +6,7 @@
  *
  * @package API\WP_Customize
  */
-class _Beans_WP_Customize {
+final class _Beans_WP_Customize {
 
 	/**
 	 * Fields section.
