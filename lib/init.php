@@ -88,7 +88,7 @@ function beans_define_constants() {
 	define( 'BEANS_VERSION', '1.2.5' );
 
 	// Define paths.
-	define( 'BEANS_THEME_PATH', wp_normalize_path( trailingslashit( get_template_directory() ) ) );
+	if ( !defined( 'BEANS_THEME_PATH' ) ) define( 'BEANS_THEME_PATH', wp_normalize_path( trailingslashit( get_template_directory() ) ) );
 	define( 'BEANS_PATH', BEANS_THEME_PATH . 'lib/' );
 	define( 'BEANS_ASSETS_PATH', BEANS_PATH . 'assets/' );
 	define( 'BEANS_LANGUAGES_PATH', BEANS_PATH . 'languages/' );
@@ -98,7 +98,7 @@ function beans_define_constants() {
 	define( 'BEANS_FRAGMENTS_PATH', BEANS_TEMPLATES_PATH . 'fragments/' );
 
 	// Define urls.
-	define( 'BEANS_THEME_URL', trailingslashit( get_template_directory_uri() ) );
+	if ( !defined( 'BEANS_THEME_URL' ) ) define( 'BEANS_THEME_URL', trailingslashit( get_template_directory_uri() ) );
 	define( 'BEANS_URL', BEANS_THEME_URL . 'lib/' );
 	define( 'BEANS_ASSETS_URL', BEANS_URL . 'assets/' );
 	define( 'BEANS_LESS_URL', BEANS_ASSETS_URL . 'less/' );
