@@ -85,7 +85,7 @@ add_action( 'beans_init', 'beans_define_constants' );
 function beans_define_constants() {
 
 	// Define version.
-	define( 'BEANS_VERSION', '1.2.5' );
+	define( 'BEANS_VERSION', '1.3.0-beta' );
 
 	// Define paths.
 	if ( !defined( 'BEANS_THEME_PATH' ) ) define( 'BEANS_THEME_PATH', wp_normalize_path( trailingslashit( get_template_directory() ) ) );
