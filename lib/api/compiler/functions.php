@@ -261,7 +261,7 @@ function beans_get_compiler_dir( $admin = false ) {
 /**
  * Get beans compiler url.
  *
- * @since 1.2.6
+ * @since 1.3.0
  *
  * @return string Compiler directory.
  */

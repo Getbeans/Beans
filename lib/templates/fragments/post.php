@@ -724,7 +724,7 @@ beans_add_smart_action( 'post_gallery', 'beans_post_gallery', 10, 3 );
  *
  * This implements the functionality of the Gallery Shortcode for displaying WordPress images in a post.
  *
- * @since 1.2.6
+ * @since 1.3.0
  *
  * @param string $output   The gallery output. Default empty.
  * @param array  $attr     Attributes of the {@link https://codex.wordpress.org/Function_Reference/gallery_shortcode gallery_shortcode()}.

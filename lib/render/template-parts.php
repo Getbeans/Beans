@@ -26,7 +26,7 @@ beans_add_smart_action( 'beans_site_prepend_markup', 'beans_header_partial_templ
 /**
  * Echo header partial template part.
  *
- * @since 1.2.6
+ * @since 1.3.0
  */
 function beans_header_partial_template() {
 
@@ -198,7 +198,7 @@ beans_add_smart_action( 'beans_site_append_markup', 'beans_footer_partial_templa
 /**
  * Echo footer partial template part.
  *
- * @since 1.2.6
+ * @since 1.3.0
  */
 function beans_footer_partial_template() {
 
