@@ -94,7 +94,7 @@ function beans_uikit_dequeue_components( $components, $type = 'core' ) {
  * @since 1.0.0
  *
  * @param string $id   A unique string used as a reference. Similar to the WordPress scripts $handle argument.
- * @param string $path Path to the UIkit theme folder.
+ * @param string $path Absolute path to the UIkit theme folder.
  *
  * @return bool False on error or if already exists, true on success.
  */
