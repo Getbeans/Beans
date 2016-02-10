@@ -22,7 +22,6 @@ echo beans_open_markup( 'beans_html', 'html', str_replace( ' ', '&', str_replace
 		 */
 		do_action( 'beans_head' );
 
-		// Keep if for plugins.
 		wp_head();
 
 	echo beans_close_markup( 'beans_head', 'head' );
@@ -42,6 +41,6 @@ echo beans_open_markup( 'beans_html', 'html', str_replace( ' ', '&', str_replace
 
 					echo beans_open_markup( 'beans_main_grid', 'div', array( 'class' => 'uk-grid', 'data-uk-grid-margin' => '' ) );
 
-							echo beans_open_markup( 'beans_primary', 'div', array(
-								'class' => 'tm-primary ' . beans_get_layout_class( 'content' )
-							) );
+						echo beans_open_markup( 'beans_primary', 'div', array(
+							'class' => 'tm-primary ' . beans_get_layout_class( 'content' )
+						) );

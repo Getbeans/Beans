@@ -17,7 +17,6 @@
 
 		echo beans_close_markup( 'beans_site', 'div' );
 
-		// Keep it for plugins.
 		wp_footer();
 
 	echo beans_close_markup( 'beans_body', 'body' );
