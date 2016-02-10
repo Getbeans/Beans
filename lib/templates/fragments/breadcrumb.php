@@ -26,10 +26,10 @@ function beans_breadcrumb() {
 	$breadcrumbs[home_url()] = __( 'Home', 'tm-beans' );
 
 	// Custom post type.
-	if ( !in_array( $post_type, array( 'page', 'attachment', 'post' ) ) ) {
+	if ( !in_array( $post_type, array( 'page', 'attachment', 'post' ) ) && !is_404() ) {
 
-		$post_type_object = get_post_type_object( $post_type );
-		$breadcrumbs[get_post_type_archive_link( $post_type )] = $post_type_object->labels->name;
+		if ( $post_type_object = get_post_type_object( $post_type ) )
+			$breadcrumbs[get_post_type_archive_link( $post_type )] = $post_type_object->labels->name;
 
 	}
 
