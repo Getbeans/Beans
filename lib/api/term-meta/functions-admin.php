@@ -50,7 +50,7 @@ function beans_register_term_meta( array $fields, $taxonomies, $section ) {
 		return false;
 
 	// Load the class only if this function is called to prevent unnecessary memory usage.
-	require_once( BEANS_API_COMPONENTS_PATH . 'term-meta/class.php' );
+	require_once( BEANS_API_PATH . 'term-meta/class.php' );
 
 	new _Beans_Term_Meta( $section );
 

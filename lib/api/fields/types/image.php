@@ -14,7 +14,7 @@ function beans_field_image_assets() {
 
 	wp_enqueue_media();
 	wp_enqueue_script( 'jquery-ui-sortable' );
-	wp_enqueue_script( 'beans-field-media', BEANS_API_COMPONENTS_URL . 'fields/assets/js/media' . BEANS_MIN_CSS . '.js', array( 'jquery' ), BEANS_VERSION );
+	wp_enqueue_script( 'beans-field-media', BEANS_API_URL . 'fields/assets/js/media' . BEANS_MIN_CSS . '.js', array( 'jquery' ), BEANS_VERSION );
 
 }
 

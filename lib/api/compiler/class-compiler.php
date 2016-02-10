@@ -427,7 +427,7 @@ final class _Beans_Compiler {
 			if ( $this->compiler['format'] == 'less' ) {
 
 				if ( !class_exists( 'Beans_Lessc' ) )
-					require_once( BEANS_API_COMPONENTS_PATH . 'compiler/vendors/lessc.php' );
+					require_once( BEANS_API_PATH . 'compiler/vendors/lessc.php' );
 
 				$less = new Beans_Lessc();
 
@@ -443,7 +443,7 @@ final class _Beans_Compiler {
 		if ( $this->compiler['type'] == 'script' && !_beans_is_compiler_dev_mode() && $this->compiler['minify_js'] ) {
 
 			if ( !class_exists( 'JSMin' ) )
-				require_once( BEANS_API_COMPONENTS_PATH . 'compiler/vendors/js-minifier.php' );
+				require_once( BEANS_API_PATH . 'compiler/vendors/js-minifier.php' );
 
 			$js_min = new JSMin( $content );
 

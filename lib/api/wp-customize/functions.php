@@ -59,7 +59,7 @@ function beans_register_wp_customize_options( array $fields, $section, $args = a
 		return false;
 
 	// Load the class only if this function is called to prevent unnecessary memory usage.
-	require_once( BEANS_API_COMPONENTS_PATH . 'wp-customize/class.php' );
+	require_once( BEANS_API_PATH . 'wp-customize/class.php' );
 
 	new _Beans_WP_Customize( $section, $args );
 

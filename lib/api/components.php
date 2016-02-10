@@ -25,7 +25,7 @@ function beans_load_api_components( $components ) {
 
 	static $loaded = array();
 
-	$root = BEANS_API_COMPONENTS_PATH;
+	$root = BEANS_API_PATH;
 
 	$common = array(
 		'html' => array(

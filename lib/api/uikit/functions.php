@@ -179,10 +179,10 @@ global $_beans_uikit_registered_items;
 if ( !isset( $_beans_uikit_registered_items ) )
 	$_beans_uikit_registered_items = array(
 		'themes' => array(
-			'default' => BEANS_API_COMPONENTS_PATH . 'uikit/src/themes/default',
-			'almost-flat' => BEANS_API_COMPONENTS_PATH . 'uikit/src/themes/almost-flat',
-			'gradient' => BEANS_API_COMPONENTS_PATH . 'uikit/src/themes/gradient',
-			'wordpress-admin' => BEANS_API_COMPONENTS_PATH . 'uikit/themes/wordpress-admin'
+			'default' => BEANS_API_PATH . 'uikit/src/themes/default',
+			'almost-flat' => BEANS_API_PATH . 'uikit/src/themes/almost-flat',
+			'gradient' => BEANS_API_PATH . 'uikit/src/themes/gradient',
+			'wordpress-admin' => BEANS_API_PATH . 'uikit/themes/wordpress-admin'
 		)
 	);
 

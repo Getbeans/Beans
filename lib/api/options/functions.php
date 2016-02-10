@@ -57,7 +57,7 @@ function beans_register_options( array $fields, $menu_slug, $section, $args = ar
 		return false;
 
 	// Load the class only if this function is called to prevent unnecessary memory usage.
-	require_once( BEANS_API_COMPONENTS_PATH . 'options/class.php' );
+	require_once( BEANS_API_PATH . 'options/class.php' );
 
 	$class = new _Beans_Options();
 	$class->register( $section, $args );
@@ -100,7 +100,7 @@ function _beans_options_page_actions() {
 		return;
 
 	// Load the class only if this function is called to prevent unnecessary memory usage.
-	require_once( BEANS_API_COMPONENTS_PATH . 'options/class.php' );
+	require_once( BEANS_API_PATH . 'options/class.php' );
 
 	$class = new _Beans_Options();
 	$class->actions();

@@ -58,7 +58,7 @@ final class _Beans_Uikit {
 
 		// Add fixes.
 		if ( !empty( $components ) )
-			$components = array_merge( $components, array( BEANS_API_COMPONENTS_PATH . 'uikit/src/fixes.less' ) );
+			$components = array_merge( $components, array( BEANS_API_PATH . 'uikit/src/fixes.less' ) );
 
 		return $components;
 
@@ -110,7 +110,7 @@ final class _Beans_Uikit {
 		global $_beans_uikit_enqueued_items;
 
 		// Define uikit src directory.
-		$directories = array( BEANS_API_COMPONENTS_PATH . 'uikit/src/less/' . $type );
+		$directories = array( BEANS_API_PATH . 'uikit/src/less/' . $type );
 		// Add the registered theme directories.
 		foreach ( $_beans_uikit_enqueued_items['themes'] as $id => $directory )
 			$directories[] = wp_normalize_path( untrailingslashit( $directory ) );
@@ -129,7 +129,7 @@ final class _Beans_Uikit {
 			$type = 'components';
 
 		// Define uikit src directory.
-		return array( BEANS_API_COMPONENTS_PATH . 'uikit/src/js/' . $type );
+		return array( BEANS_API_PATH . 'uikit/src/js/' . $type );
 
 	}
 
