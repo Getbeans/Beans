@@ -47,14 +47,14 @@ function beans_enqueue_uikit_components() {
 	beans_uikit_enqueue_theme( 'default' );
 
 	// Enqueue uikit overwrite theme folder.
-	beans_uikit_enqueue_theme( 'beans', BEANS_ASSETS_URL . 'less/uikit-overwrite' );
+	beans_uikit_enqueue_theme( 'beans', BEANS_ASSETS_PATH . 'less/uikit-overwrite' );
 
 	// Add the theme style as a uikit fragment to have access to all the variables.
-	beans_compiler_add_fragment( 'uikit', BEANS_ASSETS_URL . 'less/style.less', 'less' );
+	beans_compiler_add_fragment( 'uikit', BEANS_ASSETS_PATH . 'less/style.less', 'less' );
 
 	// Add the theme default style as a uikit fragment only if the theme supports it.
 	if ( current_theme_supports( 'beans-default-styling' ) )
-		beans_compiler_add_fragment( 'uikit', BEANS_ASSETS_URL . 'less/default.less', 'less' );
+		beans_compiler_add_fragment( 'uikit', BEANS_ASSETS_PATH . 'less/default.less', 'less' );
 
 }
 
