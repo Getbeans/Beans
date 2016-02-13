@@ -334,12 +334,18 @@ final class _Beans_Compiler {
 	 */
 	public function get_internal_content() {
 
-		// Replace url with path.
-		$fragment = beans_url_to_path( $this->current_fragment );
+		$fragment = $this->current_fragment;
 
-		// Stop here if it isn't a valid file.
-		if ( !file_exists( $fragment ) || @filesize( $fragment ) === 0 )
-			return false;
+		if ( !file_exists( $fragment ) ) {
+
+			// Replace url with path.
+			$fragment = beans_url_to_path( $fragment );
+
+			// Stop here if it isn't a valid file.
+			if ( !file_exists( $fragment ) || @filesize( $fragment ) === 0 )
+				return false;
+
+		}
 
 		// Safe to access filesystem since we made sure it was set.
 		return $GLOBALS['wp_filesystem']->get_contents( $fragment );
