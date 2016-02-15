@@ -241,6 +241,9 @@ final class _Beans_Uikit {
 					'close',
 					'modal',
 					'overlay'
+				),
+				'add-ons' => array(
+					'slidenav'
 				)
 			),
 			'slider' => array(
