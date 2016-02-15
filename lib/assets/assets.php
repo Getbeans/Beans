@@ -41,7 +41,7 @@ function beans_enqueue_uikit_components() {
 		'icon'
 	);
 
-	beans_uikit_enqueue_components( $core );
+	beans_uikit_enqueue_components( $core, 'core', false );
 
 	// Include uikit default theme.
 	beans_uikit_enqueue_theme( 'default' );
