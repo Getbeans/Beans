@@ -194,6 +194,113 @@ final class _Beans_Uikit {
 
 
 	/**
+	 * Auto detect components required.
+	 */
+	function get_autoload_components( $components ) {
+
+		$autoload = array(
+			'core' => array(),
+			'add-ons' => array()
+		);
+
+		$depedencies = array(
+			'panel' => array(
+				'core' => array(
+					'badge'
+				)
+			),
+			'cover' => array(
+				'core' => array(
+					'flex'
+				)
+			),
+			'overlay' => array(
+				'core' => array(
+					'flex'
+				)
+			),
+			'tab' => array(
+				'core' => array(
+					'switcher'
+				)
+			),
+			'modal' => array(
+				'core' => array(
+					'close'
+				)
+			),
+			'scrollspy' => array(
+				'core' => array(
+					'animation'
+				)
+			),
+			'lightbox' => array(
+				'core' => array(
+					'animation',
+					'flex',
+					'close',
+					'modal',
+					'overlay'
+				)
+			),
+			'slider' => array(
+				'add-ons' => array(
+					'slidenav'
+				)
+			),
+			'slideset' => array(
+				'core' => array(
+					'animation',
+					'flex'
+				),
+				'add-ons' => array(
+					'dotnav',
+					'slidenav'
+				)
+			),
+			'slideshow' => array(
+				'core' => array(
+					'animation',
+					'flex'
+				),
+				'add-ons' => array(
+					'dotnav',
+					'slidenav'
+				)
+			),
+			'parallax' => array(
+				'core' => array(
+					'flex'
+				)
+			),
+			'notify' => array(
+				'core' => array(
+					'close'
+				)
+			)
+		);
+
+		foreach ( (array) $components as $component ) {
+
+			$this_depedencies = beans_get( $component, $depedencies, array() );
+
+			foreach ( $this_depedencies as $depedency ) {
+				$autoload['core'] = array_merge( $autoload['core'], array_flip( beans_get( 'core', $this_depedencies, array() ) ) );
+				$autoload['add-ons'] = array_merge( $autoload['add-ons'], array_flip( beans_get( 'add-ons', $this_depedencies, array() ) ) );
+			}
+
+		}
+
+		// Format autoload back to associative key value array.
+		$autoload['core'] = array_flip( $autoload['core'] );
+		$autoload['add-ons'] = array_flip( $autoload['add-ons'] );
+
+		return $autoload;
+
+	}
+
+
+	/**
 	 * Convert component to a filename.
 	 */
 	function to_filename( $file ) {
