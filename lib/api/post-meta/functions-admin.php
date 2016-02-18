@@ -31,7 +31,8 @@
  *            					  registered should be saved as a group in the database or as individual
  *            					  entries. Default false.
  * }
- * @param array  $post_types Array of post type for which the post meta should be registered.
+ * @param array  $conditions Array of 'post types id(s)', 'post id(s)' or 'page template slug(s)' for which the post meta should be registered.
+ *                           'page template slug(s)' must include '.php' file extention. Set to true to display everywhere.
  * @param string $section    A section id to define the group of fields.
  * @param array  $args {
  *      Optional. Array of arguments used to register the fields.
@@ -45,13 +46,16 @@
  *
  * @return bool True on success, false on failure.
  */
-function beans_register_post_meta( array $fields, $post_types, $section, $args = array() ) {
+function beans_register_post_meta( array $fields, $conditions, $section, $args = array() ) {
+
+	global $_beans_post_meta_conditions;
 
 	$fields = apply_filters( "beans_post_meta_fields_{$section}", _beans_pre_standardize_fields( $fields ) );
-	$post_types = apply_filters( "beans_post_meta_post_types_{$section}", $post_types );
+	$conditions = apply_filters( "beans_post_meta_post_types_{$section}", $conditions );
+	$_beans_post_meta_conditions = array_merge( $_beans_post_meta_conditions, $conditions );
 
 	// Stop here if the current page isn't concerned.
-	if ( !_beans_is_admin_post_type( $post_types ) || !is_admin() )
+	if ( !_beans_is_post_meta_conditions( $conditions ) || !is_admin() )
 		return;
 
 	// Stop here if the field can't be registered.
@@ -59,7 +63,7 @@ function beans_register_post_meta( array $fields, $post_types, $section, $args =
 		return false;
 
 	// Load the class only if this function is called to prevent unnecessary memory usage.
-	require_once( BEANS_API_COMPONENTS_PATH . 'post-meta/class.php' );
+	require_once( BEANS_API_PATH . 'post-meta/class.php' );
 
 	new _Beans_Post_Meta( $section, $args );
 
@@ -67,11 +71,11 @@ function beans_register_post_meta( array $fields, $post_types, $section, $args =
 
 
 /**
- * Check if the current screen is a given post type.
+ * Check the current screen conditions.
  *
  * @ignore
  */
-function _beans_is_admin_post_type( $post_types ) {
+function _beans_is_post_meta_conditions( $conditions ) {
 
 	// Check if it is a new post and treat it as such.
 	if ( stripos( $_SERVER['REQUEST_URI'], 'post-new.php' ) !== false ) {
@@ -95,16 +99,51 @@ function _beans_is_admin_post_type( $post_types ) {
 
 	}
 
-	if ( $post_types === true )
-		return true;
+	$statements = array(
+		$conditions === true,
+		in_array( $current_post_type, (array) $conditions ), // Check post type.
+		isset( $post_id) && in_array( $post_id, (array) $conditions ), // Check post id.
+		isset( $post_id) && in_array( get_post_meta( $post_id, '_wp_page_template', true ), (array) $conditions ) // Check page template.
+	);
 
-	if ( in_array( $current_post_type, (array) $post_types ) )
-		return true;
-
-	// Support post ids.
-	if ( isset( $post_id ) && in_array( $post_id, (array) $post_types ) )
-		return true;
-
-	return false;
+	// Return true if any condition is met, otherwise false.
+	return in_array( true, $statements );
 
 }
+
+
+add_action( 'admin_print_footer_scripts', '_beans_post_meta_page_template_reload' );
+
+/**
+ * Reload post edit screen on page template change.
+ *
+ * @ignore
+ */
+function _beans_post_meta_page_template_reload() {
+
+	global $_beans_post_meta_conditions, $pagenow;
+
+	// Stop here if not editing a post object.
+	if ( !in_array( $pagenow, array( 'post-new.php', 'post.php' ) ) )
+		return;
+
+	$encode = json_encode( $_beans_post_meta_conditions );
+
+	// Stop here of there isn't any post meta assigned to page templates.
+	if ( stripos( $encode, '.php' ) === false )
+		return;
+
+	echo "<script type='text/javascript'>\n!(function(a){a(document).ready(function(){a('#page_template').data('beans-pre',a('#page_template').val());a('#page_template').change(function(){if(a.inArray(a(this).val(),$encode)===-1&&a.inArray(a(this).data('beans-pre'),$encode)===-1){return}a(this).data('beans-pre',a(this).val());var b=a('#save-action #save-post');if(b.length===0){b=a('#publishing-action #publish')}b.trigger('click');a('#wpbody-content').fadeOut()})})})(jQuery);\n</script>";
+
+}
+
+
+/**
+ * Initialize post meta conditions.
+ *
+ * @ignore
+ */
+global $_beans_post_meta_conditions;
+
+if ( !isset( $_beans_post_meta_conditions ) )
+	$_beans_post_meta_conditions = array();

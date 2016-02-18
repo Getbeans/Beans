@@ -23,7 +23,7 @@
  *
  * @param string       $id        A unique string used as a reference. Similar to the WordPress scripts
  *                                $handle argument.
- * @param string|array $fragments Path or url to internal or external file(s).
+ * @param string|array $fragments File(s) absolute path. Internal or external file(s) url accepted but may increase compiling time.
  * @param array        $args      {
  *      Optional. Array of arguments used by the compiler.
  *
@@ -58,7 +58,7 @@ function beans_compile_css_fragments( $id, $fragments, $args = array() ) {
  * @since 1.0.0
  *
  * @param string       $id        The compiler ID. Similar to the WordPress scripts $handle argument.
- * @param string|array $fragments Path or url to internal or external file(s).
+ * @param string|array $fragments File(s) absolute path. Internal or external file(s) url accepted but may increase compiling time.
  * @param array        $args      {
  *      Optional. Array of arguments used by the compiler.
  *
@@ -93,7 +93,7 @@ function beans_compile_less_fragments( $id, $fragments, $args = array() ) {
  * @since 1.0.0
  *
  * @param string       $id        The compiler ID. Similar to the WordPress scripts $handle argument.
- * @param string|array $fragments Path or url to internal or external file(s).
+ * @param string|array $fragments File(s) absolute path. Internal or external file(s) url accepted but may increase compiling time.
  * @param array        $args      {
  *      Optional. Array of arguments used by the compiler.
  *
@@ -130,7 +130,7 @@ function beans_compile_js_fragments( $id, $fragments, $args = array() ) {
  * @since 1.0.0
  *
  * @param string       $id        The compiler ID. Similar to the WordPress scripts $handle argument.
- * @param string|array $fragments Path or url to internal or external file(s).
+ * @param string|array $fragments File(s) absolute path. Internal or external file(s) url accepted but may increase compiling time.
  * @param string       $format    Compiler format the fragments should be added to. Accepts 'css',
  *                                'less' or 'js'.
  */
@@ -244,13 +244,33 @@ function beans_get_compiler_dir( $admin = false ) {
 	$suffix = $admin ? 'beans/admin-compiler/' : 'beans/compiler/';
 
 	/**
-	 * Filter the beans compiler directory.
+	 * Deprecated. Filter the beans compiler directory.
+	 *
+	 * This filter is deprecated for security and compatibility purposes.
 	 *
 	 * @since 1.0.0
+	 * @deprecated 1.3.0
 	 */
-	$dir = apply_filters( 'beans_compiler_dir', trailingslashit( $wp_upload_dir['basedir'] ) . $suffix, $admin );
+	$deprecated = apply_filters( 'beans_compiler_dir', false, $admin );
 
-	return wp_normalize_path( trailingslashit( $dir ) );
+	return wp_normalize_path( trailingslashit( $wp_upload_dir['basedir'] ) . $suffix );
+
+}
+
+
+/**
+ * Get beans compiler url.
+ *
+ * @since 1.3.0
+ *
+ * @return string Compiler directory.
+ */
+function beans_get_compiler_url( $admin = false ) {
+
+	$wp_upload_dir = wp_upload_dir();
+	$suffix = $admin ? 'beans/admin-compiler/' : 'beans/compiler/';
+
+	return trailingslashit( $wp_upload_dir['baseurl'] ) . $suffix;
 
 }
 

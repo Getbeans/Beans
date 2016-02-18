@@ -6,7 +6,7 @@
  *
  * @package API\Uikit
  */
-class _Beans_Uikit {
+final class _Beans_Uikit {
 
 	/**
 	 * Compile enqueued items.
@@ -58,7 +58,7 @@ class _Beans_Uikit {
 
 		// Add fixes.
 		if ( !empty( $components ) )
-			$components = array_merge( $components, array( BEANS_API_COMPONENTS_PATH . 'uikit/src/fixes.less' ) );
+			$components = array_merge( $components, array( BEANS_API_PATH . 'uikit/src/fixes.less' ) );
 
 		return $components;
 
@@ -110,7 +110,7 @@ class _Beans_Uikit {
 		global $_beans_uikit_enqueued_items;
 
 		// Define uikit src directory.
-		$directories = array( BEANS_API_COMPONENTS_PATH . 'uikit/src/less/' . $type );
+		$directories = array( BEANS_API_PATH . 'uikit/src/less/' . $type );
 		// Add the registered theme directories.
 		foreach ( $_beans_uikit_enqueued_items['themes'] as $id => $directory )
 			$directories[] = wp_normalize_path( untrailingslashit( $directory ) );
@@ -129,7 +129,7 @@ class _Beans_Uikit {
 			$type = 'components';
 
 		// Define uikit src directory.
-		return array( BEANS_API_COMPONENTS_PATH . 'uikit/src/js/' . $type );
+		return array( BEANS_API_PATH . 'uikit/src/js/' . $type );
 
 	}
 
@@ -189,6 +189,116 @@ class _Beans_Uikit {
 		}
 
 		return $components;
+
+	}
+
+
+	/**
+	 * Auto detect components required.
+	 */
+	function get_autoload_components( $components ) {
+
+		$autoload = array(
+			'core' => array(),
+			'add-ons' => array()
+		);
+
+		$depedencies = array(
+			'panel' => array(
+				'core' => array(
+					'badge'
+				)
+			),
+			'cover' => array(
+				'core' => array(
+					'flex'
+				)
+			),
+			'overlay' => array(
+				'core' => array(
+					'flex'
+				)
+			),
+			'tab' => array(
+				'core' => array(
+					'switcher'
+				)
+			),
+			'modal' => array(
+				'core' => array(
+					'close'
+				)
+			),
+			'scrollspy' => array(
+				'core' => array(
+					'animation'
+				)
+			),
+			'lightbox' => array(
+				'core' => array(
+					'animation',
+					'flex',
+					'close',
+					'modal',
+					'overlay'
+				),
+				'add-ons' => array(
+					'slidenav'
+				)
+			),
+			'slider' => array(
+				'add-ons' => array(
+					'slidenav'
+				)
+			),
+			'slideset' => array(
+				'core' => array(
+					'animation',
+					'flex'
+				),
+				'add-ons' => array(
+					'dotnav',
+					'slidenav'
+				)
+			),
+			'slideshow' => array(
+				'core' => array(
+					'animation',
+					'flex'
+				),
+				'add-ons' => array(
+					'dotnav',
+					'slidenav'
+				)
+			),
+			'parallax' => array(
+				'core' => array(
+					'flex'
+				)
+			),
+			'notify' => array(
+				'core' => array(
+					'close'
+				)
+			)
+		);
+
+		foreach ( (array) $components as $component ) {
+
+			$this_depedencies = beans_get( $component, $depedencies, array() );
+
+			foreach ( $this_depedencies as $depedency ) {
+				$autoload['core'] = array_merge( $autoload['core'], array_flip( beans_get( 'core', $this_depedencies, array() ) ) );
+				$autoload['add-ons'] = array_merge( $autoload['add-ons'], array_flip( beans_get( 'add-ons', $this_depedencies, array() ) ) );
+			}
+
+		}
+
+		// Format autoload back to associative key value array.
+		$autoload['core'] = array_flip( $autoload['core'] );
+		$autoload['add-ons'] = array_flip( $autoload['add-ons'] );
+
+		return $autoload;
 
 	}
 

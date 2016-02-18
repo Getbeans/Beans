@@ -29,8 +29,9 @@
  *                                 the UIkit component filename without the extention (e.g. 'grid'). Set to true
  *                                 load all components.
  * @param string       $type       Optional. Type of UIkit components ('core' or 'add-ons').
+ * @param bool         $autoload   Optional. Automatically include components dependencies.
  */
-function beans_uikit_enqueue_components( $components, $type = 'core' ) {
+function beans_uikit_enqueue_components( $components, $type = 'core', $autoload = true ) {
 
 	global $_beans_uikit_enqueued_items;
 
@@ -39,6 +40,14 @@ function beans_uikit_enqueue_components( $components, $type = 'core' ) {
 
 		$uikit = new _Beans_Uikit;
 		$components = $uikit->get_all_components( $type );
+
+	} elseif ( $autoload ) {
+
+		$uikit = new _Beans_Uikit;
+		$autoloads = $uikit->get_autoload_components( (array) $components );
+
+		foreach ( $autoloads as $autotype => $autoload )
+			beans_uikit_enqueue_components( $autoload, $autotype, false );
 
 	}
 
@@ -94,7 +103,7 @@ function beans_uikit_dequeue_components( $components, $type = 'core' ) {
  * @since 1.0.0
  *
  * @param string $id   A unique string used as a reference. Similar to the WordPress scripts $handle argument.
- * @param string $path Path to the UIkit theme folder.
+ * @param string $path Absolute path to the UIkit theme folder.
  *
  * @return bool False on error or if already exists, true on success.
  */
@@ -179,10 +188,10 @@ global $_beans_uikit_registered_items;
 if ( !isset( $_beans_uikit_registered_items ) )
 	$_beans_uikit_registered_items = array(
 		'themes' => array(
-			'default' => BEANS_API_COMPONENTS_PATH . 'uikit/src/themes/default',
-			'almost-flat' => BEANS_API_COMPONENTS_PATH . 'uikit/src/themes/almost-flat',
-			'gradient' => BEANS_API_COMPONENTS_PATH . 'uikit/src/themes/gradient',
-			'wordpress-admin' => BEANS_API_COMPONENTS_PATH . 'uikit/themes/wordpress-admin'
+			'default' => BEANS_API_PATH . 'uikit/src/themes/default',
+			'almost-flat' => BEANS_API_PATH . 'uikit/src/themes/almost-flat',
+			'gradient' => BEANS_API_PATH . 'uikit/src/themes/gradient',
+			'wordpress-admin' => BEANS_API_PATH . 'uikit/themes/wordpress-admin'
 		)
 	);
 

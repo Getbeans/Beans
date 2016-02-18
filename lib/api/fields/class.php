@@ -6,7 +6,7 @@
  *
  * @package API\Fields
  */
-class _Beans_Fields {
+final class _Beans_Fields {
 
 	/**
 	 * Fields.
@@ -176,7 +176,7 @@ class _Beans_Fields {
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_global_assets' ) );
 			add_action( 'customize_controls_enqueue_scripts', array( $this, 'enqueue_global_assets' ) );
 
-			require_once( BEANS_API_COMPONENTS_PATH . 'fields/types/field.php' );
+			require_once( BEANS_API_PATH . 'fields/types/field.php' );
 
 			$once = true;
 
@@ -196,7 +196,7 @@ class _Beans_Fields {
 			if ( in_array( $type, self::$field_types_loaded ) )
 				continue;
 
-			$path = BEANS_API_COMPONENTS_PATH . "fields/types/{$type}.php";
+			$path = BEANS_API_PATH . "fields/types/{$type}.php";
 
 			if ( file_exists( $path ) )
 				require_once( $path );
@@ -220,7 +220,7 @@ class _Beans_Fields {
 			if ( in_array( $type, self::$field_assets_hook_loaded ) )
 				continue;
 
-			do_action( "beans_field_enqueue_scripts_$type" );
+			do_action( "beans_field_enqueue_scripts_{$type}" );
 
 			// Set flag that field is loaded.
 			self::$field_assets_hook_loaded[$type] = $type;
@@ -235,8 +235,8 @@ class _Beans_Fields {
 	 */
 	public function enqueue_global_assets() {
 
-		$css = BEANS_API_COMPONENTS_URL . 'fields/assets/css/fields' . BEANS_MIN_CSS . '.css';
-		$js = BEANS_API_COMPONENTS_URL . 'fields/assets/js/fields' . BEANS_MIN_CSS . '.js';
+		$css = BEANS_API_URL . 'fields/assets/css/fields' . BEANS_MIN_CSS . '.css';
+		$js = BEANS_API_URL . 'fields/assets/js/fields' . BEANS_MIN_CSS . '.js';
 
 		wp_enqueue_style( 'beans-fields', $css, false, BEANS_VERSION );
 		wp_enqueue_script( 'beans-fields', $js, array( 'jquery' ), BEANS_VERSION );

@@ -6,7 +6,7 @@
  *
  * @package API\Image
  */
-class _Beans_Image_Options {
+final class _Beans_Image_Options {
 
 	/**
 	 * Constructor.

@@ -6,7 +6,7 @@
  *
  * @package API\Compiler
  */
-class _Beans_Page_Compiler {
+final class _Beans_Page_Compiler {
 
 	/**
 	 * Compiler dequeued scripts.

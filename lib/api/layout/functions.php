@@ -89,22 +89,24 @@ function beans_get_layout_class( $id ) {
 	 * @param array $args {
 	 *     An array of arguments.
 	 *
-	 *     @type int $grid              Total number of columns the grid contains. Default 4.
-	 *     @type int $sidebar_primary   The number of columns the sidebar primary takes. Default 1.
-	 *     @type int $sidebar_secondary The number of columns the sidebar secondary takes. Default 1.
+	 *     @type int    $grid              Total number of columns the grid contains. Default 4.
+	 *     @type int    $sidebar_primary   The number of columns the sidebar primary takes. Default 1.
+	 *     @type int    $sidebar_secondary The number of columns the sidebar secondary takes. Default 1.
+	 *     @type string $breakpoint        The UIkit grid breakpoint which may be set to 'small', 'medium' or 'large'. Default 'medium'.
 	 * }
 	 */
 	$args = apply_filters( 'beans_layout_grid_settings', array(
 		'grid' => 4,
 		'sidebar_primary' => 1,
-		'sidebar_secondary' => 1
+		'sidebar_secondary' => 1,
+		'breakpoint' => 'medium'
 	) );
 
 	$g = beans_get( 'grid', $args ); // $g stands for grid.
 	$c = $g; // $c stands for content. Same value as grid by default
 	$sp = beans_get( 'sidebar_primary', $args ); // $sp stands for sidebar primary.
 	$ss = beans_get( 'sidebar_secondary', $args ); // $ss stands for 'sidebar secondary.
-	$prefix = 'uk-width-medium';
+	$prefix = 'uk-width-' . beans_get( 'breakpoint', $args, 'medium' );
 
 	$classes = array();
 

@@ -6,7 +6,7 @@
  *
  * @package API\Actions
  */
-class _Beans_Anonymous_Actions {
+final class _Beans_Anonymous_Actions {
 
 	/**
 	 * Callback.

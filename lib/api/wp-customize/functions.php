@@ -9,7 +9,7 @@
 /**
  * Register WP Customize Options.
  *
- * This function should only be invoked through the 'init' action.
+ * This function should only be invoked through the 'customize_register' action.
  *
  * @since 1.0.0
  *
@@ -51,7 +51,7 @@ function beans_register_wp_customize_options( array $fields, $section, $args = a
 	$fields = apply_filters( "beans_wp_customize_fields_{$section}", _beans_pre_standardize_fields( $fields ) );
 
 	// Stop here if the current page isn't concerned.
-	if ( !class_exists( 'WP_Customize_Manager' ) )
+	if ( !is_customize_preview() )
 		return;
 
 	// Stop here if the field can't be registered.
@@ -59,7 +59,7 @@ function beans_register_wp_customize_options( array $fields, $section, $args = a
 		return false;
 
 	// Load the class only if this function is called to prevent unnecessary memory usage.
-	require_once( BEANS_API_COMPONENTS_PATH . 'wp-customize/class.php' );
+	require_once( BEANS_API_PATH . 'wp-customize/class.php' );
 
 	new _Beans_WP_Customize( $section, $args );
 

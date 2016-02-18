@@ -6,7 +6,7 @@
  *
  * @package API\Term_meta
  */
-class _Beans_Term_Meta {
+final class _Beans_Term_Meta {
 
 	/**
 	 * Fields section.

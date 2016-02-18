@@ -21,14 +21,23 @@ function beans_breadcrumb() {
 
 	global $post;
 
+	$post_type = get_post_type();
 	$breadcrumbs = array();
 	$breadcrumbs[home_url()] = __( 'Home', 'tm-beans' );
 
+	// Custom post type.
+	if ( !in_array( $post_type, array( 'page', 'attachment', 'post' ) ) && !is_404() ) {
+
+		if ( $post_type_object = get_post_type_object( $post_type ) )
+			$breadcrumbs[get_post_type_archive_link( $post_type )] = $post_type_object->labels->name;
+
+	}
+
 	// Single posts.
-	if ( is_single() && get_post_type() == 'post' ) {
+	if ( is_single() && $post_type == 'post' ) {
 
 		foreach ( get_the_category( $post->ID ) as $category )
-			$breadcrumbs[esc_url( get_category_link( $category->term_id ) )] = $category->name;
+			$breadcrumbs[get_category_link( $category->term_id )] = $category->name;
 
 		$breadcrumbs[] = get_the_title();
 
@@ -47,7 +56,6 @@ function beans_breadcrumb() {
 		// Add returned pages to breadcrumbs.
 		foreach ( $current_page as $page )
 			$breadcrumbs[get_page_link( $page->ID )] = $page->post_title;
-
 
 	}
 
@@ -88,7 +96,6 @@ function beans_breadcrumb() {
 	else if ( is_author() ) {
 
 		$author = get_queried_object();
-
 		$breadcrumbs[] = __( 'Author Archives:', 'tm-beans' ) . ' ' . $author->display_name;
 
 	}

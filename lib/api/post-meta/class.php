@@ -6,7 +6,7 @@
  *
  * @package API\Post_meta
  */
-class _Beans_Post_Meta {
+final class _Beans_Post_Meta {
 
 	/**
 	 * Metabox arguments.

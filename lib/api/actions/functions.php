@@ -534,7 +534,7 @@ function _beans_get_current_action( $id ) {
  */
 function _beans_add_anonymous_action( $hook, $callback, $priority = 10, $args = 1 ) {
 
-	require_once( BEANS_API_COMPONENTS_PATH . 'actions/class.php' );
+	require_once( BEANS_API_PATH . 'actions/class.php' );
 
 	new _Beans_Anonymous_Actions( $hook, $callback, $priority, $args );
 

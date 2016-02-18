@@ -40,7 +40,7 @@
  *
  * @ignore
  */
-class lessc {
+class Beans_Lessc {
 	static public $VERSION = "v0.4.0";
 	static protected $TRUE = array("keyword", "true");
 	static protected $FALSE = array("keyword", "false");
@@ -102,7 +102,7 @@ class lessc {
 		$str = $this->coerceString($importPath);
 		if ($str === null) return false;
 
-		$url = $this->compileValue($this->lib_e($str));
+		$url = $this->compileValue($this->lib_unquote($str));
 
 		// don't import if it ends in css
 		if (substr_compare($url, '.css', -4, 4) === 0) return false;
@@ -121,7 +121,7 @@ class lessc {
 
 		$this->addParsedFile($realPath);
 		$parser = $this->makeParser($realPath);
-		$root = $parser->parse(file_get_contents($realPath));
+		$root = $parser->parse($GLOBALS['wp_filesystem']->get_contents($realPath));
 
 		// set the parents of all the block props
 		foreach ($root->props as $prop) {
@@ -955,12 +955,14 @@ class lessc {
 	}
 
 	// utility func to unquote a string
-	protected function lib_e($arg) {
+	// use func_get_arg to prevent Theme Checker triggering unrelated translation warning.
+	protected function lib_e() {
+		$arg = func_get_arg(0);
 		switch ($arg[0]) {
 			case "list":
 				$items = $arg[2];
 				if (isset($items[0])) {
-					return $this->lib_e($items[0]);
+					return $this->lib_unquote($items[0]);
 				}
 				return self::$defaultValue;
 			case "string":
@@ -973,11 +975,16 @@ class lessc {
 		}
 	}
 
+	// use func_get_arg to prevent Theme Checker triggering unrelated translation warning.
+	protected function lib_unquote($arg) {
+		return $this->lib_e(func_get_arg(0));
+	}
+
 	protected function lib__sprintf($args) {
 		if ($args[0] != "list") return $args;
 		$values = $args[2];
 		$string = array_shift($values);
-		$template = $this->compileValue($this->lib_e($string));
+		$template = $this->compileValue($this->lib_unquote($string));
 
 		$i = 0;
 		if (preg_match_all('/%[dsa]/', $template, $m)) {
@@ -991,7 +998,7 @@ class lessc {
 				}
 
 				$i++;
-				$rep = $this->compileValue($this->lib_e($val));
+				$rep = $this->compileValue($this->lib_unquote($val));
 				$template = preg_replace('/'.self::preg_quote($match).'/',
 					$rep, $template, 1);
 			}
@@ -1020,7 +1027,7 @@ class lessc {
 		if ($arg[0] == "list") {
 			list($number, $newUnit) = $arg[2];
 			return array("number", $this->assertNumber($number),
-				$this->compileValue($this->lib_e($newUnit)));
+				$this->compileValue($this->lib_unquote($newUnit)));
 		} else {
 			return array("number", $this->assertNumber($arg), "");
 		}
@@ -1367,14 +1374,14 @@ class lessc {
 				$res = $this->coerceColor($res);
 			}
 
-			if (empty($value[2])) $res = $this->lib_e($res);
+			if (empty($value[2])) $res = $this->lib_unquote($res);
 
 			return $res;
 		case "variable":
 			$key = $value[1];
 			if (is_array($key)) {
 				$key = $this->reduce($key);
-				$key = $this->vPrefix . $this->compileValue($this->lib_e($key));
+				$key = $this->vPrefix . $this->compileValue($this->lib_unquote($key));
 			}
 
 			$seen =& $this->env->seenNames;
@@ -1399,13 +1406,13 @@ class lessc {
 				if (is_array($part)) {
 					$strip = $part[0] == "variable";
 					$part = $this->reduce($part);
-					if ($strip) $part = $this->lib_e($part);
+					if ($strip) $part = $this->lib_unquote($part);
 				}
 			}
 			return $value;
 		case "escape":
 			list(,$inner) = $value;
-			return $this->lib_e($this->reduce($inner));
+			return $this->lib_unquote($this->reduce($inner));
 		case "function":
 			$color = $this->funcToColor($value);
 			if ($color) return $color;
@@ -1830,12 +1837,12 @@ class lessc {
 
 		$this->addParsedFile($fname);
 
-		$out = $this->compile(file_get_contents($fname), $fname);
+		$out = $this->compile($GLOBALS['wp_filesystem']->get_contents($fname), $fname);
 
 		$this->importDir = $oldImport;
 
 		if ($outFname !== null) {
-			return file_put_contents($outFname, $out);
+			return $GLOBALS['wp_filesystem']->put_contents($outFname, $out);
 		}
 
 		return $out;
@@ -2242,12 +2249,12 @@ class lessc_parser {
 
 		if (!self::$operatorString) {
 			self::$operatorString =
-				'('.implode('|', array_map(array('lessc', 'preg_quote'),
+				'('.implode('|', array_map(array('Beans_Lessc', 'preg_quote'),
 					array_keys(self::$precedence))).')';
 
-			$commentSingle = lessc::preg_quote(self::$commentSingle);
-			$commentMultiLeft = lessc::preg_quote(self::$commentMultiLeft);
-			$commentMultiRight = lessc::preg_quote(self::$commentMultiRight);
+			$commentSingle = Beans_Lessc::preg_quote(self::$commentSingle);
+			$commentMultiLeft = Beans_Lessc::preg_quote(self::$commentMultiLeft);
+			$commentMultiRight = Beans_Lessc::preg_quote(self::$commentMultiRight);
 
 			self::$commentMulti = $commentMultiLeft.'.*?'.$commentMultiRight;
 			self::$whitePattern = '/'.$commentSingle.'[^\n]*\s*|('.self::$commentMulti.')\s*|\s+/Ais';
@@ -2472,7 +2479,7 @@ class lessc_parser {
 	protected function isDirective($dirname, $directives) {
 		// TODO: cache pattern in parser
 		$pattern = implode("|",
-			array_map(array("lessc", "preg_quote"), $directives));
+			array_map(array("Beans_Lessc", "preg_quote"), $directives));
 		$pattern = '/^(-[a-z-]+-)?(' . $pattern . ')$/i';
 
 		return preg_match($pattern, $dirname);
@@ -2497,7 +2504,7 @@ class lessc_parser {
 
 		if (count($values) == 0) return false;
 
-		$exps = lessc::compressList($values, ' ');
+		$exps = Beans_Lessc::compressList($values, ' ');
 		return true;
 	}
 
@@ -2595,7 +2602,7 @@ class lessc_parser {
 
 		if (count($values) == 0) return false;
 
-		$value = lessc::compressList($values, ', ');
+		$value = Beans_Lessc::compressList($values, ', ');
 		return true;
 	}
 
@@ -2760,7 +2767,7 @@ class lessc_parser {
 		$this->eatWhiteDefault = false;
 
 		$stop = array("'", '"', "@{", $end);
-		$stop = array_map(array("lessc", "preg_quote"), $stop);
+		$stop = array_map(array("Beans_Lessc", "preg_quote"), $stop);
 		// $stop[] = self::$commentMulti;
 
 		if (!is_null($rejectStrs)) {
@@ -2836,7 +2843,7 @@ class lessc_parser {
 
 		// look for either ending delim , escape, or string interpolation
 		$patt = '([^\n]*?)(@\{|\\\\|' .
-			lessc::preg_quote($delim).')';
+			Beans_Lessc::preg_quote($delim).')';
 
 		$oldWhite = $this->eatWhiteDefault;
 		$this->eatWhiteDefault = false;
@@ -3353,7 +3360,7 @@ class lessc_parser {
 		}
 
 		if (!isset(self::$literalCache[$what])) {
-			self::$literalCache[$what] = lessc::preg_quote($what);
+			self::$literalCache[$what] = Beans_Lessc::preg_quote($what);
 		}
 
 		return $this->match(self::$literalCache[$what], $m, $eatWhitespace);
@@ -3393,7 +3400,7 @@ class lessc_parser {
 		} else {
 			$validChars = $allowNewline ? "." : "[^\n]";
 		}
-		if (!$this->match('('.$validChars.'*?)'.lessc::preg_quote($what), $m, !$until)) return false;
+		if (!$this->match('('.$validChars.'*?)'.Beans_Lessc::preg_quote($what), $m, !$until)) return false;
 		if ($until) $this->count -= strlen($what); // give back $what
 		$out = $m[1];
 		return true;

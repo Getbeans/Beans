@@ -39,7 +39,7 @@
  */
 function beans_edit_image( $src, array $args, $output = 'STRING' ) {
 
-	require_once( BEANS_API_COMPONENTS_PATH . 'image/class-images.php' );
+	require_once( BEANS_API_PATH . 'image/class-images.php' );
 
 	$instance = new _Beans_Image_Editor( $src, $args, $output );
 

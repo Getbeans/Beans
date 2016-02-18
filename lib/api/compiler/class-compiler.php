@@ -6,7 +6,7 @@
  *
  * @package API\Compiler
  */
-class _Beans_Compiler {
+final class _Beans_Compiler {
 
 	/**
 	 * Compiler arguments.
@@ -20,7 +20,14 @@ class _Beans_Compiler {
 	 *
 	 * @type string
 	 */
-	var $cache_dir;
+	var $dir;
+
+	/**
+	 * Cache url.
+	 *
+	 * @type string
+	 */
+	var $url;
 
 	/**
 	 * Set during in fragments loop.
@@ -36,6 +43,9 @@ class _Beans_Compiler {
 	 */
 	public function __construct( $args ) {
 
+		// Modify the WP Filsystem method.
+		add_filter( 'filesystem_method', array( $this, 'filesystem_method' ) );
+
 		$defaults = array(
 			'id' => false,
 			'type' => false,
@@ -48,18 +58,54 @@ class _Beans_Compiler {
 		);
 
 		$this->compiler = array_merge( $defaults, $args );
-		$this->cache_dir = beans_get_compiler_dir( is_admin() ) . $this->compiler['id'];
-
-		if ( !$this->maybe_make_dir() )
-			return false;
+		$this->dir = beans_get_compiler_dir( is_admin() ) . $this->compiler['id'];
+		$this->url = beans_get_compiler_url( is_admin() ) . $this->compiler['id'];
 
 		$this->set_fragments();
 		$this->set_filname();
 
-		if ( !$this->cache_file_exist() )
+		if ( !$this->cache_file_exist() ) {
+
+			$this->filesystem();
+			$this->maybe_make_dir();
 			$this->cache_file();
 
+		}
+
 		$this->enqueue_file();
+
+		// Keep it safe and reset WP Filsystem method.
+		remove_filter( 'filesystem_method', array( $this, 'filesystem_method' ) );
+
+	}
+
+
+	/**
+	 * Set WP Filsystem method.
+	 */
+	public function filesystem_method() {
+
+		return 'direct';
+
+	}
+
+
+	/**
+	 * Initialise WP Filsystem.
+	 */
+	public function filesystem() {
+
+		// Initialize the WordPress Filsystem.
+		if ( !isset( $GLOBALS['wp_filesystem'] ) || empty( $GLOBALS['wp_filesystem'] ) ) {
+
+			require_once( ABSPATH . '/wp-admin/includes/file.php' );
+
+			if ( !WP_Filesystem() )
+				return $this->kill();
+
+		}
+
+		return true;
 
 	}
 
@@ -69,10 +115,10 @@ class _Beans_Compiler {
 	 */
 	public function maybe_make_dir() {
 
-		if ( !is_dir( $this->cache_dir ) )
-			wp_mkdir_p( $this->cache_dir );
+		if ( !@is_dir( $this->dir ) )
+			wp_mkdir_p( $this->dir );
 
-		if ( !is_writable( $this->cache_dir ) )
+		if ( !is_writable( $this->dir ) )
 			return false;
 
 		return true;
@@ -102,7 +148,8 @@ class _Beans_Compiler {
 
 		$hash = substr( md5( @serialize( $this->compiler ) ), 0, 7 );
 
-		if ( !_beans_is_compiler_dev_mode() )
+		// Stop here and return filename if not in dev mode or if not using filesystem.
+		if ( !_beans_is_compiler_dev_mode() || !@is_dir( $this->dir ) )
 			return $this->compiler['filename'] = $hash . '.' . $this->get_extension();
 
 		$fragments_filemtime = array();
@@ -125,14 +172,14 @@ class _Beans_Compiler {
 			// Set filemtime hash.
 			$_hash = substr( md5( @serialize( $fragments_filemtime ) ), 0, 7 );
 
-			$items = scandir( $this->cache_dir );
+			$items = @scandir( $this->dir );
 			unset( $items[0], $items[1] );
 
 			// Clean up other modified files.
 			foreach ( $items as $item )
 				// Remove if it contains initial hash, is the same format and doesn't contain the filemtime hash.
 				if ( stripos( $item, $hash ) !== false && stripos( $item, $this->get_extension() ) !== false && stripos( $item, $_hash ) === false )
-					@unlink( $this->cache_dir . '/' . $item );
+					@unlink( $this->dir . '/' . $item );
 
 			// Set the new hash which will trigger to new compiling.
 			$hash = $hash . '-' . $_hash;
@@ -149,7 +196,7 @@ class _Beans_Compiler {
 	 */
 	public function cache_file_exist() {
 
-		if ( ( $filname = beans_get( 'filename', $this->compiler ) ) && file_exists( $this->cache_dir . '/' . $filname ) )
+		if ( ( $filname = beans_get( 'filename', $this->compiler ) ) && file_exists( $this->dir . '/' . $filname ) )
 			return true;
 
 		return false;
@@ -163,15 +210,11 @@ class _Beans_Compiler {
 	public function cache_file() {
 
 		$content = $this->combine_fragments();
+		$filename = $this->dir . '/' . $this->compiler['filename'];
 
-		// Create new file.
-		$file_handle = @fopen( $this->cache_dir . '/' . $this->compiler['filename'], 'w' );
-
-		if ( !@fwrite( $file_handle, $content ) )
+		// Safe to access filesystem since we made sure it was set.
+		if ( !$GLOBALS['wp_filesystem']->put_contents( $filename, $content, FS_CHMOD_FILE ) )
 			return false;
-
-		@chmod( $this->cache_dir . '/' . $this->compiler['filename'], 0755 );
-		@fclose( $file_handle );
 
 		return true;
 
@@ -201,7 +244,7 @@ class _Beans_Compiler {
 	 */
 	public function get_url() {
 
-		$url = beans_path_to_url( trailingslashit( $this->cache_dir ) . beans_get( 'filename', $this->compiler ) );
+		$url = trailingslashit( $this->url ) . beans_get( 'filename', $this->compiler );
 
 		if ( is_ssl() )
 			$url = str_replace('http://', 'https://', $url );
@@ -266,8 +309,11 @@ class _Beans_Compiler {
 			// Add the content.
 			if ( $this->compiler['type'] == 'style' ) {
 
+				$get_content = $this->replace_css_url( $get_content );
+				$get_content = $this->add_content_media_query( $get_content );
+
 				// Add content wrapped in the media query if set.
-				$content .= $this->add_content_media_query( $get_content );
+				$content .= $get_content;
 
 			} else {
 
@@ -288,20 +334,21 @@ class _Beans_Compiler {
 	 */
 	public function get_internal_content() {
 
-		// Replace url with path.
-		$fragment = beans_url_to_path( $this->current_fragment );
+		$fragment = $this->current_fragment;
 
-		// Stop here if it isn't a valid file.
-		if ( !file_exists( $fragment ) || @filesize( $fragment ) === 0 )
-			return false;
+		if ( !file_exists( $fragment ) ) {
 
-		// Handle content.
-		$temp_handler = @fopen( $fragment, 'r' );
-		$content = $this->replace_css_url( @fread( $temp_handler, @filesize( $fragment ) ) );
+			// Replace url with path.
+			$fragment = beans_url_to_path( $fragment );
 
-		@fclose( $temp_handler );
+			// Stop here if it isn't a valid file.
+			if ( !file_exists( $fragment ) || @filesize( $fragment ) === 0 )
+				return false;
 
-		return $content;
+		}
+
+		// Safe to access filesystem since we made sure it was set.
+		return $GLOBALS['wp_filesystem']->get_contents( $fragment );
 
 	}
 
@@ -334,7 +381,7 @@ class _Beans_Compiler {
 
 		}
 
-		return $this->replace_css_url( wp_remote_retrieve_body( $request ) );
+		return wp_remote_retrieve_body( $request );
 
 	}
 
@@ -344,7 +391,7 @@ class _Beans_Compiler {
 	 */
 	public function get_function_content() {
 
-		return $this->replace_css_url( call_user_func( $this->current_fragment ) );
+		return call_user_func( $this->current_fragment );
 
 	}
 
@@ -385,10 +432,10 @@ class _Beans_Compiler {
 
 			if ( $this->compiler['format'] == 'less' ) {
 
-				if ( !class_exists( 'lessc' ) )
-					require_once( BEANS_API_COMPONENTS_PATH . 'compiler/vendors/lessc.php' );
+				if ( !class_exists( 'Beans_Lessc' ) )
+					require_once( BEANS_API_PATH . 'compiler/vendors/lessc.php' );
 
-				$less = new lessc();
+				$less = new Beans_Lessc();
 
 				$content = $less->compile( $content );
 
@@ -402,7 +449,7 @@ class _Beans_Compiler {
 		if ( $this->compiler['type'] == 'script' && !_beans_is_compiler_dev_mode() && $this->compiler['minify_js'] ) {
 
 			if ( !class_exists( 'JSMin' ) )
-				require_once( BEANS_API_COMPONENTS_PATH . 'compiler/vendors/js-minifier.php' );
+				require_once( BEANS_API_PATH . 'compiler/vendors/js-minifier.php' );
 
 			$js_min = new JSMin( $content );
 
@@ -419,9 +466,6 @@ class _Beans_Compiler {
 	 * Replace CSS url shortcuts with a valid url.
 	 */
 	public function replace_css_url( $content ) {
-
-		if ( $this->compiler['type'] != 'style' )
-			return $content;
 
 		// Replace css path to urls.
 		return preg_replace_callback( '#url\s*\(\s*[\'"]*?([^\'"\)]+)[\'"]*\s*\)#i', array( $this, 'css_path_to_url' ) , $content );
@@ -506,6 +550,69 @@ class _Beans_Compiler {
 			return true;
 
 		return false;
+
+	}
+
+
+	/**
+	 * Kill it :(
+	 */
+	public function kill() {
+
+		// Send report if set.
+		if ( beans_get( 'beans_send_compiler_report' ) )
+			$this->report();
+
+		$html = beans_output( 'beans_compiler_error_title_text', sprintf(
+			'<h2>%s</h2>',
+			__( 'Not cool, Beans cannot work its magic :(', 'beans' )
+		) );
+
+		$html .= beans_output( 'beans_compiler_error_message_text', sprintf(
+			'<p>%s</p>',
+			__( 'Your current install or file permission prevents Beans from working its magic. Please get in touch with Beans support, we will gladly get you started within 24 - 48 hours (working days).', 'beans' )
+		) );
+
+		$html .= beans_output( 'beans_compiler_error_contact_text', sprintf(
+			'<a class="button" href="http://www.getbeans.io/contact/?compiler_report=1" target="_blanc">%s</a>',
+			__( 'Contact Beans Support', 'beans' )
+		) );
+
+		$html .= beans_output( 'beans_compiler_error_report_text', sprintf(
+			'<p style="margin-top: 12px; font-size: 12px;"><a href="' . add_query_arg( 'beans_send_compiler_report', true ) . '">%1$s</a>. %2$s</p>',
+			__( 'Send us an automatic report', 'beans' ),
+			__( 'We respect your time and understand you might not be able to contact us.', 'beans' )
+		) );
+
+		wp_die( $html );
+
+	}
+
+
+	/**
+	 * Send report.
+	 */
+	public function report() {
+
+		// Send report.
+		$send = wp_mail(
+			'hello@getbeans.io',
+			'Compiler error',
+			'Compiler error reported by ' . home_url(),
+			array(
+				'MIME-Version: 1.0' . "\r\n",
+				'Content-type: text/html; charset=utf-8' . "\r\n",
+				"X-Mailer: PHP \r\n",
+				'From: ' . wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES ) . ' < ' . get_option( 'admin_email' ) . '>' . "\r\n",
+				'Reply-To: ' . get_option( 'admin_email' ) . "\r\n"
+			)
+		);
+
+		// Die and display message.
+		wp_die( beans_output( 'beans_compiler_report_error_text', sprintf(
+			'<p>%s<p>',
+			__( 'Thanks for your contribution by reporting this issue. We hope to hear from you again.', 'beans' )
+		) ) );
 
 	}
 

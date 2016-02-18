@@ -4,7 +4,7 @@
  *
  * @ignore
  */
-class _Beans_Admin {
+final class _Beans_Admin {
 
 	/**
 	 * Constructor.
@@ -61,7 +61,7 @@ class _Beans_Admin {
 
 		beans_register_options( $fields, 'beans_settings', 'mode_options', array(
 			'title' => __( 'Mode options', 'tm-beans' ),
-			'context' => beans_get( 'beans_settings', $wp_meta_boxes ) ? 'column' : 'normal' // Check of other beans boxes.
+			'context' => beans_get( 'beans_settings', $wp_meta_boxes ) ? 'column' : 'normal' // Check for other beans boxes.
 		) );
 
 	}

@@ -47,7 +47,7 @@ function beans_register_fields( array $fields, $context, $section ) {
 		return false;
 
 	// Load the class only if this function is called to prevent unnecessary memory usage.
-	require_once( BEANS_API_COMPONENTS_PATH . 'fields/class.php' );
+	require_once( BEANS_API_PATH . 'fields/class.php' );
 
 	$class = new _Beans_Fields();
 	$class->register( $fields, $context, $section );
