@@ -482,95 +482,107 @@ function beans_comment_form_fields( $fields ) {
 	$commenter = wp_get_current_commenter();
 
 	// Author.
-	$author = beans_open_markup( 'beans_comment_form[_name]', 'div', array( 'class' => 'uk-width-medium-1-3' ) );
+	if ( isset( $fields['author'] ) ) {
 
-		/**
-		 * Filter whether the comment form name legend should load or not.
-		 *
-		 * @since 1.0.0
-		 */
-		if ( beans_apply_filters( 'beans_comment_form_legend[_name]', true ) ) {
+		$author = beans_open_markup( 'beans_comment_form[_name]', 'div', array( 'class' => "uk-width-medium-1-3" ) );
 
-			$author .= beans_open_markup( 'beans_comment_form_legend[_name]', 'legend' );
+			/**
+			 * Filter whether the comment form name legend should load or not.
+			 *
+			 * @since 1.0.0
+			 */
+			if ( beans_apply_filters( 'beans_comment_form_legend[_name]', true ) ) {
 
-				$author .= beans_output( 'beans_comment_form_legend_text[_name]', __( 'Name', 'tm-beans' ) );
+				$author .= beans_open_markup( 'beans_comment_form_legend[_name]', 'legend' );
 
-			$author .= beans_close_markup( 'beans_comment_form_legend[_name]', 'legend' );
+					$author .= beans_output( 'beans_comment_form_legend_text[_name]', __( 'Name', 'tm-beans' ) );
 
-		}
+				$author .= beans_close_markup( 'beans_comment_form_legend[_name]', 'legend' );
 
-		$author .= beans_selfclose_markup( 'beans_comment_form_field[_name]', 'input', array(
-			'id' => 'author',
-			'class' => 'uk-width-1-1',
-			'type' => 'text',
-			'value' => esc_attr( $commenter['comment_author'] ),
-			'name' => 'author'
-		) );
+			}
 
-	$author .= beans_close_markup( 'beans_comment_form[_name]', 'div' );
+			$author .= beans_selfclose_markup( 'beans_comment_form_field[_name]', 'input', array(
+				'id' => 'author',
+				'class' => 'uk-width-1-1',
+				'type' => 'text',
+				'value' => $commenter['comment_author'], // Automatically escaped.
+				'name' => 'author'
+			) );
+
+		$author .= beans_close_markup( 'beans_comment_form[_name]', 'div' );
+
+		$fields['author'] = $author;
+
+	}
 
 	// Email.
-	$email = beans_open_markup( 'beans_comment_form[_email]', 'div', array( 'class' => 'uk-width-medium-1-3' ) );
+	if ( isset( $fields['email'] ) ) {
 
-		/**
-		 * Filter whether the comment form email legend should load or not.
-		 *
-		 * @since 1.0.0
-		 */
-		if ( beans_apply_filters( 'beans_comment_form_legend[_email]', true ) ) {
+		$email = beans_open_markup( 'beans_comment_form[_email]', 'div', array( 'class' => "uk-width-medium-1-3" ) );
 
-			$email .= beans_open_markup( 'beans_comment_form_legend[_email]', 'legend' );
+			/**
+			 * Filter whether the comment form email legend should load or not.
+			 *
+			 * @since 1.0.0
+			 */
+			if ( beans_apply_filters( 'beans_comment_form_legend[_email]', true ) ) {
 
-				$email .= beans_output( 'beans_comment_form_legend_text[_email]', sprintf( __( 'Email %s', 'tm-beans' ), ( get_option( 'require_name_email' ) ? ' *' : '' ) ) );
+				$email .= beans_open_markup( 'beans_comment_form_legend[_email]', 'legend' );
 
-			$email .= beans_close_markup( 'beans_comment_form_legend[_email]', 'legend' );
+					$email .= beans_output( 'beans_comment_form_legend_text[_email]', sprintf( __( 'Email %s', 'tm-beans' ), ( get_option( 'require_name_email' ) ? ' *' : '' ) ) );
 
-		}
+				$email .= beans_close_markup( 'beans_comment_form_legend[_email]', 'legend' );
 
-		$email .= beans_selfclose_markup( 'beans_comment_form_field[_email]', 'input', array(
-			'id' => 'email',
-			'class' => 'uk-width-1-1',
-			'type' => 'text',
-			'value' => esc_attr(  $commenter['comment_author_email'] ),
-			'name' => 'email',
-			'required' => get_option( 'require_name_email' ) ? '' : null
-		) );
+			}
 
-	$email .= beans_close_markup( 'beans_comment_form[_email]', 'div' );
+			$email .= beans_selfclose_markup( 'beans_comment_form_field[_email]', 'input', array(
+				'id' => 'email',
+				'class' => 'uk-width-1-1',
+				'type' => 'text',
+				'value' => $commenter['comment_author_email'], // Automatically escaped.
+				'name' => 'email',
+				'required' => get_option( 'require_name_email' ) ? '' : null
+			) );
+
+		$email .= beans_close_markup( 'beans_comment_form[_email]', 'div' );
+
+		$fields['email'] = $email;
+
+	}
 
 	// Url.
-	$url = beans_open_markup( 'beans_comment_form[_website]', 'div', array( 'class' => 'uk-width-medium-1-3' ) );
+	if ( isset( $fields['url'] ) ) {
 
-		/**
-		 * Filter whether the comment form url legend should load or not.
-		 *
-		 * @since 1.0.0
-		 */
-		if ( beans_apply_filters( 'beans_comment_form_legend[_url]', true ) ) {
+		$url = beans_open_markup( 'beans_comment_form[_website]', 'div', array( 'class' => "uk-width-medium-1-3" ) );
 
-			$url .= beans_open_markup( 'beans_comment_form_legend', 'legend' );
+			/**
+			 * Filter whether the comment form url legend should load or not.
+			 *
+			 * @since 1.0.0
+			 */
+			if ( beans_apply_filters( 'beans_comment_form_legend[_url]', true ) ) {
 
-				$url .= beans_output( 'beans_comment_form_legend_text[_url]', __( 'Website', 'tm-beans' ) );
+				$url .= beans_open_markup( 'beans_comment_form_legend', 'legend' );
 
-			$url .= beans_close_markup( 'beans_comment_form_legend[_url]', 'legend' );
+					$url .= beans_output( 'beans_comment_form_legend_text[_url]', __( 'Website', 'tm-beans' ) );
 
-		}
+				$url .= beans_close_markup( 'beans_comment_form_legend[_url]', 'legend' );
 
-		$url .= beans_selfclose_markup( 'beans_comment_form_field[_url]', 'input', array(
-			'id' => 'url',
-			'class' => 'uk-width-1-1',
-			'type' => 'text',
-			'value' => esc_attr(  $commenter['comment_author_url'] ),
-			'name' => 'url'
-		) );
+			}
 
-	$url .= beans_close_markup( 'beans_comment_form[_website]', 'div' );
+			$url .= beans_selfclose_markup( 'beans_comment_form_field[_url]', 'input', array(
+				'id' => 'url',
+				'class' => 'uk-width-1-1',
+				'type' => 'text',
+				'value' => $commenter['comment_author_url'], // Automatically escaped.
+				'name' => 'url'
+			) );
 
-	$fields = array(
-		'author' => $author,
-		'email' => $email,
-		'url' => $url
-	);
+		$url .= beans_close_markup( 'beans_comment_form[_website]', 'div' );
+
+		$fields['url'] = $url;
+
+	}
 
 	return $fields;
 }
