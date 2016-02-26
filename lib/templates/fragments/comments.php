@@ -480,11 +480,12 @@ beans_add_smart_action( 'comment_form_default_fields', 'beans_comment_form_field
 function beans_comment_form_fields( $fields ) {
 
 	$commenter = wp_get_current_commenter();
+	$grid = count( (array) $fields );
 
 	// Author.
 	if ( isset( $fields['author'] ) ) {
 
-		$author = beans_open_markup( 'beans_comment_form[_name]', 'div', array( 'class' => "uk-width-medium-1-3" ) );
+		$author = beans_open_markup( 'beans_comment_form[_name]', 'div', array( 'class' => "uk-width-medium-1-$grid" ) );
 
 			/**
 			 * Filter whether the comment form name legend should load or not.
@@ -518,7 +519,7 @@ function beans_comment_form_fields( $fields ) {
 	// Email.
 	if ( isset( $fields['email'] ) ) {
 
-		$email = beans_open_markup( 'beans_comment_form[_email]', 'div', array( 'class' => "uk-width-medium-1-3" ) );
+		$email = beans_open_markup( 'beans_comment_form[_email]', 'div', array( 'class' => "uk-width-medium-1-$grid" ) );
 
 			/**
 			 * Filter whether the comment form email legend should load or not.
@@ -553,7 +554,7 @@ function beans_comment_form_fields( $fields ) {
 	// Url.
 	if ( isset( $fields['url'] ) ) {
 
-		$url = beans_open_markup( 'beans_comment_form[_website]', 'div', array( 'class' => "uk-width-medium-1-3" ) );
+		$url = beans_open_markup( 'beans_comment_form[_website]', 'div', array( 'class' => "uk-width-medium-1-$grid" ) );
 
 			/**
 			 * Filter whether the comment form url legend should load or not.
