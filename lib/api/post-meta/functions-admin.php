@@ -52,7 +52,7 @@ function beans_register_post_meta( array $fields, $conditions, $section, $args =
 
 	$fields = apply_filters( "beans_post_meta_fields_{$section}", _beans_pre_standardize_fields( $fields ) );
 	$conditions = apply_filters( "beans_post_meta_post_types_{$section}", $conditions );
-	$_beans_post_meta_conditions = array_merge( $_beans_post_meta_conditions, $conditions );
+	$_beans_post_meta_conditions = array_merge( $_beans_post_meta_conditions, (array) $conditions );
 
 	// Stop here if the current page isn't concerned.
 	if ( !_beans_is_post_meta_conditions( $conditions ) || !is_admin() )
