@@ -13,7 +13,7 @@ if ( post_password_required() )
 
 echo beans_open_markup( 'beans_comments', 'div', array( 'id' => 'comments', 'class' => 'tm-comments' . ( current_theme_supports( 'beans-default-styling' ) ? ' uk-panel-box' : null ) ) );
 
-	if ( comments_open( get_the_ID() ) ) :
+	if ( comments_open() || get_comments_number() ) :
 
 		if ( have_comments() ) :
 
@@ -48,7 +48,9 @@ echo beans_open_markup( 'beans_comments', 'div', array( 'id' => 'comments', 'cla
 		 */
 		do_action( 'beans_after_open_comments' );
 
-	else :
+	endif;
+
+	if ( !comments_open() ) :
 
 		/**
 		 * Fires if comments are closed.

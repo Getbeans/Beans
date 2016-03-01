@@ -111,7 +111,7 @@ function beans_comments_template() {
 
 	global $post;
 
-	if ( !post_type_supports( beans_get( 'post_type', $post ), 'comments' ) )
+	if ( !( comments_open() || get_comments_number() ) || !post_type_supports( beans_get( 'post_type', $post ), 'comments' ) )
 		return;
 
 	comments_template();
