@@ -81,7 +81,10 @@ function _beans_is_post_meta_conditions( $conditions ) {
 	if ( stripos( $_SERVER['REQUEST_URI'], 'post-new.php' ) !== false ) {
 
 		if ( !$current_post_type = beans_get( 'post_type' ) )
-			return false;
+			if ( in_array( 'post', (array) $conditions ) )
+				return true;
+			else
+				return false;
 
 	} else {
 
