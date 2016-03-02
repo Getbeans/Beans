@@ -687,7 +687,6 @@ class Beans_Lessc {
 			$mixins = $this->findBlocks($block, $path, $orderedArgs, $keywordArgs);
 
 			if ($mixins === null) {
-				// fwrite(STDERR,"failed to find block: ".implode(" > ", $path)."\n");
 				break; // throw error here??
 			}
 
