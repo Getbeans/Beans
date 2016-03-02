@@ -565,23 +565,23 @@ final class _Beans_Compiler {
 
 		$html = beans_output( 'beans_compiler_error_title_text', sprintf(
 			'<h2>%s</h2>',
-			__( 'Not cool, Beans cannot work its magic :(', 'beans' )
+			__( 'Not cool, Beans cannot work its magic :(', 'tm-beans' )
 		) );
 
 		$html .= beans_output( 'beans_compiler_error_message_text', sprintf(
 			'<p>%s</p>',
-			__( 'Your current install or file permission prevents Beans from working its magic. Please get in touch with Beans support, we will gladly get you started within 24 - 48 hours (working days).', 'beans' )
+			__( 'Your current install or file permission prevents Beans from working its magic. Please get in touch with Beans support, we will gladly get you started within 24 - 48 hours (working days).', 'tm-beans' )
 		) );
 
 		$html .= beans_output( 'beans_compiler_error_contact_text', sprintf(
 			'<a class="button" href="http://www.getbeans.io/contact/?compiler_report=1" target="_blanc">%s</a>',
-			__( 'Contact Beans Support', 'beans' )
+			__( 'Contact Beans Support', 'tm-beans' )
 		) );
 
 		$html .= beans_output( 'beans_compiler_error_report_text', sprintf(
 			'<p style="margin-top: 12px; font-size: 12px;"><a href="' . add_query_arg( 'beans_send_compiler_report', true ) . '">%1$s</a>. %2$s</p>',
-			__( 'Send us an automatic report', 'beans' ),
-			__( 'We respect your time and understand you might not be able to contact us.', 'beans' )
+			__( 'Send us an automatic report', 'tm-beans' ),
+			__( 'We respect your time and understand you might not be able to contact us.', 'tm-beans' )
 		) );
 
 		wp_die( $html );
@@ -611,7 +611,7 @@ final class _Beans_Compiler {
 		// Die and display message.
 		wp_die( beans_output( 'beans_compiler_report_error_text', sprintf(
 			'<p>%s<p>',
-			__( 'Thanks for your contribution by reporting this issue. We hope to hear from you again.', 'beans' )
+			__( 'Thanks for your contribution by reporting this issue. We hope to hear from you again.', 'tm-beans' )
 		) ) );
 
 	}

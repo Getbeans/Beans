@@ -33,7 +33,7 @@ function beans_footer_content() {
 			'rel' => 'designer'
 		) );
 
-			$framework_link .= beans_output( 'beans_footer_credit_framework_link_text', 'Beans' );
+			$framework_link .= beans_output( 'beans_footer_credit_framework_link_text', 'tm-beans' );
 
 		$framework_link .= beans_close_markup( 'beans_footer_credit_framework_link', 'a' );
 
