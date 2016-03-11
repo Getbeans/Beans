@@ -269,6 +269,29 @@ function beans_remove_markup( $id, $remove_actions = false ) {
 
 
 /**
+ * Reset markup.
+ *
+ * This function will automatically reset the opening and the closing HTML tag to its original value. If the markup is self-closed,
+ * the HTML tag will be reset accordingly.
+ *
+ * The "data-markup-id" is added as a HTML attribute if the development mode is enabled. This makes it very
+ * easy to find the content ID when inspecting an element in a web browser.
+ *
+ * @since next release
+ *
+ * @param string $id The markup ID.
+ *
+ * @return bool Will always return true.
+ */
+function beans_reset_markup( $id ) {
+
+	remove_all_filters( $id . '_markup' );
+	remove_all_filters( preg_replace( '#(\[|\])#', '', $id ) . '_markup' );
+
+}
+
+
+/**
  * Wrap markup.
  *
  * This function calls {@see beans_open_markup()} before the opening markup and
@@ -376,6 +399,29 @@ function beans_add_attributes( $id, $attributes = array() ) {
 	$attributes = call_user_func_array( 'beans_apply_filters', $args );
 
 	return beans_sanatize_attributes( $attributes );
+
+}
+
+
+/**
+ * Reset markup attributes.
+ *
+ * This function will reset the targeted markup attributes to their original values. It must be called before
+ * the targeted markup is called.
+ *
+ * The "data-markup-id" is added as a HTML attribute if the development mode is enabled. This makes it very
+ * easy to find the content ID when inspecting an element in a web browser.
+ *
+ * @since next release
+ *
+ * @param string $id The markup ID.
+ *
+ * @return bool Will always return true.
+ */
+function beans_reset_attributes( $id ) {
+
+	remove_all_filters( $id . '_attributes' );
+	remove_all_filters( preg_replace( '#(\[|\])#', '', $id ) . '_attributes' );
 
 }
 
