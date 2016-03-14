@@ -458,7 +458,10 @@ function beans_comment_before_fields() {
 
 	echo beans_open_markup( 'beans_comment_fields_wrap', 'div', array( 'class' => 'uk-width-medium-1-1' ) );
 
-		echo beans_open_markup( 'beans_comment_fields_inner_wrap', 'div', array( 'class' => 'uk-grid' ) );
+		echo beans_open_markup( 'beans_comment_fields_inner_wrap', 'div', array(
+			'class' => 'uk-grid uk-grid-small',
+			'data-uk-grid-margin' => ''
+		) );
 
 }
 
