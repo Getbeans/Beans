@@ -22,6 +22,6 @@ beans_add_smart_action( 'beans_field_textarea', 'beans_field_textarea' );
  */
 function beans_field_textarea( $field ) {
 
-	echo '<textarea name="' . $field['name'] . '" ' . beans_sanatize_attributes( $field['attributes'] ) . '>' . esc_attr( $field['value'] ) . '</textarea>';
+	echo '<textarea name="' . $field['name'] . '" ' . beans_sanitize_attributes( $field['attributes'] ) . '>' . esc_attr( $field['value'] ) . '</textarea>';
 
 }

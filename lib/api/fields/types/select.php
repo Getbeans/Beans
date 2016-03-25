@@ -27,7 +27,7 @@ function beans_field_select( $field ) {
 	if ( empty( $field['options'] ) )
 		return;
 
-	echo '<select name="' . $field['name'] . '" ' . beans_sanatize_attributes( $field['attributes'] ) . '>';
+	echo '<select name="' . $field['name'] . '" ' . beans_sanitize_attributes( $field['attributes'] ) . '>';
 
 		foreach ( $field['options'] as $value => $label ) {
 

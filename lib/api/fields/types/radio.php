@@ -42,7 +42,7 @@ function beans_field_radio( $field ) {
 				if ( $has_image )
 					echo '<img src="' . $radio . '" />';
 
-				echo '<input type="radio" name="' . $field['name'] . '" value="' . $id . '" ' . $checked . ' ' . beans_sanatize_attributes( $field['attributes'] ) . '/>';
+				echo '<input type="radio" name="' . $field['name'] . '" value="' . $id . '" ' . $checked . ' ' . beans_sanitize_attributes( $field['attributes'] ) . '/>';
 
 				if ( !$has_image )
 					echo $radio;

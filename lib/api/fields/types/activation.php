@@ -28,6 +28,6 @@ function beans_field_activation( $field ) {
 
 	echo '<input type="hidden" value="0" name="' . $field['name'] . '" />';
 
-	echo '<input type="checkbox" name="' . $field['name'] . '" value="1" ' . $checked . ' ' . beans_sanatize_attributes( $field['attributes'] ) . ' />';
+	echo '<input type="checkbox" name="' . $field['name'] . '" value="1" ' . $checked . ' ' . beans_sanitize_attributes( $field['attributes'] ) . ' />';
 
 }

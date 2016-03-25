@@ -82,7 +82,7 @@ function beans_field_image( $field ) {
 
 			echo '<div class="bs-image-wrap ' . $class . '">';
 
-				echo '<input ' . beans_sanatize_attributes( $attributes ) . ' />';
+				echo '<input ' . beans_sanitize_attributes( $attributes ) . ' />';
 
 				echo '<img src="' . beans_get( 0, $img ) . '">';
 

@@ -27,7 +27,7 @@ function beans_field_checkbox( $field ) {
 
 	echo '<input type="hidden" value="0" name="' . $field['name'] . '" />';
 
-	echo '<input type="checkbox" name="' . $field['name'] . '" value="1" ' . $checked . ' ' . beans_sanatize_attributes( $field['attributes'] ) . ' />';
+	echo '<input type="checkbox" name="' . $field['name'] . '" value="1" ' . $checked . ' ' . beans_sanitize_attributes( $field['attributes'] ) . ' />';
 
 	if ( $checkbox_label = beans_get( 'checkbox_label', $field, 'Enable' ) )
 		echo '<span class="bs-checkbox-label">' . $checkbox_label . '</span>';

@@ -52,7 +52,7 @@ function beans_field_slider( $field ) {
 	echo '<div class="bs-slider-wrap" slider_min="' . $field['min'] . '" slider_max="' . $field['max'] . '" slider_interval="' . $field['interval'] . '">';
 
 		// Don't make this a hidden field to prevent triggering issues with wp_customise.
-		echo '<input type="text" value="' . $field['value'] . '" name="' . $field['name'] . '" ' . beans_sanatize_attributes( $field['attributes'] ) . ' style="display: none;"/>';
+		echo '<input type="text" value="' . $field['value'] . '" name="' . $field['name'] . '" ' . beans_sanitize_attributes( $field['attributes'] ) . ' style="display: none;"/>';
 
 	echo '</div>';
 

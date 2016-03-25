@@ -492,16 +492,16 @@ function beans_admin_menu_position( $position ) {
 
 
 /**
- * Sanatize HTML attributes from array to string.
+ * Sanitize HTML attributes from array to string.
  *
  * @since 1.0.0
  *
  * @param array $attributes The array key defines the attribute name and the array value define the
  *                          attribute value.
  *
- * @return string The sanatized attributes.
+ * @return string The sanitized attributes.
  */
-function beans_sanatize_attributes( $attributes ) {
+function beans_sanitize_attributes( $attributes ) {
 
 	$string = '';
 
