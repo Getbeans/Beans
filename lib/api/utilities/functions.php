@@ -503,11 +503,40 @@ function beans_admin_menu_position( $position ) {
  */
 function beans_sanitize_attributes( $attributes ) {
 
+	/**
+	 * Filter attributes escaping methods.
+	 *
+	 * @since 1.3.1
+	 */
+	$methods = apply_filters( 'beans_escape_attributes_methods', array(
+		'id' => 'esc_attr',
+		'class' => 'esc_attr',
+		'name' => 'esc_attr',
+		'title' => 'esc_html',
+		'alt' => 'esc_html',
+		'href' => 'esc_url',
+		'src' => 'esc_url',
+		'placeholder' => 'esc_html',
+		'itemscope' => 'esc_attr',
+		'itemprop'=> 'esc_attr',
+		'itemtype' => 'esc_url',
+		'onclick' => 'esc_js'
+	) );
+
 	$string = '';
 
-	foreach ( (array) $attributes as $attribute => $value )
-		if ( $value !== null )
+	foreach ( (array) $attributes as $attribute => $value ) {
+
+		if ( $value !== null ) {
+
+			if ( $method = beans_get( $attribute, $methods ) )
+				$value = call_user_func( $method, $value );
+
 			$string .= $attribute . '="' . $value . '" ';
+
+		}
+
+	}
 
 	return trim( $string );
 

@@ -6,7 +6,7 @@
  */
 
 echo beans_open_markup( 'beans_comment', 'article', array(
-	'id' => 'div-comment-' . get_comment_ID(),
+	'id' => 'div-comment-' . get_comment_ID(), // Automatically escaped.
 	'class' => 'uk-comment',
 	'itemprop' => 'comment',
 	'itemscope' => 'itemscope',

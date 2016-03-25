@@ -29,7 +29,7 @@ function beans_footer_content() {
 		echo beans_close_markup( 'beans_footer_credit_left', 'span' );
 
 		$framework_link = beans_open_markup( 'beans_footer_credit_framework_link', 'a', array(
-			'href' => esc_url( 'http://www.getbeans.io' ),
+			'href' => 'http://www.getbeans.io', // Automatically escaped.
 			'rel' => 'designer'
 		) );
 

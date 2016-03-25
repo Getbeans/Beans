@@ -40,7 +40,7 @@ function beans_post_meta_author_shortcode() {
 	beans_output( 'beans_post_meta_author_prefix', __( 'By ', 'tm-beans' ) ) ;
 
 	echo beans_open_markup( 'beans_post_meta_author', 'a', array(
-		'href' => esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
+		'href' => get_author_posts_url( get_the_author_meta( 'ID' ) ), // Automatically escaped.
 		'rel' => 'author',
 		'itemprop' => 'author',
 		'itemtype' => 'http://schema.org/Person'
@@ -77,7 +77,7 @@ function beans_post_meta_comments_shortcode() {
 		$comment_text = beans_output( 'beans_post_meta_comments_text_plurial', __( '%s comments', 'tm-beans' ) );
 
 	echo beans_open_markup( 'beans_post_meta_comments', 'a', array(
-		'href' => esc_url( get_comments_link() )
+		'href' => get_comments_link() // Automatically escaped.
 	) );
 
 		printf( $comment_text, (int) get_comments_number( $post->ID ) );

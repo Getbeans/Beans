@@ -27,7 +27,7 @@ function beans_primary_menu() {
 			'theme_location' => has_nav_menu( 'primary' ) ? 'primary' : '',
 			'fallback_cb' => 'beans_no_menu_notice',
 			'container' => '',
-			'menu_class' => $nav_visibility,
+			'menu_class' => $nav_visibility, // Automatically escaped.
 			'echo' => false,
 			'beans_type' => 'navbar'
 		) );

@@ -205,7 +205,7 @@ function beans_comment_links() {
 			echo beans_open_markup( 'beans_comment_item[_edit]', 'li' );
 
 				echo beans_open_markup( 'beans_comment_item_link[_edit]', 'a', array(
-					'href' => esc_url( get_edit_comment_link( $comment->comment_ID ) )
+					'href' => get_edit_comment_link( $comment->comment_ID ) // Automatically escaped.
 				) );
 
 					echo beans_output( 'beans_comment_edit_text', __( 'Edit', 'tm-beans' ) );
@@ -220,7 +220,7 @@ function beans_comment_links() {
 		echo beans_open_markup( 'beans_comment_item[_link]', 'li' );
 
 			echo beans_open_markup( 'beans_comment_item_link[_link]', 'a', array(
-				'href' => esc_url( get_comment_link( $comment->comment_ID ) )
+				'href' => get_comment_link( $comment->comment_ID ) // Automatically escaped.
 			) );
 
 				echo beans_output( 'beans_comment_link_text', __( 'Link', 'tm-beans' ) );
@@ -388,7 +388,7 @@ function beans_comment_cancel_reply_link( $html, $link, $text ) {
 		'id' => 'cancel-comment-reply-link',
 		'class' => 'uk-button uk-button-small uk-button-danger uk-margin-small-right',
 		'style' => isset( $_GET['replytocom'] ) ? '' : 'display:none;',
-		'href' => $link
+		'href' => $link // Automatically escaped.
 	) );
 
 		echo beans_output( 'beans_comment_cancel_reply_link_text', $text );

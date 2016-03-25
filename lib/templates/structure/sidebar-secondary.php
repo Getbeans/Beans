@@ -6,7 +6,7 @@
  */
 
 echo beans_open_markup( 'beans_sidebar_secondary', 'aside', array(
-	'class' => 'tm-tertiary ' . beans_get_layout_class( 'sidebar_secondary' ),
+	'class' => 'tm-tertiary ' . beans_get_layout_class( 'sidebar_secondary' ), // Automatically escaped.
 	'role' => 'complementary',
 	'itemscope' => 'itemscope',
 	'itemtype' => 'http://schema.org/WPSideBar'

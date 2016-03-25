@@ -133,10 +133,10 @@ function beans_modify_widget_content_attributes( $attributes ) {
 	$current_class = isset( $attributes['class'] ) ? $attributes['class'] . ' ' : '';
 
 	if ( in_array( beans_get_widget( 'type' ), $target ) )
-		$attributes['class'] = $current_class . 'uk-list';
+		$attributes['class'] = $current_class . 'uk-list'; // Automatically escaped.
 
 	if ( $type == 'calendar' )
-		$attributes['class'] = $current_class . 'uk-table uk-table-condensed';
+		$attributes['class'] = $current_class . 'uk-table uk-table-condensed'; // Automatically escaped.
 
 	return $attributes;
 

@@ -47,11 +47,11 @@ function beans_favicon() {
 	if ( function_exists( 'has_site_icon' ) && has_site_icon() )
 		return;
 
-	$path = file_exists( get_template_directory() . 'favicon.ico' ) ? get_template_directory() . 'favicon.ico' : BEANS_URL . 'favicon.ico';
+	$url = file_exists( get_template_directory() . 'favicon.ico' ) ? get_template_directory_uri() . 'favicon.ico' : BEANS_URL . 'favicon.ico';
 
 	echo beans_selfclose_markup( 'beans_favicon', 'link', array(
 		'rel' => 'Shortcut Icon',
-		'href' => esc_url( $path ),
+		'href' => $url, // Automatically escaped.
 		'type' => 'image/x-icon',
 	) );
 
@@ -96,8 +96,8 @@ function beans_site_branding() {
 	if ( $logo = get_theme_mod( 'beans_logo_image', false ) )
 		$name = beans_selfclose_markup( 'beans_logo_image', 'img', array(
 			'class' => 'tm-logo',
-			'src' => esc_url( $logo ),
-			'alt' => esc_attr( $name ),
+			'src' => $logo, // Automatically escaped.
+			'alt' => $name, // Automatically escaped.
 		) );
 
 	echo beans_open_markup( 'beans_site_branding', 'div', array(
@@ -105,7 +105,7 @@ function beans_site_branding() {
 	) );
 
 		echo beans_open_markup( 'beans_site_title_link', 'a', array(
-			'href' => esc_url( home_url() ),
+			'href' => home_url(), // Automatically escaped.
 			'rel' => 'home',
 			'itemprop' => 'headline'
 		) );
