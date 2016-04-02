@@ -268,7 +268,7 @@ function beans_post_more_link() {
 	global $post;
 
 	$output = beans_open_markup( 'beans_post_more_link', 'a', array(
-		'href' => get_permalink() . "#more-{$post->ID}",  // Automatically escaped.
+		'href' => get_permalink(), // Automatically escaped.
 		'class' => 'more-link',
 	) );
 
