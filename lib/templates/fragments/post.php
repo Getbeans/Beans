@@ -91,6 +91,16 @@ function beans_post_meta() {
 
 	echo beans_open_markup( 'beans_post_meta', 'ul', array( 'class' => 'uk-article-meta uk-subnav uk-subnav-line' ) );
 
+		/**
+		 * Filter the post meta actions and order.
+		 *
+		 * A do_action( "beans_post_meta_{$array_key}" ) is called for each array key set. Array values are used to set the priority of
+		 * each actions. The array ordered using asort();
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $fragments An array of fragment files.
+		 */
 		$meta_items = apply_filters( 'beans_post_meta_items', array(
 			'date' => 10,
 			'author' => 20,

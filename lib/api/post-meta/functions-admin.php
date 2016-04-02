@@ -31,9 +31,9 @@
  *            					  registered should be saved as a group in the database or as individual
  *            					  entries. Default false.
  * }
- * @param array  $conditions Array of 'post types id(s)', 'post id(s)' or 'page template slug(s)' for which the post meta should be registered.
- *                           'page template slug(s)' must include '.php' file extention. Set to true to display everywhere.
- * @param string $section    A section id to define the group of fields.
+ * @param string|array $conditions Array of 'post types id(s)', 'post id(s)' or 'page template slug(s)' for which the post meta should be registered.
+ *                                 'page template slug(s)' must include '.php' file extention. Set to true to display everywhere.
+ * @param string $section          A section id to define the group of fields.
  * @param array  $args {
  *      Optional. Array of arguments used to register the fields.
  *
@@ -50,7 +50,26 @@ function beans_register_post_meta( array $fields, $conditions, $section, $args =
 
 	global $_beans_post_meta_conditions;
 
+	/**
+	 * Filter the post meta fields.
+	 *
+	 * The dynamic portion of the hook name, $section, refers to the section id which defines the group of fields.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $fields An array of post meta fields.
+	 */
 	$fields = apply_filters( "beans_post_meta_fields_{$section}", _beans_pre_standardize_fields( $fields ) );
+
+	/**
+	 * Filter the conditions used to define whether the fields set should be displayed or not.
+	 *
+	 * The dynamic portion of the hook name, $section, refers to the section id which defines the group of fields.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string|array $conditions Conditions used to define whether the fields set should be displayed or not.
+	 */
 	$conditions = apply_filters( "beans_post_meta_post_types_{$section}", $conditions );
 	$_beans_post_meta_conditions = array_merge( $_beans_post_meta_conditions, (array) $conditions );
 

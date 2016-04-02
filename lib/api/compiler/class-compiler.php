@@ -136,6 +136,15 @@ final class _Beans_Compiler {
 		if ( $added_fragments = beans_get( $this->compiler['id'], $_beans_compiler_added_fragments[$this->compiler['format']] ) )
 			$this->compiler['fragments'] = array_merge( $this->compiler['fragments'], $added_fragments );
 
+		/**
+		 * Filter the compiler fragment files.
+		 *
+		 * The dynamic portion of the hook name, $this->compiler['id'], refers to the compiler id used as a reference.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $fragments An array of fragment files.
+		 */
 		$this->compiler['fragments'] = apply_filters( 'beans_compiler_fragments_' . $this->compiler['id'], $this->compiler['fragments'] );
 
 	}

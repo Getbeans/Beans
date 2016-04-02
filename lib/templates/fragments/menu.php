@@ -23,6 +23,13 @@ function beans_primary_menu() {
 		'itemtype' => 'http://schema.org/SiteNavigationElement'
 	) );
 
+		/**
+		 * Filter the primary menu arguments.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $args Nav menu arguments.
+		 */
 		$args = apply_filters( 'beans_primary_menu_args', array(
 			'theme_location' => has_nav_menu( 'primary' ) ? 'primary' : '',
 			'fallback_cb' => 'beans_no_menu_notice',
@@ -88,6 +95,13 @@ function beans_primary_offcanvas_menu() {
 		'role' => 'navigation',
 	) );
 
+		/**
+		 * Filter the off-canvas primary menu arguments.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $args Off-canvas nav menu arguments.
+		 */
 		$args = apply_filters( 'beans_primary_offcanvas_menu_args', array(
 			'theme_location' => has_nav_menu( 'primary' ) ? 'primary' : '',
 			'fallback_cb' => 'beans_no_menu_notice',

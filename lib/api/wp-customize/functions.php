@@ -48,6 +48,15 @@
  */
 function beans_register_wp_customize_options( array $fields, $section, $args = array() ) {
 
+	/**
+	 * Filter the customizer fields.
+	 *
+	 * The dynamic portion of the hook name, $section, refers to the section id which defines the group of fields.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $fields An array of customizer fields.
+	 */
 	$fields = apply_filters( "beans_wp_customize_fields_{$section}", _beans_pre_standardize_fields( $fields ) );
 
 	// Stop here if the current page isn't concerned.

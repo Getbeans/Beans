@@ -15,12 +15,40 @@ final class _Beans_Uikit {
 
 		global $_beans_uikit_enqueued_items;
 
-		// Set filters for third parties, eventhough it should rarely be used.
+		/**
+		 * Filter UIkit enqueued style components.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $components An array of UIkit style component files.
+		 */
 		$styles = apply_filters( 'beans_uikit_euqueued_styles', $this->register_less_components() );
+
+		/**
+		 * Filter UIkit enqueued script components.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $components An array of UIkit script component files.
+		 */
 		$scripts = apply_filters( 'beans_uikit_euqueued_scripts', $this->register_js_components() );
 
-		// Set default args filters for third parties.
+		/**
+		 * Filter UIkit style compiler arguments.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $components An array of UIkit style compiler arguments.
+		 */
 		$styles_args = apply_filters( 'beans_uikit_euqueued_styles_args', array() );
+
+		/**
+		 * Filter UIkit script compiler arguments.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $components An array of UIkit script compiler arguments.
+		 */
 		$scripts_args = apply_filters( 'beans_uikit_euqueued_scripts_args', array(
 			'depedencies' => array( 'jquery' )
 		) );

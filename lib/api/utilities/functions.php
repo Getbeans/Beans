@@ -510,6 +510,8 @@ function beans_sanitize_attributes( $attributes ) {
 	 * {@link http://codex.wordpress.org/Function_Reference/esc_attr esc_attr()}.
 	 *
 	 * @since 1.3.1
+	 *
+	 * @param array $method Associative array of selectors as keys and escaping method as values.
 	 */
 	$methods = apply_filters( 'beans_escape_attributes_methods', array(
 		'href' => 'esc_url',
