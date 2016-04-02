@@ -284,7 +284,7 @@ final class _Beans_Compiler {
 
 		$content = '';
 
-		// Looo through fragments.
+		// Loop through fragments.
 		foreach ( $this->compiler['fragments'] as $fragment ) {
 
 			// Stop here if the fragment is empty.
@@ -321,15 +321,9 @@ final class _Beans_Compiler {
 				$get_content = $this->replace_css_url( $get_content );
 				$get_content = $this->add_content_media_query( $get_content );
 
-				// Add content wrapped in the media query if set.
-				$content .= $get_content;
-
-			} else {
-
-				// Prevent js conflicts.
-				$content .= "\n\n" . ";" . $get_content;
-
 			}
+
+			$content .= ( $content ? "\n\n" : '' ) . $get_content;
 
 		}
 
