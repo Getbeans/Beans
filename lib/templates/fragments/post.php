@@ -61,7 +61,7 @@ function beans_post_search_title() {
 	if ( !is_search() )
 		return;
 
-	echo beans_open_markup( 'beans_search_title', 'h1', array( 'class' => 'uk-article-title') );
+	echo beans_open_markup( 'beans_search_title', 'h1', array( 'class' => 'uk-article-title' ) );
 
 		echo beans_output( 'beans_search_title_text', __( 'Search results for: ', 'tm-beans' ) ) . get_search_query();
 
@@ -571,7 +571,7 @@ function beans_posts_pagination() {
 			// Integer.
 			if ( $link == $current ) {
 
-				echo beans_open_markup( 'beans_posts_pagination_item[_active]', 'li', array( 'class' => 'uk-active') );
+				echo beans_open_markup( 'beans_posts_pagination_item[_active]', 'li', array( 'class' => 'uk-active' ) );
 
 					echo '<span>' . $link . '</span>';
 
@@ -698,7 +698,7 @@ function beans_post_password_form() {
 		$output .= beans_selfclose_markup( 'beans_password_form_input', 'input', array(
 			'class' => 'uk-margin-small-top uk-margin-small-right',
 			'type' => 'password',
-			'placeholder' => apply_filters( 'beans_password_form_input_placeholder', __( 'Password', 'tm-beans' ) ),  // Automatically escaped.
+			'placeholder' => apply_filters( 'beans_password_form_input_placeholder', __( 'Password', 'tm-beans' ) ), // Automatically escaped.
 			'name' => 'post_password'
 		) );
 

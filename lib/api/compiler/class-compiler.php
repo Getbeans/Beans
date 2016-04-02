@@ -247,7 +247,7 @@ final class _Beans_Compiler {
 		$url = trailingslashit( $this->url ) . beans_get( 'filename', $this->compiler );
 
 		if ( is_ssl() )
-			$url = str_replace('http://', 'https://', $url );
+			$url = str_replace( 'http://', 'https://', $url );
 
 		return $url;
 

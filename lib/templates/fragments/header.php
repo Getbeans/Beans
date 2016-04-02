@@ -20,7 +20,7 @@ function beans_head_meta() {
 }
 
 
-beans_add_smart_action( 'wp_head', 'beans_head_pingback');
+beans_add_smart_action( 'wp_head', 'beans_head_pingback' );
 
 /**
  * Echo head pingback.
@@ -34,7 +34,7 @@ function beans_head_pingback() {
 }
 
 
-beans_add_smart_action( 'wp_head', 'beans_favicon');
+beans_add_smart_action( 'wp_head', 'beans_favicon' );
 
 /**
  * Echo head favicon if no icon was added via the customizer.

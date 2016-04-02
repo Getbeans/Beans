@@ -138,7 +138,7 @@ function beans_breadcrumb() {
 					) );
 
 						// Used for mobile devices.
-						echo beans_open_markup( 'beans_breadcrumb_item_link_inner', 'span');
+						echo beans_open_markup( 'beans_breadcrumb_item_link_inner', 'span' );
 
 							echo $breadcrumb;
 

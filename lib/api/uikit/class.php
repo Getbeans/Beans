@@ -184,7 +184,7 @@ final class _Beans_Uikit {
 			unset( $scandir[0], $scandir[1] );
 
 			// Only return the filname and remove empty elements.
-			$components = array_merge( $components, array_filter( array_map( array( $this, 'to_filename'), $scandir ) ) );
+			$components = array_merge( $components, array_filter( array_map( array( $this, 'to_filename' ), $scandir ) ) );
 
 		}
 

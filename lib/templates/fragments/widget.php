@@ -159,7 +159,7 @@ function beans_modify_widget_count( $content ) {
 
 	$count = beans_output( 'beans_widget_count', '$1' );
 
-	if ( beans_get( 'dropdown', beans_get_widget( 'options') ) == true ) {
+	if ( beans_get( 'dropdown', beans_get_widget( 'options' ) ) == true ) {
 
 		$output = $count;
 

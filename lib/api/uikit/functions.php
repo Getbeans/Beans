@@ -118,7 +118,7 @@ function beans_uikit_register_theme( $id, $path ) {
 	if ( !$path )
 		return false;
 
-	if ( stripos( $path, 'http') !== false )
+	if ( stripos( $path, 'http' ) !== false )
 		$path = beans_url_to_path( $path );
 
 	$_beans_uikit_registered_items['themes'][$id] = trailingslashit( $path );

@@ -26,8 +26,7 @@ if ( in_array( 'ob_gzhandler', ob_list_handlers() ) )
 	$gzip = false;
 
 if ( $gzip )
-	ob_start('ob_gzhandler');
-
+	ob_start( 'ob_gzhandler' );
 
 // Include file.
 if ( ( $id = $_GET['id'] ) && ( $file = $_GET['file'] ) && ( $type = $_GET['type'] ) ) {

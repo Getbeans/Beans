@@ -359,7 +359,7 @@ function beans_comment_form() {
 
 	$output .= beans_close_markup( 'beans_comment_form_wrap', 'div' );
 
-	$submit = beans_open_markup( 'beans_comment_form_submit', 'button', array( 'class' => 'uk-button uk-button-primary', 'type' => 'submit') );
+	$submit = beans_open_markup( 'beans_comment_form_submit', 'button', array( 'class' => 'uk-button uk-button-primary', 'type' => 'submit' ) );
 
 		$submit .= beans_output( 'beans_comment_form_submit_text', __( 'Post Comment', 'tm-beans' ) );
 
