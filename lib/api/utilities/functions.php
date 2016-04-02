@@ -506,19 +506,14 @@ function beans_sanitize_attributes( $attributes ) {
 	/**
 	 * Filter attributes escaping methods.
 	 *
+	 * For all unspecified selectors, values are automatically escaped using
+	 * {@link http://codex.wordpress.org/Function_Reference/esc_attr esc_attr()}.
+	 *
 	 * @since 1.3.1
 	 */
 	$methods = apply_filters( 'beans_escape_attributes_methods', array(
-		'id' => 'esc_attr',
-		'class' => 'esc_attr',
-		'name' => 'esc_attr',
-		'title' => 'esc_html',
-		'alt' => 'esc_html',
 		'href' => 'esc_url',
 		'src' => 'esc_url',
-		'placeholder' => 'esc_html',
-		'itemscope' => 'esc_attr',
-		'itemprop'=> 'esc_attr',
 		'itemtype' => 'esc_url',
 		'onclick' => 'esc_js'
 	) );
@@ -531,6 +526,8 @@ function beans_sanitize_attributes( $attributes ) {
 
 			if ( $method = beans_get( $attribute, $methods ) )
 				$value = call_user_func( $method, $value );
+			else
+				$value = esc_attr( $value );
 
 			$string .= $attribute . '="' . $value . '" ';
 
