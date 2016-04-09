@@ -24,10 +24,9 @@ beans_add_smart_action( 'beans_field_activation', 'beans_field_activation' );
  */
 function beans_field_activation( $field ) {
 
-	$checked = $field['value'] ? ' checked="checked"' : null;
-
-	echo '<input type="hidden" value="0" name="' . $field['name'] . '" />';
-
-	echo '<input type="checkbox" name="' . $field['name'] . '" value="1" ' . $checked . ' ' . beans_sanitize_attributes( $field['attributes'] ) . ' />';
+	?>
+	<input type="hidden" value="0" name="<?php echo esc_attr( $field['name'] ); ?>" />
+	<input type="checkbox" name="<?php echo esc_attr( $field['name'] ); ?>" value="1" <?php checked( $field['value'], 1 ); ?> <?php echo beans_sanitize_attributes( $field['attributes'] ); ?>/>
+	<?php
 
 }

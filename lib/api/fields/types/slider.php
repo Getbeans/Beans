@@ -49,16 +49,17 @@ function beans_field_slider( $field ) {
 
 	$field	= array_merge( $defaults, $field );
 
-	echo '<div class="bs-slider-wrap" slider_min="' . $field['min'] . '" slider_max="' . $field['max'] . '" slider_interval="' . $field['interval'] . '">';
+	?>
+	<div class="bs-slider-wrap" slider_min="<?php echo (int) $field['min']; ?>" slider_max="<?php echo (int) $field['max']; ?>" slider_interval="<?php echo (int) $field['interval']; ?>">
 
-		// Don't make this a hidden field to prevent triggering issues with wp_customise.
-		echo '<input type="text" value="' . $field['value'] . '" name="' . $field['name'] . '" ' . beans_sanitize_attributes( $field['attributes'] ) . ' style="display: none;"/>';
+		<?php // Don't make this a hidden field to prevent triggering issues with wp_customise. ?>
+		<input type="text" value="<?php echo esc_attr( $field['value'] ); ?>" name="<?php echo esc_attr( $field['name'] ); ?>" <?php echo beans_sanitize_attributes( $field['attributes'] ); ?> style="display: none;"/>
 
-	echo '</div>';
+	</div>
+	<span class="bs-slider-value"><?php echo $field['value']; ?></span>
 
-	echo '<span class="bs-slider-value">' . $field['value'] . '</span>';
-
-	if ( $field['unit'] )
-		echo '<span class="bs-slider-unit">' . $field['unit'] . '</span>';
+	<?php if ( $field['unit'] ) : ?>
+		<span class="bs-slider-unit"><?php echo $field['unit']; ?></span>
+	<?php endif;
 
 }

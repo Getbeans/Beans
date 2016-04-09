@@ -58,8 +58,10 @@ function beans_field_description( $field ) {
 
 		if ( isset( $extended ) ) {
 
-			echo '<br /><a class="bs-read-more" href="#">' . __( 'More...', 'tm-beans' ) . '</a>';
-			echo '<div class="bs-extended-content">' . $extended . '</div>';
+			?>
+			<br /><a class="bs-read-more" href="#"><?php _e( 'More...', 'tm-beans' ); ?></a>
+			<div class="bs-extended-content"><?php echo $extended; ?></div>
+			<?php
 
 		}
 

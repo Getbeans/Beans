@@ -29,30 +29,24 @@ function beans_field_radio( $field ) {
 
 	$field['default'] = isset( $checkbox['default'] ) ? $checkbox['default'] : key( $field['options'] );
 
-	echo '<fieldset>';
+	?>
+	<fieldset>
+		<?php $i = 0; foreach ( $field['options'] as $id => $radio ) :
 
-		$i = 0; foreach ( $field['options'] as $id => $radio ) {
-
-			$checked = ( $id == $field['value'] ) ? ' checked="checked"' : null;
 			$extensions = array( 'jpg', 'jpeg', 'jpe',  'gif',  'png',  'bmp',   'tif',  'tiff', 'ico' );
 			$has_image = in_array( beans_get( 'extension', pathinfo( $radio ) ), $extensions ) ? 'bs-has-image' : false;
 
-			echo '<label class="' . $has_image . '">';
+			?>
+			<label class="<?php echo esc_attr( $has_image ); ?>">
+				<?php if ( $has_image ) : ?>
+					<img src="<?php echo esc_url( $radio ); ?>"/>
+				<?php endif; ?>
+				<input type="radio" name="<?php echo esc_attr( $field['name'] ); ?>" value="<?php echo esc_attr( $id ); ?>" <?php checked( $id, $field['value'], 1 ); ?> <?php echo beans_sanitize_attributes( $field['attributes'] ); ?>/>
+				<?php if ( !$has_image ) echo $radio; ?>
+			</label>
 
-				if ( $has_image )
-					echo '<img src="' . $radio . '" />';
-
-				echo '<input type="radio" name="' . $field['name'] . '" value="' . $id . '" ' . $checked . ' ' . beans_sanitize_attributes( $field['attributes'] ) . '/>';
-
-				if ( !$has_image )
-					echo $radio;
-
-			echo '</label>';
-
-			$i++;
-
-		}
-
-	echo '</fieldset>';
+		<?php $i++; endforeach; ?>
+	</fieldset>
+	<?php
 
 }
