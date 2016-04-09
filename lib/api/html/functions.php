@@ -277,7 +277,7 @@ function beans_remove_markup( $id, $remove_actions = false ) {
  * The "data-markup-id" is added as a HTML attribute if the development mode is enabled. This makes it very
  * easy to find the content ID when inspecting an element in a web browser.
  *
- * @since next release
+ * @since 1.3.1
  *
  * @param string $id The markup ID.
  *
@@ -412,7 +412,7 @@ function beans_add_attributes( $id, $attributes = array() ) {
  * The "data-markup-id" is added as a HTML attribute if the development mode is enabled. This makes it very
  * easy to find the content ID when inspecting an element in a web browser.
  *
- * @since next release
+ * @since 1.3.1
  *
  * @param string $id The markup ID.
  *
