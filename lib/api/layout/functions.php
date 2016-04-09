@@ -46,6 +46,9 @@ function beans_get_layout() {
 	if ( is_singular() )
 		$layout = beans_get_post_meta( 'beans_layout' );
 
+	elseif ( is_home() )
+		$layout = beans_get_post_meta( 'beans_layout', false, get_option( 'page_for_posts' ) );
+
 	elseif ( is_category() || is_tag() || is_tax() )
 		$layout = beans_get_term_meta( 'beans_layout' );
 
