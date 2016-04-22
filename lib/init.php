@@ -16,7 +16,7 @@ add_action( 'beans_init', 'beans_define_constants', -1 );
 function beans_define_constants() {
 
 	// Define version.
-	define( 'BEANS_VERSION', '1.3.1-beta' );
+	define( 'BEANS_VERSION', '1.3.1-rc' );
 
 	// Define paths.
 	if ( !defined( 'BEANS_THEME_PATH' ) )
