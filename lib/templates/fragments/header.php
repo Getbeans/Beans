@@ -91,15 +91,6 @@ beans_add_smart_action( 'beans_header', 'beans_site_branding' );
  */
 function beans_site_branding() {
 
-	$name = beans_output( 'beans_site_title_text', get_bloginfo( 'name' ) );
-
-	if ( $logo = get_theme_mod( 'beans_logo_image', false ) )
-		$name = beans_selfclose_markup( 'beans_logo_image', 'img', array(
-			'class' => 'tm-logo',
-			'src' => $logo, // Automatically escaped.
-			'alt' => $name, // Automatically escaped.
-		) );
-
 	echo beans_open_markup( 'beans_site_branding', 'div', array(
 		'class' => 'tm-site-branding uk-float-left' . ( !get_bloginfo( 'description' ) ? ' uk-margin-small-top' : null ),
 	) );
@@ -110,7 +101,14 @@ function beans_site_branding() {
 			'itemprop' => 'headline'
 		) );
 
-			echo $name;
+			if ( $logo = get_theme_mod( 'beans_logo_image', false ) )
+				echo beans_selfclose_markup( 'beans_logo_image', 'img', array(
+					'class' => 'tm-logo',
+					'src' => $logo, // Automatically escaped.
+					'alt' => get_bloginfo( 'name' ), // Automatically escaped.
+				) );
+			else
+				echo beans_output( 'beans_site_title_text', get_bloginfo( 'name' ) );
 
 		echo beans_close_markup( 'beans_site_title_link', 'a' );
 
