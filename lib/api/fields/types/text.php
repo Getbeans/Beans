@@ -23,7 +23,7 @@ beans_add_smart_action( 'beans_field_text', 'beans_field_text' );
 function beans_field_text( $field ) {
 
 	?>
-	<input type="text" name="<?php echo esc_attr( $field['name'] ); ?>" value="<?php echo esc_attr( $field['value'] ); ?>" <?php echo beans_sanitize_attributes( $field['attributes'] ); ?>>
+	<input type="text" name="<?php echo esc_attr( $field['name'] ); ?>" value="<?php echo esc_attr( $field['value'] ); ?>" <?php echo beans_esc_attributes( $field['attributes'] ); ?>>
 	<?php
 
 }

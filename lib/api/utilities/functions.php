@@ -501,7 +501,7 @@ function beans_admin_menu_position( $position ) {
  *
  * @return string The sanitized attributes.
  */
-function beans_sanitize_attributes( $attributes ) {
+function beans_esc_attributes( $attributes ) {
 
 	/**
 	 * Filter attributes escaping methods.

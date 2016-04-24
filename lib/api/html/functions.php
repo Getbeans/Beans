@@ -398,7 +398,7 @@ function beans_add_attributes( $id, $attributes = array() ) {
 
 	$attributes = call_user_func_array( 'beans_apply_filters', $args );
 
-	return beans_sanitize_attributes( $attributes );
+	return beans_esc_attributes( $attributes );
 
 }
 

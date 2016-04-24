@@ -78,7 +78,7 @@ function beans_field_image( $field ) {
 
 			?>
 			<div class="bs-image-wrap <?php echo esc_attr( $class ); ?>">
-				<input <?php echo beans_sanitize_attributes( $attributes ); ?>/>
+				<input <?php echo beans_esc_attributes( $attributes ); ?>/>
 				<img src="<?php echo esc_url( beans_get( 0, $img ) ); ?>">
 				<div class="bs-toolbar">
 					<?php if ( $multiple ) : ?>

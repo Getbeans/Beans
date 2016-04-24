@@ -53,7 +53,7 @@ function beans_field_slider( $field ) {
 	<div class="bs-slider-wrap" slider_min="<?php echo (int) $field['min']; ?>" slider_max="<?php echo (int) $field['max']; ?>" slider_interval="<?php echo (int) $field['interval']; ?>">
 
 		<?php // Don't make this a hidden field to prevent triggering issues with wp_customise. ?>
-		<input type="text" value="<?php echo esc_attr( $field['value'] ); ?>" name="<?php echo esc_attr( $field['name'] ); ?>" <?php echo beans_sanitize_attributes( $field['attributes'] ); ?> style="display: none;"/>
+		<input type="text" value="<?php echo esc_attr( $field['value'] ); ?>" name="<?php echo esc_attr( $field['name'] ); ?>" <?php echo beans_esc_attributes( $field['attributes'] ); ?> style="display: none;"/>
 
 	</div>
 	<span class="bs-slider-value"><?php echo $field['value']; ?></span>

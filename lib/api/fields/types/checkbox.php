@@ -25,7 +25,7 @@ function beans_field_checkbox( $field ) {
 
 	?>
 	<input type="hidden" value="0" name="<?php echo esc_attr( $field['name'] ); ?>" />
-	<input type="checkbox" name="<?php echo esc_attr( $field['name'] ); ?>" value="1" <?php checked( $field['value'], 1 ); ?> <?php echo beans_sanitize_attributes( $field['attributes'] ); ?>/>
+	<input type="checkbox" name="<?php echo esc_attr( $field['name'] ); ?>" value="1" <?php checked( $field['value'], 1 ); ?> <?php echo beans_esc_attributes( $field['attributes'] ); ?>/>
 	<?php if ( $checkbox_label = beans_get( 'checkbox_label', $field, __( 'Enable', 'tm-beans' ) ) ) : ?>
 		<span class="bs-checkbox-label"><?php echo $checkbox_label; ?></span>
 	<?php endif;

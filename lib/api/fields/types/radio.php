@@ -41,7 +41,7 @@ function beans_field_radio( $field ) {
 				<?php if ( $has_image ) : ?>
 					<img src="<?php echo esc_url( $radio ); ?>"/>
 				<?php endif; ?>
-				<input type="radio" name="<?php echo esc_attr( $field['name'] ); ?>" value="<?php echo esc_attr( $id ); ?>" <?php checked( $id, $field['value'], 1 ); ?> <?php echo beans_sanitize_attributes( $field['attributes'] ); ?>/>
+				<input type="radio" name="<?php echo esc_attr( $field['name'] ); ?>" value="<?php echo esc_attr( $id ); ?>" <?php checked( $id, $field['value'], 1 ); ?> <?php echo beans_esc_attributes( $field['attributes'] ); ?>/>
 				<?php if ( !$has_image ) echo $radio; ?>
 			</label>
 

@@ -28,7 +28,7 @@ function beans_field_select( $field ) {
 		return;
 
 	?>
-	<select name="<?php echo esc_attr( $field['name'] ); ?>" <?php echo beans_sanitize_attributes( $field['attributes'] );?>>
+	<select name="<?php echo esc_attr( $field['name'] ); ?>" <?php echo beans_esc_attributes( $field['attributes'] );?>>
 		<?php foreach ( $field['options'] as $value => $label ) : ?>
 			<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $value, $field['value'] );?>><?php echo esc_html( $label ); ?></option>
 		<?php endforeach; ?>
