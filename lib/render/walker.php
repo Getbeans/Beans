@@ -26,6 +26,7 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 			return;
 
 		$type = beans_get( 'beans_type', $args );
+		$location_subfilter = ( $location = beans_get( 'theme_location', $args ) ) ? "[_{$location}]" : null;
 
 		// Default attributes.
 		$attr = array(
@@ -44,7 +45,7 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 			$attr['data-uk-nav'] = '{multiple:true}';
 
 			// Open sub_menu wrap.
-			$output .= beans_open_markup( 'beans_sub_menu_wrap', 'div', 'class=uk-dropdown uk-dropdown-navbar', $depth, $args );
+			$output .= beans_open_markup( "beans_sub_menu_wrap[_{$type}]{$location_subfilter}", 'div', 'class=uk-dropdown uk-dropdown-navbar', $depth, $args );
 
 		}
 
@@ -56,7 +57,7 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 			$attr['class'] = null;
 
 		// Open sub_menu.
-		$output .= beans_open_markup( "beans_sub_menu", 'ul', $attr, $depth, $args );
+		$output .= beans_open_markup( "beans_sub_menu[_{$type}]{$location_subfilter}", 'ul', $attr, $depth, $args );
 
 	}
 
@@ -72,12 +73,15 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 		if ( $depth < $args->beans_start_level )
 			return;
 
+		$type = beans_get( 'beans_type', $args );
+		$location_subfilter = ( $location = beans_get( 'theme_location', $args ) ) ? "[_{$location}]" : null;
+
 		// Close sub_menu.
-		$output .= beans_close_markup( "beans_sub_menu[_depth_{$depth}]", 'ul' );
+		$output .= beans_close_markup( "beans_sub_menu[_{$type}]{$location_subfilter}", 'ul' );
 
 		// Close sub_menu wrap.
-		if ( beans_get( 'beans_type', $args ) === 'navbar' && $depth === $args->beans_start_level )
-			$output .= beans_close_markup( 'beans_sub_menu_wrap', 'div', $depth, $args );
+		if ( $type === 'navbar' && $depth === $args->beans_start_level )
+			$output .= beans_close_markup( "beans_sub_menu_wrap[_{$type}]{$location_subfilter}", 'div', $depth, $args );
 
 	}
 
