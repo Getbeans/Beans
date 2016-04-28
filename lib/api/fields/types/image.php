@@ -48,15 +48,11 @@ function beans_field_image( $field ) {
 	// Hide beans if it is a single image and an image already exists
 	$hide = !$multiple && is_numeric( $field['value'] ) ? 'style="display: none"' : '';
 
-	echo '<a href="#" class="bs-add-image button button-small" ' . $hide . '>';
-		echo _n( 'Add Image', 'Add Images', ( $multiple ? 2 : 1 ), 'tm-beans' );
-	echo '</a>';
-
-	echo '<input type="hidden" name="' . $field['name'] . '" value="">';
-
-	echo '<div class="bs-images-wrap" data-multiple="' . $multiple . '">';
-
-		foreach ( $images as $id ) {
+	?>
+	<a href="#" class="bs-add-image button button-small" <?php echo $hide; ?>><?php echo _n( 'Add Image', 'Add Images', ( $multiple ? 2 : 1 ), 'tm-beans' ); ?></a>
+	<input type="hidden" name="<?php echo esc_attr( $field['name'] ); ?>" value="">
+	<div class="bs-images-wrap" data-multiple="<?php echo esc_attr( $multiple ); ?>">
+		<?php foreach ( $images as $id ) :
 
 			// Stop here if the id is false.
 			if ( !$id )
@@ -80,26 +76,21 @@ function beans_field_image( $field ) {
 
 			}
 
-			echo '<div class="bs-image-wrap ' . $class . '">';
+			?>
+			<div class="bs-image-wrap <?php echo esc_attr( $class ); ?>">
+				<input <?php echo beans_esc_attributes( $attributes ); ?>/>
+				<img src="<?php echo esc_url( beans_get( 0, $img ) ); ?>">
+				<div class="bs-toolbar">
+					<?php if ( $multiple ) : ?>
+						<a href="#" class="dashicons dashicons-menu"></a>
+					<?php endif; ?>
+					<a href="#" class="dashicons dashicons-edit"></a>
+					<a href="#" class="dashicons dashicons-post-trash"></a>
+				</div>
+			</div>
 
-				echo '<input ' . beans_sanatize_attributes( $attributes ) . ' />';
-
-				echo '<img src="' . beans_get( 0, $img ) . '">';
-
-				echo '<div class="bs-toolbar">';
-
-					if ( $multiple )
-						echo '<a href="#" class="dashicons dashicons-menu"></a>';
-
-					echo '<a href="#" class="dashicons dashicons-edit"></a>';
-					echo '<a href="#" class="dashicons dashicons-post-trash"></a>';
-
-				echo '</div>';
-
-			echo '</div>';
-
-		}
-
-	echo '</div>';
+		<?php endforeach; ?>
+	</div>
+	<?php
 
 }

@@ -492,22 +492,50 @@ function beans_admin_menu_position( $position ) {
 
 
 /**
- * Sanatize HTML attributes from array to string.
+ * Sanitize HTML attributes from array to string.
  *
  * @since 1.0.0
  *
  * @param array $attributes The array key defines the attribute name and the array value define the
  *                          attribute value.
  *
- * @return string The sanatized attributes.
+ * @return string The sanitized attributes.
  */
-function beans_sanatize_attributes( $attributes ) {
+function beans_esc_attributes( $attributes ) {
+
+	/**
+	 * Filter attributes escaping methods.
+	 *
+	 * For all unspecified selectors, values are automatically escaped using
+	 * {@link http://codex.wordpress.org/Function_Reference/esc_attr esc_attr()}.
+	 *
+	 * @since 1.3.1
+	 *
+	 * @param array $method Associative array of selectors as keys and escaping method as values.
+	 */
+	$methods = apply_filters( 'beans_escape_attributes_methods', array(
+		'href' => 'esc_url',
+		'src' => 'esc_url',
+		'itemtype' => 'esc_url',
+		'onclick' => 'esc_js'
+	) );
 
 	$string = '';
 
-	foreach ( (array) $attributes as $attribute => $value )
-		if ( $value !== null )
+	foreach ( (array) $attributes as $attribute => $value ) {
+
+		if ( $value !== null ) {
+
+			if ( $method = beans_get( $attribute, $methods ) )
+				$value = call_user_func( $method, $value );
+			else
+				$value = esc_attr( $value );
+
 			$string .= $attribute . '="' . $value . '" ';
+
+		}
+
+	}
 
 	return trim( $string );
 

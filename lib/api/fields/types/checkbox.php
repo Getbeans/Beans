@@ -23,13 +23,11 @@ beans_add_smart_action( 'beans_field_checkbox', 'beans_field_checkbox' );
  */
 function beans_field_checkbox( $field ) {
 
-	$checked = $field['value'] ? ' checked="checked"' : null;
-
-	echo '<input type="hidden" value="0" name="' . $field['name'] . '" />';
-
-	echo '<input type="checkbox" name="' . $field['name'] . '" value="1" ' . $checked . ' ' . beans_sanatize_attributes( $field['attributes'] ) . ' />';
-
-	if ( $checkbox_label = beans_get( 'checkbox_label', $field, 'Enable' ) )
-		echo '<span class="bs-checkbox-label">' . $checkbox_label . '</span>';
+	?>
+	<input type="hidden" value="0" name="<?php echo esc_attr( $field['name'] ); ?>" />
+	<input type="checkbox" name="<?php echo esc_attr( $field['name'] ); ?>" value="1" <?php checked( $field['value'], 1 ); ?> <?php echo beans_esc_attributes( $field['attributes'] ); ?>/>
+	<?php if ( $checkbox_label = beans_get( 'checkbox_label', $field, __( 'Enable', 'tm-beans' ) ) ) : ?>
+		<span class="bs-checkbox-label"><?php echo $checkbox_label; ?></span>
+	<?php endif;
 
 }

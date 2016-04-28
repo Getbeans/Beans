@@ -134,11 +134,11 @@ function beans_breadcrumb() {
 				echo beans_open_markup( 'beans_breadcrumb_item', 'li' );
 
 					echo beans_open_markup( 'beans_breadcrumb_item_link', 'a', array(
-						'href' => esc_url( $breadcrumb_url )
+						'href' => $breadcrumb_url // Automatically escaped.
 					) );
 
 						// Used for mobile devices.
-						echo beans_open_markup( 'beans_breadcrumb_item_link_inner', 'span');
+						echo beans_open_markup( 'beans_breadcrumb_item_link_inner', 'span' );
 
 							echo $breadcrumb;
 

@@ -31,15 +31,34 @@
  *            					  registered should be saved as a group in the database or as individual
  *            					  entries. Default false.
  * }
- * @param array  $taxonomies Array of taxonomies for which the term meta should be registered.
- * @param string $section    A section id to define the group of fields.
+ * @param string|array $taxonomies Array of taxonomies for which the term meta should be registered.
+ * @param string       $section    A section id to define the group of fields.
  *
  * @return bool True on success, false on failure.
  */
 function beans_register_term_meta( array $fields, $taxonomies, $section ) {
 
+	/**
+	 * Filter the term meta fields.
+	 *
+	 * The dynamic portion of the hook name, $section, refers to the section id which defines the group of fields.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $fields An array of term meta fields.
+	 */
 	$fields = apply_filters( "beans_term_meta_fields_{$section}", _beans_pre_standardize_fields( $fields ) );
-	$taxonomies = apply_filters( "beans_term_meta_taxonomies_{$section}", $taxonomies );
+
+	/**
+	 * Filter the taxonomies used to define whether the fields set should be displayed or not.
+	 *
+	 * The dynamic portion of the hook name, $section, refers to the section id which defines the group of fields.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string|array $taxonomies Taxonomies used to define whether the fields set should be displayed or not.
+	 */
+	$taxonomies = apply_filters( "beans_term_meta_taxonomies_{$section}", (array) $taxonomies );
 
 	// Stop here if the current page isn't concerned.
 	if ( !_beans_is_admin_term( $taxonomies ) || !is_admin() )

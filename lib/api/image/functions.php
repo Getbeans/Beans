@@ -82,7 +82,6 @@ function beans_get_post_attachment( $post_id, $size = 'full' ) {
 }
 
 
-
 /**
  * Edit post attachment.
  *

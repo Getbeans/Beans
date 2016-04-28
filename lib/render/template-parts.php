@@ -73,7 +73,7 @@ function beans_loop_template( $id = false ) {
 		$id = 'main';
 
 	// Only run new query if a filter is set.
-	if ( $_has_filter = beans_has_filters( "beans_loop_query_args[_{$id}]" ) ) :
+	if ( $_has_filter = beans_has_filters( "beans_loop_query_args[_{$id}]" ) ) {
 
 		global $wp_query;
 
@@ -82,10 +82,10 @@ function beans_loop_template( $id = false ) {
 		 *
 		 * @since 1.0.0
 		 */
-		if ( $args = beans_apply_filters( "beans_loop_query_args[_{$id}]", false ) )
-			$wp_query = new WP_Query( $args );
+		$args = beans_apply_filters( "beans_loop_query_args[_{$id}]", false );
+		$wp_query = new WP_Query( $args );
 
-	endif;
+	}
 
 	// Allow overwrite. Require the default loop.php if not overwrite is found.
 	if ( locate_template( 'loop.php', true, false ) == '' )
@@ -111,7 +111,7 @@ function beans_comments_template() {
 
 	global $post;
 
-	if ( !post_type_supports( beans_get( 'post_type', $post ), 'comments' ) )
+	if ( !( comments_open() || get_comments_number() ) || !post_type_supports( beans_get( 'post_type', $post ), 'comments' ) )
 		return;
 
 	comments_template();

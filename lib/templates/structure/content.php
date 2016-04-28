@@ -14,16 +14,16 @@ $content_attributes = array(
 // Blog specific attributes.
 if ( is_home() || is_page_template( 'page_blog.php' ) || is_singular( 'post' ) || is_archive() ) {
 
-	$content_attributes['itemscope'] = 'itemscope';
-	$content_attributes['itemtype']  = 'http://schema.org/Blog';
+	$content_attributes['itemscope'] = 'itemscope'; // Automatically escaped.
+	$content_attributes['itemtype']  = 'http://schema.org/Blog'; // Automatically escaped.
 
 }
 
 // Blog specific attributes.
 if ( is_search() ) {
 
-	$content_attributes['itemscope'] = 'itemscope';
-	$content_attributes['itemtype'] = 'http://schema.org/SearchResultsPage';
+	$content_attributes['itemscope'] = 'itemscope'; // Automatically escaped.
+	$content_attributes['itemtype'] = 'http://schema.org/SearchResultsPage'; // Automatically escaped.
 
 }
 

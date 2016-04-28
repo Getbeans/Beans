@@ -110,12 +110,12 @@ function beans_modify_menu_args( $args ) {
 	if ( !$attr['class'] )
 		$attr['class'] = null;
 
-	$location_sub_filter = ( $location = beans_get( 'theme_location', $args ) ) ? "[_{$location}]" : null;
+	$location_subfilter = ( $location = beans_get( 'theme_location', $args ) ) ? "[_{$location}]" : null;
 
 	// Force beans menu arguments.
 	$force = array(
 		'beans_type' => $type,
-		'items_wrap' => beans_open_markup( "beans_menu[_{$type}]{$location_sub_filter}", 'ul', $attr, $args ) . '%3$s' . beans_close_markup( "beans_menu[_{$type}]{$location_sub_filter}", 'ul', $args ),
+		'items_wrap' => beans_open_markup( "beans_menu[_{$type}]{$location_subfilter}", 'ul', $attr, $args ) . '%3$s' . beans_close_markup( "beans_menu[_{$type}]{$location_subfilter}", 'ul', $args ),
 	);
 
 	// Allow walker overwrite.

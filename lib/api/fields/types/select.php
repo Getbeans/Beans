@@ -27,16 +27,12 @@ function beans_field_select( $field ) {
 	if ( empty( $field['options'] ) )
 		return;
 
-	echo '<select name="' . $field['name'] . '" ' . beans_sanatize_attributes( $field['attributes'] ) . '>';
-
-		foreach ( $field['options'] as $value => $label ) {
-
-			$selected = $value == $field['value'] ? ' selected="selected"' : null;
-
-			echo '<option value="' . $value . '"' . $selected . '>' . $label . '</option>';
-
-		}
-
-	echo '</select>';
+	?>
+	<select name="<?php echo esc_attr( $field['name'] ); ?>" <?php echo beans_esc_attributes( $field['attributes'] );?>>
+		<?php foreach ( $field['options'] as $value => $label ) : ?>
+			<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $value, $field['value'] );?>><?php echo esc_html( $label ); ?></option>
+		<?php endforeach; ?>
+	</select>
+	<?php
 
 }

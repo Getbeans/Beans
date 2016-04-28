@@ -27,7 +27,7 @@ function beans_search_form() {
 		$output .= beans_selfclose_markup( 'beans_search_form_input', 'input', array(
 			'class' => 'uk-width-1-1',
 			'type' => 'search',
-			'placeholder' => __( 'Search', 'tm-beans' ),
+			'placeholder' => __( 'Search', 'tm-beans' ), // Automatically escaped.
 			'value' => esc_attr( get_search_query() ),
 			'name' => 's'
 		) );

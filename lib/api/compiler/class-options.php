@@ -68,8 +68,8 @@ final class _Beans_Compiler_Options {
 							'default' => array( 'aggressive' ),
 							'attributes' => array( 'style' => 'margin: -3px 0 0 -8px;' ),
 							'options' => array(
-								'aggressive' => 'Aggressive',
-								'standard' => 'Standard'
+								'aggressive' => __( 'Aggressive', 'tm-beans' ),
+								'standard' => __( 'Standard', 'tm-beans' )
 							)
 						),
 					),
