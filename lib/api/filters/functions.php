@@ -84,7 +84,9 @@ function beans_apply_filters( $id, $value ) {
 		// Cascade sub-hooks.
 		if ( $i > 0 ) {
 
-			$levels[] = str_replace( $subhook, '', $id );
+			if ( count( $matches[0] ) > 2 )
+				$levels[] = str_replace( $subhook, '', $id );
+
 			$levels[] = $variable_prefix . $suffix;
 
 		}
