@@ -14,8 +14,10 @@ beans_add_smart_action( 'beans_head', 'beans_head_meta', 0 );
  */
 function beans_head_meta() {
 
-	echo '<meta charset="' . get_bloginfo( 'charset' ) . '" />' . "\n";
-	echo '<meta name="viewport" content="width=device-width, initial-scale=1" />' . "\n";
+	?>
+	<meta charset="<?php esc_attr_e( get_bloginfo( 'charset' ) ); ?>" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<?php
 
 }
 
@@ -29,7 +31,7 @@ beans_add_smart_action( 'wp_head', 'beans_head_pingback' );
  */
 function beans_head_pingback() {
 
-	echo '<link rel="pingback" href="' . get_bloginfo( 'pingback_url' ) . '">' . "\n";
+	?><link rel="pingback" href="<?php echo esc_url( get_bloginfo( 'pingback_url' ) ); ?>"><?php
 
 }
 
