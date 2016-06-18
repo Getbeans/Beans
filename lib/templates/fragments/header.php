@@ -49,7 +49,7 @@ function beans_favicon() {
 	if ( function_exists( 'has_site_icon' ) && has_site_icon() )
 		return;
 
-	$url = file_exists( get_template_directory() . 'favicon.ico' ) ? get_template_directory_uri() . 'favicon.ico' : BEANS_URL . 'favicon.ico';
+	$url = file_exists( get_stylesheet_directory() . '/favicon.ico' ) ? get_stylesheet_directory_uri() . '/favicon.ico' : BEANS_URL . 'favicon.ico';
 
 	echo beans_selfclose_markup( 'beans_favicon', 'link', array(
 		'rel' => 'Shortcut Icon',
