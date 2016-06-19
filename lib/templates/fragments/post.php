@@ -70,6 +70,27 @@ function beans_post_search_title() {
 }
 
 
+beans_add_smart_action( 'beans_before_loop', 'beans_post_archive_title' );
+
+/**
+ * Echo archive post title.
+ *
+ * @since next release
+ */
+function beans_post_archive_title() {
+
+	if ( !is_archive() )
+		return;
+
+	echo beans_open_markup( 'beans_archive_title', 'h1', array( 'class' => 'uk-article-title' ) );
+
+		echo beans_output( 'beans_archive_title_text', get_the_archive_title() );
+
+	echo beans_close_markup( 'beans_archive_title', 'h1' );
+
+}
+
+
 beans_add_smart_action( 'beans_post_header', 'beans_post_meta', 15 );
 
 /**
