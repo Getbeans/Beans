@@ -65,7 +65,7 @@ final class _Beans_Compiler_Options {
 						array(
 							'id' => 'beans_compile_all_scripts_mode',
 							'type' => 'select',
-							'default' => array( 'aggressive' ),
+							'default' => 'aggressive',
 							'attributes' => array( 'style' => 'margin: -3px 0 0 -8px;' ),
 							'options' => array(
 								'aggressive' => __( 'Aggressive', 'tm-beans' ),
