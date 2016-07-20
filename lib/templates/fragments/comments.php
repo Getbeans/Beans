@@ -383,7 +383,7 @@ beans_add_smart_action( 'cancel_comment_reply_link', 'beans_comment_cancel_reply
  */
 function beans_comment_cancel_reply_link( $html, $link, $text ) {
 
-	echo beans_open_markup( 'beans_comment_cancel_reply_link', 'a', array(
+	$output = beans_open_markup( 'beans_comment_cancel_reply_link', 'a', array(
 		'rel' => 'nofollow',
 		'id' => 'cancel-comment-reply-link',
 		'class' => 'uk-button uk-button-small uk-button-danger uk-margin-small-right',
@@ -391,9 +391,11 @@ function beans_comment_cancel_reply_link( $html, $link, $text ) {
 		'href' => $link // Automatically escaped.
 	) );
 
-		echo beans_output( 'beans_comment_cancel_reply_link_text', $text );
+		$output .= beans_output( 'beans_comment_cancel_reply_link_text', $text );
 
-	echo beans_close_markup( 'beans_comment_cancel_reply_link', 'a' );
+	$output .= beans_close_markup( 'beans_comment_cancel_reply_link', 'a' );
+
+	return $output;
 
 }
 
