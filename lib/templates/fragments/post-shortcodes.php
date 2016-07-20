@@ -37,7 +37,7 @@ beans_add_smart_action( 'beans_post_meta_author', 'beans_post_meta_author_shortc
  */
 function beans_post_meta_author_shortcode() {
 
-	beans_output( 'beans_post_meta_author_prefix', __( 'By ', 'tm-beans' ) ) ;
+	echo beans_output( 'beans_post_meta_author_prefix', __( 'By ', 'tm-beans' ) ) ;
 
 	echo beans_open_markup( 'beans_post_meta_author', 'a', array(
 		'href' => get_author_posts_url( get_the_author_meta( 'ID' ) ), // Automatically escaped.
