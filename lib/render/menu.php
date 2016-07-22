@@ -84,11 +84,11 @@ function beans_modify_menu_args( $args ) {
 	);
 
 	// Add UIKit navbar item wrap attributes.
-	if ( $type == 'navbar' )
+	if ( 'navbar' == $type )
 		$attr['class'][] = 'uk-navbar-nav';
 
 	// Add UIKit sidenav item wrap attributes.
-	if ( $type == 'sidenav' ) {
+	if ( 'sidenav' == $type ) {
 
 		$attr['class'][] = 'uk-nav uk-nav-parent-icon uk-nav-side';
 		$attr['data-uk-nav'] = '{multiple:true}';
@@ -96,7 +96,7 @@ function beans_modify_menu_args( $args ) {
 	}
 
 	// Add UIKit offcanvas item wrap attributes.
-	if ( $type == 'offcanvas' ) {
+	if ( 'offcanvas' == $type ) {
 
 		$attr['class'][] = 'uk-nav uk-nav-parent-icon uk-nav-offcanvas';
 		$attr['data-uk-nav'] = '{multiple:true}';

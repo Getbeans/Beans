@@ -38,7 +38,7 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 			$attr['class'][] = 'uk-nav-sub';
 
 		// Add UIKit navbar stuff.
-		if ( $type === 'navbar' && $depth === $args->beans_start_level ) {
+		if ( 'navbar' === $type && $args->beans_start_level === $depth ) {
 
 			// Add UIKit navbar attributes.
 			$attr['class'][] = 'uk-nav uk-nav-parent-icon uk-nav-dropdown';
@@ -80,7 +80,7 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 		$output .= beans_close_markup( "beans_sub_menu[_{$type}]{$location_subfilter}", 'ul' );
 
 		// Close sub_menu wrap.
-		if ( $type === 'navbar' && $depth === $args->beans_start_level )
+		if ( 'navbar' === $type && $args->beans_start_level === $depth )
 			$output .= beans_close_markup( "beans_sub_menu_wrap[_{$type}]{$location_subfilter}", 'div', $depth, $args );
 
 	}
@@ -131,7 +131,7 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 			$item_attr['class'][] = 'uk-active';
 
 		// Add UIKit parent attributes.
-		if ( $depth == $args->beans_start_level && in_array( 'menu-item-has-children', $classes ) ) {
+		if ( $args->beans_start_level == $depth && in_array( 'menu-item-has-children', $classes ) ) {
 
 			$item_attr['class'][] = 'uk-parent';
 

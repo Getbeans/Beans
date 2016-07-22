@@ -31,7 +31,7 @@ beans_add_smart_action( 'beans_site_prepend_markup', 'beans_header_partial_templ
 function beans_header_partial_template() {
 
 	// Allow overwrite.
-	if ( locate_template( 'header-partial.php', true, false ) != '' )
+	if ( '' != locate_template( 'header-partial.php', true, false ) )
 		return;
 
 	require( BEANS_STRUCTURE_PATH . 'header-partial.php' );
@@ -49,7 +49,7 @@ beans_add_smart_action( 'beans_load_document', 'beans_content_template' );
 function beans_content_template() {
 
 	// Allow overwrite.
-	if ( locate_template( 'content.php', true ) != '' )
+	if ( '' != locate_template( 'content.php', true ) )
 		return;
 
 	require_once( BEANS_STRUCTURE_PATH . 'content.php' );
@@ -88,7 +88,7 @@ function beans_loop_template( $id = false ) {
 	}
 
 	// Allow overwrite. Require the default loop.php if not overwrite is found.
-	if ( locate_template( 'loop.php', true, false ) == '' )
+	if ( '' == locate_template( 'loop.php', true, false ) )
 		require( BEANS_STRUCTURE_PATH . 'loop.php' );
 
 	// Only reset the query if a filter is set.
@@ -134,7 +134,7 @@ beans_add_smart_action( 'beans_comment', 'beans_comment_template' );
 function beans_comment_template() {
 
 	// Allow overwrite.
-	if ( locate_template( 'comment.php', true, false ) != '' )
+	if ( '' != locate_template( 'comment.php', true, false ) )
 		return;
 
 	require( BEANS_STRUCTURE_PATH . 'comment.php' );
@@ -152,7 +152,7 @@ beans_add_smart_action( 'beans_widget_area', 'beans_widget_area_template' );
 function beans_widget_area_template() {
 
 	// Allow overwrite.
-	if ( locate_template( 'widget-area.php', true, false ) != '' )
+	if ( '' != locate_template( 'widget-area.php', true, false ) )
 		return;
 
 	require( BEANS_STRUCTURE_PATH . 'widget-area.php' );
@@ -171,7 +171,7 @@ beans_add_smart_action( 'beans_primary_after_markup', 'beans_sidebar_primary_tem
  */
 function beans_sidebar_primary_template() {
 
-	if ( stripos( beans_get_layout(), 'sp' ) === false || !beans_has_widget_area( 'sidebar_primary' ) )
+	if ( false === stripos( beans_get_layout(), 'sp' ) || !beans_has_widget_area( 'sidebar_primary' ) )
 		return;
 
 	get_sidebar( 'primary' );
@@ -190,7 +190,7 @@ beans_add_smart_action( 'beans_primary_after_markup', 'beans_sidebar_secondary_t
  */
 function beans_sidebar_secondary_template() {
 
-	if ( stripos( beans_get_layout(), 'ss' ) === false || !beans_has_widget_area( 'sidebar_secondary' ) )
+	if ( false === stripos( beans_get_layout(), 'ss' ) || !beans_has_widget_area( 'sidebar_secondary' ) )
 		return;
 
 	get_sidebar( 'secondary' );
@@ -208,7 +208,7 @@ beans_add_smart_action( 'beans_site_append_markup', 'beans_footer_partial_templa
 function beans_footer_partial_template() {
 
 	// Allow overwrite.
-	if ( locate_template( 'footer-partial.php', true, false ) != '' )
+	if ( '' != locate_template( 'footer-partial.php', true, false ) )
 		return;
 
 	require( BEANS_STRUCTURE_PATH . 'footer-partial.php' );
