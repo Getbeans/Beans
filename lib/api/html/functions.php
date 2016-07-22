@@ -129,7 +129,7 @@ function beans_open_markup( $id, $tag, $attributes = array() ) {
 	unset( $attributes_args[1] );
 
 	// Stop here if the tag is set to false, the before and after actions won't run in this case.
-	if ( ( $tag = call_user_func_array( 'beans_apply_filters', $args ) ) === null )
+	if ( null === ( $tag = call_user_func_array( 'beans_apply_filters', $args ) ) )
 		return;
 
 	// Remove function $tag argument.
@@ -267,7 +267,7 @@ function beans_selfclose_markup_e( $id, $tag, $attributes = array() ) {
 function beans_close_markup( $id, $tag ) {
 
 	// Stop here if the tag is set to false, the before and after actions won't run in this case.
-	if ( ( $tag = beans_apply_filters( $id . '_markup', $tag ) ) === null )
+	if ( null === ( $tag = beans_apply_filters( $id . '_markup', $tag ) ) )
 		return;
 
 	$args = func_get_args();

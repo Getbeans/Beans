@@ -119,7 +119,7 @@ final class _Beans_Fields {
 		// Set field name.
 		$field['name'] = $this->context == 'wp_customize' ? $field['id'] :  'beans_fields[' . $field['id'] . ']';
 
-		if ( $field['type'] === 'group' ) {
+		if ( 'group' === $field['type'] ) {
 
 			foreach ( $field['fields'] as $index => $_field ) {
 
@@ -138,7 +138,7 @@ final class _Beans_Fields {
 		}
 
 		// Add required attributes for wp_customizer.
-		if ( $this->context == 'wp_customize' )
+		if ( 'wp_customize' == $this->context )
 			$field['attributes'] = array_merge(
 				$field['attributes'],
 				array( 'data-customize-setting-link' => $field['name'] )
@@ -155,7 +155,7 @@ final class _Beans_Fields {
 	private function set_types() {
 
 		foreach ( $this->fields as $field )
-			if ( $field['type'] == 'group' )
+			if ( 'group' == $field['type'] )
 				foreach ( $field['fields'] as $_field )
 					$this->field_types[$_field['type']] = $_field['type'];
 			else
@@ -284,7 +284,7 @@ final class _Beans_Fields {
 		), $field );
 
 			// Set fields loop to cater for groups.
-			if ( $field['type'] === 'group' )
+			if ( 'group' === $field['type'] )
 				$fields = $field['fields'];
 			else
 				$fields = array( $field );

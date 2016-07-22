@@ -76,7 +76,7 @@ final class _Beans_Image_Options {
 	 */
 	public function option( $field ) {
 
-		if ( $field['id'] !== 'beans_edited_images_directories' )
+		if ( 'beans_edited_images_directories' !== $field['id'] )
 			return;
 
 		echo '<input type="submit" name="beans_flush_edited_images" value="' . __( 'Flush images', 'tm-beans' ) . '" class="button-secondary" />';

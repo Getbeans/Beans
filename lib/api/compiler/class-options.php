@@ -116,7 +116,7 @@ final class _Beans_Compiler_Options {
 	 */
 	public function option( $field ) {
 
-		if ( $field['id'] !== 'beans_compiler_items' )
+		if ( 'beans_compiler_items' !== $field['id'] )
 			return;
 
 		echo '<input type="submit" name="beans_flush_compiler_cache" value="' . __( 'Flush assets cache', 'tm-beans' ) . '" class="button-secondary" />';

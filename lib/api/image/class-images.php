@@ -98,7 +98,7 @@ final class _Beans_Image_Editor {
 		$src = beans_path_to_url( $this->rebuilt_path );
 
 		// Simply return the source if dimensions are not requested
-		if ( $this->output == 'STRING' )
+		if ( 'STRING' == $this->output )
 			return $src;
 
 		// Get the new image dimensions
@@ -110,9 +110,9 @@ final class _Beans_Image_Editor {
 			'height' => $height
 		);
 
-		if ( $this->output == 'ARRAY_N' )
+		if ( 'ARRAY_N' == $this->output )
 			return array_values( $array );
-		elseif ( $this->output == 'OBJECT' )
+		elseif ( 'OBJECT' == $this->output )
 			return (object) $array;
 
 		return $array;

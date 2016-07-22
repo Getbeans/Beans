@@ -146,7 +146,7 @@ function beans_add_api_component_support( $feature ) {
 
 	$args = func_get_args();
 
-	if ( func_num_args() == 1 )
+	if ( 1 == func_num_args() )
 		$args = true;
 	else
 		$args = array_slice( $args, 1 );

@@ -199,7 +199,7 @@ function beans_flush_compiler( $id, $file_format = false, $admin = false ) {
 		unset( $items[0], $items[1] );
 
 		foreach ( $items as $item )
-			if ( stripos( $item, '.' . $file_format ) !== false )
+			if ( false !== stripos( $item, '.' . $file_format ) )
 				@unlink( trailingslashit( $dir ) . $item );
 
 	}

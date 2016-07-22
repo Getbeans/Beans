@@ -51,7 +51,7 @@ final class _Beans_WP_Customize {
 
 		foreach ( $fields as $field ) {
 
-			if ( $field['type'] === 'group' )
+			if ( 'group' === $field['type'] )
 				foreach ( $field['fields'] as $_field )
 					$this->add_setting( $wp_customize, $_field );
 

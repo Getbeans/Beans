@@ -76,7 +76,7 @@ final class _Beans_Uikit {
 		foreach ( $_beans_uikit_enqueued_items['components'] as $type => $items ) {
 
 			// Add core before the components.
-			if ( $type == 'core' )
+			if ( 'core' == $type )
 				$items = array_merge( array( 'variables' ), $items );
 
 			// Fetch components from directories.
@@ -105,7 +105,7 @@ final class _Beans_Uikit {
 		foreach ( $_beans_uikit_enqueued_items['components'] as $type => $items ) {
 
 			// Add core before the components.
-			if ( $type == 'core' )
+			if ( 'core' == $type )
 				$items = array_merge(
 					array(
 						'core',
@@ -132,7 +132,7 @@ final class _Beans_Uikit {
 	 */
 	function get_less_directories( $type ) {
 
-		if ( $type == 'add-ons' )
+		if ( 'add-ons' == $type )
 			$type = 'components';
 
 		global $_beans_uikit_enqueued_items;
@@ -153,7 +153,7 @@ final class _Beans_Uikit {
 	 */
 	function get_js_directories( $type ) {
 
-		if ( $type == 'add-ons' )
+		if ( 'add-ons' == $type )
 			$type = 'components';
 
 		// Define uikit src directory.

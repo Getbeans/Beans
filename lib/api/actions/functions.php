@@ -519,7 +519,7 @@ function _beans_get_current_action( $id ) {
 		$action = array_merge( $action, $modified );
 
 	// Stop here if the action is invalid.
-	if ( count( $action ) != 4 )
+	if ( 4 != count( $action ) )
 		return false;
 
 	return $action;

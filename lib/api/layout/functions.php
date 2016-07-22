@@ -53,7 +53,7 @@ function beans_get_layout() {
 		$layout = beans_get_term_meta( 'beans_layout' );
 
 	// Fallback onto the global theme layout option if value is false or default_fallback.
-	if ( !isset( $layout ) || !$layout || $layout === 'default_fallback' )
+	if ( !isset( $layout ) || !$layout || 'default_fallback' === $layout )
 		$layout = get_theme_mod( 'beans_layout', beans_get_default_layout() );
 
 	/**

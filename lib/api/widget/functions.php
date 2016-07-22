@@ -368,7 +368,7 @@ function _beans_setup_widget_area( $id ) {
     $_beans_widget_area['current_widget'] = 0;
 
     // Only add widgets if exists.
-    if ( count( $splited_sidebar ) == 3 ) {
+    if ( 3 == count( $splited_sidebar ) ) {
 
         $_beans_widget_area['before_widgets'] = $splited_sidebar[0];
         $_beans_widget_area['widgets'] = _beans_setup_widgets( $splited_sidebar[1] );
@@ -442,7 +442,7 @@ function _beans_setup_widgets( $widget_area_content ) {
 
         }
         // Widget type fallback.
-        elseif ( $id == 'nav_menu-0' ) {
+        elseif ( 'nav_menu-0' == $id ) {
 
             $widget['type'] = 'nav_menu';
 
@@ -570,7 +570,7 @@ function _beans_force_the_widget( $widget, $instance, $args ) {
         return;
 
     // Stop here if the widget correctly contain an id.
-    if ( stripos( $widget_obj->id, beans_get( 'before_widget', $args ) ) !== false )
+    if ( false !== stripos( $widget_obj->id, beans_get( 'before_widget', $args ) ) )
         return;
 
     printf( '<!--widget-%1$s-->', $widget_obj->id );

@@ -86,7 +86,7 @@ function _beans_is_admin_term( $taxonomies ) {
 	if ( !$taxonomy = beans_get_or_post( 'taxonomy' ) )
 		return false;
 
-	if ( $taxonomies === true )
+	if ( true === $taxonomies )
 		return true;
 
 	if ( in_array( $taxonomy, (array) $taxonomies ) )

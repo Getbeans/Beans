@@ -69,7 +69,7 @@ function beans_field_image( $field ) {
 			), $field['attributes'] );
 
 			// Set placeholder.
-			if ( $id == 'placeholder' ) {
+			if ( 'placeholder' == $id ) {
 
 				$class = 'bs-image-template';
 				$attributes = array_merge( $attributes, array( 'disabled' => 'disabled', 'value' => false ) );

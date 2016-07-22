@@ -36,7 +36,7 @@ function beans_uikit_enqueue_components( $components, $type = 'core', $autoload 
 	global $_beans_uikit_enqueued_items;
 
 	// Get all uikit components.
-	if ( $components === true ) {
+	if ( true === $components ) {
 
 		$uikit = new _Beans_Uikit;
 		$components = $uikit->get_all_components( $type );
@@ -79,7 +79,7 @@ function beans_uikit_dequeue_components( $components, $type = 'core' ) {
 
 	global $_beans_uikit_enqueued_items;
 
-	if ( $components === true ) {
+	if ( true === $components ) {
 
 		$uikit = new _Beans_Uikit;
 		$components = $uikit->get_all_components( $type );
@@ -118,7 +118,7 @@ function beans_uikit_register_theme( $id, $path ) {
 	if ( !$path )
 		return false;
 
-	if ( stripos( $path, 'http' ) !== false )
+	if ( false !== stripos( $path, 'http' ) )
 		$path = beans_url_to_path( $path );
 
 	$_beans_uikit_registered_items['themes'][$id] = trailingslashit( $path );

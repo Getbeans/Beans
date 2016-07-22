@@ -84,7 +84,7 @@ function beans_remove_dir( $dir_path ) {
 
 		$path = $dir_path . '/' . $item;
 
-		if ( filetype( $dir_path . '/' . $item ) === 'dir' )
+		if ( 'dir' === filetype( $dir_path . '/' . $item ) )
 			beans_remove_dir( $path );
 		else
 			@unlink( $path );
@@ -116,7 +116,7 @@ function beans_path_to_url( $path ) {
 	static $root, $host;
 
 	// Stop here if it is already a url or data format.
-	if ( preg_match( '#^(http|https|\/\/|data)#', $path ) == true )
+	if ( true == preg_match( '#^(http|https|\/\/|data)#', $path ) )
 		return $path;
 
 	// Standardize backslashes.
@@ -130,14 +130,14 @@ function beans_path_to_url( $path ) {
 		$host = untrailingslashit( site_url() );
 
 		// Remove subfolder if necessary.
-		if ( ( $subfolder = parse_url( $host, PHP_URL_PATH ) ) !== '' ) {
+		if ( '' !== ( $subfolder = parse_url( $host, PHP_URL_PATH ) ) ) {
 
 			$root = preg_replace( '#' . untrailingslashit( preg_quote( $subfolder ) ) . '$#', '', $root );
 			$host = preg_replace( '#' . untrailingslashit( preg_quote( $subfolder ) ) . '$#', '', $host );
 
 			// Add the blog path for multsites.
 			if ( !is_main_site() && ( $blogdetails = get_blog_details( get_current_blog_id() ) ) )
-				if ( !( defined( 'WP_SITEURL' ) ) || ( defined( 'WP_SITEURL' ) && site_url() == WP_SITEURL ) )
+				if ( !( defined( 'WP_SITEURL' ) ) || ( defined( 'WP_SITEURL' ) && WP_SITEURL == site_url() ) )
 					$host = untrailingslashit( $host ) . $blogdetails->path;
 
 		}
@@ -145,16 +145,16 @@ function beans_path_to_url( $path ) {
 		$explode = beans_get( 0, explode( '/' , trailingslashit( ltrim( $subfolder, '/' ) ) ) );
 
 		// Maybe re-add tilde from host.
-		if ( stripos( $explode, '~' ) !== false )
+		if ( false !== stripos( $explode, '~' ) )
 			$host = trailingslashit( $host ) . $explode;
 
 	}
 
 	// Remove root if necessary.
-	if ( stripos( $path, $root ) !== false )
+	if ( false !== stripos( $path, $root ) )
 		$path = str_replace( $root, '', $path );
 	// Add an extra step which is only used for extremely rare case.
-	elseif ( stripos( $path, beans_get( 'DOCUMENT_ROOT', $_SERVER ) ) !== false )
+	elseif ( false !== stripos( $path, beans_get( 'DOCUMENT_ROOT', $_SERVER ) ) )
 		$path = str_replace( beans_get( 'DOCUMENT_ROOT', $_SERVER ), '', $path );
 
 	return trailingslashit( $host ) . ltrim( $path, '/' );
@@ -178,7 +178,7 @@ function beans_url_to_path( $url ) {
 	static $root, $blogdetails;
 
 	// Stop here if it is not an internal url.
-	if ( stripos( $url, parse_url( site_url(), PHP_URL_HOST ) ) === false )
+	if ( false === stripos( $url, parse_url( site_url(), PHP_URL_HOST ) ) )
 		return beans_sanitize_path( $url );
 
 	// Fix protocole. It isn't needed to set SSL as it is only used to parse the URL.
@@ -191,7 +191,7 @@ function beans_url_to_path( $url ) {
 	$explode = beans_get( 0, explode( '/' , trailingslashit( ltrim( $path, '/' ) ) ) );
 
 	// Maybe remove tilde from path.
-	if ( stripos( $explode, '~' ) !== false ) {
+	if ( false !== stripos( $explode, '~' ) ) {
 		$path = preg_replace( '#\~[^/]*\/#', '', $path );
 	}
 
@@ -205,7 +205,7 @@ function beans_url_to_path( $url ) {
 	}
 
 	// Remove subfolder if necessary.
-	if ( ( $subfolder = parse_url( site_url(), PHP_URL_PATH ) ) !== '' ) {
+	if ( '' !== ( $subfolder = parse_url( site_url(), PHP_URL_PATH ) ) ) {
 
 		// Set root if it isn't cached.
 		if ( isset( $set_root ) ) {
@@ -214,7 +214,7 @@ function beans_url_to_path( $url ) {
 			$root = preg_replace( '#' . untrailingslashit( preg_quote( $subfolder ) ) . '$#', '', $root );
 
 			// Add an extra step which is only used for extremely rare case.
-			if ( defined( 'WP_SITEURL' ) && ( $subfolder = parse_url( WP_SITEURL, PHP_URL_PATH ) ) !== '' )
+			if ( '' !== defined( 'WP_SITEURL' ) && ( $subfolder = parse_url( WP_SITEURL, PHP_URL_PATH ) ) )
 				$root = preg_replace( '#' . untrailingslashit( preg_quote( $subfolder ) ) . '$#', '', $root );
 
 		}
@@ -237,7 +237,7 @@ function beans_url_to_path( $url ) {
 		$root = beans_sanitize_path( $root );
 
 	// Add root of it doesn't exist.
-	if ( strpos( $path, $root ) === false )
+	if ( false === strpos( $path, $root ) )
 		$path = trailingslashit( $root ) . ltrim( $path, '/' );
 
 	return beans_sanitize_path( $path );
@@ -281,7 +281,7 @@ function beans_sanitize_path( $path ) {
  */
 function beans_get( $needle, $haystack = false, $default = null ) {
 
-	if ( $haystack === false )
+	if ( false === $haystack )
 		$haystack = $_GET;
 
 	$haystack = (array) $haystack;
@@ -354,7 +354,7 @@ function beans_count_recursive( $array, $depth = false, $count_parent = true ) {
 	if ( !is_array( $array ) )
 		return 0;
 
-	if ( $depth === 1 )
+	if ( 1 === $depth )
 		return count( $array );
 
 	if ( !is_numeric( $depth ) )
@@ -524,7 +524,7 @@ function beans_esc_attributes( $attributes ) {
 
 	foreach ( (array) $attributes as $attribute => $value ) {
 
-		if ( $value !== null ) {
+		if ( null !== $value ) {
 
 			if ( $method = beans_get( $attribute, $methods ) )
 				$value = call_user_func( $method, $value );

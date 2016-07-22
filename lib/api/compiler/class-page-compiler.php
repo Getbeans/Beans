@@ -68,7 +68,7 @@ final class _Beans_Page_Compiler {
 
 		global $$set_global;
 
-		if ( $type == 'script' )
+		if ( 'script' == $type )
 			add_action( 'wp_print_scripts', array( $this, 'dequeue_scripts' ), 9999 );
 
 		if ( !$depedencies )
@@ -90,15 +90,15 @@ final class _Beans_Page_Compiler {
 					if ( !empty( $dep_src ) )
 						$fragments[$dep_id] = $dep_src;
 
-			if ( $type == 'style' ) {
+			if ( 'style' == $type ) {
 
 				// Add compiler media query if set.
-				if ( $args->args != 'all' )
+				if ( 'all' != $args->args )
 					$args->src = add_query_arg( array( 'beans_compiler_media_query' => $args->args ), $args->src );
 
 				$$set_global->done[] = $id;
 
-			} elseif ( $type == 'script' ) {
+			} elseif ( 'script' == $type ) {
 
 				$this->dequeued_scripts[$id] = $args->src;
 
