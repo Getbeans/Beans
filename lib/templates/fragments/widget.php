@@ -135,7 +135,7 @@ function beans_modify_widget_content_attributes( $attributes ) {
 	if ( in_array( beans_get_widget( 'type' ), $target ) )
 		$attributes['class'] = $current_class . 'uk-list'; // Automatically escaped.
 
-	if ( $type == 'calendar' )
+	if ( 'calendar' == $type )
 		$attributes['class'] = $current_class . 'uk-table uk-table-condensed'; // Automatically escaped.
 
 	return $attributes;
@@ -159,7 +159,7 @@ function beans_modify_widget_count( $content ) {
 
 	$count = beans_output( 'beans_widget_count', '$1' );
 
-	if ( beans_get( 'dropdown', beans_get_widget( 'options' ) ) == true ) {
+	if ( true == beans_get( 'dropdown', beans_get_widget( 'options' ) ) ) {
 
 		$output = $count;
 

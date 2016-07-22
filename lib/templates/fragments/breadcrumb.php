@@ -34,7 +34,7 @@ function beans_breadcrumb() {
 	}
 
 	// Single posts.
-	if ( is_single() && $post_type == 'post' ) {
+	if ( is_single() && 'post' == $post_type ) {
 
 		foreach ( get_the_category( $post->ID ) as $category )
 			$breadcrumbs[get_category_link( $category->term_id )] = $category->name;

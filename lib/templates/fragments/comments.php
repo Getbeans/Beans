@@ -85,7 +85,7 @@ function beans_comment_badges() {
 	global $comment;
 
 	// Trackback badge.
-	if ( $comment->comment_type == 'trackback' ) {
+	if ( 'trackback' == $comment->comment_type ) {
 
 		beans_open_markup_e( 'beans_trackback_badge', 'span', array( 'class' => 'uk-badge uk-margin-small-left' ) );
 
@@ -96,7 +96,7 @@ function beans_comment_badges() {
 	}
 
 	// Pindback badge.
-	if ( $comment->comment_type == 'pingback' ) {
+	if ( 'pingback' == $comment->comment_type ) {
 
 		beans_open_markup_e( 'beans_pingback_badge', 'span', array( 'class' => 'uk-badge uk-margin-small-left' ) );
 
