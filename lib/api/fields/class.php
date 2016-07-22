@@ -279,7 +279,7 @@ final class _Beans_Fields {
 	 */
 	public function field_content( $field ) {
 
-		echo beans_open_markup( 'beans_field_wrap', 'div', array(
+		beans_open_markup_e( 'beans_field_wrap', 'div', array(
 			'class' => 'bs-field-wrap bs-' . $field['type'] . ' ' . $field['context']
 		), $field );
 
@@ -289,26 +289,26 @@ final class _Beans_Fields {
 			else
 				$fields = array( $field );
 
-			echo beans_open_markup( 'beans_field_inside', 'div', array(
+			beans_open_markup_e( 'beans_field_inside', 'div', array(
 					'class' => 'bs-field-inside'
 				), $fields );
 
 				// Loop through fields.
 				foreach ( $fields as $single_field ) {
 
-					echo beans_open_markup( 'beans_field[_' . $single_field['id'] . ']', 'div', array(
+					beans_open_markup_e( 'beans_field[_' . $single_field['id'] . ']', 'div', array(
 						'class' => 'bs-field bs-' . $single_field['type'],
 					), $single_field );
 
 						do_action( 'beans_field_' . $single_field['type'], $single_field );
 
-					echo beans_close_markup( 'beans_field[_' . $single_field['id'] . ']', 'div', $single_field );
+					beans_close_markup_e( 'beans_field[_' . $single_field['id'] . ']', 'div', $single_field );
 
 				}
 
-			echo beans_close_markup( 'beans_field_inside', 'div', $fields );
+			beans_close_markup_e( 'beans_field_inside', 'div', $fields );
 
-		echo beans_close_markup( 'beans_field_wrap', 'div', $field );
+		beans_close_markup_e( 'beans_field_wrap', 'div', $field );
 
 	}
 

@@ -21,11 +21,11 @@ function beans_field_label( $field ) {
 	if ( !$label = beans_get( 'label', $field ) )
 		return;
 
-	echo beans_open_markup( 'beans_field_label[_' . $field['id'] . ']', 'label' );
+	beans_open_markup_e( 'beans_field_label[_' . $field['id'] . ']', 'label' );
 
 		echo $field['label'];
 
-	echo beans_close_markup( 'beans_field_label[_' . $field['id'] . ']', 'label' );
+	beans_close_markup_e( 'beans_field_label[_' . $field['id'] . ']', 'label' );
 
 }
 
@@ -49,7 +49,7 @@ function beans_field_description( $field ) {
 	if ( !$description = beans_get( 'description', $field ) )
 		return;
 
-	echo beans_open_markup( 'beans_field_description[_' . $field['id'] . ']', 'div', array( 'class' => 'bs-field-description' ) );
+	beans_open_markup_e( 'beans_field_description[_' . $field['id'] . ']', 'div', array( 'class' => 'bs-field-description' ) );
 
 		if ( preg_match( '#<!--more-->#', $description, $matches ) )
 			list( $description, $extended ) = explode( $matches[0], $description, 2 );
@@ -65,6 +65,6 @@ function beans_field_description( $field ) {
 
 		}
 
-	echo beans_close_markup( 'beans_field_description[_' . $field['id'] . ']', 'div' );
+	beans_close_markup_e( 'beans_field_description[_' . $field['id'] . ']', 'div' );
 
 }
