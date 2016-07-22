@@ -37,14 +37,14 @@ function beans_post_title() {
 
 	}
 
-	echo beans_open_markup( 'beans_post_title', $title_tag, array(
+	beans_open_markup_e( 'beans_post_title', $title_tag, array(
 		'class' => 'uk-article-title',
 		'itemprop' => 'headline'
 	) );
 
 		echo $title;
 
-	echo beans_close_markup( 'beans_post_title', $title_tag );
+	beans_close_markup_e( 'beans_post_title', $title_tag );
 
 }
 
@@ -61,11 +61,11 @@ function beans_post_search_title() {
 	if ( !is_search() )
 		return;
 
-	echo beans_open_markup( 'beans_search_title', 'h1', array( 'class' => 'uk-article-title' ) );
+	beans_open_markup_e( 'beans_search_title', 'h1', array( 'class' => 'uk-article-title' ) );
 
 		echo beans_output( 'beans_search_title_text', __( 'Search results for: ', 'tm-beans' ) ) . get_search_query();
 
-	echo beans_close_markup( 'beans_search_title', 'h1' );
+	beans_close_markup_e( 'beans_search_title', 'h1' );
 
 }
 
@@ -82,11 +82,11 @@ function beans_post_archive_title() {
 	if ( !is_archive() )
 		return;
 
-	echo beans_open_markup( 'beans_archive_title', 'h1', array( 'class' => 'uk-article-title' ) );
+	beans_open_markup_e( 'beans_archive_title', 'h1', array( 'class' => 'uk-article-title' ) );
 
-		echo beans_output( 'beans_archive_title_text', get_the_archive_title() );
+		beans_output_e( 'beans_archive_title_text', get_the_archive_title() );
 
-	echo beans_close_markup( 'beans_archive_title', 'h1' );
+	beans_close_markup_e( 'beans_archive_title', 'h1' );
 
 }
 
@@ -110,7 +110,7 @@ function beans_post_meta() {
 	if ( apply_filters( 'beans_pre_post_meta', 'post' != get_post_type() ) )
 		return;
 
-	echo beans_open_markup( 'beans_post_meta', 'ul', array( 'class' => 'uk-article-meta uk-subnav uk-subnav-line' ) );
+	beans_open_markup_e( 'beans_post_meta', 'ul', array( 'class' => 'uk-article-meta uk-subnav uk-subnav-line' ) );
 
 		/**
 		 * Filter the post meta actions and order.
@@ -135,15 +135,15 @@ function beans_post_meta() {
 			if ( !$content = beans_render_function( 'do_action', "beans_post_meta_$meta" ) )
 				continue;
 
-			echo beans_open_markup( "beans_post_meta_item[_{$meta}]", 'li' );
+			beans_open_markup_e( "beans_post_meta_item[_{$meta}]", 'li' );
 
-				echo beans_output( "beans_post_meta_item_{$meta}_text", $content ) ;
+				beans_output_e( "beans_post_meta_item_{$meta}_text", $content );
 
-			echo beans_close_markup( "beans_post_meta_item[_{$meta}]", 'li' );
+			beans_close_markup_e( "beans_post_meta_item[_{$meta}]", 'li' );
 
 		}
 
-	echo beans_close_markup( 'beans_post_meta', 'ul' );
+	beans_close_markup_e( 'beans_post_meta', 'ul' );
 
 }
 
@@ -211,24 +211,24 @@ function beans_post_image() {
 
 	}
 
-	echo beans_open_markup( 'beans_post_image', 'div', array( 'class' => 'tm-article-image' ) );
+	beans_open_markup_e( 'beans_post_image', 'div', array( 'class' => 'tm-article-image' ) );
 
 		if ( !is_singular() )
-			echo beans_open_markup( 'beans_post_image_link', 'a', array(
+			beans_open_markup_e( 'beans_post_image_link', 'a', array(
 				'href' => get_permalink(), // Automatically escaped.
 				'title' => the_title_attribute( 'echo=0' )
 			) );
 
-			echo beans_open_markup( 'beans_post_image_item_wrap', 'picture' );
+			beans_open_markup_e( 'beans_post_image_item_wrap', 'picture' );
 
 				if ( $edit ) {
 
-					echo beans_selfclose_markup( 'beans_post_image_small_item', 'source', array(
+					beans_selfclose_markup_e( 'beans_post_image_small_item', 'source', array(
 						'media' => '(max-width: ' . $image_small->width . 'px)',
 						'srcset' => esc_url( $image_small->src ),
 					), $image_small );
 
-					echo beans_selfclose_markup( 'beans_post_image_item', 'img', array(
+					beans_selfclose_markup_e( 'beans_post_image_item', 'img', array(
 						'width' => $image->width,
 						'height' => $image->height,
 						'src' => $image->src, // Automatically escaped.
@@ -243,12 +243,12 @@ function beans_post_image() {
 
 				}
 
-			echo beans_close_markup( 'beans_post_image_item_wrap', 'picture' );
+			beans_close_markup_e( 'beans_post_image_item_wrap', 'picture' );
 
 		if ( !is_singular() )
-			echo beans_close_markup( 'beans_post_image_link', 'a' );
+			beans_close_markup_e( 'beans_post_image_link', 'a' );
 
-	echo beans_close_markup( 'beans_post_image', 'div' );
+	beans_close_markup_e( 'beans_post_image', 'div' );
 
 }
 
@@ -264,7 +264,7 @@ function beans_post_content() {
 
 	global $post;
 
-	echo beans_open_markup( 'beans_post_content', 'div', array(
+	beans_open_markup_e( 'beans_post_content', 'div', array(
 		'class' => 'tm-article-content',
 		'itemprop' => 'text'
 	) );
@@ -279,7 +279,7 @@ function beans_post_content() {
 
 		endif;
 
-	echo beans_close_markup( 'beans_post_content', 'div' );
+	beans_close_markup_e( 'beans_post_content', 'div' );
 
 }
 
@@ -347,11 +347,11 @@ function beans_post_meta_categories() {
 	if ( !$categories = beans_render_function( 'do_shortcode', '[beans_post_meta_categories]' ) )
 		return;
 
-	echo beans_open_markup( 'beans_post_meta_categories', 'span', array( 'class' => 'uk-text-small uk-text-muted uk-clearfix' ) );
+	beans_open_markup_e( 'beans_post_meta_categories', 'span', array( 'class' => 'uk-text-small uk-text-muted uk-clearfix' ) );
 
 		echo $categories;
 
-	echo beans_close_markup( 'beans_post_meta_categories', 'span' );
+	beans_close_markup_e( 'beans_post_meta_categories', 'span' );
 
 }
 
@@ -368,11 +368,11 @@ function beans_post_meta_tags() {
 	if ( !$tags = beans_render_function( 'do_shortcode', '[beans_post_meta_tags]' ) )
 		return;
 
-	echo beans_open_markup( 'beans_post_meta_tags', 'span', array( 'class' => 'uk-text-small uk-text-muted uk-clearfix' ) );
+	beans_open_markup_e( 'beans_post_meta_tags', 'span', array( 'class' => 'uk-text-small uk-text-muted uk-clearfix' ) );
 
 		echo $tags;
 
-	echo beans_close_markup( 'beans_post_meta_tags', 'span' );
+	beans_close_markup_e( 'beans_post_meta_tags', 'span' );
 
 }
 
@@ -474,7 +474,7 @@ function beans_post_navigation() {
 	if ( !$next && !$previous )
 		return;
 
-	echo beans_open_markup( 'beans_post_navigation', 'ul', array(
+	beans_open_markup_e( 'beans_post_navigation', 'ul', array(
 		'class' => 'uk-pagination',
 		'role' => 'navigation'
 	) );
@@ -482,26 +482,26 @@ function beans_post_navigation() {
 		if ( $previous ) :
 
 			// Previous.
-			echo beans_open_markup( 'beans_post_navigation_item[_previous]', 'li', array( 'class' => 'uk-pagination-previous' ) );
+			beans_open_markup_e( 'beans_post_navigation_item[_previous]', 'li', array( 'class' => 'uk-pagination-previous' ) );
 
 				echo get_previous_post_link( '%link', __( 'Previous', 'tm-beans' ) );
 
-			echo beans_close_markup( 'beans_post_navigation_item[_previous]', 'li' );
+			beans_close_markup_e( 'beans_post_navigation_item[_previous]', 'li' );
 
 		endif;
 
 		if ( $next ) :
 
 			// Next.
-			echo beans_open_markup( 'beans_post_navigation_item[_next]', 'li', array( 'class' => 'uk-pagination-next' ) );
+			beans_open_markup_e( 'beans_post_navigation_item[_next]', 'li', array( 'class' => 'uk-pagination-next' ) );
 
 				echo get_next_post_link( '%link', __( 'Next', 'tm-beans' ) );
 
-			echo beans_close_markup( 'beans_post_navigation_item[_next]', 'li' );
+			beans_close_markup_e( 'beans_post_navigation_item[_next]', 'li' );
 
 		endif;
 
-	echo beans_close_markup( 'beans_post_navigation', 'ul' );
+	beans_close_markup_e( 'beans_post_navigation', 'ul' );
 
 }
 
@@ -533,7 +533,7 @@ function beans_posts_pagination() {
 	$current = get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1;
 	$count = intval( $wp_query->max_num_pages );
 
-	echo beans_open_markup( 'beans_posts_pagination', 'ul', array(
+	beans_open_markup_e( 'beans_posts_pagination', 'ul', array(
 		'class' => 'uk-pagination uk-grid-margin',
 		'role' => 'navigation'
 	) );
@@ -541,23 +541,23 @@ function beans_posts_pagination() {
 		// Previous.
 		if ( get_previous_posts_link() ) {
 
-			echo beans_open_markup( 'beans_posts_pagination_item[_previous]', 'li' );
+			beans_open_markup_e( 'beans_posts_pagination_item[_previous]', 'li' );
 
-				echo beans_open_markup( 'beans_previous_link[_posts_pagination]', 'a', array(
+				beans_open_markup_e( 'beans_previous_link[_posts_pagination]', 'a', array(
 					'href' => previous_posts( false ) // Automatically escaped.
 				), $current );
 
-					echo beans_open_markup( 'beans_previous_icon[_posts_pagination]', 'i', array(
+					beans_open_markup_e( 'beans_previous_icon[_posts_pagination]', 'i', array(
 						'class' => 'uk-icon-angle-double-left uk-margin-small-right'
 					) );
 
-					echo beans_close_markup( 'beans_previous_icon[_posts_pagination]', 'i' );
+					beans_close_markup_e( 'beans_previous_icon[_posts_pagination]', 'i' );
 
-					echo beans_output( 'beans_previous_text[_posts_pagination]', __( 'Previous', 'tm-beans' ) );
+					beans_output_e( 'beans_previous_text[_posts_pagination]', __( 'Previous', 'tm-beans' ) );
 
-				echo beans_close_markup( 'beans_previous_link[_posts_pagination]', 'a' );
+				beans_close_markup_e( 'beans_previous_link[_posts_pagination]', 'a' );
 
-			echo beans_close_markup( 'beans_posts_pagination_item[_previous]', 'li' );
+			beans_close_markup_e( 'beans_posts_pagination_item[_previous]', 'li' );
 
 		}
 
@@ -583,11 +583,11 @@ function beans_posts_pagination() {
 			// Separator.
 			if ( !in_array( false, $is_separator ) ) {
 
-				echo beans_open_markup( 'beans_posts_pagination_item[_separator]', 'li' );
+				beans_open_markup_e( 'beans_posts_pagination_item[_separator]', 'li' );
 
-					echo beans_output( 'beans_posts_pagination_item_separator_text', '...' );
+					beans_output_e( 'beans_posts_pagination_item_separator_text', '...' );
 
-				echo beans_close_markup( 'beans_posts_pagination_item[_separator]', 'li' );
+				beans_close_markup_e( 'beans_posts_pagination_item[_separator]', 'li' );
 
 				// Jump.
 				if ( $link < $current )
@@ -602,25 +602,25 @@ function beans_posts_pagination() {
 			// Integer.
 			if ( $link == $current ) {
 
-				echo beans_open_markup( 'beans_posts_pagination_item[_active]', 'li', array( 'class' => 'uk-active' ) );
+				beans_open_markup_e( 'beans_posts_pagination_item[_active]', 'li', array( 'class' => 'uk-active' ) );
 
 					echo '<span>' . $link . '</span>';
 
-				echo beans_close_markup( 'beans_posts_pagination_item[_active]', 'li' );
+				beans_close_markup_e( 'beans_posts_pagination_item[_active]', 'li' );
 
 			} else {
 
-				echo beans_open_markup( 'beans_posts_pagination_item', 'li' );
+				beans_open_markup_e( 'beans_posts_pagination_item', 'li' );
 
-					echo beans_open_markup( 'beans_posts_pagination_item_link', 'a', array(
+					beans_open_markup_e( 'beans_posts_pagination_item_link', 'a', array(
 						'href' => get_pagenum_link( $link ) // Automatically escaped.
 					), $link );
 
-						echo beans_output( 'beans_posts_pagination_item_link_text', $link );
+						beans_output_e( 'beans_posts_pagination_item_link_text', $link );
 
-					echo beans_close_markup( 'beans_posts_pagination_item_link', 'a' );
+					beans_close_markup_e( 'beans_posts_pagination_item_link', 'a' );
 
-				echo beans_close_markup( 'beans_posts_pagination_item', 'li' );
+				beans_close_markup_e( 'beans_posts_pagination_item', 'li' );
 
 			}
 
@@ -629,27 +629,27 @@ function beans_posts_pagination() {
 		// Next.
 		if ( get_next_posts_link() ) {
 
-			echo beans_open_markup( 'beans_posts_pagination_item[_next]', 'li' );
+			beans_open_markup_e( 'beans_posts_pagination_item[_next]', 'li' );
 
-				echo beans_open_markup( 'beans_next_link[_posts_pagination]', 'a', array(
+				beans_open_markup_e( 'beans_next_link[_posts_pagination]', 'a', array(
 					'href' => next_posts( $count, false ) // Automatically escaped.
 				), $current );
 
-					echo beans_output( 'beans_next_text[_posts_pagination]', __( 'Next', 'tm-beans' ) );
+					beans_output_e( 'beans_next_text[_posts_pagination]', __( 'Next', 'tm-beans' ) );
 
-					echo beans_open_markup( 'beans_next_icon[_posts_pagination]', 'i', array(
+					beans_open_markup_e( 'beans_next_icon[_posts_pagination]', 'i', array(
 						'class' => 'uk-icon-angle-double-right uk-margin-small-left'
 					) );
 
-					echo beans_close_markup( 'beans_next_icon[_posts_pagination]', 'i' );
+					beans_close_markup_e( 'beans_next_icon[_posts_pagination]', 'i' );
 
-				echo beans_close_markup( 'beans_next_link[_posts_pagination]', 'a' );
+				beans_close_markup_e( 'beans_next_link[_posts_pagination]', 'a' );
 
-			echo beans_close_markup( 'beans_posts_pagination_item[_next]', 'li' );
+			beans_close_markup_e( 'beans_posts_pagination_item[_next]', 'li' );
 
 		}
 
-	echo beans_close_markup( 'beans_posts_pagination', 'ul' );
+	beans_close_markup_e( 'beans_posts_pagination', 'ul' );
 
 }
 
@@ -663,35 +663,35 @@ beans_add_smart_action( 'beans_no_post', 'beans_no_post' );
  */
 function beans_no_post() {
 
-	echo beans_open_markup( 'beans_post', 'article', array( 'class' => 'tm-no-article uk-article' . ( current_theme_supports( 'beans-default-styling' ) ? ' uk-panel-box' : null ) ) );
+	beans_open_markup_e( 'beans_post', 'article', array( 'class' => 'tm-no-article uk-article' . ( current_theme_supports( 'beans-default-styling' ) ? ' uk-panel-box' : null ) ) );
 
-		echo beans_open_markup( 'beans_post_header', 'header' );
+		beans_open_markup_e( 'beans_post_header', 'header' );
 
-			echo beans_open_markup( 'beans_post_title', 'h1', array( 'class' => 'uk-article-title' ) );
+			beans_open_markup_e( 'beans_post_title', 'h1', array( 'class' => 'uk-article-title' ) );
 
-				echo beans_output( 'beans_no_post_article_title_text', __( 'Whoops, no result found!', 'tm-beans' ) );
+				beans_output_e( 'beans_no_post_article_title_text', __( 'Whoops, no result found!', 'tm-beans' ) );
 
-			echo beans_close_markup( 'beans_post_title', 'h1' );
+			beans_close_markup_e( 'beans_post_title', 'h1' );
 
-		echo beans_close_markup( 'beans_post_header', 'header' );
+		beans_close_markup_e( 'beans_post_header', 'header' );
 
-		echo beans_open_markup( 'beans_post_body', 'div' );
+		beans_open_markup_e( 'beans_post_body', 'div' );
 
-			echo beans_open_markup( 'beans_post_content', 'div', array( 'class' => 'tm-article-content' ) );
+			beans_open_markup_e( 'beans_post_content', 'div', array( 'class' => 'tm-article-content' ) );
 
-				echo beans_open_markup( 'beans_no_post_article_content', 'p', array( 'class' => 'uk-alert uk-alert-warning' ) );
+				beans_open_markup_e( 'beans_no_post_article_content', 'p', array( 'class' => 'uk-alert uk-alert-warning' ) );
 
-					echo beans_output( 'beans_no_post_article_content_text', __( 'It looks like nothing was found at this location. Maybe try a search?', 'tm-beans' ) );
+					beans_output_e( 'beans_no_post_article_content_text', __( 'It looks like nothing was found at this location. Maybe try a search?', 'tm-beans' ) );
 
-				echo beans_close_markup( 'beans_no_post_article_content', 'p' );
+				beans_close_markup_e( 'beans_no_post_article_content', 'p' );
 
-					echo beans_output( 'beans_no_post_search_form', get_search_form( false ) );
+					beans_output_e( 'beans_no_post_search_form', get_search_form( false ) );
 
-			echo beans_close_markup( 'beans_post_content', 'div' );
+			beans_close_markup_e( 'beans_post_content', 'div' );
 
-		echo beans_close_markup( 'beans_post_body', 'div' );
+		beans_close_markup_e( 'beans_post_body', 'div' );
 
-	echo beans_close_markup( 'beans_post', 'article' );
+	beans_close_markup_e( 'beans_post', 'article' );
 
 }
 

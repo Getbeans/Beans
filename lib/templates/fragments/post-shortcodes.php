@@ -14,16 +14,16 @@ beans_add_smart_action( 'beans_post_meta_date', 'beans_post_meta_date_shortcode'
  */
 function beans_post_meta_date_shortcode() {
 
-	echo beans_output( 'beans_post_meta_date_prefix', __( 'Posted on ', 'tm-beans' ) );
+	beans_output_e( 'beans_post_meta_date_prefix', __( 'Posted on ', 'tm-beans' ) );
 
-	echo beans_open_markup( 'beans_post_meta_date', 'time', array(
+	beans_open_markup_e( 'beans_post_meta_date', 'time', array(
 		'datetime' => get_the_time( 'c' ),
 		'itemprop' => 'datePublished',
 	) );
 
-		echo beans_output( 'beans_post_meta_date_text', get_the_time( get_option( 'date_format' ) ) );
+		beans_output_e( 'beans_post_meta_date_text', get_the_time( get_option( 'date_format' ) ) );
 
-	echo beans_close_markup( 'beans_post_meta_date', 'time' );
+	beans_close_markup_e( 'beans_post_meta_date', 'time' );
 
 }
 
@@ -37,18 +37,18 @@ beans_add_smart_action( 'beans_post_meta_author', 'beans_post_meta_author_shortc
  */
 function beans_post_meta_author_shortcode() {
 
-	echo beans_output( 'beans_post_meta_author_prefix', __( 'By ', 'tm-beans' ) ) ;
+	beans_output_e( 'beans_post_meta_author_prefix', __( 'By ', 'tm-beans' ) ) ;
 
-	echo beans_open_markup( 'beans_post_meta_author', 'a', array(
+	beans_open_markup_e( 'beans_post_meta_author', 'a', array(
 		'href' => get_author_posts_url( get_the_author_meta( 'ID' ) ), // Automatically escaped.
 		'rel' => 'author',
 		'itemprop' => 'author',
 		'itemtype' => 'http://schema.org/Person'
 	) );
 
-		echo beans_output( 'beans_post_meta_author_text', get_the_author() );
+		beans_output_e( 'beans_post_meta_author_text', get_the_author() );
 
-	echo beans_close_markup( 'beans_post_meta_author', 'a' );
+	beans_close_markup_e( 'beans_post_meta_author', 'a' );
 
 }
 
@@ -76,13 +76,13 @@ function beans_post_meta_comments_shortcode() {
 	else
 		$comment_text = beans_output( 'beans_post_meta_comments_text_plurial', __( '%s comments', 'tm-beans' ) );
 
-	echo beans_open_markup( 'beans_post_meta_comments', 'a', array(
+	beans_open_markup_e( 'beans_post_meta_comments', 'a', array(
 		'href' => get_comments_link() // Automatically escaped.
 	) );
 
 		printf( $comment_text, (int) get_comments_number( $post->ID ) );
 
-	echo beans_close_markup( 'beans_post_meta_comments', 'a' );
+	beans_close_markup_e( 'beans_post_meta_comments', 'a' );
 
 }
 

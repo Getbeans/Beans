@@ -16,7 +16,7 @@ function beans_primary_menu() {
 
 	$nav_visibility = current_theme_supports( 'offcanvas-menu' ) ? 'uk-visible-large' : '';
 
-	echo beans_open_markup( 'beans_primary_menu', 'nav', array(
+	beans_open_markup_e( 'beans_primary_menu', 'nav', array(
 		'class' => 'tm-primary-menu uk-float-right uk-navbar',
 		'role' => 'navigation',
 		'itemscope' => 'itemscope',
@@ -40,9 +40,9 @@ function beans_primary_menu() {
 		) );
 
 		// Navigation.
-		echo beans_output( 'beans_primary_menu', wp_nav_menu( $args ) );
+		beans_output_e( 'beans_primary_menu', wp_nav_menu( $args ) );
 
-	echo beans_close_markup( 'beans_primary_menu', 'nav' );
+	beans_close_markup_e( 'beans_primary_menu', 'nav' );
 
 }
 
@@ -59,21 +59,21 @@ function beans_primary_menu_offcanvas_button() {
 	if ( !current_theme_supports( 'offcanvas-menu' ) )
 		return;
 
-	echo beans_open_markup( 'beans_primary_menu_offcanvas_button', 'a', array(
+	beans_open_markup_e( 'beans_primary_menu_offcanvas_button', 'a', array(
 		'href' => '#offcanvas_menu',
 		'class' => 'uk-button uk-hidden-large',
 		'data-uk-offcanvas' => ''
 	) );
 
-		echo beans_open_markup( 'beans_primary_menu_offcanvas_button_icon', 'i', array(
+		beans_open_markup_e( 'beans_primary_menu_offcanvas_button_icon', 'i', array(
 			'class' => 'uk-icon-navicon uk-margin-small-right',
 		) );
 
-		echo beans_close_markup( 'beans_primary_menu_offcanvas_button_icon', 'i' );
+		beans_close_markup_e( 'beans_primary_menu_offcanvas_button_icon', 'i' );
 
-		echo beans_output( 'beans_offcanvas_menu_button', __( 'Menu', 'tm-beans' ) );
+		beans_output_e( 'beans_offcanvas_menu_button', __( 'Menu', 'tm-beans' ) );
 
-	echo beans_close_markup( 'beans_primary_menu_offcanvas_button', 'a' );
+	beans_close_markup_e( 'beans_primary_menu_offcanvas_button', 'a' );
 
 }
 
@@ -90,7 +90,7 @@ function beans_primary_offcanvas_menu() {
 	if ( !current_theme_supports( 'offcanvas-menu' ) )
 		return;
 
-	echo beans_open_markup( 'beans_primary_offcanvas_menu', 'nav', array(
+	beans_open_markup_e( 'beans_primary_offcanvas_menu', 'nav', array(
 		'class' => 'tm-primary-offcanvas-menu uk-margin uk-margin-top',
 		'role' => 'navigation',
 	) );
@@ -110,9 +110,9 @@ function beans_primary_offcanvas_menu() {
 			'beans_type' => 'offcanvas'
 		) );
 
-		echo beans_output( 'beans_primary_offcanvas_menu', wp_nav_menu( $args ) );
+		beans_output_e( 'beans_primary_offcanvas_menu', wp_nav_menu( $args ) );
 
-	echo beans_close_markup( 'beans_primary_offcanvas_menu', 'nav' );
+	beans_close_markup_e( 'beans_primary_offcanvas_menu', 'nav' );
 
 }
 
@@ -124,10 +124,10 @@ function beans_primary_offcanvas_menu() {
  */
 function beans_no_menu_notice() {
 
-	echo beans_open_markup( 'beans_no_menu_notice', 'p', array( 'class' => 'uk-alert uk-alert-warning' ) );
+	beans_open_markup_e( 'beans_no_menu_notice', 'p', array( 'class' => 'uk-alert uk-alert-warning' ) );
 
-		echo beans_output( 'beans_no_menu_notice_text', __( 'Whoops, your site does not have a menu!', 'tm-beans' ) );
+		beans_output_e( 'beans_no_menu_notice_text', __( 'Whoops, your site does not have a menu!', 'tm-beans' ) );
 
-	echo beans_close_markup( 'beans_no_menu_notice', 'p' );
+	beans_close_markup_e( 'beans_no_menu_notice', 'p' );
 
 }

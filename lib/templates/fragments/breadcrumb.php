@@ -122,7 +122,7 @@ function beans_breadcrumb() {
 	}
 
 	// Open breadcrumb.
-	echo beans_open_markup( 'beans_breadcrumb', 'ul', array( 'class' => 'uk-breadcrumb uk-width-1-1' ) );
+	beans_open_markup_e( 'beans_breadcrumb', 'ul', array( 'class' => 'uk-breadcrumb uk-width-1-1' ) );
 
 		$i = 0;
 
@@ -131,32 +131,32 @@ function beans_breadcrumb() {
 			// Breadcrumb items.
 			if ( $i != count( $breadcrumbs ) - 1 ) {
 
-				echo beans_open_markup( 'beans_breadcrumb_item', 'li' );
+				beans_open_markup_e( 'beans_breadcrumb_item', 'li' );
 
-					echo beans_open_markup( 'beans_breadcrumb_item_link', 'a', array(
+					beans_open_markup_e( 'beans_breadcrumb_item_link', 'a', array(
 						'href' => $breadcrumb_url // Automatically escaped.
 					) );
 
 						// Used for mobile devices.
-						echo beans_open_markup( 'beans_breadcrumb_item_link_inner', 'span' );
+						beans_open_markup_e( 'beans_breadcrumb_item_link_inner', 'span' );
 
 							echo $breadcrumb;
 
-						echo beans_close_markup( 'beans_breadcrumb_item_link_inner', 'span' );
+						beans_close_markup_e( 'beans_breadcrumb_item_link_inner', 'span' );
 
-					echo beans_close_markup( 'beans_breadcrumb_item_link', 'a' );
+					beans_close_markup_e( 'beans_breadcrumb_item_link', 'a' );
 
-				echo beans_close_markup( 'beans_breadcrumb_item', 'li' );
+				beans_close_markup_e( 'beans_breadcrumb_item', 'li' );
 
 			}
 			// Active.
 			else {
 
-				echo beans_open_markup( 'beans_breadcrumb_item[_active]', 'li', array( 'class' => 'uk-active uk-text-muted' ) );
+				beans_open_markup_e( 'beans_breadcrumb_item[_active]', 'li', array( 'class' => 'uk-active uk-text-muted' ) );
 
 					echo $breadcrumb;
 
-				echo beans_close_markup( 'beans_breadcrumb_item[_active]', 'li' );
+				beans_close_markup_e( 'beans_breadcrumb_item[_active]', 'li' );
 
 			}
 
@@ -165,6 +165,6 @@ function beans_breadcrumb() {
 		}
 
 	// Close breadcrumb.
-	echo beans_close_markup( 'beans_breadcrumb', 'ul' );
+	beans_close_markup_e( 'beans_breadcrumb', 'ul' );
 
 }

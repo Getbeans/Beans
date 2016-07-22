@@ -14,19 +14,19 @@ beans_add_smart_action( 'beans_footer', 'beans_footer_content' );
  */
 function beans_footer_content() {
 
-	echo beans_open_markup( 'beans_footer_credit', 'div', array( 'class' => 'uk-clearfix uk-text-small uk-text-muted' ) );
+	beans_open_markup_e( 'beans_footer_credit', 'div', array( 'class' => 'uk-clearfix uk-text-small uk-text-muted' ) );
 
-		echo beans_open_markup( 'beans_footer_credit_left', 'span', array(
+		beans_open_markup_e( 'beans_footer_credit_left', 'span', array(
 			'class' => 'uk-align-medium-left uk-margin-small-bottom'
 		) );
 
-			echo beans_output( 'beans_footer_credit_text', sprintf(
+			beans_output_e( 'beans_footer_credit_text', sprintf(
 				__( '&#x000A9; %1$s - %2$s. All rights reserved.', 'tm-beans' ),
 				date( "Y" ),
 				get_bloginfo( 'name' )
 			) );
 
-		echo beans_close_markup( 'beans_footer_credit_left', 'span' );
+		beans_close_markup_e( 'beans_footer_credit_left', 'span' );
 
 		$framework_link = beans_open_markup( 'beans_footer_credit_framework_link', 'a', array(
 			'href' => 'http://www.getbeans.io', // Automatically escaped.
@@ -37,19 +37,19 @@ function beans_footer_content() {
 
 		$framework_link .= beans_close_markup( 'beans_footer_credit_framework_link', 'a' );
 
-		echo beans_open_markup( 'beans_footer_credit_right', 'span', array(
+		beans_open_markup_e( 'beans_footer_credit_right', 'span', array(
 			'class' => 'uk-align-medium-right uk-margin-bottom-remove'
 		) );
 
-			echo beans_output( 'beans_footer_credit_right_text', sprintf(
+			beans_output_e( 'beans_footer_credit_right_text', sprintf(
 				__( '%1$s theme for WordPress.', 'tm-beans' ),
 				$framework_link
 			) );
 
-		echo beans_close_markup( 'beans_footer_credit_right', 'span' );
+		beans_close_markup_e( 'beans_footer_credit_right', 'span' );
 
 
-	echo beans_close_markup( 'beans_footer_credit', 'div' );
+	beans_close_markup_e( 'beans_footer_credit', 'div' );
 
 }
 

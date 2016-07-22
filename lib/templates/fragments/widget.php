@@ -17,11 +17,11 @@ function beans_widget_badge() {
 	if ( !beans_get_widget( 'badge' ) )
 		return;
 
-	echo beans_open_markup( 'beans_widget_badge' . _beans_widget_subfilters(), 'div', 'class=uk-panel-badge uk-badge' );
+	beans_open_markup_e( 'beans_widget_badge' . _beans_widget_subfilters(), 'div', 'class=uk-panel-badge uk-badge' );
 
 		echo beans_widget_shortcodes( beans_get_widget( 'badge_content' ) );
 
-	echo beans_close_markup( 'beans_widget_badge' . _beans_widget_subfilters(), 'div' );
+	beans_close_markup_e( 'beans_widget_badge' . _beans_widget_subfilters(), 'div' );
 
 }
 
@@ -38,11 +38,11 @@ function beans_widget_title() {
 	if ( !( $title = beans_get_widget( 'title' ) ) || !beans_get_widget( 'show_title' ) )
 		return;
 
-	echo beans_open_markup( 'beans_widget_title' . _beans_widget_subfilters(), 'h3', 'class=uk-panel-title' );
+	beans_open_markup_e( 'beans_widget_title' . _beans_widget_subfilters(), 'h3', 'class=uk-panel-title' );
 
-		echo beans_output( 'beans_widget_title_text', $title );
+		beans_output_e( 'beans_widget_title_text', $title );
 
-	echo beans_close_markup( 'beans_widget_title' . _beans_widget_subfilters(), 'h3' );
+	beans_close_markup_e( 'beans_widget_title' . _beans_widget_subfilters(), 'h3' );
 
 }
 
@@ -56,11 +56,11 @@ beans_add_smart_action( 'beans_widget', 'beans_widget_content', 15 );
  */
 function beans_widget_content() {
 
-	echo beans_open_markup( 'beans_widget_content' . _beans_widget_subfilters(), 'div' );
+	beans_open_markup_e( 'beans_widget_content' . _beans_widget_subfilters(), 'div' );
 
-		echo beans_output( 'beans_widget_content' . _beans_widget_subfilters(), beans_get_widget( 'content' ) );
+		beans_output_e( 'beans_widget_content' . _beans_widget_subfilters(), beans_get_widget( 'content' ) );
 
-	echo beans_close_markup( 'beans_widget_content' . _beans_widget_subfilters(), 'div' );
+	beans_close_markup_e( 'beans_widget_content' . _beans_widget_subfilters(), 'div' );
 
 }
 
@@ -78,11 +78,11 @@ function beans_no_widget() {
 	if ( !in_array( beans_get_widget_area( 'id' ), array( 'sidebar_primary', 'sidebar_secondary' ) ) )
 		return;
 
-	echo beans_open_markup( 'beans_no_widget_notice', 'p', array( 'class' => 'uk-alert uk-alert-warning' ) );
+	beans_open_markup_e( 'beans_no_widget_notice', 'p', array( 'class' => 'uk-alert uk-alert-warning' ) );
 
-		echo beans_output( 'beans_no_widget_notice_text', sprintf( __( '%s does not have any widget assigned!', 'tm-beans' ), beans_get_widget_area( 'name' ) ) );
+		beans_output_e( 'beans_no_widget_notice_text', sprintf( __( '%s does not have any widget assigned!', 'tm-beans' ), beans_get_widget_area( 'name' ) ) );
 
-	echo beans_close_markup( 'beans_no_widget_notice', 'p' );
+	beans_close_markup_e( 'beans_no_widget_notice', 'p' );
 
 }
 
