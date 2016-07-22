@@ -5,7 +5,7 @@
  * @package Structure\Comment
  */
 
-echo beans_open_markup( 'beans_comment', 'article', array(
+beans_open_markup_e( 'beans_comment', 'article', array(
 	'id' => 'div-comment-' . get_comment_ID(), // Automatically escaped.
 	'class' => 'uk-comment',
 	'itemprop' => 'comment',
@@ -13,7 +13,7 @@ echo beans_open_markup( 'beans_comment', 'article', array(
 	'itemtype' => 'http://schema.org/Comment'
 ) );
 
-	echo beans_open_markup( 'beans_comment_header', 'header', array( 'class' => 'uk-comment-header' ) );
+	beans_open_markup_e( 'beans_comment_header', 'header', array( 'class' => 'uk-comment-header' ) );
 
 		/**
 		 * Fires in the comment header.
@@ -22,9 +22,9 @@ echo beans_open_markup( 'beans_comment', 'article', array(
 		 */
 		do_action( 'beans_comment_header' );
 
-	echo beans_close_markup( 'beans_comment_header', 'header' );
+	beans_close_markup_e( 'beans_comment_header', 'header' );
 
-	echo beans_open_markup( 'beans_comment_body', 'div', array( 'class' => 'uk-comment-body', 'itemprop' => 'text' ) );
+	beans_open_markup_e( 'beans_comment_body', 'div', array( 'class' => 'uk-comment-body', 'itemprop' => 'text' ) );
 
 		/**
 		 * Fires in the comment body.
@@ -33,6 +33,6 @@ echo beans_open_markup( 'beans_comment', 'article', array(
 		 */
 		do_action( 'beans_comment_content' );
 
-	echo beans_close_markup( 'beans_comment_body', 'div' );
+	beans_close_markup_e( 'beans_comment_body', 'div' );
 
-echo beans_close_markup( 'beans_comment', 'article' );
+beans_close_markup_e( 'beans_comment', 'article' );

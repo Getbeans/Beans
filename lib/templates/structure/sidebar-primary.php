@@ -5,7 +5,7 @@
  * @package Structure\Primary_Sidebar
  */
 
-echo beans_open_markup( 'beans_sidebar_primary', 'aside', array(
+beans_open_markup_e( 'beans_sidebar_primary', 'aside', array(
 	'class' => 'tm-secondary ' . beans_get_layout_class( 'sidebar_primary' ), // Automatically escaped.
 	'role' => 'complementary',
 	'itemscope' => 'itemscope',
@@ -19,4 +19,4 @@ echo beans_open_markup( 'beans_sidebar_primary', 'aside', array(
 	 */
 	do_action( 'beans_sidebar_primary' );
 
-echo beans_close_markup( 'beans_sidebar_primary', 'aside' );
+beans_close_markup_e( 'beans_sidebar_primary', 'aside' );

@@ -27,7 +27,7 @@ if ( is_search() ) {
 
 }
 
-echo beans_open_markup( 'beans_content', 'div', $content_attributes );
+beans_open_markup_e( 'beans_content', 'div', $content_attributes );
 
 	/**
 	 * Fires in the main content.
@@ -36,4 +36,4 @@ echo beans_open_markup( 'beans_content', 'div', $content_attributes );
 	 */
 	do_action( 'beans_content' );
 
-echo beans_close_markup( 'beans_content', 'div' );
+beans_close_markup_e( 'beans_content', 'div' );

@@ -11,20 +11,20 @@
 if ( post_password_required() )
 	return;
 
-echo beans_open_markup( 'beans_comments', 'div', array( 'id' => 'comments', 'class' => 'tm-comments' . ( current_theme_supports( 'beans-default-styling' ) ? ' uk-panel-box' : null ) ) );
+beans_open_markup_e( 'beans_comments', 'div', array( 'id' => 'comments', 'class' => 'tm-comments' . ( current_theme_supports( 'beans-default-styling' ) ? ' uk-panel-box' : null ) ) );
 
 	if ( comments_open() || get_comments_number() ) :
 
 		if ( have_comments() ) :
 
-			echo beans_open_markup( 'beans_comments_list', 'ol', array( 'class' => 'uk-comment-list' ) );
+			beans_open_markup_e( 'beans_comments_list', 'ol', array( 'class' => 'uk-comment-list' ) );
 
 				wp_list_comments( array(
 					'avatar_size' => 50,
 					'callback' => 'beans_comment_callback'
 				) );
 
-			echo beans_close_markup( 'beans_comments_list', 'ol' );
+			beans_close_markup_e( 'beans_comments_list', 'ol' );
 
 		else :
 
@@ -61,4 +61,4 @@ echo beans_open_markup( 'beans_comments', 'div', array( 'id' => 'comments', 'cla
 
 	endif;
 
-echo beans_close_markup( 'beans_comments', 'div' );
+beans_close_markup_e( 'beans_comments', 'div' );

@@ -46,9 +46,9 @@ do_action( 'beans_before_loop' );
 
 			}
 
-			echo beans_open_markup( 'beans_post', 'article', $article_attributes );
+			beans_open_markup_e( 'beans_post', 'article', $article_attributes );
 
-				echo beans_open_markup( 'beans_post_header', 'header' );
+				beans_open_markup_e( 'beans_post_header', 'header' );
 
 					/**
 					 * Fires in the post header.
@@ -57,9 +57,9 @@ do_action( 'beans_before_loop' );
 					 */
 					do_action( 'beans_post_header' );
 
-				echo beans_close_markup( 'beans_post_header', 'header' );
+				beans_close_markup_e( 'beans_post_header', 'header' );
 
-				echo beans_open_markup( 'beans_post_body', 'div' );
+				beans_open_markup_e( 'beans_post_body', 'div' );
 
 					/**
 					 * Fires in the post body.
@@ -68,9 +68,9 @@ do_action( 'beans_before_loop' );
 					 */
 					do_action( 'beans_post_body' );
 
-				echo beans_close_markup( 'beans_post_body', 'div' );
+				beans_close_markup_e( 'beans_post_body', 'div' );
 
-			echo beans_close_markup( 'beans_post', 'article' );
+			beans_close_markup_e( 'beans_post', 'article' );
 
 		endwhile;
 
