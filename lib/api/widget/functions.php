@@ -124,7 +124,7 @@ function beans_has_widget_area( $id ) {
 
     global $wp_registered_sidebars;
 
-    if ( isset( $wp_registered_sidebars[$id] ) )
+    if ( isset( $wp_registered_sidebars[ $id ] ) )
         return true;
 
     return false;
@@ -243,7 +243,7 @@ function beans_have_widgets() {
 
     $widgets = array_keys( $_beans_widget_area['widgets'] );
 
-    if ( isset( $widgets[$_beans_widget_area['current_widget']] ) )
+    if ( isset( $widgets[ $_beans_widget_area['current_widget'] ] ) )
         return true;
 
     // Reset last widget global to reduce memory usage.
@@ -337,11 +337,11 @@ function _beans_setup_widget_area( $id ) {
 
     global $_beans_widget_area, $wp_registered_sidebars;
 
-    if ( !isset( $wp_registered_sidebars[$id] ) )
+    if ( !isset( $wp_registered_sidebars[ $id ] ) )
         return false;
 
     // Add widget area delimiters. This is used to split wp sidebar as well as the widgets title.
-    $wp_registered_sidebars[$id] = array_merge( $wp_registered_sidebars[$id], array(
+    $wp_registered_sidebars[ $id ] = array_merge( $wp_registered_sidebars[ $id ], array(
         'before_widget' => '<!--widget-%1$s-->',
         'after_widget' => '<!--widget-end-->',
         'before_title' => '<!--title-start-->',
@@ -349,7 +349,7 @@ function _beans_setup_widget_area( $id ) {
     ) );
 
     // Start building widget area global before dynamic_sidebar is called.
-    $_beans_widget_area = $wp_registered_sidebars[$id];
+    $_beans_widget_area = $wp_registered_sidebars[ $id ];
 
     // Buffer sidebar, please make it easier for us wp.
     $sidebar = beans_render_function( 'dynamic_sidebar', $id );
@@ -417,7 +417,7 @@ function _beans_setup_widgets( $widget_area_content ) {
 
         // Add basic widget arguments.
         foreach ( array( 'id', 'name', 'classname', 'description' ) as $var )
-            $widget[$var] = isset( $data[$var] ) ? $data[$var] : null;
+            $widget[ $var ] = isset( $data[ $var ] ) ? $data[ $var ] : null;
 
         // Add type and options
         if ( isset( $data['callback'] ) && is_array( $data['callback'] ) && ( $object = current( $data['callback'] ) ) ) {
@@ -434,8 +434,8 @@ function _beans_setup_widgets( $widget_area_content ) {
                     if ( false === $params && isset( $object->alt_option_name ) )
                         $params = get_option( $object->alt_option_name );
 
-                    if ( isset( $params[$number] ) )
-                        $widget['options'] = $params[$number];
+                    if ( isset( $params[ $number ] ) )
+                        $widget['options'] = $params[ $number ];
 
                 }
             }
@@ -465,7 +465,7 @@ function _beans_setup_widgets( $widget_area_content ) {
         $widget['content'] = $content;
 
         // Add widget control arguments and register widget.
-        $_beans_widgets[$widget['id']] = array_merge( $widget, array(
+        $_beans_widgets[ $widget['id'] ] = array_merge( $widget, array(
             'show_title' => $_beans_widget_area['beans_show_widget_title'],
             'badge' => $_beans_widget_area['beans_show_widget_badge'],
             'badge_content' => $_beans_widget_area['beans_widget_badge_content'],
@@ -489,7 +489,7 @@ function _beans_setup_widget( $id ) {
 
     $widgets = beans_get_widget_area( 'widgets' );
 
-    $_beans_widget = $widgets[$id];
+    $_beans_widget = $widgets[ $id ];
 
 }
 
@@ -564,7 +564,7 @@ function _beans_force_the_widget( $widget, $instance, $args ) {
 
     global $wp_widget_factory;
 
-    $widget_obj = $wp_widget_factory->widgets[$widget];
+    $widget_obj = $wp_widget_factory->widgets[ $widget ];
 
     if ( !$widget_obj instanceof WP_Widget )
         return;

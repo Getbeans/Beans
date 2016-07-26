@@ -65,10 +65,10 @@ final class _Beans_Attributes {
 	 */
 	public function add( $attributes ) {
 
-		if ( !isset( $attributes[$this->attribute] ) )
-			$attributes[$this->attribute] = $this->value;
+		if ( !isset( $attributes[ $this->attribute ] ) )
+			$attributes[ $this->attribute ] = $this->value;
 		else
-			$attributes[$this->attribute] = $attributes[$this->attribute] . ' ' . $this->value;
+			$attributes[ $this->attribute ] = $attributes[ $this->attribute ] . ' ' . $this->value;
 
 		return $attributes;
 
@@ -82,14 +82,14 @@ final class _Beans_Attributes {
 
 		if ( $this->new_value ) {
 
-			if ( isset( $attributes[$this->attribute] ) )
-				$attributes[$this->attribute] = str_replace( $this->value, $this->new_value, $attributes[$this->attribute] );
+			if ( isset( $attributes[ $this->attribute ] ) )
+				$attributes[ $this->attribute ] = str_replace( $this->value, $this->new_value, $attributes[ $this->attribute ] );
 			else
-				$attributes[$this->attribute] = $this->new_value;
+				$attributes[ $this->attribute ] = $this->new_value;
 
 		} else {
 
-			$attributes[$this->attribute] = $this->value;
+			$attributes[ $this->attribute ] = $this->value;
 
 		}
 
@@ -103,13 +103,13 @@ final class _Beans_Attributes {
 	 */
 	public function remove( $attributes ) {
 
-		if ( !isset( $attributes[$this->attribute] ) )
+		if ( !isset( $attributes[ $this->attribute ] ) )
 			return $attributes;
 
 		if ( is_null( $this->value ) )
-			unset( $attributes[$this->attribute] );
+			unset( $attributes[ $this->attribute ] );
 		else
-			$attributes[$this->attribute] = str_replace( $this->value, '', $attributes[$this->attribute] );
+			$attributes[ $this->attribute ] = str_replace( $this->value, '', $attributes[ $this->attribute ] );
 
 		return $attributes;
 

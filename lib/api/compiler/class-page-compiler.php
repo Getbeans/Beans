@@ -88,7 +88,7 @@ final class _Beans_Page_Compiler {
 			if ( $args->deps )
 				foreach ( $this->compile_enqueued( $type, $args->deps ) as $dep_id => $dep_src )
 					if ( !empty( $dep_src ) )
-						$fragments[$dep_id] = $dep_src;
+						$fragments[ $dep_id ] = $dep_src;
 
 			if ( 'style' == $type ) {
 
@@ -100,11 +100,11 @@ final class _Beans_Page_Compiler {
 
 			} elseif ( 'script' == $type ) {
 
-				$this->dequeued_scripts[$id] = $args->src;
+				$this->dequeued_scripts[ $id ] = $args->src;
 
 			}
 
-			$fragments[$id] = $args->src;
+			$fragments[ $id ] = $args->src;
 
 		}
 

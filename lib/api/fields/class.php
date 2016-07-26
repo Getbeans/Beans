@@ -94,7 +94,7 @@ final class _Beans_Fields {
 			$fields[] = $this->standardize_field( $field );
 
 		// Register fields.
-		self::$registered[$this->context][$this->section] = $fields;
+		self::$registered[ $this->context ][ $this->section ] = $fields;
 
 	}
 
@@ -126,7 +126,7 @@ final class _Beans_Fields {
 				if ( $field['db_group'] )
 					$_field['name'] = $field['name'] . '[' . $_field['id'] . ']';
 
-				$field['fields'][$index] = $this->standardize_field( $_field );
+				$field['fields'][ $index ] = $this->standardize_field( $_field );
 
 			}
 
@@ -157,9 +157,9 @@ final class _Beans_Fields {
 		foreach ( $this->fields as $field )
 			if ( 'group' == $field['type'] )
 				foreach ( $field['fields'] as $_field )
-					$this->field_types[$_field['type']] = $_field['type'];
+					$this->field_types[ $_field['type'] ] = $_field['type'];
 			else
-				$this->field_types[$field['type']] = $field['type'];
+				$this->field_types[ $field['type'] ] = $field['type'];
 
 	}
 
@@ -202,7 +202,7 @@ final class _Beans_Fields {
 				require_once( $path );
 
 			// Set flag that field is loaded.
-			self::$field_types_loaded[$type] = $type;
+			self::$field_types_loaded[ $type ] = $type;
 
 		}
 
@@ -223,7 +223,7 @@ final class _Beans_Fields {
 			do_action( "beans_field_enqueue_scripts_{$type}" );
 
 			// Set flag that field is loaded.
-			self::$field_assets_hook_loaded[$type] = $type;
+			self::$field_assets_hook_loaded[ $type ] = $type;
 
 		}
 
@@ -318,7 +318,7 @@ final class _Beans_Fields {
 	 */
 	public function get_fields( $context, $section ) {
 
-		if ( !$fields = beans_get( $section, self::$registered[$context] ) )
+		if ( !$fields = beans_get( $section, self::$registered[ $context ] ) )
 			return false;
 
 		return $fields;

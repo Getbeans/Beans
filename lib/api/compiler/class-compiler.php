@@ -133,7 +133,7 @@ final class _Beans_Compiler {
 
 		global $_beans_compiler_added_fragments;
 
-		if ( $added_fragments = beans_get( $this->compiler['id'], $_beans_compiler_added_fragments[$this->compiler['format']] ) )
+		if ( $added_fragments = beans_get( $this->compiler['id'], $_beans_compiler_added_fragments[ $this->compiler['format'] ] ) )
 			$this->compiler['fragments'] = array_merge( $this->compiler['fragments'], $added_fragments );
 
 		/**
@@ -172,7 +172,7 @@ final class _Beans_Compiler {
 
 			// Only check file time for internal files.
 			if ( false !== strpos( $fragment, $_SERVER['HTTP_HOST'] ) || true == preg_match( '#^\/[^\/]#', $fragment ) )
-				$fragments_filemtime[$id] = @filemtime( beans_url_to_path( $fragment ) );
+				$fragments_filemtime[ $id ] = @filemtime( beans_url_to_path( $fragment ) );
 
 		}
 

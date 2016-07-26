@@ -116,10 +116,10 @@ function _beans_pre_standardize_fields( $fields ) {
 
 	foreach ( $fields as $field ) {
 
-		$_fields[$field['id']] = $field;
+		$_fields[ $field['id'] ] = $field;
 
 		if ( 'group' === beans_get( 'type', $field ) )
-			$_fields[$field['id']]['fields'] = _beans_pre_standardize_fields( $field['fields'] );
+			$_fields[ $field['id'] ]['fields'] = _beans_pre_standardize_fields( $field['fields'] );
 
 	}
 

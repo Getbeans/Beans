@@ -452,7 +452,7 @@ function _beans_set_action( $id, $action, $status, $overwrite = false ) {
 	if ( !$overwrite && ( $_action = _beans_get_action( $id, $status ) ) )
 		return $_action;
 
-	$_beans_registered_actions[$status][$id] = json_encode( $action );
+	$_beans_registered_actions[ $status ][ $id ] = json_encode( $action );
 
 	return $action;
 
@@ -474,7 +474,7 @@ function _beans_unset_action( $id, $status ) {
 	if ( !_beans_get_action( $id, $status ) )
 		return false;
 
-	unset( $_beans_registered_actions[$status][$id] );
+	unset( $_beans_registered_actions[ $status ][ $id ] );
 
 	return true;
 

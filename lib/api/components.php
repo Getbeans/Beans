@@ -90,7 +90,7 @@ function beans_load_api_components( $components ) {
 	foreach ( (array) $components as $component ) {
 
 		// Stop here if the component is already loaded or doesn't exists.
-		if ( in_array( $component, $loaded ) || ( !isset( $common[$component] ) && !isset( $admin[$component] ) ) )
+		if ( in_array( $component, $loaded ) || ( !isset( $common[ $component ] ) && !isset( $admin[ $component ] ) ) )
 			continue;
 
 		// Cache loaded component before calling dependencies.
@@ -98,17 +98,17 @@ function beans_load_api_components( $components ) {
 
 		// Load dependencies.
 		if ( array_key_exists( $component, $dependencies ) )
-			beans_load_api_components( $dependencies[$component] );
+			beans_load_api_components( $dependencies[ $component ] );
 
 		$_components = array();
 
 		// Add common components.
-		if ( isset( $common[$component] ) )
-			$_components = (array) $common[$component];
+		if ( isset( $common[ $component ] ) )
+			$_components = (array) $common[ $component ];
 
 		// Add admin components.
-		if ( isset( $admin[$component] ) )
-			$_components = array_merge( (array) $_components, (array) $admin[$component] );
+		if ( isset( $admin[ $component ] ) )
+			$_components = array_merge( (array) $_components, (array) $admin[ $component ] );
 
 		// Load components.
 		foreach ( $_components as $component_path  )
@@ -151,7 +151,7 @@ function beans_add_api_component_support( $feature ) {
 	else
 		$args = array_slice( $args, 1 );
 
-	$_beans_api_components_support[$feature] = $args;
+	$_beans_api_components_support[ $feature ] = $args;
 
 	return true;
 
@@ -171,10 +171,10 @@ function beans_get_component_support( $feature ) {
 
 	global $_beans_api_components_support;
 
-	if ( !isset( $_beans_api_components_support[$feature] ) )
+	if ( !isset( $_beans_api_components_support[ $feature ] ) )
 		return false;
 
-	return $_beans_api_components_support[$feature];
+	return $_beans_api_components_support[ $feature ];
 
 }
 
@@ -192,7 +192,7 @@ function beans_remove_api_component_support( $feature ) {
 
 	global $_beans_api_components_support;
 
-	unset( $_beans_api_components_support[$feature] );
+	unset( $_beans_api_components_support[ $feature ] );
 
 	return true;
 

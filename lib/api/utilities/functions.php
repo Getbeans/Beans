@@ -89,7 +89,7 @@ function beans_remove_dir( $dir_path ) {
 		else
 			@unlink( $path );
 
-		unset( $items[$needle] );
+		unset( $items[ $needle ] );
 
 	}
 
@@ -286,8 +286,8 @@ function beans_get( $needle, $haystack = false, $default = null ) {
 
 	$haystack = (array) $haystack;
 
-	if ( isset( $haystack[$needle] ) )
-		return $haystack[$needle];
+	if ( isset( $haystack[ $needle ] ) )
+		return $haystack[ $needle ];
 
 	return $default;
 
@@ -557,9 +557,9 @@ if ( !function_exists( 'array_replace_recursive' ) ) {
 		foreach ( $replacements as $key => $value ) {
 
 			if ( is_array( $value ) && is_array( $from_base = beans_get( $key, $base ) ) )
-				$base[$key] = array_replace_recursive( $from_base, $value );
+				$base[ $key ] = array_replace_recursive( $from_base, $value );
 			else
-				$base[$key] = $value;
+				$base[ $key ] = $value;
 
 		}
 

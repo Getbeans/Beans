@@ -54,7 +54,7 @@ function beans_updater( $value ) {
 	// Return data if Beans is not up to date.
 	if ( version_compare( $current_version, beans_get( 'version', $data ), '<' ) ) {
 
-		$value->response[$data['path']] = array(
+		$value->response[ $data['path'] ] = array(
 			'slug' => $data['slug'],
 			'name' => $data['name'],
 			'url' => $data['changelog_url'],

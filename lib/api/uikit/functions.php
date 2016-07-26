@@ -52,7 +52,7 @@ function beans_uikit_enqueue_components( $components, $type = 'core', $autoload 
 	}
 
 	// Add components.
-	$_beans_uikit_enqueued_items['components'][$type] = array_merge( (array) $_beans_uikit_enqueued_items['components'][$type], (array) $components );
+	$_beans_uikit_enqueued_items['components'][ $type ] = array_merge( (array) $_beans_uikit_enqueued_items['components'][ $type ], (array) $components );
 
 }
 
@@ -87,7 +87,7 @@ function beans_uikit_dequeue_components( $components, $type = 'core' ) {
 	}
 
 	// Remove components.
-	$_beans_uikit_enqueued_items['components'][$type] = array_diff( (array) $_beans_uikit_enqueued_items['components'][$type], (array) $components );
+	$_beans_uikit_enqueued_items['components'][ $type ] = array_diff( (array) $_beans_uikit_enqueued_items['components'][ $type ], (array) $components );
 
 }
 
@@ -121,7 +121,7 @@ function beans_uikit_register_theme( $id, $path ) {
 	if ( false !== stripos( $path, 'http' ) )
 		$path = beans_url_to_path( $path );
 
-	$_beans_uikit_registered_items['themes'][$id] = trailingslashit( $path );
+	$_beans_uikit_registered_items['themes'][ $id ] = trailingslashit( $path );
 
 	return true;
 
@@ -151,7 +151,7 @@ function beans_uikit_enqueue_theme( $id, $path = false ) {
 
 	global $_beans_uikit_enqueued_items;
 
-	$_beans_uikit_enqueued_items['themes'][$id] = _beans_uikit_get_registered_theme( $id );
+	$_beans_uikit_enqueued_items['themes'][ $id ] = _beans_uikit_get_registered_theme( $id );
 
 	return true;
 
@@ -173,7 +173,7 @@ function beans_uikit_dequeue_theme( $id ) {
 
 	global $_beans_uikit_enqueued_items;
 
-	unset( $_beans_uikit_enqueued_items['themes'][$id] );
+	unset( $_beans_uikit_enqueued_items['themes'][ $id ] );
 
 }
 
