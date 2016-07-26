@@ -214,7 +214,7 @@ function beans_url_to_path( $url ) {
 			$root = preg_replace( '#' . untrailingslashit( preg_quote( $subfolder ) ) . '$#', '', $root );
 
 			// Add an extra step which is only used for extremely rare case.
-			if ( '' !== defined( 'WP_SITEURL' ) && ( $subfolder = parse_url( WP_SITEURL, PHP_URL_PATH ) ) )
+			if ( defined( 'WP_SITEURL' ) && '' !== ( $subfolder = parse_url( WP_SITEURL, PHP_URL_PATH ) ) )
 				$root = preg_replace( '#' . untrailingslashit( preg_quote( $subfolder ) ) . '$#', '', $root );
 
 		}
