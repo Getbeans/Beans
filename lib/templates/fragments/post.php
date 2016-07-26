@@ -798,7 +798,7 @@ function beans_post_gallery( $output, $attr, $instance ) {
 		$attachments = array();
 
 		foreach ( $_attachments as $key => $val )
-			$attachments[$val->ID] = $_attachments[$key];
+			$attachments[ $val->ID ] = $_attachments[ $key ];
 
 	} elseif ( !empty( $atts['exclude'] ) ) {
 
@@ -850,8 +850,8 @@ function beans_post_gallery( $output, $attr, $instance ) {
 
 	// Validate tags.
 	foreach ( $validate as $tag )
-		if ( !isset( $valid_tags[$atts[$tag]] ) )
-			$atts[$tag] = $defaults[$tag];
+		if ( !isset( $valid_tags[ $atts[ $tag ] ] ) )
+			$atts[ $tag ] = $defaults[ $tag ];
 
 	// Set variables used in the output.
 	$columns = intval( $atts['columns'] );
