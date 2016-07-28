@@ -30,9 +30,9 @@ function beans_do_register_wp_customize_options() {
 
 	$fields = array(
 		array(
-			'id' => 'beans_logo_image',
-			'label' => __( 'Logo Image', 'tm-beans' ),
-			'type' => 'WP_Customize_Image_Control',
+			'id'        => 'beans_logo_image',
+			'label'     => __( 'Logo Image', 'tm-beans' ),
+			'type'      => 'WP_Customize_Image_Control',
 			'transport' => 'refresh'
 		)
 	);
@@ -47,11 +47,11 @@ function beans_do_register_wp_customize_options() {
 
 		$fields = array(
 			array(
-				'id' => 'beans_layout',
-				'label' => __( 'Default Layout', 'tm-beans' ),
-				'type' => 'radio',
-				'default' => beans_get_default_layout(),
-				'options' => $options,
+				'id'        => 'beans_layout',
+				'label'     => __( 'Default Layout', 'tm-beans' ),
+				'type'      => 'radio',
+				'default'   => beans_get_default_layout(),
+				'options'   => $options,
 				'transport' => 'refresh'
 			)
 		);
@@ -62,44 +62,44 @@ function beans_do_register_wp_customize_options() {
 
 	$fields = array(
 		array(
-			'id' => 'beans_viewport_width_group',
-			'label' => __( 'Viewport Width', 'tm-beans' ),
-			'type' => 'group',
+			'id'     => 'beans_viewport_width_group',
+			'label'  => __( 'Viewport Width', 'tm-beans' ),
+			'type'   => 'group',
 			'fields' => array(
 				array(
-					'id' => 'beans_enable_viewport_width',
-					'type' => 'activation',
+					'id'      => 'beans_enable_viewport_width',
+					'type'    => 'activation',
 					'default' => false
 				),
 				array(
-					'id' => 'beans_viewport_width',
-					'type' => 'slider',
-					'default' => 1000,
-					'min' => 300,
-					'max' => 2500,
+					'id'       => 'beans_viewport_width',
+					'type'     => 'slider',
+					'default'  => 1000,
+					'min'      => 300,
+					'max'      => 2500,
 					'interval' => 10,
-					'unit' => 'px'
+					'unit'     => 'px'
 				),
 			)
 		),
 		array(
-			'id' => 'beans_viewport_height_group',
-			'label' => __( 'Viewport Height', 'tm-beans' ),
-			'type' => 'group',
+			'id'     => 'beans_viewport_height_group',
+			'label'  => __( 'Viewport Height', 'tm-beans' ),
+			'type'   => 'group',
 			'fields' => array(
 				array(
-					'id' => 'beans_enable_viewport_height',
-					'type' => 'activation',
+					'id'      => 'beans_enable_viewport_height',
+					'type'    => 'activation',
 					'default' => false
 				),
 				array(
-					'id' => 'beans_viewport_height',
-					'type' => 'slider',
-					'default' => 1000,
-					'min' => 300,
-					'max' => 2500,
+					'id'       => 'beans_viewport_height',
+					'type'     => 'slider',
+					'default'  => 1000,
+					'min'      => 300,
+					'max'      => 2500,
 					'interval' => 10,
-					'unit' => 'px'
+					'unit'     => 'px'
 				),
 			)
 		)

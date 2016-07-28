@@ -57,13 +57,13 @@ function beans_updater( $value ) {
 	if ( version_compare( $current_version, beans_get( 'version', $data ), '<' ) ) {
 
 		$value->response[ $data['path'] ] = array(
-			'slug' => $data['slug'],
-			'name' => $data['name'],
-			'url' => $data['changelog_url'],
-			'package' => $data['download_url'],
+			'slug'        => $data['slug'],
+			'name'        => $data['name'],
+			'url'         => $data['changelog_url'],
+			'package'     => $data['download_url'],
 			'new_version' => $data['version'],
-			'tested' => $data['tested'],
-			'requires' => $data['requires']
+			'tested'      => $data['tested'],
+			'requires'    => $data['requires']
 		);
 
 		return $value;
