@@ -14,7 +14,7 @@ beans_add_smart_action( 'beans_widget', 'beans_widget_badge', 5 );
  */
 function beans_widget_badge() {
 
-	if ( !beans_get_widget( 'badge' ) ) {
+	if ( ! beans_get_widget( 'badge' ) ) {
 		return;
 	}
 
@@ -36,7 +36,7 @@ beans_add_smart_action( 'beans_widget', 'beans_widget_title' );
  */
 function beans_widget_title() {
 
-	if ( !( $title = beans_get_widget( 'title' ) ) || !beans_get_widget( 'show_title' ) ) {
+	if ( ! ( $title = beans_get_widget( 'title' ) ) || ! beans_get_widget( 'show_title' ) ) {
 		return;
 	}
 
@@ -77,7 +77,7 @@ beans_add_smart_action( 'beans_no_widget', 'beans_no_widget' );
 function beans_no_widget() {
 
 	// Only apply this notice to sidebar_primary and sidebar_secondary.
-	if ( !in_array( beans_get_widget_area( 'id' ), array( 'sidebar_primary', 'sidebar_secondary' ) ) ) {
+	if ( ! in_array( beans_get_widget_area( 'id' ), array( 'sidebar_primary', 'sidebar_secondary' ) ) ) {
 		return;
 	}
 

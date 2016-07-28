@@ -70,7 +70,7 @@ beans_add_smart_action( 'wp_head', 'beans_header_image' );
  */
 function beans_header_image() {
 
-	if ( !current_theme_supports( 'custom-header' ) || !( $header_image = get_header_image() ) || empty( $header_image ) ) {
+	if ( ! current_theme_supports( 'custom-header' ) || ! ( $header_image = get_header_image() ) || empty( $header_image ) ) {
 		return;
 	}
 
@@ -132,7 +132,7 @@ beans_add_smart_action( 'beans_site_branding_append_markup', 'beans_site_title_t
 function beans_site_title_tag() {
 
 	// Stop here if there isn't a description.
-	if ( !$description = get_bloginfo( 'description' ) ) {
+	if ( ! $description = get_bloginfo( 'description' ) ) {
 		return;
 	}
 

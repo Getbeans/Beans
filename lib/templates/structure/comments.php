@@ -51,7 +51,7 @@ beans_open_markup_e( 'beans_comments', 'div', array( 'id' => 'comments', 'class'
 
 	endif;
 
-	if ( !comments_open() ) :
+	if ( ! comments_open() ) :
 
 		/**
 		 * Fires if comments are closed.

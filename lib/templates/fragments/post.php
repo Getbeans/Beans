@@ -21,7 +21,7 @@ function beans_post_title() {
 		return;
 	}
 
-	if ( !is_singular() ) {
+	if ( ! is_singular() ) {
 
 		$title_link = beans_open_markup( 'beans_post_title_link', 'a', array(
 			'href' => get_permalink(), // Automatically escaped.
@@ -59,7 +59,7 @@ beans_add_smart_action( 'beans_before_loop', 'beans_post_search_title' );
  */
 function beans_post_search_title() {
 
-	if ( !is_search() ) {
+	if ( ! is_search() ) {
 		return;
 	}
 
@@ -81,7 +81,7 @@ beans_add_smart_action( 'beans_before_loop', 'beans_post_archive_title' );
  */
 function beans_post_archive_title() {
 
-	if ( !is_archive() ) {
+	if ( ! is_archive() ) {
 		return;
 	}
 
@@ -136,7 +136,7 @@ function beans_post_meta() {
 
 		foreach ( $meta_items as $meta => $priority ) {
 
-			if ( !$content = beans_render_function( 'do_action', "beans_post_meta_$meta" ) ) {
+			if ( ! $content = beans_render_function( 'do_action', "beans_post_meta_$meta" ) ) {
 				continue;
 			}
 
@@ -162,7 +162,7 @@ beans_add_smart_action( 'beans_post_body', 'beans_post_image', 5 );
  */
 function beans_post_image() {
 
-	if ( !has_post_thumbnail() || !current_theme_supports( 'post-thumbnails' ) ) {
+	if ( ! has_post_thumbnail() || ! current_theme_supports( 'post-thumbnails' ) ) {
 		return false;
 	}
 
@@ -221,7 +221,7 @@ function beans_post_image() {
 
 	beans_open_markup_e( 'beans_post_image', 'div', array( 'class' => 'tm-article-image' ) );
 
-		if ( !is_singular() ) {
+		if ( ! is_singular() ) {
 			beans_open_markup_e( 'beans_post_image_link', 'a', array(
 				'href' => get_permalink(), // Automatically escaped.
 				'title' => the_title_attribute( 'echo=0' )
@@ -254,7 +254,7 @@ function beans_post_image() {
 
 			beans_close_markup_e( 'beans_post_image_item_wrap', 'picture' );
 
-		if ( !is_singular() ) {
+		if ( ! is_singular() ) {
 			beans_close_markup_e( 'beans_post_image_link', 'a' );
 		}
 
@@ -354,7 +354,7 @@ beans_add_smart_action( 'beans_post_body', 'beans_post_meta_categories', 25 );
  */
 function beans_post_meta_categories() {
 
-	if ( !$categories = beans_render_function( 'do_shortcode', '[beans_post_meta_categories]' ) ) {
+	if ( ! $categories = beans_render_function( 'do_shortcode', '[beans_post_meta_categories]' ) ) {
 		return;
 	}
 
@@ -376,7 +376,7 @@ beans_add_smart_action( 'beans_post_body', 'beans_post_meta_tags', 30 );
  */
 function beans_post_meta_tags() {
 
-	if ( !$tags = beans_render_function( 'do_shortcode', '[beans_post_meta_tags]' ) ) {
+	if ( ! $tags = beans_render_function( 'do_shortcode', '[beans_post_meta_tags]' ) ) {
 		return;
 	}
 
@@ -477,14 +477,14 @@ function beans_post_navigation() {
 	 *
 	 * @param bool $pre True to short-circuit, False to let the function run.
 	 */
-	if ( apply_filters( 'beans_pre_post_navigation', !is_singular( 'post' ) ) ) {
+	if ( apply_filters( 'beans_pre_post_navigation', ! is_singular( 'post' ) ) ) {
 		return;
 	}
 
 	$previous = ( is_attachment() ) ? get_post( get_post()->post_parent ) : get_adjacent_post( false, '', true );
 	$next = get_adjacent_post( false, '', false );
 
-	if ( !$next && !$previous ) {
+	if ( ! $next && ! $previous ) {
 		return;
 	}
 
@@ -598,7 +598,7 @@ function beans_posts_pagination() {
 			);
 
 			// Separator.
-			if ( !in_array( false, $is_separator ) ) {
+			if ( ! in_array( false, $is_separator ) ) {
 
 				beans_open_markup_e( 'beans_posts_pagination_item[_separator]', 'li' );
 
@@ -802,7 +802,7 @@ function beans_post_gallery( $output, $attr, $instance ) {
 	$id = intval( $atts['id'] );
 
 	// Set attachements.
-	if ( !empty( $atts['include'] ) ) {
+	if ( ! empty( $atts['include'] ) ) {
 
 		$_attachments = get_posts( array(
 			'include' => $atts['include'],
@@ -819,7 +819,7 @@ function beans_post_gallery( $output, $attr, $instance ) {
 			$attachments[ $val->ID ] = $_attachments[ $key ];
 		}
 
-	} elseif ( !empty( $atts['exclude'] ) ) {
+	} elseif ( ! empty( $atts['exclude'] ) ) {
 
 		$attachments = get_children( array(
 			'post_parent' => $id,
@@ -871,7 +871,7 @@ function beans_post_gallery( $output, $attr, $instance ) {
 
 	// Validate tags.
 	foreach ( $validate as $tag ) {
-		if ( !isset( $valid_tags[ $atts[ $tag ] ] ) ) {
+		if ( ! isset( $valid_tags[ $atts[ $tag ] ] ) ) {
 			$atts[ $tag ] = $defaults[ $tag ];
 		}
 	}

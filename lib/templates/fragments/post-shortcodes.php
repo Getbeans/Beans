@@ -64,7 +64,7 @@ function beans_post_meta_comments_shortcode() {
 
 	global $post;
 
-	if ( post_password_required() || !comments_open() ) {
+	if ( post_password_required() || ! comments_open() ) {
 		return;
 	}
 
@@ -100,7 +100,7 @@ function beans_post_meta_tags_shortcode() {
 
 	$tags = get_the_tag_list( null, ', ' );
 
-	if ( !$tags || is_wp_error( $tags ) ) {
+	if ( ! $tags || is_wp_error( $tags ) ) {
 		return;
 	}
 
@@ -120,7 +120,7 @@ function beans_post_meta_categories_shortcode() {
 
 	$categories = get_the_category_list( ', ' );
 
-	if ( !$categories || is_wp_error( $categories ) ) {
+	if ( ! $categories || is_wp_error( $categories ) ) {
 		return;
 	}
 
