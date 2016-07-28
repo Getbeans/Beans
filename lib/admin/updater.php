@@ -18,14 +18,16 @@ add_filter( 'site_transient_update_themes', 'beans_updater' );
 function beans_updater( $value ) {
 
 	// Stop here if the current user is not a super admin user.
-	if ( !is_super_admin() )
+	if ( !is_super_admin() ) {
 		return;
+	}
 
 	$data = get_site_transient( 'beans_updater' );
 	$theme = wp_get_theme( 'tm-beans' );
 
-	if ( !$theme->exists() )
+	if ( !$theme->exists() ) {
 		return $value;
+	}
 
 	$current_version = $theme->get( 'Version' );
 

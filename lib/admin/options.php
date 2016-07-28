@@ -18,8 +18,9 @@ function beans_do_register_term_meta() {
 	$options = beans_get_layouts_for_options();
 
 	// Stop here if there is less than two layouts options.
-	if ( count( $options ) < 2 )
+	if ( count( $options ) < 2 ) {
 		return;
+	}
 
 	$fields = array(
 		array(
@@ -49,8 +50,9 @@ function beans_do_register_post_meta() {
 	$options = beans_get_layouts_for_options();
 
 	// Stop here if there is less than two layouts options.
-	if ( count( $options ) < 2 )
+	if ( count( $options ) < 2 ) {
 		return;
+	}
 
 	$fields = array(
 		array(
