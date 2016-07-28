@@ -19,7 +19,7 @@ function beans_define_constants() {
 	define( 'BEANS_VERSION', '1.3.1' );
 
 	// Define paths.
-	if ( !defined( 'BEANS_THEME_PATH' ) ) {
+	if ( ! defined( 'BEANS_THEME_PATH' ) ) {
 		define( 'BEANS_THEME_PATH', wp_normalize_path( trailingslashit( get_template_directory() ) ) );
 	}
 
@@ -33,7 +33,7 @@ function beans_define_constants() {
 	define( 'BEANS_FRAGMENTS_PATH', BEANS_TEMPLATES_PATH . 'fragments/' );
 
 	// Define urls.
-	if ( !defined( 'BEANS_THEME_URL' ) ) {
+	if ( ! defined( 'BEANS_THEME_URL' ) ) {
 		define( 'BEANS_THEME_URL', trailingslashit( get_template_directory_uri() ) );
 	}
 
