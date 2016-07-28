@@ -64,17 +64,19 @@ function beans_post_meta_comments_shortcode() {
 
 	global $post;
 
-	if ( post_password_required() || !comments_open() )
+	if ( post_password_required() || !comments_open() ) {
 		return;
+	}
 
 	$comments_number = (int) get_comments_number( $post->ID );
 
-	if ( $comments_number < 1 )
+	if ( $comments_number < 1 ) {
 		$comment_text = beans_output( 'beans_post_meta_empty_comment_text', __( 'Leave a comment', 'tm-beans' ) );
-	else if ( 1 === $comments_number )
+	} else if ( 1 === $comments_number ) {
 		$comment_text = beans_output( 'beans_post_meta_comments_text_singular', __( '1 comment', 'tm-beans' ) );
-	else
+	} else {
 		$comment_text = beans_output( 'beans_post_meta_comments_text_plurial', __( '%s comments', 'tm-beans' ) );
+	}
 
 	beans_open_markup_e( 'beans_post_meta_comments', 'a', array(
 		'href' => get_comments_link() // Automatically escaped.
@@ -98,8 +100,9 @@ function beans_post_meta_tags_shortcode() {
 
 	$tags = get_the_tag_list( null, ', ' );
 
-	if ( !$tags || is_wp_error( $tags ) )
+	if ( !$tags || is_wp_error( $tags ) ) {
 		return;
+	}
 
 	echo beans_output( 'beans_post_meta_tags_prefix', __( 'Tagged with: ', 'tm-beans' ) ) . $tags;
 
@@ -117,8 +120,9 @@ function beans_post_meta_categories_shortcode() {
 
 	$categories = get_the_category_list( ', ' );
 
-	if ( !$categories || is_wp_error( $categories ) )
+	if ( !$categories || is_wp_error( $categories ) ) {
 		return;
+	}
 
 	echo beans_output( 'beans_post_meta_categories_prefix', __( 'Filed under: ', 'tm-beans' ) ) . $categories;
 

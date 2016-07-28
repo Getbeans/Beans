@@ -42,8 +42,9 @@ beans_add_smart_action( 'beans_site_after_markup', 'beans_widget_area_offcanvas_
  */
 function beans_widget_area_offcanvas_menu() {
 
-	if ( !current_theme_supports( 'offcanvas-menu' ) )
+	if ( !current_theme_supports( 'offcanvas-menu' ) ) {
 		return;
+	}
 
 	echo beans_widget_area( 'offcanvas_menu' );
 

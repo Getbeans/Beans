@@ -46,8 +46,9 @@ beans_add_smart_action( 'wp_head', 'beans_favicon' );
 function beans_favicon() {
 
 	// Stop here if and icon was added via the customizer.
-	if ( function_exists( 'has_site_icon' ) && has_site_icon() )
+	if ( function_exists( 'has_site_icon' ) && has_site_icon() ) {
 		return;
+	}
 
 	$url = file_exists( get_stylesheet_directory() . '/favicon.ico' ) ? get_stylesheet_directory_uri() . '/favicon.ico' : BEANS_URL . 'favicon.ico';
 
@@ -69,8 +70,9 @@ beans_add_smart_action( 'wp_head', 'beans_header_image' );
  */
 function beans_header_image() {
 
-	if ( !current_theme_supports( 'custom-header' ) || !( $header_image = get_header_image() ) || empty( $header_image ) )
+	if ( !current_theme_supports( 'custom-header' ) || !( $header_image = get_header_image() ) || empty( $header_image ) ) {
 		return;
+	}
 
 	?><style type="text/css">
 		.tm-header {
@@ -103,14 +105,15 @@ function beans_site_branding() {
 			'itemprop' => 'headline'
 		) );
 
-			if ( $logo = get_theme_mod( 'beans_logo_image', false ) )
+			if ( $logo = get_theme_mod( 'beans_logo_image', false ) ) {
 				beans_selfclose_markup_e( 'beans_logo_image', 'img', array(
 					'class' => 'tm-logo',
 					'src' => $logo, // Automatically escaped.
 					'alt' => get_bloginfo( 'name' ), // Automatically escaped.
 				) );
-			else
+			} else {
 				beans_output_e( 'beans_site_title_text', get_bloginfo( 'name' ) );
+			}
 
 		beans_close_markup_e( 'beans_site_title_link', 'a' );
 
@@ -129,8 +132,9 @@ beans_add_smart_action( 'beans_site_branding_append_markup', 'beans_site_title_t
 function beans_site_title_tag() {
 
 	// Stop here if there isn't a description.
-	if ( !$description = get_bloginfo( 'description' ) )
+	if ( !$description = get_bloginfo( 'description' ) ) {
 		return;
+	}
 
 	beans_open_markup_e( 'beans_site_title_tag', 'span', array(
 		'class' => 'tm-site-title-tag uk-text-small uk-text-muted uk-display-block',

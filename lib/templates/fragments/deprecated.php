@@ -42,19 +42,22 @@ function beans_wp_title( $title, $sep ) {
 
 	global $page, $paged;
 
-	if ( is_feed() )
+	if ( is_feed() ) {
 		return $title;
+	}
 
 	// Add the blog name.
 	$title .= get_bloginfo( 'name' );
 
 	// Add the blog description for the home/front page.
-	if ( ( $site_description = get_bloginfo( 'description', 'display' ) ) && ( is_home() || is_front_page() ) )
+	if ( ( $site_description = get_bloginfo( 'description', 'display' ) ) && ( is_home() || is_front_page() ) ) {
 		$title .= " $sep $site_description";
+	}
 
 	// Add a page number if necessary.
-	if ( $paged >= 2 || $page >= 2 )
+	if ( $paged >= 2 || $page >= 2 ) {
 		$title .= " $sep " . sprintf( __( 'Page %s', 'tm-beans' ), max( $paged, $page ) );
+	}
 
 	return $title;
 

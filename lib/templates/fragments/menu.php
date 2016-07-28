@@ -56,8 +56,9 @@ beans_add_smart_action( 'beans_primary_menu_append_markup', 'beans_primary_menu_
  */
 function beans_primary_menu_offcanvas_button() {
 
-	if ( !current_theme_supports( 'offcanvas-menu' ) )
+	if ( !current_theme_supports( 'offcanvas-menu' ) ) {
 		return;
+	}
 
 	beans_open_markup_e( 'beans_primary_menu_offcanvas_button', 'a', array(
 		'href' => '#offcanvas_menu',
@@ -87,8 +88,9 @@ beans_add_smart_action( 'beans_widget_area_offcanvas_bar_offcanvas_menu_prepend_
  */
 function beans_primary_offcanvas_menu() {
 
-	if ( !current_theme_supports( 'offcanvas-menu' ) )
+	if ( !current_theme_supports( 'offcanvas-menu' ) ) {
 		return;
+	}
 
 	beans_open_markup_e( 'beans_primary_offcanvas_menu', 'nav', array(
 		'class' => 'tm-primary-offcanvas-menu uk-margin uk-margin-top',

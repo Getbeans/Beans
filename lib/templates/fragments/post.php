@@ -17,8 +17,9 @@ function beans_post_title() {
 	$title = beans_output( 'beans_post_title_text', get_the_title() );
 	$title_tag = 'h1';
 
-	if ( empty( $title ) )
+	if ( empty( $title ) ) {
 		return;
+	}
 
 	if ( !is_singular() ) {
 
@@ -58,8 +59,9 @@ beans_add_smart_action( 'beans_before_loop', 'beans_post_search_title' );
  */
 function beans_post_search_title() {
 
-	if ( !is_search() )
+	if ( !is_search() ) {
 		return;
+	}
 
 	beans_open_markup_e( 'beans_search_title', 'h1', array( 'class' => 'uk-article-title' ) );
 
@@ -79,8 +81,9 @@ beans_add_smart_action( 'beans_before_loop', 'beans_post_archive_title' );
  */
 function beans_post_archive_title() {
 
-	if ( !is_archive() )
+	if ( !is_archive() ) {
 		return;
+	}
 
 	beans_open_markup_e( 'beans_archive_title', 'h1', array( 'class' => 'uk-article-title' ) );
 
@@ -107,8 +110,9 @@ function beans_post_meta() {
 	 *
 	 * @param bool $pre True to short-circuit, False to let the function run.
 	 */
-	if ( apply_filters( 'beans_pre_post_meta', 'post' != get_post_type() ) )
+	if ( apply_filters( 'beans_pre_post_meta', 'post' != get_post_type() ) ) {
 		return;
+	}
 
 	beans_open_markup_e( 'beans_post_meta', 'ul', array( 'class' => 'uk-article-meta uk-subnav uk-subnav-line' ) );
 
@@ -132,8 +136,9 @@ function beans_post_meta() {
 
 		foreach ( $meta_items as $meta => $priority ) {
 
-			if ( !$content = beans_render_function( 'do_action', "beans_post_meta_$meta" ) )
+			if ( !$content = beans_render_function( 'do_action', "beans_post_meta_$meta" ) ) {
 				continue;
+			}
 
 			beans_open_markup_e( "beans_post_meta_item[_{$meta}]", 'li' );
 
@@ -157,8 +162,9 @@ beans_add_smart_action( 'beans_post_body', 'beans_post_image', 5 );
  */
 function beans_post_image() {
 
-	if ( !has_post_thumbnail() || !current_theme_supports( 'post-thumbnails' ) )
+	if ( !has_post_thumbnail() || !current_theme_supports( 'post-thumbnails' ) ) {
 		return false;
+	}
 
 	global $post;
 
@@ -185,10 +191,11 @@ function beans_post_image() {
 			'resize' => array( 800, false )
 		) );
 
-		if ( empty( $edit_args ) )
+		if ( empty( $edit_args ) ) {
 			$image = beans_get_post_attachment( $post->ID, 'large' );
-		else
+		} else {
 			$image = beans_edit_post_attachment( $post->ID, $edit_args );
+		}
 
 		/**
 		 * Filter the arguments used by {@see beans_edit_image()} to edit the post small image.
@@ -204,20 +211,22 @@ function beans_post_image() {
 			'resize' => array( 480, false )
 		) );
 
-		if ( empty( $edit_small_args ) )
+		if ( empty( $edit_small_args ) ) {
 			$image_small = beans_get_post_attachment( $post->ID, 'thumbnail' );
-		else
+		} else {
 			$image_small = beans_edit_post_attachment( $post->ID, $edit_small_args );
+		}
 
 	}
 
 	beans_open_markup_e( 'beans_post_image', 'div', array( 'class' => 'tm-article-image' ) );
 
-		if ( !is_singular() )
+		if ( !is_singular() ) {
 			beans_open_markup_e( 'beans_post_image_link', 'a', array(
 				'href' => get_permalink(), // Automatically escaped.
 				'title' => the_title_attribute( 'echo=0' )
 			) );
+		}
 
 			beans_open_markup_e( 'beans_post_image_item_wrap', 'picture' );
 
@@ -245,8 +254,9 @@ function beans_post_image() {
 
 			beans_close_markup_e( 'beans_post_image_item_wrap', 'picture' );
 
-		if ( !is_singular() )
+		if ( !is_singular() ) {
 			beans_close_markup_e( 'beans_post_image_link', 'a' );
+		}
 
 	beans_close_markup_e( 'beans_post_image', 'div' );
 
@@ -271,13 +281,13 @@ function beans_post_content() {
 
 		the_content();
 
-		if ( is_singular() && 'open' === get_option( 'default_ping_status' ) && post_type_supports( $post->post_type, 'trackbacks' ) ) :
+		if ( is_singular() && 'open' === get_option( 'default_ping_status' ) && post_type_supports( $post->post_type, 'trackbacks' ) ) {
 
 			echo '<!--';
 			trackback_rdf();
 			echo '-->' . "\n";
 
-		endif;
+		}
 
 	beans_close_markup_e( 'beans_post_content', 'div' );
 
@@ -344,8 +354,9 @@ beans_add_smart_action( 'beans_post_body', 'beans_post_meta_categories', 25 );
  */
 function beans_post_meta_categories() {
 
-	if ( !$categories = beans_render_function( 'do_shortcode', '[beans_post_meta_categories]' ) )
+	if ( !$categories = beans_render_function( 'do_shortcode', '[beans_post_meta_categories]' ) ) {
 		return;
+	}
 
 	beans_open_markup_e( 'beans_post_meta_categories', 'span', array( 'class' => 'uk-text-small uk-text-muted uk-clearfix' ) );
 
@@ -365,8 +376,9 @@ beans_add_smart_action( 'beans_post_body', 'beans_post_meta_tags', 30 );
  */
 function beans_post_meta_tags() {
 
-	if ( !$tags = beans_render_function( 'do_shortcode', '[beans_post_meta_tags]' ) )
+	if ( !$tags = beans_render_function( 'do_shortcode', '[beans_post_meta_tags]' ) ) {
 		return;
+	}
 
 	beans_open_markup_e( 'beans_post_meta_tags', 'span', array( 'class' => 'uk-text-small uk-text-muted uk-clearfix' ) );
 
@@ -465,21 +477,23 @@ function beans_post_navigation() {
 	 *
 	 * @param bool $pre True to short-circuit, False to let the function run.
 	 */
-	if ( apply_filters( 'beans_pre_post_navigation', !is_singular( 'post' ) ) )
+	if ( apply_filters( 'beans_pre_post_navigation', !is_singular( 'post' ) ) ) {
 		return;
+	}
 
 	$previous = ( is_attachment() ) ? get_post( get_post()->post_parent ) : get_adjacent_post( false, '', true );
 	$next = get_adjacent_post( false, '', false );
 
-	if ( !$next && !$previous )
+	if ( !$next && !$previous ) {
 		return;
+	}
 
 	beans_open_markup_e( 'beans_post_navigation', 'ul', array(
 		'class' => 'uk-pagination',
 		'role' => 'navigation'
 	) );
 
-		if ( $previous ) :
+		if ( $previous ) {
 
 			// Previous.
 			beans_open_markup_e( 'beans_post_navigation_item[_previous]', 'li', array( 'class' => 'uk-pagination-previous' ) );
@@ -488,9 +502,9 @@ function beans_post_navigation() {
 
 			beans_close_markup_e( 'beans_post_navigation_item[_previous]', 'li' );
 
-		endif;
+		}
 
-		if ( $next ) :
+		if ( $next ) {
 
 			// Next.
 			beans_open_markup_e( 'beans_post_navigation_item[_next]', 'li', array( 'class' => 'uk-pagination-next' ) );
@@ -499,7 +513,7 @@ function beans_post_navigation() {
 
 			beans_close_markup_e( 'beans_post_navigation_item[_next]', 'li' );
 
-		endif;
+		}
 
 	beans_close_markup_e( 'beans_post_navigation', 'ul' );
 
@@ -522,13 +536,15 @@ function beans_posts_pagination() {
 	 *
 	 * @param bool $pre True to short-circuit, False to let the function run.
 	 */
-	if ( apply_filters( 'beans_pre_post_pagination', is_singular() ) )
+	if ( apply_filters( 'beans_pre_post_pagination', is_singular() ) ) {
 		return;
+	}
 
 	global $wp_query;
 
-	if ( $wp_query->max_num_pages <= 1 )
+	if ( $wp_query->max_num_pages <= 1 ) {
 		return;
+	}
 
 	$current = get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1;
 	$count = intval( $wp_query->max_num_pages );
@@ -565,10 +581,11 @@ function beans_posts_pagination() {
 		foreach ( range( 1, $wp_query->max_num_pages ) as $link ) {
 
 			// Skip if next is set.
-			if ( isset( $next ) && $link != $next )
+			if ( isset( $next ) && $link != $next ) {
 				continue;
-			else
+			} else {
 				$next = $link + 1;
+			}
 
 			$is_separator = array(
 				$link != 1, // Not first.
@@ -590,10 +607,11 @@ function beans_posts_pagination() {
 				beans_close_markup_e( 'beans_posts_pagination_item[_separator]', 'li' );
 
 				// Jump.
-				if ( $link < $current )
+				if ( $link < $current ) {
 					$next = $current - 1;
-				elseif ( $link > $current )
+				} elseif ( $link > $current ) {
 					$next = $count;
+				}
 
 				continue;
 
@@ -797,8 +815,9 @@ function beans_post_gallery( $output, $attr, $instance ) {
 
 		$attachments = array();
 
-		foreach ( $_attachments as $key => $val )
+		foreach ( $_attachments as $key => $val ) {
 			$attachments[ $val->ID ] = $_attachments[ $key ];
+		}
 
 	} elseif ( !empty( $atts['exclude'] ) ) {
 
@@ -826,15 +845,17 @@ function beans_post_gallery( $output, $attr, $instance ) {
 	}
 
 	// Stop here if no attachment.
-	if ( empty( $attachments ) )
+	if ( empty( $attachments ) ) {
 		return '';
+	}
 
 	if ( is_feed() ) {
 
 		$output = "\n";
 
-		foreach ( $attachments as $att_id => $attachment )
+		foreach ( $attachments as $att_id => $attachment ) {
 			$output .= wp_get_attachment_link( $att_id, $atts['size'], true ) . "\n";
+		}
 
 		return $output;
 
@@ -849,9 +870,11 @@ function beans_post_gallery( $output, $attr, $instance ) {
 	);
 
 	// Validate tags.
-	foreach ( $validate as $tag )
-		if ( !isset( $valid_tags[ $atts[ $tag ] ] ) )
+	foreach ( $validate as $tag ) {
+		if ( !isset( $valid_tags[ $atts[ $tag ] ] ) ) {
 			$atts[ $tag ] = $defaults[ $tag ];
+		}
+	}
 
 	// Set variables used in the output.
 	$columns = intval( $atts['columns'] );
@@ -878,14 +901,16 @@ function beans_post_gallery( $output, $attr, $instance ) {
 			$image_meta = wp_get_attachment_metadata( $attachment_id );
 			$orientation = '';
 
-			if ( isset( $image_meta['height'], $image_meta['width'] ) )
+			if ( isset( $image_meta['height'], $image_meta['width'] ) ) {
 				$orientation = ( $image_meta['height'] > $image_meta['width'] ) ? 'portrait' : 'landscape';
+			}
 
 			// Set the image output.
-			if ( 'none' === $atts['link'] )
+			if ( 'none' === $atts['link'] ) {
 				$image_output = wp_get_attachment_image( $attachment_id, $atts['size'], false, $attr );
-			else
+			} else {
 				$image_output = wp_get_attachment_link( $attachment_id, $atts['size'], ( 'file' !== $atts['link'] ), false, false, $attr );
+			}
 
 			$output .= beans_open_markup( "beans_post_gallery_item[_{$attachment_id}]", $atts['itemtag'], array( 'class' => 'gallery-item' ) );
 

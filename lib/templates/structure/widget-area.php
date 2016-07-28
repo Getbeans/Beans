@@ -9,8 +9,9 @@
 // This includes everything added to wp hooks before the widgets.
 echo beans_get_widget_area( 'before_widgets' );
 
-	if ( 'grid' == beans_get_widget_area( 'beans_type' ) )
+	if ( 'grid' == beans_get_widget_area( 'beans_type' ) ) {
 		beans_open_markup_e( 'beans_widget_area_grid' . _beans_widget_area_subfilters(), 'div', array( 'class' => 'uk-grid', 'data-uk-grid-margin' => '' ) );
+	}
 
 	if ( 'offcanvas' == beans_get_widget_area( 'beans_type' ) ) {
 
@@ -37,8 +38,9 @@ echo beans_get_widget_area( 'before_widgets' );
 
 				while ( beans_have_widgets() ) : beans_setup_widget();
 
-					if ( 'grid' == beans_get_widget_area( 'beans_type' ) )
+					if ( 'grid' == beans_get_widget_area( 'beans_type' ) ) {
 						beans_open_markup_e( 'beans_widget_grid' . _beans_widget_subfilters(), 'div', beans_widget_shortcodes( 'class=uk-width-medium-1-{count}' ) );
+					}
 
 						beans_open_markup_e( 'beans_widget_panel' . _beans_widget_subfilters(), 'div', beans_widget_shortcodes( 'class=tm-widget uk-panel widget_{type} {id}' ) );
 
@@ -51,8 +53,9 @@ echo beans_get_widget_area( 'before_widgets' );
 
 						beans_close_markup_e( 'beans_widget_panel' . _beans_widget_subfilters(), 'div' );
 
-					if ( 'grid' == beans_get_widget_area( 'beans_type' ) )
+					if ( 'grid' == beans_get_widget_area( 'beans_type' ) ) {
 						beans_close_markup_e( 'beans_widget_grid' . _beans_widget_subfilters(), 'div' );
+					}
 
 				endwhile;
 
@@ -84,8 +87,9 @@ echo beans_get_widget_area( 'before_widgets' );
 
 	}
 
-	if ( 'grid' == beans_get_widget_area( 'beans_type' ) )
+	if ( 'grid' == beans_get_widget_area( 'beans_type' ) ) {
 		beans_close_markup_e( 'beans_widget_area_grid' . _beans_widget_area_subfilters(), 'div' );
+	}
 
 // This includes everything added to wp hooks after the widgets.
 echo beans_get_widget_area( 'after_widgets' );

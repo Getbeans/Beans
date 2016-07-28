@@ -38,8 +38,9 @@ function beans_comment_avatar() {
 	global $comment;
 
 	// Stop here if no avatar.
-	if ( !$avatar = get_avatar( $comment, $comment->args['avatar_size'] ) )
+	if ( !$avatar = get_avatar( $comment, $comment->args['avatar_size'] ) ) {
 		return;
+	}
 
 	beans_open_markup_e( 'beans_comment_avatar', 'div', array( 'class' => 'uk-comment-avatar' ) );
 

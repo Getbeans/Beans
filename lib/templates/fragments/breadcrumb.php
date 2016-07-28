@@ -14,8 +14,9 @@ beans_add_smart_action( 'beans_main_grid_before_markup', 'beans_breadcrumb' );
  */
 function beans_breadcrumb() {
 
-	if ( is_home() || is_front_page() )
+	if ( is_home() || is_front_page() ) {
 		return;
+	}
 
 	wp_reset_query();
 
@@ -28,16 +29,18 @@ function beans_breadcrumb() {
 	// Custom post type.
 	if ( !in_array( $post_type, array( 'page', 'attachment', 'post' ) ) && !is_404() ) {
 
-		if ( $post_type_object = get_post_type_object( $post_type ) )
+		if ( $post_type_object = get_post_type_object( $post_type ) ) {
 			$breadcrumbs[get_post_type_archive_link( $post_type )] = $post_type_object->labels->name;
+		}
 
 	}
 
 	// Single posts.
 	if ( is_single() && 'post' == $post_type ) {
 
-		foreach ( get_the_category( $post->ID ) as $category )
+		foreach ( get_the_category( $post->ID ) as $category ) {
 			$breadcrumbs[get_category_link( $category->term_id )] = $category->name;
+		}
 
 		$breadcrumbs[] = get_the_title();
 
@@ -49,13 +52,16 @@ function beans_breadcrumb() {
 		$current_page = array( $post );
 
 		// Get the parent pages of the current page if they exist.
-		if ( isset( $current_page[0]->post_parent ) )
-			while ( $current_page[0]->post_parent )
+		if ( isset( $current_page[0]->post_parent ) ) {
+			while ( $current_page[0]->post_parent ) {
 				array_unshift( $current_page, get_post( $current_page[0]->post_parent ) );
+			}
+		}
 
 		// Add returned pages to breadcrumbs.
-		foreach ( $current_page as $page )
+		foreach ( $current_page as $page ) {
 			$breadcrumbs[get_page_link( $page->ID )] = $page->post_title;
+		}
 
 	}
 

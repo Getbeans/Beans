@@ -8,8 +8,9 @@
  */
 
 // Stop here if the post is password protected.
-if ( post_password_required() )
+if ( post_password_required() ) {
 	return;
+}
 
 beans_open_markup_e( 'beans_comments', 'div', array( 'id' => 'comments', 'class' => 'tm-comments' . ( current_theme_supports( 'beans-default-styling' ) ? ' uk-panel-box' : null ) ) );
 
