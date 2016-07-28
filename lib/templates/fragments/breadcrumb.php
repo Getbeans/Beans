@@ -47,7 +47,7 @@ function beans_breadcrumb() {
 	}
 
 	// Pages/custom post type.
-	else if ( is_singular() && ! is_home() && ! is_front_page() ) {
+	elseif ( is_singular() && ! is_home() && ! is_front_page() ) {
 
 		$current_page = array( $post );
 
@@ -66,14 +66,14 @@ function beans_breadcrumb() {
 	}
 
 	// Categories.
-	else if ( is_category() ) {
+	elseif ( is_category() ) {
 
 		$breadcrumbs[] = single_cat_title( '', false );
 
 	}
 
 	// Taxonomies.
-	else if ( is_tax() ) {
+	elseif ( is_tax() ) {
 
 		$current_term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
 
@@ -92,14 +92,14 @@ function beans_breadcrumb() {
 	}
 
 	// Searches.
-	else if ( is_search() ) {
+	elseif ( is_search() ) {
 
 		$breadcrumbs[] = __( 'Results:', 'tm-beans' ) . ' ' . get_search_query();
 
 	}
 
 	// Author archives.
-	else if ( is_author() ) {
+	elseif ( is_author() ) {
 
 		$author = get_queried_object();
 		$breadcrumbs[] = __( 'Author Archives:', 'tm-beans' ) . ' ' . $author->display_name;
@@ -107,21 +107,21 @@ function beans_breadcrumb() {
 	}
 
 	// Tag archives.
-	else if ( is_tag() ) {
+	elseif ( is_tag() ) {
 
 		$breadcrumbs[] = __( 'Tag Archives:', 'tm-beans' ) . ' ' . single_tag_title( '', false );
 
 	}
 
 	// Date archives.
-	else if ( is_date() ) {
+	elseif ( is_date() ) {
 
 		$breadcrumbs[] = __( 'Archives:', 'tm-beans' ) . ' ' . get_the_time( 'F Y' );
 
 	}
 
 	// 404.
-	else if ( is_404() ) {
+	elseif ( is_404() ) {
 
 		$breadcrumbs[] = __( '404', 'tm-beans' );
 

@@ -72,7 +72,7 @@ function beans_post_meta_comments_shortcode() {
 
 	if ( $comments_number < 1 ) {
 		$comment_text = beans_output( 'beans_post_meta_empty_comment_text', __( 'Leave a comment', 'tm-beans' ) );
-	} else if ( 1 === $comments_number ) {
+	} elseif ( 1 === $comments_number ) {
 		$comment_text = beans_output( 'beans_post_meta_comments_text_singular', __( '1 comment', 'tm-beans' ) );
 	} else {
 		$comment_text = beans_output( 'beans_post_meta_comments_text_plurial', __( '%s comments', 'tm-beans' ) );
