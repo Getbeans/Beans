@@ -25,12 +25,13 @@ function beans_do_register_widget_areas() {
 		'id' => 'sidebar_secondary'
 	) );
 
-	if ( current_theme_supports( 'offcanvas-menu' ) )
+	if ( current_theme_supports( 'offcanvas-menu' ) ) {
 		beans_register_widget_area( array(
 			'name' => __( 'Off-Canvas Menu', 'tm-beans' ),
 			'id' => 'offcanvas_menu',
 			'beans_type' => 'offcanvas',
 		) );
+	}
 
 }
 

@@ -48,8 +48,9 @@ beans_add_smart_action( 'comments_template', 'beans_load_comments_fragment' );
  */
 function beans_load_comments_fragment( $template ) {
 
-	if ( empty( $template ) )
+	if ( empty( $template ) ) {
 		return;
+	}
 
 	beans_load_fragment_file( 'comments' );
 

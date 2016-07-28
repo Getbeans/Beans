@@ -22,8 +22,9 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 	function start_lvl( &$output, $depth = 0, $args = array() ) {
 
 		// Stop here if the depth is smaller than starting depth.
-		if ( $depth < $args->beans_start_level )
+		if ( $depth < $args->beans_start_level ) {
 			return;
+		}
 
 		$type = beans_get( 'beans_type', $args );
 		$location_subfilter = ( $location = beans_get( 'theme_location', $args ) ) ? "[_{$location}]" : null;
@@ -34,8 +35,9 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 		);
 
 		// Add UIKit sidenav and offcanvas class.
-		if ( $depth > 0 || in_array( $type, array( 'sidenav', 'offcanvas' ) ) )
+		if ( $depth > 0 || in_array( $type, array( 'sidenav', 'offcanvas' ) ) ) {
 			$attr['class'][] = 'uk-nav-sub';
+		}
 
 		// Add UIKit navbar stuff.
 		if ( 'navbar' === $type && $args->beans_start_level === $depth ) {
@@ -53,8 +55,9 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 		$attr['class'] = implode( ' ', array_filter( $attr['class'] ) );
 
 		// Set to null if empty to avoid outputing empty class html attribute.
-		if ( !$attr['class'] )
+		if ( !$attr['class'] ) {
 			$attr['class'] = null;
+		}
 
 		// Open sub_menu.
 		$output .= beans_open_markup( "beans_sub_menu[_{$type}]{$location_subfilter}", 'ul', $attr, $depth, $args );
@@ -70,8 +73,9 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 	function end_lvl( &$output, $depth = 0, $args = array() ) {
 
 		// Stop here if the depth is smaller than starting depth.
-		if ( $depth < $args->beans_start_level )
+		if ( $depth < $args->beans_start_level ) {
 			return;
+		}
 
 		$type = beans_get( 'beans_type', $args );
 		$location_subfilter = ( $location = beans_get( 'theme_location', $args ) ) ? "[_{$location}]" : null;
@@ -80,8 +84,9 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 		$output .= beans_close_markup( "beans_sub_menu[_{$type}]{$location_subfilter}", 'ul' );
 
 		// Close sub_menu wrap.
-		if ( 'navbar' === $type && $args->beans_start_level === $depth )
+		if ( 'navbar' === $type && $args->beans_start_level === $depth ) {
 			$output .= beans_close_markup( "beans_sub_menu_wrap[_{$type}]{$location_subfilter}", 'div', $depth, $args );
+		}
 
 	}
 
@@ -94,8 +99,9 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 	function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
 
 		// Stop here if the depth is smaller than starting depth.
-		if ( $depth < $args->beans_start_level )
+		if ( $depth < $args->beans_start_level ) {
 			return;
+		}
 
 		$item_id = $item->ID;
 
@@ -115,9 +121,11 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 		);
 
 		// Prevent empty WP link attributes.
-		foreach ( $_link_attr as $attr => $value )
-			if ( empty( $value ) )
+		foreach ( $_link_attr as $attr => $value ) {
+			if ( empty( $value ) ) {
 				$_link_attr[ $attr ] = null;
+			}
+		}
 
 		$link_attr = apply_filters( 'nav_menu_link_attributes', $_link_attr, $item, $args );
 
@@ -127,8 +135,9 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 		);
 
 		// Add UIKit active class.
-		if ( in_array( 'current-menu-item', $classes ) )
+		if ( in_array( 'current-menu-item', $classes ) ) {
 			$item_attr['class'][] = 'uk-active';
+		}
 
 		// Add UIKit parent attributes.
 		if ( $args->beans_start_level == $depth && in_array( 'menu-item-has-children', $classes ) ) {
@@ -148,8 +157,9 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 		$item_attr['class'] = implode( ' ', array_filter( $item_attr['class'] ) );
 
 		// Set to null if empty to avoid outputing empty class html attribute.
-		if ( !$item_attr['class'] )
+		if ( !$item_attr['class'] ) {
 			$item_attr['class'] = null;
+		}
 
 		$output .= beans_open_markup( "beans_menu_item[_{$item_id}]", 'li', $item_attr, $item, $depth, $args );
 
@@ -183,8 +193,9 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 	function end_el( &$output, $item, $depth = 0, $args = array() ) {
 
 		// Stop here if the depth is smaller than starting depth.
-		if ( $depth < $args->beans_start_level )
+		if ( $depth < $args->beans_start_level ) {
 			return;
+		}
 
 		$item_id = $item->ID;
 
