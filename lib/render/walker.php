@@ -114,10 +114,10 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 
 		// WP link attributes.
 		$_link_attr = array(
-			'title' => $item->attr_title,
+			'title'  => $item->attr_title,
 			'target' => $item->target,
-			'rel' => $item->xfn,
-			'href' => $item->url,
+			'rel'    => $item->xfn,
+			'href'   => $item->url,
 		);
 
 		// Prevent empty WP link attributes.

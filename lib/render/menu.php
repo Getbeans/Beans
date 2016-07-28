@@ -24,10 +24,10 @@ function beans_do_register_default_menu() {
 		wp_create_nav_menu( __( 'Navigation', 'tm-beans' ) ),
 		0,
 		array(
-			'menu-item-title' =>  __( 'Home', 'tm-beans' ),
+			'menu-item-title'   =>  __( 'Home', 'tm-beans' ),
 			'menu-item-classes' => 'home',
-			'menu-item-url' => home_url( '/' ),
-			'menu-item-status' => 'publish'
+			'menu-item-url'     => home_url( '/' ),
+			'menu-item-status'  => 'publish'
 		)
 	);
 
@@ -82,7 +82,7 @@ function beans_modify_menu_args( $args ) {
 
 	// Default item wrap attributes.
 	$attr = array(
-		'id' => '%1$s',
+		'id'    => '%1$s',
 		'class' => array( beans_get( 'menu_class', $args ) )
 	);
 
