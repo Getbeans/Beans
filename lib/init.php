@@ -19,8 +19,9 @@ function beans_define_constants() {
 	define( 'BEANS_VERSION', '1.3.1' );
 
 	// Define paths.
-	if ( !defined( 'BEANS_THEME_PATH' ) )
+	if ( !defined( 'BEANS_THEME_PATH' ) ) {
 		define( 'BEANS_THEME_PATH', wp_normalize_path( trailingslashit( get_template_directory() ) ) );
+	}
 
 	define( 'BEANS_PATH', BEANS_THEME_PATH . 'lib/' );
 	define( 'BEANS_API_PATH', BEANS_PATH . 'api/' );
@@ -32,8 +33,9 @@ function beans_define_constants() {
 	define( 'BEANS_FRAGMENTS_PATH', BEANS_TEMPLATES_PATH . 'fragments/' );
 
 	// Define urls.
-	if ( !defined( 'BEANS_THEME_URL' ) )
+	if ( !defined( 'BEANS_THEME_URL' ) ) {
 		define( 'BEANS_THEME_URL', trailingslashit( get_template_directory_uri() ) );
+	}
 
 	define( 'BEANS_URL', BEANS_THEME_URL . 'lib/' );
 	define( 'BEANS_API_URL', BEANS_URL . 'api/' );
@@ -144,8 +146,9 @@ function beans_includes() {
 	require_once( BEANS_ASSETS_PATH . 'assets.php' );
 
 	// Include customizer.
-	if ( is_customize_preview() )
+	if ( is_customize_preview() ) {
 		require_once( BEANS_ADMIN_PATH . 'wp-customize.php' );
+	}
 
 	// Include renderers.
 	require_once( BEANS_RENDER_PATH . 'template-parts.php' );

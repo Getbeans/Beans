@@ -53,8 +53,9 @@ function beans_enqueue_uikit_components() {
 	beans_compiler_add_fragment( 'uikit', BEANS_ASSETS_PATH . 'less/style.less', 'less' );
 
 	// Add the theme default style as a uikit fragment only if the theme supports it.
-	if ( current_theme_supports( 'beans-default-styling' ) )
+	if ( current_theme_supports( 'beans-default-styling' ) ) {
 		beans_compiler_add_fragment( 'uikit', BEANS_ASSETS_PATH . 'less/default.less', 'less' );
+	}
 
 }
 
@@ -68,8 +69,9 @@ beans_add_smart_action( 'wp_enqueue_scripts', 'beans_enqueue_assets', 5 );
  */
 function beans_enqueue_assets() {
 
-	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) )
+	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
+	}
 
 }
 
