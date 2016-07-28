@@ -66,7 +66,7 @@ function beans_apply_filters( $id, $value ) {
 	$args = func_get_args();
 
 	// Return simple filter if no sub-hook is set.
-	if ( !preg_match_all( '#\[(.*?)\]#', $args[0], $matches ) ) {
+	if ( ! preg_match_all( '#\[(.*?)\]#', $args[0], $matches ) ) {
 		return call_user_func_array( 'apply_filters', $args );
 	}
 
@@ -137,7 +137,7 @@ function beans_apply_filters( $id, $value ) {
 function beans_has_filters( $id, $callback = false ) {
 
 	// Check simple filter if no subhook is set.
-	if ( !preg_match_all( '#\[(.*?)\]#', $id, $matches ) ) {
+	if ( ! preg_match_all( '#\[(.*?)\]#', $id, $matches ) ) {
 		return has_filter( $id, $callback );
 	}
 

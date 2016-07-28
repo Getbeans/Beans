@@ -76,7 +76,7 @@ function beans_register_fields( array $fields, $context, $section ) {
  */
 function beans_get_fields( $context, $section = false ) {
 
-	if ( !class_exists( '_Beans_Fields' ) ) {
+	if ( ! class_exists( '_Beans_Fields' ) ) {
 		return;
 	}
 
@@ -98,7 +98,7 @@ function beans_get_fields( $context, $section = false ) {
  */
 function beans_field( $field ) {
 
-	if ( !class_exists( '_Beans_Fields' ) ) {
+	if ( ! class_exists( '_Beans_Fields' ) ) {
 		return;
 	}
 

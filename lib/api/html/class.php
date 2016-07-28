@@ -65,7 +65,7 @@ final class _Beans_Attributes {
 	 */
 	public function add( $attributes ) {
 
-		if ( !isset( $attributes[ $this->attribute ] ) ) {
+		if ( ! isset( $attributes[ $this->attribute ] ) ) {
 			$attributes[ $this->attribute ] = $this->value;
 		} else {
 			$attributes[ $this->attribute ] = $attributes[ $this->attribute ] . ' ' . $this->value;
@@ -105,7 +105,7 @@ final class _Beans_Attributes {
 	 */
 	public function remove( $attributes ) {
 
-		if ( !isset( $attributes[ $this->attribute ] ) ) {
+		if ( ! isset( $attributes[ $this->attribute ] ) ) {
 			return $attributes;
 		}
 

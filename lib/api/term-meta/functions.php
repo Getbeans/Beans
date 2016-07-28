@@ -16,7 +16,7 @@
  */
 function beans_get_term_meta( $field_id, $default = false, $term_id = false ) {
 
-	if ( !$term_id ) {
+	if ( ! $term_id ) {
 		$term_id = ( $_term_id = beans_get( 'term_id', get_queried_object() ) ) ? $_term_id : beans_get( 'tag_ID' );
 	}
 

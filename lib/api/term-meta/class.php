@@ -35,7 +35,7 @@ final class _Beans_Term_Meta {
 
 		static $once = false;
 
-		if ( !$once ) {
+		if ( ! $once ) {
 
 			add_action( beans_get( 'taxonomy' ). '_edit_form', array( $this, 'nonce' ) );
 			add_action( 'edit_term', array( $this, 'save' ) );
@@ -93,11 +93,11 @@ final class _Beans_Term_Meta {
 			return $term_id;
 		}
 
-		if ( !wp_verify_nonce( beans_post( 'beans_term_meta_nonce' ), 'beans_term_meta_nonce' ) ) {
+		if ( ! wp_verify_nonce( beans_post( 'beans_term_meta_nonce' ), 'beans_term_meta_nonce' ) ) {
 			return $term_id;
 		}
 
-		if ( !$fields = beans_post( 'beans_fields' ) ) {
+		if ( ! $fields = beans_post( 'beans_fields' ) ) {
 			return $term_id;
 		}
 

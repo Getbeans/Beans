@@ -117,7 +117,7 @@ function beans_uikit_register_theme( $id, $path ) {
 		return true;
 	}
 
-	if ( !$path ) {
+	if ( ! $path ) {
 		return false;
 	}
 
@@ -150,7 +150,7 @@ function beans_uikit_register_theme( $id, $path ) {
 function beans_uikit_enqueue_theme( $id, $path = false ) {
 
 	// Make sure it is registered, if not, try to do so.
-	if ( !beans_uikit_register_theme( $id, $path ) ) {
+	if ( ! beans_uikit_register_theme( $id, $path ) ) {
 		return false;
 	}
 
@@ -190,7 +190,7 @@ function beans_uikit_dequeue_theme( $id ) {
  */
 global $_beans_uikit_registered_items;
 
-if ( !isset( $_beans_uikit_registered_items ) ) {
+if ( ! isset( $_beans_uikit_registered_items ) ) {
 	$_beans_uikit_registered_items = array(
 		'themes' => array(
 			'default' => BEANS_API_PATH . 'uikit/src/themes/default',
@@ -208,7 +208,7 @@ if ( !isset( $_beans_uikit_registered_items ) ) {
  */
 global $_beans_uikit_enqueued_items;
 
-if ( !isset( $_beans_uikit_enqueued_items ) ) {
+if ( ! isset( $_beans_uikit_enqueued_items ) ) {
 	$_beans_uikit_enqueued_items = array(
 		'components' => array(
 			'core' => array(),
@@ -246,7 +246,7 @@ add_action( 'wp_enqueue_scripts', '_beans_uikit_enqueue_assets', 7 );
  */
 function _beans_uikit_enqueue_assets() {
 
-	if ( !has_action( 'beans_uikit_enqueue_scripts' ) ) {
+	if ( ! has_action( 'beans_uikit_enqueue_scripts' ) ) {
 		return;
 	}
 
@@ -274,7 +274,7 @@ add_action( 'admin_enqueue_scripts', '_beans_uikit_enqueue_admin_assets', 7 );
  */
 function _beans_uikit_enqueue_admin_assets() {
 
-	if ( !has_action( 'beans_uikit_admin_enqueue_scripts' ) ) {
+	if ( ! has_action( 'beans_uikit_admin_enqueue_scripts' ) ) {
 		return;
 	}
 

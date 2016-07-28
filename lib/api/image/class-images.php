@@ -65,10 +65,10 @@ final class _Beans_Image_Editor {
 		$this->setup();
 
 		// Try to create image if it doesn't exist.
-		if ( !file_exists( $this->rebuilt_path ) ) {
+		if ( ! file_exists( $this->rebuilt_path ) ) {
 
 			// Return orginial image source if it can't be edited.
-			if ( !$this->edit() ) {
+			if ( ! $this->edit() ) {
 
 				$array = array(
 					'src' => $this->src,

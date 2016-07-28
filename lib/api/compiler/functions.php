@@ -148,11 +148,11 @@ function beans_compiler_add_fragment( $id, $fragments, $format ) {
 	foreach ( (array) $fragments as $key => $fragment ) {
 
 		// Stop here if the format isn't valid.
-		if ( !isset( $_beans_compiler_added_fragments[ $format ] ) ) {
+		if ( ! isset( $_beans_compiler_added_fragments[ $format ] ) ) {
 			continue;
 		}
 		// Register new compiler id if it doesn't exist and add fragment.
-		elseif ( !isset( $_beans_compiler_added_fragments[ $format ][ $id ] ) ) {
+		elseif ( ! isset( $_beans_compiler_added_fragments[ $format ][ $id ] ) ) {
 			$_beans_compiler_added_fragments[ $format ][ $id ] = array( $fragment );
 		}
 		// Add fragment to existing compiler.
@@ -185,7 +185,7 @@ function beans_flush_compiler( $id, $file_format = false, $admin = false ) {
 	$cache_dir = beans_get_compiler_dir( $admin );
 
 	// Always flush beans global chache.
-	if ( !$beans_flushed ) {
+	if ( ! $beans_flushed ) {
 
 		$beans_flushed = true;
 
@@ -196,7 +196,7 @@ function beans_flush_compiler( $id, $file_format = false, $admin = false ) {
 	$dir = trailingslashit( $cache_dir )  . $id;
 
 	// Stop here if directory doesn't exist.
-	if ( !is_dir( $dir ) ) {
+	if ( ! is_dir( $dir ) ) {
 		return;
 	}
 
@@ -310,7 +310,7 @@ function _beans_is_compiler_dev_mode() {
  */
 global $_beans_compiler_added_fragments;
 
-if ( !isset( $_beans_compiler_added_fragments ) ) {
+if ( ! isset( $_beans_compiler_added_fragments ) ) {
 	$_beans_compiler_added_fragments = array(
 		'css' => array(),
 		'less' => array(),

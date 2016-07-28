@@ -50,7 +50,7 @@ final class _Beans_Image_Options {
 	 */
 	public function flush() {
 
-		if ( !beans_post( 'beans_flush_edited_images' ) ) {
+		if ( ! beans_post( 'beans_flush_edited_images' ) ) {
 			return;
 		}
 
@@ -64,7 +64,7 @@ final class _Beans_Image_Options {
 	 */
 	public function admin_notice() {
 
-		if ( !beans_post( 'beans_flush_edited_images' ) ) {
+		if ( ! beans_post( 'beans_flush_edited_images' ) ) {
 			return;
 		}
 

@@ -179,7 +179,7 @@ final class _Beans_Fields {
 
 		static $once = false;
 
-		if ( !$once ) {
+		if ( ! $once ) {
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_global_assets' ) );
 			add_action( 'customize_controls_enqueue_scripts', array( $this, 'enqueue_global_assets' ) );
@@ -330,7 +330,7 @@ final class _Beans_Fields {
 	 */
 	public function get_fields( $context, $section ) {
 
-		if ( !$fields = beans_get( $section, self::$registered[ $context ] ) ) {
+		if ( ! $fields = beans_get( $section, self::$registered[ $context ] ) ) {
 			return false;
 		}
 

@@ -32,7 +32,7 @@ final class _Beans_Page_Compiler {
 	 */
 	public function compile_page_styles() {
 
-		if ( !beans_get_component_support( 'wp_styles_compiler' ) || !get_option( 'beans_compile_all_styles', false ) || _beans_is_compiler_dev_mode() ) {
+		if ( ! beans_get_component_support( 'wp_styles_compiler' ) || !get_option( 'beans_compile_all_styles', false ) || _beans_is_compiler_dev_mode() ) {
 			return;
 		}
 
@@ -48,7 +48,7 @@ final class _Beans_Page_Compiler {
 	 */
 	public function compile_page_scripts() {
 
-		if ( !beans_get_component_support( 'wp_scripts_compiler' ) || !get_option( 'beans_compile_all_scripts', false ) || _beans_is_compiler_dev_mode() ) {
+		if ( ! beans_get_component_support( 'wp_scripts_compiler' ) || !get_option( 'beans_compile_all_scripts', false ) || _beans_is_compiler_dev_mode() ) {
 			return;
 		}
 
@@ -76,7 +76,7 @@ final class _Beans_Page_Compiler {
 			add_action( 'wp_print_scripts', array( $this, 'dequeue_scripts' ), 9999 );
 		}
 
-		if ( !$depedencies ) {
+		if ( ! $depedencies ) {
 			$depedencies = $$set_global->queue;
 		}
 
@@ -89,7 +89,7 @@ final class _Beans_Page_Compiler {
 				continue;
 			}
 
-			if ( !$args = beans_get( $id, $$set_global->registered ) ) {
+			if ( ! $args = beans_get( $id, $$set_global->registered ) ) {
 				continue;
 			}
 
@@ -97,7 +97,7 @@ final class _Beans_Page_Compiler {
 
 				foreach ( $this->compile_enqueued( $type, $args->deps ) as $dep_id => $dep_src ) {
 
-					if ( !empty( $dep_src ) ) {
+					if ( ! empty( $dep_src ) ) {
 						$fragments[ $dep_id ] = $dep_src;
 					}
 
@@ -146,7 +146,7 @@ final class _Beans_Page_Compiler {
 		// Fetch the localized content and dequeue script.
 		foreach ( $this->dequeued_scripts as $id => $src ) {
 
-			if ( !$args = beans_get( $id, $wp_scripts->registered ) ) {
+			if ( ! $args = beans_get( $id, $wp_scripts->registered ) ) {
 				continue;
 			}
 

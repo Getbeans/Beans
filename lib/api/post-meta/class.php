@@ -50,7 +50,7 @@ final class _Beans_Post_Meta {
 
 		static $once = false;
 
-		if ( !$once ) {
+		if ( ! $once ) {
 
 			add_action( 'edit_form_top', array( $this, 'nonce' ) );
 			add_action( 'save_post', array( $this, 'save' ) );
@@ -102,11 +102,11 @@ final class _Beans_Post_Meta {
 			return false;
 		}
 
-		if ( !wp_verify_nonce( beans_post( 'beans_post_meta_nonce' ), 'beans_post_meta_nonce' ) ) {
+		if ( ! wp_verify_nonce( beans_post( 'beans_post_meta_nonce' ), 'beans_post_meta_nonce' ) ) {
 			return $post_id;
 		}
 
-		if ( !$fields = beans_post( 'beans_fields' ) ) {
+		if ( ! $fields = beans_post( 'beans_fields' ) ) {
 			return $post_id;
 		}
 
@@ -122,15 +122,15 @@ final class _Beans_Post_Meta {
 	 */
 	public function save_attachment( $attachment ) {
 
-		if ( !wp_verify_nonce( beans_post( 'beans_post_meta_nonce' ), 'beans_post_meta_nonce' ) ) {
+		if ( ! wp_verify_nonce( beans_post( 'beans_post_meta_nonce' ), 'beans_post_meta_nonce' ) ) {
 			return $post_id;
 		}
 
-		if ( !current_user_can( 'edit_post', $attachment['ID'] ) ) {
+		if ( ! current_user_can( 'edit_post', $attachment['ID'] ) ) {
 			return $attachment;
 		}
 
-		if ( !$fields = beans_post( 'beans_fields' ) ) {
+		if ( ! $fields = beans_post( 'beans_fields' ) ) {
 			return $attachment;
 		}
 

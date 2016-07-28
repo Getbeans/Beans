@@ -23,7 +23,7 @@
  */
 function beans_render_function( $callback ) {
 
-	if ( !is_callable( $callback ) ) {
+	if ( ! is_callable( $callback ) ) {
 		return;
 	}
 
@@ -52,7 +52,7 @@ function beans_render_function( $callback ) {
  */
 function beans_render_function_array( $callback, $params = array() ) {
 
-	if ( !is_callable( $callback ) ) {
+	if ( ! is_callable( $callback ) ) {
 		return;
 	}
 
@@ -76,7 +76,7 @@ function beans_render_function_array( $callback, $params = array() ) {
  */
 function beans_remove_dir( $dir_path ) {
 
-	if ( !is_dir( $dir_path ) ) {
+	if ( ! is_dir( $dir_path ) ) {
 		return false;
 	}
 
@@ -128,7 +128,7 @@ function beans_path_to_url( $path ) {
 	$path = wp_normalize_path( $path );
 
 	// Set root and host if it isn't cached.
-	if ( !$root ) {
+	if ( ! $root ) {
 
 		// Standardize backslashes set host.
 		$root = wp_normalize_path( untrailingslashit( ABSPATH ) );
@@ -141,8 +141,8 @@ function beans_path_to_url( $path ) {
 			$host = preg_replace( '#' . untrailingslashit( preg_quote( $subfolder ) ) . '$#', '', $host );
 
 			// Add the blog path for multsites.
-			if ( !is_main_site() && ( $blogdetails = get_blog_details( get_current_blog_id() ) ) ) {
-				if ( !( defined( 'WP_SITEURL' ) ) || ( defined( 'WP_SITEURL' ) && WP_SITEURL == site_url() ) ) {
+			if ( ! is_main_site() && ( $blogdetails = get_blog_details( get_current_blog_id() ) ) ) {
+				if ( ! ( defined( 'WP_SITEURL' ) ) || ( defined( 'WP_SITEURL' ) && WP_SITEURL == site_url() ) ) {
 					$host = untrailingslashit( $host ) . $blogdetails->path;
 				}
 			}
@@ -208,7 +208,7 @@ function beans_url_to_path( $url ) {
 	}
 
 	// Set root if it isn't cached yet.
-	if ( !$root ) {
+	if ( ! $root ) {
 
 		// Standardize backslashes and remove windows drive for local installs.
 		$root = wp_normalize_path( untrailingslashit( ABSPATH ) );
@@ -233,10 +233,10 @@ function beans_url_to_path( $url ) {
 		}
 
 		// Remove the blog path for multsites.
-		if ( !is_main_site() ) {
+		if ( ! is_main_site() ) {
 
 			// Set blogdetails if it isn't cached.
-			if ( !$blogdetails ) {
+			if ( ! $blogdetails ) {
 				$blogdetails = get_blog_details( get_current_blog_id() );
 			}
 
@@ -372,7 +372,7 @@ function beans_get_or_post( $needle, $default = null ) {
  */
 function beans_count_recursive( $array, $depth = false, $count_parent = true ) {
 
-	if ( !is_array( $array ) ) {
+	if ( ! is_array( $array ) ) {
 		return 0;
 	}
 
@@ -380,7 +380,7 @@ function beans_count_recursive( $array, $depth = false, $count_parent = true ) {
 		return count( $array );
 	}
 
-	if ( !is_numeric( $depth ) ) {
+	if ( ! is_numeric( $depth ) ) {
 		return count( $array, COUNT_RECURSIVE );
 	}
 
@@ -515,7 +515,7 @@ function beans_admin_menu_position( $position ) {
 
 	global $menu;
 
-	if ( !is_array( $position ) ) {
+	if ( ! is_array( $position ) ) {
 		return $position;
 	}
 
@@ -580,7 +580,7 @@ function beans_esc_attributes( $attributes ) {
 }
 
 
-if ( !function_exists( 'array_replace_recursive' ) ) {
+if ( ! function_exists( 'array_replace_recursive' ) ) {
 
 	/**
 	 * PHP 5.2 fallback.
@@ -589,7 +589,7 @@ if ( !function_exists( 'array_replace_recursive' ) ) {
 	 */
 	function array_replace_recursive( $base, $replacements ) {
 
-		if ( !is_array( $base ) || !is_array( $replacements ) ) {
+		if ( ! is_array( $base ) || ! is_array( $replacements ) ) {
 			return $base;
 		}
 

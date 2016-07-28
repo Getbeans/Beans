@@ -64,7 +64,7 @@ final class _Beans_Compiler {
 		$this->set_fragments();
 		$this->set_filname();
 
-		if ( !$this->cache_file_exist() ) {
+		if ( ! $this->cache_file_exist() ) {
 
 			$this->filesystem();
 			$this->maybe_make_dir();
@@ -96,11 +96,11 @@ final class _Beans_Compiler {
 	public function filesystem() {
 
 		// Initialize the WordPress Filsystem.
-		if ( !isset( $GLOBALS['wp_filesystem'] ) || empty( $GLOBALS['wp_filesystem'] ) ) {
+		if ( ! isset( $GLOBALS['wp_filesystem'] ) || empty( $GLOBALS['wp_filesystem'] ) ) {
 
 			require_once( ABSPATH . '/wp-admin/includes/file.php' );
 
-			if ( !WP_Filesystem() ) {
+			if ( ! WP_Filesystem() ) {
 				return $this->kill();
 			}
 
@@ -116,11 +116,11 @@ final class _Beans_Compiler {
 	 */
 	public function maybe_make_dir() {
 
-		if ( !@is_dir( $this->dir ) ) {
+		if ( ! @is_dir( $this->dir ) ) {
 			wp_mkdir_p( $this->dir );
 		}
 
-		if ( !is_writable( $this->dir ) ) {
+		if ( ! is_writable( $this->dir ) ) {
 			return false;
 		}
 
@@ -162,7 +162,7 @@ final class _Beans_Compiler {
 		$hash = substr( md5( @serialize( $this->compiler ) ), 0, 7 );
 
 		// Stop here and return filename if not in dev mode or if not using filesystem.
-		if ( !_beans_is_compiler_dev_mode() || !@is_dir( $this->dir ) ) {
+		if ( ! _beans_is_compiler_dev_mode() || ! @is_dir( $this->dir ) ) {
 			return $this->compiler['filename'] = $hash . '.' . $this->get_extension();
 		}
 
@@ -183,7 +183,7 @@ final class _Beans_Compiler {
 
 		}
 
-		if ( !empty( $fragments_filemtime ) ) {
+		if ( ! empty( $fragments_filemtime ) ) {
 
 			// Set filemtime hash.
 			$_hash = substr( md5( @serialize( $fragments_filemtime ) ), 0, 7 );
@@ -234,7 +234,7 @@ final class _Beans_Compiler {
 		$filename = $this->dir . '/' . $this->compiler['filename'];
 
 		// Safe to access filesystem since we made sure it was set.
-		if ( !$GLOBALS['wp_filesystem']->put_contents( $filename, $content, FS_CHMOD_FILE ) ) {
+		if ( ! $GLOBALS['wp_filesystem']->put_contents( $filename, $content, FS_CHMOD_FILE ) ) {
 			return false;
 		}
 
@@ -322,14 +322,14 @@ final class _Beans_Compiler {
 				$get_content = $this->get_internal_content();
 
 				// Try remote content if the internal content returned false.
-				if ( !$get_content ) {
+				if ( ! $get_content ) {
 					$get_content = $this->get_remote_content();
 				}
 
 			}
 
 			// Stop here if no content or content is an html page.
-			if ( !$get_content || preg_match( '#^\s*\<#', $get_content ) ) {
+			if ( ! $get_content || preg_match( '#^\s*\<#', $get_content ) ) {
 				continue;
 			}
 
@@ -357,13 +357,13 @@ final class _Beans_Compiler {
 
 		$fragment = $this->current_fragment;
 
-		if ( !file_exists( $fragment ) ) {
+		if ( ! file_exists( $fragment ) ) {
 
 			// Replace url with path.
 			$fragment = beans_url_to_path( $fragment );
 
 			// Stop here if it isn't a valid file.
-			if ( !file_exists( $fragment ) || 0 === @filesize( $fragment ) ) {
+			if ( ! file_exists( $fragment ) || 0 === @filesize( $fragment ) ) {
 				return false;
 			}
 
@@ -394,12 +394,12 @@ final class _Beans_Compiler {
 		$request = wp_remote_get( $fragment );
 
 		// If failed to get content, try with ssl url, otherwise go to next fragment.
-		if ( !is_wp_error( $request ) && ( !isset( $request['body'] ) || 200 != $request['response']['code'] ) ) {
+		if ( ! is_wp_error( $request ) && ( ! isset( $request['body'] ) || 200 != $request['response']['code'] ) ) {
 
 			$fragment = preg_replace( '#^http#', 'https', $fragment );
 			$request = wp_remote_get( $fragment );
 
-			if ( !is_wp_error( $request ) && ( !isset( $request['body'] ) || 200 != $request['response']['code'] ) ) {
+			if ( ! is_wp_error( $request ) && ( ! isset( $request['body'] ) || 200 != $request['response']['code'] ) ) {
 				return false;
 			}
 
@@ -433,7 +433,7 @@ final class _Beans_Compiler {
 		$parse_url = parse_url( $this->current_fragment );
 
 		// Return content if it no media query is set.
-		if ( !( $query = beans_get( 'query', $parse_url ) ) || false === stripos( $query, 'beans_compiler_media_query' ) ) {
+		if ( ! ( $query = beans_get( 'query', $parse_url ) ) || false === stripos( $query, 'beans_compiler_media_query' ) ) {
 			return $content;
 		}
 
@@ -458,7 +458,7 @@ final class _Beans_Compiler {
 
 			if ( 'less' == $this->compiler['format'] ) {
 
-				if ( !class_exists( 'Beans_Lessc' ) ) {
+				if ( ! class_exists( 'Beans_Lessc' ) ) {
 					require_once( BEANS_API_PATH . 'compiler/vendors/lessc.php' );
 				}
 
@@ -468,15 +468,15 @@ final class _Beans_Compiler {
 
 			}
 
-			if ( !_beans_is_compiler_dev_mode() ) {
+			if ( ! _beans_is_compiler_dev_mode() ) {
 				$content = $this->strip_whitespace( $content );
 			}
 
 		}
 
-		if ( 'script' == $this->compiler['type'] && !_beans_is_compiler_dev_mode() && $this->compiler['minify_js'] ) {
+		if ( 'script' == $this->compiler['type'] && ! _beans_is_compiler_dev_mode() && $this->compiler['minify_js'] ) {
 
-			if ( !class_exists( 'JSMin' ) ) {
+			if ( ! class_exists( 'JSMin' ) ) {
 				require_once( BEANS_API_PATH . 'compiler/vendors/js-minifier.php' );
 			}
 

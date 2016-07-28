@@ -42,7 +42,7 @@
 function beans_register_widget_area( $args = array(), $widget_control = array() ) {
 
     // Stop here if the id isn't set.
-    if ( !$id = beans_get( 'id', $args ) ) {
+    if ( ! $id = beans_get( 'id', $args ) ) {
         return;
     }
 
@@ -146,7 +146,7 @@ function beans_has_widget_area( $id ) {
 function beans_widget_area( $id ) {
 
     // Stop here if the widget area is not registered.
-    if ( !beans_has_widget_area( $id ) ) {
+    if ( ! beans_has_widget_area( $id ) ) {
         return false;
     }
 
@@ -198,7 +198,7 @@ function beans_get_widget_area( $needle = false ) {
 
     global $_beans_widget_area;
 
-    if ( !$needle ) {
+    if ( ! $needle ) {
         return $_beans_widget_area;
     }
 
@@ -243,7 +243,7 @@ function beans_have_widgets() {
 
     global $_beans_widget_area;
 
-    if ( !beans_get( 'widgets', $_beans_widget_area ) ) {
+    if ( ! beans_get( 'widgets', $_beans_widget_area ) ) {
         return false;
     }
 
@@ -277,7 +277,7 @@ function beans_setup_widget() {
     $widgets = array_keys( $_beans_widget_area['widgets'] );
 
     // Retrieve widget id if exists.
-    if ( !$id = beans_get( $_beans_widget_area['current_widget'], $widgets ) ) {
+    if ( ! $id = beans_get( $_beans_widget_area['current_widget'], $widgets ) ) {
         return false;
     }
 
@@ -304,7 +304,7 @@ function beans_get_widget( $needle = false ) {
 
     global $_beans_widget;
 
-    if ( !$needle ) {
+    if ( ! $needle ) {
         return $_beans_widget;
     }
 
@@ -347,7 +347,7 @@ function _beans_setup_widget_area( $id ) {
 
     global $_beans_widget_area, $wp_registered_sidebars;
 
-    if ( !isset( $wp_registered_sidebars[ $id ] ) ) {
+    if ( ! isset( $wp_registered_sidebars[ $id ] ) ) {
         return false;
     }
 
@@ -405,7 +405,7 @@ function _beans_setup_widgets( $widget_area_content ) {
 
     foreach ( explode( '<!--widget-end-->', $widget_area_content ) as $content ) {
 
-        if ( !preg_match( '#<!--widget-([a-z0-9-_]+?)-->#smU', $content, $matches ) ) {
+        if ( ! preg_match( '#<!--widget-([a-z0-9-_]+?)-->#smU', $content, $matches ) ) {
             continue;
         }
 
@@ -413,7 +413,7 @@ function _beans_setup_widgets( $widget_area_content ) {
         $id = $matches[1];
 
         // Stop here if the widget can't be found.
-        if ( !$data = beans_get( $id, $wp_registered_widgets ) ) {
+        if ( ! $data = beans_get( $id, $wp_registered_widgets ) ) {
             continue;
         }
 
@@ -584,7 +584,7 @@ function _beans_force_the_widget( $widget, $instance, $args ) {
 
     $widget_obj = $wp_widget_factory->widgets[ $widget ];
 
-    if ( !$widget_obj instanceof WP_Widget ) {
+    if ( ! $widget_obj instanceof WP_Widget ) {
         return;
     }
 

@@ -88,7 +88,7 @@ final class _Beans_Uikit {
 		}
 
 		// Add fixes.
-		if ( !empty( $components ) ) {
+		if ( ! empty( $components ) ) {
 			$components = array_merge( $components, array( BEANS_API_PATH . 'uikit/src/fixes.less' ) );
 		}
 
@@ -213,7 +213,7 @@ final class _Beans_Uikit {
 
 		foreach ( $directories as $dir_path ) {
 
-			if ( !is_dir( $dir_path ) ) {
+			if ( ! is_dir( $dir_path ) ) {
 				continue;
 			}
 
@@ -355,7 +355,7 @@ final class _Beans_Uikit {
 		);
 
 		// Stop here if it isn't a valid file or if it should be ignored.
-		if ( !isset( $pathinfo['filename'] ) || in_array( $pathinfo['filename'], $ignore ) ) {
+		if ( ! isset( $pathinfo['filename'] ) || in_array( $pathinfo['filename'], $ignore ) ) {
 			return null;
 		}
 

@@ -96,7 +96,7 @@ final class _Beans_Options {
 
 		global $wp_meta_boxes;
 
-		if ( !$boxes = beans_get( $page, $wp_meta_boxes ) ) {
+		if ( ! $boxes = beans_get( $page, $wp_meta_boxes ) ) {
 			return;
 		}
 
@@ -157,11 +157,11 @@ final class _Beans_Options {
 	 */
 	private function save() {
 
-		if ( !wp_verify_nonce( beans_post( 'beans_options_nonce' ), 'beans_options_nonce' ) ) {
+		if ( ! wp_verify_nonce( beans_post( 'beans_options_nonce' ), 'beans_options_nonce' ) ) {
 			return false;
 		}
 
-		if ( !( $fields = beans_post( 'beans_fields' ) ) ) {
+		if ( ! ( $fields = beans_post( 'beans_fields' ) ) ) {
 			return false;
 		}
 
@@ -179,11 +179,11 @@ final class _Beans_Options {
 	 */
 	private function reset() {
 
-		if ( !wp_verify_nonce( beans_post( 'beans_options_nonce' ), 'beans_options_nonce' ) ) {
+		if ( ! wp_verify_nonce( beans_post( 'beans_options_nonce' ), 'beans_options_nonce' ) ) {
 			return false;
 		}
 
-		if ( !( $fields = beans_post( 'beans_fields' ) ) ) {
+		if ( ! ( $fields = beans_post( 'beans_fields' ) ) ) {
 			return false;
 		}
 

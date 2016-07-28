@@ -68,12 +68,12 @@ function beans_register_options( array $fields, $menu_slug, $section, $args = ar
 	$menu_slug = apply_filters( "beans_options_menu_slug_{$section}", $menu_slug );
 
 	// Stop here if the page isn't concerned.
-	if ( ( beans_get( 'page' ) !== $menu_slug ) || !is_admin() ) {
+	if ( ( beans_get( 'page' ) !== $menu_slug ) || ! is_admin() ) {
 		return;
 	}
 
 	// Stop here if the field can't be registered.
-	if ( !beans_register_fields( $fields, 'option', $section ) ) {
+	if ( ! beans_register_fields( $fields, 'option', $section ) ) {
 		return false;
 	}
 
@@ -99,7 +99,7 @@ function beans_register_options( array $fields, $menu_slug, $section, $args = ar
  */
 function beans_options( $menu_slug ) {
 
-	if ( !class_exists( '_Beans_Options' ) ) {
+	if ( ! class_exists( '_Beans_Options' ) ) {
 		return false;
 	}
 
@@ -118,7 +118,7 @@ add_action( 'wp_loaded', '_beans_options_page_actions' );
  */
 function _beans_options_page_actions() {
 
-	if ( !beans_post( 'beans_options_nonce' ) ) {
+	if ( ! beans_post( 'beans_options_nonce' ) ) {
 		return;
 	}
 

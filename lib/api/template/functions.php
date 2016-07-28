@@ -62,7 +62,7 @@ function beans_load_default_template( $file ) {
 
 	$file = BEANS_STRUCTURE_PATH . basename( $file );
 
-	if ( !file_exists( $file ) ) {
+	if ( ! file_exists( $file ) ) {
 		return false;
 	}
 
@@ -99,7 +99,7 @@ function beans_load_fragment_file( $slug ) {
 	}
 
 	// Stop here if fragment file doesn't exists.
-	if ( !file_exists( BEANS_FRAGMENTS_PATH . $slug . '.php' ) ) {
+	if ( ! file_exists( BEANS_FRAGMENTS_PATH . $slug . '.php' ) ) {
 		return false;
 	}
 

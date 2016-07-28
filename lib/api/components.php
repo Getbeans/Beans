@@ -91,7 +91,7 @@ function beans_load_api_components( $components ) {
 	foreach ( (array) $components as $component ) {
 
 		// Stop here if the component is already loaded or doesn't exists.
-		if ( in_array( $component, $loaded ) || ( !isset( $common[ $component ] ) && !isset( $admin[ $component ] ) ) ) {
+		if ( in_array( $component, $loaded ) || ( ! isset( $common[ $component ] ) && ! isset( $admin[ $component ] ) ) ) {
 			continue;
 		}
 
@@ -178,7 +178,7 @@ function beans_get_component_support( $feature ) {
 
 	global $_beans_api_components_support;
 
-	if ( !isset( $_beans_api_components_support[ $feature ] ) ) {
+	if ( ! isset( $_beans_api_components_support[ $feature ] ) ) {
 		return false;
 	}
 
@@ -214,6 +214,6 @@ function beans_remove_api_component_support( $feature ) {
  */
 global $_beans_api_components_support;
 
-if ( !isset( $_beans_api_components_support ) ) {
+if ( ! isset( $_beans_api_components_support ) ) {
 	$_beans_api_components_support = array();
 }

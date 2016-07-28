@@ -46,7 +46,7 @@ function beans_field_image( $field ) {
 	$multiple = beans_get( 'multiple', $field );
 
 	// Hide beans if it is a single image and an image already exists
-	$hide = !$multiple && is_numeric( $field['value'] ) ? 'style="display: none"' : '';
+	$hide = ! $multiple && is_numeric( $field['value'] ) ? 'style="display: none"' : '';
 
 	?>
 	<a href="#" class="bs-add-image button button-small" <?php echo $hide; ?>><?php echo _n( 'Add Image', 'Add Images', ( $multiple ? 2 : 1 ), 'tm-beans' ); ?></a>
@@ -55,7 +55,7 @@ function beans_field_image( $field ) {
 		<?php foreach ( $images as $id ) :
 
 			// Stop here if the id is false.
-			if ( !$id ) {
+			if ( ! $id ) {
 				continue;
 			}
 

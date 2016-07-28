@@ -92,7 +92,7 @@ final class _Beans_Compiler_Options {
 	 */
 	public function flush() {
 
-		if ( !beans_post( 'beans_flush_compiler_cache' ) ) {
+		if ( ! beans_post( 'beans_flush_compiler_cache' ) ) {
 			return;
 		}
 
@@ -106,7 +106,7 @@ final class _Beans_Compiler_Options {
 	 */
 	public function admin_notice() {
 
-		if ( !beans_post( 'beans_flush_compiler_cache' ) ) {
+		if ( ! beans_post( 'beans_flush_compiler_cache' ) ) {
 			return;
 		}
 

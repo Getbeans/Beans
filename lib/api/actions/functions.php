@@ -412,7 +412,7 @@ function beans_reset_action( $id ) {
  */
 global $_beans_registered_actions;
 
-if ( !isset( $_beans_registered_actions ) ) {
+if ( ! isset( $_beans_registered_actions ) ) {
 	$_beans_registered_actions = array(
 		'added' => array(),
 		'modified' => array(),
@@ -433,11 +433,11 @@ function _beans_get_action( $id, $status ) {
 
 	$id = _beans_unique_action_id( $id );
 
-	if ( !$registered = beans_get( $status, $_beans_registered_actions ) ) {
+	if ( ! $registered = beans_get( $status, $_beans_registered_actions ) ) {
 		return false;
 	}
 
-	if ( !$action = beans_get( $id, $registered ) ) {
+	if ( ! $action = beans_get( $id, $registered ) ) {
 		return false;
 	}
 
@@ -458,7 +458,7 @@ function _beans_set_action( $id, $action, $status, $overwrite = false ) {
 	$id = _beans_unique_action_id( $id );
 
 	// Return action which already exist unless overwrite is set to true.
-	if ( !$overwrite && ( $_action = _beans_get_action( $id, $status ) ) ) {
+	if ( ! $overwrite && ( $_action = _beans_get_action( $id, $status ) ) ) {
 		return $_action;
 	}
 
@@ -481,7 +481,7 @@ function _beans_unset_action( $id, $status ) {
 	$id = _beans_unique_action_id( $id );
 
 	// Stop here if the action doesn't exist.
-	if ( !_beans_get_action( $id, $status ) ) {
+	if ( ! _beans_get_action( $id, $status ) ) {
 		return false;
 	}
 
@@ -567,7 +567,7 @@ function _beans_render_action( $hook ) {
 	$args = func_get_args();
 
 	// Return simple action if no sub-hook is set.
-	if ( !preg_match_all( '#\[(.*?)\]#', $args[0], $matches ) ) {
+	if ( ! preg_match_all( '#\[(.*?)\]#', $args[0], $matches ) ) {
 
 		if ( has_filter( $args[0] ) ) {
 			return call_user_func_array( 'beans_render_function', array_merge( array( 'do_action' ), $args ) );

@@ -61,12 +61,12 @@ function beans_register_term_meta( array $fields, $taxonomies, $section ) {
 	$taxonomies = apply_filters( "beans_term_meta_taxonomies_{$section}", (array) $taxonomies );
 
 	// Stop here if the current page isn't concerned.
-	if ( !_beans_is_admin_term( $taxonomies ) || !is_admin() ) {
+	if ( ! _beans_is_admin_term( $taxonomies ) || ! is_admin() ) {
 		return;
 	}
 
 	// Stop here if the field can't be registered.
-	if ( !beans_register_fields( $fields, 'term_meta', $section ) ) {
+	if ( ! beans_register_fields( $fields, 'term_meta', $section ) ) {
 		return false;
 	}
 
@@ -85,7 +85,7 @@ function beans_register_term_meta( array $fields, $taxonomies, $section ) {
  */
 function _beans_is_admin_term( $taxonomies ) {
 
-	if ( !$taxonomy = beans_get_or_post( 'taxonomy' ) ) {
+	if ( ! $taxonomy = beans_get_or_post( 'taxonomy' ) ) {
 		return false;
 	}
 

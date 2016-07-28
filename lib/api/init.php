@@ -17,7 +17,7 @@ if ( defined( 'BEANS_API' ) ) {
 define( 'BEANS_API', true );
 
 // Mode.
-if ( !defined( 'SCRIPT_DEBUG' ) ) {
+if ( ! defined( 'SCRIPT_DEBUG' ) ) {
 	define( 'SCRIPT_DEBUG', false );
 }
 
@@ -26,7 +26,7 @@ define( 'BEANS_MIN_CSS', SCRIPT_DEBUG ? '' : '.min' );
 define( 'BEANS_MIN_JS', SCRIPT_DEBUG ? '' : '.min' );
 
 // Path.
-if ( !defined( 'BEANS_API_PATH' ) ) {
+if ( ! defined( 'BEANS_API_PATH' ) ) {
 	define( 'BEANS_API_PATH', wp_normalize_path( trailingslashit( dirname( __FILE__ ) ) ) );
 }
 
@@ -38,7 +38,7 @@ require_once( BEANS_API_PATH . 'utilities/deprecated.php' );
 require_once( BEANS_API_PATH . 'components.php' );
 
 // Url.
-if ( !defined( 'BEANS_API_URL' ) ) {
+if ( ! defined( 'BEANS_API_URL' ) ) {
 	define( 'BEANS_API_URL', beans_path_to_url( BEANS_API_PATH ) );
 }
 
