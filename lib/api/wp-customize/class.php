@@ -51,9 +51,11 @@ final class _Beans_WP_Customize {
 
 		foreach ( $fields as $field ) {
 
-			if ( 'group' === $field['type'] )
-				foreach ( $field['fields'] as $_field )
+			if ( 'group' === $field['type'] ) {
+				foreach ( $field['fields'] as $_field ) {
 					$this->add_setting( $wp_customize, $_field );
+				}
+			}
 
 			$this->add_setting( $wp_customize, $field );
 			$this->add_control( $wp_customize, $field );
@@ -68,8 +70,9 @@ final class _Beans_WP_Customize {
 	 */
 	private function add_section( $wp_customize ) {
 
-		if ( $wp_customize->get_section( $this->section ) )
+		if ( $wp_customize->get_section( $this->section ) ) {
 			return;
+		}
 
 		$wp_customize->add_section(
 			$this->section,
@@ -117,8 +120,9 @@ final class _Beans_WP_Customize {
 
 		$class = '_Beans_WP_Customize_Control';
 
-		if ( $field['type'] !== $class && class_exists( $field['type'] ) )
+		if ( $field['type'] !== $class && class_exists( $field['type'] ) ) {
 			$class = $field['type'];
+		}
 
 		$wp_customize->add_control(
 			new $class(

@@ -46,8 +46,9 @@ function beans_uikit_enqueue_components( $components, $type = 'core', $autoload 
 		$uikit = new _Beans_Uikit;
 		$autoloads = $uikit->get_autoload_components( (array) $components );
 
-		foreach ( $autoloads as $autotype => $autoload )
+		foreach ( $autoloads as $autotype => $autoload ) {
 			beans_uikit_enqueue_components( $autoload, $autotype, false );
+		}
 
 	}
 
@@ -112,14 +113,17 @@ function beans_uikit_register_theme( $id, $path ) {
 	global $_beans_uikit_registered_items;
 
 	// Stop here if already registered.
-	if ( beans_get( $id, $_beans_uikit_registered_items['themes'] ) )
+	if ( beans_get( $id, $_beans_uikit_registered_items['themes'] ) ) {
 		return true;
+	}
 
-	if ( !$path )
+	if ( !$path ) {
 		return false;
+	}
 
-	if ( false !== stripos( $path, 'http' ) )
+	if ( false !== stripos( $path, 'http' ) ) {
 		$path = beans_url_to_path( $path );
+	}
 
 	$_beans_uikit_registered_items['themes'][ $id ] = trailingslashit( $path );
 
@@ -146,8 +150,9 @@ function beans_uikit_register_theme( $id, $path ) {
 function beans_uikit_enqueue_theme( $id, $path = false ) {
 
 	// Make sure it is registered, if not, try to do so.
-	if ( !beans_uikit_register_theme( $id, $path ) )
+	if ( !beans_uikit_register_theme( $id, $path ) ) {
 		return false;
+	}
 
 	global $_beans_uikit_enqueued_items;
 
@@ -185,7 +190,7 @@ function beans_uikit_dequeue_theme( $id ) {
  */
 global $_beans_uikit_registered_items;
 
-if ( !isset( $_beans_uikit_registered_items ) )
+if ( !isset( $_beans_uikit_registered_items ) ) {
 	$_beans_uikit_registered_items = array(
 		'themes' => array(
 			'default' => BEANS_API_PATH . 'uikit/src/themes/default',
@@ -194,7 +199,7 @@ if ( !isset( $_beans_uikit_registered_items ) )
 			'wordpress-admin' => BEANS_API_PATH . 'uikit/themes/wordpress-admin'
 		)
 	);
-
+}
 
 /**
  * Initialize enqueued UIkit items global.
@@ -203,7 +208,7 @@ if ( !isset( $_beans_uikit_registered_items ) )
  */
 global $_beans_uikit_enqueued_items;
 
-if ( !isset( $_beans_uikit_enqueued_items ) )
+if ( !isset( $_beans_uikit_enqueued_items ) ) {
 	$_beans_uikit_enqueued_items = array(
 		'components' => array(
 			'core' => array(),
@@ -211,7 +216,7 @@ if ( !isset( $_beans_uikit_enqueued_items ) )
 		),
 		'themes' => array()
 	);
-
+}
 
 /**
  * Get registered theme.
@@ -223,8 +228,9 @@ function _beans_uikit_get_registered_theme( $id ) {
 	global $_beans_uikit_registered_items;
 
 	// Stop here if is already registered.
-	if ( $theme = beans_get( $id, $_beans_uikit_registered_items['themes'] ) )
+	if ( $theme = beans_get( $id, $_beans_uikit_registered_items['themes'] ) ) {
 		return $theme;
+	}
 
 	return false;
 
@@ -240,8 +246,9 @@ add_action( 'wp_enqueue_scripts', '_beans_uikit_enqueue_assets', 7 );
  */
 function _beans_uikit_enqueue_assets() {
 
-	if ( !has_action( 'beans_uikit_enqueue_scripts' ) )
+	if ( !has_action( 'beans_uikit_enqueue_scripts' ) ) {
 		return;
+	}
 
 	/**
 	 * Fires when UIkit scripts and styles are enqueued.
@@ -267,8 +274,9 @@ add_action( 'admin_enqueue_scripts', '_beans_uikit_enqueue_admin_assets', 7 );
  */
 function _beans_uikit_enqueue_admin_assets() {
 
-	if ( !has_action( 'beans_uikit_admin_enqueue_scripts' ) )
+	if ( !has_action( 'beans_uikit_admin_enqueue_scripts' ) ) {
 		return;
+	}
 
 	/**
 	 * Fires when admin UIkit scripts and styles are enqueued.

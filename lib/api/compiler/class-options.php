@@ -37,7 +37,7 @@ final class _Beans_Compiler_Options {
 		);
 
 		// Add styles compiler option only if supported
-		if ( beans_get_component_support( 'wp_styles_compiler' ) )
+		if ( beans_get_component_support( 'wp_styles_compiler' ) ) {
 			$fields = array_merge( $fields, array(
 				array(
 					'id' => 'beans_compile_all_styles',
@@ -48,9 +48,10 @@ final class _Beans_Compiler_Options {
 					'description' => __( 'Compile and cache all the CSS files that have been enqueued to the WordPress head.', 'tm-beans' )
 				)
 			) );
+		}
 
 		// Add scripts compiler option only if supported
-		if ( beans_get_component_support( 'wp_scripts_compiler' ) )
+		if ( beans_get_component_support( 'wp_scripts_compiler' ) ) {
 			$fields = array_merge( $fields, array(
 				array(
 					'id' => 'beans_compile_all_scripts_group',
@@ -76,6 +77,7 @@ final class _Beans_Compiler_Options {
 					'description' => __( 'Compile and cache all the Javascript files that have been enqueued to the WordPress head.<!--more-->JavaSript is outputted in the footer if the level is set to <strong>Aggressive</strong> and might conflict with some third party plugins which are not following WordPress standards.', 'tm-beans' )
 				)
 			) );
+		}
 
 		beans_register_options( $fields, 'beans_settings', 'compiler_options', array(
 			'title' => __( 'Compiler options', 'tm-beans' ),
@@ -90,8 +92,9 @@ final class _Beans_Compiler_Options {
 	 */
 	public function flush() {
 
-		if ( !beans_post( 'beans_flush_compiler_cache' ) )
+		if ( !beans_post( 'beans_flush_compiler_cache' ) ) {
 			return;
+		}
 
 		beans_remove_dir( beans_get_compiler_dir() );
 
@@ -103,8 +106,9 @@ final class _Beans_Compiler_Options {
 	 */
 	public function admin_notice() {
 
-		if ( !beans_post( 'beans_flush_compiler_cache' ) )
+		if ( !beans_post( 'beans_flush_compiler_cache' ) ) {
 			return;
+		}
 
 		echo '<div id="message" class="updated"><p>' . __( 'Cache flushed successfully!', 'tm-beans' ) . '</p></div>' . "\n";
 
@@ -116,8 +120,9 @@ final class _Beans_Compiler_Options {
 	 */
 	public function option( $field ) {
 
-		if ( 'beans_compiler_items' !== $field['id'] )
+		if ( 'beans_compiler_items' !== $field['id'] ) {
 			return;
+		}
 
 		echo '<input type="submit" name="beans_flush_compiler_cache" value="' . __( 'Flush assets cache', 'tm-beans' ) . '" class="button-secondary" />';
 
@@ -129,8 +134,9 @@ final class _Beans_Compiler_Options {
 	 */
 	public function maybe_disable_style_notice() {
 
-		if ( get_option( 'beans_compile_all_styles' ) && _beans_is_compiler_dev_mode() )
+		if ( get_option( 'beans_compile_all_styles' ) && _beans_is_compiler_dev_mode() ) {
 			echo '<br /><span style="color: #d85030;">' . __( 'Styles are not compiled in development mode.', 'tm-beans' ) . '</span>';
+		}
 
 	}
 
@@ -139,8 +145,9 @@ final class _Beans_Compiler_Options {
 	 */
 	public function maybe_disable_scripts_notice() {
 
-		if ( get_option( 'beans_compile_all_scripts' ) && _beans_is_compiler_dev_mode() )
+		if ( get_option( 'beans_compile_all_scripts' ) && _beans_is_compiler_dev_mode() ) {
 			echo '<br /><span style="color: #d85030;">' . __( 'Scripts are not compiled in development mode.', 'tm-beans' ) . '</span>';
+		}
 
 	}
 

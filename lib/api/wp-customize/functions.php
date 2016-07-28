@@ -60,12 +60,14 @@ function beans_register_wp_customize_options( array $fields, $section, $args = a
 	$fields = apply_filters( "beans_wp_customize_fields_{$section}", _beans_pre_standardize_fields( $fields ) );
 
 	// Stop here if the current page isn't concerned.
-	if ( !is_customize_preview() )
+	if ( !is_customize_preview() ) {
 		return;
+	}
 
 	// Stop here if the field can't be registered.
-	if ( !beans_register_fields( $fields, 'wp_customize', $section ) )
+	if ( !beans_register_fields( $fields, 'wp_customize', $section ) ) {
 		return false;
+	}
 
 	// Load the class only if this function is called to prevent unnecessary memory usage.
 	require_once( BEANS_API_PATH . 'wp-customize/class.php' );

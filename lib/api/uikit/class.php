@@ -54,12 +54,14 @@ final class _Beans_Uikit {
 		) );
 
 		// Compile less.
-		if ( $styles )
+		if ( $styles ) {
 			beans_compile_less_fragments( 'uikit', array_unique( $styles ), $styles_args );
+		}
 
 		// Compile js.
-		if ( $scripts )
+		if ( $scripts ) {
 			beans_compile_js_fragments( 'uikit', array_unique( $scripts ), $scripts_args );
+		}
 
 	}
 
@@ -76,8 +78,9 @@ final class _Beans_Uikit {
 		foreach ( $_beans_uikit_enqueued_items['components'] as $type => $items ) {
 
 			// Add core before the components.
-			if ( 'core' == $type )
+			if ( 'core' == $type ) {
 				$items = array_merge( array( 'variables' ), $items );
+			}
 
 			// Fetch components from directories.
 			$components = array_merge( $components, $this->get_components_from_directory( $items, $this->get_less_directories( $type ), 'styles' ) );
@@ -85,8 +88,9 @@ final class _Beans_Uikit {
 		}
 
 		// Add fixes.
-		if ( !empty( $components ) )
+		if ( !empty( $components ) ) {
 			$components = array_merge( $components, array( BEANS_API_PATH . 'uikit/src/fixes.less' ) );
+		}
 
 		return $components;
 
@@ -105,7 +109,7 @@ final class _Beans_Uikit {
 		foreach ( $_beans_uikit_enqueued_items['components'] as $type => $items ) {
 
 			// Add core before the components.
-			if ( 'core' == $type )
+			if ( 'core' == $type ) {
 				$items = array_merge(
 					array(
 						'core',
@@ -115,6 +119,7 @@ final class _Beans_Uikit {
 					),
 					$items
 				);
+			}
 
 			// Fetch components from directories.
 			$components = array_merge( $components, $this->get_components_from_directory( $items, $this->get_js_directories( $type ), 'scripts' ) );
@@ -132,16 +137,19 @@ final class _Beans_Uikit {
 	 */
 	function get_less_directories( $type ) {
 
-		if ( 'add-ons' == $type )
+		if ( 'add-ons' == $type ) {
 			$type = 'components';
+		}
 
 		global $_beans_uikit_enqueued_items;
 
 		// Define uikit src directory.
 		$directories = array( BEANS_API_PATH . 'uikit/src/less/' . $type );
+
 		// Add the registered theme directories.
-		foreach ( $_beans_uikit_enqueued_items['themes'] as $id => $directory )
+		foreach ( $_beans_uikit_enqueued_items['themes'] as $id => $directory ) {
 			$directories[] = wp_normalize_path( untrailingslashit( $directory ) );
+		}
 
 		return $directories;
 
@@ -153,8 +161,9 @@ final class _Beans_Uikit {
 	 */
 	function get_js_directories( $type ) {
 
-		if ( 'add-ons' == $type )
+		if ( 'add-ons' == $type ) {
 			$type = 'components';
+		}
 
 		// Define uikit src directory.
 		return array( BEANS_API_PATH . 'uikit/src/js/' . $type );
@@ -179,8 +188,9 @@ final class _Beans_Uikit {
 				$file = trailingslashit( $directory ) . $component . '.' . $extension;
 
 				// Make sure the file exists.
-				if ( file_exists( $file ) )
+				if ( file_exists( $file ) ) {
 					$return[] = $file;
+				}
 
 			}
 
@@ -203,8 +213,9 @@ final class _Beans_Uikit {
 
 		foreach ( $directories as $dir_path ) {
 
-			if ( !is_dir( $dir_path ) )
+			if ( !is_dir( $dir_path ) ) {
 				continue;
+			}
 
 			$scandir = scandir( $dir_path );
 
@@ -344,8 +355,9 @@ final class _Beans_Uikit {
 		);
 
 		// Stop here if it isn't a valid file or if it should be ignored.
-		if ( !isset( $pathinfo['filename'] ) || in_array( $pathinfo['filename'], $ignore ) )
+		if ( !isset( $pathinfo['filename'] ) || in_array( $pathinfo['filename'], $ignore ) ) {
 			return null;
+		}
 
 		// Return the filename without the .min to avoid duplicates.
 		return str_replace( '.min', '', $pathinfo['filename'] );

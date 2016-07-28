@@ -31,11 +31,13 @@ function beans_output( $id, $output ) {
 
 	$output = call_user_func_array( 'beans_apply_filters', $args );
 
-	if ( empty( $output ) )
+	if ( empty( $output ) ) {
 		return;
+	}
 
-	if ( _beans_is_html_dev_mode() )
+	if ( _beans_is_html_dev_mode() ) {
 		$output = "<!-- open output: $id -->" . $output . "<!-- close output: $id -->";
+	}
 
 	return $output;
 
@@ -122,15 +124,17 @@ function beans_open_markup( $id, $tag, $attributes = array() ) {
 	// Set markup tag filter id.
 	$args[0] = $id . '_markup';
 
-	if ( isset( $args[2] ) )
+	if ( isset( $args[2] ) ) {
 		unset( $args[2] );
+	}
 
 	// Remove function $tag argument.
 	unset( $attributes_args[1] );
 
 	// Stop here if the tag is set to false, the before and after actions won't run in this case.
-	if ( null === ( $tag = call_user_func_array( 'beans_apply_filters', $args ) ) )
+	if ( null === ( $tag = call_user_func_array( 'beans_apply_filters', $args ) ) ) {
 		return;
+	}
 
 	// Remove function $tag argument.
 	unset( $args[1] );
@@ -141,8 +145,9 @@ function beans_open_markup( $id, $tag, $attributes = array() ) {
 	$output = call_user_func_array( '_beans_render_action', $args );
 
 		// Don't output the tag if empty, the before and after actions still run.
-		if ( $tag )
+		if ( $tag ) {
 			$output .= '<' . $tag . ' ' . call_user_func_array( 'beans_add_attributes', $attributes_args ) . ( _beans_is_html_dev_mode() ? ' data-markup-id="' . $id . '"' : null ) . ( $_temp_beans_selfclose_markup ? '/' : '' ) . '>';
+		}
 
 	// Set after action id.
 	$args[0] = $id . ( $_temp_beans_selfclose_markup ? '_after_markup' : '_prepend_markup' );
@@ -267,8 +272,9 @@ function beans_selfclose_markup_e( $id, $tag, $attributes = array() ) {
 function beans_close_markup( $id, $tag ) {
 
 	// Stop here if the tag is set to false, the before and after actions won't run in this case.
-	if ( null === ( $tag = beans_apply_filters( $id . '_markup', $tag ) ) )
+	if ( null === ( $tag = beans_apply_filters( $id . '_markup', $tag ) ) ) {
 		return;
+	}
 
 	$args = func_get_args();
 
@@ -281,8 +287,9 @@ function beans_close_markup( $id, $tag ) {
 	$output = call_user_func_array( '_beans_render_action', $args );
 
 		// Don't output the tag if empty, the before and after actions still run.
-		if ( $tag )
+		if ( $tag ) {
 			$output .= '</' . $tag . '>';
+		}
 
 	// Set after action id.
 	$args[0] = $id . '_after_markup';
@@ -362,8 +369,9 @@ function beans_modify_markup( $id, $markup, $priority = 10, $args = 1 ) {
  */
 function beans_remove_markup( $id, $remove_actions = false ) {
 
-	if ( $remove_actions )
+	if ( $remove_actions ) {
 		return beans_add_filter( $id . '_markup', null );
+	}
 
 	return beans_add_filter( $id . '_markup', false );
 
@@ -493,8 +501,9 @@ function beans_add_attributes( $id, $attributes = array() ) {
 	$args = func_get_args();
 	$args[0] = $id . '_attributes';
 
-	if ( !isset( $args[1] ) )
+	if ( !isset( $args[1] ) ) {
 		$args[1] = array();
+	}
 
 	$args[1] = wp_parse_args( $args[1] );
 
@@ -615,8 +624,9 @@ function beans_remove_attribute( $id, $attribute, $value = null ) {
  */
 function _beans_is_html_dev_mode() {
 
-	if ( defined( 'BEANS_HTML_DEV_MODE' ) )
+	if ( defined( 'BEANS_HTML_DEV_MODE' ) ) {
 		return BEANS_HTML_DEV_MODE;
+	}
 
 	return get_option( 'beans_dev_mode', false );
 

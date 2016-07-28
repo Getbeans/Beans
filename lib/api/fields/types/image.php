@@ -55,8 +55,9 @@ function beans_field_image( $field ) {
 		<?php foreach ( $images as $id ) :
 
 			// Stop here if the id is false.
-			if ( !$id )
+			if ( !$id ) {
 				continue;
+			}
 
 			$class = '';
 			$img = wp_get_attachment_image_src( $id, 'thumbnail' );

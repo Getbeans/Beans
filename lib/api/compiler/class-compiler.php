@@ -100,8 +100,9 @@ final class _Beans_Compiler {
 
 			require_once( ABSPATH . '/wp-admin/includes/file.php' );
 
-			if ( !WP_Filesystem() )
+			if ( !WP_Filesystem() ) {
 				return $this->kill();
+			}
 
 		}
 
@@ -115,11 +116,13 @@ final class _Beans_Compiler {
 	 */
 	public function maybe_make_dir() {
 
-		if ( !@is_dir( $this->dir ) )
+		if ( !@is_dir( $this->dir ) ) {
 			wp_mkdir_p( $this->dir );
+		}
 
-		if ( !is_writable( $this->dir ) )
+		if ( !is_writable( $this->dir ) ) {
 			return false;
+		}
 
 		return true;
 
@@ -133,8 +136,9 @@ final class _Beans_Compiler {
 
 		global $_beans_compiler_added_fragments;
 
-		if ( $added_fragments = beans_get( $this->compiler['id'], $_beans_compiler_added_fragments[ $this->compiler['format'] ] ) )
+		if ( $added_fragments = beans_get( $this->compiler['id'], $_beans_compiler_added_fragments[ $this->compiler['format'] ] ) ) {
 			$this->compiler['fragments'] = array_merge( $this->compiler['fragments'], $added_fragments );
+		}
 
 		/**
 		 * Filter the compiler fragment files.
@@ -158,8 +162,9 @@ final class _Beans_Compiler {
 		$hash = substr( md5( @serialize( $this->compiler ) ), 0, 7 );
 
 		// Stop here and return filename if not in dev mode or if not using filesystem.
-		if ( !_beans_is_compiler_dev_mode() || !@is_dir( $this->dir ) )
+		if ( !_beans_is_compiler_dev_mode() || !@is_dir( $this->dir ) ) {
 			return $this->compiler['filename'] = $hash . '.' . $this->get_extension();
+		}
 
 		$fragments_filemtime = array();
 
@@ -167,12 +172,14 @@ final class _Beans_Compiler {
 		foreach ( $this->compiler['fragments'] as $id => $fragment ) {
 
 			// Ignore if the fragment is a function.
-			if ( $this->is_function( $fragment ) )
+			if ( $this->is_function( $fragment ) ) {
 				continue;
+			}
 
 			// Only check file time for internal files.
-			if ( false !== strpos( $fragment, $_SERVER['HTTP_HOST'] ) || true == preg_match( '#^\/[^\/]#', $fragment ) )
+			if ( false !== strpos( $fragment, $_SERVER['HTTP_HOST'] ) || true == preg_match( '#^\/[^\/]#', $fragment ) ) {
 				$fragments_filemtime[ $id ] = @filemtime( beans_url_to_path( $fragment ) );
+			}
 
 		}
 
@@ -185,10 +192,14 @@ final class _Beans_Compiler {
 			unset( $items[0], $items[1] );
 
 			// Clean up other modified files.
-			foreach ( $items as $item )
+			foreach ( $items as $item ) {
+
 				// Remove if it contains initial hash, is the same format and doesn't contain the filemtime hash.
-				if ( false !== stripos( $item, $hash ) && false !== stripos( $item, $this->get_extension() ) && false === stripos( $item, $_hash ) )
+				if ( false !== stripos( $item, $hash ) && false !== stripos( $item, $this->get_extension() ) && false === stripos( $item, $_hash ) ) {
 					@unlink( $this->dir . '/' . $item );
+				}
+
+			}
 
 			// Set the new hash which will trigger to new compiling.
 			$hash = $hash . '-' . $_hash;
@@ -205,8 +216,9 @@ final class _Beans_Compiler {
 	 */
 	public function cache_file_exist() {
 
-		if ( ( $filname = beans_get( 'filename', $this->compiler ) ) && file_exists( $this->dir . '/' . $filname ) )
+		if ( ( $filname = beans_get( 'filename', $this->compiler ) ) && file_exists( $this->dir . '/' . $filname ) ) {
 			return true;
+		}
 
 		return false;
 
@@ -222,8 +234,9 @@ final class _Beans_Compiler {
 		$filename = $this->dir . '/' . $this->compiler['filename'];
 
 		// Safe to access filesystem since we made sure it was set.
-		if ( !$GLOBALS['wp_filesystem']->put_contents( $filename, $content, FS_CHMOD_FILE ) )
+		if ( !$GLOBALS['wp_filesystem']->put_contents( $filename, $content, FS_CHMOD_FILE ) ) {
 			return false;
+		}
 
 		return true;
 
@@ -236,12 +249,13 @@ final class _Beans_Compiler {
 	public function enqueue_file() {
 
 		// Enqueue css.
-		if ( 'style' == $this->compiler['type'] )
+		if ( 'style' == $this->compiler['type'] ) {
 			return wp_enqueue_style( $this->compiler['id'], $this->get_url(), $this->compiler['depedencies'], $this->compiler['version'] );
-
+		}
 		// Enqueue js file.
-		elseif ( 'script' == $this->compiler['type'] )
+		elseif ( 'script' == $this->compiler['type'] ) {
 			return wp_enqueue_script( $this->compiler['id'], $this->get_url(), $this->compiler['depedencies'], $this->compiler['version'], $this->compiler['in_footer'] );
+		}
 
 		return false;
 
@@ -255,8 +269,9 @@ final class _Beans_Compiler {
 
 		$url = trailingslashit( $this->url ) . beans_get( 'filename', $this->compiler );
 
-		if ( is_ssl() )
+		if ( is_ssl() ) {
 			$url = str_replace( 'http://', 'https://', $url );
+		}
 
 		return $url;
 
@@ -268,11 +283,11 @@ final class _Beans_Compiler {
 	 */
 	public function get_extension() {
 
-		if ( 'style' == $this->compiler['type'] )
+		if ( 'style' == $this->compiler['type'] ) {
 			return 'css';
-
-		elseif ( 'script' == $this->compiler['type'] )
+		} elseif ( 'script' == $this->compiler['type'] ) {
 			return 'js';
+		}
 
 	}
 
@@ -288,8 +303,9 @@ final class _Beans_Compiler {
 		foreach ( $this->compiler['fragments'] as $fragment ) {
 
 			// Stop here if the fragment is empty.
-			if ( empty( $fragment ) )
+			if ( empty( $fragment ) ) {
 				continue;
+			}
 
 			// Set the current fragment used by other functions.
 			$this->current_fragment = $fragment;
@@ -306,14 +322,16 @@ final class _Beans_Compiler {
 				$get_content = $this->get_internal_content();
 
 				// Try remote content if the internal content returned false.
-				if ( !$get_content )
+				if ( !$get_content ) {
 					$get_content = $this->get_remote_content();
+				}
 
 			}
 
 			// Stop here if no content or content is an html page.
-			if ( !$get_content || preg_match( '#^\s*\<#', $get_content ) )
+			if ( !$get_content || preg_match( '#^\s*\<#', $get_content ) ) {
 				continue;
+			}
 
 			// Add the content.
 			if ( 'style' == $this->compiler['type'] ) {
@@ -345,8 +363,9 @@ final class _Beans_Compiler {
 			$fragment = beans_url_to_path( $fragment );
 
 			// Stop here if it isn't a valid file.
-			if ( !file_exists( $fragment ) || 0 === @filesize( $fragment ) )
+			if ( !file_exists( $fragment ) || 0 === @filesize( $fragment ) ) {
 				return false;
+			}
 
 		}
 
@@ -364,12 +383,13 @@ final class _Beans_Compiler {
 		$fragment = $this->current_fragment;
 
 		// Replace double slaches by http. Mostly used for font referencing urls.
-		if ( true == preg_match( '#^\/\/#', $fragment ) )
+		if ( true == preg_match( '#^\/\/#', $fragment ) ) {
 			$fragment = preg_replace( '#^\/\/#', 'http://', $fragment );
-
+		}
 		// Add domain if it is local but could not be fetched as a file.
-		elseif ( true == preg_match( '#^\/#', $fragment ) )
+		elseif ( true == preg_match( '#^\/#', $fragment ) ) {
 			$fragment = site_url( $fragment );
+		}
 
 		$request = wp_remote_get( $fragment );
 
@@ -379,8 +399,9 @@ final class _Beans_Compiler {
 			$fragment = preg_replace( '#^http#', 'https', $fragment );
 			$request = wp_remote_get( $fragment );
 
-			if ( !is_wp_error( $request ) && ( !isset( $request['body'] ) || 200 != $request['response']['code'] ) )
+			if ( !is_wp_error( $request ) && ( !isset( $request['body'] ) || 200 != $request['response']['code'] ) ) {
 				return false;
+			}
 
 		}
 
@@ -405,14 +426,16 @@ final class _Beans_Compiler {
 	public function add_content_media_query( $content ) {
 
 		// Ignore if the fragment is a function.
-		if ( $this->is_function( $this->current_fragment ) )
+		if ( $this->is_function( $this->current_fragment ) ) {
 			return $content;
+		}
 
 		$parse_url = parse_url( $this->current_fragment );
 
 		// Return content if it no media query is set.
-		if ( !( $query = beans_get( 'query', $parse_url ) ) || false === stripos( $query, 'beans_compiler_media_query' ) )
+		if ( !( $query = beans_get( 'query', $parse_url ) ) || false === stripos( $query, 'beans_compiler_media_query' ) ) {
 			return $content;
+		}
 
 		// Wrap the content in the query.
 		$new_content = '@media ' . beans_get( 'beans_compiler_media_query', wp_parse_args( $query ) ) . ' {' . "\n";
@@ -435,8 +458,9 @@ final class _Beans_Compiler {
 
 			if ( 'less' == $this->compiler['format'] ) {
 
-				if ( !class_exists( 'Beans_Lessc' ) )
+				if ( !class_exists( 'Beans_Lessc' ) ) {
 					require_once( BEANS_API_PATH . 'compiler/vendors/lessc.php' );
+				}
 
 				$less = new Beans_Lessc();
 
@@ -444,15 +468,17 @@ final class _Beans_Compiler {
 
 			}
 
-			if ( !_beans_is_compiler_dev_mode() )
+			if ( !_beans_is_compiler_dev_mode() ) {
 				$content = $this->strip_whitespace( $content );
+			}
 
 		}
 
 		if ( 'script' == $this->compiler['type'] && !_beans_is_compiler_dev_mode() && $this->compiler['minify_js'] ) {
 
-			if ( !class_exists( 'JSMin' ) )
+			if ( !class_exists( 'JSMin' ) ) {
 				require_once( BEANS_API_PATH . 'compiler/vendors/js-minifier.php' );
+			}
 
 			$js_min = new JSMin( $content );
 
@@ -484,22 +510,25 @@ final class _Beans_Compiler {
 		$base = $this->current_fragment;
 
 		// Stop here if it isn't a internal file or not a valid format.
-		if ( true == preg_match( '#^(http|https|\/\/|data)#', $matches[1] ) )
+		if ( true == preg_match( '#^(http|https|\/\/|data)#', $matches[1] ) ) {
 			return $matches[0];
+		}
 
 		$explode_path = explode( '../', $matches[1] );
 
 		// Replace the base part according to the path "../".
-		foreach ( $explode_path as $value )
+		foreach ( $explode_path as $value ) {
 			$base = dirname( $base );
+		}
 
 		// Rebuild path.
 		$replace = preg_replace( '#^\/#', '', $explode_path );
 		$rebuilt_path = end( $replace );
 
 		// Make sure it is a valid base.
-		if ( '.' === $base )
+		if ( '.' === $base ) {
 			$base = '';
+		}
 
 		// Rebuild url and make sure it is a valid one using the beans_path_to_url function.
 		$url = beans_path_to_url( trailingslashit( $base ) . $rebuilt_path );
@@ -549,8 +578,9 @@ final class _Beans_Compiler {
 	 */
 	public function is_function( $fragment ) {
 
-		if ( is_array( $fragment ) || is_callable( $fragment ) )
+		if ( is_array( $fragment ) || is_callable( $fragment ) ) {
 			return true;
+		}
 
 		return false;
 
@@ -563,8 +593,9 @@ final class _Beans_Compiler {
 	public function kill() {
 
 		// Send report if set.
-		if ( beans_get( 'beans_send_compiler_report' ) )
+		if ( beans_get( 'beans_send_compiler_report' ) ) {
 			$this->report();
+		}
 
 		$html = beans_output( 'beans_compiler_error_title_text', sprintf(
 			'<h2>%s</h2>',

@@ -54,7 +54,7 @@ function beans_load_api_components( $components ) {
 	);
 
 	// Only load admin fragments if is_admin() is true.
-	if ( is_admin() )
+	if ( is_admin() ) {
 		$admin = array(
 			'options' => $root . 'options/functions.php',
 			'post-meta' => $root . 'post-meta/functions-admin.php',
@@ -63,8 +63,9 @@ function beans_load_api_components( $components ) {
 			'image' => $root . 'image/class-options.php',
 			'_admin_menu' => $root . 'admin-menu.php'// Internal use.
 		);
-	else
+	} else {
 		$admin = array();
+	}
 
 	// Set dependencies.
 	$dependencies = array(
@@ -90,29 +91,34 @@ function beans_load_api_components( $components ) {
 	foreach ( (array) $components as $component ) {
 
 		// Stop here if the component is already loaded or doesn't exists.
-		if ( in_array( $component, $loaded ) || ( !isset( $common[ $component ] ) && !isset( $admin[ $component ] ) ) )
+		if ( in_array( $component, $loaded ) || ( !isset( $common[ $component ] ) && !isset( $admin[ $component ] ) ) ) {
 			continue;
+		}
 
 		// Cache loaded component before calling dependencies.
 		$loaded[] = $component;
 
 		// Load dependencies.
-		if ( array_key_exists( $component, $dependencies ) )
+		if ( array_key_exists( $component, $dependencies ) ) {
 			beans_load_api_components( $dependencies[ $component ] );
+		}
 
 		$_components = array();
 
 		// Add common components.
-		if ( isset( $common[ $component ] ) )
+		if ( isset( $common[ $component ] ) ) {
 			$_components = (array) $common[ $component ];
+		}
 
 		// Add admin components.
-		if ( isset( $admin[ $component ] ) )
+		if ( isset( $admin[ $component ] ) ) {
 			$_components = array_merge( (array) $_components, (array) $admin[ $component ] );
+		}
 
 		// Load components.
-		foreach ( $_components as $component_path  )
+		foreach ( $_components as $component_path  ) {
 			require_once( $component_path );
+		}
 
 		/**
 		 * Fires when an API component is loaded.
@@ -146,10 +152,11 @@ function beans_add_api_component_support( $feature ) {
 
 	$args = func_get_args();
 
-	if ( 1 == func_num_args() )
+	if ( 1 == func_num_args() ) {
 		$args = true;
-	else
+	} else {
 		$args = array_slice( $args, 1 );
+	}
 
 	$_beans_api_components_support[ $feature ] = $args;
 
@@ -171,8 +178,9 @@ function beans_get_component_support( $feature ) {
 
 	global $_beans_api_components_support;
 
-	if ( !isset( $_beans_api_components_support[ $feature ] ) )
+	if ( !isset( $_beans_api_components_support[ $feature ] ) ) {
 		return false;
+	}
 
 	return $_beans_api_components_support[ $feature ];
 
@@ -206,5 +214,6 @@ function beans_remove_api_component_support( $feature ) {
  */
 global $_beans_api_components_support;
 
-if ( !isset( $_beans_api_components_support ) )
+if ( !isset( $_beans_api_components_support ) ) {
 	$_beans_api_components_support = array();
+}

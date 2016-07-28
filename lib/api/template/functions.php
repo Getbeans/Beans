@@ -62,8 +62,9 @@ function beans_load_default_template( $file ) {
 
 	$file = BEANS_STRUCTURE_PATH . basename( $file );
 
-	if ( !file_exists( $file ) )
+	if ( !file_exists( $file ) ) {
 		return false;
+	}
 
 	require_once( $file );
 
@@ -93,12 +94,14 @@ function beans_load_fragment_file( $slug ) {
 	 *
 	 * @param bool $pre True to short-circuit, False to let the function run.
 	 */
-	if ( apply_filters( 'beans_pre_load_fragment_' . $slug, false ) )
+	if ( apply_filters( 'beans_pre_load_fragment_' . $slug, false ) ) {
 		return false;
+	}
 
 	// Stop here if fragment file doesn't exists.
-	if ( !file_exists( BEANS_FRAGMENTS_PATH . $slug . '.php' ) )
+	if ( !file_exists( BEANS_FRAGMENTS_PATH . $slug . '.php' ) ) {
 		return false;
+	}
 
 	require_once( BEANS_FRAGMENTS_PATH . $slug . '.php' );
 

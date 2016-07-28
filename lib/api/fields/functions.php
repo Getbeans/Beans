@@ -43,8 +43,9 @@
  */
 function beans_register_fields( array $fields, $context, $section ) {
 
-	if ( empty( $fields ) )
+	if ( empty( $fields ) ) {
 		return false;
+	}
 
 	// Load the class only if this function is called to prevent unnecessary memory usage.
 	require_once( BEANS_API_PATH . 'fields/class.php' );
@@ -75,8 +76,9 @@ function beans_register_fields( array $fields, $context, $section ) {
  */
 function beans_get_fields( $context, $section = false ) {
 
-	if ( !class_exists( '_Beans_Fields' ) )
+	if ( !class_exists( '_Beans_Fields' ) ) {
 		return;
+	}
 
 	$class = new _Beans_Fields();
 	return $class->get_fields( $context, $section );
@@ -96,8 +98,9 @@ function beans_get_fields( $context, $section = false ) {
  */
 function beans_field( $field ) {
 
-	if ( !class_exists( '_Beans_Fields' ) )
+	if ( !class_exists( '_Beans_Fields' ) ) {
 		return;
+	}
 
 	$class = new _Beans_Fields();
 	$class->field_content( $field );
@@ -118,8 +121,9 @@ function _beans_pre_standardize_fields( $fields ) {
 
 		$_fields[ $field['id'] ] = $field;
 
-		if ( 'group' === beans_get( 'type', $field ) )
+		if ( 'group' === beans_get( 'type', $field ) ) {
 			$_fields[ $field['id'] ]['fields'] = _beans_pre_standardize_fields( $field['fields'] );
+		}
 
 	}
 

@@ -50,8 +50,9 @@ final class _Beans_Image_Editor {
 		$local_source = beans_url_to_path( $this->src );
 
 		// Treat internal files as such if possible.
-		if ( file_exists( $local_source ) )
+		if ( file_exists( $local_source ) ) {
 			$this->src = $local_source;
+		}
 
 	}
 
@@ -98,8 +99,9 @@ final class _Beans_Image_Editor {
 		$src = beans_path_to_url( $this->rebuilt_path );
 
 		// Simply return the source if dimensions are not requested
-		if ( 'STRING' == $this->output )
+		if ( 'STRING' == $this->output ) {
 			return $src;
+		}
 
 		// Get the new image dimensions
 		list( $width, $height ) = @getimagesize( $this->rebuilt_path );
@@ -110,10 +112,11 @@ final class _Beans_Image_Editor {
 			'height' => $height
 		);
 
-		if ( 'ARRAY_N' == $this->output )
+		if ( 'ARRAY_N' == $this->output ) {
 			return array_values( $array );
-		elseif ( 'OBJECT' == $this->output )
+		} elseif ( 'OBJECT' == $this->output ) {
 			return (object) $array;
+		}
 
 		return $array;
 
@@ -144,15 +147,17 @@ final class _Beans_Image_Editor {
 		$editor = wp_get_image_editor( $this->src );
 
 		// Stop here if there was an error.
-		if ( is_wp_error( $editor ) )
+		if ( is_wp_error( $editor ) ) {
 			return false;
+		}
 
 		// Fire image edit.
 		foreach ( $this->args as $function => $arguments ) {
 
 			// Make sure it is callable
-			if ( is_callable( array( $editor, $function ) ) )
+			if ( is_callable( array( $editor, $function ) ) ) {
 				call_user_func_array( array( $editor, $function ), (array) $arguments );
+			}
 
 		}
 
@@ -160,8 +165,9 @@ final class _Beans_Image_Editor {
 		$editor->save( $this->rebuilt_path );
 
 		// Stop here if there was an error.
-		if ( is_wp_error( $editor ) )
+		if ( is_wp_error( $editor ) ) {
 			return false;
+		}
 
 		return true;
 

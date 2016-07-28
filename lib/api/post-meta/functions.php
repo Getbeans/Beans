@@ -18,13 +18,15 @@
  */
 function beans_get_post_meta( $field_id, $default = false, $post_id = false ) {
 
-	if ( !$post_id )
+	if ( !$post_id ) {
 		$post_id = !( $id = get_the_id() ) ? beans_get( 'post' ): $id;
+	}
 
 	$post_meta = get_post_meta( $post_id );
 
-	if ( isset( $post_meta[ $field_id ] ) )
+	if ( isset( $post_meta[ $field_id ] ) ) {
 		return get_post_meta( $post_id, $field_id, true );
+	}
 
 	return $default;
 

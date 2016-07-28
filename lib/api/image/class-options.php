@@ -50,8 +50,9 @@ final class _Beans_Image_Options {
 	 */
 	public function flush() {
 
-		if ( !beans_post( 'beans_flush_edited_images' ) )
+		if ( !beans_post( 'beans_flush_edited_images' ) ) {
 			return;
+		}
 
 		beans_remove_dir( beans_get_images_dir() );
 
@@ -63,8 +64,9 @@ final class _Beans_Image_Options {
 	 */
 	public function admin_notice() {
 
-		if ( !beans_post( 'beans_flush_edited_images' ) )
+		if ( !beans_post( 'beans_flush_edited_images' ) ) {
 			return;
+		}
 
 		echo '<div id="message" class="updated"><p>' . __( 'Images flushed successfully!', 'tm-beans' ) . '</p></div>' . "\n";
 
@@ -76,8 +78,9 @@ final class _Beans_Image_Options {
 	 */
 	public function option( $field ) {
 
-		if ( 'beans_edited_images_directories' !== $field['id'] )
+		if ( 'beans_edited_images_directories' !== $field['id'] ) {
 			return;
+		}
 
 		echo '<input type="submit" name="beans_flush_edited_images" value="' . __( 'Flush images', 'tm-beans' ) . '" class="button-secondary" />';
 

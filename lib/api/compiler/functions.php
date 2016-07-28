@@ -32,8 +32,9 @@
  */
 function beans_compile_css_fragments( $id, $fragments, $args = array() ) {
 
-	if ( empty( $fragments ) )
+	if ( empty( $fragments ) ) {
 		return false;
+	}
 
 	$params = array(
 		'id' => $id,
@@ -67,8 +68,9 @@ function beans_compile_css_fragments( $id, $fragments, $args = array() ) {
  */
 function beans_compile_less_fragments( $id, $fragments, $args = array() ) {
 
-	if ( empty( $fragments ) )
+	if ( empty( $fragments ) ) {
 		return false;
+	}
 
 	$params = array(
 		'id' => $id,
@@ -106,8 +108,9 @@ function beans_compile_less_fragments( $id, $fragments, $args = array() ) {
  */
 function beans_compile_js_fragments( $id, $fragments, $args = array() ) {
 
-	if ( empty( $fragments ) )
+	if ( empty( $fragments ) ) {
 		return false;
+	}
 
 	$params = array(
 		'id' => $id,
@@ -136,24 +139,28 @@ function beans_compile_js_fragments( $id, $fragments, $args = array() ) {
  */
 function beans_compiler_add_fragment( $id, $fragments, $format ) {
 
-	if ( empty( $fragments ) )
+	if ( empty( $fragments ) ) {
 		return false;
+	}
 
 	global $_beans_compiler_added_fragments;
 
-	foreach ( (array) $fragments as $key => $fragment )
+	foreach ( (array) $fragments as $key => $fragment ) {
 
 		// Stop here if the format isn't valid.
-		if ( !isset( $_beans_compiler_added_fragments[ $format ] ) )
+		if ( !isset( $_beans_compiler_added_fragments[ $format ] ) ) {
 			continue;
-
+		}
 		// Register new compiler id if it doesn't exist and add fragment.
-		elseif ( !isset( $_beans_compiler_added_fragments[ $format ][ $id ] ) )
+		elseif ( !isset( $_beans_compiler_added_fragments[ $format ][ $id ] ) ) {
 			$_beans_compiler_added_fragments[ $format ][ $id ] = array( $fragment );
-
+		}
 		// Add fragment to existing compiler.
-		else
+		else {
 			$_beans_compiler_added_fragments[ $format ][ $id ][] = $fragment;
+		}
+
+	}
 
 }
 
@@ -189,8 +196,9 @@ function beans_flush_compiler( $id, $file_format = false, $admin = false ) {
 	$dir = trailingslashit( $cache_dir )  . $id;
 
 	// Stop here if directory doesn't exist.
-	if ( !is_dir( $dir ) )
+	if ( !is_dir( $dir ) ) {
 		return;
+	}
 
 	// Remove only specified format files.
 	if ( $file_format ) {
@@ -198,9 +206,13 @@ function beans_flush_compiler( $id, $file_format = false, $admin = false ) {
 		$items = scandir( $dir );
 		unset( $items[0], $items[1] );
 
-		foreach ( $items as $item )
-			if ( false !== stripos( $item, '.' . $file_format ) )
+		foreach ( $items as $item ) {
+
+			if ( false !== stripos( $item, '.' . $file_format ) ) {
 				@unlink( trailingslashit( $dir ) . $item );
+			}
+
+		}
 
 	}
 	// Remove all format files.
@@ -282,8 +294,9 @@ function beans_get_compiler_url( $admin = false ) {
  */
 function _beans_is_compiler_dev_mode() {
 
-	if ( defined( 'BEANS_COMPILER_DEV_MODE' ) )
+	if ( defined( 'BEANS_COMPILER_DEV_MODE' ) ) {
 		return BEANS_COMPILER_DEV_MODE;
+	}
 
 	return get_option( 'beans_dev_mode', false );
 
@@ -297,9 +310,10 @@ function _beans_is_compiler_dev_mode() {
  */
 global $_beans_compiler_added_fragments;
 
-if ( !isset( $_beans_compiler_added_fragments ) )
+if ( !isset( $_beans_compiler_added_fragments ) ) {
 	$_beans_compiler_added_fragments = array(
 		'css' => array(),
 		'less' => array(),
 		'js' => array()
 	);
+}

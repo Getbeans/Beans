@@ -109,14 +109,16 @@ function beans_get_post_attachment( $post_id, $size = 'full' ) {
  */
 function beans_edit_post_attachment( $post_id, $args = array() ) {
 
-	if ( !has_post_thumbnail( $post_id ) )
+	if ( !has_post_thumbnail( $post_id ) ) {
 		return false;
+	}
 
 	// Get full size image.
 	$attachement = beans_get_post_attachment( $post_id, 'full' );
 
-	if ( !$edited = beans_edit_image( $attachement->src, $args, 'ARRAY_A' ) )
+	if ( !$edited = beans_edit_image( $attachement->src, $args, 'ARRAY_A' ) ) {
 		return $attachement;
+	}
 
 	return (object) array_merge( (array) $attachement, $edited );
 
