@@ -6,10 +6,10 @@
  */
 
 beans_open_markup_e( 'beans_sidebar_primary', 'aside', array(
-	'class' => 'tm-secondary ' . beans_get_layout_class( 'sidebar_primary' ), // Automatically escaped.
-	'role' => 'complementary',
+	'class'     => 'tm-secondary ' . beans_get_layout_class( 'sidebar_primary' ), // Automatically escaped.
+	'role'      => 'complementary',
 	'itemscope' => 'itemscope',
-	'itemtype' => 'http://schema.org/WPSideBar'
+	'itemtype'  => 'http://schema.org/WPSideBar'
 ) );
 
 	/**

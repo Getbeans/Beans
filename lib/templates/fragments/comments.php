@@ -61,10 +61,10 @@ beans_add_smart_action( 'beans_comment_header', 'beans_comment_author' );
 function beans_comment_author() {
 
 	beans_open_markup_e( 'beans_comment_title', 'div', array(
-		'class' => 'uk-comment-title',
-		'itemprop' => 'author',
+		'class'     => 'uk-comment-title',
+		'itemprop'  => 'author',
 		'itemscope' => 'itemscope',
-		'itemtype' => 'http://schema.org/Person'
+		'itemtype'  => 'http://schema.org/Person'
 	) );
 
 		echo get_comment_author_link();
@@ -194,10 +194,10 @@ function beans_comment_links() {
 		// Reply.
 		echo get_comment_reply_link( array_merge( $comment->args, array(
 			'add_below' => 'comment-content',
-			'depth' => $comment->depth,
+			'depth'     => $comment->depth,
 			'max_depth' => $comment->args['max_depth'],
-			'before' => beans_open_markup( 'beans_comment_item[_reply]', 'li' ),
-			'after' => beans_close_markup( 'beans_comment_item[_reply]', 'li' )
+			'before'    => beans_open_markup( 'beans_comment_item[_reply]', 'li' ),
+			'after'     => beans_close_markup( 'beans_comment_item[_reply]', 'li' )
 		) ) );
 
 		// Edit.
@@ -285,7 +285,7 @@ function beans_comments_navigation() {
 
 	beans_open_markup_e( 'beans_comments_navigation', 'ul', array(
 		'class' => 'uk-pagination',
-		'role' => 'navigation'
+		'role'  => 'navigation'
 	) );
 
 		// Previous.
@@ -385,11 +385,11 @@ beans_add_smart_action( 'cancel_comment_reply_link', 'beans_comment_cancel_reply
 function beans_comment_cancel_reply_link( $html, $link, $text ) {
 
 	$output = beans_open_markup( 'beans_comment_cancel_reply_link', 'a', array(
-		'rel' => 'nofollow',
-		'id' => 'cancel-comment-reply-link',
+		'rel'   => 'nofollow',
+		'id'    => 'cancel-comment-reply-link',
 		'class' => 'uk-button uk-button-small uk-button-danger uk-margin-small-right',
 		'style' => isset( $_GET['replytocom'] ) ? '' : 'display:none;',
-		'href' => $link // Automatically escaped.
+		'href'  => $link // Automatically escaped.
 	) );
 
 		$output .= beans_output( 'beans_comment_cancel_reply_link_text', $text );
@@ -431,11 +431,11 @@ function beans_comment_form_comment() {
 		}
 
 		$output .= beans_open_markup( 'beans_comment_form_field[_comment]', 'textarea', array(
-			'id' => 'comment',
-			'class' => 'uk-width-1-1',
-			'name' => 'comment',
+			'id'       => 'comment',
+			'class'    => 'uk-width-1-1',
+			'name'     => 'comment',
 			'required' => '',
-			'rows' => 8,
+			'rows'     => 8,
 		) );
 
 		$output .= beans_close_markup( 'beans_comment_form_field[_comment]', 'textarea' );
@@ -509,11 +509,11 @@ function beans_comment_form_fields( $fields ) {
 			}
 
 			$author .= beans_selfclose_markup( 'beans_comment_form_field[_name]', 'input', array(
-				'id' => 'author',
+				'id'    => 'author',
 				'class' => 'uk-width-1-1',
-				'type' => 'text',
+				'type'  => 'text',
 				'value' => $commenter['comment_author'], // Automatically escaped.
-				'name' => 'author'
+				'name'  => 'author'
 			) );
 
 		$author .= beans_close_markup( 'beans_comment_form[_name]', 'div' );
@@ -543,11 +543,11 @@ function beans_comment_form_fields( $fields ) {
 			}
 
 			$email .= beans_selfclose_markup( 'beans_comment_form_field[_email]', 'input', array(
-				'id' => 'email',
-				'class' => 'uk-width-1-1',
-				'type' => 'text',
-				'value' => $commenter['comment_author_email'], // Automatically escaped.
-				'name' => 'email',
+				'id'       => 'email',
+				'class'    => 'uk-width-1-1',
+				'type'     => 'text',
+				'value'    => $commenter['comment_author_email'], // Automatically escaped.
+				'name'     => 'email',
 				'required' => get_option( 'require_name_email' ) ? '' : null
 			) );
 
@@ -578,11 +578,11 @@ function beans_comment_form_fields( $fields ) {
 			}
 
 			$url .= beans_selfclose_markup( 'beans_comment_form_field[_url]', 'input', array(
-				'id' => 'url',
+				'id'    => 'url',
 				'class' => 'uk-width-1-1',
-				'type' => 'text',
+				'type'  => 'text',
 				'value' => $commenter['comment_author_url'], // Automatically escaped.
-				'name' => 'url'
+				'name'  => 'url'
 			) );
 
 		$url .= beans_close_markup( 'beans_comment_form[_website]', 'div' );

@@ -17,10 +17,10 @@ function beans_primary_menu() {
 	$nav_visibility = current_theme_supports( 'offcanvas-menu' ) ? 'uk-visible-large' : '';
 
 	beans_open_markup_e( 'beans_primary_menu', 'nav', array(
-		'class' => 'tm-primary-menu uk-float-right uk-navbar',
-		'role' => 'navigation',
+		'class'     => 'tm-primary-menu uk-float-right uk-navbar',
+		'role'      => 'navigation',
 		'itemscope' => 'itemscope',
-		'itemtype' => 'http://schema.org/SiteNavigationElement'
+		'itemtype'  => 'http://schema.org/SiteNavigationElement'
 	) );
 
 		/**
@@ -32,11 +32,11 @@ function beans_primary_menu() {
 		 */
 		$args = apply_filters( 'beans_primary_menu_args', array(
 			'theme_location' => has_nav_menu( 'primary' ) ? 'primary' : '',
-			'fallback_cb' => 'beans_no_menu_notice',
-			'container' => '',
-			'menu_class' => $nav_visibility, // Automatically escaped.
-			'echo' => false,
-			'beans_type' => 'navbar'
+			'fallback_cb'    => 'beans_no_menu_notice',
+			'container'      => '',
+			'menu_class'     => $nav_visibility, // Automatically escaped.
+			'echo'           => false,
+			'beans_type'     => 'navbar'
 		) );
 
 		// Navigation.
@@ -61,8 +61,8 @@ function beans_primary_menu_offcanvas_button() {
 	}
 
 	beans_open_markup_e( 'beans_primary_menu_offcanvas_button', 'a', array(
-		'href' => '#offcanvas_menu',
-		'class' => 'uk-button uk-hidden-large',
+		'href'              => '#offcanvas_menu',
+		'class'             => 'uk-button uk-hidden-large',
 		'data-uk-offcanvas' => ''
 	) );
 
@@ -94,7 +94,7 @@ function beans_primary_offcanvas_menu() {
 
 	beans_open_markup_e( 'beans_primary_offcanvas_menu', 'nav', array(
 		'class' => 'tm-primary-offcanvas-menu uk-margin uk-margin-top',
-		'role' => 'navigation',
+		'role'  => 'navigation',
 	) );
 
 		/**
@@ -106,10 +106,10 @@ function beans_primary_offcanvas_menu() {
 		 */
 		$args = apply_filters( 'beans_primary_offcanvas_menu_args', array(
 			'theme_location' => has_nav_menu( 'primary' ) ? 'primary' : '',
-			'fallback_cb' => 'beans_no_menu_notice',
-			'container' => '',
-			'echo' => false,
-			'beans_type' => 'offcanvas'
+			'fallback_cb'    => 'beans_no_menu_notice',
+			'container'      => '',
+			'echo'           => false,
+			'beans_type'     => 'offcanvas'
 		) );
 
 		beans_output_e( 'beans_primary_offcanvas_menu', wp_nav_menu( $args ) );

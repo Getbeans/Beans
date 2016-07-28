@@ -6,8 +6,8 @@
  */
 
 $content_attributes = array(
-	'class' => 'tm-content',
-	'role' => 'main',
+	'class'    => 'tm-content',
+	'role'     => 'main',
 	'itemprop' => 'mainEntityOfPage'
 );
 

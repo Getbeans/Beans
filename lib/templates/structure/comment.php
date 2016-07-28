@@ -6,11 +6,11 @@
  */
 
 beans_open_markup_e( 'beans_comment', 'article', array(
-	'id' => 'div-comment-' . get_comment_ID(), // Automatically escaped.
-	'class' => 'uk-comment',
-	'itemprop' => 'comment',
+	'id'        => 'div-comment-' . get_comment_ID(), // Automatically escaped.
+	'class'     => 'uk-comment',
+	'itemprop'  => 'comment',
 	'itemscope' => 'itemscope',
-	'itemtype' => 'http://schema.org/Comment'
+	'itemtype'  => 'http://schema.org/Comment'
 ) );
 
 	beans_open_markup_e( 'beans_comment_header', 'header', array( 'class' => 'uk-comment-header' ) );
@@ -24,7 +24,10 @@ beans_open_markup_e( 'beans_comment', 'article', array(
 
 	beans_close_markup_e( 'beans_comment_header', 'header' );
 
-	beans_open_markup_e( 'beans_comment_body', 'div', array( 'class' => 'uk-comment-body', 'itemprop' => 'text' ) );
+	beans_open_markup_e( 'beans_comment_body', 'div', array(
+		'class'    => 'uk-comment-body',
+		'itemprop' => 'text'
+	) );
 
 		/**
 		 * Fires in the comment body.

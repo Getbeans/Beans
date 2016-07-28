@@ -16,7 +16,7 @@ echo beans_get_widget_area( 'before_widgets' );
 	if ( 'offcanvas' == beans_get_widget_area( 'beans_type' ) ) {
 
 		beans_open_markup_e( 'beans_widget_area_offcanvas_wrap' . _beans_widget_area_subfilters(), 'div', array(
-			'id' => beans_get_widget_area( 'id' ), // Automatically escaped.
+			'id'    => beans_get_widget_area( 'id' ), // Automatically escaped.
 			'class' => 'uk-offcanvas'
 		) );
 

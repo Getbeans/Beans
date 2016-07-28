@@ -53,7 +53,7 @@ function beans_favicon() {
 	$url = file_exists( get_stylesheet_directory() . '/favicon.ico' ) ? get_stylesheet_directory_uri() . '/favicon.ico' : BEANS_URL . 'favicon.ico';
 
 	beans_selfclose_markup_e( 'beans_favicon', 'link', array(
-		'rel' => 'Shortcut Icon',
+		'rel'  => 'Shortcut Icon',
 		'href' => $url, // Automatically escaped.
 		'type' => 'image/x-icon',
 	) );
@@ -100,16 +100,16 @@ function beans_site_branding() {
 	) );
 
 		beans_open_markup_e( 'beans_site_title_link', 'a', array(
-			'href' => home_url(), // Automatically escaped.
-			'rel' => 'home',
+			'href'     => home_url(), // Automatically escaped.
+			'rel'      => 'home',
 			'itemprop' => 'headline'
 		) );
 
 			if ( $logo = get_theme_mod( 'beans_logo_image', false ) ) {
 				beans_selfclose_markup_e( 'beans_logo_image', 'img', array(
 					'class' => 'tm-logo',
-					'src' => $logo, // Automatically escaped.
-					'alt' => get_bloginfo( 'name' ), // Automatically escaped.
+					'src'   => $logo, // Automatically escaped.
+					'alt'   => get_bloginfo( 'name' ), // Automatically escaped.
 				) );
 			} else {
 				beans_output_e( 'beans_site_title_text', get_bloginfo( 'name' ) );
@@ -137,7 +137,7 @@ function beans_site_title_tag() {
 	}
 
 	beans_open_markup_e( 'beans_site_title_tag', 'span', array(
-		'class' => 'tm-site-title-tag uk-text-small uk-text-muted uk-display-block',
+		'class'    => 'tm-site-title-tag uk-text-small uk-text-muted uk-display-block',
 		'itemprop' => 'description'
 	) );
 

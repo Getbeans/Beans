@@ -29,10 +29,10 @@ do_action( 'beans_before_loop' );
 		while ( have_posts() ) : the_post();
 
 			$article_attributes = array(
-				'id' => get_the_ID(), // Automatically escaped.
-				'class' => implode( ' ', get_post_class( array( 'uk-article', ( current_theme_supports( 'beans-default-styling' ) ? 'uk-panel-box' : null ) ) ) ), // Automatically escaped.
+				'id'        => get_the_ID(), // Automatically escaped.
+				'class'     => implode( ' ', get_post_class( array( 'uk-article', ( current_theme_supports( 'beans-default-styling' ) ? 'uk-panel-box' : null ) ) ) ), // Automatically escaped.
 				'itemscope' => 'itemscope',
-				'itemtype' => 'http://schema.org/CreativeWork'
+				'itemtype'  => 'http://schema.org/CreativeWork'
 			);
 
 			// Blog specifc attributes.

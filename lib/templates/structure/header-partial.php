@@ -6,10 +6,10 @@
  */
 
 beans_open_markup_e( 'beans_header', 'header', array(
-	'class' => 'tm-header uk-block',
-	'role' => 'banner',
+	'class'     => 'tm-header uk-block',
+	'role'      => 'banner',
 	'itemscope' => 'itemscope',
-	'itemtype' => 'http://schema.org/WPHeader'
+	'itemtype'  => 'http://schema.org/WPHeader'
 ) );
 
 	beans_open_markup_e( 'beans_fixed_wrap[_header]', 'div', 'class=uk-container uk-container-center' );
