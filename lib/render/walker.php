@@ -55,7 +55,7 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 		$attr['class'] = implode( ' ', array_filter( $attr['class'] ) );
 
 		// Set to null if empty to avoid outputing empty class html attribute.
-		if ( !$attr['class'] ) {
+		if ( ! $attr['class'] ) {
 			$attr['class'] = null;
 		}
 
@@ -157,7 +157,7 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 		$item_attr['class'] = implode( ' ', array_filter( $item_attr['class'] ) );
 
 		// Set to null if empty to avoid outputing empty class html attribute.
-		if ( !$item_attr['class'] ) {
+		if ( ! $item_attr['class'] ) {
 			$item_attr['class'] = null;
 		}
 

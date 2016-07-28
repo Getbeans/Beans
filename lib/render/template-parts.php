@@ -71,7 +71,7 @@ beans_add_smart_action( 'beans_content', 'beans_loop_template' );
 function beans_loop_template( $id = false ) {
 
 	// Set default loop id.
-	if ( !$id ) {
+	if ( ! $id ) {
 		$id = 'main';
 	}
 
@@ -117,8 +117,8 @@ function beans_comments_template() {
 	global $post;
 
 	$shortcircuit_conditions = array(
-		beans_get( 'ID', $post ) && !( comments_open() || get_comments_number() ),
-		!post_type_supports( beans_get( 'post_type', $post ), 'comments' )
+		beans_get( 'ID', $post ) && ! ( comments_open() || get_comments_number() ),
+		! post_type_supports( beans_get( 'post_type', $post ), 'comments' )
 	);
 
 	if ( in_array( true, $shortcircuit_conditions ) ) {
@@ -179,7 +179,7 @@ beans_add_smart_action( 'beans_primary_after_markup', 'beans_sidebar_primary_tem
  */
 function beans_sidebar_primary_template() {
 
-	if ( false === stripos( beans_get_layout(), 'sp' ) || !beans_has_widget_area( 'sidebar_primary' ) ) {
+	if ( false === stripos( beans_get_layout(), 'sp' ) || ! beans_has_widget_area( 'sidebar_primary' ) ) {
 		return;
 	}
 
@@ -199,7 +199,7 @@ beans_add_smart_action( 'beans_primary_after_markup', 'beans_sidebar_secondary_t
  */
 function beans_sidebar_secondary_template() {
 
-	if ( false === stripos( beans_get_layout(), 'ss' ) || !beans_has_widget_area( 'sidebar_secondary' ) ) {
+	if ( false === stripos( beans_get_layout(), 'ss' ) || ! beans_has_widget_area( 'sidebar_secondary' ) ) {
 		return;
 	}
 
@@ -250,6 +250,6 @@ function beans_footer_template() {
  *
  * @ignore
  */
-if ( !isset( $content_width ) ) {
+if ( ! isset( $content_width ) ) {
 	$content_width = 800;
 }

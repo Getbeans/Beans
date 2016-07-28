@@ -76,7 +76,7 @@ function beans_modify_menu_args( $args ) {
 	}
 
 	// Stop if it isn't a beans menu.
-	if ( !$type ) {
+	if ( ! $type ) {
 		return $args;
 	}
 
@@ -111,7 +111,7 @@ function beans_modify_menu_args( $args ) {
 	$attr['class'] = implode( ' ', array_filter( $attr['class'] ) );
 
 	// Set to null if empty to avoid outputing empty class html attribute.
-	if ( !$attr['class'] ) {
+	if ( ! $attr['class'] ) {
 		$attr['class'] = null;
 	}
 
@@ -124,7 +124,7 @@ function beans_modify_menu_args( $args ) {
 	);
 
 	// Allow walker overwrite.
-	if ( !beans_get( 'walker', $args ) ) {
+	if ( ! beans_get( 'walker', $args ) ) {
 		$args['walker'] = new _Beans_Walker_Nav_Menu;
 	}
 
