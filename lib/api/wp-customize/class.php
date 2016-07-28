@@ -22,8 +22,8 @@ final class _Beans_WP_Customize {
 	public function __construct( $section, $args ) {
 
 		$defaults = array(
-			'title' => __( 'Undefined', 'tm-beans' ),
-			'priority' => 30,
+			'title'       => __( 'Undefined', 'tm-beans' ),
+			'priority'    => 30,
 			'description' => false
 		);
 
@@ -77,8 +77,8 @@ final class _Beans_WP_Customize {
 		$wp_customize->add_section(
 			$this->section,
 			array(
-				'title' => $this->args['title'],
-				'priority' => $this->args['priority'],
+				'title'       => $this->args['title'],
+				'priority'    => $this->args['priority'],
 				'description' => $this->args['description'],
 			)
 		);
@@ -92,9 +92,9 @@ final class _Beans_WP_Customize {
 	private function add_setting( $wp_customize, $field ) {
 
 		$defaults = array(
-			'db_type' => 'theme_mod',
+			'db_type'    => 'theme_mod',
 			'capability' => 'edit_theme_options',
-			'transport' => 'postMessage',
+			'transport'  => 'postMessage',
 		);
 
 		$field = array_merge( $defaults, $field );
@@ -102,10 +102,10 @@ final class _Beans_WP_Customize {
 		$wp_customize->add_setting(
 			$field['name'],
 			array(
-				'default' => beans_get( 'default', $field ),
-				'type' => $field['db_type'],
-				'capability' => $field['capability'],
-				'transport' => $field['transport'],
+				'default'           => beans_get( 'default', $field ),
+				'type'              => $field['db_type'],
+				'capability'        => $field['capability'],
+				'transport'         => $field['transport'],
 				'sanitize_callback' => array( $this, 'sanitize' )
 			)
 		);
@@ -129,7 +129,7 @@ final class _Beans_WP_Customize {
 				$wp_customize,
 				$field['name'],
 				array(
-					'label' => $field['label'],
+					'label'   => $field['label'],
 					'section' => $this->section
 				),
 				$field

@@ -28,39 +28,39 @@ function beans_load_api_components( $components ) {
 	$root = BEANS_API_PATH;
 
 	$common = array(
-		'html' => array(
+		'html'         => array(
 			$root . 'html/functions.php',
 			$root . 'html/class.php'
 		),
-		'actions' => $root . 'actions/functions.php',
-		'filters' => $root . 'filters/functions.php',
+		'actions'      => $root . 'actions/functions.php',
+		'filters'      => $root . 'filters/functions.php',
 		'wp-customize' => $root . 'wp-customize/functions.php',
-		'post-meta' => $root . 'post-meta/functions.php',
-		'term-meta' => $root . 'term-meta/functions.php',
-		'fields' => $root . 'fields/functions.php',
-		'image' => $root . 'image/functions.php',
-		'compiler' => array(
+		'post-meta'    => $root . 'post-meta/functions.php',
+		'term-meta'    => $root . 'term-meta/functions.php',
+		'fields'       => $root . 'fields/functions.php',
+		'image'        => $root . 'image/functions.php',
+		'compiler'     => array(
 			$root . 'compiler/functions.php',
 			$root . 'compiler/class-compiler.php',
 			$root . 'compiler/class-page-compiler.php'
 		),
-		'uikit' => array(
+		'uikit'        => array(
 			$root . 'uikit/functions.php',
 			$root . 'uikit/class.php',
 		),
-		'layout' => $root . 'layout/functions.php',
-		'template' => $root . 'template/functions.php',
-		'widget' => $root . 'widget/functions.php'
+		'layout'       => $root . 'layout/functions.php',
+		'template'     => $root . 'template/functions.php',
+		'widget'       => $root . 'widget/functions.php'
 	);
 
 	// Only load admin fragments if is_admin() is true.
 	if ( is_admin() ) {
 		$admin = array(
-			'options' => $root . 'options/functions.php',
-			'post-meta' => $root . 'post-meta/functions-admin.php',
-			'term-meta' => $root . 'term-meta/functions-admin.php',
-			'compiler' => $root . 'compiler/class-options.php',
-			'image' => $root . 'image/class-options.php',
+			'options'     => $root . 'options/functions.php',
+			'post-meta'   => $root . 'post-meta/functions-admin.php',
+			'term-meta'   => $root . 'term-meta/functions-admin.php',
+			'compiler'    => $root . 'compiler/class-options.php',
+			'image'       => $root . 'image/class-options.php',
 			'_admin_menu' => $root . 'admin-menu.php'// Internal use.
 		);
 	} else {
@@ -69,23 +69,23 @@ function beans_load_api_components( $components ) {
 
 	// Set dependencies.
 	$dependencies = array(
-		'html' => array(
+		'html'         => array(
 			'_admin_menu',
 			'filters'
 		),
-		'fields' => array(
+		'fields'       => array(
 			'actions',
 			'html'
 		),
-		'options' => 'fields',
-		'post-meta' => 'fields',
-		'term-meta' => 'fields',
+		'options'      => 'fields',
+		'post-meta'    => 'fields',
+		'term-meta'    => 'fields',
 		'wp-customize' => 'fields',
-		'layout' => 'fields',
-		'image' => '_admin_menu',
-		'compiler' => '_admin_menu',
-		'uikit' => 'compiler',
-		'_admin_menu' => 'options'
+		'layout'       => 'fields',
+		'image'        => '_admin_menu',
+		'compiler'     => '_admin_menu',
+		'uikit'        => 'compiler',
+		'_admin_menu'  => 'options'
 	);
 
 	foreach ( (array) $components as $component ) {

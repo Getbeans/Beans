@@ -551,10 +551,10 @@ function beans_esc_attributes( $attributes ) {
 	 * @param array $method Associative array of selectors as keys and escaping method as values.
 	 */
 	$methods = apply_filters( 'beans_escape_attributes_methods', array(
-		'href' => 'esc_url',
-		'src' => 'esc_url',
+		'href'     => 'esc_url',
+		'src'      => 'esc_url',
 		'itemtype' => 'esc_url',
-		'onclick' => 'esc_js'
+		'onclick'  => 'esc_js'
 	) );
 
 	$string = '';

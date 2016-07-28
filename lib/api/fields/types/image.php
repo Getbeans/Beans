@@ -64,8 +64,8 @@ function beans_field_image( $field ) {
 
 			$attributes = array_merge( array(
 				'class' => 'image-id',
-				'type' => 'hidden',
-				'name' => $multiple ? $field['name'] . '[]' : $field['name'], // Return single value if not multiple.
+				'type'  => 'hidden',
+				'name'  => $multiple ? $field['name'] . '[]' : $field['name'], // Return single value if not multiple.
 				'value' => $id
 			), $field['attributes'] );
 

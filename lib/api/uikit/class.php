@@ -238,7 +238,7 @@ final class _Beans_Uikit {
 	function get_autoload_components( $components ) {
 
 		$autoload = array(
-			'core' => array(),
+			'core'    => array(),
 			'add-ons' => array()
 		);
 

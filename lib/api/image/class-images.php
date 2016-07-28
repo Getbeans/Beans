@@ -71,8 +71,8 @@ final class _Beans_Image_Editor {
 			if ( ! $this->edit() ) {
 
 				$array = array(
-					'src' => $this->src,
-					'width' => null,
+					'src'    => $this->src,
+					'width'  => null,
 					'height' => null
 				);
 
@@ -107,8 +107,8 @@ final class _Beans_Image_Editor {
 		list( $width, $height ) = @getimagesize( $this->rebuilt_path );
 
 		$array = array(
-			'src' => $src,
-			'width' => $width,
+			'src'    => $src,
+			'width'  => $width,
 			'height' => $height
 		);
 

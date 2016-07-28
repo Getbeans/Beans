@@ -47,14 +47,14 @@ final class _Beans_Compiler {
 		add_filter( 'filesystem_method', array( $this, 'filesystem_method' ) );
 
 		$defaults = array(
-			'id' => false,
-			'type' => false,
-			'format' => false,
-			'fragments' => array(),
+			'id'          => false,
+			'type'        => false,
+			'format'      => false,
+			'fragments'   => array(),
 			'depedencies' => false,
-			'in_footer' => false,
-			'minify_js' => false,
-			'version' => false
+			'in_footer'   => false,
+			'minify_js'   => false,
+			'version'     => false
 		);
 
 		$this->compiler = array_merge( $defaults, $args );
@@ -563,7 +563,7 @@ final class _Beans_Compiler {
 			",\n" => ",", // Don't wrap multiple selectors.
 			"\n}" => "}", // Don't wrap closing braces.
 			"} "  => "}\n", // Put each rule on it's own line.
-			"\n" => "" // Take out all line breaks
+			"\n"  => "" // Take out all line breaks
 		);
 
 		$search = array_keys( $replace );

@@ -193,9 +193,9 @@ global $_beans_uikit_registered_items;
 if ( ! isset( $_beans_uikit_registered_items ) ) {
 	$_beans_uikit_registered_items = array(
 		'themes' => array(
-			'default' => BEANS_API_PATH . 'uikit/src/themes/default',
-			'almost-flat' => BEANS_API_PATH . 'uikit/src/themes/almost-flat',
-			'gradient' => BEANS_API_PATH . 'uikit/src/themes/gradient',
+			'default'         => BEANS_API_PATH . 'uikit/src/themes/default',
+			'almost-flat'     => BEANS_API_PATH . 'uikit/src/themes/almost-flat',
+			'gradient'        => BEANS_API_PATH . 'uikit/src/themes/gradient',
 			'wordpress-admin' => BEANS_API_PATH . 'uikit/themes/wordpress-admin'
 		)
 	);
@@ -211,10 +211,10 @@ global $_beans_uikit_enqueued_items;
 if ( ! isset( $_beans_uikit_enqueued_items ) ) {
 	$_beans_uikit_enqueued_items = array(
 		'components' => array(
-			'core' => array(),
+			'core'    => array(),
 			'add-ons' => array(),
 		),
-		'themes' => array()
+		'themes'     => array()
 	);
 }
 

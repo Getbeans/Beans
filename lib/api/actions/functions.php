@@ -31,10 +31,10 @@
 function beans_add_action( $id, $hook, $callback, $priority = 10, $args = 1 ) {
 
 	$action = array(
-		'hook' => $hook,
+		'hook'     => $hook,
 		'callback' => $callback,
 		'priority' => $priority,
-		'args' => $args
+		'args'     => $args
 	);
 
 	// Replace original if set.
@@ -120,10 +120,10 @@ function beans_modify_action( $id, $hook = null, $callback = null, $priority = n
 	}
 
 	$action = array_filter( array(
-		'hook' => $hook,
+		'hook'     => $hook,
 		'callback' => $callback,
 		'priority' => $priority,
-		'args' => $args
+		'args'     => $args
 	) );
 
 	// Merge modified.
@@ -250,10 +250,10 @@ function beans_modify_action_arguments( $id, $args ) {
 function beans_replace_action( $id, $hook = null, $callback = null, $priority = null, $args = null ) {
 
 	$action = array(
-		'hook' => $hook,
+		'hook'     => $hook,
 		'callback' => $callback,
 		'priority' => $priority,
-		'args' => $args
+		'args'     => $args
 	);
 
 	// Set and get the latest replaced.
@@ -414,9 +414,9 @@ global $_beans_registered_actions;
 
 if ( ! isset( $_beans_registered_actions ) ) {
 	$_beans_registered_actions = array(
-		'added' => array(),
+		'added'    => array(),
 		'modified' => array(),
-		'removed' => array(),
+		'removed'  => array(),
 		'replaced' => array()
 	);
 }

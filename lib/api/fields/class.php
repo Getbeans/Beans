@@ -56,9 +56,9 @@ final class _Beans_Fields {
 	 * @type array
 	 */
 	private static $registered = array(
-		'option' => array(),
-		'post_meta' => array(),
-		'term_meta' => array(),
+		'option'       => array(),
+		'post_meta'    => array(),
+		'term_meta'    => array(),
 		'wp_customize' => array(),
 	);
 
@@ -107,12 +107,12 @@ final class _Beans_Fields {
 
 		// Set defaults.
 		$defaults = array(
-			'label' => false,
+			'label'       => false,
 			'description' => false,
-			'default' => false,
-			'context' => $this->context,
-			'attributes' => array(),
-			'db_group' => false
+			'default'     => false,
+			'context'     => $this->context,
+			'attributes'  => array(),
+			'db_group'    => false
 		);
 
 		$field = array_merge( $defaults, $field );

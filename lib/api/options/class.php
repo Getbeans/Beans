@@ -36,7 +36,7 @@ final class _Beans_Options {
 	public function register( $section, $args ) {
 
 		$defaults = array(
-			'title' => __( 'Undefined', 'tm-beans' ),
+			'title'   => __( 'Undefined', 'tm-beans' ),
 			'context' => 'normal'
 		);
 

@@ -41,10 +41,10 @@ beans_add_smart_action( 'beans_field_slider', 'beans_field_slider' );
 function beans_field_slider( $field ) {
 
 	$defaults = array(
-		'min' => 0,
-		'max' => 100,
+		'min'      => 0,
+		'max'      => 100,
 		'interval' => 1,
-		'unit' => null,
+		'unit'     => null,
 	);
 
 	$field	= array_merge( $defaults, $field );

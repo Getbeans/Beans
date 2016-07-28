@@ -52,9 +52,9 @@ function beans_register_widget_area( $args = array(), $widget_control = array() 
      * @since 1.0.0
      */
     $defaults = apply_filters( 'beans_widgets_area_default_args', array(
-        'beans_type' => 'stack',
-        'beans_show_widget_title' => true,
-        'beans_show_widget_badge' => false,
+        'beans_type'                 => 'stack',
+        'beans_show_widget_title'    => true,
+        'beans_show_widget_badge'    => false,
         'beans_widget_badge_content' => __( 'Hello', 'tm-beans' )
     ) );
 
@@ -354,9 +354,9 @@ function _beans_setup_widget_area( $id ) {
     // Add widget area delimiters. This is used to split wp sidebar as well as the widgets title.
     $wp_registered_sidebars[ $id ] = array_merge( $wp_registered_sidebars[ $id ], array(
         'before_widget' => '<!--widget-%1$s-->',
-        'after_widget' => '<!--widget-end-->',
-        'before_title' => '<!--title-start-->',
-        'after_title' => '<!--title-end-->',
+        'after_widget'  => '<!--widget-end-->',
+        'before_title'  => '<!--title-start-->',
+        'after_title'   => '<!--title-end-->',
     ) );
 
     // Start building widget area global before dynamic_sidebar is called.
@@ -484,8 +484,8 @@ function _beans_setup_widgets( $widget_area_content ) {
 
         // Add widget control arguments and register widget.
         $_beans_widgets[ $widget['id'] ] = array_merge( $widget, array(
-            'show_title' => $_beans_widget_area['beans_show_widget_title'],
-            'badge' => $_beans_widget_area['beans_show_widget_badge'],
+            'show_title'    => $_beans_widget_area['beans_show_widget_title'],
+            'badge'         => $_beans_widget_area['beans_show_widget_badge'],
             'badge_content' => $_beans_widget_area['beans_widget_badge_content'],
         ) );
 

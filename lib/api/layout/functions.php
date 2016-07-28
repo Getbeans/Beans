@@ -99,10 +99,10 @@ function beans_get_layout_class( $id ) {
 	 * }
 	 */
 	$args = apply_filters( 'beans_layout_grid_settings', array(
-		'grid' => 4,
-		'sidebar_primary' => 1,
+		'grid'              => 4,
+		'sidebar_primary'   => 1,
 		'sidebar_secondary' => 1,
-		'breakpoint' => 'medium'
+		'breakpoint'        => 'medium'
 	) );
 
 	$g = beans_get( 'grid', $args ); // $g stands for grid.
@@ -277,10 +277,12 @@ function beans_get_layouts_for_options( $add_default = false ) {
 	$layouts = apply_filters( 'beans_layouts', $layouts );
 
 	if ( $add_default ) {
-		$layouts = array_merge( array( 'default_fallback' => sprintf(
-			__( 'Use Default Layout (%s)',  'tm-beans' ),
-			'<a href="' . admin_url( 'customize.php?autofocus[control]=beans_layout' ) . '">' . _x( 'Modify', 'Default layout', 'tm-beans' ) . '</a>'
-		) ), $layouts );
+		$layouts = array_merge( array(
+			'default_fallback' => sprintf(
+				__( 'Use Default Layout (%s)',  'tm-beans' ),
+				'<a href="' . admin_url( 'customize.php?autofocus[control]=beans_layout' ) . '">' . _x( 'Modify', 'Default layout', 'tm-beans' ) . '</a>'
+			)
+		), $layouts );
 	}
 
 	return $layouts;

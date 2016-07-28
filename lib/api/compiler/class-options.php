@@ -30,8 +30,8 @@ final class _Beans_Compiler_Options {
 
 		$fields = array(
 			array(
-				'id' => 'beans_compiler_items',
-				'type' => 'flush_cache',
+				'id'          => 'beans_compiler_items',
+				'type'        => 'flush_cache',
 				'description' => __( 'Clear CSS and Javascript cached files. New cached versions will be compiled on page load.', 'tm-beans' )
 			)
 		);
@@ -40,12 +40,12 @@ final class _Beans_Compiler_Options {
 		if ( beans_get_component_support( 'wp_styles_compiler' ) ) {
 			$fields = array_merge( $fields, array(
 				array(
-					'id' => 'beans_compile_all_styles',
-					'label' => false,
+					'id'             => 'beans_compile_all_styles',
+					'label'          => false,
 					'checkbox_label' => __( 'Compile all WordPress styles', 'tm-beans' ),
-					'type' => 'checkbox',
-					'default' => false,
-					'description' => __( 'Compile and cache all the CSS files that have been enqueued to the WordPress head.', 'tm-beans' )
+					'type'           => 'checkbox',
+					'default'        => false,
+					'description'    => __( 'Compile and cache all the CSS files that have been enqueued to the WordPress head.', 'tm-beans' )
 				)
 			) );
 		}
@@ -54,23 +54,23 @@ final class _Beans_Compiler_Options {
 		if ( beans_get_component_support( 'wp_scripts_compiler' ) ) {
 			$fields = array_merge( $fields, array(
 				array(
-					'id' => 'beans_compile_all_scripts_group',
-					'label' => __( 'Compile all WordPress scripts', 'tm-beans' ),
-					'type' => 'group',
+					'id'     => 'beans_compile_all_scripts_group',
+					'label'  => __( 'Compile all WordPress scripts', 'tm-beans' ),
+					'type'   => 'group',
 					'fields' => array(
 						array(
-							'id' => 'beans_compile_all_scripts',
-							'type' => 'activation',
+							'id'      => 'beans_compile_all_scripts',
+							'type'    => 'activation',
 							'default' => false
 						),
 						array(
-							'id' => 'beans_compile_all_scripts_mode',
-							'type' => 'select',
-							'default' => 'aggressive',
+							'id'         => 'beans_compile_all_scripts_mode',
+							'type'       => 'select',
+							'default'    => 'aggressive',
 							'attributes' => array( 'style' => 'margin: -3px 0 0 -8px;' ),
-							'options' => array(
+							'options'    => array(
 								'aggressive' => __( 'Aggressive', 'tm-beans' ),
-								'standard' => __( 'Standard', 'tm-beans' )
+								'standard'   => __( 'Standard', 'tm-beans' )
 							)
 						),
 					),
@@ -80,7 +80,7 @@ final class _Beans_Compiler_Options {
 		}
 
 		beans_register_options( $fields, 'beans_settings', 'compiler_options', array(
-			'title' => __( 'Compiler options', 'tm-beans' ),
+			'title'   => __( 'Compiler options', 'tm-beans' ),
 			'context' => 'normal'
 		) );
 

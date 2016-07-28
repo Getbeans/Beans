@@ -29,8 +29,8 @@ final class _Beans_Post_Meta {
 	public function __construct( $section, $args ) {
 
 		$defaults = array(
-			'title' => __( 'Undefined', 'tm-beans' ),
-			'context' => 'normal',
+			'title'    => __( 'Undefined', 'tm-beans' ),
+			'context'  => 'normal',
 			'priority' => 'high',
 		);
 
