@@ -135,7 +135,7 @@ function beans_breadcrumb() {
 		foreach ( $breadcrumbs as $breadcrumb_url => $breadcrumb ) {
 
 			// Breadcrumb items.
-			if ( $i != count( $breadcrumbs ) - 1 ) {
+			if ( count( $breadcrumbs ) - 1 != $i ) {
 
 				beans_open_markup_e( 'beans_breadcrumb_item', 'li' );
 

@@ -176,7 +176,7 @@ final class _Beans_Uikit {
 	 */
 	function get_components_from_directory( $components, $directories, $format ) {
 
-		$extension = ( $format == 'styles' ) ? 'less' : 'min.js';
+		$extension = ( 'styles' == $format ) ? 'less' : 'min.js';
 
 		$return = array();
 

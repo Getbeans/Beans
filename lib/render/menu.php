@@ -72,7 +72,7 @@ function beans_modify_menu_args( $args ) {
 
 	// Check if the menu is in a widget area and set the type accordingly if it is defined.
 	if ( $widget_area_type = beans_get_widget_area( 'beans_type' ) ) {
-		$type = ( $widget_area_type == 'stack' ) ? 'sidenav' : $widget_area_type;
+		$type = ( 'stack' == $widget_area_type ) ? 'sidenav' : $widget_area_type;
 	}
 
 	// Stop if it isn't a beans menu.

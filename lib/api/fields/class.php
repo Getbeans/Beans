@@ -118,7 +118,7 @@ final class _Beans_Fields {
 		$field = array_merge( $defaults, $field );
 
 		// Set field name.
-		$field['name'] = $this->context == 'wp_customize' ? $field['id'] :  'beans_fields[' . $field['id'] . ']';
+		$field['name'] = 'wp_customize' == $this->context ? $field['id'] :  'beans_fields[' . $field['id'] . ']';
 
 		if ( 'group' === $field['type'] ) {
 

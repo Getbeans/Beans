@@ -588,13 +588,13 @@ function beans_posts_pagination() {
 			}
 
 			$is_separator = array(
-				$link != 1, // Not first.
-				$current == 1 && $link == 3 ? false : true, // Force first 3 items.
+				1 != $link, // Not first.
+				1 == $current && 3 == $link ? false : true, // Force first 3 items.
 				$count > 3, // More.
-				$link != $count, // Not last.
-				$link != ( $current - 1 ), // Not previous.
-				$link != $current, // Not current.
-				$link != ( $current + 1 ), // Not next.
+				$count != $link, // Not last.
+				( $current - 1 ) != $link, // Not previous.
+				$current != $link, // Not current.
+				( $current + 1 ) != $link, // Not next.
 			);
 
 			// Separator.
