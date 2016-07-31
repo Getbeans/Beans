@@ -22,7 +22,7 @@ function beans_footer_content() {
 
 			beans_output_e( 'beans_footer_credit_text', sprintf(
 				__( '&#x000A9; %1$s - %2$s. All rights reserved.', 'tm-beans' ),
-				date( "Y" ),
+				date( 'Y' ),
 				get_bloginfo( 'name' )
 			) );
 

@@ -532,25 +532,25 @@ final class _Beans_Compiler {
 	public function strip_whitespace( $content ) {
 
 		$replace = array(
-			"#/\*.*?\*/#s" => '', // Strip comments.
-			"#\s\s+#"      => ' ', // Strip excess whitespace.
+			'#/\*.*?\*/#s' => '', // Strip comments.
+			'#\s\s+#'      => ' ', // Strip excess whitespace.
 		);
 
 		$search = array_keys( $replace );
 		$content = preg_replace( $search, $replace, $content );
 
 		$replace = array(
-			": "  => ":",
-			"; "  => ";",
-			" {"  => "{",
-			" }"  => "}",
-			", "  => ",",
-			"{ "  => "{",
-			";}"  => "}", // Strip optional semicolons.
-			",\n" => ",", // Don't wrap multiple selectors.
-			"\n}" => "}", // Don't wrap closing braces.
-			"} "  => "}\n", // Put each rule on it's own line.
-			"\n"  => "", // Take out all line breaks
+			': '  => ':',
+			'; '  => ';',
+			' {'  => '{',
+			' }'  => '}',
+			', '  => ',',
+			'{ '  => '{',
+			';}'  => '}', // Strip optional semicolons.
+			',\n' => ',', // Don't wrap multiple selectors.
+			'\n}' => '}', // Don't wrap closing braces.
+			'} '  => "}\n", // Put each rule on it's own line.
+			'\n'  => '', // Take out all line breaks
 		);
 
 		$search = array_keys( $replace );
