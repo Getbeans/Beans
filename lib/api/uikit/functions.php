@@ -196,8 +196,8 @@ if ( ! isset( $_beans_uikit_registered_items ) ) {
 			'default'         => BEANS_API_PATH . 'uikit/src/themes/default',
 			'almost-flat'     => BEANS_API_PATH . 'uikit/src/themes/almost-flat',
 			'gradient'        => BEANS_API_PATH . 'uikit/src/themes/gradient',
-			'wordpress-admin' => BEANS_API_PATH . 'uikit/themes/wordpress-admin'
-		)
+			'wordpress-admin' => BEANS_API_PATH . 'uikit/themes/wordpress-admin',
+		),
 	);
 }
 
@@ -214,7 +214,7 @@ if ( ! isset( $_beans_uikit_enqueued_items ) ) {
 			'core'    => array(),
 			'add-ons' => array(),
 		),
-		'themes'     => array()
+		'themes'     => array(),
 	);
 }
 

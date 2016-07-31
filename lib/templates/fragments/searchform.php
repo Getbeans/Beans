@@ -21,7 +21,7 @@ function beans_search_form() {
 		'class'  => 'uk-form uk-form-icon uk-form-icon-flip uk-width-1-1',
 		'method' => 'get',
 		'action' => esc_url( home_url( '/' ) ),
-		'role'   => 'search'
+		'role'   => 'search',
 	) );
 
 		$output .= beans_selfclose_markup( 'beans_search_form_input', 'input', array(
@@ -29,7 +29,7 @@ function beans_search_form() {
 			'type'        => 'search',
 			'placeholder' => __( 'Search', 'tm-beans' ), // Automatically escaped.
 			'value'       => esc_attr( get_search_query() ),
-			'name'        => 's'
+			'name'        => 's',
 		) );
 
 		$output .= beans_open_markup( 'beans_search_form_input_icon', 'i', 'class=uk-icon-search' );

@@ -38,7 +38,7 @@ function beans_enqueue_uikit_components() {
 		'offcanvas',
 		'text',
 		'utility',
-		'icon'
+		'icon',
 	);
 
 	beans_uikit_enqueue_components( $core, 'core', false );

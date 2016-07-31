@@ -80,5 +80,5 @@ $shortcode_tags = array_merge( $shortcode_tags, array(
 	'beans_post_meta_author'     => 'beans_post_meta_author_shortcode',
 	'beans_post_meta_comments'   => 'beans_post_meta_comments_shortcode',
 	'beans_post_meta_tags'       => 'beans_post_meta_tags_shortcode',
-	'beans_post_meta_categories' => 'beans_post_meta_categories_shortcode'
+	'beans_post_meta_categories' => 'beans_post_meta_categories_shortcode',
 ) );

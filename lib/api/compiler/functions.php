@@ -40,7 +40,7 @@ function beans_compile_css_fragments( $id, $fragments, $args = array() ) {
 		'id'        => $id,
 		'type'      => 'style',
 		'format'    => 'css',
-		'fragments' => (array) $fragments
+		'fragments' => (array) $fragments,
 	);
 
 	new _Beans_Compiler( $params + $args );
@@ -76,7 +76,7 @@ function beans_compile_less_fragments( $id, $fragments, $args = array() ) {
 		'id'        => $id,
 		'type'      => 'style',
 		'format'    => 'less',
-		'fragments' => (array) $fragments
+		'fragments' => (array) $fragments,
 	);
 
 	new _Beans_Compiler( $params + $args );
@@ -116,7 +116,7 @@ function beans_compile_js_fragments( $id, $fragments, $args = array() ) {
 		'id'        => $id,
 		'type'      => 'script',
 		'format'    => 'js',
-		'fragments' => (array) $fragments
+		'fragments' => (array) $fragments,
 	);
 
 	new _Beans_Compiler( $params + $args );
@@ -314,6 +314,6 @@ if ( ! isset( $_beans_compiler_added_fragments ) ) {
 	$_beans_compiler_added_fragments = array(
 		'css'  => array(),
 		'less' => array(),
-		'js'   => array()
+		'js'   => array(),
 	);
 }

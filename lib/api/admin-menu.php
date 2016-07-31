@@ -55,13 +55,13 @@ final class _Beans_Admin {
 				'id'             => 'beans_dev_mode',
 				'checkbox_label' => __( 'Enable development mode', 'tm-beans' ),
 				'type'           => 'checkbox',
-				'description'    => __( 'This option should be enabled while your website is in development.', 'tm-beans' )
-			)
+				'description'    => __( 'This option should be enabled while your website is in development.', 'tm-beans' ),
+			),
 		);
 
 		beans_register_options( $fields, 'beans_settings', 'mode_options', array(
 			'title'   => __( 'Mode options', 'tm-beans' ),
-			'context' => beans_get( 'beans_settings', $wp_meta_boxes ) ? 'column' : 'normal' // Check for other beans boxes.
+			'context' => beans_get( 'beans_settings', $wp_meta_boxes ) ? 'column' : 'normal', // Check for other beans boxes.
 		) );
 
 	}

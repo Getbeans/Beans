@@ -30,7 +30,7 @@ function beans_load_api_components( $components ) {
 	$common = array(
 		'html'         => array(
 			$root . 'html/functions.php',
-			$root . 'html/class.php'
+			$root . 'html/class.php',
 		),
 		'actions'      => $root . 'actions/functions.php',
 		'filters'      => $root . 'filters/functions.php',
@@ -42,7 +42,7 @@ function beans_load_api_components( $components ) {
 		'compiler'     => array(
 			$root . 'compiler/functions.php',
 			$root . 'compiler/class-compiler.php',
-			$root . 'compiler/class-page-compiler.php'
+			$root . 'compiler/class-page-compiler.php',
 		),
 		'uikit'        => array(
 			$root . 'uikit/functions.php',
@@ -50,7 +50,7 @@ function beans_load_api_components( $components ) {
 		),
 		'layout'       => $root . 'layout/functions.php',
 		'template'     => $root . 'template/functions.php',
-		'widget'       => $root . 'widget/functions.php'
+		'widget'       => $root . 'widget/functions.php',
 	);
 
 	// Only load admin fragments if is_admin() is true.
@@ -61,7 +61,7 @@ function beans_load_api_components( $components ) {
 			'term-meta'   => $root . 'term-meta/functions-admin.php',
 			'compiler'    => $root . 'compiler/class-options.php',
 			'image'       => $root . 'image/class-options.php',
-			'_admin_menu' => $root . 'admin-menu.php'// Internal use.
+			'_admin_menu' => $root . 'admin-menu.php', // Internal use.
 		);
 	} else {
 		$admin = array();
@@ -71,11 +71,11 @@ function beans_load_api_components( $components ) {
 	$dependencies = array(
 		'html'         => array(
 			'_admin_menu',
-			'filters'
+			'filters',
 		),
 		'fields'       => array(
 			'actions',
-			'html'
+			'html',
 		),
 		'options'      => 'fields',
 		'post-meta'    => 'fields',
@@ -85,7 +85,7 @@ function beans_load_api_components( $components ) {
 		'image'        => '_admin_menu',
 		'compiler'     => '_admin_menu',
 		'uikit'        => 'compiler',
-		'_admin_menu'  => 'options'
+		'_admin_menu'  => 'options',
 	);
 
 	foreach ( (array) $components as $component ) {

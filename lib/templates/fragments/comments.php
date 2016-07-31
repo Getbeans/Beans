@@ -64,7 +64,7 @@ function beans_comment_author() {
 		'class'     => 'uk-comment-title',
 		'itemprop'  => 'author',
 		'itemscope' => 'itemscope',
-		'itemtype'  => 'http://schema.org/Person'
+		'itemtype'  => 'http://schema.org/Person',
 	) );
 
 		echo get_comment_author_link();
@@ -148,7 +148,7 @@ function beans_comment_metadata() {
 
 		beans_open_markup_e( 'beans_comment_time', 'time', array(
 			'datetime' => get_comment_time( 'c' ),
-			'itemprop' => 'datePublished'
+			'itemprop' => 'datePublished',
 		) );
 
 			beans_output_e( 'beans_comment_time_text', sprintf(
@@ -197,7 +197,7 @@ function beans_comment_links() {
 			'depth'     => $comment->depth,
 			'max_depth' => $comment->args['max_depth'],
 			'before'    => beans_open_markup( 'beans_comment_item[_reply]', 'li' ),
-			'after'     => beans_close_markup( 'beans_comment_item[_reply]', 'li' )
+			'after'     => beans_close_markup( 'beans_comment_item[_reply]', 'li' ),
 		) ) );
 
 		// Edit.
@@ -206,7 +206,7 @@ function beans_comment_links() {
 			beans_open_markup_e( 'beans_comment_item[_edit]', 'li' );
 
 				beans_open_markup_e( 'beans_comment_item_link[_edit]', 'a', array(
-					'href' => get_edit_comment_link( $comment->comment_ID ) // Automatically escaped.
+					'href' => get_edit_comment_link( $comment->comment_ID ), // Automatically escaped.
 				) );
 
 					beans_output_e( 'beans_comment_edit_text', __( 'Edit', 'tm-beans' ) );
@@ -221,7 +221,7 @@ function beans_comment_links() {
 		beans_open_markup_e( 'beans_comment_item[_link]', 'li' );
 
 			beans_open_markup_e( 'beans_comment_item_link[_link]', 'a', array(
-				'href' => get_comment_link( $comment->comment_ID ) // Automatically escaped.
+				'href' => get_comment_link( $comment->comment_ID ), // Automatically escaped.
 			) );
 
 				beans_output_e( 'beans_comment_link_text', __( 'Link', 'tm-beans' ) );
@@ -285,7 +285,7 @@ function beans_comments_navigation() {
 
 	beans_open_markup_e( 'beans_comments_navigation', 'ul', array(
 		'class' => 'uk-pagination',
-		'role'  => 'navigation'
+		'role'  => 'navigation',
 	) );
 
 		// Previous.
@@ -294,7 +294,7 @@ function beans_comments_navigation() {
 			beans_open_markup_e( 'beans_comments_navigation_item[_previous]', 'li', array( 'class' => 'uk-pagination-previous' ) );
 
 				$previous_icon = beans_open_markup( 'beans_previous_icon[_comments_navigation]', 'i', array(
-					'class' => 'uk-icon-angle-double-left uk-margin-small-right'
+					'class' => 'uk-icon-angle-double-left uk-margin-small-right',
 				) );
 				$previous_icon .= beans_close_markup( 'beans_previous_icon[_comments_navigation]', 'i' );
 
@@ -312,7 +312,7 @@ function beans_comments_navigation() {
 			beans_open_markup_e( 'beans_comments_navigation_item[_next]', 'li', array( 'class' => 'uk-pagination-next' ) );
 
 				$next_icon = beans_open_markup( 'beans_next_icon[_comments_navigation]', 'i', array(
-					'class' => 'uk-icon-angle-double-right uk-margin-small-right'
+					'class' => 'uk-icon-angle-double-right uk-margin-small-right',
 				) );
 				$next_icon .= beans_close_markup( 'beans_previous_icon[_comments_navigation]', 'i' );
 
@@ -355,12 +355,15 @@ function beans_comment_form() {
 	$output = beans_open_markup( 'beans_comment_form_wrap', 'div', array( 'class' => 'uk-form tm-comment-form-wrap' ) );
 
 		$output .= beans_render_function( 'comment_form', array(
-			'title_reply' => beans_output( 'beans_comment_form_title_text', __( 'Add a Comment', 'tm-beans' ) )
+			'title_reply' => beans_output( 'beans_comment_form_title_text', __( 'Add a Comment', 'tm-beans' ) ),
 		) );
 
 	$output .= beans_close_markup( 'beans_comment_form_wrap', 'div' );
 
-	$submit = beans_open_markup( 'beans_comment_form_submit', 'button', array( 'class' => 'uk-button uk-button-primary', 'type' => 'submit' ) );
+	$submit = beans_open_markup( 'beans_comment_form_submit', 'button', array(
+		'class' => 'uk-button uk-button-primary',
+		'type' => 'submit',
+	) );
 
 		$submit .= beans_output( 'beans_comment_form_submit_text', __( 'Post Comment', 'tm-beans' ) );
 
@@ -389,7 +392,7 @@ function beans_comment_cancel_reply_link( $html, $link, $text ) {
 		'id'    => 'cancel-comment-reply-link',
 		'class' => 'uk-button uk-button-small uk-button-danger uk-margin-small-right',
 		'style' => isset( $_GET['replytocom'] ) ? '' : 'display:none;',
-		'href'  => $link // Automatically escaped.
+		'href'  => $link, // Automatically escaped.
 	) );
 
 		$output .= beans_output( 'beans_comment_cancel_reply_link_text', $text );
@@ -463,7 +466,7 @@ function beans_comment_before_fields() {
 
 		beans_open_markup_e( 'beans_comment_fields_inner_wrap', 'div', array(
 			'class' => 'uk-grid uk-grid-small',
-			'data-uk-grid-margin' => ''
+			'data-uk-grid-margin' => '',
 		) );
 
 }
@@ -513,7 +516,7 @@ function beans_comment_form_fields( $fields ) {
 				'class' => 'uk-width-1-1',
 				'type'  => 'text',
 				'value' => $commenter['comment_author'], // Automatically escaped.
-				'name'  => 'author'
+				'name'  => 'author',
 			) );
 
 		$author .= beans_close_markup( 'beans_comment_form[_name]', 'div' );
@@ -548,7 +551,7 @@ function beans_comment_form_fields( $fields ) {
 				'type'     => 'text',
 				'value'    => $commenter['comment_author_email'], // Automatically escaped.
 				'name'     => 'email',
-				'required' => get_option( 'require_name_email' ) ? '' : null
+				'required' => get_option( 'require_name_email' ) ? '' : null,
 			) );
 
 		$email .= beans_close_markup( 'beans_comment_form[_email]', 'div' );
@@ -582,7 +585,7 @@ function beans_comment_form_fields( $fields ) {
 				'class' => 'uk-width-1-1',
 				'type'  => 'text',
 				'value' => $commenter['comment_author_url'], // Automatically escaped.
-				'name'  => 'url'
+				'name'  => 'url',
 			) );
 
 		$url .= beans_close_markup( 'beans_comment_form[_website]', 'div' );

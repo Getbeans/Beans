@@ -37,7 +37,7 @@ final class _Beans_Options {
 
 		$defaults = array(
 			'title'   => __( 'Undefined', 'tm-beans' ),
-			'context' => 'normal'
+			'context' => 'normal',
 		);
 
 		$this->section = $section;

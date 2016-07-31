@@ -63,7 +63,7 @@ function beans_updater( $value ) {
 			'package'     => $data['download_url'],
 			'new_version' => $data['version'],
 			'tested'      => $data['tested'],
-			'requires'    => $data['requires']
+			'requires'    => $data['requires'],
 		);
 
 		return $value;

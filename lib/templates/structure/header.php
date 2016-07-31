@@ -29,7 +29,7 @@ beans_open_markup_e( 'beans_html', 'html', str_replace( ' ', '&', str_replace( '
 	beans_open_markup_e( 'beans_body', 'body', array(
 		'class'     => implode( ' ', get_body_class( 'uk-form no-js' ) ),
 		'itemscope' => 'itemscope',
-		'itemtype'  => 'http://schema.org/WebPage'
+		'itemtype'  => 'http://schema.org/WebPage',
 
 	) );
 
@@ -42,5 +42,5 @@ beans_open_markup_e( 'beans_html', 'html', str_replace( ' ', '&', str_replace( '
 					beans_open_markup_e( 'beans_main_grid', 'div', array( 'class' => 'uk-grid', 'data-uk-grid-margin' => '' ) );
 
 						beans_open_markup_e( 'beans_primary', 'div', array(
-							'class' => 'tm-primary ' . beans_get_layout_class( 'content' )
+							'class' => 'tm-primary ' . beans_get_layout_class( 'content' ),
 						) );

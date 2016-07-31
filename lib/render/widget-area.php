@@ -17,12 +17,12 @@ function beans_do_register_widget_areas() {
 	// Keep primary sidebar first for default widget asignment.
 	beans_register_widget_area( array(
 		'name' => __( 'Sidebar Primary', 'tm-beans' ),
-		'id'   => 'sidebar_primary'
+		'id'   => 'sidebar_primary',
 	) );
 
 	beans_register_widget_area( array(
 		'name' => __( 'Sidebar Secondary', 'tm-beans' ),
-		'id'   => 'sidebar_secondary'
+		'id'   => 'sidebar_secondary',
 	) );
 
 	if ( current_theme_supports( 'offcanvas-menu' ) ) {

@@ -22,7 +22,7 @@ beans_open_markup_e( 'beans_comments', 'div', array( 'id' => 'comments', 'class'
 
 				wp_list_comments( array(
 					'avatar_size' => 50,
-					'callback'    => 'beans_comment_callback'
+					'callback'    => 'beans_comment_callback',
 				) );
 
 			beans_close_markup_e( 'beans_comments_list', 'ol' );

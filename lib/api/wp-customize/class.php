@@ -24,7 +24,7 @@ final class _Beans_WP_Customize {
 		$defaults = array(
 			'title'       => __( 'Undefined', 'tm-beans' ),
 			'priority'    => 30,
-			'description' => false
+			'description' => false,
 		);
 
 		$this->section = $section;
@@ -106,7 +106,7 @@ final class _Beans_WP_Customize {
 				'type'              => $field['db_type'],
 				'capability'        => $field['capability'],
 				'transport'         => $field['transport'],
-				'sanitize_callback' => array( $this, 'sanitize' )
+				'sanitize_callback' => array( $this, 'sanitize' ),
 			)
 		);
 
@@ -130,7 +130,7 @@ final class _Beans_WP_Customize {
 				$field['name'],
 				array(
 					'label'   => $field['label'],
-					'section' => $this->section
+					'section' => $this->section,
 				),
 				$field
 			)

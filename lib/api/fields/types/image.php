@@ -66,7 +66,7 @@ function beans_field_image( $field ) {
 				'class' => 'image-id',
 				'type'  => 'hidden',
 				'name'  => $multiple ? $field['name'] . '[]' : $field['name'], // Return single value if not multiple.
-				'value' => $id
+				'value' => $id,
 			), $field['attributes'] );
 
 			// Set placeholder.

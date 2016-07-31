@@ -130,7 +130,7 @@ function beans_modify_widget_content_attributes( $attributes ) {
 		'meta',
 		'pages',
 		'recent-posts',
-		'recent-comments'
+		'recent-comments',
 	);
 
 	$current_class = isset( $attributes['class'] ) ? $attributes['class'] . ' ' : '';

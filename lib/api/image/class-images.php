@@ -73,7 +73,7 @@ final class _Beans_Image_Editor {
 				$array = array(
 					'src'    => $this->src,
 					'width'  => null,
-					'height' => null
+					'height' => null,
 				);
 
 				switch ( $this->output ) {
@@ -109,7 +109,7 @@ final class _Beans_Image_Editor {
 		$array = array(
 			'src'    => $src,
 			'width'  => $width,
-			'height' => $height
+			'height' => $height,
 		);
 
 		if ( 'ARRAY_N' == $this->output ) {

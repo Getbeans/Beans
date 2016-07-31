@@ -112,7 +112,7 @@ final class _Beans_Fields {
 			'default'     => false,
 			'context'     => $this->context,
 			'attributes'  => array(),
-			'db_group'    => false
+			'db_group'    => false,
 		);
 
 		$field = array_merge( $defaults, $field );
@@ -291,7 +291,7 @@ final class _Beans_Fields {
 	public function field_content( $field ) {
 
 		beans_open_markup_e( 'beans_field_wrap', 'div', array(
-			'class' => 'bs-field-wrap bs-' . $field['type'] . ' ' . $field['context']
+			'class' => 'bs-field-wrap bs-' . $field['type'] . ' ' . $field['context'],
 		), $field );
 
 			// Set fields loop to cater for groups.
@@ -302,7 +302,7 @@ final class _Beans_Fields {
 			}
 
 			beans_open_markup_e( 'beans_field_inside', 'div', array(
-					'class' => 'bs-field-inside'
+					'class' => 'bs-field-inside',
 				), $fields );
 
 				// Loop through fields.

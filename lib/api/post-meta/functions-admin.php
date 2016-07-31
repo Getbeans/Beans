@@ -133,7 +133,7 @@ function _beans_is_post_meta_conditions( $conditions ) {
 		$conditions === true,
 		in_array( $current_post_type, (array) $conditions ), // Check post type.
 		isset( $post_id) && in_array( $post_id, (array) $conditions ), // Check post id.
-		isset( $post_id) && in_array( get_post_meta( $post_id, '_wp_page_template', true ), (array) $conditions ) // Check page template.
+		isset( $post_id) && in_array( get_post_meta( $post_id, '_wp_page_template', true ), (array) $conditions ), // Check page template.
 	);
 
 	// Return true if any condition is met, otherwise false.

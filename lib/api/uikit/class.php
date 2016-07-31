@@ -50,7 +50,7 @@ final class _Beans_Uikit {
 		 * @param array $components An array of UIkit script compiler arguments.
 		 */
 		$scripts_args = apply_filters( 'beans_uikit_euqueued_scripts_args', array(
-			'depedencies' => array( 'jquery' )
+			'depedencies' => array( 'jquery' ),
 		) );
 
 		// Compile less.
@@ -239,39 +239,39 @@ final class _Beans_Uikit {
 
 		$autoload = array(
 			'core'    => array(),
-			'add-ons' => array()
+			'add-ons' => array(),
 		);
 
 		$depedencies = array(
 			'panel' => array(
 				'core' => array(
-					'badge'
-				)
+					'badge',
+				),
 			),
 			'cover' => array(
 				'core' => array(
-					'flex'
-				)
+					'flex',
+				),
 			),
 			'overlay' => array(
 				'core' => array(
-					'flex'
-				)
+					'flex',
+				),
 			),
 			'tab' => array(
 				'core' => array(
-					'switcher'
-				)
+					'switcher',
+				),
 			),
 			'modal' => array(
 				'core' => array(
-					'close'
-				)
+					'close',
+				),
 			),
 			'scrollspy' => array(
 				'core' => array(
-					'animation'
-				)
+					'animation',
+				),
 			),
 			'lightbox' => array(
 				'core' => array(
@@ -279,47 +279,47 @@ final class _Beans_Uikit {
 					'flex',
 					'close',
 					'modal',
-					'overlay'
+					'overlay',
 				),
 				'add-ons' => array(
-					'slidenav'
-				)
+					'slidenav',
+				),
 			),
 			'slider' => array(
 				'add-ons' => array(
-					'slidenav'
-				)
+					'slidenav',
+				),
 			),
 			'slideset' => array(
 				'core' => array(
 					'animation',
-					'flex'
+					'flex',
 				),
 				'add-ons' => array(
 					'dotnav',
-					'slidenav'
-				)
+					'slidenav',
+				),
 			),
 			'slideshow' => array(
 				'core' => array(
 					'animation',
-					'flex'
+					'flex',
 				),
 				'add-ons' => array(
 					'dotnav',
-					'slidenav'
-				)
+					'slidenav',
+				),
 			),
 			'parallax' => array(
 				'core' => array(
-					'flex'
-				)
+					'flex',
+				),
 			),
 			'notify' => array(
 				'core' => array(
-					'close'
-				)
-			)
+					'close',
+				),
+			),
 		);
 
 		foreach ( (array) $components as $component ) {
@@ -351,7 +351,7 @@ final class _Beans_Uikit {
 
 		$ignore = array(
 			'uikit-customizer',
-			'uikit'
+			'uikit',
 		);
 
 		// Stop here if it isn't a valid file or if it should be ignored.

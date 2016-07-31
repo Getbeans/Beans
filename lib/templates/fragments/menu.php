@@ -20,7 +20,7 @@ function beans_primary_menu() {
 		'class'     => 'tm-primary-menu uk-float-right uk-navbar',
 		'role'      => 'navigation',
 		'itemscope' => 'itemscope',
-		'itemtype'  => 'http://schema.org/SiteNavigationElement'
+		'itemtype'  => 'http://schema.org/SiteNavigationElement',
 	) );
 
 		/**
@@ -36,7 +36,7 @@ function beans_primary_menu() {
 			'container'      => '',
 			'menu_class'     => $nav_visibility, // Automatically escaped.
 			'echo'           => false,
-			'beans_type'     => 'navbar'
+			'beans_type'     => 'navbar',
 		) );
 
 		// Navigation.
@@ -63,7 +63,7 @@ function beans_primary_menu_offcanvas_button() {
 	beans_open_markup_e( 'beans_primary_menu_offcanvas_button', 'a', array(
 		'href'              => '#offcanvas_menu',
 		'class'             => 'uk-button uk-hidden-large',
-		'data-uk-offcanvas' => ''
+		'data-uk-offcanvas' => '',
 	) );
 
 		beans_open_markup_e( 'beans_primary_menu_offcanvas_button_icon', 'i', array(
@@ -109,7 +109,7 @@ function beans_primary_offcanvas_menu() {
 			'fallback_cb'    => 'beans_no_menu_notice',
 			'container'      => '',
 			'echo'           => false,
-			'beans_type'     => 'offcanvas'
+			'beans_type'     => 'offcanvas',
 		) );
 
 		beans_output_e( 'beans_primary_offcanvas_menu', wp_nav_menu( $args ) );

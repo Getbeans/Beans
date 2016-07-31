@@ -78,7 +78,7 @@ function beans_load_dependencies() {
 		'uikit',
 		'template',
 		'layout',
-		'widget'
+		'widget',
 	) );
 
 	// Add third party styles and scripts compiler support.
@@ -115,7 +115,7 @@ function beans_add_theme_support() {
 		'height'      => 500,
 		'flex-height' => true,
 		'flex-width'  => true,
-		'header-text' => false
+		'header-text' => false,
 	) );
 
 	// Beans specific.

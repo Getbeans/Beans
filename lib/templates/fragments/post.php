@@ -26,7 +26,7 @@ function beans_post_title() {
 		$title_link = beans_open_markup( 'beans_post_title_link', 'a', array(
 			'href'  => get_permalink(), // Automatically escaped.
 			'title' => the_title_attribute( 'echo=0' ),
-			'rel'   => 'bookmark'
+			'rel'   => 'bookmark',
 		) );
 
 			$title_link .= $title;
@@ -40,7 +40,7 @@ function beans_post_title() {
 
 	beans_open_markup_e( 'beans_post_title', $title_tag, array(
 		'class'    => 'uk-article-title',
-		'itemprop' => 'headline'
+		'itemprop' => 'headline',
 	) );
 
 		echo $title;
@@ -129,7 +129,7 @@ function beans_post_meta() {
 		$meta_items = apply_filters( 'beans_post_meta_items', array(
 			'date'     => 10,
 			'author'   => 20,
-			'comments' => 30
+			'comments' => 30,
 		) );
 
 		asort( $meta_items );
@@ -188,7 +188,7 @@ function beans_post_image() {
 		 *                              large size.
 		 */
 		$edit_args = apply_filters( 'beans_edit_post_image_args', array(
-			'resize' => array( 800, false )
+			'resize' => array( 800, false ),
 		) );
 
 		if ( empty( $edit_args ) ) {
@@ -208,7 +208,7 @@ function beans_post_image() {
 		 *                              small size.
 		 */
 		$edit_small_args = apply_filters( 'beans_edit_post_image_small_args', array(
-			'resize' => array( 480, false )
+			'resize' => array( 480, false ),
 		) );
 
 		if ( empty( $edit_small_args ) ) {
@@ -224,7 +224,7 @@ function beans_post_image() {
 		if ( ! is_singular() ) {
 			beans_open_markup_e( 'beans_post_image_link', 'a', array(
 				'href'  => get_permalink(), // Automatically escaped.
-				'title' => the_title_attribute( 'echo=0' )
+				'title' => the_title_attribute( 'echo=0' ),
 			) );
 		}
 
@@ -242,7 +242,7 @@ function beans_post_image() {
 						'height'   => $image->height,
 						'src'      => $image->src, // Automatically escaped.
 						'alt'      => $image->alt, // Automatically escaped.
-						'itemprop' => 'image'
+						'itemprop' => 'image',
 					), $image );
 
 				} else {
@@ -276,7 +276,7 @@ function beans_post_content() {
 
 	beans_open_markup_e( 'beans_post_content', 'div', array(
 		'class'    => 'tm-article-content',
-		'itemprop' => 'text'
+		'itemprop' => 'text',
 	) );
 
 		the_content();
@@ -316,8 +316,8 @@ function beans_post_more_link() {
 		$output .= beans_output( 'beans_post_more_link_text', __( 'Continue reading', 'tm-beans' ) );
 
 		$output .= beans_open_markup( 'beans_next_icon[_more_link]', 'i', array(
-					'class' => 'uk-icon-angle-double-right uk-margin-small-left'
-				) );
+			'class' => 'uk-icon-angle-double-right uk-margin-small-left',
+		) );
 		$output .= beans_close_markup( 'beans_previous_icon[_more_link]', 'i' );
 
 	$output .= beans_close_markup( 'beans_post_more_link', 'a' );
@@ -339,7 +339,7 @@ function beans_post_content_navigation() {
 	echo wp_link_pages( array(
 		'before' => beans_open_markup( 'beans_post_content_navigation', 'p', array( 'class' => 'uk-text-bold' ) ) . beans_output( 'beans_post_content_navigation_text', __( 'Pages:', 'tm-beans' ) ),
 		'after'  => beans_close_markup( 'beans_post_content_navigation', 'p' ),
-		'echo'   => false
+		'echo'   => false,
 	) );
 
 }
@@ -407,11 +407,11 @@ function beans_previous_post_link( $output, $format, $link, $post ) {
 	$output = beans_open_markup( 'beans_previous_link[_post_navigation]', 'a', array(
 		'href'  => get_permalink( $post ), // Automatically escaped.
 		'ref'   => 'previous',
-		'title' => $post->post_title // Automatically escaped.
+		'title' => $post->post_title, // Automatically escaped.
 	) );
 
 		$output .= beans_open_markup( 'beans_previous_icon[_post_navigation]', 'i', array(
-			'class' => 'uk-icon-angle-double-left uk-margin-small-right'
+			'class' => 'uk-icon-angle-double-left uk-margin-small-right',
 		) );
 
 		$output .= beans_close_markup( 'beans_previous_icon[_post_navigation]', 'i' );
@@ -443,13 +443,13 @@ function beans_next_post_link( $output, $format, $link, $post ) {
 	$output = beans_open_markup( 'beans_next_link[_post_navigation]', 'a', array(
 		'href'  => get_permalink( $post ), // Automatically escaped.
 		'rel'   => 'next',
-		'title' => $post->post_title // Automatically escaped.
+		'title' => $post->post_title, // Automatically escaped.
 	) );
 
 		$output .= beans_output( 'beans_next_text[_post_navigation]', $text );
 
 		$output .= beans_open_markup( 'beans_next_icon[_post_navigation]', 'i', array(
-			'class' => 'uk-icon-angle-double-right uk-margin-small-left'
+			'class' => 'uk-icon-angle-double-right uk-margin-small-left',
 		) );
 
 		$output .= beans_close_markup( 'beans_previous_icon[_post_navigation]', 'i' );
@@ -490,7 +490,7 @@ function beans_post_navigation() {
 
 	beans_open_markup_e( 'beans_post_navigation', 'ul', array(
 		'class' => 'uk-pagination',
-		'role'  => 'navigation'
+		'role'  => 'navigation',
 	) );
 
 		if ( $previous ) {
@@ -551,7 +551,7 @@ function beans_posts_pagination() {
 
 	beans_open_markup_e( 'beans_posts_pagination', 'ul', array(
 		'class' => 'uk-pagination uk-grid-margin',
-		'role'  => 'navigation'
+		'role'  => 'navigation',
 	) );
 
 		// Previous.
@@ -560,11 +560,11 @@ function beans_posts_pagination() {
 			beans_open_markup_e( 'beans_posts_pagination_item[_previous]', 'li' );
 
 				beans_open_markup_e( 'beans_previous_link[_posts_pagination]', 'a', array(
-					'href' => previous_posts( false ) // Automatically escaped.
+					'href' => previous_posts( false ), // Automatically escaped.
 				), $current );
 
 					beans_open_markup_e( 'beans_previous_icon[_posts_pagination]', 'i', array(
-						'class' => 'uk-icon-angle-double-left uk-margin-small-right'
+						'class' => 'uk-icon-angle-double-left uk-margin-small-right',
 					) );
 
 					beans_close_markup_e( 'beans_previous_icon[_posts_pagination]', 'i' );
@@ -631,7 +631,7 @@ function beans_posts_pagination() {
 				beans_open_markup_e( 'beans_posts_pagination_item', 'li' );
 
 					beans_open_markup_e( 'beans_posts_pagination_item_link', 'a', array(
-						'href' => get_pagenum_link( $link ) // Automatically escaped.
+						'href' => get_pagenum_link( $link ), // Automatically escaped.
 					), $link );
 
 						beans_output_e( 'beans_posts_pagination_item_link_text', $link );
@@ -650,13 +650,13 @@ function beans_posts_pagination() {
 			beans_open_markup_e( 'beans_posts_pagination_item[_next]', 'li' );
 
 				beans_open_markup_e( 'beans_next_link[_posts_pagination]', 'a', array(
-					'href' => next_posts( $count, false ) // Automatically escaped.
+					'href' => next_posts( $count, false ), // Automatically escaped.
 				), $current );
 
 					beans_output_e( 'beans_next_text[_posts_pagination]', __( 'Next', 'tm-beans' ) );
 
 					beans_open_markup_e( 'beans_next_icon[_posts_pagination]', 'i', array(
-						'class' => 'uk-icon-angle-double-right uk-margin-small-left'
+						'class' => 'uk-icon-angle-double-right uk-margin-small-left',
 					) );
 
 					beans_close_markup_e( 'beans_next_icon[_posts_pagination]', 'i' );
@@ -741,21 +741,21 @@ function beans_post_password_form() {
 	$output .= beans_open_markup( 'beans_password_form', 'form', array(
 		'class'  => 'uk-form uk-margin-bottom',
 		'method' => 'post',
-		'action' => site_url( 'wp-login.php?action=postpass', 'login_post' ) // Automatically escaped.
+		'action' => site_url( 'wp-login.php?action=postpass', 'login_post' ), // Automatically escaped.
 	) );
 
 		$output .= beans_selfclose_markup( 'beans_password_form_input', 'input', array(
 			'class'       => 'uk-margin-small-top uk-margin-small-right',
 			'type'        => 'password',
 			'placeholder' => apply_filters( 'beans_password_form_input_placeholder', __( 'Password', 'tm-beans' ) ), // Automatically escaped.
-			'name'        => 'post_password'
+			'name'        => 'post_password',
 		) );
 
 		$output .= beans_selfclose_markup( 'beans_password_form_submit', 'input', array(
 			'class' => 'uk-button uk-margin-small-top',
 			'type'  => 'submit',
 			'name'  => 'submit',
-			'value' => esc_attr( apply_filters( 'beans_password_form_submit_text', __( 'Submit', 'tm-beans' ) ) )
+			'value' => esc_attr( apply_filters( 'beans_password_form_submit_text', __( 'Submit', 'tm-beans' ) ) ),
 		) );
 
 	$output .= beans_close_markup( 'beans_password_form', 'form' );
@@ -796,7 +796,7 @@ function beans_post_gallery( $output, $attr, $instance ) {
 		'size'       => 'thumbnail',
 		'include'    => '',
 		'exclude'    => '',
-		'link'       => ''
+		'link'       => '',
 	);
 	$atts = shortcode_atts( $defaults, $attr, 'gallery' );
 	$id = intval( $atts['id'] );
@@ -810,7 +810,7 @@ function beans_post_gallery( $output, $attr, $instance ) {
 			'post_type'      => 'attachment',
 			'post_mime_type' => 'image',
 			'order'          => $atts['order'],
-			'orderby'        => $atts['orderby']
+			'orderby'        => $atts['orderby'],
 		) );
 
 		$attachments = array();
@@ -828,7 +828,7 @@ function beans_post_gallery( $output, $attr, $instance ) {
 			'post_type'      => 'attachment',
 			'post_mime_type' => 'image',
 			'order'          => $atts['order'],
-			'orderby'        => $atts['orderby']
+			'orderby'        => $atts['orderby'],
 		) );
 
 	} else {
@@ -839,7 +839,7 @@ function beans_post_gallery( $output, $attr, $instance ) {
 			'post_type'      => 'attachment',
 			'post_mime_type' => 'image',
 			'order'          => $atts['order'],
-			'orderby'        => $atts['orderby']
+			'orderby'        => $atts['orderby'],
 		) );
 
 	}
@@ -866,7 +866,7 @@ function beans_post_gallery( $output, $attr, $instance ) {
 	$validate = array(
 		'itemtag',
 		'captiontag',
-		'icontag'
+		'icontag',
 	);
 
 	// Validate tags.
@@ -883,7 +883,7 @@ function beans_post_gallery( $output, $attr, $instance ) {
 	// WP adds the opening div in the gallery_style filter (weird), so we follow it as don't want to break people's site.
 	$gallery_div = beans_open_markup( "beans_post_gallery[_{$id}]", 'div', array(
 		'class'               => "uk-grid uk-grid-width-small-1-{$columns} gallery galleryid-{$id} gallery-columns-{$columns} gallery-size-{$size_class}", // Automatically escaped.
-		'data-uk-grid-margin' => false
+		'data-uk-grid-margin' => false,
 	), $id, $columns );
 
 	/**

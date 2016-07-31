@@ -102,7 +102,7 @@ function beans_get_layout_class( $id ) {
 		'grid'              => 4,
 		'sidebar_primary'   => 1,
 		'sidebar_secondary' => 1,
-		'breakpoint'        => 'medium'
+		'breakpoint'        => 'medium',
 	) );
 
 	$g = beans_get( 'grid', $args ); // $g stands for grid.
@@ -243,7 +243,7 @@ function beans_get_layouts_for_options( $add_default = false ) {
 	$base = BEANS_ADMIN_ASSETS_URL . 'images/layouts/';
 
 	$layouts = array(
-		'c' =>  $base . 'c.png'
+		'c' => $base . 'c.png',
 	);
 
 	// Add sidebar primary layouts if the primary widget area is registered.
@@ -281,7 +281,7 @@ function beans_get_layouts_for_options( $add_default = false ) {
 			'default_fallback' => sprintf(
 				__( 'Use Default Layout (%s)',  'tm-beans' ),
 				'<a href="' . admin_url( 'customize.php?autofocus[control]=beans_layout' ) . '">' . _x( 'Modify', 'Default layout', 'tm-beans' ) . '</a>'
-			)
+			),
 		), $layouts );
 	}
 

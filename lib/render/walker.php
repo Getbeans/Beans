@@ -31,7 +31,7 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 
 		// Default attributes.
 		$attr = array(
-			'class' => array( 'sub-menu' )
+			'class' => array( 'sub-menu' ),
 		);
 
 		// Add UIKit sidenav and offcanvas class.
@@ -131,7 +131,7 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 
 		// Set wp item attributes as defaults.
 		$item_attr = array(
-			'class' => array( $_classes )
+			'class' => array( $_classes ),
 		);
 
 		// Add UIKit active class.

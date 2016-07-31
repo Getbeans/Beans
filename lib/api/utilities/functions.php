@@ -554,7 +554,7 @@ function beans_esc_attributes( $attributes ) {
 		'href'     => 'esc_url',
 		'src'      => 'esc_url',
 		'itemtype' => 'esc_url',
-		'onclick'  => 'esc_js'
+		'onclick'  => 'esc_js',
 	) );
 
 	$string = '';

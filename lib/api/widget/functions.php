@@ -55,7 +55,7 @@ function beans_register_widget_area( $args = array(), $widget_control = array() 
         'beans_type'                 => 'stack',
         'beans_show_widget_title'    => true,
         'beans_show_widget_badge'    => false,
-        'beans_widget_badge_content' => __( 'Hello', 'tm-beans' )
+        'beans_widget_badge_content' => __( 'Hello', 'tm-beans' ),
     ) );
 
     /**
@@ -563,7 +563,7 @@ function _beans_widget_subfilters() {
     $subfilters = array(
         $_beans_widget_area['id'], // Add sidebar id.
         $_beans_widget['type'], // Add widget type.
-        $_beans_widget['id'] // Add widget id.
+        $_beans_widget['id'], // Add widget id.
     );
 
     return '[_' . implode( '][_', $subfilters ) . ']';

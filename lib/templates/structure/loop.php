@@ -32,7 +32,7 @@ do_action( 'beans_before_loop' );
 				'id'        => get_the_ID(), // Automatically escaped.
 				'class'     => implode( ' ', get_post_class( array( 'uk-article', ( current_theme_supports( 'beans-default-styling' ) ? 'uk-panel-box' : null ) ) ) ), // Automatically escaped.
 				'itemscope' => 'itemscope',
-				'itemtype'  => 'http://schema.org/CreativeWork'
+				'itemtype'  => 'http://schema.org/CreativeWork',
 			);
 
 			// Blog specifc attributes.

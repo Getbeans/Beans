@@ -102,7 +102,7 @@ function beans_site_branding() {
 		beans_open_markup_e( 'beans_site_title_link', 'a', array(
 			'href'     => home_url(), // Automatically escaped.
 			'rel'      => 'home',
-			'itemprop' => 'headline'
+			'itemprop' => 'headline',
 		) );
 
 			if ( $logo = get_theme_mod( 'beans_logo_image', false ) ) {
@@ -138,7 +138,7 @@ function beans_site_title_tag() {
 
 	beans_open_markup_e( 'beans_site_title_tag', 'span', array(
 		'class'    => 'tm-site-title-tag uk-text-small uk-text-muted uk-display-block',
-		'itemprop' => 'description'
+		'itemprop' => 'description',
 	) );
 
 		beans_output_e( 'beans_site_title_tag_text', $description );

@@ -54,7 +54,7 @@ final class _Beans_Compiler {
 			'depedencies' => false,
 			'in_footer'   => false,
 			'minify_js'   => false,
-			'version'     => false
+			'version'     => false,
 		);
 
 		$this->compiler = array_merge( $defaults, $args );
@@ -563,7 +563,7 @@ final class _Beans_Compiler {
 			",\n" => ",", // Don't wrap multiple selectors.
 			"\n}" => "}", // Don't wrap closing braces.
 			"} "  => "}\n", // Put each rule on it's own line.
-			"\n"  => "" // Take out all line breaks
+			"\n"  => "", // Take out all line breaks
 		);
 
 		$search = array_keys( $replace );
@@ -638,7 +638,7 @@ final class _Beans_Compiler {
 				'Content-type: text/html; charset=utf-8' . "\r\n",
 				"X-Mailer: PHP \r\n",
 				'From: ' . wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES ) . ' < ' . get_option( 'admin_email' ) . '>' . "\r\n",
-				'Reply-To: ' . get_option( 'admin_email' ) . "\r\n"
+				'Reply-To: ' . get_option( 'admin_email' ) . "\r\n",
 			)
 		);
 

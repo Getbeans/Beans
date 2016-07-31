@@ -140,7 +140,7 @@ function beans_breadcrumb() {
 				beans_open_markup_e( 'beans_breadcrumb_item', 'li' );
 
 					beans_open_markup_e( 'beans_breadcrumb_item_link', 'a', array(
-						'href' => $breadcrumb_url // Automatically escaped.
+						'href' => $breadcrumb_url, // Automatically escaped.
 					) );
 
 						// Used for mobile devices.

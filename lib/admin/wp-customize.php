@@ -33,8 +33,8 @@ function beans_do_register_wp_customize_options() {
 			'id'        => 'beans_logo_image',
 			'label'     => __( 'Logo Image', 'tm-beans' ),
 			'type'      => 'WP_Customize_Image_Control',
-			'transport' => 'refresh'
-		)
+			'transport' => 'refresh',
+		),
 	);
 
 	beans_register_wp_customize_options( $fields, 'title_tagline', array( 'title' => __( 'Branding', 'tm-beans' ) ) );
@@ -52,8 +52,8 @@ function beans_do_register_wp_customize_options() {
 				'type'      => 'radio',
 				'default'   => beans_get_default_layout(),
 				'options'   => $options,
-				'transport' => 'refresh'
-			)
+				'transport' => 'refresh',
+			),
 		);
 
 		beans_register_wp_customize_options( $fields, 'beans_layout', array( 'title' => __( 'Default Layout', 'tm-beans' ), 'priority' => 1000 ) );
@@ -69,7 +69,7 @@ function beans_do_register_wp_customize_options() {
 				array(
 					'id'      => 'beans_enable_viewport_width',
 					'type'    => 'activation',
-					'default' => false
+					'default' => false,
 				),
 				array(
 					'id'       => 'beans_viewport_width',
@@ -78,9 +78,9 @@ function beans_do_register_wp_customize_options() {
 					'min'      => 300,
 					'max'      => 2500,
 					'interval' => 10,
-					'unit'     => 'px'
+					'unit'     => 'px',
 				),
-			)
+			),
 		),
 		array(
 			'id'     => 'beans_viewport_height_group',
@@ -90,7 +90,7 @@ function beans_do_register_wp_customize_options() {
 				array(
 					'id'      => 'beans_enable_viewport_height',
 					'type'    => 'activation',
-					'default' => false
+					'default' => false,
 				),
 				array(
 					'id'       => 'beans_viewport_height',
@@ -99,10 +99,10 @@ function beans_do_register_wp_customize_options() {
 					'min'      => 300,
 					'max'      => 2500,
 					'interval' => 10,
-					'unit'     => 'px'
+					'unit'     => 'px',
 				),
-			)
-		)
+			),
+		),
 	);
 
 	beans_register_wp_customize_options( $fields, 'beans_preview', array( 'title' => __( 'Preview Tools', 'tm-beans' ), 'priority' => 1010 ) );

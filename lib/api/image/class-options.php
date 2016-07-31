@@ -33,13 +33,13 @@ final class _Beans_Image_Options {
 			array(
 				'id'          => 'beans_edited_images_directories',
 				'type'        => 'flush_edited_images',
-				'description' => __( 'Clear all edited images. New images will be created on page load.', 'tm-beans' )
-			)
+				'description' => __( 'Clear all edited images. New images will be created on page load.', 'tm-beans' ),
+			),
 		);
 
 		beans_register_options( $fields, 'beans_settings', 'images_options', array(
 			'title'   => __( 'Images options', 'tm-beans' ),
-			'context' => beans_get( 'beans_settings', $wp_meta_boxes ) ? 'column' : 'normal' // Check of other beans boxes.
+			'context' => beans_get( 'beans_settings', $wp_meta_boxes ) ? 'column' : 'normal', // Check of other beans boxes.
 		) );
 
 	}
