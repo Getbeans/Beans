@@ -118,7 +118,7 @@ function beans_comments_template() {
 
 	$shortcircuit_conditions = array(
 		beans_get( 'ID', $post ) && ! ( comments_open() || get_comments_number() ),
-		! post_type_supports( beans_get( 'post_type', $post ), 'comments' )
+		! post_type_supports( beans_get( 'post_type', $post ), 'comments' ),
 	);
 
 	if ( in_array( true, $shortcircuit_conditions ) ) {
