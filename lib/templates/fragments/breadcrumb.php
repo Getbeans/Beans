@@ -24,13 +24,13 @@ function beans_breadcrumb() {
 
 	$post_type = get_post_type();
 	$breadcrumbs = array();
-	$breadcrumbs[home_url()] = __( 'Home', 'tm-beans' );
+	$breadcrumbs[ home_url() ] = __( 'Home', 'tm-beans' );
 
 	// Custom post type.
 	if ( ! in_array( $post_type, array( 'page', 'attachment', 'post' ) ) && ! is_404() ) {
 
 		if ( $post_type_object = get_post_type_object( $post_type ) ) {
-			$breadcrumbs[get_post_type_archive_link( $post_type )] = $post_type_object->labels->name;
+			$breadcrumbs[ get_post_type_archive_link( $post_type ) ] = $post_type_object->labels->name;
 		}
 	}
 
@@ -38,7 +38,7 @@ function beans_breadcrumb() {
 	if ( is_single() && 'post' == $post_type ) {
 
 		foreach ( get_the_category( $post->ID ) as $category ) {
-			$breadcrumbs[get_category_link( $category->term_id )] = $category->name;
+			$breadcrumbs[ get_category_link( $category->term_id ) ] = $category->name;
 		}
 
 		$breadcrumbs[] = get_the_title();
@@ -56,7 +56,7 @@ function beans_breadcrumb() {
 
 		// Add returned pages to breadcrumbs.
 		foreach ( $current_page as $page ) {
-			$breadcrumbs[get_page_link( $page->ID )] = $page->post_title;
+			$breadcrumbs[ get_page_link( $page->ID ) ] = $page->post_title;
 		}
 	} elseif ( is_category() ) { // Categories.
 
@@ -72,7 +72,7 @@ function beans_breadcrumb() {
 
 			$ancestor = get_term( $ancestor, get_query_var( 'taxonomy' ) );
 
-			$breadcrumbs[get_term_link( $ancestor->slug, get_query_var( 'taxonomy' ) )] = $ancestor->name;
+			$breadcrumbs[ get_term_link( $ancestor->slug, get_query_var( 'taxonomy' ) ) ] = $ancestor->name;
 
 		}
 
