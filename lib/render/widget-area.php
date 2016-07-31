@@ -6,7 +6,6 @@
  */
 
 beans_add_smart_action( 'widgets_init', 'beans_do_register_widget_areas', 5 );
-
 /**
  * Register Beans's default widget areas.
  *
@@ -34,7 +33,6 @@ function beans_do_register_widget_areas() {
 	}
 
 }
-
 
 /**
  * Call register sidebar.

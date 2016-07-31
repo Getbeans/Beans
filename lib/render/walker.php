@@ -64,7 +64,6 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 
 	}
 
-
 	/**
 	 * Extend WordPress end first menu level.
 	 *
@@ -89,7 +88,6 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 		}
 
 	}
-
 
 	/**
 	 * Extend WordPress start menu elements.
@@ -182,7 +180,6 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 			$output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
 
 	}
-
 
 	/**
 	 * Extend WordPress end menu elements.

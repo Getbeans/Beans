@@ -5,7 +5,6 @@
  * @package API\Utilities
  */
 
-
 /**
  * Deprecated. Sanitize HTML attributes from array to string.
  *

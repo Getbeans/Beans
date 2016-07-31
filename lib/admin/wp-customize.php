@@ -6,7 +6,6 @@
  */
 
 beans_add_smart_action( 'customize_preview_init', 'beans_do_enqueue_wp_customize_assets' );
-
 /**
  * Enqueue Beans assets for the WordPress Customizer.
  *
@@ -18,9 +17,7 @@ function beans_do_enqueue_wp_customize_assets() {
 
 }
 
-
 beans_add_smart_action( 'customize_register', 'beans_do_register_wp_customize_options' );
-
 /**
  * Add Beans options to the WordPress Customizer.
  *

@@ -22,7 +22,6 @@ final class _Beans_Post_Meta {
 	 */
 	private $section;
 
-
 	/**
 	 * Constructor.
 	 */
@@ -41,7 +40,6 @@ final class _Beans_Post_Meta {
 		add_action( 'add_meta_boxes', array( $this, 'register_metabox' ) );
 
 	}
-
 
 	/**
 	 * Trigger actions only once.
@@ -71,7 +69,6 @@ final class _Beans_Post_Meta {
 
 	}
 
-
 	/**
 	 * Add the Metabox.
 	 */
@@ -80,7 +77,6 @@ final class _Beans_Post_Meta {
 		add_meta_box( $this->section, $this->args['title'], array( $this, 'metabox_content' ), $post_type, $this->args['context'], $this->args['priority'] );
 
 	}
-
 
 	/**
 	 * Metabox content.
@@ -91,7 +87,6 @@ final class _Beans_Post_Meta {
 			beans_field( $field );
 		}
 	}
-
 
 	/**
 	 * Save Post Meta.
@@ -115,7 +110,6 @@ final class _Beans_Post_Meta {
 		}
 
 	}
-
 
 	/**
 	 * Save Post Meta for attachment.

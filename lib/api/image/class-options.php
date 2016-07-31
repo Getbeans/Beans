@@ -21,7 +21,6 @@ final class _Beans_Image_Options {
 
 	}
 
-
 	/**
 	 * Register options.
 	 */
@@ -44,7 +43,6 @@ final class _Beans_Image_Options {
 
 	}
 
-
 	/**
 	 * Flush images for all folders set.
 	 */
@@ -58,7 +56,6 @@ final class _Beans_Image_Options {
 
 	}
 
-
 	/**
 	 * Image editor notice notice.
 	 */
@@ -71,7 +68,6 @@ final class _Beans_Image_Options {
 		echo '<div id="message" class="updated"><p>' . __( 'Images flushed successfully!', 'tm-beans' ) . '</p></div>' . "\n";
 
 	}
-
 
 	/**
 	 * Add button used to flush images.

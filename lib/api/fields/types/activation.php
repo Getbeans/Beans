@@ -4,7 +4,6 @@
  */
 
 beans_add_smart_action( 'beans_field_activation', 'beans_field_activation' );
-
 /**
  * Echo activation field type.
  *

@@ -22,7 +22,6 @@ final class _Beans_Compiler_Options {
 
 	}
 
-
 	/**
 	 * Register options.
 	 */
@@ -86,7 +85,6 @@ final class _Beans_Compiler_Options {
 
 	}
 
-
 	/**
 	 * Flush images for all folders set.
 	 */
@@ -99,7 +97,6 @@ final class _Beans_Compiler_Options {
 		beans_remove_dir( beans_get_compiler_dir() );
 
 	}
-
 
 	/**
 	 * Cache cleaner notice.
@@ -114,7 +111,6 @@ final class _Beans_Compiler_Options {
 
 	}
 
-
 	/**
 	 * Add button used to flush cache.
 	 */
@@ -127,7 +123,6 @@ final class _Beans_Compiler_Options {
 		echo '<input type="submit" name="beans_flush_compiler_cache" value="' . __( 'Flush assets cache', 'tm-beans' ) . '" class="button-secondary" />';
 
 	}
-
 
 	/**
 	 * Maybe show disabled notice.

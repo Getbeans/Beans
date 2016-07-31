@@ -62,7 +62,6 @@ final class _Beans_Fields {
 		'wp_customize' => array(),
 	);
 
-
 	/**
 	 * Register fields.
 	 */
@@ -82,7 +81,6 @@ final class _Beans_Fields {
 
 	}
 
-
 	/**
 	 * Register field.
 	 */
@@ -98,7 +96,6 @@ final class _Beans_Fields {
 		self::$registered[ $this->context ][ $this->section ] = $fields;
 
 	}
-
 
 	/**
 	 * Standadrize field to beans format.
@@ -150,7 +147,6 @@ final class _Beans_Fields {
 
 	}
 
-
 	/**
 	 * Set the fields types used.
 	 */
@@ -168,7 +164,6 @@ final class _Beans_Fields {
 		}
 
 	}
-
 
 	/**
 	 * Trigger actions only once.
@@ -189,7 +184,6 @@ final class _Beans_Fields {
 		}
 
 	}
-
 
 	/**
 	 * Load the required core fields php files.
@@ -216,7 +210,6 @@ final class _Beans_Fields {
 
 	}
 
-
 	/**
 	 * Load the fields assets hooks. This hook can then be used to load custom fields assets.
 	 */
@@ -238,7 +231,6 @@ final class _Beans_Fields {
 
 	}
 
-
 	/**
 	 * Enqueue default fields assets.
 	 */
@@ -253,7 +245,6 @@ final class _Beans_Fields {
 		do_action( 'beans_field_enqueue_scripts' );
 
 	}
-
 
 	/**
 	 * Get the field value.
@@ -281,7 +272,6 @@ final class _Beans_Fields {
 		}
 
 	}
-
 
 	/**
 	 * Display the field content.
@@ -321,7 +311,6 @@ final class _Beans_Fields {
 		beans_close_markup_e( 'beans_field_wrap', 'div', $field );
 
 	}
-
 
 	/**
 	 * Get the registered fields.

@@ -6,7 +6,6 @@
  */
 
 beans_add_smart_action( 'beans_main_grid_before_markup', 'beans_breadcrumb' );
-
 /**
  * Echo the breadcrumb.
  *

@@ -5,7 +5,6 @@
  * @package API\Layout
  */
 
-
 /**
  * Get the default layout.
  *
@@ -30,7 +29,6 @@ function beans_get_default_layout() {
 	return apply_filters( 'beans_default_layout', $default_layout );
 
 }
-
 
 /**
  * Get the current layout.
@@ -66,7 +64,6 @@ function beans_get_layout() {
 	return apply_filters( 'beans_layout', $layout );
 
 }
-
 
 /**
  * Get the current layout.
@@ -222,7 +219,6 @@ function beans_get_layout_class( $id ) {
 	return apply_filters( "beans_layout_class_$id", beans_get( $id, $classes ) );
 
 }
-
 
 /**
  * Generate layout elements used by Beans 'imageradio' option type.

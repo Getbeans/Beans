@@ -6,7 +6,6 @@
  */
 
 beans_add_smart_action( 'beans_footer', 'beans_footer_content' );
-
 /**
  * Echo the footer content.
  *
@@ -52,9 +51,7 @@ function beans_footer_content() {
 
 }
 
-
 beans_add_smart_action( 'wp_footer', 'beans_replace_nojs_class' );
-
 /**
  * Print inline JavaScript in the footer to replace the 'no-js' class with 'js'.
  *

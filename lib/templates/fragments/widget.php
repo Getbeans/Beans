@@ -6,7 +6,6 @@
  */
 
 beans_add_smart_action( 'beans_widget', 'beans_widget_badge', 5 );
-
 /**
  * Echo widget badge.
  *
@@ -26,9 +25,7 @@ function beans_widget_badge() {
 
 }
 
-
 beans_add_smart_action( 'beans_widget', 'beans_widget_title' );
-
 /**
  * Echo widget title.
  *
@@ -48,9 +45,7 @@ function beans_widget_title() {
 
 }
 
-
 beans_add_smart_action( 'beans_widget', 'beans_widget_content', 15 );
-
 /**
  * Echo widget content.
  *
@@ -66,9 +61,7 @@ function beans_widget_content() {
 
 }
 
-
 beans_add_smart_action( 'beans_no_widget', 'beans_no_widget' );
-
 /**
  * Echo no widget content.
  *
@@ -89,9 +82,7 @@ function beans_no_widget() {
 
 }
 
-
 beans_add_filter( 'beans_widget_content_rss_output', 'beans_widget_rss_content' );
-
 /**
  * Modify RSS widget content.
  *
@@ -107,9 +98,7 @@ function beans_widget_rss_content() {
 
 }
 
-
 beans_add_filter( 'beans_widget_content_attributes', 'beans_modify_widget_content_attributes' );
-
 /**
  * Modify core widgets content attributes, so they use the default UIKit styling.
  *
@@ -147,10 +136,8 @@ function beans_modify_widget_content_attributes( $attributes ) {
 
 }
 
-
 beans_add_filter( 'beans_widget_content_categories_output', 'beans_modify_widget_count' );
 beans_add_filter( 'beans_widget_content_archives_output', 'beans_modify_widget_count' );
-
 /**
  * Modify widget count.
  *
@@ -183,10 +170,8 @@ function beans_modify_widget_count( $content ) {
 
 }
 
-
 beans_add_filter( 'beans_widget_content_categories_output', 'beans_remove_widget_dropdown_label' );
 beans_add_filter( 'beans_widget_content_archives_output', 'beans_remove_widget_dropdown_label' );
-
 /**
  * Modify widget dropdown label.
  *

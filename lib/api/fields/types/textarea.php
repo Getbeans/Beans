@@ -4,7 +4,6 @@
  */
 
 beans_add_smart_action( 'beans_field_textarea', 'beans_field_textarea' );
-
 /**
  * Echo textarea field type.
  *

@@ -6,7 +6,6 @@
  */
 
 beans_add_smart_action( 'beans_header', 'beans_primary_menu', 15 );
-
 /**
  * Echo primary menu.
  *
@@ -46,9 +45,7 @@ function beans_primary_menu() {
 
 }
 
-
 beans_add_smart_action( 'beans_primary_menu_append_markup', 'beans_primary_menu_offcanvas_button', 5 );
-
 /**
  * Echo primary menu offcanvas button.
  *
@@ -78,9 +75,7 @@ function beans_primary_menu_offcanvas_button() {
 
 }
 
-
 beans_add_smart_action( 'beans_widget_area_offcanvas_bar_offcanvas_menu_prepend_markup', 'beans_primary_offcanvas_menu' );
-
 /**
  * Echo off-canvas primary menu.
  *
@@ -117,7 +112,6 @@ function beans_primary_offcanvas_menu() {
 	beans_close_markup_e( 'beans_primary_offcanvas_menu', 'nav' );
 
 }
-
 
 /**
  * Echo no menu notice.

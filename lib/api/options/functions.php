@@ -87,7 +87,6 @@ function beans_register_options( array $fields, $menu_slug, $section, $args = ar
 
 }
 
-
 /**
  * Echo the registered options.
  *
@@ -108,9 +107,7 @@ function beans_options( $menu_slug ) {
 
 }
 
-
 add_action( 'wp_loaded', '_beans_options_page_actions' );
-
 /**
  * Fires the options form actions.
  *

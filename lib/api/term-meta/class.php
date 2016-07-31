@@ -27,7 +27,6 @@ final class _Beans_Term_Meta {
 
 	}
 
-
 	/**
 	 * Trigger actions only once.
 	 */
@@ -47,7 +46,6 @@ final class _Beans_Term_Meta {
 
 	}
 
-
 	/**
 	 * Post meta nonce.
 	 */
@@ -56,7 +54,6 @@ final class _Beans_Term_Meta {
 		echo '<input type="hidden" name="beans_term_meta_nonce" value="' . esc_attr( wp_create_nonce( 'beans_term_meta_nonce' ) ) . '" />';
 
 	}
-
 
 	/**
 	 * Fields content.
@@ -83,7 +80,6 @@ final class _Beans_Term_Meta {
 
 	}
 
-
 	/**
 	 * Save Term Meta.
 	 */
@@ -106,7 +102,6 @@ final class _Beans_Term_Meta {
 		}
 
 	}
-
 
 	/**
 	 * Delete Term Meta.

@@ -36,7 +36,6 @@ function beans_add_filter( $id, $callback, $priority = 10, $args = 1 ) {
 
 }
 
-
 /**
  * Call the functions added to a filter hook.
  *
@@ -113,7 +112,6 @@ function beans_apply_filters( $id, $value ) {
 
 }
 
-
 /**
  * Check if any filter has been registered for a hook.
  *
@@ -178,7 +176,6 @@ function beans_has_filters( $id, $callback = false ) {
 	return false;
 
 }
-
 
 /**
  * Add anonymous callback using a class since php 5.2 is still supported.

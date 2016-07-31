@@ -36,7 +36,6 @@ final class _Beans_Attributes {
 	 */
 	private $new_value;
 
-
 	/**
 	 * Constructor.
 	 */
@@ -49,7 +48,6 @@ final class _Beans_Attributes {
 
 	}
 
-
 	/**
 	 * Initialize action.
 	 */
@@ -58,7 +56,6 @@ final class _Beans_Attributes {
 		beans_add_filter( $this->id . '_attributes', array( $this, $action ) );
 
 	}
-
 
 	/**
 	 * Add attribute.
@@ -74,7 +71,6 @@ final class _Beans_Attributes {
 		return $attributes;
 
 	}
-
 
 	/**
 	 * Replace attribute.
@@ -97,7 +93,6 @@ final class _Beans_Attributes {
 		return $attributes;
 
 	}
-
 
 	/**
 	 * Remove attribute.

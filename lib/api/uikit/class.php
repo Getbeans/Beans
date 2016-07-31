@@ -65,7 +65,6 @@ final class _Beans_Uikit {
 
 	}
 
-
 	/**
 	 * Register less components.
 	 */
@@ -95,7 +94,6 @@ final class _Beans_Uikit {
 		return $components;
 
 	}
-
 
 	/**
 	 * Register js components.
@@ -130,7 +128,6 @@ final class _Beans_Uikit {
 
 	}
 
-
 	/**
 	 * Get LESS directories.
 	 */
@@ -154,7 +151,6 @@ final class _Beans_Uikit {
 
 	}
 
-
 	/**
 	 * Get JS directories.
 	 */
@@ -168,7 +164,6 @@ final class _Beans_Uikit {
 		return array( BEANS_API_PATH . 'uikit/src/js/' . $type );
 
 	}
-
 
 	/**
 	 * Get components from directories.
@@ -196,7 +191,6 @@ final class _Beans_Uikit {
 		return $return;
 
 	}
-
 
 	/**
 	 * Get all components.
@@ -227,7 +221,6 @@ final class _Beans_Uikit {
 		return $components;
 
 	}
-
 
 	/**
 	 * Auto detect components required.
@@ -336,7 +329,6 @@ final class _Beans_Uikit {
 		return $autoload;
 
 	}
-
 
 	/**
 	 * Convert component to a filename.

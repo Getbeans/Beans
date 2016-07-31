@@ -7,7 +7,6 @@
  */
 
 add_filter( 'site_transient_update_themes', 'beans_updater' );
-
 /**
  * Retrieve product data from Beans REST API.
  *
@@ -74,9 +73,7 @@ function beans_updater( $value ) {
 
 }
 
-
 add_action( 'load-update-core.php', 'beans_updater_clear_transient' );
-
 /**
  * Clear updater transient.
  *

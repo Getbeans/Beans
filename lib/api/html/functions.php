@@ -43,7 +43,6 @@ function beans_output( $id, $output ) {
 
 }
 
-
 /**
  * Echo output registered by ID.
  *
@@ -67,7 +66,6 @@ function beans_output_e( $id, $output ) {
 
 }
 
-
 /**
  * Remove output.
  *
@@ -85,7 +83,6 @@ function beans_remove_output( $id ) {
 	return beans_add_filter( $id . '_output', false );
 
 }
-
 
 /**
  * Register open markup and attributes by ID.
@@ -161,7 +158,6 @@ function beans_open_markup( $id, $tag, $attributes = array() ) {
 
 }
 
-
 /**
  * Echo open markup and attributes registered by ID.
  *
@@ -192,7 +188,6 @@ function beans_open_markup_e( $id, $tag, $attributes = array() ) {
 	echo call_user_func_array( 'beans_open_markup', func_get_args() );
 
 }
-
 
 /**
  * Register self-close markup and attributes by ID.
@@ -227,7 +222,6 @@ function beans_selfclose_markup( $id, $tag, $attributes = array() ) {
 
 }
 
-
 /**
  * Echo self-close markup and attributes registered by ID.
  *
@@ -253,7 +247,6 @@ function beans_selfclose_markup_e( $id, $tag, $attributes = array() ) {
 	echo call_user_func_array( 'beans_selfclose_markup', func_get_args() );
 
 }
-
 
 /**
  * Register close markup by ID.
@@ -300,7 +293,6 @@ function beans_close_markup( $id, $tag ) {
 
 }
 
-
 /**
  * Echo close markup registered by ID.
  *
@@ -318,7 +310,6 @@ function beans_close_markup_e( $id, $tag ) {
 	echo call_user_func_array( 'beans_close_markup', func_get_args() );
 
 }
-
 
 /**
  * Modify opening and closing HTML tag. Also works for self-closed markup.
@@ -349,7 +340,6 @@ function beans_modify_markup( $id, $markup, $priority = 10, $args = 1 ) {
 
 }
 
-
 /**
  * Remove markup.
  *
@@ -377,7 +367,6 @@ function beans_remove_markup( $id, $remove_actions = false ) {
 
 }
 
-
 /**
  * Reset markup.
  *
@@ -399,7 +388,6 @@ function beans_reset_markup( $id ) {
 	remove_all_filters( preg_replace( '#(\[|\])#', '', $id ) . '_markup' );
 
 }
-
 
 /**
  * Wrap markup.
@@ -437,7 +425,6 @@ function beans_wrap_markup( $id, $new_id, $tag, $attributes = array() ) {
 
 }
 
-
 /**
  * Wrap markup inner content.
  *
@@ -473,7 +460,6 @@ function beans_wrap_inner_markup( $id, $new_id, $tag, $attributes = array() ) {
 	return true;
 
 }
-
 
 /**
  * Register attributes by ID.
@@ -513,7 +499,6 @@ function beans_add_attributes( $id, $attributes = array() ) {
 
 }
 
-
 /**
  * Reset markup attributes.
  *
@@ -535,7 +520,6 @@ function beans_reset_attributes( $id ) {
 	remove_all_filters( preg_replace( '#(\[|\])#', '', $id ) . '_attributes' );
 
 }
-
 
 /**
  * Add attribute to markup.
@@ -562,7 +546,6 @@ function beans_add_attribute( $id, $attribute, $value ) {
 	return $class->init( 'add' );
 
 }
-
 
 /**
  * Replace attribute to markup.
@@ -591,7 +574,6 @@ function beans_replace_attribute( $id, $attribute, $value, $new_value = null ) {
 
 }
 
-
 /**
  * Remove markup attribute.
  *
@@ -615,7 +597,6 @@ function beans_remove_attribute( $id, $attribute, $value = null ) {
 	return $class->init( 'remove' );
 
 }
-
 
 /**
  * Check if development mode is enabled taking in consideration legacy constant.

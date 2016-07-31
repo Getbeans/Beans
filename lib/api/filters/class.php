@@ -37,7 +37,6 @@ final class _Beans_Anonymous_Filters {
 
 	}
 
-
 	/**
 	 * Get filter content and set it as the callback.
 	 */

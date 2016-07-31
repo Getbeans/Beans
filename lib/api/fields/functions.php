@@ -57,7 +57,6 @@ function beans_register_fields( array $fields, $context, $section ) {
 
 }
 
-
 /**
  * Get registered fields.
  *
@@ -85,7 +84,6 @@ function beans_get_fields( $context, $section = false ) {
 
 }
 
-
 /**
  * Echo a field.
  *
@@ -106,7 +104,6 @@ function beans_field( $field ) {
 	$class->field_content( $field );
 
 }
-
 
 /**
  * Standardize fields.

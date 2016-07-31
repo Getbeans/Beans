@@ -6,7 +6,6 @@
  */
 
 beans_add_smart_action( 'beans_comments_list_before_markup', 'beans_comments_title' );
-
 /**
  * Echo the comments title.
  *
@@ -25,9 +24,7 @@ function beans_comments_title() {
 
 }
 
-
 beans_add_smart_action( 'beans_comment_header', 'beans_comment_avatar', 5 );
-
 /**
  * Echo the comment avatar.
  *
@@ -50,9 +47,7 @@ function beans_comment_avatar() {
 
 }
 
-
 beans_add_smart_action( 'beans_comment_header', 'beans_comment_author' );
-
 /**
  * Echo the comment author title.
  *
@@ -73,9 +68,7 @@ function beans_comment_author() {
 
 }
 
-
 beans_add_smart_action( 'beans_comment_title_append_markup', 'beans_comment_badges' );
-
 /**
  * Echo the comment badges.
  *
@@ -131,9 +124,7 @@ function beans_comment_badges() {
 
 }
 
-
 beans_add_smart_action( 'beans_comment_header', 'beans_comment_metadata', 15 );
-
 /**
  * Echo the comment metadata.
  *
@@ -160,9 +151,7 @@ function beans_comment_metadata() {
 
 }
 
-
 beans_add_smart_action( 'beans_comment_content', 'beans_comment_content' );
-
 /**
  * Echo the comment content.
  *
@@ -174,9 +163,7 @@ function beans_comment_content() {
 
 }
 
-
 beans_add_smart_action( 'beans_comment_content', 'beans_comment_links', 15 );
-
 /**
  * Echo the comment links.
  *
@@ -231,9 +218,7 @@ function beans_comment_links() {
 
 }
 
-
 beans_add_smart_action( 'beans_no_comment', 'beans_no_comment' );
-
 /**
  * Echo no comment content.
  *
@@ -249,9 +234,7 @@ function beans_no_comment() {
 
 }
 
-
 beans_add_smart_action( 'beans_comments_closed', 'beans_comments_closed' );
-
 /**
  * Echo closed comments content.
  *
@@ -267,9 +250,7 @@ function beans_comments_closed() {
 
 }
 
-
 beans_add_smart_action( 'beans_comments_list_after_markup', 'beans_comments_navigation' );
-
 /**
  * Echo comments navigation.
  *
@@ -326,9 +307,7 @@ function beans_comments_navigation() {
 
 }
 
-
 beans_add_smart_action( 'beans_after_open_comments', 'beans_comment_form_divider' );
-
 /**
  * Echo comment divider.
  *
@@ -340,9 +319,7 @@ function beans_comment_form_divider() {
 
 }
 
-
 beans_add_smart_action( 'beans_after_open_comments', 'beans_comment_form' );
-
 /**
  * Echo comment navigation.
  *
@@ -372,10 +349,8 @@ function beans_comment_form() {
 
 }
 
-
 // Filter.
 beans_add_smart_action( 'cancel_comment_reply_link', 'beans_comment_cancel_reply_link', 10 , 3 );
-
 /**
  * Echo comment cancel reply link.
  *
@@ -401,10 +376,8 @@ function beans_comment_cancel_reply_link( $html, $link, $text ) {
 
 }
 
-
 // Filter.
 beans_add_smart_action( 'comment_form_field_comment', 'beans_comment_form_comment' );
-
 /**
  * Echo comment textarea field.
  *
@@ -447,9 +420,7 @@ function beans_comment_form_comment() {
 
 }
 
-
 beans_add_smart_action( 'comment_form_before_fields', 'beans_comment_before_fields', 9999 );
-
 /**
  * Echo comment fields opening wraps.
  *
@@ -469,10 +440,8 @@ function beans_comment_before_fields() {
 
 }
 
-
 // Filter.
 beans_add_smart_action( 'comment_form_default_fields', 'beans_comment_form_fields' );
-
 /**
  * Modify comment form fields.
  *
@@ -595,9 +564,7 @@ function beans_comment_form_fields( $fields ) {
 	return $fields;
 }
 
-
 beans_add_smart_action( 'comment_form_after_fields', 'beans_comment_form_after_fields', 3 );
-
 /**
  * Echo comment fields closing wraps.
  *

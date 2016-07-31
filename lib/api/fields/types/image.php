@@ -4,7 +4,6 @@
  */
 
 beans_add_smart_action( 'beans_field_enqueue_scripts_image', 'beans_field_image_assets' );
-
 /**
  * Enqueued assets required by the beans image field.
  *
@@ -18,9 +17,7 @@ function beans_field_image_assets() {
 
 }
 
-
 beans_add_smart_action( 'beans_field_image', 'beans_field_image' );
-
 /**
  * Echo image field type.
  *

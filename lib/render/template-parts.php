@@ -8,7 +8,6 @@
  */
 
 beans_add_smart_action( 'beans_load_document', 'beans_header_template', 5 );
-
 /**
  * Echo header template part.
  *
@@ -20,9 +19,7 @@ function beans_header_template() {
 
 }
 
-
 beans_add_smart_action( 'beans_site_prepend_markup', 'beans_header_partial_template' );
-
 /**
  * Echo header partial template part.
  *
@@ -39,9 +36,7 @@ function beans_header_partial_template() {
 
 }
 
-
 beans_add_smart_action( 'beans_load_document', 'beans_content_template' );
-
 /**
  * Echo main content template part.
  *
@@ -58,9 +53,7 @@ function beans_content_template() {
 
 }
 
-
 beans_add_smart_action( 'beans_content', 'beans_loop_template' );
-
 /**
  * Echo loop template part.
  *
@@ -102,9 +95,7 @@ function beans_loop_template( $id = false ) {
 
 }
 
-
 beans_add_smart_action( 'beans_post_after_markup', 'beans_comments_template', 15 );
-
 /**
  * Echo comments template part.
  *
@@ -129,9 +120,7 @@ function beans_comments_template() {
 
 }
 
-
 beans_add_smart_action( 'beans_comment', 'beans_comment_template' );
-
 /**
  * Echo comment template part.
  *
@@ -148,9 +137,7 @@ function beans_comment_template() {
 
 }
 
-
 beans_add_smart_action( 'beans_widget_area', 'beans_widget_area_template' );
-
 /**
  * Echo widget area template part.
  *
@@ -167,9 +154,7 @@ function beans_widget_area_template() {
 
 }
 
-
 beans_add_smart_action( 'beans_primary_after_markup', 'beans_sidebar_primary_template' );
-
 /**
  * Echo primary sidebar template part.
  *
@@ -187,9 +172,7 @@ function beans_sidebar_primary_template() {
 
 }
 
-
 beans_add_smart_action( 'beans_primary_after_markup', 'beans_sidebar_secondary_template' );
-
 /**
  * Echo secondary sidebar template part.
  *
@@ -207,9 +190,7 @@ function beans_sidebar_secondary_template() {
 
 }
 
-
 beans_add_smart_action( 'beans_site_append_markup', 'beans_footer_partial_template' );
-
 /**
  * Echo footer partial template part.
  *
@@ -226,9 +207,7 @@ function beans_footer_partial_template() {
 
 }
 
-
 beans_add_smart_action( 'beans_load_document', 'beans_footer_template' );
-
 /**
  * Echo footer template part.
  *
@@ -239,7 +218,6 @@ function beans_footer_template() {
 	get_footer();
 
 }
-
 
 /**
  * Set the content width based on Beans default layout.

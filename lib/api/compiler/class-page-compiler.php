@@ -42,7 +42,6 @@ final class _Beans_Page_Compiler {
 
 	}
 
-
 	/**
 	 * Enqueue compiled wp scripts.
 	 */
@@ -60,7 +59,6 @@ final class _Beans_Page_Compiler {
 		}
 
 	}
-
 
 	/**
 	 * Compile all wp enqueued assets.
@@ -125,7 +123,6 @@ final class _Beans_Page_Compiler {
 		return $fragments;
 
 	}
-
 
 	/**
 	 * Dequeue scripts which have been compiled, grab localized

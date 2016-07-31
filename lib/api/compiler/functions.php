@@ -47,7 +47,6 @@ function beans_compile_css_fragments( $id, $fragments, $args = array() ) {
 
 }
 
-
 /**
  * Compile LESS fragments, convert to CSS and enqueue compiled file.
  *
@@ -82,7 +81,6 @@ function beans_compile_less_fragments( $id, $fragments, $args = array() ) {
 	new _Beans_Compiler( $params + $args );
 
 }
-
 
 /**
  * Compile JS fragments and enqueue compiled file.
@@ -122,7 +120,6 @@ function beans_compile_js_fragments( $id, $fragments, $args = array() ) {
 	new _Beans_Compiler( $params + $args );
 
 }
-
 
 /**
  * Add CSS, LESS or JS fragments to a compiler.
@@ -164,7 +161,6 @@ function beans_compiler_add_fragment( $id, $fragments, $format ) {
 	}
 
 }
-
 
 /**
  * Flush cached compiler files.
@@ -221,7 +217,6 @@ function beans_flush_compiler( $id, $file_format = false, $admin = false ) {
 
 }
 
-
 /**
  * Flush admin cached compiler files.
  *
@@ -238,7 +233,6 @@ function beans_flush_admin_compiler( $id, $file_format = false ) {
 	beans_flush_compiler( $id, $file_format, true );
 
 }
-
 
 /**
  * Get beans compiler directory.
@@ -266,7 +260,6 @@ function beans_get_compiler_dir( $admin = false ) {
 
 }
 
-
 /**
  * Get beans compiler url.
  *
@@ -283,7 +276,6 @@ function beans_get_compiler_url( $admin = false ) {
 
 }
 
-
 /**
  * Check if development mode is enabled taking in consideration legacy constant.
  *
@@ -298,7 +290,6 @@ function _beans_is_compiler_dev_mode() {
 	return get_option( 'beans_dev_mode', false );
 
 }
-
 
 /**
  * Initialize added fragments global.

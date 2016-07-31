@@ -8,7 +8,6 @@
  * @package API\Image
  */
 
-
 /**
  * Edit image size and/or quality.
  *
@@ -47,7 +46,6 @@ function beans_edit_image( $src, array $args, $output = 'STRING' ) {
 
 }
 
-
 /**
  * Get attachment data.
  *
@@ -80,7 +78,6 @@ function beans_get_post_attachment( $post_id, $size = 'full' ) {
 	return $obj;
 
 }
-
 
 /**
  * Edit post attachment.
@@ -123,7 +120,6 @@ function beans_edit_post_attachment( $post_id, $args = array() ) {
 	return (object) array_merge( (array) $attachement, $edited );
 
 }
-
 
 /**
  * Get edited images directory.

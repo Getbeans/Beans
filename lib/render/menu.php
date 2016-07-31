@@ -6,7 +6,6 @@
  */
 
 beans_add_smart_action( 'after_setup_theme', 'beans_do_register_default_menu' );
-
 /**
  * Register default menu.
  *
@@ -33,9 +32,7 @@ function beans_do_register_default_menu() {
 
 }
 
-
 beans_add_smart_action( 'after_setup_theme', 'beans_do_register_nav_menus' );
-
 /**
  * Register nav menus.
  *
@@ -49,10 +46,8 @@ function beans_do_register_nav_menus() {
 
 }
 
-
 // Filter.
 beans_add_smart_action( 'wp_nav_menu_args', 'beans_modify_menu_args' );
-
 /**
  * Modify wp_nav_menu arguments.
  *

@@ -77,7 +77,6 @@ function beans_register_term_meta( array $fields, $taxonomies, $section ) {
 
 }
 
-
 /**
  * Check if the current screen is a given term.
  *

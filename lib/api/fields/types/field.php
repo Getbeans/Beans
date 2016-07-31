@@ -4,7 +4,6 @@
  */
 
 beans_add_smart_action( 'beans_field_wrap_prepend_markup', 'beans_field_label' );
-
 /**
  * Echo field label.
  *
@@ -30,9 +29,7 @@ function beans_field_label( $field ) {
 
 }
 
-
 beans_add_smart_action( 'beans_field_wrap_append_markup', 'beans_field_description' );
-
 /**
  * Echo field description.
  *

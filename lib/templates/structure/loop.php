@@ -5,7 +5,6 @@
  * @package Structure\Loop
  */
 
-
 /**
  * Fires before the loop.
  *

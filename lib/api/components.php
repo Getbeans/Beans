@@ -135,7 +135,6 @@ function beans_load_api_components( $components ) {
 
 }
 
-
 /**
  * Register API component support.
  *
@@ -164,7 +163,6 @@ function beans_add_api_component_support( $feature ) {
 
 }
 
-
 /**
  * Gets the API component support argument(s).
  *
@@ -186,7 +184,6 @@ function beans_get_component_support( $feature ) {
 
 }
 
-
 /**
  * Remove API component support.
  *
@@ -205,7 +202,6 @@ function beans_remove_api_component_support( $feature ) {
 	return true;
 
 }
-
 
 /**
  * Initialize API components support global.

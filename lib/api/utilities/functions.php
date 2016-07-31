@@ -8,7 +8,6 @@
  * @package API\Utilities
  */
 
-
 /**
  * Calls function given by the first parameter and passes the remaining parameters as arguments.
  *
@@ -37,7 +36,6 @@ function beans_render_function( $callback ) {
 
 }
 
-
 /**
  * Calls function given by the first parameter and passes the remaining parameters as arguments.
  *
@@ -63,7 +61,6 @@ function beans_render_function_array( $callback, $params = array() ) {
 	return ob_get_clean();
 
 }
-
 
 /**
  * Remove a directory and its files.
@@ -102,7 +99,6 @@ function beans_remove_dir( $dir_path ) {
 	return true;
 
 }
-
 
 /**
  * Convert internal path to a url.
@@ -166,7 +162,6 @@ function beans_path_to_url( $path ) {
 	return trailingslashit( $host ) . ltrim( $path, '/' );
 
 }
-
 
 /**
  * Convert internal url to a path.
@@ -254,7 +249,6 @@ function beans_url_to_path( $url ) {
 
 }
 
-
 /**
  * Sanitize path.
  *
@@ -277,7 +271,6 @@ function beans_sanitize_path( $path ) {
 	return wp_normalize_path( $path );
 
 }
-
 
 /**
  * Get value from $_GET or defined $haystack.
@@ -306,7 +299,6 @@ function beans_get( $needle, $haystack = false, $default = null ) {
 
 }
 
-
 /**
  * Get value from $_POST.
  *
@@ -322,7 +314,6 @@ function beans_post( $needle, $default = null ) {
 	return beans_get( $needle, $_POST, $default );
 
 }
-
 
 /**
  * Get value from $_GET or $_POST superglobals.
@@ -347,7 +338,6 @@ function beans_get_or_post( $needle, $default = null ) {
 	return $default;
 
 }
-
 
 /**
  * Count recursive array.
@@ -393,7 +383,6 @@ function beans_count_recursive( $array, $depth = false, $count_parent = true ) {
 
 }
 
-
 /**
  * Checks if a value exists in a multi-dimensional array.
  *
@@ -422,7 +411,6 @@ function beans_in_multi_array( $needle, $haystack, $strict = false ) {
 
 }
 
-
 /**
  * Checks if a key or index exists in a multi-dimensional array.
  *
@@ -448,7 +436,6 @@ function beans_multi_array_key_exists( $needle, $haystack ) {
 	return false;
 
 }
-
 
 /**
  * Search content for shortcodes and filter shortcodes through their hooks.
@@ -490,7 +477,6 @@ function beans_array_shortcodes( $content, $haystack ) {
 
 }
 
-
 /**
  * Make sure the menu position is valid.
  *
@@ -517,7 +503,6 @@ function beans_admin_menu_position( $position ) {
 	return $position;
 
 }
-
 
 /**
  * Sanitize HTML attributes from array to string.
@@ -568,7 +553,6 @@ function beans_esc_attributes( $attributes ) {
 	return trim( $string );
 
 }
-
 
 if ( ! function_exists( 'array_replace_recursive' ) ) {
 

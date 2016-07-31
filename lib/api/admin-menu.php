@@ -16,7 +16,6 @@ final class _Beans_Admin {
 
 	}
 
-
 	/**
 	 * Add beans menu.
 	 */
@@ -25,7 +24,6 @@ final class _Beans_Admin {
 		add_theme_page( __( 'Settings', 'tm-beans' ), __( 'Settings', 'tm-beans' ), 'manage_options', 'beans_settings', array( $this, 'display_screen' ) );
 
 	}
-
 
 	/**
 	 * Beans options page content.
@@ -41,7 +39,6 @@ final class _Beans_Admin {
 		echo '</div>';
 
 	}
-
 
 	/**
 	 * Register options.

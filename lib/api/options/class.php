@@ -29,7 +29,6 @@ final class _Beans_Options {
 	 */
 	private $section;
 
-
 	/**
 	 * Register options.
 	 */
@@ -49,7 +48,6 @@ final class _Beans_Options {
 
 	}
 
-
 	/**
 	 * Enqueue assets.
 	 */
@@ -58,7 +56,6 @@ final class _Beans_Options {
 		wp_enqueue_script( 'postbox' );
 
 	}
-
 
 	/**
 	 * Register the Metabox.
@@ -76,7 +73,6 @@ final class _Beans_Options {
 
 	}
 
-
 	/**
 	 * Metabox content.
 	 */
@@ -87,7 +83,6 @@ final class _Beans_Options {
 		}
 
 	}
-
 
 	/**
 	 * Page content.
@@ -129,7 +124,6 @@ final class _Beans_Options {
 
 	}
 
-
 	/**
 	 * Form actions.
 	 */
@@ -150,7 +144,6 @@ final class _Beans_Options {
 		}
 
 	}
-
 
 	/**
 	 * Save options.
@@ -173,7 +166,6 @@ final class _Beans_Options {
 
 	}
 
-
 	/**
 	 * Reset options.
 	 */
@@ -195,7 +187,6 @@ final class _Beans_Options {
 
 	}
 
-
 	/**
 	 * Save notice content.
 	 */
@@ -207,7 +198,6 @@ final class _Beans_Options {
 			echo '<div id="message" class="error"><p>' . __( 'Settings could not be saved, please try again.', 'tm-beans' ) . '</p></div>';
 		}
 	}
-
 
 	/**
 	 * Reset notice content.

@@ -7,7 +7,6 @@
 
 // Filter.
 beans_add_smart_action( 'get_search_form', 'beans_search_form' );
-
 /**
  * Modify the search form.
  *

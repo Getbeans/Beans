@@ -79,7 +79,6 @@ final class _Beans_Compiler {
 
 	}
 
-
 	/**
 	 * Set WP Filsystem method.
 	 */
@@ -88,7 +87,6 @@ final class _Beans_Compiler {
 		return 'direct';
 
 	}
-
 
 	/**
 	 * Initialise WP Filsystem.
@@ -109,7 +107,6 @@ final class _Beans_Compiler {
 
 	}
 
-
 	/**
 	 * Make directory.
 	 */
@@ -126,7 +123,6 @@ final class _Beans_Compiler {
 		return true;
 
 	}
-
 
 	/**
 	 * Set class fragments.
@@ -151,7 +147,6 @@ final class _Beans_Compiler {
 		$this->compiler['fragments'] = apply_filters( 'beans_compiler_fragments_' . $this->compiler['id'], $this->compiler['fragments'] );
 
 	}
-
 
 	/**
 	 * Set class filname.
@@ -207,7 +202,6 @@ final class _Beans_Compiler {
 
 	}
 
-
 	/**
 	 * Check if cached file exists.
 	 */
@@ -220,7 +214,6 @@ final class _Beans_Compiler {
 		return false;
 
 	}
-
 
 	/**
 	 * Create cached file.
@@ -239,7 +232,6 @@ final class _Beans_Compiler {
 
 	}
 
-
 	/**
 	 * Enqueue cached file.
 	 */
@@ -256,7 +248,6 @@ final class _Beans_Compiler {
 
 	}
 
-
 	/**
 	 * Get cached file url.
 	 */
@@ -272,7 +263,6 @@ final class _Beans_Compiler {
 
 	}
 
-
 	/**
 	 * Get file extension.
 	 */
@@ -285,7 +275,6 @@ final class _Beans_Compiler {
 		}
 
 	}
-
 
 	/**
 	 * Combine fragments content.
@@ -341,7 +330,6 @@ final class _Beans_Compiler {
 
 	}
 
-
 	/**
 	 * Get internal file content.
 	 */
@@ -364,7 +352,6 @@ final class _Beans_Compiler {
 		return $GLOBALS['wp_filesystem']->get_contents( $fragment );
 
 	}
-
 
 	/**
 	 * Get external file content.
@@ -397,7 +384,6 @@ final class _Beans_Compiler {
 
 	}
 
-
 	/**
 	 * Get function content.
 	 */
@@ -406,7 +392,6 @@ final class _Beans_Compiler {
 		return call_user_func( $this->current_fragment );
 
 	}
-
 
 	/**
 	 * Wrap content in query.
@@ -435,7 +420,6 @@ final class _Beans_Compiler {
 		return $new_content;
 
 	}
-
 
 	/**
 	 * Formal CSS, LESS and JS content.
@@ -477,7 +461,6 @@ final class _Beans_Compiler {
 
 	}
 
-
 	/**
 	 * Replace CSS url shortcuts with a valid url.
 	 */
@@ -487,7 +470,6 @@ final class _Beans_Compiler {
 		return preg_replace_callback( '#url\s*\(\s*[\'"]*?([^\'"\)]+)[\'"]*\s*\)#i', array( $this, 'css_path_to_url' ) , $content );
 
 	}
-
 
 	/**
 	 * replace_css_url() callback.
@@ -525,7 +507,6 @@ final class _Beans_Compiler {
 
 	}
 
-
 	/**
 	 * Minify CSS.
 	 */
@@ -559,7 +540,6 @@ final class _Beans_Compiler {
 
 	}
 
-
 	/**
 	 * Is the fragement a function.
 	 */
@@ -572,7 +552,6 @@ final class _Beans_Compiler {
 		return false;
 
 	}
-
 
 	/**
 	 * Kill it :(
@@ -608,7 +587,6 @@ final class _Beans_Compiler {
 		wp_die( $html );
 
 	}
-
 
 	/**
 	 * Send report.

@@ -15,7 +15,6 @@ final class _Beans_WP_Customize {
 	 */
 	private $section;
 
-
 	/**
 	 * Constructor.
 	 */
@@ -36,7 +35,6 @@ final class _Beans_WP_Customize {
 		beans_add_attribute( 'beans_field_label', 'class', 'customize-control-title' );
 
 	}
-
 
 	/**
 	 * Add section, settings and controls.
@@ -64,7 +62,6 @@ final class _Beans_WP_Customize {
 
 	}
 
-
 	/**
 	 * Add Section.
 	 */
@@ -84,7 +81,6 @@ final class _Beans_WP_Customize {
 		);
 
 	}
-
 
 	/**
 	 * Add setting.
@@ -112,7 +108,6 @@ final class _Beans_WP_Customize {
 
 	}
 
-
 	/**
 	 * Add Control.
 	 */
@@ -138,7 +133,6 @@ final class _Beans_WP_Customize {
 
 	}
 
-
 	/**
 	 * Sanatize value.
 	 */
@@ -148,7 +142,6 @@ final class _Beans_WP_Customize {
 
 	}
 }
-
 
 if ( class_exists( 'WP_Customize_Control' ) ) :
 
@@ -166,7 +159,6 @@ if ( class_exists( 'WP_Customize_Control' ) ) :
 		 */
 		private $beans_field;
 
-
 		/**
 		 * Constructor.
 		 */
@@ -179,7 +171,6 @@ if ( class_exists( 'WP_Customize_Control' ) ) :
 			$this->beans_field = end( $args );
 
 		}
-
 
 		/**
 		 * Field content.

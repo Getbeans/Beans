@@ -56,7 +56,6 @@ function beans_uikit_enqueue_components( $components, $type = 'core', $autoload 
 
 }
 
-
 /**
  * Dequeue UIkit components.
  *
@@ -90,7 +89,6 @@ function beans_uikit_dequeue_components( $components, $type = 'core' ) {
 	$_beans_uikit_enqueued_items['components'][ $type ] = array_diff( (array) $_beans_uikit_enqueued_items['components'][ $type ], (array) $components );
 
 }
-
 
 /**
  * Register a UIkit theme.
@@ -130,7 +128,6 @@ function beans_uikit_register_theme( $id, $path ) {
 
 }
 
-
 /**
  * Enqueue a UIkit theme.
  *
@@ -161,7 +158,6 @@ function beans_uikit_enqueue_theme( $id, $path = false ) {
 
 }
 
-
 /**
  * Dequeue a UIkit theme.
  *
@@ -180,7 +176,6 @@ function beans_uikit_dequeue_theme( $id ) {
 	unset( $_beans_uikit_enqueued_items['themes'][ $id ] );
 
 }
-
 
 /**
  * Initialize registered UIkit items global.
@@ -235,9 +230,7 @@ function _beans_uikit_get_registered_theme( $id ) {
 
 }
 
-
 add_action( 'wp_enqueue_scripts', '_beans_uikit_enqueue_assets', 7 );
-
 /**
  * Enqueue UIkit assets.
  *
@@ -263,9 +256,7 @@ function _beans_uikit_enqueue_assets() {
 
 }
 
-
 add_action( 'admin_enqueue_scripts', '_beans_uikit_enqueue_admin_assets', 7 );
-
 /**
  * Enqueue UIkit admin assets.
  *

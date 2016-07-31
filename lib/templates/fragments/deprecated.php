@@ -5,7 +5,6 @@
  * @package Fragments\Deprecated
  */
 
-
 /**
  * Deprecated. Echo head title.
  *
@@ -21,7 +20,6 @@ function beans_head_title() {
 	wp_title( '|', true, 'right' );
 
 }
-
 
 /**
  * Deprecated. Modify head wp title.
@@ -62,7 +60,6 @@ function beans_wp_title( $title, $sep ) {
 	return $title;
 
 }
-
 
 /**
  * Deprecated shortcodes.

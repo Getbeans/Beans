@@ -5,9 +5,7 @@
  * @package Initialize
  */
 
-
 add_action( 'beans_init', 'beans_define_constants', -1 );
-
 /**
  * Define constants.
  *
@@ -54,9 +52,7 @@ function beans_define_constants() {
 
 }
 
-
 add_action( 'beans_init', 'beans_load_dependencies', -1 );
-
 /**
  * Load dependencies.
  *
@@ -94,9 +90,7 @@ function beans_load_dependencies() {
 
 }
 
-
 add_action( 'beans_init', 'beans_add_theme_support' );
-
 /**
  * Add theme support.
  *
@@ -124,9 +118,7 @@ function beans_add_theme_support() {
 
 }
 
-
 add_action( 'beans_init', 'beans_includes' );
-
 /**
  * Include framework files.
  *
@@ -159,9 +151,7 @@ function beans_includes() {
 
 }
 
-
 add_action( 'beans_init', 'beans_load_textdomain' );
-
 /**
  * Load text domain.
  *
@@ -172,7 +162,6 @@ function beans_load_textdomain() {
 	load_theme_textdomain( 'tm-beans', BEANS_LANGUAGES_PATH );
 
 }
-
 
 /**
  * Fires before Beans loads.

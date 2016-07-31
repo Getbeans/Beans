@@ -7,7 +7,6 @@
 
 // Filter.
 beans_add_smart_action( 'template_redirect', 'beans_load_global_fragments', 1 );
-
 /**
  * Load global fragments and dynamic views.
  *
@@ -31,10 +30,8 @@ function beans_load_global_fragments() {
 
 }
 
-
 // Filter.
 beans_add_smart_action( 'comments_template', 'beans_load_comments_fragment' );
-
 /**
  * Load comments fragments.
  *
@@ -58,9 +55,7 @@ function beans_load_comments_fragment( $template ) {
 
 }
 
-
 beans_add_smart_action( 'dynamic_sidebar_before', 'beans_load_widget_fragment', -1 );
-
 /**
  * Load widget fragments.
  *
@@ -76,9 +71,7 @@ function beans_load_widget_fragment() {
 
 }
 
-
 beans_add_smart_action( 'pre_get_search_form', 'beans_load_search_form_fragment' );
-
 /**
  * Load search form fragments.
  *

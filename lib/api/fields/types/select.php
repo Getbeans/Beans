@@ -4,7 +4,6 @@
  */
 
 beans_add_smart_action( 'beans_field_select', 'beans_field_select' );
-
 /**
  * Echo select field type.
  *

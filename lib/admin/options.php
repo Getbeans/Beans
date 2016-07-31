@@ -6,7 +6,6 @@
  */
 
 beans_add_smart_action( 'admin_init', 'beans_do_register_term_meta' );
-
 /**
  * Add Beans term meta.
  *
@@ -36,9 +35,7 @@ function beans_do_register_term_meta() {
 
 }
 
-
 beans_add_smart_action( 'admin_init', 'beans_do_register_post_meta' );
-
 /**
  * Add Beans post meta.
  *

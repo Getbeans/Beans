@@ -4,7 +4,6 @@
  */
 
 beans_add_smart_action( 'beans_field_enqueue_scripts_slider', 'beans_field_slider_assets' );
-
 /**
  * Enqueued assets required by the beans slider field.
  *
@@ -16,9 +15,7 @@ function beans_field_slider_assets() {
 
 }
 
-
 beans_add_smart_action( 'beans_field_slider', 'beans_field_slider' );
-
 /**
  * Echo slider field type.
  *

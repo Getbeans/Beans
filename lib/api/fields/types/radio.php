@@ -4,7 +4,6 @@
  */
 
 beans_add_smart_action( 'beans_field_radio', 'beans_field_radio' );
-
 /**
  * Echo radio field type.
  *

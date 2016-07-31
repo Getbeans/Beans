@@ -6,7 +6,6 @@
  */
 
 beans_add_smart_action( 'beans_uikit_enqueue_scripts', 'beans_enqueue_uikit_components', 5 );
-
 /**
  * Enqueue UIKit components and Beans style.
  *
@@ -59,9 +58,7 @@ function beans_enqueue_uikit_components() {
 
 }
 
-
 beans_add_smart_action( 'wp_enqueue_scripts', 'beans_enqueue_assets', 5 );
-
 /**
  * Enqueue Beans assets.
  *
@@ -75,9 +72,7 @@ function beans_enqueue_assets() {
 
 }
 
-
 beans_add_smart_action( 'after_setup_theme', 'beans_add_editor_assets' );
-
 /**
  * Add Beans editor assets.
  *

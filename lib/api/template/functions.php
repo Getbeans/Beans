@@ -41,7 +41,6 @@ function beans_load_document() {
 
 }
 
-
 /**
  * Load Beans secondary template file.
  *
@@ -69,7 +68,6 @@ function beans_load_default_template( $file ) {
 	require_once( $file );
 
 }
-
 
 /**
  * Load fragment file.
@@ -108,7 +106,6 @@ function beans_load_fragment_file( $slug ) {
 	return true;
 
 }
-
 
 /**
  * wp_list_comments callback function.

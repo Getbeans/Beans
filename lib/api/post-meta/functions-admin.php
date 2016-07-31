@@ -90,7 +90,6 @@ function beans_register_post_meta( array $fields, $conditions, $section, $args =
 
 }
 
-
 /**
  * Check the current screen conditions.
  *
@@ -138,9 +137,7 @@ function _beans_is_post_meta_conditions( $conditions ) {
 
 }
 
-
 add_action( 'admin_print_footer_scripts', '_beans_post_meta_page_template_reload' );
-
 /**
  * Reload post edit screen on page template change.
  *
@@ -165,7 +162,6 @@ function _beans_post_meta_page_template_reload() {
 	echo "<script type='text/javascript'>\n! (function(a){a(document).ready(function(){a('#page_template').data('beans-pre',a('#page_template').val());a('#page_template').change(function(){if(a.inArray(a(this).val(),$encode)===-1&&a.inArray(a(this).data('beans-pre'),$encode)===-1){return}a(this).data('beans-pre',a(this).val());var b=a('#save-action #save-post');if(b.length===0){b=a('#publishing-action #publish')}b.trigger('click');a('#wpbody-content').fadeOut()})})})(jQuery);\n</script>";
 
 }
-
 
 /**
  * Initialize post meta conditions.

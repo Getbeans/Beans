@@ -63,7 +63,6 @@ function beans_add_action( $id, $hook, $callback, $priority = 10, $args = 1 ) {
 
 }
 
-
 /**
  * Set {@see beans_add_action()} using the callback argument as the action ID.
  *
@@ -88,7 +87,6 @@ function beans_add_smart_action( $hook, $callback, $priority = 10, $args = 1 ) {
 	return beans_add_action( $callback, $hook, $callback, $priority, $args );
 
 }
-
 
 /**
  * Modify an action.
@@ -142,7 +140,6 @@ function beans_modify_action( $id, $hook = null, $callback = null, $priority = n
 
 }
 
-
 /**
  * Modify an action hook.
  *
@@ -161,7 +158,6 @@ function beans_modify_action_hook( $id, $hook ) {
 	return beans_modify_action( $id, $hook );
 
 }
-
 
 /**
  * Modify an action callback.
@@ -182,7 +178,6 @@ function beans_modify_action_callback( $id, $callback ) {
 
 }
 
-
 /**
  * Modify an action priority.
  *
@@ -200,7 +195,6 @@ function beans_modify_action_priority( $id, $callback ) {
 	return beans_modify_action( $id, null, null, $callback );
 
 }
-
 
 /**
  * Modify an action arguments.
@@ -220,7 +214,6 @@ function beans_modify_action_arguments( $id, $args ) {
 	return beans_modify_action( $id, null, null, null, $args );
 
 }
-
 
 /**
  * Replace an action.
@@ -266,7 +259,6 @@ function beans_replace_action( $id, $hook = null, $callback = null, $priority = 
 
 }
 
-
 /**
  * Replace an action hook.
  *
@@ -285,7 +277,6 @@ function beans_replace_action_hook( $id, $hook ) {
 	return beans_replace_action( $id, $hook );
 
 }
-
 
 /**
  * Replace an action callback.
@@ -306,7 +297,6 @@ function beans_replace_action_callback( $id, $callback ) {
 
 }
 
-
 /**
  * Replace an action priority.
  *
@@ -324,7 +314,6 @@ function beans_replace_action_priority( $id, $callback ) {
 	return beans_replace_action( $id, null, null, $priority );
 
 }
-
 
 /**
  * Replace an action argument.
@@ -344,7 +333,6 @@ function beans_replace_action_arguments( $id, $args ) {
 	return beans_replace_action( $id, null, null, null, $args );
 
 }
-
 
 /**
  * Remove an action.
@@ -371,7 +359,6 @@ function beans_remove_action( $id ) {
 	return true;
 
 }
-
 
 /**
  * Reset an action.
@@ -404,7 +391,6 @@ function beans_reset_action( $id ) {
 
 }
 
-
 /**
  * Initialize action globals.
  *
@@ -420,7 +406,6 @@ if ( ! isset( $_beans_registered_actions ) ) {
 		'replaced' => array(),
 	);
 }
-
 
 /**
  * Get action.
@@ -445,7 +430,6 @@ function _beans_get_action( $id, $status ) {
 
 }
 
-
 /**
  * Set action.
  *
@@ -467,7 +451,6 @@ function _beans_set_action( $id, $action, $status, $overwrite = false ) {
 	return $action;
 
 }
-
 
 /**
  * Unset action.
@@ -491,7 +474,6 @@ function _beans_unset_action( $id, $status ) {
 
 }
 
-
 /**
  * Merge action.
  *
@@ -510,7 +492,6 @@ function _beans_merge_action( $id, $action, $status ) {
 	return _beans_set_action( $id, $action, $status, true );
 
 }
-
 
 /**
  * Check all action status and return the current action.
@@ -542,7 +523,6 @@ function _beans_get_current_action( $id ) {
 
 }
 
-
 /**
  * Add anonymous callback using a class since php 5.2 is still supported.
  *
@@ -555,7 +535,6 @@ function _beans_add_anonymous_action( $hook, $callback, $priority = 10, $args = 
 	new _Beans_Anonymous_Actions( $hook, $callback, $priority, $args );
 
 }
-
 
 /**
  * Render action which can therefore be stored in a variable.
@@ -622,7 +601,6 @@ function _beans_render_action( $hook ) {
 	return $output;
 
 }
-
 
 /**
  * Make sure the action ID is unique.

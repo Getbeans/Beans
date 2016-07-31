@@ -6,7 +6,6 @@
  */
 
 beans_add_smart_action( 'beans_post_header', 'beans_post_title' );
-
 /**
  * Echo post title.
  *
@@ -49,9 +48,7 @@ function beans_post_title() {
 
 }
 
-
 beans_add_smart_action( 'beans_before_loop', 'beans_post_search_title' );
-
 /**
  * Echo search post title.
  *
@@ -73,7 +70,6 @@ function beans_post_search_title() {
 
 
 beans_add_smart_action( 'beans_before_loop', 'beans_post_archive_title' );
-
 /**
  * Echo archive post title.
  *
@@ -93,9 +89,7 @@ function beans_post_archive_title() {
 
 }
 
-
 beans_add_smart_action( 'beans_post_header', 'beans_post_meta', 15 );
-
 /**
  * Echo post meta.
  *
@@ -152,9 +146,7 @@ function beans_post_meta() {
 
 }
 
-
 beans_add_smart_action( 'beans_post_body', 'beans_post_image', 5 );
-
 /**
  * Echo post image.
  *
@@ -261,9 +253,7 @@ function beans_post_image() {
 
 }
 
-
 beans_add_smart_action( 'beans_post_body', 'beans_post_content' );
-
 /**
  * Echo post content.
  *
@@ -292,10 +282,8 @@ function beans_post_content() {
 
 }
 
-
 // Filter.
 beans_add_smart_action( 'the_content_more_link', 'beans_post_more_link' );
-
 /**
  * Modify post "more link".
  *
@@ -325,9 +313,7 @@ function beans_post_more_link() {
 
 }
 
-
 beans_add_smart_action( 'beans_post_body', 'beans_post_content_navigation', 20 );
-
 /**
  * Echo post content navigation.
  *
@@ -343,9 +329,7 @@ function beans_post_content_navigation() {
 
 }
 
-
 beans_add_smart_action( 'beans_post_body', 'beans_post_meta_categories', 25 );
-
 /**
  * Echo post meta categories.
  *
@@ -365,9 +349,7 @@ function beans_post_meta_categories() {
 
 }
 
-
 beans_add_smart_action( 'beans_post_body', 'beans_post_meta_tags', 30 );
-
 /**
  * Echo post meta tags.
  *
@@ -387,10 +369,8 @@ function beans_post_meta_tags() {
 
 }
 
-
 // Filter.
 beans_add_smart_action( 'previous_post_link', 'beans_previous_post_link', 10, 4 );
-
 /**
  * Modify post "previous link".
  *
@@ -423,10 +403,8 @@ function beans_previous_post_link( $output, $format, $link, $post ) {
 
 }
 
-
 // Filter.
 beans_add_smart_action( 'next_post_link', 'beans_next_post_link', 10, 4 );
-
 /**
  * Modify post "next link".
  *
@@ -459,9 +437,7 @@ function beans_next_post_link( $output, $format, $link, $post ) {
 
 }
 
-
 beans_add_smart_action( 'beans_post_after_markup', 'beans_post_navigation' );
-
 /**
  * Echo post navigation.
  *
@@ -518,9 +494,7 @@ function beans_post_navigation() {
 
 }
 
-
 beans_add_smart_action( 'beans_after_posts_loop', 'beans_posts_pagination' );
-
 /**
  * Echo posts pagination.
  *
@@ -669,9 +643,7 @@ function beans_posts_pagination() {
 
 }
 
-
 beans_add_smart_action( 'beans_no_post', 'beans_no_post' );
-
 /**
  * Echo no post content.
  *
@@ -711,10 +683,8 @@ function beans_no_post() {
 
 }
 
-
 // Filter.
 beans_add_smart_action( 'the_password_form', 'beans_post_password_form' );
-
 /**
  * Modify password protected form.
  *
@@ -762,10 +732,8 @@ function beans_post_password_form() {
 
 }
 
-
 // Filter.
 beans_add_smart_action( 'post_gallery', 'beans_post_gallery', 10, 3 );
-
 /**
  * Modify WP {@link https://codex.wordpress.org/Function_Reference/gallery_shortcode Gallery Shortcode} output.
  *

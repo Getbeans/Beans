@@ -38,7 +38,6 @@ final class _Beans_Anonymous_Actions {
 
 	}
 
-
 	/**
 	 * Get action content and set it as the callback.
 	 */

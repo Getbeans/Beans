@@ -6,7 +6,6 @@
  */
 
 beans_add_smart_action( 'beans_head', 'beans_head_meta', 0 );
-
 /**
  * Echo head meta.
  *
@@ -21,9 +20,7 @@ function beans_head_meta() {
 
 }
 
-
 beans_add_smart_action( 'wp_head', 'beans_head_pingback' );
-
 /**
  * Echo head pingback.
  *
@@ -35,9 +32,7 @@ function beans_head_pingback() {
 
 }
 
-
 beans_add_smart_action( 'wp_head', 'beans_favicon' );
-
 /**
  * Echo head favicon if no icon was added via the customizer.
  *
@@ -60,9 +55,7 @@ function beans_favicon() {
 
 }
 
-
 beans_add_smart_action( 'wp_head', 'beans_header_image' );
-
 /**
  * Print the header image css inline in the header.
  *
@@ -85,9 +78,7 @@ function beans_header_image() {
 
 }
 
-
 beans_add_smart_action( 'beans_header', 'beans_site_branding' );
-
 /**
  * Echo header site branding.
  *
@@ -121,9 +112,7 @@ function beans_site_branding() {
 
 }
 
-
 beans_add_smart_action( 'beans_site_branding_append_markup', 'beans_site_title_tag' );
-
 /**
  * Echo header site title tag.
  *

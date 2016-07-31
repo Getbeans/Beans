@@ -22,7 +22,6 @@ final class _Beans_Image_Editor {
 	 */
 	private $args = array();
 
-
 	/**
 	 * Returned format.
 	 *
@@ -30,14 +29,12 @@ final class _Beans_Image_Editor {
 	 */
 	private $output = false;
 
-
 	/**
 	 * Rebuilt path.
 	 *
 	 * @type string
 	 */
 	private $rebuilt_path;
-
 
 	/**
 	 * Constructor.
@@ -55,7 +52,6 @@ final class _Beans_Image_Editor {
 		}
 
 	}
-
 
 	/**
 	 * Initialize the editing.
@@ -120,7 +116,6 @@ final class _Beans_Image_Editor {
 
 	}
 
-
 	/**
 	 * Setup image data.
 	 */
@@ -134,7 +129,6 @@ final class _Beans_Image_Editor {
 		$this->rebuilt_path = "{$upload_dir}{$filename}-{$query}.{$extension}";
 
 	}
-
 
 	/**
 	 * Edit image.

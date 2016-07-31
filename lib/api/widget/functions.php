@@ -71,7 +71,6 @@ function beans_register_widget_area( $args = array(), $widget_control = array() 
 
 }
 
-
 /**
  * Remove a registered widget area.
  *
@@ -88,7 +87,6 @@ function beans_deregister_widget_area( $id ) {
 	unregister_sidebar( $id );
 
 }
-
 
 /**
  * Check whether a widget area is in use.
@@ -107,7 +105,6 @@ function beans_is_active_widget_area( $id ) {
 	return is_active_sidebar( $id );
 
 }
-
 
 /**
  * Check whether a widget area is registered.
@@ -132,7 +129,6 @@ function beans_has_widget_area( $id ) {
 	return false;
 
 }
-
 
 /**
  * Display a widget area.
@@ -184,7 +180,6 @@ function beans_widget_area( $id ) {
 
 }
 
-
 /**
  * Retrieve data from the current widget area in use.
  *
@@ -205,7 +200,6 @@ function beans_get_widget_area( $needle = false ) {
 	return beans_get( $needle, $_beans_widget_area );
 
 }
-
 
 /**
  * Search content for shortcodes and filter shortcodes through their hooks.
@@ -230,7 +224,6 @@ function beans_widget_area_shortcodes( $content ) {
 	return beans_array_shortcodes( $string, $GLOBALS['_beans_widget_area'] );
 
 }
-
 
 /**
  * Whether there are more widgets available in the loop.
@@ -259,7 +252,6 @@ function beans_have_widgets() {
 	return false;
 
 }
-
 
 /**
  * Sets up the current widget.
@@ -290,7 +282,6 @@ function beans_setup_widget() {
 
 }
 
-
 /**
  * Retrieve data from the current widget in use.
  *
@@ -311,7 +302,6 @@ function beans_get_widget( $needle = false ) {
 	return beans_get( $needle, $_beans_widget );
 
 }
-
 
 /**
  * Search content for shortcodes and filter shortcodes through their hooks.
@@ -336,7 +326,6 @@ function beans_widget_shortcodes( $content ) {
 	return beans_array_shortcodes( $content, $GLOBALS['_beans_widget'] );
 
 }
-
 
 /**
  * Set up widget area global data.
@@ -390,7 +379,6 @@ function _beans_setup_widget_area( $id ) {
 	return true;
 
 }
-
 
 /**
  * Setup widget area global widgets data.
@@ -491,7 +479,6 @@ function _beans_setup_widgets( $widget_area_content ) {
 
 }
 
-
 /**
  * Setup widget global data.
  *
@@ -507,7 +494,6 @@ function _beans_setup_widget( $id ) {
 
 }
 
-
 /**
  * Reset widget area global data.
  *
@@ -519,7 +505,6 @@ function _beans_reset_widget_area() {
 
 }
 
-
 /**
  * Reset widget global data.
  *
@@ -530,7 +515,6 @@ function _beans_reset_widget() {
 	unset( $GLOBALS['_beans_widget'] );
 
 }
-
 
 /**
  * Build widget area subfilters.
@@ -545,7 +529,6 @@ function _beans_widget_area_subfilters() {
 	return '[_' . $_beans_widget_area['id'] . ']';
 
 }
-
 
 /**
  * Build widget subfilters.
@@ -566,9 +549,7 @@ function _beans_widget_subfilters() {
 
 }
 
-
 add_action( 'the_widget', '_beans_force_the_widget', 10, 3 );
-
 /**
  * Force atypical widget added using the_widget() to have a correctly registered id.
  *

@@ -6,7 +6,6 @@
  */
 
 beans_add_smart_action( 'beans_post_meta_date', 'beans_post_meta_date_shortcode' );
-
 /**
  * Echo post meta date shortcode.
  *
@@ -27,9 +26,7 @@ function beans_post_meta_date_shortcode() {
 
 }
 
-
 beans_add_smart_action( 'beans_post_meta_author', 'beans_post_meta_author_shortcode' );
-
 /**
  * Echo post meta author shortcode.
  *
@@ -52,9 +49,7 @@ function beans_post_meta_author_shortcode() {
 
 }
 
-
 beans_add_smart_action( 'beans_post_meta_comments', 'beans_post_meta_comments_shortcode' );
-
 /**
  * Echo post meta comments shortcode.
  *
@@ -88,9 +83,7 @@ function beans_post_meta_comments_shortcode() {
 
 }
 
-
 beans_add_smart_action( 'beans_post_meta_tags', 'beans_post_meta_tags_shortcode' );
-
 /**
  * Echo post meta tags shortcode.
  *
@@ -108,9 +101,7 @@ function beans_post_meta_tags_shortcode() {
 
 }
 
-
 beans_add_smart_action( 'beans_post_meta_categories', 'beans_post_meta_categories_shortcode' );
-
 /**
  * Echo post meta categories shortcode.
  *
