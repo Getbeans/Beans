@@ -85,7 +85,6 @@ final class _Beans_Image_Options {
 		echo '<input type="submit" name="beans_flush_edited_images" value="' . __( 'Flush images', 'tm-beans' ) . '" class="button-secondary" />';
 
 	}
-
 }
 
 new _Beans_Image_Options();

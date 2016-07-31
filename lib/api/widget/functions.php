@@ -452,13 +452,9 @@ function _beans_setup_widgets( $widget_area_content ) {
                     if ( isset( $params[ $number ] ) ) {
                         $widget['options'] = $params[ $number ];
                     }
-
                 }
             }
-
-        }
-        // Widget type fallback.
-        elseif ( 'nav_menu-0' == $id ) {
+        } elseif ( 'nav_menu-0' == $id ) { // Widget type fallback.
 
             $widget['type'] = 'nav_menu';
 

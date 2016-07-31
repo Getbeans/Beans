@@ -206,8 +206,6 @@ final class _Beans_Options {
 		} else {
 			echo '<div id="message" class="error"><p>' . __( 'Settings could not be saved, please try again.', 'tm-beans' ) . '</p></div>';
 		}
-
-
 	}
 
 
@@ -223,5 +221,4 @@ final class _Beans_Options {
 		}
 
 	}
-
 }

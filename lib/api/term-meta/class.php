@@ -121,5 +121,4 @@ final class _Beans_Term_Meta {
 		) );
 
 	}
-
 }

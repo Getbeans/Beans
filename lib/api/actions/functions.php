@@ -574,7 +574,6 @@ function _beans_render_action( $hook ) {
 		} else {
 			return false;
 		}
-
 	}
 
 	$output = null;
@@ -617,9 +616,7 @@ function _beans_render_action( $hook ) {
 			if ( has_filter( $args[0] ) ) {
 				$output .= call_user_func_array( 'beans_render_function', array_merge( array( 'do_action' ), $args ) );
 			}
-
 		}
-
 	}
 
 	return $output;
@@ -653,9 +650,7 @@ function _beans_unique_action_id( $callback ) {
 
 		return get_class( $callback[0] ) . $callback[1];
 
-	}
-	// Treat static method.
-	elseif ( is_string( $callback[0] ) ) {
+	} elseif ( is_string( $callback[0] ) ) { // Treat static method.
 
 		return $callback[0] . '::' . $callback[1];
 

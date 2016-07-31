@@ -150,7 +150,6 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 				$child_indicator = true;
 
 			}
-
 		}
 
 		// Implode to avoid empty spaces.
@@ -202,5 +201,4 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 		$output .= beans_close_markup( "beans_menu_item[_{$item_id}]", 'li', $item, $depth, $args );
 
 	}
-
 }

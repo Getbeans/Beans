@@ -65,7 +65,6 @@ final class _Beans_Admin {
 		) );
 
 	}
-
 }
 
 new _Beans_Admin();

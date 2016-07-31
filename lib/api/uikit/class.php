@@ -124,7 +124,6 @@ final class _Beans_Uikit {
 			// Fetch components from directories.
 			$components = array_merge( $components, $this->get_components_from_directory( $items, $this->get_js_directories( $type ), 'scripts' ) );
 
-
 		}
 
 		return $components;
@@ -191,9 +190,7 @@ final class _Beans_Uikit {
 				if ( file_exists( $file ) ) {
 					$return[] = $file;
 				}
-
 			}
-
 		}
 
 		return $return;
@@ -330,7 +327,6 @@ final class _Beans_Uikit {
 				$autoload['core'] = array_merge( $autoload['core'], array_flip( beans_get( 'core', $this_depedencies, array() ) ) );
 				$autoload['add-ons'] = array_merge( $autoload['add-ons'], array_flip( beans_get( 'add-ons', $this_depedencies, array() ) ) );
 			}
-
 		}
 
 		// Format autoload back to associative key value array.
@@ -363,5 +359,4 @@ final class _Beans_Uikit {
 		return str_replace( '.min', '', $pathinfo['filename'] );
 
 	}
-
 }

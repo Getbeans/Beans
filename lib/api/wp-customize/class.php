@@ -147,7 +147,6 @@ final class _Beans_WP_Customize {
 		return $value;
 
 	}
-
 }
 
 
@@ -190,7 +189,6 @@ if ( class_exists( 'WP_Customize_Control' ) ) :
 			beans_field( $this->beans_field );
 
 		}
-
 	}
 
 endif;

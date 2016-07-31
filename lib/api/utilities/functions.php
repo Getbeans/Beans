@@ -146,7 +146,6 @@ function beans_path_to_url( $path ) {
 					$host = untrailingslashit( $host ) . $blogdetails->path;
 				}
 			}
-
 		}
 
 		$explode = beans_get( 0, explode( '/' , trailingslashit( ltrim( $subfolder, '/' ) ) ) );
@@ -155,15 +154,12 @@ function beans_path_to_url( $path ) {
 		if ( false !== stripos( $explode, '~' ) ) {
 			$host = trailingslashit( $host ) . $explode;
 		}
-
 	}
 
 	// Remove root if necessary.
 	if ( false !== stripos( $path, $root ) ) {
 		$path = str_replace( $root, '', $path );
-	}
-	// Add an extra step which is only used for extremely rare case.
-	elseif ( false !== stripos( $path, beans_get( 'DOCUMENT_ROOT', $_SERVER ) ) ) {
+	} elseif ( false !== stripos( $path, beans_get( 'DOCUMENT_ROOT', $_SERVER ) ) ) {
 		$path = str_replace( beans_get( 'DOCUMENT_ROOT', $_SERVER ), '', $path );
 	}
 
@@ -229,7 +225,6 @@ function beans_url_to_path( $url ) {
 			if ( defined( 'WP_SITEURL' ) && '' !== ( $subfolder = parse_url( WP_SITEURL, PHP_URL_PATH ) ) ) {
 				$root = preg_replace( '#' . untrailingslashit( preg_quote( $subfolder ) ) . '$#', '', $root );
 			}
-
 		}
 
 		// Remove the blog path for multsites.
@@ -243,7 +238,6 @@ function beans_url_to_path( $url ) {
 			$path = preg_replace( '#^(\/?)' . trailingslashit( preg_quote( ltrim( $blogdetails->path, '/' ) ) ) . '#', '', $path );
 
 		}
-
 	}
 
 	// Remove Windows drive for local installs if the root isn't cached yet.
@@ -393,7 +387,6 @@ function beans_count_recursive( $array, $depth = false, $count_parent = true ) {
 		} else {
 			$count += 1;
 		}
-
 	}
 
 	return $count;
@@ -490,9 +483,7 @@ function beans_array_shortcodes( $content, $haystack ) {
 			if ( $value ) {
 				$content = str_replace( '{' . $needle . '}', $value, $content );
 			}
-
 		}
-
 	}
 
 	return $content;
@@ -572,7 +563,6 @@ function beans_esc_attributes( $attributes ) {
 			$string .= $attribute . '="' . $value . '" ';
 
 		}
-
 	}
 
 	return trim( $string );
@@ -600,11 +590,9 @@ if ( ! function_exists( 'array_replace_recursive' ) ) {
 			} else {
 				$base[ $key ] = $value;
 			}
-
 		}
 
 		return $base;
 
 	}
-
 }

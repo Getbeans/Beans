@@ -32,7 +32,6 @@ function beans_breadcrumb() {
 		if ( $post_type_object = get_post_type_object( $post_type ) ) {
 			$breadcrumbs[get_post_type_archive_link( $post_type )] = $post_type_object->labels->name;
 		}
-
 	}
 
 	// Single posts.
@@ -44,10 +43,7 @@ function beans_breadcrumb() {
 
 		$breadcrumbs[] = get_the_title();
 
-	}
-
-	// Pages/custom post type.
-	elseif ( is_singular() && ! is_home() && ! is_front_page() ) {
+	} elseif ( is_singular() && ! is_home() && ! is_front_page() ) { // Pages/custom post type.
 
 		$current_page = array( $post );
 
@@ -62,18 +58,11 @@ function beans_breadcrumb() {
 		foreach ( $current_page as $page ) {
 			$breadcrumbs[get_page_link( $page->ID )] = $page->post_title;
 		}
-
-	}
-
-	// Categories.
-	elseif ( is_category() ) {
+	} elseif ( is_category() ) { // Categories.
 
 		$breadcrumbs[] = single_cat_title( '', false );
 
-	}
-
-	// Taxonomies.
-	elseif ( is_tax() ) {
+	} elseif ( is_tax() ) { // Taxonomies.
 
 		$current_term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
 
@@ -89,39 +78,24 @@ function beans_breadcrumb() {
 
 		$breadcrumbs[] = $current_term->name;
 
-	}
-
-	// Searches.
-	elseif ( is_search() ) {
+	} elseif ( is_search() ) { // Searches.
 
 		$breadcrumbs[] = __( 'Results:', 'tm-beans' ) . ' ' . get_search_query();
 
-	}
-
-	// Author archives.
-	elseif ( is_author() ) {
+	} elseif ( is_author() ) { // Author archives.
 
 		$author = get_queried_object();
 		$breadcrumbs[] = __( 'Author Archives:', 'tm-beans' ) . ' ' . $author->display_name;
 
-	}
-
-	// Tag archives.
-	elseif ( is_tag() ) {
+	} elseif ( is_tag() ) {// Tag archives.
 
 		$breadcrumbs[] = __( 'Tag Archives:', 'tm-beans' ) . ' ' . single_tag_title( '', false );
 
-	}
-
-	// Date archives.
-	elseif ( is_date() ) {
+	} elseif ( is_date() ) { // Date archives.
 
 		$breadcrumbs[] = __( 'Archives:', 'tm-beans' ) . ' ' . get_the_time( 'F Y' );
 
-	}
-
-	// 404.
-	elseif ( is_404() ) {
+	} elseif ( is_404() ) { // 404.
 
 		$breadcrumbs[] = __( '404', 'tm-beans' );
 
@@ -154,9 +128,7 @@ function beans_breadcrumb() {
 
 				beans_close_markup_e( 'beans_breadcrumb_item', 'li' );
 
-			}
-			// Active.
-			else {
+			} else { // Active.
 
 				beans_open_markup_e( 'beans_breadcrumb_item[_active]', 'li', array( 'class' => 'uk-active uk-text-muted' ) );
 

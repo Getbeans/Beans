@@ -216,7 +216,6 @@ function beans_post_image() {
 		} else {
 			$image_small = beans_edit_post_attachment( $post->ID, $edit_small_args );
 		}
-
 	}
 
 	beans_open_markup_e( 'beans_post_image', 'div', array( 'class' => 'tm-article-image' ) );
@@ -641,7 +640,6 @@ function beans_posts_pagination() {
 				beans_close_markup_e( 'beans_posts_pagination_item', 'li' );
 
 			}
-
 		}
 
 		// Next.
@@ -818,7 +816,6 @@ function beans_post_gallery( $output, $attr, $instance ) {
 		foreach ( $_attachments as $key => $val ) {
 			$attachments[ $val->ID ] = $_attachments[ $key ];
 		}
-
 	} elseif ( ! empty( $atts['exclude'] ) ) {
 
 		$attachments = get_children( array(

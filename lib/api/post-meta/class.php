@@ -141,5 +141,4 @@ final class _Beans_Post_Meta {
 		return $attachment;
 
 	}
-
 }

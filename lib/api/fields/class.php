@@ -131,7 +131,6 @@ final class _Beans_Fields {
 				$field['fields'][ $index ] = $this->standardize_field( $_field );
 
 			}
-
 		} else {
 
 			// Add value after the standardizing the field.
@@ -166,7 +165,6 @@ final class _Beans_Fields {
 			} else {
 				$this->field_types[ $field['type'] ] = $field['type'];
 			}
-
 		}
 
 	}
@@ -337,5 +335,4 @@ final class _Beans_Fields {
 		return $fields;
 
 	}
-
 }

@@ -107,9 +107,7 @@ function beans_apply_filters( $id, $value ) {
 			$value = call_user_func_array( 'apply_filters', $args );
 
 		}
-
 	}
-
 
 	return $value;
 
@@ -174,9 +172,7 @@ function beans_has_filters( $id, $callback = false ) {
 			if ( has_filter( preg_replace( '#(\[|\])#', '', $level ), $callback ) ) {
 				return true;
 			}
-
 		}
-
 	}
 
 	return false;

@@ -109,15 +109,12 @@ function _beans_is_post_meta_conditions( $conditions ) {
 				return false;
 			}
 		}
-
 	} else {
 
 		// Try to get id from $_GET.
 		if ( $id = beans_get( 'post' ) ) {
 			$post_id = $id;
-		}
-		// Try to get id from $_POST.
-		elseif ( $id = beans_post( 'post_ID' ) ) {
+		} elseif ( $id = beans_post( 'post_ID' ) ) { // Try to get id from $_POST.
 			$post_id = $id;
 		}
 

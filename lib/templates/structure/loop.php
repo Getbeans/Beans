@@ -44,7 +44,6 @@ do_action( 'beans_before_loop' );
 				if ( is_main_query() && ! is_search() ) {
 					$article_attributes['itemprop']  = 'blogPost';
 				}
-
 			}
 
 			beans_open_markup_e( 'beans_post', 'article', $article_attributes );

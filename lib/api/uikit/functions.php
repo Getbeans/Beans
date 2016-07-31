@@ -49,7 +49,6 @@ function beans_uikit_enqueue_components( $components, $type = 'core', $autoload 
 		foreach ( $autoloads as $autotype => $autoload ) {
 			beans_uikit_enqueue_components( $autoload, $autotype, false );
 		}
-
 	}
 
 	// Add components.

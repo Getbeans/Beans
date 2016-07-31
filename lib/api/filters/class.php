@@ -46,5 +46,4 @@ final class _Beans_Anonymous_Filters {
 		return $this->callback;
 
 	}
-
 }

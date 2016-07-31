@@ -88,7 +88,6 @@ final class _Beans_Attributes {
 			} else {
 				$attributes[ $this->attribute ] = $this->new_value;
 			}
-
 		} else {
 
 			$attributes[ $this->attribute ] = $this->value;
@@ -118,5 +117,4 @@ final class _Beans_Attributes {
 		return $attributes;
 
 	}
-
 }

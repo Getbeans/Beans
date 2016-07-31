@@ -100,9 +100,7 @@ final class _Beans_Page_Compiler {
 					if ( ! empty( $dep_src ) ) {
 						$fragments[ $dep_id ] = $dep_src;
 					}
-
 				}
-
 			}
 
 			if ( 'style' == $type ) {
@@ -169,7 +167,6 @@ final class _Beans_Page_Compiler {
 		echo '</script>';
 
 	}
-
 }
 
 new _Beans_Page_Compiler();

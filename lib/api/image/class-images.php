@@ -91,9 +91,7 @@ final class _Beans_Image_Editor {
 					break;
 
 				}
-
 			}
-
 		}
 
 		$src = beans_path_to_url( $this->rebuilt_path );
@@ -158,7 +156,6 @@ final class _Beans_Image_Editor {
 			if ( is_callable( array( $editor, $function ) ) ) {
 				call_user_func_array( array( $editor, $function ), (array) $arguments );
 			}
-
 		}
 
 		// Save new image.
@@ -172,5 +169,4 @@ final class _Beans_Image_Editor {
 		return true;
 
 	}
-
 }

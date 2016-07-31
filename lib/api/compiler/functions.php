@@ -148,17 +148,18 @@ function beans_compiler_add_fragment( $id, $fragments, $format ) {
 	foreach ( (array) $fragments as $key => $fragment ) {
 
 		// Stop here if the format isn't valid.
-		if ( ! isset( $_beans_compiler_added_fragments[ $format ] ) ) {
+		if ( ! isset( $_beans_compiler_added_fragments[ $format ] ) ) :
 			continue;
-		}
+
 		// Register new compiler id if it doesn't exist and add fragment.
-		elseif ( ! isset( $_beans_compiler_added_fragments[ $format ][ $id ] ) ) {
+		elseif ( ! isset( $_beans_compiler_added_fragments[ $format ][ $id ] ) ) :
 			$_beans_compiler_added_fragments[ $format ][ $id ] = array( $fragment );
-		}
+
 		// Add fragment to existing compiler.
-		else {
+		else :
 			$_beans_compiler_added_fragments[ $format ][ $id ][] = $fragment;
-		}
+
+		endif;
 
 	}
 
@@ -211,12 +212,8 @@ function beans_flush_compiler( $id, $file_format = false, $admin = false ) {
 			if ( false !== stripos( $item, '.' . $file_format ) ) {
 				@unlink( trailingslashit( $dir ) . $item );
 			}
-
 		}
-
-	}
-	// Remove all format files.
-	else {
+	} else { // Remove all format files.
 
 		beans_remove_dir( $dir );
 

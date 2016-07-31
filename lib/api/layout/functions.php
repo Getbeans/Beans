@@ -151,7 +151,6 @@ function beans_get_layout_class( $id ) {
 				break;
 
 		}
-
 	}
 
 	// Add sidebar secondary layouts if the primary and secondary widget area are registered.
@@ -209,7 +208,6 @@ function beans_get_layout_class( $id ) {
 				break;
 
 		}
-
 	}
 
 	/**

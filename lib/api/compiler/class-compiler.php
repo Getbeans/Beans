@@ -103,7 +103,6 @@ final class _Beans_Compiler {
 			if ( ! WP_Filesystem() ) {
 				return $this->kill();
 			}
-
 		}
 
 		return true;
@@ -180,7 +179,6 @@ final class _Beans_Compiler {
 			if ( false !== strpos( $fragment, $_SERVER['HTTP_HOST'] ) || true == preg_match( '#^\/[^\/]#', $fragment ) ) {
 				$fragments_filemtime[ $id ] = @filemtime( beans_url_to_path( $fragment ) );
 			}
-
 		}
 
 		if ( ! empty( $fragments_filemtime ) ) {
@@ -198,7 +196,6 @@ final class _Beans_Compiler {
 				if ( false !== stripos( $item, $hash ) && false !== stripos( $item, $this->get_extension() ) && false === stripos( $item, $_hash ) ) {
 					@unlink( $this->dir . '/' . $item );
 				}
-
 			}
 
 			// Set the new hash which will trigger to new compiling.
@@ -251,9 +248,7 @@ final class _Beans_Compiler {
 		// Enqueue css.
 		if ( 'style' == $this->compiler['type'] ) {
 			return wp_enqueue_style( $this->compiler['id'], $this->get_url(), $this->compiler['depedencies'], $this->compiler['version'] );
-		}
-		// Enqueue js file.
-		elseif ( 'script' == $this->compiler['type'] ) {
+		} elseif ( 'script' == $this->compiler['type'] ) { // Enqueue js file.
 			return wp_enqueue_script( $this->compiler['id'], $this->get_url(), $this->compiler['depedencies'], $this->compiler['version'], $this->compiler['in_footer'] );
 		}
 
@@ -315,9 +310,7 @@ final class _Beans_Compiler {
 
 				$get_content = $this->get_function_content();
 
-			}
-			// Treat file.
-			else {
+			} else { // Treat file.
 
 				$get_content = $this->get_internal_content();
 
@@ -325,7 +318,6 @@ final class _Beans_Compiler {
 				if ( ! $get_content ) {
 					$get_content = $this->get_remote_content();
 				}
-
 			}
 
 			// Stop here if no content or content is an html page.
@@ -366,7 +358,6 @@ final class _Beans_Compiler {
 			if ( ! file_exists( $fragment ) || 0 === @filesize( $fragment ) ) {
 				return false;
 			}
-
 		}
 
 		// Safe to access filesystem since we made sure it was set.
@@ -385,9 +376,7 @@ final class _Beans_Compiler {
 		// Replace double slaches by http. Mostly used for font referencing urls.
 		if ( true == preg_match( '#^\/\/#', $fragment ) ) {
 			$fragment = preg_replace( '#^\/\/#', 'http://', $fragment );
-		}
-		// Add domain if it is local but could not be fetched as a file.
-		elseif ( true == preg_match( '#^\/#', $fragment ) ) {
+		} elseif ( true == preg_match( '#^\/#', $fragment ) ) { // Add domain if it is local but could not be fetched as a file.
 			$fragment = site_url( $fragment );
 		}
 
@@ -402,7 +391,6 @@ final class _Beans_Compiler {
 			if ( ! is_wp_error( $request ) && ( ! isset( $request['body'] ) || 200 != $request['response']['code'] ) ) {
 				return false;
 			}
-
 		}
 
 		return wp_remote_retrieve_body( $request );
@@ -471,7 +459,6 @@ final class _Beans_Compiler {
 			if ( ! _beans_is_compiler_dev_mode() ) {
 				$content = $this->strip_whitespace( $content );
 			}
-
 		}
 
 		if ( 'script' == $this->compiler['type'] && ! _beans_is_compiler_dev_mode() && $this->compiler['minify_js'] ) {
@@ -545,7 +532,7 @@ final class _Beans_Compiler {
 	public function strip_whitespace( $content ) {
 
 		$replace = array(
-			"#/\*.*?\*/#s" => '',  // Strip comments.
+			"#/\*.*?\*/#s" => '', // Strip comments.
 			"#\s\s+#"      => ' ', // Strip excess whitespace.
 		);
 
@@ -649,5 +636,4 @@ final class _Beans_Compiler {
 		) ) );
 
 	}
-
 }

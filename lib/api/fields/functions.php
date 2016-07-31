@@ -124,7 +124,6 @@ function _beans_pre_standardize_fields( $fields ) {
 		if ( 'group' === beans_get( 'type', $field ) ) {
 			$_fields[ $field['id'] ]['fields'] = _beans_pre_standardize_fields( $field['fields'] );
 		}
-
 	}
 
 	return $_fields;
