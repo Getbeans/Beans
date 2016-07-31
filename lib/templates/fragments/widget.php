@@ -198,6 +198,6 @@ beans_add_filter( 'beans_widget_content_archives_output', 'beans_remove_widget_d
  */
 function beans_remove_widget_dropdown_label( $content ) {
 
-	return preg_replace( '#<label([^>]*)class="screen-reader-text"(.*?)>(.*?)</label>#', '', $content ) ;
+	return preg_replace( '#<label([^>]*)class="screen-reader-text"(.*?)>(.*?)</label>#', '', $content );
 
 }

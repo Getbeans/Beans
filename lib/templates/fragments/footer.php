@@ -48,7 +48,6 @@ function beans_footer_content() {
 
 		beans_close_markup_e( 'beans_footer_credit_right', 'span' );
 
-
 	beans_close_markup_e( 'beans_footer_credit', 'div' );
 
 }

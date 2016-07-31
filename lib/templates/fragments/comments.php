@@ -105,7 +105,6 @@ function beans_comment_badges() {
 
 		beans_close_markup_e( 'beans_pingback_badge', 'span' );
 
-
 	}
 
 	// Moderation badge.
@@ -117,7 +116,6 @@ function beans_comment_badges() {
 
 		beans_close_markup_e( 'beans_moderation_badge', 'span' );
 
-
 	}
 
 	// Moderator badge.
@@ -128,7 +126,6 @@ function beans_comment_badges() {
 			beans_output_e( 'beans_moderator_text', __( 'Moderator', 'tm-beans' ) );
 
 		beans_close_markup_e( 'beans_moderator_badge', 'span' );
-
 
 	}
 
@@ -283,7 +280,7 @@ function beans_comments_navigation() {
 	if ( get_comment_pages_count() <= 1 && ! get_option( 'page_comments' ) ) {
 		return;
 	}
-	
+
 	beans_open_markup_e( 'beans_comments_navigation', 'ul', array(
 		'class' => 'uk-pagination',
 		'role'  => 'navigation',
