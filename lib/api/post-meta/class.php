@@ -87,9 +87,9 @@ final class _Beans_Post_Meta {
 	 */
 	public function metabox_content( $post ) {
 
-		foreach ( beans_get_fields( 'post_meta', $this->section ) as $field )
+		foreach ( beans_get_fields( 'post_meta', $this->section ) as $field ) {
 			beans_field( $field );
-
+		}
 	}
 
 
