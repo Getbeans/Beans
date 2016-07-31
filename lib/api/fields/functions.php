@@ -1,6 +1,6 @@
 <?php
 /**
- * The Beans Fields component offers a range of fields which can be used in the Wordpress admin.
+ * The Beans Fields component offers a range of fields which can be used in the WordPress admin.
  *
  * Fields can be used as Options, Post Meta, Term Meta or WP
  * Customizer Options. Custom fields can easily be added too.
