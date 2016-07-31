@@ -300,8 +300,8 @@ final class _Beans_Fields {
 			}
 
 			beans_open_markup_e( 'beans_field_inside', 'div', array(
-					'class' => 'bs-field-inside',
-				), $fields );
+				'class' => 'bs-field-inside',
+			), $fields );
 
 				// Loop through fields.
 				foreach ( $fields as $single_field ) {
