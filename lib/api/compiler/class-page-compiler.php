@@ -32,7 +32,7 @@ final class _Beans_Page_Compiler {
 	 */
 	public function compile_page_styles() {
 
-		if ( ! beans_get_component_support( 'wp_styles_compiler' ) || !get_option( 'beans_compile_all_styles', false ) || _beans_is_compiler_dev_mode() ) {
+		if ( ! beans_get_component_support( 'wp_styles_compiler' ) || ! get_option( 'beans_compile_all_styles', false ) || _beans_is_compiler_dev_mode() ) {
 			return;
 		}
 
@@ -48,7 +48,7 @@ final class _Beans_Page_Compiler {
 	 */
 	public function compile_page_scripts() {
 
-		if ( ! beans_get_component_support( 'wp_scripts_compiler' ) || !get_option( 'beans_compile_all_scripts', false ) || _beans_is_compiler_dev_mode() ) {
+		if ( ! beans_get_component_support( 'wp_scripts_compiler' ) || ! get_option( 'beans_compile_all_scripts', false ) || _beans_is_compiler_dev_mode() ) {
 			return;
 		}
 

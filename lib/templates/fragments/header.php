@@ -96,7 +96,7 @@ beans_add_smart_action( 'beans_header', 'beans_site_branding' );
 function beans_site_branding() {
 
 	beans_open_markup_e( 'beans_site_branding', 'div', array(
-		'class' => 'tm-site-branding uk-float-left' . ( !get_bloginfo( 'description' ) ? ' uk-margin-small-top' : null ),
+		'class' => 'tm-site-branding uk-float-left' . ( ! get_bloginfo( 'description' ) ? ' uk-margin-small-top' : null ),
 	) );
 
 		beans_open_markup_e( 'beans_site_title_link', 'a', array(

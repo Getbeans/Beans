@@ -280,7 +280,7 @@ beans_add_smart_action( 'beans_comments_list_after_markup', 'beans_comments_navi
  */
 function beans_comments_navigation() {
 
-	if ( get_comment_pages_count() <= 1 && !get_option( 'page_comments' ) )
+	if ( get_comment_pages_count() <= 1 && ! get_option( 'page_comments' ) )
 		return;
 
 	beans_open_markup_e( 'beans_comments_navigation', 'ul', array(
