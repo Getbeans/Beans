@@ -159,7 +159,7 @@ beans_add_smart_action( 'beans_comment_content', 'beans_comment_content' );
  */
 function beans_comment_content() {
 
-	beans_output_e( 'beans_comment_content', beans_render_function( comment_text() ) );
+	beans_output_e( 'beans_comment_content', beans_render_function( 'comment_text' ) );
 
 }
 
