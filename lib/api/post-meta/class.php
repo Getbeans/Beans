@@ -65,7 +65,9 @@ final class _Beans_Post_Meta {
 	 */
 	public function nonce() {
 
-		echo '<input type="hidden" name="beans_post_meta_nonce" value="' . esc_attr( wp_create_nonce( 'beans_post_meta_nonce' ) ) . '" />';
+		?>
+		<input type="hidden" name="beans_post_meta_nonce" value="<?php echo esc_attr( wp_create_nonce( 'beans_post_meta_nonce' ) ); ?>" />
+		<?php
 
 	}
 

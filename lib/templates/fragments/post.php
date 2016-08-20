@@ -62,7 +62,7 @@ function beans_post_search_title() {
 
 	beans_open_markup_e( 'beans_search_title', 'h1', array( 'class' => 'uk-article-title' ) );
 
-		echo beans_output( 'beans_search_title_text', __( 'Search results for: ', 'tm-beans' ) ) . get_search_query();
+		printf( '%1$s%2$s', beans_output( 'beans_search_title_text', __( 'Search results for: ', 'tm-beans' ) ), get_search_query() );
 
 	beans_close_markup_e( 'beans_search_title', 'h1' );
 
@@ -595,7 +595,11 @@ function beans_posts_pagination() {
 
 				beans_open_markup_e( 'beans_posts_pagination_item[_active]', 'li', array( 'class' => 'uk-active' ) );
 
-					echo '<span>' . $link . '</span>';
+					beans_open_markup_e( 'beans_posts_pagination_item[_active]_wrap', 'span' );
+
+						beans_output_e( 'beans_posts_pagination_item[_active]_text', $link );
+
+					beans_close_markup_e( 'beans_posts_pagination_item[_active]_wrap', 'span' );
 
 				beans_close_markup_e( 'beans_posts_pagination_item[_active]', 'li' );
 

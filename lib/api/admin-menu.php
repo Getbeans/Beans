@@ -30,13 +30,12 @@ final class _Beans_Admin {
 	 */
 	public function display_screen() {
 
-		echo '<div class="wrap">';
-
-			echo '<h2>' . __( 'Beans Settings', 'tm-beans' ) . '<span style="float: right; font-size: 10px; color: #888;">' . __( 'Version ', 'tm-beans' ) . BEANS_VERSION . '</span></h2>';
-
-			echo beans_options( 'beans_settings' );
-
-		echo '</div>';
+		?>
+		<div class="wrap">
+			<h2><?php _e( 'Beans Settings', 'tm-beans' ); ?><span style="float: right; font-size: 10px; color: #888;"><?php _e( 'Version ', 'tm-beans' ); echo esc_attr( BEANS_VERSION ); ?></span></h2>
+			<?php beans_options( 'beans_settings' ); ?>
+		</div>
+		<?php
 
 	}
 

@@ -65,7 +65,9 @@ final class _Beans_Image_Options {
 			return;
 		}
 
-		echo '<div id="message" class="updated"><p>' . __( 'Images flushed successfully!', 'tm-beans' ) . '</p></div>' . "\n";
+		?>
+		<div id="message" class="updated"><p><?php _e( 'Images flushed successfully!', 'tm-beans' ); ?></p></div>
+		<?php
 
 	}
 
@@ -78,7 +80,9 @@ final class _Beans_Image_Options {
 			return;
 		}
 
-		echo '<input type="submit" name="beans_flush_edited_images" value="' . __( 'Flush images', 'tm-beans' ) . '" class="button-secondary" />';
+		?>
+		<input type="submit" name="beans_flush_edited_images" value="<?php _e( 'Flush images', 'tm-beans' ); ?>" class="button-secondary" />
+		<?php
 
 	}
 }

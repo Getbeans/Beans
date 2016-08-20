@@ -152,14 +152,36 @@ function _beans_post_meta_page_template_reload() {
 		return;
 	}
 
-	$encode = json_encode( $_beans_post_meta_conditions );
-
 	// Stop here of there isn't any post meta assigned to page templates.
-	if ( false === stripos( $encode, '.php' ) ) {
+	if ( false === stripos( wp_json_encode( $_beans_post_meta_conditions ), '.php' ) ) {
 		return;
 	}
 
-	echo "<script type='text/javascript'>\n! (function(a){a(document).ready(function(){a('#page_template').data('beans-pre',a('#page_template').val());a('#page_template').change(function(){if(a.inArray(a(this).val(),$encode)===-1&&a.inArray(a(this).data('beans-pre'),$encode)===-1){return}a(this).data('beans-pre',a(this).val());var b=a('#save-action #save-post');if(b.length===0){b=a('#publishing-action #publish')}b.trigger('click');a('#wpbody-content').fadeOut()})})})(jQuery);\n</script>";
+	?>
+	<script type="text/javascript">
+		( function( $ ) {
+			$( document ).ready( function() {
+				$( '#page_template' ).data( 'beans-pre', $( '#page_template' ).val() );
+				$( '#page_template' ).change( function() {
+					var save = $( '#save-action #save-post' ),
+						meta = JSON.parse( '<?php echo wp_json_encode( $_beans_post_meta_conditions ); ?>' );
+
+					if ( -1 === $.inArray( $( this ).val(), meta ) && -1 === $.inArray( $( this ).data( 'beans-pre' ), meta ) ) {
+						return;
+					}
+
+					if ( save.length === 0 ) {
+						save = $( '#publishing-action #publish' );
+					}
+
+					$( this ).data( 'beans-pre', $( this ).val() );
+					save.trigger( 'click' );
+					$( '#wpbody-content' ).fadeOut();
+				} );
+			} );
+		} )( jQuery );
+	</script>
+	<?php
 
 }
 

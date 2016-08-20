@@ -124,7 +124,7 @@ function beans_comment_callback( $comment, $args, $depth ) {
 	$comment->depth = $depth;
 
 	// Don't allow overwrite.
-	echo '<li id="comment-' . get_comment_ID() . '" ' . comment_class( empty( $args['has_children'] ) ? '' : 'parent', null, null, false ) .'>';
+	?><li id="comment-<?php (int) comment_ID(); ?>" <?php comment_class( empty( $args['has_children'] ) ? '' : 'parent' ); ?>><?php
 
 		/**
 		 * Fires in comment structural HTML.

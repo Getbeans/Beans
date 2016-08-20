@@ -51,7 +51,8 @@ final class _Beans_Term_Meta {
 	 */
 	public function nonce( $tag ) {
 
-		echo '<input type="hidden" name="beans_term_meta_nonce" value="' . esc_attr( wp_create_nonce( 'beans_term_meta_nonce' ) ) . '" />';
+		?>
+		<input type="hidden" name="beans_term_meta_nonce" value="<?php echo esc_attr( wp_create_nonce( 'beans_term_meta_nonce' ) ); ?>" /><?php
 
 	}
 
@@ -67,14 +68,16 @@ final class _Beans_Term_Meta {
 
 		foreach ( beans_get_fields( 'term_meta', $this->section ) as $field ) {
 
-			echo '<tr class="form-field">';
-				echo '<th scope="row">';
-					beans_field_label( $field );
-				echo '</th>';
-				echo '<td>';
-					beans_field( $field );
-				echo '</td>';
-			echo '</tr>';
+			?>
+			<tr class="form-field">';
+				<th scope="row">
+					<?php echo beans_field_label( $field ); ?>
+				</th>
+				<td>
+					<?php echo beans_field( $field ); ?>
+				</td>
+			</tr>
+			<?php
 
 		}
 

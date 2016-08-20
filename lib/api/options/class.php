@@ -99,28 +99,26 @@ final class _Beans_Options {
 		$column_class = beans_get( 'column', $boxes, array() ) ? ' column' : false;
 
 		// Set page data which will be used by the postbox.
-		echo '<form action="" method="post" class="bs-options" data-page="' . beans_get( 'page' ) . '">';
-
-			wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false );
-			wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false );
-			echo '<input type="hidden" name="beans_options_nonce" value="' . esc_attr( wp_create_nonce( 'beans_options_nonce' ) ) . '" />';
-
-			echo '<div class="metabox-holder' . $column_class . '">';
-
+		?>
+		<form action="" method="post" class="bs-options" data-page="<?php echo esc_attr( beans_get( 'page' ) ); ?>">
+			<?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
+			<?php wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false ); ?>
+			<input type="hidden" name="beans_options_nonce" value="<?php echo esc_attr( wp_create_nonce( 'beans_options_nonce' ) ); ?>" />
+			<div class="metabox-holder<?php echo esc_attr( $column_class ); ?>">
+				<?php
 				do_meta_boxes( $page, 'normal', null );
 
 				if ( $column_class ) {
 					do_meta_boxes( $page, 'column', null );
 				}
-
-			echo '</div>';
-
-			echo '<p class="bs-options-form-actions">
-				<input type="submit" name="beans_save_options" value="' . esc_attr__( 'Save', 'tm-beans' ) . '" class="button-primary">
-				<input type="submit" name="beans_reset_options" value="' . esc_attr__( 'Reset', 'tm-beans' ) . '" class="button-secondary">
-			</p>';
-
-		echo '</form>';
+				?>
+			</div>
+			<p class="bs-options-form-actions">
+				<input type="submit" name="beans_save_options" value="<?php echo esc_attr__( 'Save', 'tm-beans' ); ?>" class="button-primary">
+				<input type="submit" name="beans_reset_options" value="<?php echo esc_attr__( 'Reset', 'tm-beans' ); ?>" class="button-secondary">
+			</p>
+		</form>
+		<?php
 
 	}
 
@@ -193,9 +191,17 @@ final class _Beans_Options {
 	public function save_notices() {
 
 		if ( $this->success ) {
-			echo '<div id="message" class="updated"><p>' . __( 'Settings saved successfully!', 'tm-beans' ) . '</p></div>';
+			?>
+			<div id="message" class="updated">
+				<p><?php _e( 'Settings saved successfully!', 'tm-beans' ); ?></p>
+			</div>
+			<?php
 		} else {
-			echo '<div id="message" class="error"><p>' . __( 'Settings could not be saved, please try again.', 'tm-beans' ) . '</p></div>';
+			?>
+			<div id="message" class="error">
+				<p><?php _e( 'Settings could not be saved, please try again.', 'tm-beans' ); ?></p>
+			</div>
+			<?php
 		}
 	}
 
@@ -205,9 +211,17 @@ final class _Beans_Options {
 	public function reset_notices() {
 
 		if ( $this->success ) {
-			echo '<div id="message" class="updated"><p>' . __( 'Settings reset successfully!', 'tm-beans' ) . '</p></div>';
+			?>
+			<div id="message" class="updated">
+				<p><?php _e( 'Settings reset successfully!', 'tm-beans' ); ?></p>
+			</div>
+			<?php
 		} else {
-			echo '<div id="message" class="error"><p>' . __( 'Settings could not be reset, please try again.', 'tm-beans' ) . '</p></div>';
+			?>
+			<div id="message" class="error">
+				<p><?php _e( 'Settings could not be reset, please try again.', 'tm-beans' ); ?></p>
+			</div>
+			<?php
 		}
 
 	}

@@ -107,7 +107,9 @@ final class _Beans_Compiler_Options {
 			return;
 		}
 
-		echo '<div id="message" class="updated"><p>' . __( 'Cache flushed successfully!', 'tm-beans' ) . '</p></div>' . "\n";
+		?>
+		<div id="message" class="updated"><p><?php _e( 'Cache flushed successfully!', 'tm-beans' ); ?></p></div>
+		<?php
 
 	}
 
@@ -120,7 +122,9 @@ final class _Beans_Compiler_Options {
 			return;
 		}
 
-		echo '<input type="submit" name="beans_flush_compiler_cache" value="' . __( 'Flush assets cache', 'tm-beans' ) . '" class="button-secondary" />';
+		?>
+		<input type="submit" name="beans_flush_compiler_cache" value="<?php _e( 'Flush assets cache', 'tm-beans' ); ?>" class="button-secondary" />
+		<?php
 
 	}
 
@@ -130,7 +134,10 @@ final class _Beans_Compiler_Options {
 	public function maybe_disable_style_notice() {
 
 		if ( get_option( 'beans_compile_all_styles' ) && _beans_is_compiler_dev_mode() ) {
-			echo '<br /><span style="color: #d85030;">' . __( 'Styles are not compiled in development mode.', 'tm-beans' ) . '</span>';
+			?>
+			<br />
+			<span style="color: #d85030;"><?php _e( 'Styles are not compiled in development mode.', 'tm-beans' ); ?></span>
+			<?php
 		}
 
 	}
@@ -141,7 +148,10 @@ final class _Beans_Compiler_Options {
 	public function maybe_disable_scripts_notice() {
 
 		if ( get_option( 'beans_compile_all_scripts' ) && _beans_is_compiler_dev_mode() ) {
-			echo '<br /><span style="color: #d85030;">' . __( 'Scripts are not compiled in development mode.', 'tm-beans' ) . '</span>';
+			?>
+			<br />
+			<span style="color: #d85030;"><?php _e( 'Scripts are not compiled in development mode.', 'tm-beans' ); ?></span>
+			<?php
 		}
 
 	}

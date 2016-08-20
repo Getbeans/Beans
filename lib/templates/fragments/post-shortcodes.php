@@ -97,7 +97,7 @@ function beans_post_meta_tags_shortcode() {
 		return;
 	}
 
-	echo beans_output( 'beans_post_meta_tags_prefix', __( 'Tagged with: ', 'tm-beans' ) ) . $tags;
+	printf( '%1$s%2$s', beans_output( 'beans_post_meta_tags_prefix', __( 'Tagged with: ', 'tm-beans' ) ), $tags );
 
 }
 
@@ -115,6 +115,6 @@ function beans_post_meta_categories_shortcode() {
 		return;
 	}
 
-	echo beans_output( 'beans_post_meta_categories_prefix', __( 'Filed under: ', 'tm-beans' ) ) . $categories;
+	printf( '%1$s%2$s', beans_output( 'beans_post_meta_categories_prefix', __( 'Filed under: ', 'tm-beans' ) ), $categories );
 
 }

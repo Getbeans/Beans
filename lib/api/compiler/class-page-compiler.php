@@ -159,9 +159,7 @@ final class _Beans_Page_Compiler {
 		}
 
 		// Add localized content since it was removed with dequeue scripts.
-		echo '<script type="text/javascript">';
-			echo $localized;
-		echo '</script>';
+		printf( "<script type='text/javascript'>\n%s\n</script>\n", $localized );
 
 	}
 }
