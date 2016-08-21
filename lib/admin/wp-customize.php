@@ -30,7 +30,6 @@ function beans_do_register_wp_customize_options() {
 			'id'        => 'beans_logo_image',
 			'label'     => __( 'Logo Image', 'tm-beans' ),
 			'type'      => 'WP_Customize_Image_Control',
-			'transport' => 'refresh',
 		),
 	);
 
@@ -49,7 +48,6 @@ function beans_do_register_wp_customize_options() {
 				'type'      => 'radio',
 				'default'   => beans_get_default_layout(),
 				'options'   => $options,
-				'transport' => 'refresh',
 			),
 		);
 

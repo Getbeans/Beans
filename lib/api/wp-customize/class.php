@@ -90,7 +90,7 @@ final class _Beans_WP_Customize {
 		$defaults = array(
 			'db_type'    => 'theme_mod',
 			'capability' => 'edit_theme_options',
-			'transport'  => 'postMessage',
+			'transport'  => 'refresh',
 		);
 
 		$field = array_merge( $defaults, $field );
