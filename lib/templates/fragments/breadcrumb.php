@@ -119,7 +119,7 @@ function beans_breadcrumb() {
 						// Used for mobile devices.
 						beans_open_markup_e( 'beans_breadcrumb_item_link_inner', 'span' );
 
-							echo $breadcrumb;
+							beans_output_e( 'beans_breadcrumb_item_text', $breadcrumb );;
 
 						beans_close_markup_e( 'beans_breadcrumb_item_link_inner', 'span' );
 
@@ -131,7 +131,7 @@ function beans_breadcrumb() {
 
 				beans_open_markup_e( 'beans_breadcrumb_item[_active]', 'li', array( 'class' => 'uk-active uk-text-muted' ) );
 
-					echo $breadcrumb;
+					beans_output_e( 'beans_breadcrumb_item[_active]_text', $breadcrumb );
 
 				beans_close_markup_e( 'beans_breadcrumb_item[_active]', 'li' );
 
