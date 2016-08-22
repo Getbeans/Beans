@@ -512,7 +512,7 @@ function beans_admin_menu_position( $position ) {
  * @param array $attributes The array key defines the attribute name and the array value define the
  *                          attribute value.
  *
- * @return string The sanitized attributes.
+ * @return string The escaped attributes.
  */
 function beans_esc_attributes( $attributes ) {
 
