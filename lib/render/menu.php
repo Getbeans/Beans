@@ -18,17 +18,21 @@ function beans_do_register_default_menu() {
 		return;
 	}
 
-	// Set up default menu.
-	wp_update_nav_menu_item(
-		wp_create_nav_menu( __( 'Navigation', 'tm-beans' ) ),
-		0,
-		array(
-			'menu-item-title'   => __( 'Home', 'tm-beans' ),
-			'menu-item-classes' => 'home',
-			'menu-item-url'     => home_url( '/' ),
-			'menu-item-status'  => 'publish',
-		)
-	);
+	$name = __( 'Navigation', 'tm-beans' );
+
+	// Set up default menu if it doesn't exists.
+	if ( ! wp_get_nav_menu_object( $name ) ) {
+		wp_update_nav_menu_item(
+			wp_create_nav_menu( $name ),
+			0,
+			array(
+				'menu-item-title'   => __( 'Home', 'tm-beans' ),
+				'menu-item-classes' => 'home',
+				'menu-item-url'     => home_url( '/' ),
+				'menu-item-status'  => 'publish',
+			)
+		);
+	}
 
 }
 
