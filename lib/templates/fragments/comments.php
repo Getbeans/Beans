@@ -472,18 +472,19 @@ function beans_comment_form_fields( $fields ) {
 
 				$author .= beans_open_markup( 'beans_comment_form_legend[_name]', 'legend' );
 
-					$author .= beans_output( 'beans_comment_form_legend_text[_name]', __( 'Name', 'tm-beans' ) );
+					$author .= beans_output( 'beans_comment_form_legend_text[_name]', __( 'Name *', 'tm-beans' ) );
 
 				$author .= beans_close_markup( 'beans_comment_form_legend[_name]', 'legend' );
 
 			}
 
 			$author .= beans_selfclose_markup( 'beans_comment_form_field[_name]', 'input', array(
-				'id'    => 'author',
-				'class' => 'uk-width-1-1',
-				'type'  => 'text',
-				'value' => $commenter['comment_author'], // Automatically escaped.
-				'name'  => 'author',
+				'id'       => 'author',
+				'class'    => 'uk-width-1-1',
+				'type'     => 'text',
+				'value'    => $commenter['comment_author'], // Automatically escaped.
+				'name'     => 'author',
+				'required' => 'required',
 			) );
 
 		$author .= beans_close_markup( 'beans_comment_form[_name]', 'div' );
@@ -518,7 +519,7 @@ function beans_comment_form_fields( $fields ) {
 				'type'     => 'text',
 				'value'    => $commenter['comment_author_email'], // Automatically escaped.
 				'name'     => 'email',
-				'required' => get_option( 'require_name_email' ) ? '' : null,
+				'required' => get_option( 'require_name_email' ) ? 'required' : null,
 			) );
 
 		$email .= beans_close_markup( 'beans_comment_form[_email]', 'div' );
