@@ -99,7 +99,7 @@ function beans_get_post_attachment( $post_id, $size = 'full' ) {
  * 		@type array $flip        Numeric array matching the {@link http://codex.wordpress.org/Class_Reference/WP_Image_Editor WP_Image_Editor} flip
  * 		      				     function arguments.
  * 		@type array $set_quality Numeric array matching the {@link http://codex.wordpress.org/Class_Reference/WP_Image_Editor WP_Image_Editor} set_quality
- * 		      					 function arguments. Default 100.
+ * 		      					 function arguments.
  * }
  *
  * @return object Edited post attachment data.
