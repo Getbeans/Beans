@@ -40,10 +40,16 @@ function beans_post_meta_author_shortcode() {
 		'href'     => get_author_posts_url( get_the_author_meta( 'ID' ) ), // Automatically escaped.
 		'rel'      => 'author',
 		'itemprop' => 'author',
+		'itemscope' => '',
 		'itemtype' => 'http://schema.org/Person',
 	) );
 
 		beans_output_e( 'beans_post_meta_author_text', get_the_author() );
+
+		beans_selfclose_markup_e( 'beans_post_meta_author_name_meta', 'meta', array(
+			'itemprop' => 'name',
+			'content'  => get_the_author(), // Automatically escaped.
+		) );
 
 	beans_close_markup_e( 'beans_post_meta_author', 'a' );
 

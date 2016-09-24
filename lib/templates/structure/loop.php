@@ -37,7 +37,7 @@ do_action( 'beans_before_loop' );
 			// Blog specifc attributes.
 			if ( 'post' === get_post_type() ) {
 
-				$article_attributes['itemtype']  = 'http://schema.org/BlogPosting';
+				$article_attributes['itemtype'] = 'http://schema.org/BlogPosting';
 
 				// Only add to blogPost attribute to the main query,
 				if ( is_main_query() && ! is_search() ) {
@@ -58,7 +58,7 @@ do_action( 'beans_before_loop' );
 
 				beans_close_markup_e( 'beans_post_header', 'header' );
 
-				beans_open_markup_e( 'beans_post_body', 'div' );
+				beans_open_markup_e( 'beans_post_body', 'div', array( 'itemprop' => 'articleBody' ) );
 
 					/**
 					 * Fires in the post body.
