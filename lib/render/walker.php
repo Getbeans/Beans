@@ -112,10 +112,11 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 
 		// WP link attributes.
 		$_link_attr = array(
-			'title'  => $item->attr_title,
-			'target' => $item->target,
-			'rel'    => $item->xfn,
-			'href'   => $item->url,
+			'title'    => $item->attr_title,
+			'target'   => $item->target,
+			'rel'      => $item->xfn,
+			'href'     => $item->url,
+			'itemprop' => 'url',
 		);
 
 		// Prevent empty WP link attributes.
@@ -129,7 +130,8 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 
 		// Set wp item attributes as defaults.
 		$item_attr = array(
-			'class' => array( $_classes ),
+			'class'    => array( $_classes ),
+			'itemprop' => 'name',
 		);
 
 		// Add UIKit active class.
