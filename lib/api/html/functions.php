@@ -53,7 +53,7 @@ function beans_output( $id, $output ) {
  *
  * Since this function uses {@see beans_apply_filters()}, the $id argument may contain sub-hook(s).
  *
- * @since next release
+ * @since 1.4.0
  * @uses beans_output()  To register output by ID.
  *
  * @param string $id     A unique string used as a reference. The $id argument may contain sub-hook(s).
@@ -169,7 +169,7 @@ function beans_open_markup( $id, $tag, $attributes = array() ) {
  *
  * Since this function uses {@see beans_apply_filters()}, the $id argument may contain sub-hook(s).
  *
- * @since next release
+ * @since 1.4.0
  *
  * @param string $id               A unique string used as a reference. The $id argument may contain sub-hooks(s).
  * @param string|bool $tag         The HTML tag. If set to False or empty, the markup HTML tag will be removed but
@@ -228,7 +228,7 @@ function beans_selfclose_markup( $id, $tag, $attributes = array() ) {
  * This function is shortuct of {@see beans_open_markup()}. It should be used for self-closed HTML markup such as
  * images or inputs.
  *
- * @since next release
+ * @since 1.4.0
  *
  * @param string $id               A unique string used as a reference. The $id argument may contain sub-hook(s).
  * @param string|bool $tag         The HTML self-close tag.If set to False or empty, the markup HTML tag will
@@ -299,7 +299,7 @@ function beans_close_markup( $id, $tag ) {
  * This function is similar to {@see beans_open_markup()}, but does not accept HTML attributes. The $id
  * argument must be the identical to the opening markup.
  *
- * @since next release
+ * @since 1.4.0
  *
  * @param string $id  Identical to the opening markup ID.
  * @param string $tag The HTML tag.

@@ -73,7 +73,7 @@ beans_add_smart_action( 'beans_before_loop', 'beans_post_archive_title' );
 /**
  * Echo archive post title.
  *
- * @since next release
+ * @since 1.4.0
  */
 function beans_post_archive_title() {
 
