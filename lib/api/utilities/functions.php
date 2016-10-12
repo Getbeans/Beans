@@ -8,7 +8,6 @@
  * @package API\Utilities
  */
 
-
 /**
  * Calls function given by the first parameter and passes the remaining parameters as arguments.
  *
@@ -23,8 +22,9 @@
  */
 function beans_render_function( $callback ) {
 
-	if ( !is_callable( $callback ) )
+	if ( ! is_callable( $callback ) ) {
 		return;
+	}
 
 	$args = func_get_args();
 
@@ -35,7 +35,6 @@ function beans_render_function( $callback ) {
 	return ob_get_clean();
 
 }
-
 
 /**
  * Calls function given by the first parameter and passes the remaining parameters as arguments.
@@ -51,8 +50,9 @@ function beans_render_function( $callback ) {
  */
 function beans_render_function_array( $callback, $params = array() ) {
 
-	if ( !is_callable( $callback ) )
+	if ( ! is_callable( $callback ) ) {
 		return;
+	}
 
 	ob_start();
 
@@ -61,7 +61,6 @@ function beans_render_function_array( $callback, $params = array() ) {
 	return ob_get_clean();
 
 }
-
 
 /**
  * Remove a directory and its files.
@@ -74,8 +73,9 @@ function beans_render_function_array( $callback, $params = array() ) {
  */
 function beans_remove_dir( $dir_path ) {
 
-	if ( !is_dir( $dir_path ) )
+	if ( ! is_dir( $dir_path ) ) {
 		return false;
+	}
 
 	$items = scandir( $dir_path );
 	unset( $items[0], $items[1] );
@@ -84,12 +84,13 @@ function beans_remove_dir( $dir_path ) {
 
 		$path = $dir_path . '/' . $item;
 
-		if ( filetype( $dir_path . '/' . $item ) === 'dir' )
+		if ( 'dir' === filetype( $dir_path . '/' . $item ) ) {
 			beans_remove_dir( $path );
-		else
+		} else {
 			@unlink( $path );
+		}
 
-		unset( $items[$needle] );
+		unset( $items[ $needle ] );
 
 	}
 
@@ -98,7 +99,6 @@ function beans_remove_dir( $dir_path ) {
 	return true;
 
 }
-
 
 /**
  * Convert internal path to a url.
@@ -116,51 +116,52 @@ function beans_path_to_url( $path ) {
 	static $root, $host;
 
 	// Stop here if it is already a url or data format.
-	if ( preg_match( '#^(http|https|\/\/|data)#', $path ) == true )
+	if ( true == preg_match( '#^(http|https|\/\/|data)#', $path ) ) {
 		return $path;
+	}
 
 	// Standardize backslashes.
 	$path = wp_normalize_path( $path );
 
 	// Set root and host if it isn't cached.
-	if ( !$root ) {
+	if ( ! $root ) {
 
 		// Standardize backslashes set host.
 		$root = wp_normalize_path( untrailingslashit( ABSPATH ) );
 		$host = untrailingslashit( site_url() );
 
 		// Remove subfolder if necessary.
-		if ( ( $subfolder = parse_url( $host, PHP_URL_PATH ) ) !== '' ) {
+		if ( '' !== ( $subfolder = parse_url( $host, PHP_URL_PATH ) ) ) {
 
 			$root = preg_replace( '#' . untrailingslashit( preg_quote( $subfolder ) ) . '$#', '', $root );
 			$host = preg_replace( '#' . untrailingslashit( preg_quote( $subfolder ) ) . '$#', '', $host );
 
 			// Add the blog path for multsites.
-			if ( !is_main_site() && ( $blogdetails = get_blog_details( get_current_blog_id() ) ) )
-				if ( !( defined( 'WP_SITEURL' ) ) || ( defined( 'WP_SITEURL' ) && site_url() == WP_SITEURL ) )
+			if ( ! is_main_site() && ( $blogdetails = get_blog_details( get_current_blog_id() ) ) ) {
+				if ( ! ( defined( 'WP_SITEURL' ) ) || ( defined( 'WP_SITEURL' ) && WP_SITEURL == site_url() ) ) {
 					$host = untrailingslashit( $host ) . $blogdetails->path;
-
+				}
+			}
 		}
 
 		$explode = beans_get( 0, explode( '/' , trailingslashit( ltrim( $subfolder, '/' ) ) ) );
 
 		// Maybe re-add tilde from host.
-		if ( stripos( $explode, '~' ) !== false )
+		if ( false !== stripos( $explode, '~' ) ) {
 			$host = trailingslashit( $host ) . $explode;
-
+		}
 	}
 
 	// Remove root if necessary.
-	if ( stripos( $path, $root ) !== false )
+	if ( false !== stripos( $path, $root ) ) {
 		$path = str_replace( $root, '', $path );
-	// Add an extra step which is only used for extremely rare case.
-	elseif ( stripos( $path, beans_get( 'DOCUMENT_ROOT', $_SERVER ) ) !== false )
+	} elseif ( false !== stripos( $path, beans_get( 'DOCUMENT_ROOT', $_SERVER ) ) ) {
 		$path = str_replace( beans_get( 'DOCUMENT_ROOT', $_SERVER ), '', $path );
+	}
 
 	return trailingslashit( $host ) . ltrim( $path, '/' );
 
 }
-
 
 /**
  * Convert internal url to a path.
@@ -178,12 +179,14 @@ function beans_url_to_path( $url ) {
 	static $root, $blogdetails;
 
 	// Stop here if it is not an internal url.
-	if ( stripos( $url, parse_url( site_url(), PHP_URL_HOST ) ) === false )
+	if ( false === stripos( $url, parse_url( site_url(), PHP_URL_HOST ) ) ) {
 		return beans_sanitize_path( $url );
+	}
 
 	// Fix protocole. It isn't needed to set SSL as it is only used to parse the URL.
-	if ( preg_match( '#^(\/\/)#', $url ) )
+	if ( preg_match( '#^(\/\/)#', $url ) ) {
 		$url = 'http:' . $url;
+	}
 
 	// Parse url and standardize backslashes.
 	$url = parse_url( $url, PHP_URL_PATH );
@@ -191,12 +194,12 @@ function beans_url_to_path( $url ) {
 	$explode = beans_get( 0, explode( '/' , trailingslashit( ltrim( $path, '/' ) ) ) );
 
 	// Maybe remove tilde from path.
-	if ( stripos( $explode, '~' ) !== false ) {
+	if ( false !== stripos( $explode, '~' ) ) {
 		$path = preg_replace( '#\~[^/]*\/#', '', $path );
 	}
 
 	// Set root if it isn't cached yet.
-	if ( !$root ) {
+	if ( ! $root ) {
 
 		// Standardize backslashes and remove windows drive for local installs.
 		$root = wp_normalize_path( untrailingslashit( ABSPATH ) );
@@ -205,7 +208,7 @@ function beans_url_to_path( $url ) {
 	}
 
 	// Remove subfolder if necessary.
-	if ( ( $subfolder = parse_url( site_url(), PHP_URL_PATH ) ) !== '' ) {
+	if ( '' !== ( $subfolder = parse_url( site_url(), PHP_URL_PATH ) ) ) {
 
 		// Set root if it isn't cached.
 		if ( isset( $set_root ) ) {
@@ -214,36 +217,37 @@ function beans_url_to_path( $url ) {
 			$root = preg_replace( '#' . untrailingslashit( preg_quote( $subfolder ) ) . '$#', '', $root );
 
 			// Add an extra step which is only used for extremely rare case.
-			if ( defined( 'WP_SITEURL' ) && ( $subfolder = parse_url( WP_SITEURL, PHP_URL_PATH ) ) !== '' )
+			if ( defined( 'WP_SITEURL' ) && '' !== ( $subfolder = parse_url( WP_SITEURL, PHP_URL_PATH ) ) ) {
 				$root = preg_replace( '#' . untrailingslashit( preg_quote( $subfolder ) ) . '$#', '', $root );
-
+			}
 		}
 
 		// Remove the blog path for multsites.
-		if ( !is_main_site() ) {
+		if ( ! is_main_site() ) {
 
 			// Set blogdetails if it isn't cached.
-			if ( !$blogdetails )
+			if ( ! $blogdetails ) {
 				$blogdetails = get_blog_details( get_current_blog_id() );
+			}
 
 			$path = preg_replace( '#^(\/?)' . trailingslashit( preg_quote( ltrim( $blogdetails->path, '/' ) ) ) . '#', '', $path );
 
 		}
-
 	}
 
 	// Remove Windows drive for local installs if the root isn't cached yet.
-	if ( isset( $set_root ) )
+	if ( isset( $set_root ) ) {
 		$root = beans_sanitize_path( $root );
+	}
 
 	// Add root of it doesn't exist.
-	if ( strpos( $path, $root ) === false )
+	if ( false === strpos( $path, $root ) ) {
 		$path = trailingslashit( $root ) . ltrim( $path, '/' );
+	}
 
 	return beans_sanitize_path( $path );
 
 }
-
 
 /**
  * Sanitize path.
@@ -257,8 +261,9 @@ function beans_url_to_path( $url ) {
 function beans_sanitize_path( $path ) {
 
 	// Try to convert it to real path.
-	if ( false !== realpath( $path ) )
+	if ( false !== realpath( $path ) ) {
 		$path = realpath( $path );
+	}
 
 	// Remove Windows drive for local installs if the root isn't cached yet.
 	$path = preg_replace( '#^[A-Z]\:#i', '', $path );
@@ -266,7 +271,6 @@ function beans_sanitize_path( $path ) {
 	return wp_normalize_path( $path );
 
 }
-
 
 /**
  * Get value from $_GET or defined $haystack.
@@ -281,18 +285,19 @@ function beans_sanitize_path( $path ) {
  */
 function beans_get( $needle, $haystack = false, $default = null ) {
 
-	if ( $haystack === false )
+	if ( false === $haystack ) {
 		$haystack = $_GET;
+	}
 
 	$haystack = (array) $haystack;
 
-	if ( isset( $haystack[$needle] ) )
-		return $haystack[$needle];
+	if ( isset( $haystack[ $needle ] ) ) {
+		return $haystack[ $needle ];
+	}
 
 	return $default;
 
 }
-
 
 /**
  * Get value from $_POST.
@@ -310,7 +315,6 @@ function beans_post( $needle, $default = null ) {
 
 }
 
-
 /**
  * Get value from $_GET or $_POST superglobals.
  *
@@ -323,16 +327,17 @@ function beans_post( $needle, $default = null ) {
  */
 function beans_get_or_post( $needle, $default = null ) {
 
-	if ( $get = beans_get( $needle ) )
+	if ( $get = beans_get( $needle ) ) {
 		return $get;
+	}
 
-	if ( $post = beans_post( $needle ) )
+	if ( $post = beans_post( $needle ) ) {
 		return $post;
+	}
 
 	return $default;
 
 }
-
 
 /**
  * Count recursive array.
@@ -351,27 +356,32 @@ function beans_get_or_post( $needle, $default = null ) {
  */
 function beans_count_recursive( $array, $depth = false, $count_parent = true ) {
 
-	if ( !is_array( $array ) )
+	if ( ! is_array( $array ) ) {
 		return 0;
+	}
 
-	if ( $depth === 1 )
+	if ( 1 === $depth ) {
 		return count( $array );
+	}
 
-	if ( !is_numeric( $depth ) )
+	if ( ! is_numeric( $depth ) ) {
 		return count( $array, COUNT_RECURSIVE );
+	}
 
 	$count = $count_parent ? count( $array ) : 0;
 
-	foreach ( $array as $_array )
-		 if ( is_array( $_array ) )
+	foreach ( $array as $_array ) {
+
+		if ( is_array( $_array ) ) {
 			$count += beans_count_recursive( $_array, $depth - 1, $count_parent );
-		 else
+		} else {
 			$count += 1;
+		}
+	}
 
 	return $count;
 
 }
-
 
 /**
  * Checks if a value exists in a multi-dimensional array.
@@ -387,17 +397,19 @@ function beans_count_recursive( $array, $depth = false, $count_parent = true ) {
  */
 function beans_in_multi_array( $needle, $haystack, $strict = false ) {
 
-	if ( in_array( $needle, $haystack, $strict ) )
+	if ( in_array( $needle, $haystack, $strict ) ) {
 		return true;
+	}
 
-	foreach ( (array) $haystack as $value )
-		if ( is_array( $value ) && beans_in_multi_array( $needle , $value ) )
+	foreach ( (array) $haystack as $value ) {
+		if ( is_array( $value ) && beans_in_multi_array( $needle , $value ) ) {
 			return true;
+		}
+	}
 
 	return false;
 
 }
-
 
 /**
  * Checks if a key or index exists in a multi-dimensional array.
@@ -411,17 +423,19 @@ function beans_in_multi_array( $needle, $haystack, $strict = false ) {
  */
 function beans_multi_array_key_exists( $needle, $haystack ) {
 
-	if ( array_key_exists( $needle, $haystack ) )
+	if ( array_key_exists( $needle, $haystack ) ) {
 		return true;
+	}
 
-	foreach ( $haystack as $value )
-		if ( is_array( $value ) && beans_multi_array_key_exists( $needle , $value ) )
+	foreach ( $haystack as $value ) {
+		if ( is_array( $value ) && beans_multi_array_key_exists( $needle , $value ) ) {
 			return true;
+		}
+	}
 
 	return false;
 
 }
-
 
 /**
  * Search content for shortcodes and filter shortcodes through their hooks.
@@ -453,17 +467,15 @@ function beans_array_shortcodes( $content, $haystack ) {
 
 			}
 
-			if ( $value )
+			if ( $value ) {
 				$content = str_replace( '{' . $needle . '}', $value, $content );
-
+			}
 		}
-
 	}
 
 	return $content;
 
 }
-
 
 /**
  * Make sure the menu position is valid.
@@ -480,16 +492,17 @@ function beans_admin_menu_position( $position ) {
 
 	global $menu;
 
-	if ( !is_array( $position ) )
+	if ( ! is_array( $position ) ) {
 		return $position;
+	}
 
-	if ( array_key_exists( $position, $menu ) )
+	if ( array_key_exists( $position, $menu ) ) {
 		return beans_admin_menu_position( $position + 1 );
+	}
 
 	return $position;
 
 }
-
 
 /**
  * Sanitize HTML attributes from array to string.
@@ -499,7 +512,7 @@ function beans_admin_menu_position( $position ) {
  * @param array $attributes The array key defines the attribute name and the array value define the
  *                          attribute value.
  *
- * @return string The sanitized attributes.
+ * @return string The escaped attributes.
  */
 function beans_esc_attributes( $attributes ) {
 
@@ -514,57 +527,56 @@ function beans_esc_attributes( $attributes ) {
 	 * @param array $method Associative array of selectors as keys and escaping method as values.
 	 */
 	$methods = apply_filters( 'beans_escape_attributes_methods', array(
-		'href' => 'esc_url',
-		'src' => 'esc_url',
+		'href'     => 'esc_url',
+		'src'      => 'esc_url',
 		'itemtype' => 'esc_url',
-		'onclick' => 'esc_js'
+		'onclick'  => 'esc_js',
 	) );
 
 	$string = '';
 
 	foreach ( (array) $attributes as $attribute => $value ) {
 
-		if ( $value !== null ) {
+		if ( null !== $value ) {
 
-			if ( $method = beans_get( $attribute, $methods ) )
+			if ( $method = beans_get( $attribute, $methods ) ) {
 				$value = call_user_func( $method, $value );
-			else
+			} else {
 				$value = esc_attr( $value );
+			}
 
 			$string .= $attribute . '="' . $value . '" ';
 
 		}
-
 	}
 
 	return trim( $string );
 
 }
 
-
-if ( !function_exists( 'array_replace_recursive' ) ) {
+if ( ! function_exists( 'array_replace_recursive' ) ) {
 
 	/**
 	 * PHP 5.2 fallback.
 	 *
 	 * @ignore
 	 */
-	function array_replace_recursive( $base, $replacements )  {
+	function array_replace_recursive( $base, $replacements ) {
 
-		if ( !is_array( $base ) || !is_array( $replacements ) )
+		if ( ! is_array( $base ) || ! is_array( $replacements ) ) {
 			return $base;
+		}
 
 		foreach ( $replacements as $key => $value ) {
 
-			if ( is_array( $value ) && is_array( $from_base = beans_get( $key, $base ) ) )
-				$base[$key] = array_replace_recursive( $from_base, $value );
-			else
-				$base[$key] = $value;
-
+			if ( is_array( $value ) && is_array( $from_base = beans_get( $key, $base ) ) ) {
+				$base[ $key ] = array_replace_recursive( $from_base, $value );
+			} else {
+				$base[ $key ] = $value;
+			}
 		}
 
 		return $base;
 
 	}
-
 }

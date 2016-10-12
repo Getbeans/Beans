@@ -5,7 +5,6 @@
  * @package Structure\Loop
  */
 
-
 /**
  * Fires before the loop.
  *
@@ -15,7 +14,7 @@
  */
 do_action( 'beans_before_loop' );
 
-	if ( have_posts() && !is_404() ) :
+	if ( have_posts() && ! is_404() ) :
 
 		/**
 		 * Fires before posts loop.
@@ -29,26 +28,26 @@ do_action( 'beans_before_loop' );
 		while ( have_posts() ) : the_post();
 
 			$article_attributes = array(
-				'id' => get_the_ID(), // Automatically escaped.
-				'class' => implode( ' ', get_post_class( array( 'uk-article', ( current_theme_supports( 'beans-default-styling' ) ? 'uk-panel-box' : null ) ) ) ), // Automatically escaped.
+				'id'        => get_the_ID(), // Automatically escaped.
+				'class'     => implode( ' ', get_post_class( array( 'uk-article', ( current_theme_supports( 'beans-default-styling' ) ? 'uk-panel-box' : null ) ) ) ), // Automatically escaped.
 				'itemscope' => 'itemscope',
-				'itemtype' => 'http://schema.org/CreativeWork'
+				'itemtype'  => 'http://schema.org/CreativeWork',
 			);
 
 			// Blog specifc attributes.
 			if ( 'post' === get_post_type() ) {
 
-				$article_attributes['itemtype']  = 'http://schema.org/BlogPosting';
+				$article_attributes['itemtype'] = 'http://schema.org/BlogPosting';
 
 				// Only add to blogPost attribute to the main query,
-				if ( is_main_query() && !is_search() )
+				if ( is_main_query() && ! is_search() ) {
 					$article_attributes['itemprop']  = 'blogPost';
-
+				}
 			}
 
-			echo beans_open_markup( 'beans_post', 'article', $article_attributes );
+			beans_open_markup_e( 'beans_post', 'article', $article_attributes );
 
-				echo beans_open_markup( 'beans_post_header', 'header' );
+				beans_open_markup_e( 'beans_post_header', 'header' );
 
 					/**
 					 * Fires in the post header.
@@ -57,9 +56,9 @@ do_action( 'beans_before_loop' );
 					 */
 					do_action( 'beans_post_header' );
 
-				echo beans_close_markup( 'beans_post_header', 'header' );
+				beans_close_markup_e( 'beans_post_header', 'header' );
 
-				echo beans_open_markup( 'beans_post_body', 'div' );
+				beans_open_markup_e( 'beans_post_body', 'div', array( 'itemprop' => 'articleBody' ) );
 
 					/**
 					 * Fires in the post body.
@@ -68,9 +67,9 @@ do_action( 'beans_before_loop' );
 					 */
 					do_action( 'beans_post_body' );
 
-				echo beans_close_markup( 'beans_post_body', 'div' );
+				beans_close_markup_e( 'beans_post_body', 'div' );
 
-			echo beans_close_markup( 'beans_post', 'article' );
+			beans_close_markup_e( 'beans_post', 'article' );
 
 		endwhile;
 

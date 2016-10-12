@@ -4,7 +4,6 @@
  */
 
 beans_add_smart_action( 'beans_field_radio', 'beans_field_radio' );
-
 /**
  * Echo radio field type.
  *
@@ -24,8 +23,9 @@ beans_add_smart_action( 'beans_field_radio', 'beans_field_radio' );
  */
 function beans_field_radio( $field ) {
 
-	if ( empty( $field['options'] ) )
+	if ( empty( $field['options'] ) ) {
 		return;
+	}
 
 	$field['default'] = isset( $checkbox['default'] ) ? $checkbox['default'] : key( $field['options'] );
 
@@ -42,7 +42,9 @@ function beans_field_radio( $field ) {
 					<img src="<?php echo esc_url( $radio ); ?>"/>
 				<?php endif; ?>
 				<input type="radio" name="<?php echo esc_attr( $field['name'] ); ?>" value="<?php echo esc_attr( $id ); ?>" <?php checked( $id, $field['value'], 1 ); ?> <?php echo beans_esc_attributes( $field['attributes'] ); ?>/>
-				<?php if ( !$has_image ) echo $radio; ?>
+				<?php if ( ! $has_image ) : ?>
+					<?php echo $radio; ?>
+				<?php endif; ?>
 			</label>
 
 		<?php $i++; endforeach; ?>

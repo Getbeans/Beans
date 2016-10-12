@@ -6,7 +6,6 @@
  */
 
 beans_add_smart_action( 'beans_sidebar_primary', 'beans_widget_area_sidebar_primary' );
-
 /**
  * Echo primary sidebar widget area.
  *
@@ -18,9 +17,7 @@ function beans_widget_area_sidebar_primary() {
 
 }
 
-
 beans_add_smart_action( 'beans_sidebar_secondary', 'beans_widget_area_sidebar_secondary' );
-
 /**
  * Echo secondary sidebar widget area.
  *
@@ -32,9 +29,7 @@ function beans_widget_area_sidebar_secondary() {
 
 }
 
-
 beans_add_smart_action( 'beans_site_after_markup', 'beans_widget_area_offcanvas_menu' );
-
 /**
  * Echo off-canvas widget area.
  *
@@ -42,8 +37,9 @@ beans_add_smart_action( 'beans_site_after_markup', 'beans_widget_area_offcanvas_
  */
 function beans_widget_area_offcanvas_menu() {
 
-	if ( !current_theme_supports( 'offcanvas-menu' ) )
+	if ( ! current_theme_supports( 'offcanvas-menu' ) ) {
 		return;
+	}
 
 	echo beans_widget_area( 'offcanvas_menu' );
 

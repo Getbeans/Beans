@@ -8,7 +8,6 @@
  * @package API\Image
  */
 
-
 /**
  * Edit image size and/or quality.
  *
@@ -47,7 +46,6 @@ function beans_edit_image( $src, array $args, $output = 'STRING' ) {
 
 }
 
-
 /**
  * Get attachment data.
  *
@@ -81,7 +79,6 @@ function beans_get_post_attachment( $post_id, $size = 'full' ) {
 
 }
 
-
 /**
  * Edit post attachment.
  *
@@ -102,26 +99,27 @@ function beans_get_post_attachment( $post_id, $size = 'full' ) {
  * 		@type array $flip        Numeric array matching the {@link http://codex.wordpress.org/Class_Reference/WP_Image_Editor WP_Image_Editor} flip
  * 		      				     function arguments.
  * 		@type array $set_quality Numeric array matching the {@link http://codex.wordpress.org/Class_Reference/WP_Image_Editor WP_Image_Editor} set_quality
- * 		      					 function arguments. Default 100.
+ * 		      					 function arguments.
  * }
  *
  * @return object Edited post attachment data.
  */
 function beans_edit_post_attachment( $post_id, $args = array() ) {
 
-	if ( !has_post_thumbnail( $post_id ) )
+	if ( ! has_post_thumbnail( $post_id ) ) {
 		return false;
+	}
 
 	// Get full size image.
 	$attachement = beans_get_post_attachment( $post_id, 'full' );
 
-	if ( !$edited = beans_edit_image( $attachement->src, $args, 'ARRAY_A' ) )
+	if ( ! $edited = beans_edit_image( $attachement->src, $args, 'ARRAY_A' ) ) {
 		return $attachement;
+	}
 
 	return (object) array_merge( (array) $attachement, $edited );
 
 }
-
 
 /**
  * Get edited images directory.

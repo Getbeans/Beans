@@ -56,12 +56,11 @@ final class _Beans_Fields {
 	 * @type array
 	 */
 	private static $registered = array(
-		'option' => array(),
-		'post_meta' => array(),
-		'term_meta' => array(),
+		'option'       => array(),
+		'post_meta'    => array(),
+		'term_meta'    => array(),
 		'wp_customize' => array(),
 	);
-
 
 	/**
 	 * Register fields.
@@ -82,7 +81,6 @@ final class _Beans_Fields {
 
 	}
 
-
 	/**
 	 * Register field.
 	 */
@@ -90,14 +88,14 @@ final class _Beans_Fields {
 
 		$fields = array();
 
-		foreach ( $this->fields as $field )
+		foreach ( $this->fields as $field ) {
 			$fields[] = $this->standardize_field( $field );
+		}
 
 		// Register fields.
-		self::$registered[$this->context][$this->section] = $fields;
+		self::$registered[ $this->context ][ $this->section ] = $fields;
 
 	}
-
 
 	/**
 	 * Standadrize field to beans format.
@@ -106,30 +104,30 @@ final class _Beans_Fields {
 
 		// Set defaults.
 		$defaults = array(
-			'label' => false,
+			'label'       => false,
 			'description' => false,
-			'default' => false,
-			'context' => $this->context,
-			'attributes' => array(),
-			'db_group' => false
+			'default'     => false,
+			'context'     => $this->context,
+			'attributes'  => array(),
+			'db_group'    => false,
 		);
 
 		$field = array_merge( $defaults, $field );
 
 		// Set field name.
-		$field['name'] = $this->context == 'wp_customize' ? $field['id'] :  'beans_fields[' . $field['id'] . ']';
+		$field['name'] = 'wp_customize' == $this->context ? $field['id'] :  'beans_fields[' . $field['id'] . ']';
 
-		if ( $field['type'] === 'group' ) {
+		if ( 'group' === $field['type'] ) {
 
 			foreach ( $field['fields'] as $index => $_field ) {
 
-				if ( $field['db_group'] )
+				if ( $field['db_group'] ) {
 					$_field['name'] = $field['name'] . '[' . $_field['id'] . ']';
+				}
 
-				$field['fields'][$index] = $this->standardize_field( $_field );
+				$field['fields'][ $index ] = $this->standardize_field( $_field );
 
 			}
-
 		} else {
 
 			// Add value after the standardizing the field.
@@ -138,31 +136,34 @@ final class _Beans_Fields {
 		}
 
 		// Add required attributes for wp_customizer.
-		if ( $this->context == 'wp_customize' )
+		if ( 'wp_customize' == $this->context ) {
 			$field['attributes'] = array_merge(
 				$field['attributes'],
 				array( 'data-customize-setting-link' => $field['name'] )
 			);
+		}
 
 		return $field;
 
 	}
-
 
 	/**
 	 * Set the fields types used.
 	 */
 	private function set_types() {
 
-		foreach ( $this->fields as $field )
-			if ( $field['type'] == 'group' )
-				foreach ( $field['fields'] as $_field )
-					$this->field_types[$_field['type']] = $_field['type'];
-			else
-				$this->field_types[$field['type']] = $field['type'];
+		foreach ( $this->fields as $field ) {
+
+			if ( 'group' == $field['type'] ) {
+				foreach ( $field['fields'] as $_field ) {
+					$this->field_types[ $_field['type'] ] = $_field['type'];
+				}
+			} else {
+				$this->field_types[ $field['type'] ] = $field['type'];
+			}
+		}
 
 	}
-
 
 	/**
 	 * Trigger actions only once.
@@ -171,7 +172,7 @@ final class _Beans_Fields {
 
 		static $once = false;
 
-		if ( !$once ) :
+		if ( ! $once ) {
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_global_assets' ) );
 			add_action( 'customize_controls_enqueue_scripts', array( $this, 'enqueue_global_assets' ) );
@@ -180,10 +181,9 @@ final class _Beans_Fields {
 
 			$once = true;
 
-		endif;
+		}
 
 	}
-
 
 	/**
 	 * Load the required core fields php files.
@@ -193,21 +193,22 @@ final class _Beans_Fields {
 		foreach ( $this->field_types as $type ) {
 
 			// Stop here if the field type has already been loaded.
-			if ( in_array( $type, self::$field_types_loaded ) )
+			if ( in_array( $type, self::$field_types_loaded ) ) {
 				continue;
+			}
 
 			$path = BEANS_API_PATH . "fields/types/{$type}.php";
 
-			if ( file_exists( $path ) )
+			if ( file_exists( $path ) ) {
 				require_once( $path );
+			}
 
 			// Set flag that field is loaded.
-			self::$field_types_loaded[$type] = $type;
+			self::$field_types_loaded[ $type ] = $type;
 
 		}
 
 	}
-
 
 	/**
 	 * Load the fields assets hooks. This hook can then be used to load custom fields assets.
@@ -217,18 +218,18 @@ final class _Beans_Fields {
 		foreach ( $this->field_types as $type ) {
 
 			// Stop here if the field type has already been loaded.
-			if ( in_array( $type, self::$field_assets_hook_loaded ) )
+			if ( in_array( $type, self::$field_assets_hook_loaded ) ) {
 				continue;
+			}
 
 			do_action( "beans_field_enqueue_scripts_{$type}" );
 
 			// Set flag that field is loaded.
-			self::$field_assets_hook_loaded[$type] = $type;
+			self::$field_assets_hook_loaded[ $type ] = $type;
 
 		}
 
 	}
-
 
 	/**
 	 * Enqueue default fields assets.
@@ -244,7 +245,6 @@ final class _Beans_Fields {
 		do_action( 'beans_field_enqueue_scripts' );
 
 	}
-
 
 	/**
 	 * Get the field value.
@@ -273,56 +273,55 @@ final class _Beans_Fields {
 
 	}
 
-
 	/**
 	 * Display the field content.
 	 */
 	public function field_content( $field ) {
 
-		echo beans_open_markup( 'beans_field_wrap', 'div', array(
-			'class' => 'bs-field-wrap bs-' . $field['type'] . ' ' . $field['context']
+		beans_open_markup_e( 'beans_field_wrap', 'div', array(
+			'class' => 'bs-field-wrap bs-' . $field['type'] . ' ' . $field['context'],
 		), $field );
 
 			// Set fields loop to cater for groups.
-			if ( $field['type'] === 'group' )
+			if ( 'group' === $field['type'] ) {
 				$fields = $field['fields'];
-			else
+			} else {
 				$fields = array( $field );
+			}
 
-			echo beans_open_markup( 'beans_field_inside', 'div', array(
-					'class' => 'bs-field-inside'
-				), $fields );
+			beans_open_markup_e( 'beans_field_inside', 'div', array(
+				'class' => 'bs-field-inside',
+			), $fields );
 
 				// Loop through fields.
 				foreach ( $fields as $single_field ) {
 
-					echo beans_open_markup( 'beans_field[_' . $single_field['id'] . ']', 'div', array(
+					beans_open_markup_e( 'beans_field[_' . $single_field['id'] . ']', 'div', array(
 						'class' => 'bs-field bs-' . $single_field['type'],
 					), $single_field );
 
 						do_action( 'beans_field_' . $single_field['type'], $single_field );
 
-					echo beans_close_markup( 'beans_field[_' . $single_field['id'] . ']', 'div', $single_field );
+					beans_close_markup_e( 'beans_field[_' . $single_field['id'] . ']', 'div', $single_field );
 
 				}
 
-			echo beans_close_markup( 'beans_field_inside', 'div', $fields );
+			beans_close_markup_e( 'beans_field_inside', 'div', $fields );
 
-		echo beans_close_markup( 'beans_field_wrap', 'div', $field );
+		beans_close_markup_e( 'beans_field_wrap', 'div', $field );
 
 	}
-
 
 	/**
 	 * Get the registered fields.
 	 */
 	public function get_fields( $context, $section ) {
 
-		if ( !$fields = beans_get( $section, self::$registered[$context] ) )
+		if ( ! $fields = beans_get( $section, self::$registered[ $context ] ) ) {
 			return false;
+		}
 
 		return $fields;
 
 	}
-
 }

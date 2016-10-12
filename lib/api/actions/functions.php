@@ -31,34 +31,37 @@
 function beans_add_action( $id, $hook, $callback, $priority = 10, $args = 1 ) {
 
 	$action = array(
-		'hook' => $hook,
+		'hook'     => $hook,
 		'callback' => $callback,
 		'priority' => $priority,
-		'args' => $args
+		'args'     => $args,
 	);
 
 	// Replace original if set.
-	if ( $replaced = _beans_get_action( $id, 'replaced' ) )
+	if ( $replaced = _beans_get_action( $id, 'replaced' ) ) {
 		$action = array_merge( $action, $replaced );
+	}
 
 	$action = _beans_set_action( $id, $action, 'added', true );
 
 	// Stop here if removed.
-	if ( _beans_get_action( $id, 'removed' ) )
+	if ( _beans_get_action( $id, 'removed' ) ) {
 		return;
+	}
 
 	// Merge modified.
-	if ( $modified = _beans_get_action( $id, 'modified' ) )
+	if ( $modified = _beans_get_action( $id, 'modified' ) ) {
 		$action = array_merge( $action, $modified );
+	}
 
 	// Validate action arguments.
-	if ( count( $action ) == 4 )
+	if ( count( $action ) == 4 ) {
 		add_action( $action['hook'], $action['callback'], $action['priority'], $action['args'] );
+	}
 
 	return true;
 
 }
-
 
 /**
  * Set {@see beans_add_action()} using the callback argument as the action ID.
@@ -85,7 +88,6 @@ function beans_add_smart_action( $hook, $callback, $priority = 10, $args = 1 ) {
 
 }
 
-
 /**
  * Modify an action.
  *
@@ -111,14 +113,15 @@ function beans_add_smart_action( $hook, $callback, $priority = 10, $args = 1 ) {
 function beans_modify_action( $id, $hook = null, $callback = null, $priority = null, $args = null ) {
 
 	// Remove action.
-	if ( $current = _beans_get_current_action( $id ) )
+	if ( $current = _beans_get_current_action( $id ) ) {
 		remove_action( $current['hook'], $current['callback'], $current['priority'], $current['args'] );
+	}
 
 	$action = array_filter( array(
-		'hook' => $hook,
+		'hook'     => $hook,
 		'callback' => $callback,
 		'priority' => $priority,
-		'args' => $args
+		'args'     => $args,
 	) );
 
 	// Merge modified.
@@ -136,7 +139,6 @@ function beans_modify_action( $id, $hook = null, $callback = null, $priority = n
 	return true;
 
 }
-
 
 /**
  * Modify an action hook.
@@ -157,7 +159,6 @@ function beans_modify_action_hook( $id, $hook ) {
 
 }
 
-
 /**
  * Modify an action callback.
  *
@@ -177,7 +178,6 @@ function beans_modify_action_callback( $id, $callback ) {
 
 }
 
-
 /**
  * Modify an action priority.
  *
@@ -195,7 +195,6 @@ function beans_modify_action_priority( $id, $callback ) {
 	return beans_modify_action( $id, null, null, $callback );
 
 }
-
 
 /**
  * Modify an action arguments.
@@ -215,7 +214,6 @@ function beans_modify_action_arguments( $id, $args ) {
 	return beans_modify_action( $id, null, null, null, $args );
 
 }
-
 
 /**
  * Replace an action.
@@ -245,10 +243,10 @@ function beans_modify_action_arguments( $id, $args ) {
 function beans_replace_action( $id, $hook = null, $callback = null, $priority = null, $args = null ) {
 
 	$action = array(
-		'hook' => $hook,
+		'hook'     => $hook,
 		'callback' => $callback,
 		'priority' => $priority,
-		'args' => $args
+		'args'     => $args,
 	);
 
 	// Set and get the latest replaced.
@@ -260,7 +258,6 @@ function beans_replace_action( $id, $hook = null, $callback = null, $priority = 
 	return beans_modify_action( $id, $hook, $callback, $priority, $args );
 
 }
-
 
 /**
  * Replace an action hook.
@@ -281,7 +278,6 @@ function beans_replace_action_hook( $id, $hook ) {
 
 }
 
-
 /**
  * Replace an action callback.
  *
@@ -301,7 +297,6 @@ function beans_replace_action_callback( $id, $callback ) {
 
 }
 
-
 /**
  * Replace an action priority.
  *
@@ -319,7 +314,6 @@ function beans_replace_action_priority( $id, $callback ) {
 	return beans_replace_action( $id, null, null, $priority );
 
 }
-
 
 /**
  * Replace an action argument.
@@ -340,7 +334,6 @@ function beans_replace_action_arguments( $id, $args ) {
 
 }
 
-
 /**
  * Remove an action.
  *
@@ -356,8 +349,9 @@ function beans_replace_action_arguments( $id, $args ) {
 function beans_remove_action( $id ) {
 
 	// Remove.
-	if ( $action = _beans_get_current_action( $id ) )
+	if ( $action = _beans_get_current_action( $id ) ) {
 		remove_action( $action['hook'], $action['callback'], $action['priority'], $action['args'] );
+	}
 
 	// Register as removed.
 	_beans_set_action( $id, $action, 'removed' );
@@ -365,7 +359,6 @@ function beans_remove_action( $id ) {
 	return true;
 
 }
-
 
 /**
  * Reset an action.
@@ -398,7 +391,6 @@ function beans_reset_action( $id ) {
 
 }
 
-
 /**
  * Initialize action globals.
  *
@@ -406,14 +398,14 @@ function beans_reset_action( $id ) {
  */
 global $_beans_registered_actions;
 
-if ( !isset( $_beans_registered_actions ) )
+if ( ! isset( $_beans_registered_actions ) ) {
 	$_beans_registered_actions = array(
-		'added' => array(),
+		'added'    => array(),
 		'modified' => array(),
-		'removed' => array(),
-		'replaced' => array()
+		'removed'  => array(),
+		'replaced' => array(),
 	);
-
+}
 
 /**
  * Get action.
@@ -426,16 +418,17 @@ function _beans_get_action( $id, $status ) {
 
 	$id = _beans_unique_action_id( $id );
 
-	if ( !$registered = beans_get( $status, $_beans_registered_actions ) )
+	if ( ! $registered = beans_get( $status, $_beans_registered_actions ) ) {
 		return false;
+	}
 
-	if ( !$action = beans_get( $id, $registered ) )
+	if ( ! $action = beans_get( $id, $registered ) ) {
 		return false;
+	}
 
 	return (array) json_decode( $action );
 
 }
-
 
 /**
  * Set action.
@@ -449,15 +442,15 @@ function _beans_set_action( $id, $action, $status, $overwrite = false ) {
 	$id = _beans_unique_action_id( $id );
 
 	// Return action which already exist unless overwrite is set to true.
-	if ( !$overwrite && ( $_action = _beans_get_action( $id, $status ) ) )
+	if ( ! $overwrite && ( $_action = _beans_get_action( $id, $status ) ) ) {
 		return $_action;
+	}
 
-	$_beans_registered_actions[$status][$id] = json_encode( $action );
+	$_beans_registered_actions[ $status ][ $id ] = json_encode( $action );
 
 	return $action;
 
 }
-
 
 /**
  * Unset action.
@@ -471,15 +464,15 @@ function _beans_unset_action( $id, $status ) {
 	$id = _beans_unique_action_id( $id );
 
 	// Stop here if the action doesn't exist.
-	if ( !_beans_get_action( $id, $status ) )
+	if ( ! _beans_get_action( $id, $status ) ) {
 		return false;
+	}
 
-	unset( $_beans_registered_actions[$status][$id] );
+	unset( $_beans_registered_actions[ $status ][ $id ] );
 
 	return true;
 
 }
-
 
 /**
  * Merge action.
@@ -492,13 +485,13 @@ function _beans_merge_action( $id, $action, $status ) {
 
 	$id = _beans_unique_action_id( $id );
 
-	if ( $_action = _beans_get_action( $id, $status ) )
+	if ( $_action = _beans_get_action( $id, $status ) ) {
 		$action = array_merge( $_action, $action );
+	}
 
 	return _beans_set_action( $id, $action, $status, true );
 
 }
-
 
 /**
  * Check all action status and return the current action.
@@ -509,23 +502,26 @@ function _beans_get_current_action( $id ) {
 
 	$action = array();
 
-	if ( _beans_get_action( $id, 'removed' ) )
+	if ( _beans_get_action( $id, 'removed' ) ) {
 		return false;
+	}
 
-	if ( $added = _beans_get_action( $id, 'added' ) )
+	if ( $added = _beans_get_action( $id, 'added' ) ) {
 		$action = $added;
+	}
 
-	if ( $modified = _beans_get_action( $id, 'modified' ) )
+	if ( $modified = _beans_get_action( $id, 'modified' ) ) {
 		$action = array_merge( $action, $modified );
+	}
 
 	// Stop here if the action is invalid.
-	if ( count( $action ) != 4 )
+	if ( 4 != count( $action ) ) {
 		return false;
+	}
 
 	return $action;
 
 }
-
 
 /**
  * Add anonymous callback using a class since php 5.2 is still supported.
@@ -540,7 +536,6 @@ function _beans_add_anonymous_action( $hook, $callback, $priority = 10, $args = 
 
 }
 
-
 /**
  * Render action which can therefore be stored in a variable.
  *
@@ -551,11 +546,14 @@ function _beans_render_action( $hook ) {
 	$args = func_get_args();
 
 	// Return simple action if no sub-hook is set.
-	if ( !preg_match_all( '#\[(.*?)\]#', $args[0], $matches ) )
-		if ( has_filter( $args[0] ) )
+	if ( ! preg_match_all( '#\[(.*?)\]#', $args[0], $matches ) ) {
+
+		if ( has_filter( $args[0] ) ) {
 			return call_user_func_array( 'beans_render_function', array_merge( array( 'do_action' ), $args ) );
-		else
+		} else {
 			return false;
+		}
+	}
 
 	$output = null;
 	$prefix = current( explode( '[', $args[0] ) );
@@ -565,8 +563,9 @@ function _beans_render_action( $hook ) {
 	// Base hook.
 	$args[0] = $prefix . $suffix;
 
-	if ( has_filter( $args[0] ) )
+	if ( has_filter( $args[0] ) ) {
 		$output .= call_user_func_array( 'beans_render_function', array_merge( array( 'do_action' ), $args ) );
+	}
 
 	foreach ( $matches[0] as $i => $subhook ) {
 
@@ -586,23 +585,22 @@ function _beans_render_action( $hook ) {
 
 			$args[0] = $level;
 
-			if ( has_filter( $args[0] ) )
+			if ( has_filter( $args[0] ) ) {
 				$output .= call_user_func_array( 'beans_render_function', array_merge( array( 'do_action' ), $args ) );
+			}
 
 			// Apply filter whithout square brackets for backwards compatibility.
 			$args[0] = preg_replace( '#(\[|\])#', '', $args[0] );
 
-			if ( has_filter( $args[0] ) )
+			if ( has_filter( $args[0] ) ) {
 				$output .= call_user_func_array( 'beans_render_function', array_merge( array( 'do_action' ), $args ) );
-
+			}
 		}
-
 	}
 
 	return $output;
 
 }
-
 
 /**
  * Make sure the action ID is unique.
@@ -611,25 +609,26 @@ function _beans_render_action( $hook ) {
  */
 function _beans_unique_action_id( $callback ) {
 
-	if ( is_string( $callback ) )
+	if ( is_string( $callback ) ) {
 		return $callback;
+	}
 
-	if ( is_object( $callback ) )
+	if ( is_object( $callback ) ) {
 		$callback = array( $callback, '' );
-	else
+	} else {
 		$callback = (array) $callback;
+	}
 
 	// Treat object.
 	if ( is_object( $callback[0] ) ) {
 
-		if ( function_exists( 'spl_object_hash' ) )
+		if ( function_exists( 'spl_object_hash' ) ) {
 			return spl_object_hash( $callback[0] ) . $callback[1];
+		}
 
 		return get_class( $callback[0] ) . $callback[1];
 
-	}
-	// Treat static method.
-	elseif ( is_string( $callback[0] ) ) {
+	} elseif ( is_string( $callback[0] ) ) { // Treat static method.
 
 		return $callback[0] . '::' . $callback[1];
 

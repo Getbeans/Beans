@@ -22,15 +22,14 @@ final class _Beans_Post_Meta {
 	 */
 	private $section;
 
-
 	/**
 	 * Constructor.
 	 */
 	public function __construct( $section, $args ) {
 
 		$defaults = array(
-			'title' => __( 'Undefined', 'tm-beans' ),
-			'context' => 'normal',
+			'title'    => __( 'Undefined', 'tm-beans' ),
+			'context'  => 'normal',
 			'priority' => 'high',
 		);
 
@@ -42,7 +41,6 @@ final class _Beans_Post_Meta {
 
 	}
 
-
 	/**
 	 * Trigger actions only once.
 	 */
@@ -50,7 +48,7 @@ final class _Beans_Post_Meta {
 
 		static $once = false;
 
-		if ( !$once ) :
+		if ( ! $once ) {
 
 			add_action( 'edit_form_top', array( $this, 'nonce' ) );
 			add_action( 'save_post', array( $this, 'save' ) );
@@ -58,7 +56,7 @@ final class _Beans_Post_Meta {
 
 			$once = true;
 
-		endif;
+		}
 
 	}
 
@@ -67,10 +65,11 @@ final class _Beans_Post_Meta {
 	 */
 	public function nonce() {
 
-		echo '<input type="hidden" name="beans_post_meta_nonce" value="' . esc_attr( wp_create_nonce( 'beans_post_meta_nonce' ) ) . '" />';
+		?>
+		<input type="hidden" name="beans_post_meta_nonce" value="<?php echo esc_attr( wp_create_nonce( 'beans_post_meta_nonce' ) ); ?>" />
+		<?php
 
 	}
-
 
 	/**
 	 * Add the Metabox.
@@ -81,57 +80,61 @@ final class _Beans_Post_Meta {
 
 	}
 
-
 	/**
 	 * Metabox content.
 	 */
 	public function metabox_content( $post ) {
 
-		foreach ( beans_get_fields( 'post_meta', $this->section ) as $field )
+		foreach ( beans_get_fields( 'post_meta', $this->section ) as $field ) {
 			beans_field( $field );
-
+		}
 	}
-
 
 	/**
 	 * Save Post Meta.
 	 */
 	public function save( $post_id ) {
 
-		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return false;
+		}
 
-		if ( !wp_verify_nonce( beans_post( 'beans_post_meta_nonce' ), 'beans_post_meta_nonce' ) )
+		if ( ! wp_verify_nonce( beans_post( 'beans_post_meta_nonce' ), 'beans_post_meta_nonce' ) ) {
 			return $post_id;
+		}
 
-		if ( !$fields = beans_post( 'beans_fields' ) )
+		if ( ! $fields = beans_post( 'beans_fields' ) ) {
 			return $post_id;
+		}
 
-		foreach ( $fields as $field => $value )
+		foreach ( $fields as $field => $value ) {
 			update_post_meta( $post_id, $field, $value );
+		}
 
 	}
-
 
 	/**
 	 * Save Post Meta for attachment.
 	 */
 	public function save_attachment( $attachment ) {
 
-		if ( !wp_verify_nonce( beans_post( 'beans_post_meta_nonce' ), 'beans_post_meta_nonce' ) )
+		if ( ! wp_verify_nonce( beans_post( 'beans_post_meta_nonce' ), 'beans_post_meta_nonce' ) ) {
 			return $post_id;
+		}
 
-		if ( !current_user_can( 'edit_post', $attachment['ID'] ) )
+		if ( ! current_user_can( 'edit_post', $attachment['ID'] ) ) {
 			return $attachment;
+		}
 
-		if ( !$fields = beans_post( 'beans_fields' ) )
+		if ( ! $fields = beans_post( 'beans_fields' ) ) {
 			return $attachment;
+		}
 
-		foreach ( $fields as $field => $value )
+		foreach ( $fields as $field => $value ) {
 			update_post_meta( $attachment['ID'], $field, $value );
+		}
 
 		return $attachment;
 
 	}
-
 }

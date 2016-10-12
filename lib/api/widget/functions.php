@@ -41,35 +41,35 @@
  */
 function beans_register_widget_area( $args = array(), $widget_control = array() ) {
 
-    // Stop here if the id isn't set.
-    if ( !$id = beans_get( 'id', $args ) )
-        return;
+	// Stop here if the id isn't set.
+	if ( ! $id = beans_get( 'id', $args ) ) {
+		return;
+	}
 
-    /**
-     * Filter the default arguments used by the widget area.
-     *
-     * @since 1.0.0
-     */
-    $defaults = apply_filters( 'beans_widgets_area_default_args', array(
-        'beans_type' => 'stack',
-        'beans_show_widget_title' => true,
-        'beans_show_widget_badge' => false,
-        'beans_widget_badge_content' => __( 'Hello', 'tm-beans' )
-    ) );
+	/**
+	 * Filter the default arguments used by the widget area.
+	 *
+	 * @since 1.0.0
+	 */
+	$defaults = apply_filters( 'beans_widgets_area_default_args', array(
+		'beans_type'                 => 'stack',
+		'beans_show_widget_title'    => true,
+		'beans_show_widget_badge'    => false,
+		'beans_widget_badge_content' => __( 'Hello', 'tm-beans' ),
+	) );
 
-    /**
-     * Filter the arguments used by the widget area.
-     *
-     * The dynamic portion of the hook name, $id, refers to the widget area id.
-     *
-     * @since 1.0.0
-     */
-    $args = beans_apply_filters( "beans_widgets_area_args[_{$id}]", array_merge( $defaults, $args ) );
+	/**
+	 * Filter the arguments used by the widget area.
+	 *
+	 * The dynamic portion of the hook name, $id, refers to the widget area id.
+	 *
+	 * @since 1.0.0
+	 */
+	$args = beans_apply_filters( "beans_widgets_area_args[_{$id}]", array_merge( $defaults, $args ) );
 
-    return register_sidebar( $args );
+	return register_sidebar( $args );
 
 }
-
 
 /**
  * Remove a registered widget area.
@@ -84,10 +84,9 @@ function beans_register_widget_area( $args = array(), $widget_control = array() 
  */
 function beans_deregister_widget_area( $id ) {
 
-    unregister_sidebar( $id );
+	unregister_sidebar( $id );
 
 }
-
 
 /**
  * Check whether a widget area is in use.
@@ -103,10 +102,9 @@ function beans_deregister_widget_area( $id ) {
  */
 function beans_is_active_widget_area( $id ) {
 
-    return is_active_sidebar( $id );
+	return is_active_sidebar( $id );
 
 }
-
 
 /**
  * Check whether a widget area is registered.
@@ -122,15 +120,15 @@ function beans_is_active_widget_area( $id ) {
  */
 function beans_has_widget_area( $id ) {
 
-    global $wp_registered_sidebars;
+	global $wp_registered_sidebars;
 
-    if ( isset( $wp_registered_sidebars[$id] ) )
-        return true;
+	if ( isset( $wp_registered_sidebars[ $id ] ) ) {
+		return true;
+	}
 
-    return false;
+	return false;
 
 }
-
 
 /**
  * Display a widget area.
@@ -143,44 +141,44 @@ function beans_has_widget_area( $id ) {
  */
 function beans_widget_area( $id ) {
 
-    // Stop here if the widget area is not registered.
-    if ( !beans_has_widget_area( $id ) )
-        return false;
+	// Stop here if the widget area is not registered.
+	if ( ! beans_has_widget_area( $id ) ) {
+		return false;
+	}
 
-    _beans_setup_widget_area( $id );
+	_beans_setup_widget_area( $id );
 
-    /**
-     * Fires after a widget area is initialized.
-     *
-     * @since 1.0.0
-     */
-    do_action( 'beans_widget_area_init' );
+	/**
+	 * Fires after a widget area is initialized.
+	 *
+	 * @since 1.0.0
+	 */
+	do_action( 'beans_widget_area_init' );
 
-        ob_start();
+		ob_start();
 
-            /**
-             * Fires when {@see beans_widget_area()} is called.
-             *
-             * @since 1.0.0
-             */
-            do_action( 'beans_widget_area' );
+			/**
+			 * Fires when {@see beans_widget_area()} is called.
+			 *
+			 * @since 1.0.0
+			 */
+			do_action( 'beans_widget_area' );
 
-        $output = ob_get_clean();
+		$output = ob_get_clean();
 
-    // Reset widget area global to reduce memory usage.
-    _beans_reset_widget_area();
+	// Reset widget area global to reduce memory usage.
+	_beans_reset_widget_area();
 
-    /**
-     * Fires after a widget area is reset.
-     *
-     * @since 1.0.0
-     */
-    do_action( 'beans_widget_area_reset' );
+	/**
+	 * Fires after a widget area is reset.
+	 *
+	 * @since 1.0.0
+	 */
+	do_action( 'beans_widget_area_reset' );
 
-    return $output;
+	return $output;
 
 }
-
 
 /**
  * Retrieve data from the current widget area in use.
@@ -193,15 +191,15 @@ function beans_widget_area( $id ) {
  */
 function beans_get_widget_area( $needle = false ) {
 
-    global $_beans_widget_area;
+	global $_beans_widget_area;
 
-    if ( !$needle )
-        return $_beans_widget_area;
+	if ( ! $needle ) {
+		return $_beans_widget_area;
+	}
 
-    return beans_get( $needle, $_beans_widget_area );
+	return beans_get( $needle, $_beans_widget_area );
 
 }
-
 
 /**
  * Search content for shortcodes and filter shortcodes through their hooks.
@@ -219,13 +217,13 @@ function beans_get_widget_area( $needle = false ) {
  */
 function beans_widget_area_shortcodes( $content ) {
 
-    if ( is_array( $content ) )
-        $content = build_query( $content );
+	if ( is_array( $content ) ) {
+		$content = build_query( $content );
+	}
 
-    return beans_array_shortcodes( $string, $GLOBALS['_beans_widget_area'] );
+	return beans_array_shortcodes( $string, $GLOBALS['_beans_widget_area'] );
 
 }
-
 
 /**
  * Whether there are more widgets available in the loop.
@@ -236,23 +234,24 @@ function beans_widget_area_shortcodes( $content ) {
  */
 function beans_have_widgets() {
 
-    global $_beans_widget_area;
+	global $_beans_widget_area;
 
-    if ( !beans_get( 'widgets', $_beans_widget_area ) )
-        return false;
+	if ( ! beans_get( 'widgets', $_beans_widget_area ) ) {
+		return false;
+	}
 
-    $widgets = array_keys( $_beans_widget_area['widgets'] );
+	$widgets = array_keys( $_beans_widget_area['widgets'] );
 
-    if ( isset( $widgets[$_beans_widget_area['current_widget']] ) )
-        return true;
+	if ( isset( $widgets[ $_beans_widget_area['current_widget'] ] ) ) {
+		return true;
+	}
 
-    // Reset last widget global to reduce memory usage.
-    _beans_reset_widget();
+	// Reset last widget global to reduce memory usage.
+	_beans_reset_widget();
 
-    return false;
+	return false;
 
 }
-
 
 /**
  * Sets up the current widget.
@@ -265,23 +264,23 @@ function beans_have_widgets() {
  */
 function beans_setup_widget() {
 
-    global $_beans_widget_area;
+	global $_beans_widget_area;
 
-    $widgets = array_keys( $_beans_widget_area['widgets'] );
+	$widgets = array_keys( $_beans_widget_area['widgets'] );
 
-    // Retrieve widget id if exists.
-    if ( !$id = beans_get( $_beans_widget_area['current_widget'], $widgets ) )
-         return false;
+	// Retrieve widget id if exists.
+	if ( ! $id = beans_get( $_beans_widget_area['current_widget'], $widgets ) ) {
+		return false;
+	}
 
-    // Set next current widget integer.
-    $_beans_widget_area['current_widget'] = $_beans_widget_area['current_widget'] + 1;
+	// Set next current widget integer.
+	$_beans_widget_area['current_widget'] = $_beans_widget_area['current_widget'] + 1;
 
-    _beans_setup_widget( $id );
+	_beans_setup_widget( $id );
 
-    return true;
+	return true;
 
 }
-
 
 /**
  * Retrieve data from the current widget in use.
@@ -294,15 +293,15 @@ function beans_setup_widget() {
  */
 function beans_get_widget( $needle = false ) {
 
-    global $_beans_widget;
+	global $_beans_widget;
 
-    if ( !$needle )
-        return $_beans_widget;
+	if ( ! $needle ) {
+		return $_beans_widget;
+	}
 
-    return beans_get( $needle, $_beans_widget );
+	return beans_get( $needle, $_beans_widget );
 
 }
-
 
 /**
  * Search content for shortcodes and filter shortcodes through their hooks.
@@ -320,13 +319,13 @@ function beans_get_widget( $needle = false ) {
  */
 function beans_widget_shortcodes( $content ) {
 
-    if ( is_array( $content ) )
-        $content = build_query( $content );
+	if ( is_array( $content ) ) {
+		$content = build_query( $content );
+	}
 
-    return beans_array_shortcodes( $content, $GLOBALS['_beans_widget'] );
+	return beans_array_shortcodes( $content, $GLOBALS['_beans_widget'] );
 
 }
-
 
 /**
  * Set up widget area global data.
@@ -335,51 +334,51 @@ function beans_widget_shortcodes( $content ) {
  */
 function _beans_setup_widget_area( $id ) {
 
-    global $_beans_widget_area, $wp_registered_sidebars;
+	global $_beans_widget_area, $wp_registered_sidebars;
 
-    if ( !isset( $wp_registered_sidebars[$id] ) )
-        return false;
+	if ( ! isset( $wp_registered_sidebars[ $id ] ) ) {
+		return false;
+	}
 
-    // Add widget area delimiters. This is used to split wp sidebar as well as the widgets title.
-    $wp_registered_sidebars[$id] = array_merge( $wp_registered_sidebars[$id], array(
-        'before_widget' => '<!--widget-%1$s-->',
-        'after_widget' => '<!--widget-end-->',
-        'before_title' => '<!--title-start-->',
-        'after_title' => '<!--title-end-->',
-    ) );
+	// Add widget area delimiters. This is used to split wp sidebar as well as the widgets title.
+	$wp_registered_sidebars[ $id ] = array_merge( $wp_registered_sidebars[ $id ], array(
+		'before_widget' => '<!--widget-%1$s-->',
+		'after_widget'  => '<!--widget-end-->',
+		'before_title'  => '<!--title-start-->',
+		'after_title'   => '<!--title-end-->',
+	) );
 
-    // Start building widget area global before dynamic_sidebar is called.
-    $_beans_widget_area = $wp_registered_sidebars[$id];
+	// Start building widget area global before dynamic_sidebar is called.
+	$_beans_widget_area = $wp_registered_sidebars[ $id ];
 
-    // Buffer sidebar, please make it easier for us wp.
-    $sidebar = beans_render_function( 'dynamic_sidebar', $id );
+	// Buffer sidebar, please make it easier for us wp.
+	$sidebar = beans_render_function( 'dynamic_sidebar', $id );
 
-    // Prepare sidebar split.
-    $sidebar = preg_replace( '#(<!--widget-([a-z0-9-_]+)-->(.*?)<!--widget-end-->*?)#smU', '<!--split-sidebar-->$1<!--split-sidebar-->', $sidebar );
+	// Prepare sidebar split.
+	$sidebar = preg_replace( '#(<!--widget-([a-z0-9-_]+)-->(.*?)<!--widget-end-->*?)#smU', '<!--split-sidebar-->$1<!--split-sidebar-->', $sidebar );
 
-    // Split sidebar.
-    $splited_sidebar = explode( '<!--split-sidebar-->', $sidebar );
+	// Split sidebar.
+	$splited_sidebar = explode( '<!--split-sidebar-->', $sidebar );
 
-    // Prepare widgets count.
-    preg_match_all( '#<!--widget-end-->#', $sidebar, $counter );
+	// Prepare widgets count.
+	preg_match_all( '#<!--widget-end-->#', $sidebar, $counter );
 
-    // Continue building widget area global with the splited sidebar elements.
-    $_beans_widget_area['widgets_count'] = count( $counter[0] );
-    $_beans_widget_area['current_widget'] = 0;
+	// Continue building widget area global with the splited sidebar elements.
+	$_beans_widget_area['widgets_count'] = count( $counter[0] );
+	$_beans_widget_area['current_widget'] = 0;
 
-    // Only add widgets if exists.
-    if ( count( $splited_sidebar ) == 3 ) {
+	// Only add widgets if exists.
+	if ( 3 == count( $splited_sidebar ) ) {
 
-        $_beans_widget_area['before_widgets'] = $splited_sidebar[0];
-        $_beans_widget_area['widgets'] = _beans_setup_widgets( $splited_sidebar[1] );
-        $_beans_widget_area['after_widgets'] = $splited_sidebar[2];
+		$_beans_widget_area['before_widgets'] = $splited_sidebar[0];
+		$_beans_widget_area['widgets'] = _beans_setup_widgets( $splited_sidebar[1] );
+		$_beans_widget_area['after_widgets'] = $splited_sidebar[2];
 
-    }
+	}
 
-    return true;
+	return true;
 
 }
-
 
 /**
  * Setup widget area global widgets data.
@@ -388,95 +387,97 @@ function _beans_setup_widget_area( $id ) {
  */
 function _beans_setup_widgets( $widget_area_content ) {
 
-    global $wp_registered_widgets, $_beans_widget_area;
+	global $wp_registered_widgets, $_beans_widget_area;
 
-    $_beans_widgets = array();
+	$_beans_widgets = array();
 
-    foreach ( explode( '<!--widget-end-->', $widget_area_content ) as $content ) {
+	foreach ( explode( '<!--widget-end-->', $widget_area_content ) as $content ) {
 
-        if ( !preg_match( '#<!--widget-([a-z0-9-_]+?)-->#smU', $content, $matches ) )
-            continue;
+		if ( ! preg_match( '#<!--widget-([a-z0-9-_]+?)-->#smU', $content, $matches ) ) {
+			continue;
+		}
 
-        // Retrieve widget id.
-        $id = $matches[1];
+		// Retrieve widget id.
+		$id = $matches[1];
 
-        // Stop here if the widget can't be found.
-        if ( !$data = beans_get( $id, $wp_registered_widgets ) )
-            continue;
+		// Stop here if the widget can't be found.
+		if ( ! $data = beans_get( $id, $wp_registered_widgets ) ) {
+			continue;
+		}
 
-        // Start building the widget array.
-        $widget = array();
+		// Start building the widget array.
+		$widget = array();
 
-        // Set defaults.
-        $widget['options'] = array();
-        $widget['type'] = null;
-        $widget['title'] = '';
+		// Set defaults.
+		$widget['options'] = array();
+		$widget['type'] = null;
+		$widget['title'] = '';
 
-        // Add total count.
-        $widget['count'] = $_beans_widget_area['widgets_count'];
+		// Add total count.
+		$widget['count'] = $_beans_widget_area['widgets_count'];
 
-        // Add basic widget arguments.
-        foreach ( array( 'id', 'name', 'classname', 'description' ) as $var )
-            $widget[$var] = isset( $data[$var] ) ? $data[$var] : null;
+		// Add basic widget arguments.
+		foreach ( array( 'id', 'name', 'classname', 'description' ) as $var ) {
+			$widget[ $var ] = isset( $data[ $var ] ) ? $data[ $var ] : null;
+		}
 
-        // Add type and options
-        if ( isset( $data['callback'] ) && is_array( $data['callback'] ) && ( $object = current( $data['callback'] ) ) ) {
+		// Add type and options
+		if ( isset( $data['callback'] ) && is_array( $data['callback'] ) && ( $object = current( $data['callback'] ) ) ) {
 
-            if ( is_a( $object, 'WP_Widget' ) ) {
+			if ( is_a( $object, 'WP_Widget' ) ) {
 
-                $widget['type'] = $object->id_base;
+				$widget['type'] = $object->id_base;
 
-                if ( isset( $data['params'][0]['number'] ) ) {
+				if ( isset( $data['params'][0]['number'] ) ) {
 
-                    $number = $data['params'][0]['number'];
-                    $params = get_option( $object->option_name ) ;
+					$number = $data['params'][0]['number'];
+					$params = get_option( $object->option_name );
 
-                    if ( false === $params && isset( $object->alt_option_name ) )
-                        $params = get_option( $object->alt_option_name );
+					if ( false === $params && isset( $object->alt_option_name ) ) {
+						$params = get_option( $object->alt_option_name );
+					}
 
-                    if ( isset( $params[$number] ) )
-                        $widget['options'] = $params[$number];
+					if ( isset( $params[ $number ] ) ) {
+						$widget['options'] = $params[ $number ];
+					}
+				}
+			}
+		} elseif ( 'nav_menu-0' == $id ) { // Widget type fallback.
 
-                }
-            }
+			$widget['type'] = 'nav_menu';
 
-        }
-        // Widget type fallback.
-        elseif ( $id == 'nav_menu-0' ) {
+		}
 
-            $widget['type'] = 'nav_menu';
+		// Widget fallback name.
+		if ( empty( $widget['name'] ) ) {
+			$widget['name'] = ucfirst( $widget['type'] );
+		}
 
-        }
+		// Extract and add title.
+		if ( preg_match( '#<!--title-start-->(.*)<!--title-end-->#s' , $content, $matches ) ) {
+			$widget['title'] = strip_tags( $matches[1] );
+		}
 
-        // Widget fallback name.
-        if ( empty( $widget['name'] ) )
-            $widget['name'] = ucfirst( $widget['type'] );
+		// Remove title from content.
+		$content = preg_replace( '#(<!--title-start-->.*<!--title-end-->*?)#smU', '', $content );
 
-        // Extract and add title.
-        if ( preg_match( '#<!--title-start-->(.*)<!--title-end-->#s' , $content, $matches ) )
-            $widget['title'] = strip_tags( $matches[1] );
+		// Remove widget HTML delimiters.
+		$content = preg_replace( '#(<!--widget-([a-z0-9-_]+)-->|<!--widgets-end-->)#', '', $content );
 
-        // Remove title from content.
-        $content = preg_replace( '#(<!--title-start-->.*<!--title-end-->*?)#smU', '', $content );
+		$widget['content'] = $content;
 
-        // Remove widget HTML delimiters.
-        $content = preg_replace( '#(<!--widget-([a-z0-9-_]+)-->|<!--widgets-end-->)#', '', $content );
+		// Add widget control arguments and register widget.
+		$_beans_widgets[ $widget['id'] ] = array_merge( $widget, array(
+			'show_title'    => $_beans_widget_area['beans_show_widget_title'],
+			'badge'         => $_beans_widget_area['beans_show_widget_badge'],
+			'badge_content' => $_beans_widget_area['beans_widget_badge_content'],
+		) );
 
-        $widget['content'] = $content;
+	}
 
-        // Add widget control arguments and register widget.
-        $_beans_widgets[$widget['id']] = array_merge( $widget, array(
-            'show_title' => $_beans_widget_area['beans_show_widget_title'],
-            'badge' => $_beans_widget_area['beans_show_widget_badge'],
-            'badge_content' => $_beans_widget_area['beans_widget_badge_content'],
-        ) );
-
-    }
-
-    return $_beans_widgets;
+	return $_beans_widgets;
 
 }
-
 
 /**
  * Setup widget global data.
@@ -485,14 +486,13 @@ function _beans_setup_widgets( $widget_area_content ) {
  */
 function _beans_setup_widget( $id ) {
 
-    global $_beans_widget;
+	global $_beans_widget;
 
-    $widgets = beans_get_widget_area( 'widgets' );
+	$widgets = beans_get_widget_area( 'widgets' );
 
-    $_beans_widget = $widgets[$id];
+	$_beans_widget = $widgets[ $id ];
 
 }
-
 
 /**
  * Reset widget area global data.
@@ -501,10 +501,9 @@ function _beans_setup_widget( $id ) {
  */
 function _beans_reset_widget_area() {
 
-    unset( $GLOBALS['_beans_widget_area'] );
+	unset( $GLOBALS['_beans_widget_area'] );
 
 }
-
 
 /**
  * Reset widget global data.
@@ -513,10 +512,9 @@ function _beans_reset_widget_area() {
  */
 function _beans_reset_widget() {
 
-    unset( $GLOBALS['_beans_widget'] );
+	unset( $GLOBALS['_beans_widget'] );
 
 }
-
 
 /**
  * Build widget area subfilters.
@@ -525,13 +523,12 @@ function _beans_reset_widget() {
  */
 function _beans_widget_area_subfilters() {
 
-    global $_beans_widget_area;
+	global $_beans_widget_area;
 
-    // Add sidebar id.
-    return '[_' . $_beans_widget_area['id'] . ']';
+	// Add sidebar id.
+	return '[_' . $_beans_widget_area['id'] . ']';
 
 }
-
 
 /**
  * Build widget subfilters.
@@ -540,21 +537,19 @@ function _beans_widget_area_subfilters() {
  */
 function _beans_widget_subfilters() {
 
-    global $_beans_widget_area, $_beans_widget;
+	global $_beans_widget_area, $_beans_widget;
 
-    $subfilters = array(
-        $_beans_widget_area['id'], // Add sidebar id.
-        $_beans_widget['type'], // Add widget type.
-        $_beans_widget['id'] // Add widget id.
-    );
+	$subfilters = array(
+		$_beans_widget_area['id'], // Add sidebar id.
+		$_beans_widget['type'], // Add widget type.
+		$_beans_widget['id'], // Add widget id.
+	);
 
-    return '[_' . implode( '][_', $subfilters ) . ']';
+	return '[_' . implode( '][_', $subfilters ) . ']';
 
 }
 
-
 add_action( 'the_widget', '_beans_force_the_widget', 10, 3 );
-
 /**
  * Force atypical widget added using the_widget() to have a correctly registered id.
  *
@@ -562,17 +557,19 @@ add_action( 'the_widget', '_beans_force_the_widget', 10, 3 );
  */
 function _beans_force_the_widget( $widget, $instance, $args ) {
 
-    global $wp_widget_factory;
+	global $wp_widget_factory;
 
-    $widget_obj = $wp_widget_factory->widgets[$widget];
+	$widget_obj = $wp_widget_factory->widgets[ $widget ];
 
-    if ( !$widget_obj instanceof WP_Widget )
-        return;
+	if ( ! $widget_obj instanceof WP_Widget ) {
+		return;
+	}
 
-    // Stop here if the widget correctly contain an id.
-    if ( stripos( $widget_obj->id, beans_get( 'before_widget', $args ) ) !== false )
-        return;
+	// Stop here if the widget correctly contain an id.
+	if ( false !== stripos( $widget_obj->id, beans_get( 'before_widget', $args ) ) ) {
+		return;
+	}
 
-    printf( '<!--widget-%1$s-->', $widget_obj->id );
+	printf( '<!--widget-%1$s-->', $widget_obj->id );
 
 }

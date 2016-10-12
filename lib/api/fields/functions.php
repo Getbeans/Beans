@@ -1,6 +1,6 @@
 <?php
 /**
- * The Beans Fields component offers a range of fields which can be used in the Wordpress admin.
+ * The Beans Fields component offers a range of fields which can be used in the WordPress admin.
  *
  * Fields can be used as Options, Post Meta, Term Meta or WP
  * Customizer Options. Custom fields can easily be added too.
@@ -43,8 +43,9 @@
  */
 function beans_register_fields( array $fields, $context, $section ) {
 
-	if ( empty( $fields ) )
+	if ( empty( $fields ) ) {
 		return false;
+	}
 
 	// Load the class only if this function is called to prevent unnecessary memory usage.
 	require_once( BEANS_API_PATH . 'fields/class.php' );
@@ -55,7 +56,6 @@ function beans_register_fields( array $fields, $context, $section ) {
 	return true;
 
 }
-
 
 /**
  * Get registered fields.
@@ -75,14 +75,14 @@ function beans_register_fields( array $fields, $context, $section ) {
  */
 function beans_get_fields( $context, $section = false ) {
 
-	if ( !class_exists( '_Beans_Fields' ) )
+	if ( ! class_exists( '_Beans_Fields' ) ) {
 		return;
+	}
 
 	$class = new _Beans_Fields();
 	return $class->get_fields( $context, $section );
 
 }
-
 
 /**
  * Echo a field.
@@ -96,14 +96,14 @@ function beans_get_fields( $context, $section = false ) {
  */
 function beans_field( $field ) {
 
-	if ( !class_exists( '_Beans_Fields' ) )
+	if ( ! class_exists( '_Beans_Fields' ) ) {
 		return;
+	}
 
 	$class = new _Beans_Fields();
 	$class->field_content( $field );
 
 }
-
 
 /**
  * Standardize fields.
@@ -116,11 +116,11 @@ function _beans_pre_standardize_fields( $fields ) {
 
 	foreach ( $fields as $field ) {
 
-		$_fields[$field['id']] = $field;
+		$_fields[ $field['id'] ] = $field;
 
-		if ( beans_get( 'type', $field ) === 'group' )
-			$_fields[$field['id']]['fields'] = _beans_pre_standardize_fields( $field['fields'] );
-
+		if ( 'group' === beans_get( 'type', $field ) ) {
+			$_fields[ $field['id'] ]['fields'] = _beans_pre_standardize_fields( $field['fields'] );
+		}
 	}
 
 	return $_fields;

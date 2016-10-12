@@ -5,9 +5,7 @@
  * @package Initialize
  */
 
-
 add_action( 'beans_init', 'beans_define_constants', -1 );
-
 /**
  * Define constants.
  *
@@ -16,11 +14,12 @@ add_action( 'beans_init', 'beans_define_constants', -1 );
 function beans_define_constants() {
 
 	// Define version.
-	define( 'BEANS_VERSION', '1.3.1' );
+	define( 'BEANS_VERSION', '1.4.0' );
 
 	// Define paths.
-	if ( !defined( 'BEANS_THEME_PATH' ) )
+	if ( ! defined( 'BEANS_THEME_PATH' ) ) {
 		define( 'BEANS_THEME_PATH', wp_normalize_path( trailingslashit( get_template_directory() ) ) );
+	}
 
 	define( 'BEANS_PATH', BEANS_THEME_PATH . 'lib/' );
 	define( 'BEANS_API_PATH', BEANS_PATH . 'api/' );
@@ -32,8 +31,9 @@ function beans_define_constants() {
 	define( 'BEANS_FRAGMENTS_PATH', BEANS_TEMPLATES_PATH . 'fragments/' );
 
 	// Define urls.
-	if ( !defined( 'BEANS_THEME_URL' ) )
+	if ( ! defined( 'BEANS_THEME_URL' ) ) {
 		define( 'BEANS_THEME_URL', trailingslashit( get_template_directory_uri() ) );
+	}
 
 	define( 'BEANS_URL', BEANS_THEME_URL . 'lib/' );
 	define( 'BEANS_API_URL', BEANS_URL . 'api/' );
@@ -52,9 +52,7 @@ function beans_define_constants() {
 
 }
 
-
 add_action( 'beans_init', 'beans_load_dependencies', -1 );
-
 /**
  * Load dependencies.
  *
@@ -76,7 +74,7 @@ function beans_load_dependencies() {
 		'uikit',
 		'template',
 		'layout',
-		'widget'
+		'widget',
 	) );
 
 	// Add third party styles and scripts compiler support.
@@ -92,9 +90,7 @@ function beans_load_dependencies() {
 
 }
 
-
 add_action( 'beans_init', 'beans_add_theme_support' );
-
 /**
  * Add theme support.
  *
@@ -109,11 +105,11 @@ function beans_add_theme_support() {
 	add_theme_support( 'automatic-feed-links' );
 	add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form', 'gallery', 'caption' ) );
 	add_theme_support( 'custom-header', array(
-		'width' => 2000,
-		'height' => 500,
+		'width'       => 2000,
+		'height'      => 500,
 		'flex-height' => true,
-		'flex-width' => true,
-		'header-text' => false
+		'flex-width'  => true,
+		'header-text' => false,
 	) );
 
 	// Beans specific.
@@ -122,9 +118,7 @@ function beans_add_theme_support() {
 
 }
 
-
 add_action( 'beans_init', 'beans_includes' );
-
 /**
  * Include framework files.
  *
@@ -144,8 +138,9 @@ function beans_includes() {
 	require_once( BEANS_ASSETS_PATH . 'assets.php' );
 
 	// Include customizer.
-	if ( is_customize_preview() )
+	if ( is_customize_preview() ) {
 		require_once( BEANS_ADMIN_PATH . 'wp-customize.php' );
+	}
 
 	// Include renderers.
 	require_once( BEANS_RENDER_PATH . 'template-parts.php' );
@@ -156,9 +151,7 @@ function beans_includes() {
 
 }
 
-
 add_action( 'beans_init', 'beans_load_textdomain' );
-
 /**
  * Load text domain.
  *
@@ -169,7 +162,6 @@ function beans_load_textdomain() {
 	load_theme_textdomain( 'tm-beans', BEANS_LANGUAGES_PATH );
 
 }
-
 
 /**
  * Fires before Beans loads.

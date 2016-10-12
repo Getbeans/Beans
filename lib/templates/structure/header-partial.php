@@ -5,14 +5,14 @@
  * @package Structure\Header
  */
 
-echo beans_open_markup( 'beans_header', 'header', array(
-	'class' => 'tm-header uk-block',
-	'role' => 'banner',
+beans_open_markup_e( 'beans_header', 'header', array(
+	'class'     => 'tm-header uk-block',
+	'role'      => 'banner',
 	'itemscope' => 'itemscope',
-	'itemtype' => 'http://schema.org/WPHeader'
+	'itemtype'  => 'http://schema.org/WPHeader',
 ) );
 
-	echo beans_open_markup( 'beans_fixed_wrap[_header]', 'div', 'class=uk-container uk-container-center' );
+	beans_open_markup_e( 'beans_fixed_wrap[_header]', 'div', 'class=uk-container uk-container-center' );
 
 		/**
 		 * Fires in the header.
@@ -21,6 +21,6 @@ echo beans_open_markup( 'beans_header', 'header', array(
 		 */
 		do_action( 'beans_header' );
 
-	echo beans_close_markup( 'beans_fixed_wrap[_header]', 'div' );
+	beans_close_markup_e( 'beans_fixed_wrap[_header]', 'div' );
 
-echo beans_close_markup( 'beans_header', 'header' );
+beans_close_markup_e( 'beans_header', 'header' );

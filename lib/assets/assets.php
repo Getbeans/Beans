@@ -6,7 +6,6 @@
  */
 
 beans_add_smart_action( 'beans_uikit_enqueue_scripts', 'beans_enqueue_uikit_components', 5 );
-
 /**
  * Enqueue UIKit components and Beans style.
  *
@@ -38,7 +37,7 @@ function beans_enqueue_uikit_components() {
 		'offcanvas',
 		'text',
 		'utility',
-		'icon'
+		'icon',
 	);
 
 	beans_uikit_enqueue_components( $core, 'core', false );
@@ -53,14 +52,13 @@ function beans_enqueue_uikit_components() {
 	beans_compiler_add_fragment( 'uikit', BEANS_ASSETS_PATH . 'less/style.less', 'less' );
 
 	// Add the theme default style as a uikit fragment only if the theme supports it.
-	if ( current_theme_supports( 'beans-default-styling' ) )
+	if ( current_theme_supports( 'beans-default-styling' ) ) {
 		beans_compiler_add_fragment( 'uikit', BEANS_ASSETS_PATH . 'less/default.less', 'less' );
+	}
 
 }
 
-
 beans_add_smart_action( 'wp_enqueue_scripts', 'beans_enqueue_assets', 5 );
-
 /**
  * Enqueue Beans assets.
  *
@@ -68,14 +66,13 @@ beans_add_smart_action( 'wp_enqueue_scripts', 'beans_enqueue_assets', 5 );
  */
 function beans_enqueue_assets() {
 
-	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) )
+	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
+	}
 
 }
 
-
 beans_add_smart_action( 'after_setup_theme', 'beans_add_editor_assets' );
-
 /**
  * Add Beans editor assets.
  *

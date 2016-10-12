@@ -6,7 +6,6 @@
  */
 
 beans_add_smart_action( 'beans_post_header', 'beans_post_title' );
-
 /**
  * Echo post title.
  *
@@ -17,15 +16,16 @@ function beans_post_title() {
 	$title = beans_output( 'beans_post_title_text', get_the_title() );
 	$title_tag = 'h1';
 
-	if ( empty( $title ) )
+	if ( empty( $title ) ) {
 		return;
+	}
 
-	if ( !is_singular() ) {
+	if ( ! is_singular() ) {
 
 		$title_link = beans_open_markup( 'beans_post_title_link', 'a', array(
-			'href' => get_permalink(), // Automatically escaped.
+			'href'  => get_permalink(), // Automatically escaped.
 			'title' => the_title_attribute( 'echo=0' ),
-			'rel' => 'bookmark'
+			'rel'   => 'bookmark',
 		) );
 
 			$title_link .= $title;
@@ -37,20 +37,18 @@ function beans_post_title() {
 
 	}
 
-	echo beans_open_markup( 'beans_post_title', $title_tag, array(
-		'class' => 'uk-article-title',
-		'itemprop' => 'headline'
+	beans_open_markup_e( 'beans_post_title', $title_tag, array(
+		'class'    => 'uk-article-title',
+		'itemprop' => 'headline',
 	) );
 
 		echo $title;
 
-	echo beans_close_markup( 'beans_post_title', $title_tag );
+	beans_close_markup_e( 'beans_post_title', $title_tag );
 
 }
 
-
 beans_add_smart_action( 'beans_before_loop', 'beans_post_search_title' );
-
 /**
  * Echo search post title.
  *
@@ -58,20 +56,40 @@ beans_add_smart_action( 'beans_before_loop', 'beans_post_search_title' );
  */
 function beans_post_search_title() {
 
-	if ( !is_search() )
+	if ( ! is_search() ) {
 		return;
+	}
 
-	echo beans_open_markup( 'beans_search_title', 'h1', array( 'class' => 'uk-article-title' ) );
+	beans_open_markup_e( 'beans_search_title', 'h1', array( 'class' => 'uk-article-title' ) );
 
-		echo beans_output( 'beans_search_title_text', __( 'Search results for: ', 'tm-beans' ) ) . get_search_query();
+		printf( '%1$s%2$s', beans_output( 'beans_search_title_text', __( 'Search results for: ', 'tm-beans' ) ), get_search_query() );
 
-	echo beans_close_markup( 'beans_search_title', 'h1' );
+	beans_close_markup_e( 'beans_search_title', 'h1' );
 
 }
 
 
-beans_add_smart_action( 'beans_post_header', 'beans_post_meta', 15 );
+beans_add_smart_action( 'beans_before_loop', 'beans_post_archive_title' );
+/**
+ * Echo archive post title.
+ *
+ * @since 1.4.0
+ */
+function beans_post_archive_title() {
 
+	if ( ! is_archive() ) {
+		return;
+	}
+
+	beans_open_markup_e( 'beans_archive_title', 'h1', array( 'class' => 'uk-article-title' ) );
+
+		beans_output_e( 'beans_archive_title_text', get_the_archive_title() );
+
+	beans_close_markup_e( 'beans_archive_title', 'h1' );
+
+}
+
+beans_add_smart_action( 'beans_post_header', 'beans_post_meta', 15 );
 /**
  * Echo post meta.
  *
@@ -86,10 +104,11 @@ function beans_post_meta() {
 	 *
 	 * @param bool $pre True to short-circuit, False to let the function run.
 	 */
-	if ( apply_filters( 'beans_pre_post_meta', 'post' != get_post_type() ) )
+	if ( apply_filters( 'beans_pre_post_meta', 'post' != get_post_type() ) ) {
 		return;
+	}
 
-	echo beans_open_markup( 'beans_post_meta', 'ul', array( 'class' => 'uk-article-meta uk-subnav uk-subnav-line' ) );
+	beans_open_markup_e( 'beans_post_meta', 'ul', array( 'class' => 'uk-article-meta uk-subnav uk-subnav-line' ) );
 
 		/**
 		 * Filter the post meta actions and order.
@@ -102,33 +121,32 @@ function beans_post_meta() {
 		 * @param array $fragments An array of fragment files.
 		 */
 		$meta_items = apply_filters( 'beans_post_meta_items', array(
-			'date' => 10,
-			'author' => 20,
-			'comments' => 30
+			'date'     => 10,
+			'author'   => 20,
+			'comments' => 30,
 		) );
 
 		asort( $meta_items );
 
 		foreach ( $meta_items as $meta => $priority ) {
 
-			if ( !$content = beans_render_function( 'do_action', "beans_post_meta_$meta" ) )
+			if ( ! $content = beans_render_function( 'do_action', "beans_post_meta_$meta" ) ) {
 				continue;
+			}
 
-			echo beans_open_markup( "beans_post_meta_item[_{$meta}]", 'li' );
+			beans_open_markup_e( "beans_post_meta_item[_{$meta}]", 'li' );
 
-				echo beans_output( "beans_post_meta_item_{$meta}_text", $content ) ;
+				beans_output_e( "beans_post_meta_item_{$meta}_text", $content );
 
-			echo beans_close_markup( "beans_post_meta_item[_{$meta}]", 'li' );
+			beans_close_markup_e( "beans_post_meta_item[_{$meta}]", 'li' );
 
 		}
 
-	echo beans_close_markup( 'beans_post_meta', 'ul' );
+	beans_close_markup_e( 'beans_post_meta', 'ul' );
 
 }
 
-
 beans_add_smart_action( 'beans_post_body', 'beans_post_image', 5 );
-
 /**
  * Echo post image.
  *
@@ -136,8 +154,9 @@ beans_add_smart_action( 'beans_post_body', 'beans_post_image', 5 );
  */
 function beans_post_image() {
 
-	if ( !has_post_thumbnail() || !current_theme_supports( 'post-thumbnails' ) )
+	if ( ! has_post_thumbnail() || ! current_theme_supports( 'post-thumbnails' ) ) {
 		return false;
+	}
 
 	global $post;
 
@@ -161,13 +180,14 @@ function beans_post_image() {
 		 *                              large size.
 		 */
 		$edit_args = apply_filters( 'beans_edit_post_image_args', array(
-			'resize' => array( 800, false )
+			'resize' => array( 800, false ),
 		) );
 
-		if ( empty( $edit_args ) )
+		if ( empty( $edit_args ) ) {
 			$image = beans_get_post_attachment( $post->ID, 'large' );
-		else
+		} else {
 			$image = beans_edit_post_attachment( $post->ID, $edit_args );
+		}
 
 		/**
 		 * Filter the arguments used by {@see beans_edit_image()} to edit the post small image.
@@ -180,39 +200,40 @@ function beans_post_image() {
 		 *                              small size.
 		 */
 		$edit_small_args = apply_filters( 'beans_edit_post_image_small_args', array(
-			'resize' => array( 480, false )
+			'resize' => array( 480, false ),
 		) );
 
-		if ( empty( $edit_small_args ) )
+		if ( empty( $edit_small_args ) ) {
 			$image_small = beans_get_post_attachment( $post->ID, 'thumbnail' );
-		else
+		} else {
 			$image_small = beans_edit_post_attachment( $post->ID, $edit_small_args );
-
+		}
 	}
 
-	echo beans_open_markup( 'beans_post_image', 'div', array( 'class' => 'tm-article-image' ) );
+	beans_open_markup_e( 'beans_post_image', 'div', array( 'class' => 'tm-article-image' ) );
 
-		if ( !is_singular() )
-			echo beans_open_markup( 'beans_post_image_link', 'a', array(
-				'href' => get_permalink(), // Automatically escaped.
-				'title' => the_title_attribute( 'echo=0' )
+		if ( ! is_singular() ) {
+			beans_open_markup_e( 'beans_post_image_link', 'a', array(
+				'href'  => get_permalink(), // Automatically escaped.
+				'title' => the_title_attribute( 'echo=0' ),
 			) );
+		}
 
-			echo beans_open_markup( 'beans_post_image_item_wrap', 'picture' );
+			beans_open_markup_e( 'beans_post_image_item_wrap', 'picture' );
 
 				if ( $edit ) {
 
-					echo beans_selfclose_markup( 'beans_post_image_small_item', 'source', array(
-						'media' => '(max-width: ' . $image_small->width . 'px)',
+					beans_selfclose_markup_e( 'beans_post_image_small_item', 'source', array(
+						'media'  => '(max-width: ' . $image_small->width . 'px)',
 						'srcset' => esc_url( $image_small->src ),
 					), $image_small );
 
-					echo beans_selfclose_markup( 'beans_post_image_item', 'img', array(
-						'width' => $image->width,
-						'height' => $image->height,
-						'src' => $image->src, // Automatically escaped.
-						'alt' => $image->alt, // Automatically escaped.
-						'itemprop' => 'image'
+					beans_selfclose_markup_e( 'beans_post_image_item', 'img', array(
+						'width'    => $image->width,
+						'height'   => $image->height,
+						'src'      => $image->src, // Automatically escaped.
+						'alt'      => $image->alt, // Automatically escaped.
+						'itemprop' => 'image',
 					), $image );
 
 				} else {
@@ -222,18 +243,17 @@ function beans_post_image() {
 
 				}
 
-			echo beans_close_markup( 'beans_post_image_item_wrap', 'picture' );
+			beans_close_markup_e( 'beans_post_image_item_wrap', 'picture' );
 
-		if ( !is_singular() )
-			echo beans_close_markup( 'beans_post_image_link', 'a' );
+		if ( ! is_singular() ) {
+			beans_close_markup_e( 'beans_post_image_link', 'a' );
+		}
 
-	echo beans_close_markup( 'beans_post_image', 'div' );
+	beans_close_markup_e( 'beans_post_image', 'div' );
 
 }
 
-
 beans_add_smart_action( 'beans_post_body', 'beans_post_content' );
-
 /**
  * Echo post content.
  *
@@ -243,29 +263,27 @@ function beans_post_content() {
 
 	global $post;
 
-	echo beans_open_markup( 'beans_post_content', 'div', array(
-		'class' => 'tm-article-content',
-		'itemprop' => 'text'
+	beans_open_markup_e( 'beans_post_content', 'div', array(
+		'class'    => 'tm-article-content',
+		'itemprop' => 'text',
 	) );
 
 		the_content();
 
-		if ( is_singular() && 'open' === get_option( 'default_ping_status' ) && post_type_supports( $post->post_type, 'trackbacks' ) ) :
+		if ( is_singular() && 'open' === get_option( 'default_ping_status' ) && post_type_supports( $post->post_type, 'trackbacks' ) ) {
 
 			echo '<!--';
 			trackback_rdf();
 			echo '-->' . "\n";
 
-		endif;
+		}
 
-	echo beans_close_markup( 'beans_post_content', 'div' );
+	beans_close_markup_e( 'beans_post_content', 'div' );
 
 }
 
-
 // Filter.
 beans_add_smart_action( 'the_content_more_link', 'beans_post_more_link' );
-
 /**
  * Modify post "more link".
  *
@@ -278,15 +296,15 @@ function beans_post_more_link() {
 	global $post;
 
 	$output = beans_open_markup( 'beans_post_more_link', 'a', array(
-		'href' => get_permalink(), // Automatically escaped.
+		'href'  => get_permalink(), // Automatically escaped.
 		'class' => 'more-link',
 	) );
 
 		$output .= beans_output( 'beans_post_more_link_text', __( 'Continue reading', 'tm-beans' ) );
 
 		$output .= beans_open_markup( 'beans_next_icon[_more_link]', 'i', array(
-					'class' => 'uk-icon-angle-double-right uk-margin-small-left'
-				) );
+			'class' => 'uk-icon-angle-double-right uk-margin-small-left',
+		) );
 		$output .= beans_close_markup( 'beans_previous_icon[_more_link]', 'i' );
 
 	$output .= beans_close_markup( 'beans_post_more_link', 'a' );
@@ -295,9 +313,7 @@ function beans_post_more_link() {
 
 }
 
-
 beans_add_smart_action( 'beans_post_body', 'beans_post_content_navigation', 20 );
-
 /**
  * Echo post content navigation.
  *
@@ -307,15 +323,13 @@ function beans_post_content_navigation() {
 
 	echo wp_link_pages( array(
 		'before' => beans_open_markup( 'beans_post_content_navigation', 'p', array( 'class' => 'uk-text-bold' ) ) . beans_output( 'beans_post_content_navigation_text', __( 'Pages:', 'tm-beans' ) ),
-		'after' => beans_close_markup( 'beans_post_content_navigation', 'p' ),
-		'echo' => false
+		'after'  => beans_close_markup( 'beans_post_content_navigation', 'p' ),
+		'echo'   => false,
 	) );
 
 }
 
-
 beans_add_smart_action( 'beans_post_body', 'beans_post_meta_categories', 25 );
-
 /**
  * Echo post meta categories.
  *
@@ -323,20 +337,19 @@ beans_add_smart_action( 'beans_post_body', 'beans_post_meta_categories', 25 );
  */
 function beans_post_meta_categories() {
 
-	if ( !$categories = beans_render_function( 'do_shortcode', '[beans_post_meta_categories]' ) )
+	if ( ! $categories = beans_render_function( 'do_shortcode', '[beans_post_meta_categories]' ) ) {
 		return;
+	}
 
-	echo beans_open_markup( 'beans_post_meta_categories', 'span', array( 'class' => 'uk-text-small uk-text-muted uk-clearfix' ) );
+	beans_open_markup_e( 'beans_post_meta_categories', 'span', array( 'class' => 'uk-text-small uk-text-muted uk-clearfix' ) );
 
 		echo $categories;
 
-	echo beans_close_markup( 'beans_post_meta_categories', 'span' );
+	beans_close_markup_e( 'beans_post_meta_categories', 'span' );
 
 }
 
-
 beans_add_smart_action( 'beans_post_body', 'beans_post_meta_tags', 30 );
-
 /**
  * Echo post meta tags.
  *
@@ -344,21 +357,20 @@ beans_add_smart_action( 'beans_post_body', 'beans_post_meta_tags', 30 );
  */
 function beans_post_meta_tags() {
 
-	if ( !$tags = beans_render_function( 'do_shortcode', '[beans_post_meta_tags]' ) )
+	if ( ! $tags = beans_render_function( 'do_shortcode', '[beans_post_meta_tags]' ) ) {
 		return;
+	}
 
-	echo beans_open_markup( 'beans_post_meta_tags', 'span', array( 'class' => 'uk-text-small uk-text-muted uk-clearfix' ) );
+	beans_open_markup_e( 'beans_post_meta_tags', 'span', array( 'class' => 'uk-text-small uk-text-muted uk-clearfix' ) );
 
 		echo $tags;
 
-	echo beans_close_markup( 'beans_post_meta_tags', 'span' );
+	beans_close_markup_e( 'beans_post_meta_tags', 'span' );
 
 }
 
-
 // Filter.
 beans_add_smart_action( 'previous_post_link', 'beans_previous_post_link', 10, 4 );
-
 /**
  * Modify post "previous link".
  *
@@ -372,13 +384,13 @@ function beans_previous_post_link( $output, $format, $link, $post ) {
 	$text = strip_tags( $output );
 
 	$output = beans_open_markup( 'beans_previous_link[_post_navigation]', 'a', array(
-		'href' => get_permalink( $post ), // Automatically escaped.
-		'ref' => 'previous',
-		'title' => $post->post_title // Automatically escaped.
+		'href'  => get_permalink( $post ), // Automatically escaped.
+		'ref'   => 'previous',
+		'title' => $post->post_title, // Automatically escaped.
 	) );
 
 		$output .= beans_open_markup( 'beans_previous_icon[_post_navigation]', 'i', array(
-			'class' => 'uk-icon-angle-double-left uk-margin-small-right'
+			'class' => 'uk-icon-angle-double-left uk-margin-small-right',
 		) );
 
 		$output .= beans_close_markup( 'beans_previous_icon[_post_navigation]', 'i' );
@@ -391,10 +403,8 @@ function beans_previous_post_link( $output, $format, $link, $post ) {
 
 }
 
-
 // Filter.
 beans_add_smart_action( 'next_post_link', 'beans_next_post_link', 10, 4 );
-
 /**
  * Modify post "next link".
  *
@@ -408,15 +418,15 @@ function beans_next_post_link( $output, $format, $link, $post ) {
 	$text = strip_tags( $output );
 
 	$output = beans_open_markup( 'beans_next_link[_post_navigation]', 'a', array(
-		'href' => get_permalink( $post ), // Automatically escaped.
-		'rel' => 'next',
-		'title' => $post->post_title // Automatically escaped.
+		'href'  => get_permalink( $post ), // Automatically escaped.
+		'rel'   => 'next',
+		'title' => $post->post_title, // Automatically escaped.
 	) );
 
 		$output .= beans_output( 'beans_next_text[_post_navigation]', $text );
 
 		$output .= beans_open_markup( 'beans_next_icon[_post_navigation]', 'i', array(
-			'class' => 'uk-icon-angle-double-right uk-margin-small-left'
+			'class' => 'uk-icon-angle-double-right uk-margin-small-left',
 		) );
 
 		$output .= beans_close_markup( 'beans_previous_icon[_post_navigation]', 'i' );
@@ -427,9 +437,7 @@ function beans_next_post_link( $output, $format, $link, $post ) {
 
 }
 
-
 beans_add_smart_action( 'beans_post_after_markup', 'beans_post_navigation' );
-
 /**
  * Echo post navigation.
  *
@@ -444,49 +452,49 @@ function beans_post_navigation() {
 	 *
 	 * @param bool $pre True to short-circuit, False to let the function run.
 	 */
-	if ( apply_filters( 'beans_pre_post_navigation', !is_singular( 'post' ) ) )
+	if ( apply_filters( 'beans_pre_post_navigation', ! is_singular( 'post' ) ) ) {
 		return;
+	}
 
 	$previous = ( is_attachment() ) ? get_post( get_post()->post_parent ) : get_adjacent_post( false, '', true );
 	$next = get_adjacent_post( false, '', false );
 
-	if ( !$next && !$previous )
+	if ( ! $next && ! $previous ) {
 		return;
+	}
 
-	echo beans_open_markup( 'beans_post_navigation', 'ul', array(
+	beans_open_markup_e( 'beans_post_navigation', 'ul', array(
 		'class' => 'uk-pagination',
-		'role' => 'navigation'
+		'role'  => 'navigation',
 	) );
 
-		if ( $previous ) :
+		if ( $previous ) {
 
 			// Previous.
-			echo beans_open_markup( 'beans_post_navigation_item[_previous]', 'li', array( 'class' => 'uk-pagination-previous' ) );
+			beans_open_markup_e( 'beans_post_navigation_item[_previous]', 'li', array( 'class' => 'uk-pagination-previous' ) );
 
 				echo get_previous_post_link( '%link', __( 'Previous', 'tm-beans' ) );
 
-			echo beans_close_markup( 'beans_post_navigation_item[_previous]', 'li' );
+			beans_close_markup_e( 'beans_post_navigation_item[_previous]', 'li' );
 
-		endif;
+		}
 
-		if ( $next ) :
+		if ( $next ) {
 
 			// Next.
-			echo beans_open_markup( 'beans_post_navigation_item[_next]', 'li', array( 'class' => 'uk-pagination-next' ) );
+			beans_open_markup_e( 'beans_post_navigation_item[_next]', 'li', array( 'class' => 'uk-pagination-next' ) );
 
 				echo get_next_post_link( '%link', __( 'Next', 'tm-beans' ) );
 
-			echo beans_close_markup( 'beans_post_navigation_item[_next]', 'li' );
+			beans_close_markup_e( 'beans_post_navigation_item[_next]', 'li' );
 
-		endif;
+		}
 
-	echo beans_close_markup( 'beans_post_navigation', 'ul' );
+	beans_close_markup_e( 'beans_post_navigation', 'ul' );
 
 }
 
-
 beans_add_smart_action( 'beans_after_posts_loop', 'beans_posts_pagination' );
-
 /**
  * Echo posts pagination.
  *
@@ -501,42 +509,44 @@ function beans_posts_pagination() {
 	 *
 	 * @param bool $pre True to short-circuit, False to let the function run.
 	 */
-	if ( apply_filters( 'beans_pre_post_pagination', is_singular() ) )
+	if ( apply_filters( 'beans_pre_post_pagination', is_singular() ) ) {
 		return;
+	}
 
 	global $wp_query;
 
-	if ( $wp_query->max_num_pages <= 1 )
+	if ( $wp_query->max_num_pages <= 1 ) {
 		return;
+	}
 
 	$current = get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1;
 	$count = intval( $wp_query->max_num_pages );
 
-	echo beans_open_markup( 'beans_posts_pagination', 'ul', array(
+	beans_open_markup_e( 'beans_posts_pagination', 'ul', array(
 		'class' => 'uk-pagination uk-grid-margin',
-		'role' => 'navigation'
+		'role'  => 'navigation',
 	) );
 
 		// Previous.
 		if ( get_previous_posts_link() ) {
 
-			echo beans_open_markup( 'beans_posts_pagination_item[_previous]', 'li' );
+			beans_open_markup_e( 'beans_posts_pagination_item[_previous]', 'li' );
 
-				echo beans_open_markup( 'beans_previous_link[_posts_pagination]', 'a', array(
-					'href' => previous_posts( false ) // Automatically escaped.
+				beans_open_markup_e( 'beans_previous_link[_posts_pagination]', 'a', array(
+					'href' => previous_posts( false ), // Automatically escaped.
 				), $current );
 
-					echo beans_open_markup( 'beans_previous_icon[_posts_pagination]', 'i', array(
-						'class' => 'uk-icon-angle-double-left uk-margin-small-right'
+					beans_open_markup_e( 'beans_previous_icon[_posts_pagination]', 'i', array(
+						'class' => 'uk-icon-angle-double-left uk-margin-small-right',
 					) );
 
-					echo beans_close_markup( 'beans_previous_icon[_posts_pagination]', 'i' );
+					beans_close_markup_e( 'beans_previous_icon[_posts_pagination]', 'i' );
 
-					echo beans_output( 'beans_previous_text[_posts_pagination]', __( 'Previous', 'tm-beans' ) );
+					beans_output_e( 'beans_previous_text[_posts_pagination]', __( 'Previous', 'tm-beans' ) );
 
-				echo beans_close_markup( 'beans_previous_link[_posts_pagination]', 'a' );
+				beans_close_markup_e( 'beans_previous_link[_posts_pagination]', 'a' );
 
-			echo beans_close_markup( 'beans_posts_pagination_item[_previous]', 'li' );
+			beans_close_markup_e( 'beans_posts_pagination_item[_previous]', 'li' );
 
 		}
 
@@ -544,35 +554,37 @@ function beans_posts_pagination() {
 		foreach ( range( 1, $wp_query->max_num_pages ) as $link ) {
 
 			// Skip if next is set.
-			if ( isset( $next ) && $link != $next )
+			if ( isset( $next ) && $link != $next ) {
 				continue;
-			else
+			} else {
 				$next = $link + 1;
+			}
 
 			$is_separator = array(
-				$link != 1, // Not first.
-				$current == 1 && $link == 3 ? false : true, // Force first 3 items.
+				1 != $link, // Not first.
+				1 == $current && 3 == $link ? false : true, // Force first 3 items.
 				$count > 3, // More.
-				$link != $count, // Not last.
-				$link != ( $current - 1 ), // Not previous.
-				$link != $current, // Not current.
-				$link != ( $current + 1 ), // Not next.
+				$count != $link, // Not last.
+				( $current - 1 ) != $link, // Not previous.
+				$current != $link, // Not current.
+				( $current + 1 ) != $link, // Not next.
 			);
 
 			// Separator.
-			if ( !in_array( false, $is_separator ) ) {
+			if ( ! in_array( false, $is_separator ) ) {
 
-				echo beans_open_markup( 'beans_posts_pagination_item[_separator]', 'li' );
+				beans_open_markup_e( 'beans_posts_pagination_item[_separator]', 'li' );
 
-					echo beans_output( 'beans_posts_pagination_item_separator_text', '...' );
+					beans_output_e( 'beans_posts_pagination_item_separator_text', '...' );
 
-				echo beans_close_markup( 'beans_posts_pagination_item[_separator]', 'li' );
+				beans_close_markup_e( 'beans_posts_pagination_item[_separator]', 'li' );
 
 				// Jump.
-				if ( $link < $current )
+				if ( $link < $current ) {
 					$next = $current - 1;
-				elseif ( $link > $current )
+				} elseif ( $link > $current ) {
 					$next = $count;
+				}
 
 				continue;
 
@@ -581,60 +593,61 @@ function beans_posts_pagination() {
 			// Integer.
 			if ( $link == $current ) {
 
-				echo beans_open_markup( 'beans_posts_pagination_item[_active]', 'li', array( 'class' => 'uk-active' ) );
+				beans_open_markup_e( 'beans_posts_pagination_item[_active]', 'li', array( 'class' => 'uk-active' ) );
 
-					echo '<span>' . $link . '</span>';
+					beans_open_markup_e( 'beans_posts_pagination_item[_active]_wrap', 'span' );
 
-				echo beans_close_markup( 'beans_posts_pagination_item[_active]', 'li' );
+						beans_output_e( 'beans_posts_pagination_item[_active]_text', $link );
+
+					beans_close_markup_e( 'beans_posts_pagination_item[_active]_wrap', 'span' );
+
+				beans_close_markup_e( 'beans_posts_pagination_item[_active]', 'li' );
 
 			} else {
 
-				echo beans_open_markup( 'beans_posts_pagination_item', 'li' );
+				beans_open_markup_e( 'beans_posts_pagination_item', 'li' );
 
-					echo beans_open_markup( 'beans_posts_pagination_item_link', 'a', array(
-						'href' => get_pagenum_link( $link ) // Automatically escaped.
+					beans_open_markup_e( 'beans_posts_pagination_item_link', 'a', array(
+						'href' => get_pagenum_link( $link ), // Automatically escaped.
 					), $link );
 
-						echo beans_output( 'beans_posts_pagination_item_link_text', $link );
+						beans_output_e( 'beans_posts_pagination_item_link_text', $link );
 
-					echo beans_close_markup( 'beans_posts_pagination_item_link', 'a' );
+					beans_close_markup_e( 'beans_posts_pagination_item_link', 'a' );
 
-				echo beans_close_markup( 'beans_posts_pagination_item', 'li' );
+				beans_close_markup_e( 'beans_posts_pagination_item', 'li' );
 
 			}
-
 		}
 
 		// Next.
 		if ( get_next_posts_link() ) {
 
-			echo beans_open_markup( 'beans_posts_pagination_item[_next]', 'li' );
+			beans_open_markup_e( 'beans_posts_pagination_item[_next]', 'li' );
 
-				echo beans_open_markup( 'beans_next_link[_posts_pagination]', 'a', array(
-					'href' => next_posts( $count, false ) // Automatically escaped.
+				beans_open_markup_e( 'beans_next_link[_posts_pagination]', 'a', array(
+					'href' => next_posts( $count, false ), // Automatically escaped.
 				), $current );
 
-					echo beans_output( 'beans_next_text[_posts_pagination]', __( 'Next', 'tm-beans' ) );
+					beans_output_e( 'beans_next_text[_posts_pagination]', __( 'Next', 'tm-beans' ) );
 
-					echo beans_open_markup( 'beans_next_icon[_posts_pagination]', 'i', array(
-						'class' => 'uk-icon-angle-double-right uk-margin-small-left'
+					beans_open_markup_e( 'beans_next_icon[_posts_pagination]', 'i', array(
+						'class' => 'uk-icon-angle-double-right uk-margin-small-left',
 					) );
 
-					echo beans_close_markup( 'beans_next_icon[_posts_pagination]', 'i' );
+					beans_close_markup_e( 'beans_next_icon[_posts_pagination]', 'i' );
 
-				echo beans_close_markup( 'beans_next_link[_posts_pagination]', 'a' );
+				beans_close_markup_e( 'beans_next_link[_posts_pagination]', 'a' );
 
-			echo beans_close_markup( 'beans_posts_pagination_item[_next]', 'li' );
+			beans_close_markup_e( 'beans_posts_pagination_item[_next]', 'li' );
 
 		}
 
-	echo beans_close_markup( 'beans_posts_pagination', 'ul' );
+	beans_close_markup_e( 'beans_posts_pagination', 'ul' );
 
 }
 
-
 beans_add_smart_action( 'beans_no_post', 'beans_no_post' );
-
 /**
  * Echo no post content.
  *
@@ -642,42 +655,40 @@ beans_add_smart_action( 'beans_no_post', 'beans_no_post' );
  */
 function beans_no_post() {
 
-	echo beans_open_markup( 'beans_post', 'article', array( 'class' => 'tm-no-article uk-article' . ( current_theme_supports( 'beans-default-styling' ) ? ' uk-panel-box' : null ) ) );
+	beans_open_markup_e( 'beans_post', 'article', array( 'class' => 'tm-no-article uk-article' . ( current_theme_supports( 'beans-default-styling' ) ? ' uk-panel-box' : null ) ) );
 
-		echo beans_open_markup( 'beans_post_header', 'header' );
+		beans_open_markup_e( 'beans_post_header', 'header' );
 
-			echo beans_open_markup( 'beans_post_title', 'h1', array( 'class' => 'uk-article-title' ) );
+			beans_open_markup_e( 'beans_post_title', 'h1', array( 'class' => 'uk-article-title' ) );
 
-				echo beans_output( 'beans_no_post_article_title_text', __( 'Whoops, no result found!', 'tm-beans' ) );
+				beans_output_e( 'beans_no_post_article_title_text', __( 'Whoops, no result found!', 'tm-beans' ) );
 
-			echo beans_close_markup( 'beans_post_title', 'h1' );
+			beans_close_markup_e( 'beans_post_title', 'h1' );
 
-		echo beans_close_markup( 'beans_post_header', 'header' );
+		beans_close_markup_e( 'beans_post_header', 'header' );
 
-		echo beans_open_markup( 'beans_post_body', 'div' );
+		beans_open_markup_e( 'beans_post_body', 'div' );
 
-			echo beans_open_markup( 'beans_post_content', 'div', array( 'class' => 'tm-article-content' ) );
+			beans_open_markup_e( 'beans_post_content', 'div', array( 'class' => 'tm-article-content' ) );
 
-				echo beans_open_markup( 'beans_no_post_article_content', 'p', array( 'class' => 'uk-alert uk-alert-warning' ) );
+				beans_open_markup_e( 'beans_no_post_article_content', 'p', array( 'class' => 'uk-alert uk-alert-warning' ) );
 
-					echo beans_output( 'beans_no_post_article_content_text', __( 'It looks like nothing was found at this location. Maybe try a search?', 'tm-beans' ) );
+					beans_output_e( 'beans_no_post_article_content_text', __( 'It looks like nothing was found at this location. Maybe try a search?', 'tm-beans' ) );
 
-				echo beans_close_markup( 'beans_no_post_article_content', 'p' );
+				beans_close_markup_e( 'beans_no_post_article_content', 'p' );
 
-					echo beans_output( 'beans_no_post_search_form', get_search_form( false ) );
+					beans_output_e( 'beans_no_post_search_form', get_search_form( false ) );
 
-			echo beans_close_markup( 'beans_post_content', 'div' );
+			beans_close_markup_e( 'beans_post_content', 'div' );
 
-		echo beans_close_markup( 'beans_post_body', 'div' );
+		beans_close_markup_e( 'beans_post_body', 'div' );
 
-	echo beans_close_markup( 'beans_post', 'article' );
+	beans_close_markup_e( 'beans_post', 'article' );
 
 }
 
-
 // Filter.
 beans_add_smart_action( 'the_password_form', 'beans_post_password_form' );
-
 /**
  * Modify password protected form.
  *
@@ -700,23 +711,23 @@ function beans_post_password_form() {
 
 	// Form.
 	$output .= beans_open_markup( 'beans_password_form', 'form', array(
-		'class' => 'uk-form uk-margin-bottom',
+		'class'  => 'uk-form uk-margin-bottom',
 		'method' => 'post',
-		'action' => site_url( 'wp-login.php?action=postpass', 'login_post' ) // Automatically escaped.
+		'action' => site_url( 'wp-login.php?action=postpass', 'login_post' ), // Automatically escaped.
 	) );
 
 		$output .= beans_selfclose_markup( 'beans_password_form_input', 'input', array(
-			'class' => 'uk-margin-small-top uk-margin-small-right',
-			'type' => 'password',
+			'class'       => 'uk-margin-small-top uk-margin-small-right',
+			'type'        => 'password',
 			'placeholder' => apply_filters( 'beans_password_form_input_placeholder', __( 'Password', 'tm-beans' ) ), // Automatically escaped.
-			'name' => 'post_password'
+			'name'        => 'post_password',
 		) );
 
 		$output .= beans_selfclose_markup( 'beans_password_form_submit', 'input', array(
 			'class' => 'uk-button uk-margin-small-top',
-			'type' => 'submit',
-			'name' => 'submit',
-			'value' => esc_attr( apply_filters( 'beans_password_form_submit_text', __( 'Submit', 'tm-beans' ) ) )
+			'type'  => 'submit',
+			'name'  => 'submit',
+			'value' => esc_attr( apply_filters( 'beans_password_form_submit_text', __( 'Submit', 'tm-beans' ) ) ),
 		) );
 
 	$output .= beans_close_markup( 'beans_password_form', 'form' );
@@ -725,10 +736,8 @@ function beans_post_password_form() {
 
 }
 
-
 // Filter.
 beans_add_smart_action( 'post_gallery', 'beans_post_gallery', 10, 3 );
-
 /**
  * Modify WP {@link https://codex.wordpress.org/Function_Reference/gallery_shortcode Gallery Shortcode} output.
  *
@@ -747,73 +756,75 @@ function beans_post_gallery( $output, $attr, $instance ) {
 	$post = get_post();
 	$html5 = current_theme_supports( 'html5', 'gallery' );
 	$defaults = array(
-		'order' => 'ASC',
-		'orderby' => 'menu_order ID',
-		'id' => $post ? $post->ID : 0,
-		'itemtag' => $html5 ? 'figure' : 'dl',
-		'icontag' => $html5 ? 'div' : 'dt',
+		'order'      => 'ASC',
+		'orderby'    => 'menu_order ID',
+		'id'         => $post ? $post->ID : 0,
+		'itemtag'    => $html5 ? 'figure' : 'dl',
+		'icontag'    => $html5 ? 'div' : 'dt',
 		'captiontag' => $html5 ? 'figcaption' : 'dd',
-		'columns' => 3,
-		'size' => 'thumbnail',
-		'include' => '',
-		'exclude' => '',
-		'link' => ''
+		'columns'    => 3,
+		'size'       => 'thumbnail',
+		'include'    => '',
+		'exclude'    => '',
+		'link'       => '',
 	);
 	$atts = shortcode_atts( $defaults, $attr, 'gallery' );
 	$id = intval( $atts['id'] );
 
 	// Set attachements.
-	if ( !empty( $atts['include'] ) ) {
+	if ( ! empty( $atts['include'] ) ) {
 
 		$_attachments = get_posts( array(
-			'include' => $atts['include'],
-			'post_status' => 'inherit',
-			'post_type' => 'attachment',
+			'include'        => $atts['include'],
+			'post_status'    => 'inherit',
+			'post_type'      => 'attachment',
 			'post_mime_type' => 'image',
-			'order' => $atts['order'],
-			'orderby' => $atts['orderby']
+			'order'          => $atts['order'],
+			'orderby'        => $atts['orderby'],
 		) );
 
 		$attachments = array();
 
-		foreach ( $_attachments as $key => $val )
-			$attachments[$val->ID] = $_attachments[$key];
-
-	} elseif ( !empty( $atts['exclude'] ) ) {
+		foreach ( $_attachments as $key => $val ) {
+			$attachments[ $val->ID ] = $_attachments[ $key ];
+		}
+	} elseif ( ! empty( $atts['exclude'] ) ) {
 
 		$attachments = get_children( array(
-			'post_parent' => $id,
-			'exclude' => $atts['exclude'],
-			'post_status' => 'inherit',
-			'post_type' => 'attachment',
+			'post_parent'    => $id,
+			'exclude'        => $atts['exclude'],
+			'post_status'    => 'inherit',
+			'post_type'      => 'attachment',
 			'post_mime_type' => 'image',
-			'order' => $atts['order'],
-			'orderby' => $atts['orderby']
+			'order'          => $atts['order'],
+			'orderby'        => $atts['orderby'],
 		) );
 
 	} else {
 
 		$attachments = get_children( array(
-			'post_parent' => $id,
-			'post_status' => 'inherit',
-			'post_type' => 'attachment',
+			'post_parent'    => $id,
+			'post_status'    => 'inherit',
+			'post_type'      => 'attachment',
 			'post_mime_type' => 'image',
-			'order' => $atts['order'],
-			'orderby' => $atts['orderby']
+			'order'          => $atts['order'],
+			'orderby'        => $atts['orderby'],
 		) );
 
 	}
 
 	// Stop here if no attachment.
-	if ( empty( $attachments ) )
+	if ( empty( $attachments ) ) {
 		return '';
+	}
 
 	if ( is_feed() ) {
 
 		$output = "\n";
 
-		foreach ( $attachments as $att_id => $attachment )
+		foreach ( $attachments as $att_id => $attachment ) {
 			$output .= wp_get_attachment_link( $att_id, $atts['size'], true ) . "\n";
+		}
 
 		return $output;
 
@@ -824,13 +835,15 @@ function beans_post_gallery( $output, $attr, $instance ) {
 	$validate = array(
 		'itemtag',
 		'captiontag',
-		'icontag'
+		'icontag',
 	);
 
 	// Validate tags.
-	foreach ( $validate as $tag )
-		if ( !isset( $valid_tags[$atts[$tag]] ) )
-			$atts[$tag] = $defaults[$tag];
+	foreach ( $validate as $tag ) {
+		if ( ! isset( $valid_tags[ $atts[ $tag ] ] ) ) {
+			$atts[ $tag ] = $defaults[ $tag ];
+		}
+	}
 
 	// Set variables used in the output.
 	$columns = intval( $atts['columns'] );
@@ -838,8 +851,8 @@ function beans_post_gallery( $output, $attr, $instance ) {
 
 	// WP adds the opening div in the gallery_style filter (weird), so we follow it as don't want to break people's site.
 	$gallery_div = beans_open_markup( "beans_post_gallery[_{$id}]", 'div', array(
-		'class' => "uk-grid uk-grid-width-small-1-{$columns} gallery galleryid-{$id} gallery-columns-{$columns} gallery-size-{$size_class}", // Automatically escaped.
-		'data-uk-grid-margin' => false
+		'class'               => "uk-grid uk-grid-width-small-1-{$columns} gallery galleryid-{$id} gallery-columns-{$columns} gallery-size-{$size_class}", // Automatically escaped.
+		'data-uk-grid-margin' => false,
 	), $id, $columns );
 
 	/**
@@ -857,14 +870,16 @@ function beans_post_gallery( $output, $attr, $instance ) {
 			$image_meta = wp_get_attachment_metadata( $attachment_id );
 			$orientation = '';
 
-			if ( isset( $image_meta['height'], $image_meta['width'] ) )
+			if ( isset( $image_meta['height'], $image_meta['width'] ) ) {
 				$orientation = ( $image_meta['height'] > $image_meta['width'] ) ? 'portrait' : 'landscape';
+			}
 
 			// Set the image output.
-			if ( 'none' === $atts['link'] )
+			if ( 'none' === $atts['link'] ) {
 				$image_output = wp_get_attachment_image( $attachment_id, $atts['size'], false, $attr );
-			else
+			} else {
 				$image_output = wp_get_attachment_link( $attachment_id, $atts['size'], ( 'file' !== $atts['link'] ), false, false, $attr );
+			}
 
 			$output .= beans_open_markup( "beans_post_gallery_item[_{$attachment_id}]", $atts['itemtag'], array( 'class' => 'gallery-item' ) );
 

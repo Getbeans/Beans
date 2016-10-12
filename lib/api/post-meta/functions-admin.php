@@ -74,12 +74,14 @@ function beans_register_post_meta( array $fields, $conditions, $section, $args =
 	$_beans_post_meta_conditions = array_merge( $_beans_post_meta_conditions, (array) $conditions );
 
 	// Stop here if the current page isn't concerned.
-	if ( !_beans_is_post_meta_conditions( $conditions ) || !is_admin() )
+	if ( ! _beans_is_post_meta_conditions( $conditions ) || ! is_admin() ) {
 		return;
+	}
 
 	// Stop here if the field can't be registered.
-	if ( !beans_register_fields( $fields, 'post_meta', $section ) )
+	if ( ! beans_register_fields( $fields, 'post_meta', $section ) ) {
 		return false;
+	}
 
 	// Load the class only if this function is called to prevent unnecessary memory usage.
 	require_once( BEANS_API_PATH . 'post-meta/class.php' );
@@ -87,7 +89,6 @@ function beans_register_post_meta( array $fields, $conditions, $section, $args =
 	new _Beans_Post_Meta( $section, $args );
 
 }
-
 
 /**
  * Check the current screen conditions.
@@ -97,35 +98,38 @@ function beans_register_post_meta( array $fields, $conditions, $section, $args =
 function _beans_is_post_meta_conditions( $conditions ) {
 
 	// Check if it is a new post and treat it as such.
-	if ( stripos( $_SERVER['REQUEST_URI'], 'post-new.php' ) !== false ) {
+	if ( false !== stripos( $_SERVER['REQUEST_URI'], 'post-new.php' ) ) {
 
-		if ( !$current_post_type = beans_get( 'post_type' ) )
-			if ( in_array( 'post', (array) $conditions ) )
+		if ( ! $current_post_type = beans_get( 'post_type' ) ) {
+
+			if ( in_array( 'post', (array) $conditions ) ) {
 				return true;
-			else
+			} else {
 				return false;
-
+			}
+		}
 	} else {
 
 		// Try to get id from $_GET.
-		if ( $id = beans_get( 'post' ) )
+		if ( $id = beans_get( 'post' ) ) {
 			$post_id = $id;
-		// Try to get id from $_POST.
-		elseif ( $id = beans_post( 'post_ID' ) )
+		} elseif ( $id = beans_post( 'post_ID' ) ) { // Try to get id from $_POST.
 			$post_id = $id;
+		}
 
-		if ( !isset( $post_id ) )
+		if ( ! isset( $post_id ) ) {
 			return false;
+		}
 
 		$current_post_type = get_post_type( $post_id );
 
 	}
 
 	$statements = array(
-		$conditions === true,
+		true === $conditions,
 		in_array( $current_post_type, (array) $conditions ), // Check post type.
-		isset( $post_id) && in_array( $post_id, (array) $conditions ), // Check post id.
-		isset( $post_id) && in_array( get_post_meta( $post_id, '_wp_page_template', true ), (array) $conditions ) // Check page template.
+		isset( $post_id ) && in_array( $post_id, (array) $conditions ), // Check post id.
+		isset( $post_id ) && in_array( get_post_meta( $post_id, '_wp_page_template', true ), (array) $conditions ), // Check page template.
 	);
 
 	// Return true if any condition is met, otherwise false.
@@ -133,9 +137,7 @@ function _beans_is_post_meta_conditions( $conditions ) {
 
 }
 
-
 add_action( 'admin_print_footer_scripts', '_beans_post_meta_page_template_reload' );
-
 /**
  * Reload post edit screen on page template change.
  *
@@ -146,19 +148,42 @@ function _beans_post_meta_page_template_reload() {
 	global $_beans_post_meta_conditions, $pagenow;
 
 	// Stop here if not editing a post object.
-	if ( !in_array( $pagenow, array( 'post-new.php', 'post.php' ) ) )
+	if ( ! in_array( $pagenow, array( 'post-new.php', 'post.php' ) ) ) {
 		return;
-
-	$encode = json_encode( $_beans_post_meta_conditions );
+	}
 
 	// Stop here of there isn't any post meta assigned to page templates.
-	if ( stripos( $encode, '.php' ) === false )
+	if ( false === stripos( wp_json_encode( $_beans_post_meta_conditions ), '.php' ) ) {
 		return;
+	}
 
-	echo "<script type='text/javascript'>\n!(function(a){a(document).ready(function(){a('#page_template').data('beans-pre',a('#page_template').val());a('#page_template').change(function(){if(a.inArray(a(this).val(),$encode)===-1&&a.inArray(a(this).data('beans-pre'),$encode)===-1){return}a(this).data('beans-pre',a(this).val());var b=a('#save-action #save-post');if(b.length===0){b=a('#publishing-action #publish')}b.trigger('click');a('#wpbody-content').fadeOut()})})})(jQuery);\n</script>";
+	?>
+	<script type="text/javascript">
+		( function( $ ) {
+			$( document ).ready( function() {
+				$( '#page_template' ).data( 'beans-pre', $( '#page_template' ).val() );
+				$( '#page_template' ).change( function() {
+					var save = $( '#save-action #save-post' ),
+						meta = JSON.parse( '<?php echo wp_json_encode( $_beans_post_meta_conditions ); ?>' );
+
+					if ( -1 === $.inArray( $( this ).val(), meta ) && -1 === $.inArray( $( this ).data( 'beans-pre' ), meta ) ) {
+						return;
+					}
+
+					if ( save.length === 0 ) {
+						save = $( '#publishing-action #publish' );
+					}
+
+					$( this ).data( 'beans-pre', $( this ).val() );
+					save.trigger( 'click' );
+					$( '#wpbody-content' ).fadeOut();
+				} );
+			} );
+		} )( jQuery );
+	</script>
+	<?php
 
 }
-
 
 /**
  * Initialize post meta conditions.
@@ -167,5 +192,6 @@ function _beans_post_meta_page_template_reload() {
  */
 global $_beans_post_meta_conditions;
 
-if ( !isset( $_beans_post_meta_conditions ) )
+if ( ! isset( $_beans_post_meta_conditions ) ) {
 	$_beans_post_meta_conditions = array();
+}

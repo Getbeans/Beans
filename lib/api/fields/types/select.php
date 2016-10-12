@@ -4,7 +4,6 @@
  */
 
 beans_add_smart_action( 'beans_field_select', 'beans_field_select' );
-
 /**
  * Echo select field type.
  *
@@ -24,8 +23,9 @@ beans_add_smart_action( 'beans_field_select', 'beans_field_select' );
  */
 function beans_field_select( $field ) {
 
-	if ( empty( $field['options'] ) )
+	if ( empty( $field['options'] ) ) {
 		return;
+	}
 
 	?>
 	<select name="<?php echo esc_attr( $field['name'] ); ?>" <?php echo beans_esc_attributes( $field['attributes'] );?>>

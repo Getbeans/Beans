@@ -4,7 +4,6 @@
  */
 
 beans_add_smart_action( 'beans_field_enqueue_scripts_image', 'beans_field_image_assets' );
-
 /**
  * Enqueued assets required by the beans image field.
  *
@@ -18,9 +17,7 @@ function beans_field_image_assets() {
 
 }
 
-
 beans_add_smart_action( 'beans_field_image', 'beans_field_image' );
-
 /**
  * Echo image field type.
  *
@@ -46,7 +43,7 @@ function beans_field_image( $field ) {
 	$multiple = beans_get( 'multiple', $field );
 
 	// Hide beans if it is a single image and an image already exists
-	$hide = !$multiple && is_numeric( $field['value'] ) ? 'style="display: none"' : '';
+	$hide = ! $multiple && is_numeric( $field['value'] ) ? 'style="display: none"' : '';
 
 	?>
 	<a href="#" class="bs-add-image button button-small" <?php echo $hide; ?>><?php echo _n( 'Add Image', 'Add Images', ( $multiple ? 2 : 1 ), 'tm-beans' ); ?></a>
@@ -55,21 +52,22 @@ function beans_field_image( $field ) {
 		<?php foreach ( $images as $id ) :
 
 			// Stop here if the id is false.
-			if ( !$id )
+			if ( ! $id ) {
 				continue;
+			}
 
 			$class = '';
 			$img = wp_get_attachment_image_src( $id, 'thumbnail' );
 
 			$attributes = array_merge( array(
 				'class' => 'image-id',
-				'type' => 'hidden',
-				'name' => $multiple ? $field['name'] . '[]' : $field['name'], // Return single value if not multiple.
-				'value' => $id
+				'type'  => 'hidden',
+				'name'  => $multiple ? $field['name'] . '[]' : $field['name'], // Return single value if not multiple.
+				'value' => $id,
 			), $field['attributes'] );
 
 			// Set placeholder.
-			if ( $id == 'placeholder' ) {
+			if ( 'placeholder' == $id ) {
 
 				$class = 'bs-image-template';
 				$attributes = array_merge( $attributes, array( 'disabled' => 'disabled', 'value' => false ) );

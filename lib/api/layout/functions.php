@@ -5,7 +5,6 @@
  * @package API\Layout
  */
 
-
 /**
  * Get the default layout.
  *
@@ -31,7 +30,6 @@ function beans_get_default_layout() {
 
 }
 
-
 /**
  * Get the current layout.
  *
@@ -43,18 +41,18 @@ function beans_get_default_layout() {
  */
 function beans_get_layout() {
 
-	if ( is_singular() )
+	if ( is_singular() ) {
 		$layout = beans_get_post_meta( 'beans_layout' );
-
-	elseif ( is_home() )
-		$layout = beans_get_post_meta( 'beans_layout', false, get_option( 'page_for_posts' ) );
-
-	elseif ( is_category() || is_tag() || is_tax() )
+	} elseif ( is_home() && ( 0 != ( $posts_page = get_option( 'page_for_posts' ) ) ) ) {
+		$layout = beans_get_post_meta( 'beans_layout', false, $posts_page );
+	} elseif ( is_category() || is_tag() || is_tax() ) {
 		$layout = beans_get_term_meta( 'beans_layout' );
+	}
 
 	// Fallback onto the global theme layout option if value is false or default_fallback.
-	if ( !isset( $layout ) || !$layout || $layout === 'default_fallback' )
+	if ( ! isset( $layout ) || ! $layout || 'default_fallback' === $layout ) {
 		$layout = get_theme_mod( 'beans_layout', beans_get_default_layout() );
+	}
 
 	/**
 	 * Filter the layout id.
@@ -66,7 +64,6 @@ function beans_get_layout() {
 	return apply_filters( 'beans_layout', $layout );
 
 }
-
 
 /**
  * Get the current layout.
@@ -99,10 +96,10 @@ function beans_get_layout_class( $id ) {
 	 * }
 	 */
 	$args = apply_filters( 'beans_layout_grid_settings', array(
-		'grid' => 4,
-		'sidebar_primary' => 1,
+		'grid'              => 4,
+		'sidebar_primary'   => 1,
 		'sidebar_secondary' => 1,
-		'breakpoint' => 'medium'
+		'breakpoint'        => 'medium',
 	) );
 
 	$g = beans_get( 'grid', $args ); // $g stands for grid.
@@ -151,7 +148,6 @@ function beans_get_layout_class( $id ) {
 				break;
 
 		}
-
 	}
 
 	// Add sidebar secondary layouts if the primary and secondary widget area are registered.
@@ -209,7 +205,6 @@ function beans_get_layout_class( $id ) {
 				break;
 
 		}
-
 	}
 
 	/**
@@ -224,7 +219,6 @@ function beans_get_layout_class( $id ) {
 	return apply_filters( "beans_layout_class_$id", beans_get( $id, $classes ) );
 
 }
-
 
 /**
  * Generate layout elements used by Beans 'imageradio' option type.
@@ -243,7 +237,7 @@ function beans_get_layouts_for_options( $add_default = false ) {
 	$base = BEANS_ADMIN_ASSETS_URL . 'images/layouts/';
 
 	$layouts = array(
-		'c' =>  $base . 'c.png'
+		'c' => $base . 'c.png',
 	);
 
 	// Add sidebar primary layouts if the primary widget area is registered.
@@ -276,11 +270,14 @@ function beans_get_layouts_for_options( $add_default = false ) {
 	 */
 	$layouts = apply_filters( 'beans_layouts', $layouts );
 
-	if ( $add_default )
-		$layouts = array_merge( array( 'default_fallback' => sprintf(
-			__( 'Use Default Layout (%s)',  'tm-beans' ),
-			'<a href="' . admin_url( 'customize.php?autofocus[control]=beans_layout' ) . '">' . _x( 'Modify', 'Default layout', 'tm-beans' ) . '</a>'
-		) ), $layouts );
+	if ( $add_default ) {
+		$layouts = array_merge( array(
+			'default_fallback' => sprintf(
+				__( 'Use Default Layout (%s)',  'tm-beans' ),
+				'<a href="' . admin_url( 'customize.php?autofocus[control]=beans_layout' ) . '">' . _x( 'Modify', 'Default layout', 'tm-beans' ) . '</a>'
+			),
+		), $layouts );
+	}
 
 	return $layouts;
 

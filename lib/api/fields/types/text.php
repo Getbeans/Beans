@@ -4,7 +4,6 @@
  */
 
 beans_add_smart_action( 'beans_field_text', 'beans_field_text' );
-
 /**
  * Echo text field type.
  *

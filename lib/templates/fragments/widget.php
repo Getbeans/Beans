@@ -6,7 +6,6 @@
  */
 
 beans_add_smart_action( 'beans_widget', 'beans_widget_badge', 5 );
-
 /**
  * Echo widget badge.
  *
@@ -14,20 +13,19 @@ beans_add_smart_action( 'beans_widget', 'beans_widget_badge', 5 );
  */
 function beans_widget_badge() {
 
-	if ( !beans_get_widget( 'badge' ) )
+	if ( ! beans_get_widget( 'badge' ) ) {
 		return;
+	}
 
-	echo beans_open_markup( 'beans_widget_badge' . _beans_widget_subfilters(), 'div', 'class=uk-panel-badge uk-badge' );
+	beans_open_markup_e( 'beans_widget_badge' . _beans_widget_subfilters(), 'div', 'class=uk-panel-badge uk-badge' );
 
 		echo beans_widget_shortcodes( beans_get_widget( 'badge_content' ) );
 
-	echo beans_close_markup( 'beans_widget_badge' . _beans_widget_subfilters(), 'div' );
+	beans_close_markup_e( 'beans_widget_badge' . _beans_widget_subfilters(), 'div' );
 
 }
 
-
 beans_add_smart_action( 'beans_widget', 'beans_widget_title' );
-
 /**
  * Echo widget title.
  *
@@ -35,20 +33,19 @@ beans_add_smart_action( 'beans_widget', 'beans_widget_title' );
  */
 function beans_widget_title() {
 
-	if ( !( $title = beans_get_widget( 'title' ) ) || !beans_get_widget( 'show_title' ) )
+	if ( ! ( $title = beans_get_widget( 'title' ) ) || ! beans_get_widget( 'show_title' ) ) {
 		return;
+	}
 
-	echo beans_open_markup( 'beans_widget_title' . _beans_widget_subfilters(), 'h3', 'class=uk-panel-title' );
+	beans_open_markup_e( 'beans_widget_title' . _beans_widget_subfilters(), 'h3', 'class=uk-panel-title' );
 
-		echo beans_output( 'beans_widget_title_text', $title );
+		beans_output_e( 'beans_widget_title_text', $title );
 
-	echo beans_close_markup( 'beans_widget_title' . _beans_widget_subfilters(), 'h3' );
+	beans_close_markup_e( 'beans_widget_title' . _beans_widget_subfilters(), 'h3' );
 
 }
 
-
 beans_add_smart_action( 'beans_widget', 'beans_widget_content', 15 );
-
 /**
  * Echo widget content.
  *
@@ -56,17 +53,15 @@ beans_add_smart_action( 'beans_widget', 'beans_widget_content', 15 );
  */
 function beans_widget_content() {
 
-	echo beans_open_markup( 'beans_widget_content' . _beans_widget_subfilters(), 'div' );
+	beans_open_markup_e( 'beans_widget_content' . _beans_widget_subfilters(), 'div' );
 
-		echo beans_output( 'beans_widget_content' . _beans_widget_subfilters(), beans_get_widget( 'content' ) );
+		beans_output_e( 'beans_widget_content' . _beans_widget_subfilters(), beans_get_widget( 'content' ) );
 
-	echo beans_close_markup( 'beans_widget_content' . _beans_widget_subfilters(), 'div' );
+	beans_close_markup_e( 'beans_widget_content' . _beans_widget_subfilters(), 'div' );
 
 }
 
-
 beans_add_smart_action( 'beans_no_widget', 'beans_no_widget' );
-
 /**
  * Echo no widget content.
  *
@@ -75,20 +70,19 @@ beans_add_smart_action( 'beans_no_widget', 'beans_no_widget' );
 function beans_no_widget() {
 
 	// Only apply this notice to sidebar_primary and sidebar_secondary.
-	if ( !in_array( beans_get_widget_area( 'id' ), array( 'sidebar_primary', 'sidebar_secondary' ) ) )
+	if ( ! in_array( beans_get_widget_area( 'id' ), array( 'sidebar_primary', 'sidebar_secondary' ) ) ) {
 		return;
+	}
 
-	echo beans_open_markup( 'beans_no_widget_notice', 'p', array( 'class' => 'uk-alert uk-alert-warning' ) );
+	beans_open_markup_e( 'beans_no_widget_notice', 'p', array( 'class' => 'uk-alert uk-alert-warning' ) );
 
-		echo beans_output( 'beans_no_widget_notice_text', sprintf( __( '%s does not have any widget assigned!', 'tm-beans' ), beans_get_widget_area( 'name' ) ) );
+		beans_output_e( 'beans_no_widget_notice_text', sprintf( __( '%s does not have any widget assigned!', 'tm-beans' ), beans_get_widget_area( 'name' ) ) );
 
-	echo beans_close_markup( 'beans_no_widget_notice', 'p' );
+	beans_close_markup_e( 'beans_no_widget_notice', 'p' );
 
 }
 
-
 beans_add_filter( 'beans_widget_content_rss_output', 'beans_widget_rss_content' );
-
 /**
  * Modify RSS widget content.
  *
@@ -104,9 +98,7 @@ function beans_widget_rss_content() {
 
 }
 
-
 beans_add_filter( 'beans_widget_content_attributes', 'beans_modify_widget_content_attributes' );
-
 /**
  * Modify core widgets content attributes, so they use the default UIKit styling.
  *
@@ -127,25 +119,25 @@ function beans_modify_widget_content_attributes( $attributes ) {
 		'meta',
 		'pages',
 		'recent-posts',
-		'recent-comments'
+		'recent-comments',
 	);
 
 	$current_class = isset( $attributes['class'] ) ? $attributes['class'] . ' ' : '';
 
-	if ( in_array( beans_get_widget( 'type' ), $target ) )
+	if ( in_array( beans_get_widget( 'type' ), $target ) ) {
 		$attributes['class'] = $current_class . 'uk-list'; // Automatically escaped.
+	}
 
-	if ( $type == 'calendar' )
+	if ( 'calendar' == $type ) {
 		$attributes['class'] = $current_class . 'uk-table uk-table-condensed'; // Automatically escaped.
+	}
 
 	return $attributes;
 
 }
 
-
 beans_add_filter( 'beans_widget_content_categories_output', 'beans_modify_widget_count' );
 beans_add_filter( 'beans_widget_content_archives_output', 'beans_modify_widget_count' );
-
 /**
  * Modify widget count.
  *
@@ -159,7 +151,7 @@ function beans_modify_widget_count( $content ) {
 
 	$count = beans_output( 'beans_widget_count', '$1' );
 
-	if ( beans_get( 'dropdown', beans_get_widget( 'options' ) ) == true ) {
+	if ( true == beans_get( 'dropdown', beans_get_widget( 'options' ) ) ) {
 
 		$output = $count;
 
@@ -178,10 +170,8 @@ function beans_modify_widget_count( $content ) {
 
 }
 
-
 beans_add_filter( 'beans_widget_content_categories_output', 'beans_remove_widget_dropdown_label' );
 beans_add_filter( 'beans_widget_content_archives_output', 'beans_remove_widget_dropdown_label' );
-
 /**
  * Modify widget dropdown label.
  *
@@ -193,6 +183,6 @@ beans_add_filter( 'beans_widget_content_archives_output', 'beans_remove_widget_d
  */
 function beans_remove_widget_dropdown_label( $content ) {
 
-	return preg_replace( '#<label([^>]*)class="screen-reader-text"(.*?)>(.*?)</label>#', '', $content ) ;
+	return preg_replace( '#<label([^>]*)class="screen-reader-text"(.*?)>(.*?)</label>#', '', $content );
 
 }

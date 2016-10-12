@@ -28,91 +28,97 @@ function beans_load_api_components( $components ) {
 	$root = BEANS_API_PATH;
 
 	$common = array(
-		'html' => array(
+		'html'         => array(
 			$root . 'html/functions.php',
-			$root . 'html/class.php'
+			$root . 'html/class.php',
 		),
-		'actions' => $root . 'actions/functions.php',
-		'filters' => $root . 'filters/functions.php',
+		'actions'      => $root . 'actions/functions.php',
+		'filters'      => $root . 'filters/functions.php',
 		'wp-customize' => $root . 'wp-customize/functions.php',
-		'post-meta' => $root . 'post-meta/functions.php',
-		'term-meta' => $root . 'term-meta/functions.php',
-		'fields' => $root . 'fields/functions.php',
-		'image' => $root . 'image/functions.php',
-		'compiler' => array(
+		'post-meta'    => $root . 'post-meta/functions.php',
+		'term-meta'    => $root . 'term-meta/functions.php',
+		'fields'       => $root . 'fields/functions.php',
+		'image'        => $root . 'image/functions.php',
+		'compiler'     => array(
 			$root . 'compiler/functions.php',
 			$root . 'compiler/class-compiler.php',
-			$root . 'compiler/class-page-compiler.php'
+			$root . 'compiler/class-page-compiler.php',
 		),
-		'uikit' => array(
+		'uikit'        => array(
 			$root . 'uikit/functions.php',
 			$root . 'uikit/class.php',
 		),
-		'layout' => $root . 'layout/functions.php',
-		'template' => $root . 'template/functions.php',
-		'widget' => $root . 'widget/functions.php'
+		'layout'       => $root . 'layout/functions.php',
+		'template'     => $root . 'template/functions.php',
+		'widget'       => $root . 'widget/functions.php',
 	);
 
 	// Only load admin fragments if is_admin() is true.
-	if ( is_admin() )
+	if ( is_admin() ) {
 		$admin = array(
-			'options' => $root . 'options/functions.php',
-			'post-meta' => $root . 'post-meta/functions-admin.php',
-			'term-meta' => $root . 'term-meta/functions-admin.php',
-			'compiler' => $root . 'compiler/class-options.php',
-			'image' => $root . 'image/class-options.php',
-			'_admin_menu' => $root . 'admin-menu.php'// Internal use.
+			'options'     => $root . 'options/functions.php',
+			'post-meta'   => $root . 'post-meta/functions-admin.php',
+			'term-meta'   => $root . 'term-meta/functions-admin.php',
+			'compiler'    => $root . 'compiler/class-options.php',
+			'image'       => $root . 'image/class-options.php',
+			'_admin_menu' => $root . 'admin-menu.php', // Internal use.
 		);
-	else
+	} else {
 		$admin = array();
+	}
 
 	// Set dependencies.
 	$dependencies = array(
-		'html' => array(
+		'html'         => array(
 			'_admin_menu',
-			'filters'
+			'filters',
 		),
-		'fields' => array(
+		'fields'       => array(
 			'actions',
-			'html'
+			'html',
 		),
-		'options' => 'fields',
-		'post-meta' => 'fields',
-		'term-meta' => 'fields',
+		'options'      => 'fields',
+		'post-meta'    => 'fields',
+		'term-meta'    => 'fields',
 		'wp-customize' => 'fields',
-		'layout' => 'fields',
-		'image' => '_admin_menu',
-		'compiler' => '_admin_menu',
-		'uikit' => 'compiler',
-		'_admin_menu' => 'options'
+		'layout'       => 'fields',
+		'image'        => '_admin_menu',
+		'compiler'     => '_admin_menu',
+		'uikit'        => 'compiler',
+		'_admin_menu'  => 'options',
 	);
 
 	foreach ( (array) $components as $component ) {
 
 		// Stop here if the component is already loaded or doesn't exists.
-		if ( in_array( $component, $loaded ) || ( !isset( $common[$component] ) && !isset( $admin[$component] ) ) )
+		if ( in_array( $component, $loaded ) || ( ! isset( $common[ $component ] ) && ! isset( $admin[ $component ] ) ) ) {
 			continue;
+		}
 
 		// Cache loaded component before calling dependencies.
 		$loaded[] = $component;
 
 		// Load dependencies.
-		if ( array_key_exists( $component, $dependencies ) )
-			beans_load_api_components( $dependencies[$component] );
+		if ( array_key_exists( $component, $dependencies ) ) {
+			beans_load_api_components( $dependencies[ $component ] );
+		}
 
 		$_components = array();
 
 		// Add common components.
-		if ( isset( $common[$component] ) )
-			$_components = (array) $common[$component];
+		if ( isset( $common[ $component ] ) ) {
+			$_components = (array) $common[ $component ];
+		}
 
 		// Add admin components.
-		if ( isset( $admin[$component] ) )
-			$_components = array_merge( (array) $_components, (array) $admin[$component] );
+		if ( isset( $admin[ $component ] ) ) {
+			$_components = array_merge( (array) $_components, (array) $admin[ $component ] );
+		}
 
 		// Load components.
-		foreach ( $_components as $component_path  )
+		foreach ( $_components as $component_path  ) {
 			require_once( $component_path );
+		}
 
 		/**
 		 * Fires when an API component is loaded.
@@ -128,7 +134,6 @@ function beans_load_api_components( $components ) {
 	return true;
 
 }
-
 
 /**
  * Register API component support.
@@ -146,17 +151,17 @@ function beans_add_api_component_support( $feature ) {
 
 	$args = func_get_args();
 
-	if ( func_num_args() == 1 )
+	if ( 1 == func_num_args() ) {
 		$args = true;
-	else
+	} else {
 		$args = array_slice( $args, 1 );
+	}
 
-	$_beans_api_components_support[$feature] = $args;
+	$_beans_api_components_support[ $feature ] = $args;
 
 	return true;
 
 }
-
 
 /**
  * Gets the API component support argument(s).
@@ -171,13 +176,13 @@ function beans_get_component_support( $feature ) {
 
 	global $_beans_api_components_support;
 
-	if ( !isset( $_beans_api_components_support[$feature] ) )
+	if ( ! isset( $_beans_api_components_support[ $feature ] ) ) {
 		return false;
+	}
 
-	return $_beans_api_components_support[$feature];
+	return $_beans_api_components_support[ $feature ];
 
 }
-
 
 /**
  * Remove API component support.
@@ -192,12 +197,11 @@ function beans_remove_api_component_support( $feature ) {
 
 	global $_beans_api_components_support;
 
-	unset( $_beans_api_components_support[$feature] );
+	unset( $_beans_api_components_support[ $feature ] );
 
 	return true;
 
 }
-
 
 /**
  * Initialize API components support global.
@@ -206,5 +210,6 @@ function beans_remove_api_component_support( $feature ) {
  */
 global $_beans_api_components_support;
 
-if ( !isset( $_beans_api_components_support ) )
+if ( ! isset( $_beans_api_components_support ) ) {
 	$_beans_api_components_support = array();
+}

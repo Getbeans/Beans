@@ -5,11 +5,11 @@
  * @package Structure\Secondary_Sidebar
  */
 
-echo beans_open_markup( 'beans_sidebar_secondary', 'aside', array(
-	'class' => 'tm-tertiary ' . beans_get_layout_class( 'sidebar_secondary' ), // Automatically escaped.
-	'role' => 'complementary',
+beans_open_markup_e( 'beans_sidebar_secondary', 'aside', array(
+	'class'     => 'tm-tertiary ' . beans_get_layout_class( 'sidebar_secondary' ), // Automatically escaped.
+	'role'      => 'complementary',
 	'itemscope' => 'itemscope',
-	'itemtype' => 'http://schema.org/WPSideBar'
+	'itemtype'  => 'http://schema.org/WPSideBar',
 ) );
 
 	/**
@@ -19,4 +19,4 @@ echo beans_open_markup( 'beans_sidebar_secondary', 'aside', array(
 	 */
 	do_action( 'beans_sidebar_secondary' );
 
-echo beans_close_markup( 'beans_sidebar_secondary', 'aside' );
+beans_close_markup_e( 'beans_sidebar_secondary', 'aside' );

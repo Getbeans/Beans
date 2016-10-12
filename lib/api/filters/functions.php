@@ -28,13 +28,13 @@
  */
 function beans_add_filter( $id, $callback, $priority = 10, $args = 1 ) {
 
-	if ( is_callable( $callback ) )
+	if ( is_callable( $callback ) ) {
 		return add_filter( $id, $callback, $priority, $args );
+	}
 
 	return _beans_add_anonymous_filter( $id, $callback, $priority, $args );
 
 }
-
 
 /**
  * Call the functions added to a filter hook.
@@ -65,8 +65,9 @@ function beans_apply_filters( $id, $value ) {
 	$args = func_get_args();
 
 	// Return simple filter if no sub-hook is set.
-	if ( !preg_match_all( '#\[(.*?)\]#', $args[0], $matches ) )
+	if ( ! preg_match_all( '#\[(.*?)\]#', $args[0], $matches ) ) {
 		return call_user_func_array( 'apply_filters', $args );
+	}
 
 	$prefix = current( explode( '[', $args[0] ) );
 	$variable_prefix = $prefix;
@@ -84,7 +85,10 @@ function beans_apply_filters( $id, $value ) {
 		// Cascade sub-hooks.
 		if ( $i > 0 ) {
 
-			$levels[] = str_replace( $subhook, '', $id );
+			if ( count( $matches[0] ) > 2 ) {
+				$levels[] = str_replace( $subhook, '', $id );
+			}
+
 			$levels[] = $variable_prefix . $suffix;
 
 		}
@@ -102,14 +106,11 @@ function beans_apply_filters( $id, $value ) {
 			$value = call_user_func_array( 'apply_filters', $args );
 
 		}
-
 	}
-
 
 	return $value;
 
 }
-
 
 /**
  * Check if any filter has been registered for a hook.
@@ -132,16 +133,18 @@ function beans_apply_filters( $id, $value ) {
 function beans_has_filters( $id, $callback = false ) {
 
 	// Check simple filter if no subhook is set.
-	if ( !preg_match_all( '#\[(.*?)\]#', $id, $matches ) )
+	if ( ! preg_match_all( '#\[(.*?)\]#', $id, $matches ) ) {
 		return has_filter( $id, $callback );
+	}
 
 	$prefix = current( explode( '[', $id ) );
 	$variable_prefix = $prefix;
 	$suffix = preg_replace( '/^.*\]\s*/', '', $id );
 
 	// Check base filter.
-	if ( has_filter( $prefix . $suffix, $callback ) )
+	if ( has_filter( $prefix . $suffix, $callback ) ) {
 		return true;
+	}
 
 	foreach ( $matches[0] as $i => $subhook ) {
 
@@ -159,21 +162,20 @@ function beans_has_filters( $id, $callback = false ) {
 		// Apply sub-hooks.
 		foreach ( $levels as $level ) {
 
-			if ( has_filter( $level, $callback ) )
+			if ( has_filter( $level, $callback ) ) {
 				return true;
+			}
 
 			// Check filter whithout square brackets for backwards compatibility.
-			if ( has_filter( preg_replace( '#(\[|\])#', '', $level ), $callback ) )
+			if ( has_filter( preg_replace( '#(\[|\])#', '', $level ), $callback ) ) {
 				return true;
-
+			}
 		}
-
 	}
 
 	return false;
 
 }
-
 
 /**
  * Add anonymous callback using a class since php 5.2 is still supported.

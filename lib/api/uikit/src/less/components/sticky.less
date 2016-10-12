@@ -23,22 +23,15 @@
 
 /*
  * 1. More robust if padding and border are used
+ * 2. Enable hardware acceleration for iOS browsers, resolves scrolling issue
  */
 
 [data-uk-sticky].uk-active {
    z-index: @sticky-z-index;
    /* 1 */
    box-sizing: border-box;
-}
-
-/*
- * 1. Resolve frame-rate issues on devices with lower frame-rates. Forces hardware acceleration
- */
-
-.uk-sticky-placeholder > * {
-    /* 1 */
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
+   /* 2 */
+   -webkit-backface-visibility: hidden
 }
 
 /*

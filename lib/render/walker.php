@@ -22,23 +22,25 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 	function start_lvl( &$output, $depth = 0, $args = array() ) {
 
 		// Stop here if the depth is smaller than starting depth.
-		if ( $depth < $args->beans_start_level )
+		if ( $depth < $args->beans_start_level ) {
 			return;
+		}
 
 		$type = beans_get( 'beans_type', $args );
 		$location_subfilter = ( $location = beans_get( 'theme_location', $args ) ) ? "[_{$location}]" : null;
 
 		// Default attributes.
 		$attr = array(
-			'class' => array( 'sub-menu' )
+			'class' => array( 'sub-menu' ),
 		);
 
 		// Add UIKit sidenav and offcanvas class.
-		if ( $depth > 0 || in_array( $type, array( 'sidenav', 'offcanvas' ) ) )
+		if ( $depth > 0 || in_array( $type, array( 'sidenav', 'offcanvas' ) ) ) {
 			$attr['class'][] = 'uk-nav-sub';
+		}
 
 		// Add UIKit navbar stuff.
-		if ( $type === 'navbar' && $depth === $args->beans_start_level ) {
+		if ( 'navbar' === $type && $args->beans_start_level === $depth ) {
 
 			// Add UIKit navbar attributes.
 			$attr['class'][] = 'uk-nav uk-nav-parent-icon uk-nav-dropdown';
@@ -53,14 +55,14 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 		$attr['class'] = implode( ' ', array_filter( $attr['class'] ) );
 
 		// Set to null if empty to avoid outputing empty class html attribute.
-		if ( !$attr['class'] )
+		if ( ! $attr['class'] ) {
 			$attr['class'] = null;
+		}
 
 		// Open sub_menu.
 		$output .= beans_open_markup( "beans_sub_menu[_{$type}]{$location_subfilter}", 'ul', $attr, $depth, $args );
 
 	}
-
 
 	/**
 	 * Extend WordPress end first menu level.
@@ -70,8 +72,9 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 	function end_lvl( &$output, $depth = 0, $args = array() ) {
 
 		// Stop here if the depth is smaller than starting depth.
-		if ( $depth < $args->beans_start_level )
+		if ( $depth < $args->beans_start_level ) {
 			return;
+		}
 
 		$type = beans_get( 'beans_type', $args );
 		$location_subfilter = ( $location = beans_get( 'theme_location', $args ) ) ? "[_{$location}]" : null;
@@ -80,11 +83,11 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 		$output .= beans_close_markup( "beans_sub_menu[_{$type}]{$location_subfilter}", 'ul' );
 
 		// Close sub_menu wrap.
-		if ( $type === 'navbar' && $depth === $args->beans_start_level )
+		if ( 'navbar' === $type && $args->beans_start_level === $depth ) {
 			$output .= beans_close_markup( "beans_sub_menu_wrap[_{$type}]{$location_subfilter}", 'div', $depth, $args );
+		}
 
 	}
-
 
 	/**
 	 * Extend WordPress start menu elements.
@@ -94,8 +97,9 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 	function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
 
 		// Stop here if the depth is smaller than starting depth.
-		if ( $depth < $args->beans_start_level )
+		if ( $depth < $args->beans_start_level ) {
 			return;
+		}
 
 		$item_id = $item->ID;
 
@@ -108,30 +112,35 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 
 		// WP link attributes.
 		$_link_attr = array(
-			'title' => $item->attr_title,
-			'target' => $item->target,
-			'rel' => $item->xfn,
-			'href' => $item->url,
+			'title'    => $item->attr_title,
+			'target'   => $item->target,
+			'rel'      => $item->xfn,
+			'href'     => $item->url,
+			'itemprop' => 'url',
 		);
 
 		// Prevent empty WP link attributes.
-		foreach ( $_link_attr as $attr => $value )
-			if ( empty( $value ) )
-				$_link_attr[$attr] = null;
+		foreach ( $_link_attr as $attr => $value ) {
+			if ( empty( $value ) ) {
+				$_link_attr[ $attr ] = null;
+			}
+		}
 
 		$link_attr = apply_filters( 'nav_menu_link_attributes', $_link_attr, $item, $args );
 
 		// Set wp item attributes as defaults.
 		$item_attr = array(
-			'class' => array( $_classes )
+			'class'    => array( $_classes ),
+			'itemprop' => 'name',
 		);
 
 		// Add UIKit active class.
-		if ( in_array( 'current-menu-item', $classes ) )
+		if ( in_array( 'current-menu-item', $classes ) ) {
 			$item_attr['class'][] = 'uk-active';
+		}
 
 		// Add UIKit parent attributes.
-		if ( $depth == $args->beans_start_level && in_array( 'menu-item-has-children', $classes ) ) {
+		if ( $args->beans_start_level == $depth && in_array( 'menu-item-has-children', $classes ) ) {
 
 			$item_attr['class'][] = 'uk-parent';
 
@@ -141,15 +150,15 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 				$child_indicator = true;
 
 			}
-
 		}
 
 		// Implode to avoid empty spaces.
 		$item_attr['class'] = implode( ' ', array_filter( $item_attr['class'] ) );
 
 		// Set to null if empty to avoid outputing empty class html attribute.
-		if ( !$item_attr['class'] )
+		if ( ! $item_attr['class'] ) {
 			$item_attr['class'] = null;
+		}
 
 		$output .= beans_open_markup( "beans_menu_item[_{$item_id}]", 'li', $item_attr, $item, $depth, $args );
 
@@ -174,7 +183,6 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 
 	}
 
-
 	/**
 	 * Extend WordPress end menu elements.
 	 *
@@ -183,13 +191,13 @@ class _Beans_Walker_Nav_Menu extends Walker_Nav_Menu {
 	function end_el( &$output, $item, $depth = 0, $args = array() ) {
 
 		// Stop here if the depth is smaller than starting depth.
-		if ( $depth < $args->beans_start_level )
+		if ( $depth < $args->beans_start_level ) {
 			return;
+		}
 
 		$item_id = $item->ID;
 
 		$output .= beans_close_markup( "beans_menu_item[_{$item_id}]", 'li', $item, $depth, $args );
 
 	}
-
 }

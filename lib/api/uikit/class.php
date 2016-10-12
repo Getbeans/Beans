@@ -50,19 +50,20 @@ final class _Beans_Uikit {
 		 * @param array $components An array of UIkit script compiler arguments.
 		 */
 		$scripts_args = apply_filters( 'beans_uikit_euqueued_scripts_args', array(
-			'depedencies' => array( 'jquery' )
+			'depedencies' => array( 'jquery' ),
 		) );
 
 		// Compile less.
-		if ( $styles )
+		if ( $styles ) {
 			beans_compile_less_fragments( 'uikit', array_unique( $styles ), $styles_args );
+		}
 
 		// Compile js.
-		if ( $scripts )
+		if ( $scripts ) {
 			beans_compile_js_fragments( 'uikit', array_unique( $scripts ), $scripts_args );
+		}
 
 	}
-
 
 	/**
 	 * Register less components.
@@ -76,8 +77,9 @@ final class _Beans_Uikit {
 		foreach ( $_beans_uikit_enqueued_items['components'] as $type => $items ) {
 
 			// Add core before the components.
-			if ( $type == 'core' )
+			if ( 'core' == $type ) {
 				$items = array_merge( array( 'variables' ), $items );
+			}
 
 			// Fetch components from directories.
 			$components = array_merge( $components, $this->get_components_from_directory( $items, $this->get_less_directories( $type ), 'styles' ) );
@@ -85,13 +87,13 @@ final class _Beans_Uikit {
 		}
 
 		// Add fixes.
-		if ( !empty( $components ) )
+		if ( ! empty( $components ) ) {
 			$components = array_merge( $components, array( BEANS_API_PATH . 'uikit/src/fixes.less' ) );
+		}
 
 		return $components;
 
 	}
-
 
 	/**
 	 * Register js components.
@@ -105,7 +107,7 @@ final class _Beans_Uikit {
 		foreach ( $_beans_uikit_enqueued_items['components'] as $type => $items ) {
 
 			// Add core before the components.
-			if ( $type == 'core' )
+			if ( 'core' == $type ) {
 				$items = array_merge(
 					array(
 						'core',
@@ -115,10 +117,10 @@ final class _Beans_Uikit {
 					),
 					$items
 				);
+			}
 
 			// Fetch components from directories.
 			$components = array_merge( $components, $this->get_components_from_directory( $items, $this->get_js_directories( $type ), 'scripts' ) );
-
 
 		}
 
@@ -126,48 +128,49 @@ final class _Beans_Uikit {
 
 	}
 
-
 	/**
 	 * Get LESS directories.
 	 */
 	function get_less_directories( $type ) {
 
-		if ( $type == 'add-ons' )
+		if ( 'add-ons' == $type ) {
 			$type = 'components';
+		}
 
 		global $_beans_uikit_enqueued_items;
 
 		// Define uikit src directory.
 		$directories = array( BEANS_API_PATH . 'uikit/src/less/' . $type );
+
 		// Add the registered theme directories.
-		foreach ( $_beans_uikit_enqueued_items['themes'] as $id => $directory )
+		foreach ( $_beans_uikit_enqueued_items['themes'] as $id => $directory ) {
 			$directories[] = wp_normalize_path( untrailingslashit( $directory ) );
+		}
 
 		return $directories;
 
 	}
-
 
 	/**
 	 * Get JS directories.
 	 */
 	function get_js_directories( $type ) {
 
-		if ( $type == 'add-ons' )
+		if ( 'add-ons' == $type ) {
 			$type = 'components';
+		}
 
 		// Define uikit src directory.
 		return array( BEANS_API_PATH . 'uikit/src/js/' . $type );
 
 	}
 
-
 	/**
 	 * Get components from directories.
 	 */
 	function get_components_from_directory( $components, $directories, $format ) {
 
-		$extension = ( $format == 'styles' ) ? 'less' : 'min.js';
+		$extension = ( 'styles' == $format ) ? 'less' : 'min.js';
 
 		$return = array();
 
@@ -179,17 +182,15 @@ final class _Beans_Uikit {
 				$file = trailingslashit( $directory ) . $component . '.' . $extension;
 
 				// Make sure the file exists.
-				if ( file_exists( $file ) )
+				if ( file_exists( $file ) ) {
 					$return[] = $file;
-
+				}
 			}
-
 		}
 
 		return $return;
 
 	}
-
 
 	/**
 	 * Get all components.
@@ -203,8 +204,9 @@ final class _Beans_Uikit {
 
 		foreach ( $directories as $dir_path ) {
 
-			if ( !is_dir( $dir_path ) )
+			if ( ! is_dir( $dir_path ) ) {
 				continue;
+			}
 
 			$scandir = scandir( $dir_path );
 
@@ -220,47 +222,46 @@ final class _Beans_Uikit {
 
 	}
 
-
 	/**
 	 * Auto detect components required.
 	 */
 	function get_autoload_components( $components ) {
 
 		$autoload = array(
-			'core' => array(),
-			'add-ons' => array()
+			'core'    => array(),
+			'add-ons' => array(),
 		);
 
 		$depedencies = array(
 			'panel' => array(
 				'core' => array(
-					'badge'
-				)
+					'badge',
+				),
 			),
 			'cover' => array(
 				'core' => array(
-					'flex'
-				)
+					'flex',
+				),
 			),
 			'overlay' => array(
 				'core' => array(
-					'flex'
-				)
+					'flex',
+				),
 			),
 			'tab' => array(
 				'core' => array(
-					'switcher'
-				)
+					'switcher',
+				),
 			),
 			'modal' => array(
 				'core' => array(
-					'close'
-				)
+					'close',
+				),
 			),
 			'scrollspy' => array(
 				'core' => array(
-					'animation'
-				)
+					'animation',
+				),
 			),
 			'lightbox' => array(
 				'core' => array(
@@ -268,47 +269,47 @@ final class _Beans_Uikit {
 					'flex',
 					'close',
 					'modal',
-					'overlay'
+					'overlay',
 				),
 				'add-ons' => array(
-					'slidenav'
-				)
+					'slidenav',
+				),
 			),
 			'slider' => array(
 				'add-ons' => array(
-					'slidenav'
-				)
+					'slidenav',
+				),
 			),
 			'slideset' => array(
 				'core' => array(
 					'animation',
-					'flex'
+					'flex',
 				),
 				'add-ons' => array(
 					'dotnav',
-					'slidenav'
-				)
+					'slidenav',
+				),
 			),
 			'slideshow' => array(
 				'core' => array(
 					'animation',
-					'flex'
+					'flex',
 				),
 				'add-ons' => array(
 					'dotnav',
-					'slidenav'
-				)
+					'slidenav',
+				),
 			),
 			'parallax' => array(
 				'core' => array(
-					'flex'
-				)
+					'flex',
+				),
 			),
 			'notify' => array(
 				'core' => array(
-					'close'
-				)
-			)
+					'close',
+				),
+			),
 		);
 
 		foreach ( (array) $components as $component ) {
@@ -319,7 +320,6 @@ final class _Beans_Uikit {
 				$autoload['core'] = array_merge( $autoload['core'], array_flip( beans_get( 'core', $this_depedencies, array() ) ) );
 				$autoload['add-ons'] = array_merge( $autoload['add-ons'], array_flip( beans_get( 'add-ons', $this_depedencies, array() ) ) );
 			}
-
 		}
 
 		// Format autoload back to associative key value array.
@@ -330,7 +330,6 @@ final class _Beans_Uikit {
 
 	}
 
-
 	/**
 	 * Convert component to a filename.
 	 */
@@ -340,16 +339,16 @@ final class _Beans_Uikit {
 
 		$ignore = array(
 			'uikit-customizer',
-			'uikit'
+			'uikit',
 		);
 
 		// Stop here if it isn't a valid file or if it should be ignored.
-		if ( !isset( $pathinfo['filename'] ) || in_array( $pathinfo['filename'], $ignore ) )
+		if ( ! isset( $pathinfo['filename'] ) || in_array( $pathinfo['filename'], $ignore ) ) {
 			return null;
+		}
 
 		// Return the filename without the .min to avoid duplicates.
 		return str_replace( '.min', '', $pathinfo['filename'] );
 
 	}
-
 }

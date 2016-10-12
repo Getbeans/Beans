@@ -7,7 +7,6 @@
 
 // Filter.
 beans_add_smart_action( 'get_search_form', 'beans_search_form' );
-
 /**
  * Modify the search form.
  *
@@ -18,18 +17,18 @@ beans_add_smart_action( 'get_search_form', 'beans_search_form' );
 function beans_search_form() {
 
 	$output = beans_open_markup( 'beans_search_form', 'form', array(
-		'class' => 'uk-form uk-form-icon uk-form-icon-flip uk-width-1-1',
+		'class'  => 'uk-form uk-form-icon uk-form-icon-flip uk-width-1-1',
 		'method' => 'get',
 		'action' => esc_url( home_url( '/' ) ),
-		'role' => 'search'
+		'role'   => 'search',
 	) );
 
 		$output .= beans_selfclose_markup( 'beans_search_form_input', 'input', array(
-			'class' => 'uk-width-1-1',
-			'type' => 'search',
+			'class'       => 'uk-width-1-1',
+			'type'        => 'search',
 			'placeholder' => __( 'Search', 'tm-beans' ), // Automatically escaped.
-			'value' => esc_attr( get_search_query() ),
-			'name' => 's'
+			'value'       => esc_attr( get_search_query() ),
+			'name'        => 's',
 		) );
 
 		$output .= beans_open_markup( 'beans_search_form_input_icon', 'i', 'class=uk-icon-search' );

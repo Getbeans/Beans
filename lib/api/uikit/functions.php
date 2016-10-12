@@ -36,7 +36,7 @@ function beans_uikit_enqueue_components( $components, $type = 'core', $autoload 
 	global $_beans_uikit_enqueued_items;
 
 	// Get all uikit components.
-	if ( $components === true ) {
+	if ( true === $components ) {
 
 		$uikit = new _Beans_Uikit;
 		$components = $uikit->get_all_components( $type );
@@ -46,16 +46,15 @@ function beans_uikit_enqueue_components( $components, $type = 'core', $autoload 
 		$uikit = new _Beans_Uikit;
 		$autoloads = $uikit->get_autoload_components( (array) $components );
 
-		foreach ( $autoloads as $autotype => $autoload )
+		foreach ( $autoloads as $autotype => $autoload ) {
 			beans_uikit_enqueue_components( $autoload, $autotype, false );
-
+		}
 	}
 
 	// Add components.
-	$_beans_uikit_enqueued_items['components'][$type] = array_merge( (array) $_beans_uikit_enqueued_items['components'][$type], (array) $components );
+	$_beans_uikit_enqueued_items['components'][ $type ] = array_merge( (array) $_beans_uikit_enqueued_items['components'][ $type ], (array) $components );
 
 }
-
 
 /**
  * Dequeue UIkit components.
@@ -79,7 +78,7 @@ function beans_uikit_dequeue_components( $components, $type = 'core' ) {
 
 	global $_beans_uikit_enqueued_items;
 
-	if ( $components === true ) {
+	if ( true === $components ) {
 
 		$uikit = new _Beans_Uikit;
 		$components = $uikit->get_all_components( $type );
@@ -87,10 +86,9 @@ function beans_uikit_dequeue_components( $components, $type = 'core' ) {
 	}
 
 	// Remove components.
-	$_beans_uikit_enqueued_items['components'][$type] = array_diff( (array) $_beans_uikit_enqueued_items['components'][$type], (array) $components );
+	$_beans_uikit_enqueued_items['components'][ $type ] = array_diff( (array) $_beans_uikit_enqueued_items['components'][ $type ], (array) $components );
 
 }
-
 
 /**
  * Register a UIkit theme.
@@ -112,21 +110,23 @@ function beans_uikit_register_theme( $id, $path ) {
 	global $_beans_uikit_registered_items;
 
 	// Stop here if already registered.
-	if ( beans_get( $id, $_beans_uikit_registered_items['themes'] ) )
+	if ( beans_get( $id, $_beans_uikit_registered_items['themes'] ) ) {
 		return true;
+	}
 
-	if ( !$path )
+	if ( ! $path ) {
 		return false;
+	}
 
-	if ( stripos( $path, 'http' ) !== false )
+	if ( false !== stripos( $path, 'http' ) ) {
 		$path = beans_url_to_path( $path );
+	}
 
-	$_beans_uikit_registered_items['themes'][$id] = trailingslashit( $path );
+	$_beans_uikit_registered_items['themes'][ $id ] = trailingslashit( $path );
 
 	return true;
 
 }
-
 
 /**
  * Enqueue a UIkit theme.
@@ -146,17 +146,17 @@ function beans_uikit_register_theme( $id, $path ) {
 function beans_uikit_enqueue_theme( $id, $path = false ) {
 
 	// Make sure it is registered, if not, try to do so.
-	if ( !beans_uikit_register_theme( $id, $path ) )
+	if ( ! beans_uikit_register_theme( $id, $path ) ) {
 		return false;
+	}
 
 	global $_beans_uikit_enqueued_items;
 
-	$_beans_uikit_enqueued_items['themes'][$id] = _beans_uikit_get_registered_theme( $id );
+	$_beans_uikit_enqueued_items['themes'][ $id ] = _beans_uikit_get_registered_theme( $id );
 
 	return true;
 
 }
-
 
 /**
  * Dequeue a UIkit theme.
@@ -173,10 +173,9 @@ function beans_uikit_dequeue_theme( $id ) {
 
 	global $_beans_uikit_enqueued_items;
 
-	unset( $_beans_uikit_enqueued_items['themes'][$id] );
+	unset( $_beans_uikit_enqueued_items['themes'][ $id ] );
 
 }
-
 
 /**
  * Initialize registered UIkit items global.
@@ -185,16 +184,16 @@ function beans_uikit_dequeue_theme( $id ) {
  */
 global $_beans_uikit_registered_items;
 
-if ( !isset( $_beans_uikit_registered_items ) )
+if ( ! isset( $_beans_uikit_registered_items ) ) {
 	$_beans_uikit_registered_items = array(
 		'themes' => array(
-			'default' => BEANS_API_PATH . 'uikit/src/themes/default',
-			'almost-flat' => BEANS_API_PATH . 'uikit/src/themes/almost-flat',
-			'gradient' => BEANS_API_PATH . 'uikit/src/themes/gradient',
-			'wordpress-admin' => BEANS_API_PATH . 'uikit/themes/wordpress-admin'
-		)
+			'default'         => BEANS_API_PATH . 'uikit/src/themes/default',
+			'almost-flat'     => BEANS_API_PATH . 'uikit/src/themes/almost-flat',
+			'gradient'        => BEANS_API_PATH . 'uikit/src/themes/gradient',
+			'wordpress-admin' => BEANS_API_PATH . 'uikit/themes/wordpress-admin',
+		),
 	);
-
+}
 
 /**
  * Initialize enqueued UIkit items global.
@@ -203,15 +202,15 @@ if ( !isset( $_beans_uikit_registered_items ) )
  */
 global $_beans_uikit_enqueued_items;
 
-if ( !isset( $_beans_uikit_enqueued_items ) )
+if ( ! isset( $_beans_uikit_enqueued_items ) ) {
 	$_beans_uikit_enqueued_items = array(
 		'components' => array(
-			'core' => array(),
+			'core'    => array(),
 			'add-ons' => array(),
 		),
-		'themes' => array()
+		'themes'     => array(),
 	);
-
+}
 
 /**
  * Get registered theme.
@@ -223,16 +222,15 @@ function _beans_uikit_get_registered_theme( $id ) {
 	global $_beans_uikit_registered_items;
 
 	// Stop here if is already registered.
-	if ( $theme = beans_get( $id, $_beans_uikit_registered_items['themes'] ) )
+	if ( $theme = beans_get( $id, $_beans_uikit_registered_items['themes'] ) ) {
 		return $theme;
+	}
 
 	return false;
 
 }
 
-
 add_action( 'wp_enqueue_scripts', '_beans_uikit_enqueue_assets', 7 );
-
 /**
  * Enqueue UIkit assets.
  *
@@ -240,8 +238,9 @@ add_action( 'wp_enqueue_scripts', '_beans_uikit_enqueue_assets', 7 );
  */
 function _beans_uikit_enqueue_assets() {
 
-	if ( !has_action( 'beans_uikit_enqueue_scripts' ) )
+	if ( ! has_action( 'beans_uikit_enqueue_scripts' ) ) {
 		return;
+	}
 
 	/**
 	 * Fires when UIkit scripts and styles are enqueued.
@@ -257,9 +256,7 @@ function _beans_uikit_enqueue_assets() {
 
 }
 
-
 add_action( 'admin_enqueue_scripts', '_beans_uikit_enqueue_admin_assets', 7 );
-
 /**
  * Enqueue UIkit admin assets.
  *
@@ -267,8 +264,9 @@ add_action( 'admin_enqueue_scripts', '_beans_uikit_enqueue_admin_assets', 7 );
  */
 function _beans_uikit_enqueue_admin_assets() {
 
-	if ( !has_action( 'beans_uikit_admin_enqueue_scripts' ) )
+	if ( ! has_action( 'beans_uikit_admin_enqueue_scripts' ) ) {
 		return;
+	}
 
 	/**
 	 * Fires when admin UIkit scripts and styles are enqueued.

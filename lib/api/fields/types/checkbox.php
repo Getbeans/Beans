@@ -4,7 +4,6 @@
  */
 
 beans_add_smart_action( 'beans_field_checkbox', 'beans_field_checkbox' );
-
 /**
  * Echo checkbox field type.
  *

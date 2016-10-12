@@ -7,7 +7,6 @@
  */
 
 add_filter( 'site_transient_update_themes', 'beans_updater' );
-
 /**
  * Retrieve product data from Beans REST API.
  *
@@ -18,14 +17,16 @@ add_filter( 'site_transient_update_themes', 'beans_updater' );
 function beans_updater( $value ) {
 
 	// Stop here if the current user is not a super admin user.
-	if ( !is_super_admin() )
+	if ( ! is_super_admin() ) {
 		return;
+	}
 
 	$data = get_site_transient( 'beans_updater' );
 	$theme = wp_get_theme( 'tm-beans' );
 
-	if ( !$theme->exists() )
+	if ( ! $theme->exists() ) {
 		return $value;
+	}
 
 	$current_version = $theme->get( 'Version' );
 
@@ -54,14 +55,14 @@ function beans_updater( $value ) {
 	// Return data if Beans is not up to date.
 	if ( version_compare( $current_version, beans_get( 'version', $data ), '<' ) ) {
 
-		$value->response[$data['path']] = array(
-			'slug' => $data['slug'],
-			'name' => $data['name'],
-			'url' => $data['changelog_url'],
-			'package' => $data['download_url'],
+		$value->response[ $data['path'] ] = array(
+			'slug'        => $data['slug'],
+			'name'        => $data['name'],
+			'url'         => $data['changelog_url'],
+			'package'     => $data['download_url'],
 			'new_version' => $data['version'],
-			'tested' => $data['tested'],
-			'requires' => $data['requires']
+			'tested'      => $data['tested'],
+			'requires'    => $data['requires'],
 		);
 
 		return $value;
@@ -72,9 +73,7 @@ function beans_updater( $value ) {
 
 }
 
-
 add_action( 'load-update-core.php', 'beans_updater_clear_transient' );
-
 /**
  * Clear updater transient.
  *

@@ -41,7 +41,6 @@ function beans_load_document() {
 
 }
 
-
 /**
  * Load Beans secondary template file.
  *
@@ -62,13 +61,13 @@ function beans_load_default_template( $file ) {
 
 	$file = BEANS_STRUCTURE_PATH . basename( $file );
 
-	if ( !file_exists( $file ) )
+	if ( ! file_exists( $file ) ) {
 		return false;
+	}
 
 	require_once( $file );
 
 }
-
 
 /**
  * Load fragment file.
@@ -93,19 +92,20 @@ function beans_load_fragment_file( $slug ) {
 	 *
 	 * @param bool $pre True to short-circuit, False to let the function run.
 	 */
-	if ( apply_filters( 'beans_pre_load_fragment_' . $slug, false ) )
+	if ( apply_filters( 'beans_pre_load_fragment_' . $slug, false ) ) {
 		return false;
+	}
 
 	// Stop here if fragment file doesn't exists.
-	if ( !file_exists( BEANS_FRAGMENTS_PATH . $slug . '.php' ) )
+	if ( ! file_exists( BEANS_FRAGMENTS_PATH . $slug . '.php' ) ) {
 		return false;
+	}
 
 	require_once( BEANS_FRAGMENTS_PATH . $slug . '.php' );
 
 	return true;
 
 }
-
 
 /**
  * wp_list_comments callback function.
@@ -124,7 +124,7 @@ function beans_comment_callback( $comment, $args, $depth ) {
 	$comment->depth = $depth;
 
 	// Don't allow overwrite.
-	echo '<li id="comment-' . get_comment_ID() . '" ' . comment_class( empty( $args['has_children'] ) ? '' : 'parent', null, null, false ) .'>';
+	?><li id="comment-<?php (int) comment_ID(); ?>" <?php comment_class( empty( $args['has_children'] ) ? '' : 'parent' ); ?>><?php
 
 		/**
 		 * Fires in comment structural HTML.

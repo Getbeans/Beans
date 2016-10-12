@@ -5,14 +5,14 @@
  * @package Structure\Footer
  */
 
-echo beans_open_markup( 'beans_footer', 'footer', array(
-	'class' => 'tm-footer uk-block',
-	'role' => 'contentinfo',
+beans_open_markup_e( 'beans_footer', 'footer', array(
+	'class'     => 'tm-footer uk-block',
+	'role'      => 'contentinfo',
 	'itemscope' => 'itemscope',
-	'itemtype' => 'http://schema.org/WPFooter'
+	'itemtype'  => 'http://schema.org/WPFooter',
 ) );
 
-	echo beans_open_markup( 'beans_fixed_wrap[_footer]', 'div', 'class=uk-container uk-container-center' );
+	beans_open_markup_e( 'beans_fixed_wrap[_footer]', 'div', 'class=uk-container uk-container-center' );
 
 		/**
 		 * Fires in the footer.
@@ -23,6 +23,6 @@ echo beans_open_markup( 'beans_footer', 'footer', array(
 		 */
 		do_action( 'beans_footer' );
 
-	echo beans_close_markup( 'beans_fixed_wrap[_footer]', 'div' );
+	beans_close_markup_e( 'beans_fixed_wrap[_footer]', 'div' );
 
-echo beans_close_markup( 'beans_footer', 'footer' );
+beans_close_markup_e( 'beans_footer', 'footer' );

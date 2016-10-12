@@ -7,7 +7,6 @@
 
 // Filter.
 beans_add_smart_action( 'embed_oembed_html', 'beans_embed_oembed' );
-
 /**
  * Add markup to embed.
  *

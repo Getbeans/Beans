@@ -38,7 +38,6 @@ final class _Beans_Anonymous_Actions {
 
 	}
 
-
 	/**
 	 * Get action content and set it as the callback.
 	 */
@@ -47,5 +46,4 @@ final class _Beans_Anonymous_Actions {
 		echo call_user_func_array( $this->callback[0], $this->callback[1] );
 
 	}
-
 }

@@ -7,18 +7,18 @@
  * @package Structure\Footer
  */
 
-						echo beans_close_markup( 'beans_primary', 'div' );
+						beans_close_markup_e( 'beans_primary', 'div' );
 
-					echo beans_close_markup( 'beans_main_grid', 'div' );
+					beans_close_markup_e( 'beans_main_grid', 'div' );
 
-				echo beans_close_markup( 'beans_fixed_wrap[_main]', 'div' );
+				beans_close_markup_e( 'beans_fixed_wrap[_main]', 'div' );
 
-			echo beans_close_markup( 'beans_main', 'main' );
+			beans_close_markup_e( 'beans_main', 'main' );
 
-		echo beans_close_markup( 'beans_site', 'div' );
+		beans_close_markup_e( 'beans_site', 'div' );
 
 		wp_footer();
 
-	echo beans_close_markup( 'beans_body', 'body' );
+	beans_close_markup_e( 'beans_body', 'body' );
 
-echo beans_close_markup( 'beans_html', 'html' );
+beans_close_markup_e( 'beans_html', 'html' );

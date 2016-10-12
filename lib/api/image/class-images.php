@@ -22,7 +22,6 @@ final class _Beans_Image_Editor {
 	 */
 	private $args = array();
 
-
 	/**
 	 * Returned format.
 	 *
@@ -30,14 +29,12 @@ final class _Beans_Image_Editor {
 	 */
 	private $output = false;
 
-
 	/**
 	 * Rebuilt path.
 	 *
 	 * @type string
 	 */
 	private $rebuilt_path;
-
 
 	/**
 	 * Constructor.
@@ -50,11 +47,11 @@ final class _Beans_Image_Editor {
 		$local_source = beans_url_to_path( $this->src );
 
 		// Treat internal files as such if possible.
-		if ( file_exists( $local_source ) )
+		if ( file_exists( $local_source ) ) {
 			$this->src = $local_source;
+		}
 
 	}
-
 
 	/**
 	 * Initialize the editing.
@@ -64,15 +61,15 @@ final class _Beans_Image_Editor {
 		$this->setup();
 
 		// Try to create image if it doesn't exist.
-		if ( !file_exists( $this->rebuilt_path ) ) {
+		if ( ! file_exists( $this->rebuilt_path ) ) {
 
 			// Return orginial image source if it can't be edited.
-			if ( !$this->edit() ) {
+			if ( ! $this->edit() ) {
 
 				$array = array(
-					'src' => $this->src,
-					'width' => null,
-					'height' => null
+					'src'    => $this->src,
+					'width'  => null,
+					'height' => null,
 				);
 
 				switch ( $this->output ) {
@@ -90,35 +87,34 @@ final class _Beans_Image_Editor {
 					break;
 
 				}
-
 			}
-
 		}
 
 		$src = beans_path_to_url( $this->rebuilt_path );
 
 		// Simply return the source if dimensions are not requested
-		if ( $this->output == 'STRING' )
+		if ( 'STRING' == $this->output ) {
 			return $src;
+		}
 
 		// Get the new image dimensions
 		list( $width, $height ) = @getimagesize( $this->rebuilt_path );
 
 		$array = array(
-			'src' => $src,
-			'width' => $width,
-			'height' => $height
+			'src'    => $src,
+			'width'  => $width,
+			'height' => $height,
 		);
 
-		if ( $this->output == 'ARRAY_N' )
+		if ( 'ARRAY_N' == $this->output ) {
 			return array_values( $array );
-		elseif ( $this->output == 'OBJECT' )
+		} elseif ( 'OBJECT' == $this->output ) {
 			return (object) $array;
+		}
 
 		return $array;
 
 	}
-
 
 	/**
 	 * Setup image data.
@@ -134,7 +130,6 @@ final class _Beans_Image_Editor {
 
 	}
 
-
 	/**
 	 * Edit image.
 	 */
@@ -144,27 +139,28 @@ final class _Beans_Image_Editor {
 		$editor = wp_get_image_editor( $this->src );
 
 		// Stop here if there was an error.
-		if ( is_wp_error( $editor ) )
+		if ( is_wp_error( $editor ) ) {
 			return false;
+		}
 
 		// Fire image edit.
 		foreach ( $this->args as $function => $arguments ) {
 
 			// Make sure it is callable
-			if ( is_callable( array( $editor, $function ) ) )
+			if ( is_callable( array( $editor, $function ) ) ) {
 				call_user_func_array( array( $editor, $function ), (array) $arguments );
-
+			}
 		}
 
 		// Save new image.
 		$editor->save( $this->rebuilt_path );
 
 		// Stop here if there was an error.
-		if ( is_wp_error( $editor ) )
+		if ( is_wp_error( $editor ) ) {
 			return false;
+		}
 
 		return true;
 
 	}
-
 }
