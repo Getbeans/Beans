@@ -16,7 +16,7 @@
  * Enqueue UIkit components.
  *
  * Enqueued components will be compiled into a single file. Refer to
- * {@link http://http://getuikit.com/ UIkit} to learn more about the available components.
+ * {@link http://getuikit.com/ UIkit} to learn more about the available components.
  *
  * When development mode is enabled, files changes will automatically be detected. This makes it very easy
  * to style UIkit themes using LESS.
@@ -60,7 +60,7 @@ function beans_uikit_enqueue_components( $components, $type = 'core', $autoload 
  * Dequeue UIkit components.
  *
  * Dequeued components are removed from the UIkit compiler. Refer to
- * {@link http://http://getuikit.com/ UIkit} to learn more about the available components.
+ * {@link http://getuikit.com/ UIkit} to learn more about the available components.
  *
  * When development mode is enabled, files changes will automatically be detected. This makes it very easy
  * to style UIkit themes using LESS.
