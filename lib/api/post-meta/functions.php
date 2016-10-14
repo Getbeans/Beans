@@ -12,7 +12,7 @@
  *
  * @param string $field_id The post meta id searched.
  * @param mixed  $default  Optional. The default value to return of the post meta value doesn't exist.
- * @param int    $term_id  Optional. Overwrite the current post id.
+ * @param int    $post_id  Optional. Overwrite the current post id.
  *
  * @return mixed Saved data if exist, otherwise default value set.
  */
