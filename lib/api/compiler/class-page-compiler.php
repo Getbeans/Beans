@@ -65,17 +65,16 @@ final class _Beans_Page_Compiler {
 	 */
 	private function compile_enqueued( $type, $depedencies = false ) {
 
-		$set_global = 'wp_' . $type . 's';
-		$set_dequeued_global = 'beans_dequeue_' . $type . 's';
-
-		global $$set_global;
+		if ( ! $assets = beans_get( "wp_{$type}s", $GLOBALS ) ) {
+			return array();
+		}
 
 		if ( 'script' == $type ) {
 			add_action( 'wp_print_scripts', array( $this, 'dequeue_scripts' ), 9999 );
 		}
 
 		if ( ! $depedencies ) {
-			$depedencies = $$set_global->queue;
+			$depedencies = $assets->queue;
 		}
 
 		$fragments = array();
@@ -87,7 +86,7 @@ final class _Beans_Page_Compiler {
 				continue;
 			}
 
-			if ( ! $args = beans_get( $id, $$set_global->registered ) ) {
+			if ( ! $args = beans_get( $id, $assets->registered ) ) {
 				continue;
 			}
 
@@ -108,7 +107,7 @@ final class _Beans_Page_Compiler {
 					$args->src = add_query_arg( array( 'beans_compiler_media_query' => $args->args ), $args->src );
 				}
 
-				$$set_global->done[] = $id;
+				$assets->done[] = $id;
 
 			} elseif ( 'script' == $type ) {
 
