@@ -1,6 +1,6 @@
 <?php
 /**
- * The Beans UIkit component integrates the awesome {@link http://getuikit.com UIkit framework}.
+ * The Beans UIkit component integrates the awesome {@link https://getuikit.com/v2/ UIkit 2 framework}.
  *
  * Only the desired components are compiled into a single cached file and may be different on a per page basis. UIkit
  * default or custom themes can be enqueued to the UIkit compiler. All UIkit LESS variables are accessible
@@ -16,7 +16,7 @@
  * Enqueue UIkit components.
  *
  * Enqueued components will be compiled into a single file. Refer to
- * {@link http://getuikit.com/ UIkit} to learn more about the available components.
+ * {@link https://getuikit.com/v2/ UIkit 2} to learn more about the available components.
  *
  * When development mode is enabled, files changes will automatically be detected. This makes it very easy
  * to style UIkit themes using LESS.
@@ -60,7 +60,7 @@ function beans_uikit_enqueue_components( $components, $type = 'core', $autoload 
  * Dequeue UIkit components.
  *
  * Dequeued components are removed from the UIkit compiler. Refer to
- * {@link http://getuikit.com/ UIkit} to learn more about the available components.
+ * {@link https://getuikit.com/v2/ UIkit 2} to learn more about the available components.
  *
  * When development mode is enabled, files changes will automatically be detected. This makes it very easy
  * to style UIkit themes using LESS.
