@@ -69,7 +69,7 @@ final class _Beans_Term_Meta {
 		foreach ( beans_get_fields( 'term_meta', $this->section ) as $field ) {
 
 			?>
-			<tr class="form-field">';
+			<tr class="form-field">
 				<th scope="row">
 					<?php echo beans_field_label( $field ); ?>
 				</th>
