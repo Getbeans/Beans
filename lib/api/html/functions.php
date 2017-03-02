@@ -62,7 +62,9 @@ function beans_output( $id, $output ) {
  */
 function beans_output_e( $id, $output ) {
 
-	echo call_user_func_array( 'beans_output', func_get_args() );
+	$args = func_get_args();
+
+	echo call_user_func_array( 'beans_output', $args );
 
 }
 
@@ -185,7 +187,9 @@ function beans_open_markup( $id, $tag, $attributes = array() ) {
  */
 function beans_open_markup_e( $id, $tag, $attributes = array() ) {
 
-	echo call_user_func_array( 'beans_open_markup', func_get_args() );
+	$args = func_get_args();
+
+	echo call_user_func_array( 'beans_open_markup', $args );
 
 }
 
@@ -244,7 +248,9 @@ function beans_selfclose_markup( $id, $tag, $attributes = array() ) {
  */
 function beans_selfclose_markup_e( $id, $tag, $attributes = array() ) {
 
-	echo call_user_func_array( 'beans_selfclose_markup', func_get_args() );
+	$args = func_get_args();
+
+	echo call_user_func_array( 'beans_selfclose_markup', $args );
 
 }
 
@@ -307,7 +313,9 @@ function beans_close_markup( $id, $tag ) {
  */
 function beans_close_markup_e( $id, $tag ) {
 
-	echo call_user_func_array( 'beans_close_markup', func_get_args() );
+	$args = func_get_args();
+
+	echo call_user_func_array( 'beans_close_markup', $args );
 
 }
 
