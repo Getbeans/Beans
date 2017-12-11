@@ -528,20 +528,31 @@ function _beans_get_current_action( $id ) {
 /**
  * Add anonymous callback using a class since php 5.2 is still supported.
  *
+ * @since  1.5.0
  * @ignore
+ * @access private
+ *
+ * @param string $hook        The name of the action to which the $callback is hooked.
+ * @param array  $callback    The callback to register to the given $hook and arguments to pass.
+ * @param int    $priority    Optional. Used to specify the order in which the functions
+ *                            associated with a particular action are executed. Default 10.
+ *                            Lower numbers correspond with earlier execution,
+ *                            and functions with the same priority are executed
+ *                            in the order in which they were added to the action.
+ * @param int    $number_args Optional. The number of arguments the function accepts. Default 1.
+ *
+ * @return _Beans_Anonymous_Actions
  */
-function _beans_add_anonymous_action( $hook, $callback, $priority = 10, $args = 1 ) {
+function _beans_add_anonymous_action( $hook, array $callback, $priority = 10, $number_args = 1 ) {
+	require_once BEANS_API_PATH . 'actions/class-beans-anonymous-action.php';
 
-	require_once( BEANS_API_PATH . 'actions/class.php' );
-
-	new _Beans_Anonymous_Actions( $hook, $callback, $priority, $args );
-
+	return new _Beans_Anonymous_Actions( $hook, $callback, $priority, $number_args );
 }
 
 /**
  * Render action which can therefore be stored in a variable.
  *
- * @since 1.5.0
+ * @since  1.5.0
  * @ignore
  * @access private
  *
@@ -599,7 +610,7 @@ function _beans_render_action( $hook ) {
 /**
  * Calls beans_render_function when the hook is registered.
  *
- * @since 1.5.0
+ * @since  1.5.0
  * @ignore
  * @access private
  *
@@ -621,7 +632,7 @@ function _beans_when_has_action_do_render( array $args, &$output = '' ) {
 /**
  * Make sure the action ID is unique.
  *
- * @since 1.5.0
+ * @since  1.5.0
  * @ignore
  * @access private
  *
