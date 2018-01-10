@@ -11,27 +11,27 @@
  */
 
 /**
- * Hooks a function on to a specific action.
+ * Hooks a callback (function or method) to a specific action event.
  *
  * This function is similar to {@link http://codex.wordpress.org/Function_Reference/add_action add_action()}
- * with the exception of being registered by ID in order to be manipulated by the other Beans Actions functions.
+ * with the exception of being registered by ID within Beans in order to be manipulated by the other Beans
+ * Actions functions.
  *
  * @since 1.0.0
+ * @since 1.5.0 Returns false when action is not added via add_action.
  *
- * @param string   $id       A unique string used as a reference.
- * @param string   $hook     The name of the action to which the $callback is hooked.
- * @param callback $callback The name of the function you wish to be called.
- * @param int      $priority Optional. Used to specify the order in which the functions
- *                           associated with a particular action are executed. Default 10.
- *                           Lower numbers correspond with earlier execution,
- *                           and functions with the same priority are executed
- *                           in the order in which they were added to the action.
- * @param int      $args     Optional. The number of arguments the function accepts. Default 1.
+ * @param string   $id       The action's Beans ID, a unique ID tracked within Beans for this action.
+ * @param string   $hook     The name of the action to which the `$callback` is hooked.
+ * @param callable $callback The name of the function|method you wish to be called when the action event fires.
+ * @param int      $priority Optional. Used to specify the order in which the callbacks associated with a particular
+ *                           action are executed. Default is 10.
+ *                           Lower numbers correspond with earlier execution.  Callbacks with the same priority
+ *                           are executed in the order in which they were added to the action.
+ * @param int      $args     Optional. The number of arguments the callback accepts. Default is 1.
  *
- * @return bool Will always return true.
+ * @return bool
  */
 function beans_add_action( $id, $hook, $callback, $priority = 10, $args = 1 ) {
-
 	$action = array(
 		'hook'     => $hook,
 		'callback' => $callback,
@@ -39,55 +39,56 @@ function beans_add_action( $id, $hook, $callback, $priority = 10, $args = 1 ) {
 		'args'     => $args,
 	);
 
-	// Replace original if set.
-	if ( $replaced = _beans_get_action( $id, 'replaced' ) ) {
-		$action = array_merge( $action, $replaced );
+	$replaced_action = _beans_get_action( $id, 'replaced' );
+
+	// If the ID is set to be "replaced", then replace that(those) parameter(s).
+	if ( ! empty( $replaced_action ) && is_array( $replaced_action ) ) {
+		$action = array_merge( $action, $replaced_action );
 	}
 
 	$action = _beans_set_action( $id, $action, 'added', true );
 
-	// Stop here if removed.
+	// If the ID is set to be "removed", then bail out.
 	if ( _beans_get_action( $id, 'removed' ) ) {
-		return;
+		return false;
 	}
 
-	// Merge modified.
-	if ( $modified = _beans_get_action( $id, 'modified' ) ) {
-		$action = array_merge( $action, $modified );
+	$modified_action = _beans_get_action( $id, 'modified' );
+
+	// If the ID is set to be "modified", then modify that(those) parameter(s).
+	if ( ! empty( $modified_action ) && is_array( $modified_action ) ) {
+		$action = array_merge( $action, $modified_action );
 	}
 
-	// Validate action arguments.
-	if ( count( $action ) == 4 ) {
-		add_action( $action['hook'], $action['callback'], $action['priority'], $action['args'] );
+	// Bail out if it's not a valid action.
+	if ( ! _beans_is_action_valid( $action ) ) {
+		return false;
 	}
 
-	return true;
-
+	return add_action( $action['hook'], $action['callback'], $action['priority'], $action['args'] );
 }
 
 /**
  * Set {@see beans_add_action()} using the callback argument as the action ID.
  *
- * This function is a shortcut of {@see beans_add_action()}. It does't require an ID
- * to be specified and uses the callback argument instead.
+ * This function is a shortcut of {@see beans_add_action()}. It does't require a Beans ID as it uses the
+ * callback argument instead.
  *
  * @since 1.0.0
+ * @since 1.5.0 Returns false when action is not added via add_action.
  *
- * @param string   $hook     The name of the action to which the $callback is hooked.
- * @param callback $callback The name of the function you wish to be called. Used to set the action ID.
- * @param int      $priority Optional. Used to specify the order in which the functions
- *                           associated with a particular action are executed. Default 10.
- *                           Lower numbers correspond with earlier execution,
- *                           and functions with the same priority are executed
- *                           in the order in which they were added to the action.
- * @param int      $args     Optional. The number of arguments the function accept. Default 1.
+ * @param string   $hook     The name of the action to which the `$callback` is hooked.
+ * @param callable $callback The name of the function|method you wish to be called when the action event fires.
+ * @param int      $priority Optional. Used to specify the order in which the callbacks associated with a particular
+ *                           action are executed. Default is 10.
+ *                           Lower numbers correspond with earlier execution.  Callbacks with the same priority
+ *                           are executed in the order in which they were added to the action.
+ * @param int      $args     Optional. The number of arguments the callback accepts. Default is 1.
  *
- * @return bool Will always return true.
+ * @return bool
  */
 function beans_add_smart_action( $hook, $callback, $priority = 10, $args = 1 ) {
-
 	return beans_add_action( $callback, $hook, $callback, $priority, $args );
-
 }
 
 /**

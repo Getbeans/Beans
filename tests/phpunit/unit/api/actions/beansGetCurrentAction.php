@@ -9,7 +9,9 @@
 
 namespace Beans\Framework\Tests\Unit\API\Actions;
 
-use Beans\Framework\Tests\Unit\Test_Case;
+use Beans\Framework\Tests\Unit\API\Actions\Includes\Actions_Test_Case;
+
+require_once __DIR__ . '/includes/class-actions-test-case.php';
 
 /**
  * Class Tests_BeansGetCurrentAction
@@ -18,32 +20,7 @@ use Beans\Framework\Tests\Unit\Test_Case;
  * @group   unit-tests
  * @group   api
  */
-class Tests_BeansGetCurrentAction extends Test_Case {
-
-	/**
-	 * Setup test fixture.
-	 */
-	protected function setUp() {
-		parent::setUp();
-
-		require_once BEANS_TESTS_LIB_DIR . 'api/actions/functions.php';
-		require_once BEANS_TESTS_LIB_DIR . 'api/utilities/functions.php';
-	}
-
-	/**
-	 * Reset the test fixture.
-	 */
-	protected function tearDown() {
-		parent::tearDown();
-
-		global $_beans_registered_actions;
-		$_beans_registered_actions = array(
-			'added'    => array(),
-			'modified' => array(),
-			'removed'  => array(),
-			'replaced' => array(),
-		);
-	}
+class Tests_BeansGetCurrentAction extends Actions_Test_Case {
 
 	/**
 	 * Test _beans_get_current_action() should return false when the ID is registered with the "removed" status.
