@@ -385,7 +385,7 @@ function beans_previous_post_link( $output, $format, $link, $post ) {
 
 	$output = beans_open_markup( 'beans_previous_link[_post_navigation]', 'a', array(
 		'href'  => get_permalink( $post ), // Automatically escaped.
-		'ref'   => 'previous',
+		'rel'   => 'previous',
 		'title' => $post->post_title, // Automatically escaped.
 	) );
 

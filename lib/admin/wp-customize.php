@@ -27,9 +27,9 @@ function beans_do_register_wp_customize_options() {
 
 	$fields = array(
 		array(
-			'id'        => 'beans_logo_image',
-			'label'     => __( 'Logo Image', 'tm-beans' ),
-			'type'      => 'WP_Customize_Image_Control',
+			'id'    => 'beans_logo_image',
+			'label' => __( 'Logo Image', 'tm-beans' ),
+			'type'  => 'WP_Customize_Image_Control',
 		),
 	);
 
