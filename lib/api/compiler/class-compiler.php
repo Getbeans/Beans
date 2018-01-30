@@ -23,7 +23,7 @@ final class _Beans_Compiler {
 	 *
 	 * @var array
 	 */
-	protected $compiler;
+	protected $config;
 
 	/**
 	 * Cache dir.
@@ -69,9 +69,9 @@ final class _Beans_Compiler {
 			'version'     => false,
 		);
 
-		$this->compiler = array_merge( $defaults, $config );
-		$this->dir      = beans_get_compiler_dir( is_admin() ) . $this->compiler['id'];
-		$this->url      = beans_get_compiler_url( is_admin() ) . $this->compiler['id'];
+		$this->config = array_merge( $defaults, $config );
+		$this->dir      = beans_get_compiler_dir( is_admin() ) . $this->config['id'];
+		$this->url      = beans_get_compiler_url( is_admin() ) . $this->config['id'];
 
 		$this->set_fragments();
 		$this->set_filname();
@@ -146,40 +146,40 @@ final class _Beans_Compiler {
 	public function set_fragments() {
 		global $_beans_compiler_added_fragments;
 
-		$added_fragments = beans_get( $this->compiler['id'], $_beans_compiler_added_fragments[ $this->compiler['format'] ] );
+		$added_fragments = beans_get( $this->config['id'], $_beans_compiler_added_fragments[ $this->config['format'] ] );
 
 		if ( $added_fragments ) {
-			$this->compiler['fragments'] = array_merge( $this->compiler['fragments'], $added_fragments );
+			$this->config['fragments'] = array_merge( $this->config['fragments'], $added_fragments );
 		}
 
 		/**
 		 * Filter the compiler fragment files.
 		 *
-		 * The dynamic portion of the hook name, $this->compiler['id'], refers to the compiler id used as a reference.
+		 * The dynamic portion of the hook name, $this->config['id'], refers to the compiler id used as a reference.
 		 *
 		 * @since 1.0.0
 		 *
 		 * @param array $fragments An array of fragment files.
 		 */
-		$this->compiler['fragments'] = apply_filters( 'beans_compiler_fragments_' . $this->compiler['id'], $this->compiler['fragments'] );
+		$this->config['fragments'] = apply_filters( 'beans_compiler_fragments_' . $this->config['id'], $this->config['fragments'] );
 	}
 
 	/**
 	 * Set class filname.
 	 */
 	public function set_filname() {
-		$hash = $this->hash( $this->compiler );
+		$hash = $this->hash( $this->config );
 
 		// Stop here and return filename if not in dev mode or if not using filesystem.
 		if ( ! _beans_is_compiler_dev_mode() || ! @is_dir( $this->dir ) ) { // @codingStandardsIgnoreLine - Generic.PHP.NoSilencedErrors.Discouraged  This is a valid use case.
-			$this->compiler['filename'] = $hash . '.' . $this->get_extension();
+			$this->config['filename'] = $hash . '.' . $this->get_extension();
 			return;
 		}
 
 		$fragments_filemtime = array();
 
 		// Check for internal file changes.
-		foreach ( $this->compiler['fragments'] as $id => $fragment ) {
+		foreach ( $this->config['fragments'] as $id => $fragment ) {
 
 			// Ignore if the fragment is a function.
 			if ( $this->is_function( $fragment ) ) {
@@ -213,7 +213,7 @@ final class _Beans_Compiler {
 			$hash = $hash . '-' . $_hash;
 		}
 
-		$this->compiler['filename'] = $hash . '.' . $this->get_extension();
+		$this->config['filename'] = $hash . '.' . $this->get_extension();
 	}
 
 	/**
@@ -290,13 +290,13 @@ final class _Beans_Compiler {
 	public function enqueue_file() {
 
 		// Enqueue css.
-		if ( 'style' === $this->compiler['type'] ) {
-			return wp_enqueue_style( $this->compiler['id'], $this->get_url(), $this->compiler['depedencies'], $this->compiler['version'] );
+		if ( 'style' === $this->config['type'] ) {
+			return wp_enqueue_style( $this->config['id'], $this->get_url(), $this->config['depedencies'], $this->config['version'] );
 		}
 
 		// Enqueue js file.
-		if ( 'script' === $this->compiler['type'] ) {
-			return wp_enqueue_script( $this->compiler['id'], $this->get_url(), $this->compiler['depedencies'], $this->compiler['version'], $this->compiler['in_footer'] );
+		if ( 'script' === $this->config['type'] ) {
+			return wp_enqueue_script( $this->config['id'], $this->get_url(), $this->config['depedencies'], $this->config['version'], $this->config['in_footer'] );
 		}
 
 		return false;
@@ -310,7 +310,7 @@ final class _Beans_Compiler {
 	 * @return string
 	 */
 	public function get_url() {
-		$url = trailingslashit( $this->url ) . beans_get( 'filename', $this->compiler );
+		$url = trailingslashit( $this->url ) . beans_get( 'filename', $this->config );
 
 		if ( is_ssl() ) {
 			$url = str_replace( 'http://', 'https://', $url );
@@ -328,11 +328,11 @@ final class _Beans_Compiler {
 	 */
 	public function get_extension() {
 
-		if ( 'style' === $this->compiler['type'] ) {
+		if ( 'style' === $this->config['type'] ) {
 			return 'css';
 		}
 
-		if ( 'script' === $this->compiler['type'] ) {
+		if ( 'script' === $this->config['type'] ) {
 			return 'js';
 		}
 	}
@@ -348,7 +348,7 @@ final class _Beans_Compiler {
 		$content = '';
 
 		// Loop through fragments.
-		foreach ( $this->compiler['fragments'] as $fragment ) {
+		foreach ( $this->config['fragments'] as $fragment ) {
 
 			// Stop here if the fragment is empty.
 			if ( empty( $fragment ) ) {
@@ -376,7 +376,7 @@ final class _Beans_Compiler {
 			}
 
 			// Add the content.
-			if ( 'style' === $this->compiler['type'] ) {
+			if ( 'style' === $this->config['type'] ) {
 				$get_content = $this->replace_css_url( $get_content );
 				$get_content = $this->add_content_media_query( $get_content );
 			}
@@ -510,9 +510,9 @@ final class _Beans_Compiler {
 	 */
 	public function format_content( $content ) {
 
-		if ( 'style' === $this->compiler['type'] ) {
+		if ( 'style' === $this->config['type'] ) {
 
-			if ( 'less' === $this->compiler['format'] ) {
+			if ( 'less' === $this->config['format'] ) {
 
 				if ( ! class_exists( 'Beans_Lessc' ) ) {
 					require_once BEANS_API_PATH . 'compiler/vendors/lessc.php';
@@ -529,7 +529,7 @@ final class _Beans_Compiler {
 			return $content;
 		}
 
-		if ( 'script' === $this->compiler['type'] && ! _beans_is_compiler_dev_mode() && $this->compiler['minify_js'] ) {
+		if ( 'script' === $this->config['type'] && ! _beans_is_compiler_dev_mode() && $this->config['minify_js'] ) {
 
 			if ( ! class_exists( 'JSMin' ) ) {
 				require_once BEANS_API_PATH . 'compiler/vendors/js-minifier.php';
