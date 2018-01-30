@@ -746,4 +746,21 @@ final class _Beans_Compiler {
 
 		return array_merge( $defaults, $config );
 	}
+
+	/**
+	 * Get the property's value.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string $property Name of the property to get.
+	 *
+	 * @return mixed
+	 */
+	public function __get( $property ) {
+
+		// If the property exists, return it.
+		if ( property_exists( $this, $property ) ) {
+			return $this->{$property};
+		}
+	}
 }
