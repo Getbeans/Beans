@@ -25,27 +25,23 @@ require_once dirname( __DIR__ ) . '/includes/class-compiler-test-case.php';
 class Tests_Beans_Compiler_Filesystem extends Compiler_Test_Case {
 
 	/**
-	 * Test WP Filesystem is not initialized...yet.
-	 */
-	public function test_wp_filesystem_is_not_initialized() {
-		$this->assertTrue( function_exists( 'WP_Filesystem' ) );
-		$this->assertArrayNotHasKey( 'wp_filesystem', $GLOBALS );
-
-		global $wp_filesystem;
-		$this->assertFalse( isset( $wp_filesystem ) );
-	}
-
-	/**
 	 * Test filesystem() should render a report and die when no filesystem is selected.
 	 */
 	public function test_should_render_report_and_die_when_no_filesystem_selected() {
-		unset( $GLOBALS['wp_filesystem'] );
 		$compiler = new _Beans_Compiler( array() );
 
+		// Let's just make sure we start without the WP Filesystem being initialized.
+		unset( $GLOBALS['wp_filesystem'] );
+		remove_filter( 'filesystem_method', array( $compiler, 'modify_filesystem_method' ) );
+		add_filter( 'filesystem_method', __NAMESPACE__ . '\set_filesystem_method_to_base' );
+
+		// Set up the mocks.
+		Functions\expect( __NAMESPACE__ . '\set_filesystem_method_to_base' )
+			->once()
+			->andReturn( 'base' );
 		Functions\expect( __NAMESPACE__ . '\set_wp_die_handler' )
 			->once()
 			->andReturn( __NAMESPACE__ . '\mock_wp_die_handler' );
-
 		Functions\when( __NAMESPACE__ . '\mock_wp_die_handler' )
 			->alias( function( $message ) {
 				$this->assertContains( 'Beans cannot work its magic', $message );
@@ -56,7 +52,10 @@ class Tests_Beans_Compiler_Filesystem extends Compiler_Test_Case {
 		// Initialize the WP Filesystem.
 		$this->assertNull( $compiler->filesystem() );
 
+		// Clean up.
+		unset( $GLOBALS['wp_filesystem'] );
 		remove_filter( 'wp_die_handler', __NAMESPACE__ . '\set_wp_die_handler' );
+		remove_filter( 'filesystem_method', __NAMESPACE__ . '\set_filesystem_method_to_base' );
 	}
 
 	/**
