@@ -454,8 +454,7 @@ final class _Beans_Compiler {
 			return $content;
 		}
 
-		$parse_url = parse_url( $this->current_fragment );
-		$query     = beans_get( 'query', $parse_url );
+		$query = parse_url( $this->current_fragment, PHP_URL_QUERY );
 
 		// Bail out if there are no query args or no media query.
 		if ( empty( $query ) || false === stripos( $query, 'beans_compiler_media_query' ) ) {
