@@ -21,14 +21,17 @@
  *
  * @since 1.0.0
  *
- * @param string       $id        A unique string used as a reference. Similar to the WordPress scripts
- *                                $handle argument.
- * @param string|array $fragments File(s) absolute path. Internal or external file(s) url accepted but may increase compiling time.
- * @param array        $args      {
- *      Optional. Array of arguments used by the compiler.
+ * @param string       $id          A unique string used as a reference. Similar to the WordPress scripts
+ *                                  $handle argument.
+ * @param string|array $fragments   File(s) absolute path. Internal or external file(s) url accepted but may increase
+ *                                  compiling time.
+ * @param array        $args        {
+ *                                  Optional. Array of arguments used by the compiler.
  *
- * 		@type array $depedencies An array of registered handles this script depends on. Default false.
+ * @type array         $depedencies An array of registered handles this script depends on. Default false.
  * }
+ *
+ * @return void|bool
  */
 function beans_compile_css_fragments( $id, $fragments, $args = array() ) {
 
@@ -43,8 +46,8 @@ function beans_compile_css_fragments( $id, $fragments, $args = array() ) {
 		'fragments' => (array) $fragments,
 	);
 
-	new _Beans_Compiler( $params + $args );
-
+	$compiler = new _Beans_Compiler( $params + $args );
+	$compiler->run_compiler();
 }
 
 /**
@@ -57,13 +60,16 @@ function beans_compile_css_fragments( $id, $fragments, $args = array() ) {
  *
  * @since 1.0.0
  *
- * @param string       $id        The compiler ID. Similar to the WordPress scripts $handle argument.
- * @param string|array $fragments File(s) absolute path. Internal or external file(s) url accepted but may increase compiling time.
- * @param array        $args      {
- *      Optional. Array of arguments used by the compiler.
+ * @param string       $id          The compiler ID. Similar to the WordPress scripts $handle argument.
+ * @param string|array $fragments   File(s) absolute path. Internal or external file(s) url accepted but may increase
+ *                                  compiling time.
+ * @param array        $args        {
+ *                                  Optional. Array of arguments used by the compiler.
  *
- * 		@type array $depedencies An array of registered handles this script depends on. Default false.
+ * @type array         $depedencies An array of registered handles this script depends on. Default false.
  * }
+ *
+ * @return void|bool
  */
 function beans_compile_less_fragments( $id, $fragments, $args = array() ) {
 
@@ -78,8 +84,8 @@ function beans_compile_less_fragments( $id, $fragments, $args = array() ) {
 		'fragments' => (array) $fragments,
 	);
 
-	new _Beans_Compiler( $params + $args );
-
+	$compiler = new _Beans_Compiler( $params + $args );
+	$compiler->run_compiler();
 }
 
 /**
@@ -92,17 +98,21 @@ function beans_compile_less_fragments( $id, $fragments, $args = array() ) {
  *
  * @since 1.0.0
  *
- * @param string       $id        The compiler ID. Similar to the WordPress scripts $handle argument.
- * @param string|array $fragments File(s) absolute path. Internal or external file(s) url accepted but may increase compiling time.
- * @param array        $args      {
- *      Optional. Array of arguments used by the compiler.
+ * @param string       $id          The compiler ID. Similar to the WordPress scripts $handle argument.
+ * @param string|array $fragments   File(s) absolute path. Internal or external file(s) url accepted but may increase
+ *                                  compiling time.
+ * @param array        $args        {
+ *                                  Optional. Array of arguments used by the compiler.
  *
- * 		@type array $depedencies An array of registered handles this script depends on. Default false.
- * 		@type bool  $in_footer   Whether to enqueue the script before </head> or before </body>. Default false.
- * 		@type bool  $minify_js   Whether the JavaScript should be minified or not. Be aware that minifying
- * 		      					 the JavaScript can considerably slow down the process of compiling files.
- * 		      					 Default false.
+ * @type array         $depedencies An array of registered handles this script depends on. Default false.
+ * @type array         $depedencies An array of registered handles this script depends on. Default false.
+ * @type bool          $in_footer   Whether to enqueue the script before </head> or before </body>. Default false.
+ * @type bool          $minify_js   Whether the JavaScript should be minified or not. Be aware that minifying
+ *                                      the JavaScript can considerably slow down the process of compiling files.
+ *                                      Default false.
  * }
+ *
+ * @return void|bool
  */
 function beans_compile_js_fragments( $id, $fragments, $args = array() ) {
 
@@ -117,8 +127,8 @@ function beans_compile_js_fragments( $id, $fragments, $args = array() ) {
 		'fragments' => (array) $fragments,
 	);
 
-	new _Beans_Compiler( $params + $args );
-
+	$compiler = new _Beans_Compiler( $params + $args );
+	$compiler->run_compiler();
 }
 
 /**
@@ -130,9 +140,12 @@ function beans_compile_js_fragments( $id, $fragments, $args = array() ) {
  * @since 1.0.0
  *
  * @param string       $id        The compiler ID. Similar to the WordPress scripts $handle argument.
- * @param string|array $fragments File(s) absolute path. Internal or external file(s) url accepted but may increase compiling time.
+ * @param string|array $fragments File(s) absolute path. Internal or external file(s) url accepted but may increase
+ *                                compiling time.
  * @param string       $format    Compiler format the fragments should be added to. Accepts 'css',
  *                                'less' or 'js'.
+ *
+ * @return void|bool
  */
 function beans_compiler_add_fragment( $id, $fragments, $format ) {
 
@@ -145,21 +158,17 @@ function beans_compiler_add_fragment( $id, $fragments, $format ) {
 	foreach ( (array) $fragments as $key => $fragment ) {
 
 		// Stop here if the format isn't valid.
-		if ( ! isset( $_beans_compiler_added_fragments[ $format ] ) ) :
+		if ( ! isset( $_beans_compiler_added_fragments[ $format ] ) ) {
 			continue;
+		}
 
 		// Register new compiler id if it doesn't exist and add fragment.
-		elseif ( ! isset( $_beans_compiler_added_fragments[ $format ][ $id ] ) ) :
+		if ( ! isset( $_beans_compiler_added_fragments[ $format ][ $id ] ) ) {
 			$_beans_compiler_added_fragments[ $format ][ $id ] = array( $fragment );
-
-		// Add fragment to existing compiler.
-		else :
+		} else { // Add fragment to existing compiler.
 			$_beans_compiler_added_fragments[ $format ][ $id ][] = $fragment;
-
-		endif;
-
+		}
 	}
-
 }
 
 /**
@@ -174,23 +183,22 @@ function beans_compiler_add_fragment( $id, $fragments, $format ) {
  * @param string|bool $file_format Optional. Define which files format should be removed. Both CSS and JS
  *                                 files will be removed if set to false. Accepts 'false', 'css' or 'js'.
  * @param bool        $admin       Optional. Whether it is an admin compiler or not.
+ *
+ * @return void|bool
  */
 function beans_flush_compiler( $id, $file_format = false, $admin = false ) {
-
 	static $beans_flushed = false;
 
 	$cache_dir = beans_get_compiler_dir( $admin );
 
-	// Always flush beans global chache.
+	// Always flush beans global cache.
 	if ( ! $beans_flushed ) {
-
 		$beans_flushed = true;
 
 		beans_flush_compiler( 'beans', $file_format, $admin );
-
 	}
 
-	$dir = trailingslashit( $cache_dir )  . $id;
+	$dir = trailingslashit( $cache_dir ) . $id;
 
 	// Stop here if directory doesn't exist.
 	if ( ! is_dir( $dir ) ) {
@@ -199,22 +207,20 @@ function beans_flush_compiler( $id, $file_format = false, $admin = false ) {
 
 	// Remove only specified format files.
 	if ( $file_format ) {
-
 		$items = scandir( $dir );
 		unset( $items[0], $items[1] );
 
 		foreach ( $items as $item ) {
-
 			if ( false !== stripos( $item, '.' . $file_format ) ) {
-				@unlink( trailingslashit( $dir ) . $item );
+				@unlink( trailingslashit( $dir ) . $item ); // @codingStandardsIgnoreLine - Generic.PHP.NoSilencedErrors.Discouraged  This is a valid use case.
 			}
 		}
-	} else { // Remove all format files.
 
-		beans_remove_dir( $dir );
-
+		return;
 	}
 
+	// Remove all format files.
+	beans_remove_dir( $dir );
 }
 
 /**
@@ -227,59 +233,63 @@ function beans_flush_compiler( $id, $file_format = false, $admin = false ) {
  * @param string      $id          The compiler ID. Similar to the WordPress scripts $handle argument.
  * @param string|bool $file_format Optional. Define which files format should be removed. Both CSS and JS
  *                                 files will be removed if set to false. Accepts 'false', 'css' or 'js'.
+ *
+ * @return void
  */
 function beans_flush_admin_compiler( $id, $file_format = false ) {
-
 	beans_flush_compiler( $id, $file_format, true );
-
 }
 
 /**
- * Get beans compiler directory.
+ * Get absolute path to the Beans' compiler directory.
  *
  * @since 1.0.0
  *
- * @return string Compiler directory.
+ * @param bool $is_admin Optional. When true, gets the admin compiler directory. Default is false.
+ *
+ * @return string
  */
-function beans_get_compiler_dir( $admin = false ) {
-
+function beans_get_compiler_dir( $is_admin = false ) {
 	$wp_upload_dir = wp_upload_dir();
-	$suffix = $admin ? 'beans/admin-compiler/' : 'beans/compiler/';
+	$suffix        = $is_admin ? 'beans/admin-compiler/' : 'beans/compiler/';
 
 	/**
 	 * Deprecated. Filter the beans compiler directory.
 	 *
 	 * This filter is deprecated for security and compatibility purposes.
 	 *
-	 * @since 1.0.0
+	 * @since      1.0.0
 	 * @deprecated 1.3.0
 	 */
-	$deprecated = apply_filters( 'beans_compiler_dir', false, $admin );
+	apply_filters( 'beans_compiler_dir', false, $is_admin );
 
 	return wp_normalize_path( trailingslashit( $wp_upload_dir['basedir'] ) . $suffix );
-
 }
 
 /**
- * Get beans compiler url.
+ * Get absolute URL to the Beans' compiler directory.
  *
  * @since 1.3.0
  *
- * @return string Compiler directory.
+ * @param bool $is_admin Optional. When true, gets the admin compiler directory. Default is false.
+ *
+ * @return string
  */
-function beans_get_compiler_url( $admin = false ) {
-
+function beans_get_compiler_url( $is_admin = false ) {
 	$wp_upload_dir = wp_upload_dir();
-	$suffix = $admin ? 'beans/admin-compiler/' : 'beans/compiler/';
+	$suffix        = $is_admin ? 'beans/admin-compiler/' : 'beans/compiler/';
 
 	return trailingslashit( $wp_upload_dir['baseurl'] ) . $suffix;
-
 }
 
 /**
- * Check if development mode is enabled taking in consideration legacy constant.
+ * Check if development mode is enabled, taking in consideration legacy constant.
  *
+ * @since  1.0.0
  * @ignore
+ * @access private
+ *
+ * @return bool
  */
 function _beans_is_compiler_dev_mode() {
 
@@ -288,13 +298,14 @@ function _beans_is_compiler_dev_mode() {
 	}
 
 	return get_option( 'beans_dev_mode', false );
-
 }
 
 /**
  * Initialize added fragments global.
  *
+ * @since  1.0.0
  * @ignore
+ * @access private
  */
 global $_beans_compiler_added_fragments;
 

@@ -55,23 +55,21 @@ final class _Beans_Compiler {
 	 * @param array $config Runtime configuration parameters for the Compiler.
 	 */
 	public function __construct( array $config ) {
+		$this->config = $this->init_config( $config );
+		$this->dir    = beans_get_compiler_dir( is_admin() ) . $this->config['id'];
+		$this->url    = beans_get_compiler_url( is_admin() ) . $this->config['id'];
+	}
+
+	/**
+	 * Run the compiler.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return void
+	 */
+	public function run_compiler() {
 		// Modify the WP Filesystem method.
 		add_filter( 'filesystem_method', array( $this, 'filesystem_method' ) );
-
-		$defaults = array(
-			'id'          => false,
-			'type'        => false,
-			'format'      => false,
-			'fragments'   => array(),
-			'depedencies' => false,
-			'in_footer'   => false,
-			'minify_js'   => false,
-			'version'     => false,
-		);
-
-		$this->config = array_merge( $defaults, $config );
-		$this->dir      = beans_get_compiler_dir( is_admin() ) . $this->config['id'];
-		$this->url      = beans_get_compiler_url( is_admin() ) . $this->config['id'];
 
 		$this->set_fragments();
 		$this->set_filname();
@@ -723,5 +721,29 @@ final class _Beans_Compiler {
 		);
 
 		wp_die( wp_kses_post( $message ) );
+	}
+
+	/**
+	 * Initialize the configuration.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param array $config Runtime configuration parameters for the Compiler.
+	 *
+	 * @return array
+	 */
+	private function init_config( array $config ) {
+		$defaults = array(
+			'id'          => false,
+			'type'        => false,
+			'format'      => false,
+			'fragments'   => array(),
+			'depedencies' => false,
+			'in_footer'   => false,
+			'minify_js'   => false,
+			'version'     => false,
+		);
+
+		return array_merge( $defaults, $config );
 	}
 }
