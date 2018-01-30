@@ -265,12 +265,23 @@ final class _Beans_Compiler {
 
 		// Enqueue css.
 		if ( 'style' === $this->config['type'] ) {
-			return wp_enqueue_style( $this->config['id'], $this->get_url(), $this->config['depedencies'], $this->config['version'] );
+			return wp_enqueue_style(
+				$this->config['id'],
+				$this->get_url(),
+				$this->config['dependencies'],
+				$this->config['version']
+			);
 		}
 
 		// Enqueue js file.
 		if ( 'script' === $this->config['type'] ) {
-			return wp_enqueue_script( $this->config['id'], $this->get_url(), $this->config['depedencies'], $this->config['version'], $this->config['in_footer'] );
+			return wp_enqueue_script(
+				$this->config['id'],
+				$this->get_url(),
+				$this->config['dependencies'],
+				$this->config['version'],
+				$this->config['in_footer']
+			);
 		}
 
 		return false;
