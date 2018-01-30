@@ -39,6 +39,7 @@ class Tests_Beans_Compiler_Filesystem extends Compiler_Test_Case {
 	 * Test filesystem() should render a report and die when no filesystem is selected.
 	 */
 	public function test_should_render_report_and_die_when_no_filesystem_selected() {
+		unset( $GLOBALS['wp_filesystem'] );
 		$compiler = new _Beans_Compiler( array() );
 
 		Functions\expect( __NAMESPACE__ . '\set_wp_die_handler' )

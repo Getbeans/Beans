@@ -126,16 +126,31 @@ final class _Beans_Compiler {
 			require_once ABSPATH . '/wp-admin/includes/file.php';
 		}
 
-		// If WP_Filesystem is not initialized or it's not set to WP_Filesystem_Direct, initialize it.
-		if ( ! isset( $GLOBALS['wp_filesystem'] ) || ! is_a( $GLOBALS['wp_filesystem'], 'WP_Filesystem_Direct' ) ) {
+		// If WP_Filesystem is not initialized or it's not set to WP_Filesystem_Direct, then initialize it.
+		if ( $this->is_wp_filesystem_direct() ) {
+			return true;
+		}
 
-			// Fail-safe. If something happens, generate a report and then exit.
-			if ( true !== WP_Filesystem() ) {
-				return $this->kill();
-			}
+		// Initialize the filesystem.
+		$response = WP_Filesystem();
+
+		// If it did not initialize, then generate a report and then exit.
+		if ( true !== $response || ! $this->is_wp_filesystem_direct() ) {
+			return $this->kill();
 		}
 
 		return true;
+	}
+
+	/**
+	 * Checks if the filesystem is set to "direct".
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return bool
+	 */
+	private function is_wp_filesystem_direct() {
+		return isset( $GLOBALS['wp_filesystem'] ) && is_a( $GLOBALS['wp_filesystem'], 'WP_Filesystem_Direct' );
 	}
 
 	/**
