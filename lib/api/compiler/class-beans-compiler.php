@@ -258,10 +258,11 @@ final class _Beans_Compiler {
 	 * Enqueue cached file.
 	 *
 	 * @since 1.0.0
+	 * @since 1.5.0 Changed access to private.
 	 *
 	 * @return void|bool
 	 */
-	public function enqueue_file() {
+	private function enqueue_file() {
 
 		// Enqueue css.
 		if ( 'style' === $this->config['type'] ) {
