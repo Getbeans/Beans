@@ -23,42 +23,42 @@ final class _Beans_Compiler {
 	 *
 	 * @var array
 	 */
-	protected $config;
+	private $config;
 
 	/**
 	 * Cache dir.
 	 *
 	 * @var string
 	 */
-	protected $dir;
+	private $dir;
 
 	/**
 	 * Cache url.
 	 *
 	 * @var string
 	 */
-	protected $url;
+	private $url;
 
 	/**
 	 * Set during in fragments loop.
 	 *
 	 * @var string
 	 */
-	protected $current_fragment;
+	private $current_fragment;
 
 	/**
 	 * The compiled content.
 	 *
 	 * @var string
 	 */
-	protected $compiled_content;
+	private $compiled_content;
 
 	/**
 	 * Compiled content's filename.
 	 *
 	 * @var string
 	 */
-	protected $filename;
+	private $filename;
 
 	/**
 	 * Create a new Compiler.
