@@ -425,10 +425,14 @@ final class _Beans_Compiler {
 	public function get_remote_content() {
 		$fragment = $this->current_fragment;
 
-		// Replace double slashes by http. Mostly used for font referencing urls.
-		if ( 1 === preg_match( '#^\/\/#', $fragment ) ) {
-			$fragment = preg_replace( '#^\/\/#', 'http://', $fragment );
-		} elseif ( 1 === preg_match( '#^\/#', $fragment ) ) { // Add domain if it is local but could not be fetched as a file.
+		if ( empty( $fragment ) ) {
+			return false;
+		}
+
+		// For a relative URL, add the http: to it.
+		if ( substr( $fragment, 0, 2 ) === '//' ) {
+			$fragment = 'http:' . $fragment;
+		} elseif ( substr( $fragment, 0, 1 ) === '/' ) { // Add domain if it is local but could not be fetched as a file.
 			$fragment = site_url( $fragment );
 		}
 
@@ -438,19 +442,17 @@ final class _Beans_Compiler {
 			return '';
 		}
 
-		// If failed to get content, try with ssl url, otherwise go to next fragment.
-		if ( ! isset( $request['body'] ) || 200 !== $request['response']['code'] ) {
-
-			$fragment = preg_replace( '#^http#', 'https', $fragment );
+		// If no content received and the URL is not https, then convert the URL to SSL and retry.
+		if (
+			( ! isset( $request['body'] ) || 200 !== $request['response']['code'] ) &&
+			( substr( $fragment, 0, 8 ) !== 'https://' )
+		) {
+			$fragment = str_replace( 'http://', 'https://', $fragment );
 			$request  = wp_remote_get( $fragment );
+		}
 
-			if ( is_wp_error( $request ) ) {
-				return '';
-			}
-
-			if ( ! isset( $request['body'] ) || 200 !== $request['response']['code'] ) {
-				return false;
-			}
+		if ( ( ! isset( $request['body'] ) || 200 !== $request['response']['code'] ) ) {
+			return false;
 		}
 
 		return wp_remote_retrieve_body( $request );
