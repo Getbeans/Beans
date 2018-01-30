@@ -184,42 +184,8 @@ final class _Beans_Compiler {
 			return;
 		}
 
-		$fragments_filemtime = array();
-
-		// Check for internal file changes.
-		foreach ( $this->config['fragments'] as $id => $fragment ) {
-
-			// Ignore if the fragment is a function.
-			if ( $this->is_function( $fragment ) ) {
-				continue;
-			}
-
-			// Only check file time for internal files.
-			if ( file_exists( $fragment ) ) {
-				$fragments_filemtime[ $id ] = @filemtime( beans_url_to_path( $fragment ) ); // @codingStandardsIgnoreLine - Generic.PHP.NoSilencedErrors.Discouraged  This is a valid use case.
-			}
-		}
-
-		if ( ! empty( $fragments_filemtime ) ) {
-
-			// Set filemtime hash.
-			$_hash = $this->hash( $fragments_filemtime );
-
-			$items = @scandir( $this->dir ); // @codingStandardsIgnoreLine - Generic.PHP.NoSilencedErrors.Discouraged  This is a valid use case.
-			unset( $items[0], $items[1] );
-
-			// Clean up other modified files.
-			foreach ( $items as $item ) {
-
-				// Remove if it contains initial hash, is the same format and doesn't contain the filemtime hash.
-				if ( false !== stripos( $item, $hash ) && false !== stripos( $item, $this->get_extension() ) && false === stripos( $item, $_hash ) ) {
-					@unlink( $this->dir . '/' . $item ); // @codingStandardsIgnoreLine - Generic.PHP.NoSilencedErrors.Discouraged  This is a valid use case.
-				}
-			}
-
-			// Set the new hash which will trigger to new compiling.
-			$hash = $hash . '-' . $_hash;
-		}
+		$fragments_filemtime = $this->get_fragments_filemtime();
+		$hash                = $this->get_new_hash( $hash, $fragments_filemtime );
 
 		$this->config['filename'] = $hash . '.' . $this->get_extension();
 	}
@@ -763,6 +729,112 @@ final class _Beans_Compiler {
 		);
 
 		return array_merge( $defaults, $config );
+	}
+
+	/**
+	 * Get the fragments' modification times.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return array
+	 */
+	private function get_fragments_filemtime() {
+		$fragments_filemtime = array();
+
+		foreach ( $this->config['fragments'] as $index => $fragment ) {
+
+			// Skip this one if the fragment is a function.
+			if ( $this->is_function( $fragment ) ) {
+				continue;
+			}
+
+			if ( file_exists( $fragment ) ) {
+				$fragments_filemtime[ $index ] = @filemtime( $fragment ); // @codingStandardsIgnoreLine - Generic.PHP.NoSilencedErrors.Discouraged  This is a valid use case.
+			}
+		}
+
+		return $fragments_filemtime;
+	}
+
+	/**
+	 * Get the new hash for the given fragments' modification times.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string $hash                The original hash to modify.
+	 * @param array  $fragments_filemtime Array of fragments' modification times.
+	 *
+	 * @return string
+	 */
+	private function get_new_hash( $hash, array $fragments_filemtime ) {
+
+		if ( empty( $fragments_filemtime ) ) {
+			return $hash;
+		}
+
+		// Set filemtime hash.
+		$_hash = $this->hash( $fragments_filemtime );
+
+		$this->remove_modified_files( $hash, $_hash );
+
+		// Set the new hash which will trigger to new compiling.
+		return $hash . '-' . $_hash;
+	}
+
+	/**
+	 * Remove any modified files.  A file is considered modified when:
+	 *
+	 * 1. It has both a base hash and filemtime hash, separated by '-'.
+	 * 2. Its base hash matches the given hash.
+	 * 3. Its filemtime hash has does not match the given filemtime hash.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string $hash           Base hash.
+	 * @param string $filemtime_hash The filemtime hash (from hashing the fragments).
+	 *
+	 * @return void
+	 */
+	private function remove_modified_files( $hash, $filemtime_hash ) {
+		$items = @scandir( $this->dir );  // @codingStandardsIgnoreLine - Generic.PHP.NoSilencedErrors.Discouraged  This is a valid use case.
+		unset( $items[0], $items[1] );
+
+		if ( empty( $items ) ) {
+			return;
+		}
+
+		foreach ( $items as $item ) {
+
+			// Skip this one if it's a directory.
+			if ( @is_dir( $item ) ) { // @codingStandardsIgnoreLine - Generic.PHP.NoSilencedErrors.Discouraged  This is a valid use case.
+				continue;
+			}
+
+			// Skip this one if it's not the same type.
+			if ( pathinfo( $item, PATHINFO_EXTENSION ) !== $this->get_extension() ) {
+				continue;
+			}
+
+			// Skip this one if it does not a '-' in the filename.
+			if ( strpos( $item, '-' ) === false ) {
+				continue;
+			}
+
+			$hash_parts = explode( '-', pathinfo( $item, PATHINFO_FILENAME ) );
+
+			// Skip this one if it does not match the given base hash.
+			if ( $hash_parts[0] !== $hash ) {
+				continue;
+			}
+
+			// Skip this one if it does match the given filemtime's hash.
+			if ( $hash_parts[1] === $filemtime_hash ) {
+				continue;
+			}
+
+			// Clean up other modified files.
+			@unlink( $this->dir . '/' . $item );  // @codingStandardsIgnoreLine - Generic.PHP.NoSilencedErrors.Discouraged  This is a valid use case.
+		}
 	}
 
 	/**
