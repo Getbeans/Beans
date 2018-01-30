@@ -547,20 +547,16 @@ final class _Beans_Compiler {
 		$base = $this->current_fragment;
 
 		// Separate the placeholders and path.
-		$explode_path = explode( '../', $matches[1] );
+		$paths = explode( '../', $matches[1] );
 
 		/**
 		 * Walk backwards through each of the the fragment's directories, one-by-one. The `foreach` loop
 		 * provides us with a performant way to walk the fragment back to its base path based upon the
 		 * number of placeholders.
 		 */
-		foreach ( $explode_path as $value ) {
+		foreach ( $paths as $path ) {
 			$base = dirname( $base );
 		}
-
-		// Rebuild path.
-		$replace      = preg_replace( '#^\/#', '', $explode_path );
-		$rebuilt_path = end( $replace );
 
 		// Make sure it is a valid base.
 		if ( '.' === $base ) {
@@ -568,7 +564,7 @@ final class _Beans_Compiler {
 		}
 
 		// Rebuild url and make sure it is a valid one using the beans_path_to_url function.
-		$url = beans_path_to_url( trailingslashit( $base ) . $rebuilt_path );
+		$url = beans_path_to_url( trailingslashit( $base ) . ltrim( end( $paths ), '/' ) );
 
 		// Return the rebuilt path converted to url.
 		return 'url("' . $url . '")';
