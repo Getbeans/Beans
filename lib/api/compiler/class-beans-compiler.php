@@ -2,7 +2,7 @@
 /**
  * This class compiles and minifies CSS, LESS and JS.
  *
- * @package Beans\Framework\API\Complier
+ * @package Beans\Framework\API\Compiler
  *
  * @since   1.5.0
  */
@@ -14,7 +14,7 @@
  * @ignore
  * @access  private
  *
- * @package Beans\Framework\API\Complier
+ * @package Beans\Framework\API\Compiler
  */
 final class _Beans_Compiler {
 
@@ -40,7 +40,7 @@ final class _Beans_Compiler {
 	private $url;
 
 	/**
-	 * Set during in fragments loop.
+	 * The fragment currently being processed.
 	 *
 	 * @var string
 	 */
@@ -97,12 +97,12 @@ final class _Beans_Compiler {
 
 		$this->enqueue_file();
 
-		// Keep it safe and reset WP Filesystem method.
+		// Keep it safe and reset the WP Filesystem method.
 		remove_filter( 'filesystem_method', array( $this, 'modify_filesystem_method' ) );
 	}
 
 	/**
-	 * Callback to set WP Filesystem method.
+	 * Callback to set the WP Filesystem method.
 	 *
 	 * @since 1.0.0
 	 *
@@ -113,7 +113,7 @@ final class _Beans_Compiler {
 	}
 
 	/**
-	 * Initialise WP Filesystem.
+	 * Initialise the WP Filesystem.
 	 *
 	 * @since 1.0.0
 	 *
@@ -121,12 +121,12 @@ final class _Beans_Compiler {
 	 */
 	public function filesystem() {
 
-		// WP_Filesystem is not already loaded, load it.
+		// If the WP_Filesystem is not already loaded, load it.
 		if ( ! function_exists( 'WP_Filesystem' ) ) {
 			require_once ABSPATH . '/wp-admin/includes/file.php';
 		}
 
-		// If WP_Filesystem is not initialized or it's not set to WP_Filesystem_Direct, then initialize it.
+		// If the WP_Filesystem is not initialized or is not set to WP_Filesystem_Direct, then initialize it.
 		if ( $this->is_wp_filesystem_direct() ) {
 			return true;
 		}
@@ -134,7 +134,7 @@ final class _Beans_Compiler {
 		// Initialize the filesystem.
 		$response = WP_Filesystem();
 
-		// If it did not initialize, then generate a report and then exit.
+		// If the filesystem did not initialize, then generate a report and exit.
 		if ( true !== $response || ! $this->is_wp_filesystem_direct() ) {
 			return $this->kill();
 		}
@@ -143,7 +143,7 @@ final class _Beans_Compiler {
 	}
 
 	/**
-	 * Checks if the filesystem is set to "direct".
+	 * Check if the filesystem is set to "direct".
 	 *
 	 * @since 1.5.0
 	 *
@@ -272,7 +272,7 @@ final class _Beans_Compiler {
 			return false;
 		}
 
-		// Safe to access filesystem since we made sure it was set.
+		// It is safe to access the filesystem because we made sure it was set.
 		return $GLOBALS['wp_filesystem']->put_contents( $filename, $this->compiled_content, FS_CHMOD_FILE );
 	}
 
@@ -286,7 +286,7 @@ final class _Beans_Compiler {
 	 */
 	private function enqueue_file() {
 
-		// Enqueue css.
+		// Enqueue CSS file.
 		if ( 'style' === $this->config['type'] ) {
 			return wp_enqueue_style(
 				$this->config['id'],
@@ -296,7 +296,7 @@ final class _Beans_Compiler {
 			);
 		}
 
-		// Enqueue js file.
+		// Enqueue JS file.
 		if ( 'script' === $this->config['type'] ) {
 			return wp_enqueue_script(
 				$this->config['id'],
@@ -346,7 +346,7 @@ final class _Beans_Compiler {
 	}
 
 	/**
-	 * Combine fragments content.
+	 * Combine content of the fragments.
 	 *
 	 * @since 1.0.0
 	 *
@@ -427,7 +427,7 @@ final class _Beans_Compiler {
 
 		if ( ! file_exists( $fragment ) ) {
 
-			// Replace url with path.
+			// Replace URL with path.
 			$fragment = beans_url_to_path( $fragment );
 
 			// Stop here if it isn't a valid file.
@@ -436,7 +436,7 @@ final class _Beans_Compiler {
 			}
 		}
 
-		// Safe to access filesystem since we made sure it was set.
+		// It is safe to access the filesystem because we made sure it was set.
 		return $GLOBALS['wp_filesystem']->get_contents( $fragment );
 	}
 
@@ -454,7 +454,7 @@ final class _Beans_Compiler {
 			return false;
 		}
 
-		// For a relative URL, add the http: to it.
+		// For a relative URL, add http: to it.
 		if ( substr( $fragment, 0, 2 ) === '//' ) {
 			$fragment = 'http:' . $fragment;
 		} elseif ( substr( $fragment, 0, 1 ) === '/' ) { // Add domain if it is local but could not be fetched as a file.
@@ -467,7 +467,7 @@ final class _Beans_Compiler {
 			return '';
 		}
 
-		// If no content received and the URL is not https, then convert the URL to SSL and retry.
+		// If no content was received and the URL is not https, then convert the URL to SSL and retry.
 		if (
 			( ! isset( $request['body'] ) || 200 !== $request['response']['code'] ) &&
 			( substr( $fragment, 0, 8 ) !== 'https://' )
@@ -574,7 +574,7 @@ final class _Beans_Compiler {
 	}
 
 	/**
-	 * Replace CSS url shortcuts with a valid url.
+	 * Replace CSS URL shortcuts with a valid URL.
 	 *
 	 * @since 1.0.0
 	 *
@@ -591,11 +591,11 @@ final class _Beans_Compiler {
 	}
 
 	/**
-	 * Convert any CSS url relative paths to absolute URLs.
+	 * Convert any CSS URL relative paths to absolute URLs.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $matches Matches to process, where 0 is the CSS' url() and 1 is the URI.
+	 * @param array $matches Matches to process, where 0 is the CSS' URL() and 1 is the URI.
 	 *
 	 * @return string
 	 */
@@ -625,10 +625,10 @@ final class _Beans_Compiler {
 			$base = '';
 		}
 
-		// Rebuild url and make sure it is a valid one using the beans_path_to_url function.
+		// Rebuild the URL and make sure it is valid using the beans_path_to_url function.
 		$url = beans_path_to_url( trailingslashit( $base ) . ltrim( end( $paths ), '/' ) );
 
-		// Return the rebuilt path converted to url.
+		// Return the rebuilt path converted to an URL.
 		return 'url("' . $url . '")';
 	}
 
@@ -708,7 +708,7 @@ final class _Beans_Compiler {
 
 		$this->remove_modified_files( $hash, $_hash );
 
-		// Set the new hash which will trigger to new compiling.
+		// Set the new hash which will trigger a new compiling.
 		return $hash . '-' . $_hash;
 	}
 
@@ -717,7 +717,7 @@ final class _Beans_Compiler {
 	 *
 	 * 1. It has both a base hash and filemtime hash, separated by '-'.
 	 * 2. Its base hash matches the given hash.
-	 * 3. Its filemtime hash has does not match the given filemtime hash.
+	 * 3. Its filemtime hash does not match the given filemtime hash.
 	 *
 	 * @since 1.5.0
 	 *
@@ -746,7 +746,7 @@ final class _Beans_Compiler {
 				continue;
 			}
 
-			// Skip this one if it does not a '-' in the filename.
+			// Skip this one if it does not have a '-' in the filename.
 			if ( strpos( $item, '-' ) === false ) {
 				continue;
 			}
@@ -798,7 +798,7 @@ final class _Beans_Compiler {
 			',\n' => ',', // Don't wrap multiple selectors.
 			'\n}' => '}', // Don't wrap closing braces.
 			'} '  => "}\n", // Put each rule on it's own line.
-			'\n'  => '', // Take out all line breaks.
+			'\n'  => '', // Remove all line breaks.
 		);
 
 		$search = array_keys( $replace );
@@ -807,7 +807,7 @@ final class _Beans_Compiler {
 	}
 
 	/**
-	 * Checks if the given fragment is a callable.
+	 * Check if the given fragment is a callable.
 	 *
 	 * @since 1.0.0
 	 * @since 1.5.0 Changed access to private.
@@ -842,7 +842,7 @@ final class _Beans_Compiler {
 
 		$html .= beans_output( 'beans_compiler_error_message_text', sprintf(
 			'<p>%s</p>',
-			__( 'Your current install or file permission prevents Beans from working its magic. Please get in touch with Beans support, we will gladly get you started within 24 - 48 hours (working days).', 'tm-beans' )
+			__( 'Your current install or file permission prevents Beans from working its magic. Please get in touch with Beans support. We will gladly get you started within 24 - 48 hours (working days).', 'tm-beans' )
 		) );
 
 		$html .= beans_output( 'beans_compiler_error_contact_text', sprintf(
