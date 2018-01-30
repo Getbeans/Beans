@@ -21,6 +21,13 @@ use PHPUnit\Framework\TestCase;
 abstract class Test_Case extends TestCase {
 
 	/**
+	 * When true, return the given path when doing wp_normalize_path().
+	 *
+	 * @var bool
+	 */
+	protected $just_return_path = false;
+
+	/**
 	 * Prepares the test environment before each test.
 	 */
 	protected function setUp() {
@@ -28,6 +35,11 @@ abstract class Test_Case extends TestCase {
 		Monkey\setUp();
 
 		Functions\when( 'wp_normalize_path' )->alias( function( $path ) {
+
+			if ( true === $this->just_return_path ) {
+				return $path;
+			}
+
 			$path = str_replace( '\\', '/', $path );
 			$path = preg_replace( '|(?<=.)/+|', '/', $path );
 
@@ -57,7 +69,7 @@ abstract class Test_Case extends TestCase {
 	 * Then in our tests, we monkey patch via Brain Monkey, which redefines the original function.
 	 * At tear down, the original function is restored in Brain Monkey, by calling Patchwork\restoreAll().
 	 *
-	 * @since 1.0.0
+	 * @since 1.5.0
 	 *
 	 * @param array $files Array of files to load into memory.
 	 *
