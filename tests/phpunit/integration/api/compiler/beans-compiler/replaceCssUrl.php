@@ -188,7 +188,7 @@ EOB;
 	 * @since 1.5.0
 	 *
 	 * @param _Beans_Compiler $compiler The Compiler instance.
-	 * @param mixed            $fragment The given value to set.
+	 * @param mixed           $fragment The given value to set.
 	 *
 	 * @return void
 	 */

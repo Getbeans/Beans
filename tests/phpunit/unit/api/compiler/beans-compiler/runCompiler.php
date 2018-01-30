@@ -239,7 +239,7 @@ class Tests_Beans_Compiler_Run_Compiler extends Compiler_Test_Case {
 
 		// Set up the mocks.
 		$this->add_virtual_directory( $config['id'] );
-		$expected_file    = vfsStream::url(
+		$expected_file = vfsStream::url(
 			'compiled/beans/compiler/' . $config['id'] . '/' . $this->get_filename( $compiler, $config, filemtime( $fragment ) )
 		);
 		$this->set_up_mocks( $compiler, $config, $expected_file, $this->get_compiled_js() );
@@ -270,7 +270,7 @@ class Tests_Beans_Compiler_Run_Compiler extends Compiler_Test_Case {
 
 		// Set up the mocks.
 		$this->add_virtual_directory( $config['id'] );
-		$expected_file    = vfsStream::url(
+		$expected_file = vfsStream::url(
 			'compiled/beans/compiler/' . $config['id'] . '/' . $this->get_filename( $compiler, $config, filemtime( $fragment ) )
 		);
 		$this->set_up_mocks( $compiler, $config, $expected_file, $this->get_compiled_css() );
@@ -303,7 +303,7 @@ class Tests_Beans_Compiler_Run_Compiler extends Compiler_Test_Case {
 
 		// Set up the mocks.
 		$this->add_virtual_directory( $config['id'] );
-		$expected_file    = vfsStream::url(
+		$expected_file = vfsStream::url(
 			'compiled/beans/compiler/' . $config['id'] . '/' . $this->get_filename( $compiler, $config )
 		);
 		$this->set_up_mocks( $compiler, $config, $expected_file, $this->get_compiled_less() );

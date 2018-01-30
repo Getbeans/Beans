@@ -29,7 +29,7 @@ class Tests_Beans_Compiler_Replace_Css_Url extends Compiler_Test_Case {
 	 */
 	public function test_should_return_original_content_when_no_url() {
 		$compiler = new _Beans_Compiler( array() );
-		$css = <<<EOB
+		$css      = <<<EOB
 .home-page .tm-header {
     background-color: #195B7D;
     background-image: -webkit-gradient(linear,left top,left bottom,from(#195B7D),to(#43889A));
@@ -50,7 +50,7 @@ EOB;
 	 */
 	public function test_should_return_original_content_when_valid_uri() {
 		$compiler = new _Beans_Compiler( array() );
-		$css = <<<EOB
+		$css      = <<<EOB
 .hero-section {
     background: linear-gradient(rgba(255, 255, 255, 0.8) 100%, #fff), 
                 url(http://example.com/some-image.jpg) repeat center #fff;

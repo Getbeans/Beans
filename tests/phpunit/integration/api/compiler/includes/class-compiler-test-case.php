@@ -99,10 +99,9 @@ abstract class Compiler_Test_Case extends WP_UnitTestCase {
 			? __DIR__ . DIRECTORY_SEPARATOR . 'fixtures' . DIRECTORY_SEPARATOR
 			: dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'fixtures' . DIRECTORY_SEPARATOR;
 
-
 		// Load the fixture files and content into the virtual filesystem.
 		foreach ( $filenames as $filename ) {
-			$structure['fixtures'][ $filename ] = file_get_contents( $fixtures_dir . $filename );
+			$structure['fixtures'][ $filename ] = file_get_contents( $fixtures_dir . $filename ); // @codingStandardsIgnoreLine - WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents - valid edge case.
 		}
 
 		// Set up the "compiled" directory's virtual filesystem.
@@ -217,7 +216,7 @@ abstract class Compiler_Test_Case extends WP_UnitTestCase {
 	) {
 
 		if ( ! defined( 'FS_CHMOD_FILE' ) ) {
-			define( 'FS_CHMOD_FILE', 0644 );
+			define( 'FS_CHMOD_FILE', 0644 ); // @codingStandardsIgnoreLine - WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound - valid constant.
 		}
 
 		unset( $GLOBALS['wp_filesystem'] );
