@@ -84,6 +84,7 @@ final class _Beans_Compiler {
 		if ( ! $this->cache_file_exist() ) {
 			$this->filesystem();
 			$this->maybe_make_dir();
+			$this->combine_fragments();
 			$this->cache_file();
 		}
 
@@ -243,7 +244,6 @@ final class _Beans_Compiler {
 	 * @return bool
 	 */
 	public function cache_file() {
-		$content  = $this->combine_fragments();
 		$filename = $this->get_filename();
 
 		if ( empty( $filename ) ) {
@@ -251,7 +251,7 @@ final class _Beans_Compiler {
 		}
 
 		// Safe to access filesystem since we made sure it was set.
-		return $GLOBALS['wp_filesystem']->put_contents( $filename, $content, FS_CHMOD_FILE );
+		return $GLOBALS['wp_filesystem']->put_contents( $filename, $this->compiled_content, FS_CHMOD_FILE );
 	}
 
 	/**
@@ -498,6 +498,8 @@ final class _Beans_Compiler {
 
 	/**
 	 * Formal CSS, LESS and JS content.
+	 *
+	 * @since 1.0.0
 	 *
 	 * @param string $content Given content to process.
 	 *
