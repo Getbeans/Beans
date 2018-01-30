@@ -733,15 +733,21 @@ final class _Beans_Compiler {
 	 * @return array
 	 */
 	private function init_config( array $config ) {
+		// Fix dependencies, if "depedencies" is specified.
+		if ( isset( $config['depedencies'] ) ) {
+			$config['dependencies'] = $config['depedencies'];
+			unset( $config['depedencies'] );
+		}
+
 		$defaults = array(
-			'id'          => false,
-			'type'        => false,
-			'format'      => false,
-			'fragments'   => array(),
-			'depedencies' => false,
-			'in_footer'   => false,
-			'minify_js'   => false,
-			'version'     => false,
+			'id'           => false,
+			'type'         => false,
+			'format'       => false,
+			'fragments'    => array(),
+			'dependencies' => false,
+			'in_footer'    => false,
+			'minify_js'    => false,
+			'version'      => false,
 		);
 
 		return array_merge( $defaults, $config );
