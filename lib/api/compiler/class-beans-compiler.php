@@ -47,6 +47,13 @@ final class _Beans_Compiler {
 	protected $current_fragment;
 
 	/**
+	 * The compiled content.
+	 *
+	 * @var string
+	 */
+	protected $compiled_content;
+
+	/**
 	 * Create a new Compiler.
 	 *
 	 * @since 1.0.0
@@ -309,7 +316,7 @@ final class _Beans_Compiler {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return string
+	 * @return void
 	 */
 	public function combine_fragments() {
 		$content = '';
@@ -322,36 +329,56 @@ final class _Beans_Compiler {
 				continue;
 			}
 
-			// Set the current fragment used by other functions.
-			$this->current_fragment = $fragment;
-
-			// Treat function.
-			if ( $this->is_function( $fragment ) ) {
-				$get_content = $this->get_function_content();
-			} else { // Treat file.
-				$get_content = $this->get_internal_content();
-
-				// Try remote content if the internal content returned false.
-				if ( ! $get_content ) {
-					$get_content = $this->get_remote_content();
-				}
-			}
+			$fragment_content = $this->get_content( $fragment );
 
 			// Stop here if no content or content is an html page.
-			if ( ! $get_content || preg_match( '#^\s*\<#', $get_content ) ) {
+			if ( ! $fragment_content || preg_match( '#^\s*\<#', $fragment_content ) ) {
 				continue;
 			}
 
-			// Add the content.
+			// Continue processing style.
 			if ( 'style' === $this->config['type'] ) {
-				$get_content = $this->replace_css_url( $get_content );
-				$get_content = $this->add_content_media_query( $get_content );
+				$fragment_content = $this->replace_css_url( $fragment_content );
+				$fragment_content = $this->add_content_media_query( $fragment_content );
 			}
 
-			$content .= ( $content ? "\n\n" : '' ) . $get_content;
+			// If there's content, start a new line.
+			if ( $content ) {
+				$content .= "\n\n";
+			}
+
+			$content .= $fragment_content;
 		}
 
-		return $this->format_content( $content );
+		$this->compiled_content = $this->format_content( $content );
+	}
+
+	/**
+	 * Get the fragment's content.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string|callable $fragment The given fragment from which to get the content.
+	 *
+	 * @return bool|string
+	 */
+	private function get_content( $fragment ) {
+		// Set the current fragment used by other functions.
+		$this->current_fragment = $fragment;
+
+		// If the fragment is callable, call it to get the content.
+		if ( $this->is_function( $fragment ) ) {
+			return $this->get_function_content();
+		}
+
+		$content = $this->get_internal_content();
+
+		// Try remote content if the internal content returned false.
+		if ( empty( $content ) ) {
+			$content = $this->get_remote_content();
+		}
+
+		return $content;
 	}
 
 	/**
