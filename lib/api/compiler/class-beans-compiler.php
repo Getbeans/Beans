@@ -157,10 +157,11 @@ final class _Beans_Compiler {
 	 * Make directory.
 	 *
 	 * @since 1.0.0
+	 * @since 1.5.0 Changed access to private.
 	 *
 	 * @return bool
 	 */
-	public function maybe_make_dir() {
+	private function maybe_make_dir() {
 
 		if ( ! @is_dir( $this->dir ) ) {  // @codingStandardsIgnoreLine - Generic.PHP.NoSilencedErrors.Discouraged  This is a valid use case.
 			wp_mkdir_p( $this->dir );
@@ -632,126 +633,6 @@ final class _Beans_Compiler {
 	}
 
 	/**
-	 * Minify the CSS.
-	 *
-	 * @param string $content Given content to process.
-	 *
-	 * @return string
-	 */
-	public function strip_whitespace( $content ) {
-		$replace = array(
-			'#/\*.*?\*/#s' => '', // Strip comments.
-			'#\s\s+#'      => ' ', // Strip excess whitespace.
-		);
-
-		$search  = array_keys( $replace );
-		$content = preg_replace( $search, $replace, $content );
-
-		$replace = array(
-			': '  => ':',
-			'; '  => ';',
-			' {'  => '{',
-			' }'  => '}',
-			', '  => ',',
-			'{ '  => '{',
-			';}'  => '}', // Strip optional semicolons.
-			',\n' => ',', // Don't wrap multiple selectors.
-			'\n}' => '}', // Don't wrap closing braces.
-			'} '  => "}\n", // Put each rule on it's own line.
-			'\n'  => '', // Take out all line breaks.
-		);
-
-		$search = array_keys( $replace );
-
-		return trim( str_replace( $search, $replace, $content ) );
-	}
-
-	/**
-	 * Checks if the given fragment is a callable.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param mixed $fragment Given fragment to check.
-	 *
-	 * @return bool
-	 */
-	public function is_function( $fragment ) {
-		return ( is_array( $fragment ) || is_callable( $fragment ) );
-	}
-
-	/**
-	 * Kill it :(
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return void
-	 */
-	public function kill() {
-
-		// Send report if set.
-		if ( beans_get( 'beans_send_compiler_report' ) ) {
-			$this->report();
-		}
-
-		$html = beans_output( 'beans_compiler_error_title_text', sprintf(
-			'<h2>%s</h2>',
-			__( 'Not cool, Beans cannot work its magic :(', 'tm-beans' )
-		) );
-
-		$html .= beans_output( 'beans_compiler_error_message_text', sprintf(
-			'<p>%s</p>',
-			__( 'Your current install or file permission prevents Beans from working its magic. Please get in touch with Beans support, we will gladly get you started within 24 - 48 hours (working days).', 'tm-beans' )
-		) );
-
-		$html .= beans_output( 'beans_compiler_error_contact_text', sprintf(
-			'<a class="button" href="http://www.getbeans.io/contact/?compiler_report=1" target="_blanc">%s</a>',
-			__( 'Contact Beans Support', 'tm-beans' )
-		) );
-
-		$html .= beans_output( 'beans_compiler_error_report_text', sprintf(
-			'<p style="margin-top: 12px; font-size: 12px;"><a href="' . add_query_arg( 'beans_send_compiler_report', true ) . '">%1$s</a>. %2$s</p>',
-			__( 'Send us an automatic report', 'tm-beans' ),
-			__( 'We respect your time and understand you might not be able to contact us.', 'tm-beans' )
-		) );
-
-		wp_die( wp_kses_post( $html ) );
-	}
-
-	/**
-	 * Send report.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return void
-	 */
-	public function report() {
-		// Send report.
-		wp_mail(
-			'hello@getbeans.io',
-			'Compiler error',
-			'Compiler error reported by ' . home_url(),
-			array(
-				'MIME-Version: 1.0' . "\r\n",
-				'Content-type: text/html; charset=utf-8' . "\r\n",
-				"X-Mailer: PHP \r\n",
-				'From: ' . wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES ) . ' < ' . get_option( 'admin_email' ) . '>' . "\r\n",
-				'Reply-To: ' . get_option( 'admin_email' ) . "\r\n",
-			)
-		);
-
-		// Die and display message.
-		$message = beans_output(
-			'beans_compiler_report_error_text',
-			sprintf(
-				'<p>%s<p>',
-				__( 'Thanks for your contribution by reporting this issue. We hope to hear from you again.', 'tm-beans' )
-			)
-		);
-
-		wp_die( wp_kses_post( $message ) );
-	}
-
-	/**
 	 * Initialize the configuration.
 	 *
 	 * @since 1.5.0
@@ -885,6 +766,132 @@ final class _Beans_Compiler {
 			// Clean up other modified files.
 			@unlink( $this->dir . '/' . $item );  // @codingStandardsIgnoreLine - Generic.PHP.NoSilencedErrors.Discouraged  This is a valid use case.
 		}
+	}
+
+	/**
+	 * Minify the CSS.
+	 *
+	 * @since 1.0.0
+	 * @since 1.5.0 Changed access to private.
+	 *
+	 * @param string $content Given content to process.
+	 *
+	 * @return string
+	 */
+	private function strip_whitespace( $content ) {
+		$replace = array(
+			'#/\*.*?\*/#s' => '', // Strip comments.
+			'#\s\s+#'      => ' ', // Strip excess whitespace.
+		);
+
+		$search  = array_keys( $replace );
+		$content = preg_replace( $search, $replace, $content );
+
+		$replace = array(
+			': '  => ':',
+			'; '  => ';',
+			' {'  => '{',
+			' }'  => '}',
+			', '  => ',',
+			'{ '  => '{',
+			';}'  => '}', // Strip optional semicolons.
+			',\n' => ',', // Don't wrap multiple selectors.
+			'\n}' => '}', // Don't wrap closing braces.
+			'} '  => "}\n", // Put each rule on it's own line.
+			'\n'  => '', // Take out all line breaks.
+		);
+
+		$search = array_keys( $replace );
+
+		return trim( str_replace( $search, $replace, $content ) );
+	}
+
+	/**
+	 * Checks if the given fragment is a callable.
+	 *
+	 * @since 1.0.0
+	 * @since 1.5.0 Changed access to private.
+	 *
+	 * @param mixed $fragment Given fragment to check.
+	 *
+	 * @return bool
+	 */
+	private function is_function( $fragment ) {
+		return ( is_array( $fragment ) || is_callable( $fragment ) );
+	}
+
+	/**
+	 * Kill it :(
+	 *
+	 * @since 1.0.0
+	 * @since 1.5.0 Changed access to private.
+	 *
+	 * @return void
+	 */
+	private function kill() {
+
+		// Send report if set.
+		if ( beans_get( 'beans_send_compiler_report' ) ) {
+			$this->report();
+		}
+
+		$html = beans_output( 'beans_compiler_error_title_text', sprintf(
+			'<h2>%s</h2>',
+			__( 'Not cool, Beans cannot work its magic :(', 'tm-beans' )
+		) );
+
+		$html .= beans_output( 'beans_compiler_error_message_text', sprintf(
+			'<p>%s</p>',
+			__( 'Your current install or file permission prevents Beans from working its magic. Please get in touch with Beans support, we will gladly get you started within 24 - 48 hours (working days).', 'tm-beans' )
+		) );
+
+		$html .= beans_output( 'beans_compiler_error_contact_text', sprintf(
+			'<a class="button" href="http://www.getbeans.io/contact/?compiler_report=1" target="_blanc">%s</a>',
+			__( 'Contact Beans Support', 'tm-beans' )
+		) );
+
+		$html .= beans_output( 'beans_compiler_error_report_text', sprintf(
+			'<p style="margin-top: 12px; font-size: 12px;"><a href="' . add_query_arg( 'beans_send_compiler_report', true ) . '">%1$s</a>. %2$s</p>',
+			__( 'Send us an automatic report', 'tm-beans' ),
+			__( 'We respect your time and understand you might not be able to contact us.', 'tm-beans' )
+		) );
+
+		wp_die( wp_kses_post( $html ) );
+	}
+
+	/**
+	 * Send report.
+	 *
+	 * @since 1.0.0
+	 * @since 1.5.0 Changed access to private.
+	 *
+	 * @return void
+	 */
+	private function report() {
+		// Send report.
+		wp_mail(
+			'hello@getbeans.io',
+			'Compiler error',
+			'Compiler error reported by ' . home_url(),
+			array(
+				'MIME-Version: 1.0' . "\r\n",
+				'Content-type: text/html; charset=utf-8' . "\r\n",
+				"X-Mailer: PHP \r\n",
+				'From: ' . wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES ) . ' < ' . get_option( 'admin_email' ) . '>' . "\r\n",
+				'Reply-To: ' . get_option( 'admin_email' ) . "\r\n",
+			)
+		);
+
+		// Die and display message.
+		$message = beans_output(
+			'beans_compiler_report_error_text',
+			sprintf(
+				'<p>%s<p>',
+				__( 'Thanks for your contribution by reporting this issue. We hope to hear from you again.', 'tm-beans' )
+			)
+		);
+
+		wp_die( wp_kses_post( $message ) );
 	}
 
 	/**
