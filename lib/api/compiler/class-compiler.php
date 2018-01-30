@@ -93,24 +93,24 @@ final class _Beans_Compiler {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return void
+	 * @return string
 	 */
 	public function filesystem_method() {
 		return 'direct';
 	}
 
 	/**
-	 * Initialise WP Filsystem.
+	 * Initialise WP Filesystem.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return void
+	 * @return bool|void
 	 */
 	public function filesystem() {
 
 		// Initialize the WordPress Filesystem.
 		if ( ! isset( $GLOBALS['wp_filesystem'] ) || empty( $GLOBALS['wp_filesystem'] ) ) {
-			require_once( ABSPATH . '/wp-admin/includes/file.php' );
+			require_once ABSPATH . '/wp-admin/includes/file.php';
 
 			if ( ! WP_Filesystem() ) {
 				return $this->kill();
@@ -125,7 +125,7 @@ final class _Beans_Compiler {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return void
+	 * @return bool
 	 */
 	public function maybe_make_dir() {
 
@@ -168,7 +168,7 @@ final class _Beans_Compiler {
 	 * Set class filname.
 	 */
 	public function set_filname() {
-		$hash = substr( md5( @serialize( $this->compiler ) ), 0, 7 );
+		$hash = $this->hash( $this->compiler );
 
 		// Stop here and return filename if not in dev mode or if not using filesystem.
 		if ( ! _beans_is_compiler_dev_mode() || ! @is_dir( $this->dir ) ) { // @codingStandardsIgnoreLine - Generic.PHP.NoSilencedErrors.Discouraged  This is a valid use case.
@@ -195,7 +195,7 @@ final class _Beans_Compiler {
 		if ( ! empty( $fragments_filemtime ) ) {
 
 			// Set filemtime hash.
-			$_hash = substr( md5( @serialize( $fragments_filemtime ) ), 0, 7 );  // @codingStandardsIgnoreLine - Generic.PHP.NoSilencedErrors.Discouraged  This is a valid use case.
+			$_hash = $this->hash( $fragments_filemtime );
 
 			$items = @scandir( $this->dir ); // @codingStandardsIgnoreLine - Generic.PHP.NoSilencedErrors.Discouraged  This is a valid use case.
 			unset( $items[0], $items[1] );
@@ -214,6 +214,19 @@ final class _Beans_Compiler {
 		}
 
 		$this->compiler['filename'] = $hash . '.' . $this->get_extension();
+	}
+
+	/**
+	 * Hash the given array.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param array $given_array Given array to be hashed.
+	 *
+	 * @return string
+	 */
+	public function hash( array $given_array ) {
+		return substr( md5( @serialize( $given_array ) ), 0, 7 ); // @codingStandardsIgnoreLine - Generic.PHP.NoSilencedErrors.Discouraged  This is a valid use case.
 	}
 
 	/**
@@ -277,12 +290,12 @@ final class _Beans_Compiler {
 	public function enqueue_file() {
 
 		// Enqueue css.
-		if ( 'style' == $this->compiler['type'] ) {
+		if ( 'style' === $this->compiler['type'] ) {
 			return wp_enqueue_style( $this->compiler['id'], $this->get_url(), $this->compiler['depedencies'], $this->compiler['version'] );
 		}
 
 		// Enqueue js file.
-		if ( 'script' == $this->compiler['type'] ) {
+		if ( 'script' === $this->compiler['type'] ) {
 			return wp_enqueue_script( $this->compiler['id'], $this->get_url(), $this->compiler['depedencies'], $this->compiler['version'], $this->compiler['in_footer'] );
 		}
 
@@ -315,11 +328,11 @@ final class _Beans_Compiler {
 	 */
 	public function get_extension() {
 
-		if ( 'style' == $this->compiler['type'] ) {
+		if ( 'style' === $this->compiler['type'] ) {
 			return 'css';
 		}
 
-		if ( 'script' == $this->compiler['type'] ) {
+		if ( 'script' === $this->compiler['type'] ) {
 			return 'js';
 		}
 	}
@@ -348,7 +361,6 @@ final class _Beans_Compiler {
 			// Treat function.
 			if ( $this->is_function( $fragment ) ) {
 				$get_content = $this->get_function_content();
-
 			} else { // Treat file.
 				$get_content = $this->get_internal_content();
 
@@ -364,7 +376,7 @@ final class _Beans_Compiler {
 			}
 
 			// Add the content.
-			if ( 'style' == $this->compiler['type'] ) {
+			if ( 'style' === $this->compiler['type'] ) {
 				$get_content = $this->replace_css_url( $get_content );
 				$get_content = $this->add_content_media_query( $get_content );
 			}
@@ -498,12 +510,12 @@ final class _Beans_Compiler {
 	 */
 	public function format_content( $content ) {
 
-		if ( 'style' == $this->compiler['type'] ) {
+		if ( 'style' === $this->compiler['type'] ) {
 
-			if ( 'less' == $this->compiler['format'] ) {
+			if ( 'less' === $this->compiler['format'] ) {
 
 				if ( ! class_exists( 'Beans_Lessc' ) ) {
-					require_once( BEANS_API_PATH . 'compiler/vendors/lessc.php' );
+					require_once BEANS_API_PATH . 'compiler/vendors/lessc.php';
 				}
 
 				$less    = new Beans_Lessc();
@@ -517,15 +529,14 @@ final class _Beans_Compiler {
 			return $content;
 		}
 
-		if ( 'script' == $this->compiler['type'] && ! _beans_is_compiler_dev_mode() && $this->compiler['minify_js'] ) {
+		if ( 'script' === $this->compiler['type'] && ! _beans_is_compiler_dev_mode() && $this->compiler['minify_js'] ) {
 
 			if ( ! class_exists( 'JSMin' ) ) {
-				require_once( BEANS_API_PATH . 'compiler/vendors/js-minifier.php' );
+				require_once BEANS_API_PATH . 'compiler/vendors/js-minifier.php';
 			}
 
 			$js_min = new JSMin( $content );
 			return $js_min->min();
-
 		}
 
 		return $content;
@@ -560,7 +571,7 @@ final class _Beans_Compiler {
 	public function replace_css_url_callback( $matches ) {
 
 		// Stop here if it isn't a internal file or not a valid format.
-		if ( true == preg_match( '#^(http|https|\/\/|data)#', $matches[1] ) ) {
+		if ( 1 === preg_match( '#^(http|https|\/\/|data)#', $matches[1] ) ) {
 			return $matches[0];
 		}
 
@@ -569,7 +580,11 @@ final class _Beans_Compiler {
 		// Separate the placeholders and path.
 		$explode_path = explode( '../', $matches[1] );
 
-		// Replace the base part according to the path "../".
+		/**
+		 * Walk backwards through each of the the fragment's directories, one-by-one. The `foreach` loop
+		 * provides us with a performant way to walk the fragment back to its base path based upon the
+		 * number of placeholders.
+		 */
 		foreach ( $explode_path as $value ) {
 			$base = dirname( $base );
 		}
@@ -588,14 +603,16 @@ final class _Beans_Compiler {
 
 		// Return the rebuilt path converted to url.
 		return 'url("' . $url . '")';
-
 	}
 
 	/**
-	 * Minify CSS.
+	 * Minify the CSS.
+	 *
+	 * @param string $content Given content to process.
+	 *
+	 * @return string
 	 */
 	public function strip_whitespace( $content ) {
-
 		$replace = array(
 			'#/\*.*?\*/#s' => '', // Strip comments.
 			'#\s\s+#'      => ' ', // Strip excess whitespace.
@@ -615,30 +632,33 @@ final class _Beans_Compiler {
 			',\n' => ',', // Don't wrap multiple selectors.
 			'\n}' => '}', // Don't wrap closing braces.
 			'} '  => "}\n", // Put each rule on it's own line.
-			'\n'  => '', // Take out all line breaks
+			'\n'  => '', // Take out all line breaks.
 		);
 
 		$search = array_keys( $replace );
 
 		return trim( str_replace( $search, $replace, $content ) );
-
 	}
 
 	/**
-	 * Is the fragement a function.
+	 * Checks if the given fragment is a callable.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $fragment Given fragment to check.
+	 *
+	 * @return bool
 	 */
 	public function is_function( $fragment ) {
-
-		if ( is_array( $fragment ) || is_callable( $fragment ) ) {
-			return true;
-		}
-
-		return false;
-
+		return ( is_array( $fragment ) || is_callable( $fragment ) );
 	}
 
 	/**
 	 * Kill it :(
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
 	 */
 	public function kill() {
 
@@ -668,17 +688,19 @@ final class _Beans_Compiler {
 			__( 'We respect your time and understand you might not be able to contact us.', 'tm-beans' )
 		) );
 
-		wp_die( $html );
-
+		wp_die( wp_kses_post( $html ) );
 	}
 
 	/**
 	 * Send report.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
 	 */
 	public function report() {
-
 		// Send report.
-		$send = wp_mail(
+		wp_mail(
 			'hello@getbeans.io',
 			'Compiler error',
 			'Compiler error reported by ' . home_url(),
@@ -692,10 +714,14 @@ final class _Beans_Compiler {
 		);
 
 		// Die and display message.
-		wp_die( beans_output( 'beans_compiler_report_error_text', sprintf(
-			'<p>%s<p>',
-			__( 'Thanks for your contribution by reporting this issue. We hope to hear from you again.', 'tm-beans' )
-		) ) );
+		$message = beans_output(
+			'beans_compiler_report_error_text',
+			sprintf(
+				'<p>%s<p>',
+				__( 'Thanks for your contribution by reporting this issue. We hope to hear from you again.', 'tm-beans' )
+			)
+		);
 
+		wp_die( wp_kses_post( $message ) );
 	}
 }
