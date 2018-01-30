@@ -69,7 +69,7 @@ final class _Beans_Compiler {
 	 */
 	public function run_compiler() {
 		// Modify the WP Filesystem method.
-		add_filter( 'filesystem_method', array( $this, 'filesystem_method' ) );
+		add_filter( 'filesystem_method', array( $this, 'modify_filesystem_method' ) );
 
 		$this->set_fragments();
 		$this->set_filname();
@@ -83,7 +83,7 @@ final class _Beans_Compiler {
 		$this->enqueue_file();
 
 		// Keep it safe and reset WP Filesystem method.
-		remove_filter( 'filesystem_method', array( $this, 'filesystem_method' ) );
+		remove_filter( 'filesystem_method', array( $this, 'modify_filesystem_method' ) );
 	}
 
 	/**
@@ -93,7 +93,7 @@ final class _Beans_Compiler {
 	 *
 	 * @return string
 	 */
-	public function filesystem_method() {
+	public function modify_filesystem_method() {
 		return 'direct';
 	}
 
@@ -106,11 +106,16 @@ final class _Beans_Compiler {
 	 */
 	public function filesystem() {
 
-		// Initialize the WordPress Filesystem.
-		if ( ! isset( $GLOBALS['wp_filesystem'] ) || empty( $GLOBALS['wp_filesystem'] ) ) {
+		// WP_Filesystem is not already loaded, load it.
+		if ( ! function_exists( 'WP_Filesystem' ) ) {
 			require_once ABSPATH . '/wp-admin/includes/file.php';
+		}
 
-			if ( ! WP_Filesystem() ) {
+		// If WP_Filesystem is not initialized or it's not set to WP_Filesystem_Direct, initialize it.
+		if ( ! isset( $GLOBALS['wp_filesystem'] ) || ! is_a( $GLOBALS['wp_filesystem'], 'WP_Filesystem_Direct' ) ) {
+
+			// Fail-safe. If something happens, generate a report and then exit.
+			if ( true !== WP_Filesystem() ) {
 				return $this->kill();
 			}
 		}
