@@ -72,7 +72,7 @@ final class _Beans_Compiler {
 		add_filter( 'filesystem_method', array( $this, 'modify_filesystem_method' ) );
 
 		$this->set_fragments();
-		$this->set_filname();
+		$this->set_filename();
 
 		if ( ! $this->cache_file_exist() ) {
 			$this->filesystem();
@@ -168,9 +168,14 @@ final class _Beans_Compiler {
 	}
 
 	/**
-	 * Set class filname.
+	 * Set the filename for the compiled asset.
+	 *
+	 * @since 1.0.0
+	 * @since 1.5.0 Renamed method.
+	 *
+	 * @return void
 	 */
-	public function set_filname() {
+	public function set_filename() {
 		$hash = $this->hash( $this->config );
 
 		// Stop here and return filename if not in dev mode or if not using filesystem.
@@ -758,6 +763,20 @@ final class _Beans_Compiler {
 		);
 
 		return array_merge( $defaults, $config );
+	}
+
+	/**
+	 * Set the filename for the compiled asset.
+	 *
+	 * This method has been replaced with {@see set_filename()}.
+	 *
+	 * @since      1.0.0
+	 * @deprecated 1.5.0.
+	 */
+	public function set_filname() {
+		_deprecated_function( __METHOD__, '1.5.0', 'set_filename' );
+
+		$this->set_filename();
 	}
 
 	/**
