@@ -176,14 +176,7 @@ final class _Beans_Compiler {
 	 * @return void
 	 */
 	public function set_filename() {
-		$hash = $this->hash( $this->config );
-
-		// Stop here and return filename if not in dev mode or if not using filesystem.
-		if ( ! _beans_is_compiler_dev_mode() || ! @is_dir( $this->dir ) ) { // @codingStandardsIgnoreLine - Generic.PHP.NoSilencedErrors.Discouraged  This is a valid use case.
-			$this->config['filename'] = $hash . '.' . $this->get_extension();
-			return;
-		}
-
+		$hash                = $this->hash( $this->config );
 		$fragments_filemtime = $this->get_fragments_filemtime();
 		$hash                = $this->get_new_hash( $hash, $fragments_filemtime );
 
