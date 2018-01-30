@@ -539,8 +539,8 @@ final class _Beans_Compiler {
 	 */
 	public function replace_css_url_callback( $matches ) {
 
-		// Stop here if it isn't a internal file or not a valid format.
-		if ( 1 === preg_match( '#^(http|https|\/\/|data)#', $matches[1] ) ) {
+		// If the URI is absolute, bail out and return the CSS.
+		if ( _beans_is_uri( $matches[1] ) ) {
 			return $matches[0];
 		}
 
