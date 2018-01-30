@@ -54,6 +54,13 @@ final class _Beans_Compiler {
 	protected $compiled_content;
 
 	/**
+	 * Compiled content's filename.
+	 *
+	 * @var string
+	 */
+	protected $filename;
+
+	/**
 	 * Create a new Compiler.
 	 *
 	 * @since 1.0.0
@@ -179,7 +186,7 @@ final class _Beans_Compiler {
 	 * Set the filename for the compiled asset.
 	 *
 	 * @since 1.0.0
-	 * @since 1.5.0 Renamed method.
+	 * @since 1.5.0 Renamed method. Changed storage location to $filename property.
 	 *
 	 * @return void
 	 */
@@ -187,8 +194,7 @@ final class _Beans_Compiler {
 		$hash                = $this->hash( $this->config );
 		$fragments_filemtime = $this->get_fragments_filemtime();
 		$hash                = $this->get_new_hash( $hash, $fragments_filemtime );
-
-		$this->config['filename'] = $hash . '.' . $this->get_extension();
+		$this->filename      = $hash . '.' . $this->get_extension();
 	}
 
 	/**
@@ -229,8 +235,8 @@ final class _Beans_Compiler {
 	 * @return string
 	 */
 	public function get_filename() {
-		if ( isset( $this->config['filename'] ) ) {
-			return $this->dir . '/' . $this->config['filename'];
+		if ( isset( $this->filename ) ) {
+			return $this->dir . '/' . $this->filename;
 		}
 
 		return '';
@@ -296,7 +302,7 @@ final class _Beans_Compiler {
 	 * @return string
 	 */
 	public function get_url() {
-		$url = trailingslashit( $this->url ) . beans_get( 'filename', $this->config );
+		$url = trailingslashit( $this->url ) . $this->filename;
 
 		if ( is_ssl() ) {
 			$url = str_replace( 'http://', 'https://', $url );

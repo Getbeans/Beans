@@ -176,7 +176,7 @@ class Tests_Beans_Compiler_Cache_File extends Compiler_Test_Case {
 			return;
 		}
 
-		vfsStream::newFile( $compiler->config['filename'] )
+		vfsStream::newFile( $compiler->filename )
 			->at( $this->mock_filesystem->getChild( 'compiled/beans/compiler/' . $compiler->config['id'] ) )
 			->setContent( $compiler->compiled_content );
 	}
@@ -193,7 +193,7 @@ class Tests_Beans_Compiler_Cache_File extends Compiler_Test_Case {
 	private function get_cached_file_contents( $compiler ) {
 		return $this->mock_filesystem
 			->getChild( 'beans/compiler/' . $compiler->config['id'] )
-			->getChild( $compiler->config['filename'] )
+			->getChild( $compiler->filename )
 			->getcontent();
 	}
 }

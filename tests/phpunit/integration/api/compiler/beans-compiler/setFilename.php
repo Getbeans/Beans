@@ -47,7 +47,7 @@ class Tests_Beans_Compiler_Set_Filename extends Compiler_Test_Case {
 		// Set the filename. Test.
 		$compiler->set_filename();
 		$expected = $this->get_filename( $compiler, $config, filemtime( $fragment ) );
-		$this->assertSame( $expected, $compiler->config['filename'] );
+		$this->assertSame( $expected, $compiler->filename );
 	}
 
 	/**
@@ -82,7 +82,7 @@ class Tests_Beans_Compiler_Set_Filename extends Compiler_Test_Case {
 		// Set the filename. Test.
 		$compiler->set_filename();
 		$expected = $this->get_filename( $compiler, $config, filemtime( $fragment ) );
-		$this->assertSame( $expected, $compiler->config['filename'] );
+		$this->assertSame( $expected, $compiler->filename );
 	}
 
 	/**
@@ -144,7 +144,7 @@ class Tests_Beans_Compiler_Set_Filename extends Compiler_Test_Case {
 		 * 2. The original "compiled" file was removed.
 		 */
 		$compiler->set_filename();
-		$this->assertSame( $modified_filename, $compiler->config['filename'] );
+		$this->assertSame( $modified_filename, $compiler->filename );
 		$this->assertFileNotExists( vfsStream::url( 'compiled/beans/compiler/test/' . $original_filename ) );
 	}
 }

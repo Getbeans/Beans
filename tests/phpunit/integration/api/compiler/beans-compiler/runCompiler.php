@@ -369,7 +369,7 @@ class Tests_Beans_Compiler_Run_Compiler extends Compiler_Test_Case {
 	private function get_cached_file_contents( $compiler ) {
 		return $this->mock_filesystem
 			->getChild( 'beans/compiler/' . $compiler->config['id'] )
-			->getChild( $compiler->config['filename'] )
+			->getChild( $compiler->filename )
 			->getContent();
 	}
 

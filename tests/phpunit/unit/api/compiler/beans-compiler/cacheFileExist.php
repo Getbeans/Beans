@@ -60,7 +60,7 @@ class Tests_Beans_Compiler_CacheFileExist extends Compiler_Test_Case {
 		$compiler->set_filename();
 
 		// Check that the cached file does not exist in the virtual filesystem.
-		$this->assertFileNotExists( vfsStream::url( 'compiled/beans/compiler/test-script/' . $compiler->config['filename'] ) );
+		$this->assertFileNotExists( vfsStream::url( 'compiled/beans/compiler/test-script/' . $compiler->filename ) );
 
 		// Run cache_file_exist().
 		$this->assertFalse( $compiler->cache_file_exist() );
@@ -83,11 +83,11 @@ class Tests_Beans_Compiler_CacheFileExist extends Compiler_Test_Case {
 
 		// Add the cached file to the virtual filesystem.
 		$compiler->set_filename();
-		vfsStream::newFile( $compiler->config['filename'] )
+		vfsStream::newFile( $compiler->filename )
 			->at( $this->mock_filesystem->getChild( 'compiled/beans/compiler/test-script' ) );
 
 		// Check that the filename exists.
-		$this->assertFileExists( vfsStream::url( 'compiled/beans/compiler/test-script/' . $compiler->config['filename'] ) );
+		$this->assertFileExists( vfsStream::url( 'compiled/beans/compiler/test-script/' . $compiler->filename ) );
 
 		// Run cache_file_exist().
 		$this->assertTrue( $compiler->cache_file_exist() );
