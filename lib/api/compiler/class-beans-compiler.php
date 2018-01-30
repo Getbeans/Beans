@@ -190,7 +190,7 @@ final class _Beans_Compiler {
 			}
 
 			// Only check file time for internal files.
-			if ( false !== strpos( $fragment, $_SERVER['HTTP_HOST'] ) || 1 === preg_match( '#^\/[^\/]#', $fragment ) ) {
+			if ( file_exists( $fragment ) ) {
 				$fragments_filemtime[ $id ] = @filemtime( beans_url_to_path( $fragment ) ); // @codingStandardsIgnoreLine - Generic.PHP.NoSilencedErrors.Discouraged  This is a valid use case.
 			}
 		}
