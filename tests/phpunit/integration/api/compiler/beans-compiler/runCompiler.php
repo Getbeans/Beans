@@ -148,7 +148,7 @@ class Tests_Beans_Compiler_Run_Compiler extends Compiler_Test_Case {
 		$this->assertFileExists( $original_file );
 
 		/**
-		 * Next step is to modify the fragment, which will change it's modification time.  Let's add an opening
+		 * Next step is to modify the fragment, which will change its modification time.  Let's add an opening
 		 * comment to the fragment's content and then set up the modified file for our tests.
 		 */
 		$compiled_content = $this->get_compiled_jquery() . "console.log('Beans rocks!');";
