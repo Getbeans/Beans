@@ -2,11 +2,11 @@
 /**
  * Compile and cache CSS, LESS and JS files.
  *
- * The Beans Compiler is there to compile multiple internal or external CSS, LESS and JS files on a
+ * The Beans Compiler compiles multiple internal or external CSS, LESS and JS files on a
  * per page basis. LESS content will automatically be converted to CSS.
  *
- * When development mode is enabled, internal files changes will automatically be detected. Third party enqueued
- * styles and scripts can be compiled and cached into a single file.
+ * Internal file changes are automatically detected if development mode is enabled.
+ * Third party enqueued styles and scripts can be compiled and cached into a single file.
  *
  * @package API\Compiler
  */
@@ -99,12 +99,11 @@ function beans_compile_less_fragments( $id, $fragments, $args = array() ) {
  * @since 1.0.0
  *
  * @param string       $id          The compiler ID. Similar to the WordPress scripts $handle argument.
- * @param string|array $fragments   File(s) absolute path. Internal or external file(s) url accepted but may increase
+ * @param string|array $fragments   File(s) absolute path. Internal or external file(s) URL accepted but may increase
  *                                  compiling time.
  * @param array        $args        {
  *                                  Optional. Array of arguments used by the compiler.
  *
- * @type array         $depedencies An array of registered handles this script depends on. Default false.
  * @type array         $depedencies An array of registered handles this script depends on. Default false.
  * @type bool          $in_footer   Whether to enqueue the script before </head> or before </body>. Default false.
  * @type bool          $minify_js   Whether the JavaScript should be minified or not. Be aware that minifying
@@ -162,7 +161,7 @@ function beans_compiler_add_fragment( $id, $fragments, $format ) {
 			continue;
 		}
 
-		// Register new compiler id if it doesn't exist and add fragment.
+		// Register a new compiler ID if it doesn't exist and add fragment.
 		if ( ! isset( $_beans_compiler_added_fragments[ $format ][ $id ] ) ) {
 			$_beans_compiler_added_fragments[ $format ][ $id ] = array( $fragment );
 		} else { // Add fragment to existing compiler.
@@ -174,13 +173,13 @@ function beans_compiler_add_fragment( $id, $fragments, $format ) {
 /**
  * Flush cached compiler files.
  *
- * Each compiler has its own folder which contains the cached CSS and JS files. Cached files format
- * can be specified if needed.
+ * Each compiler has its own folder which contains the cached CSS and JS files. The file format
+ * of the cached file can be specified if needed.
  *
  * @since 1.0.0
  *
  * @param string      $id          The compiler ID. Similar to the WordPress scripts $handle argument.
- * @param string|bool $file_format Optional. Define which files format should be removed. Both CSS and JS
+ * @param string|bool $file_format Optional. Define which file format(s) should be removed. Both CSS and JS
  *                                 files will be removed if set to false. Accepts 'false', 'css' or 'js'.
  * @param bool        $admin       Optional. Whether it is an admin compiler or not.
  *
@@ -191,7 +190,7 @@ function beans_flush_compiler( $id, $file_format = false, $admin = false ) {
 
 	$cache_dir = beans_get_compiler_dir( $admin );
 
-	// Always flush beans global cache.
+	// Always flush Beans' global cache.
 	if ( ! $beans_flushed ) {
 		$beans_flushed = true;
 
@@ -205,7 +204,7 @@ function beans_flush_compiler( $id, $file_format = false, $admin = false ) {
 		return;
 	}
 
-	// Remove only specified format files.
+	// Remove only the specified file format.
 	if ( $file_format ) {
 		$items = scandir( $dir );
 		unset( $items[0], $items[1] );
@@ -219,7 +218,7 @@ function beans_flush_compiler( $id, $file_format = false, $admin = false ) {
 		return;
 	}
 
-	// Remove all format files.
+	// Remove all file formats.
 	beans_remove_dir( $dir );
 }
 
@@ -231,7 +230,7 @@ function beans_flush_compiler( $id, $file_format = false, $admin = false ) {
  * @since 1.0.0
  *
  * @param string      $id          The compiler ID. Similar to the WordPress scripts $handle argument.
- * @param string|bool $file_format Optional. Define which files format should be removed. Both CSS and JS
+ * @param string|bool $file_format Optional. Define which file formats should be removed. Both CSS and JS
  *                                 files will be removed if set to false. Accepts 'false', 'css' or 'js'.
  *
  * @return void
@@ -254,7 +253,7 @@ function beans_get_compiler_dir( $is_admin = false ) {
 	$suffix        = $is_admin ? 'beans/admin-compiler/' : 'beans/compiler/';
 
 	/**
-	 * Deprecated. Filter the beans compiler directory.
+	 * Deprecated. Filter the Beans compiler directory.
 	 *
 	 * This filter is deprecated for security and compatibility purposes.
 	 *
@@ -283,7 +282,9 @@ function beans_get_compiler_url( $is_admin = false ) {
 }
 
 /**
- * Check if development mode is enabled, taking in consideration legacy constant.
+ * Check if development mode is enabled.
+ *
+ * Takes legacy constant into consideration.
  *
  * @since  1.0.0
  * @ignore
