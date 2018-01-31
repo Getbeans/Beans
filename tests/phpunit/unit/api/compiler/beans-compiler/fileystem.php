@@ -25,7 +25,7 @@ require_once dirname( __DIR__ ) . '/includes/class-compiler-test-case.php';
 class Tests_Beans_Compiler_Filesystem extends Compiler_Test_Case {
 
 	/**
-	 * Test filesystem() should return true when WP Filesystem is initialized to WP_Filesystem_Direct.
+	 * Test filesystem() should return true when the WP Filesystem is initialized to WP_Filesystem_Direct.
 	 */
 	public function test_should_return_true_when_wp_filesystem_is_init() {
 		// Initialize the wp_filesystem global variable.
@@ -34,7 +34,7 @@ class Tests_Beans_Compiler_Filesystem extends Compiler_Test_Case {
 
 		Functions\when( 'WP_Filesystem' )->justReturn( true );
 
-		// Test that WP Filesystem is not loaded yet.
+		// Test that the WP Filesystem is not loaded yet.
 		$compiler = new \_Beans_Compiler( array() );
 		$this->assertTrue( $compiler->filesystem() );
 
