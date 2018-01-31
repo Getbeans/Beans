@@ -84,12 +84,14 @@ class Tests_Beans_Compiler_Format_Content extends Compiler_Test_Case {
 		// Turn on development mode.
 		update_option( 'beans_dev_mode', true );
 
+		// Don't remove empty line before EOB; !
 		$expected_css = <<<EOB
 body {
   background-color: #fff;
   color: #000;
   font-size: 18px;
 }
+
 EOB;
 		// Run the test.
 		$this->assertSame( $expected_css, $compiler->format_content( $this->less ) );
