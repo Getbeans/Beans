@@ -41,6 +41,7 @@ class Tests_Beans_Compiler_Replace_Css_Url extends Compiler_Test_Case {
     box-shadow: inset 0px -3px 20px rgba(0,0,0,0.04);
 }
 EOB;
+		// Run the test.
 		$this->assertSame( $css, $compiler->replace_css_url( $css ) );
 	}
 
@@ -51,13 +52,14 @@ EOB;
 		$compiler = new _Beans_Compiler( array() );
 		$css      = <<<EOB
 .hero-section {
-    background: linear-gradient(rgba(255, 255, 255, 0.8) 100%, #fff), 
+    background: linear-gradient(rgba(255, 255, 255, 0.8) 100%, #fff),
                 url(http://example.com/some-image.jpg) repeat center #fff;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 EOB;
+		// Run the test.
 		$this->assertSame( $css, $compiler->replace_css_url( $css ) );
 	}
 
@@ -81,6 +83,7 @@ EOB;
 			$css
 		);
 
+		// Run the test.
 		$this->assertSame( $expected, $compiler->replace_css_url( $css ) );
 	}
 
@@ -104,6 +107,7 @@ EOB;
 			'"http://foo.com/assets/images/hero-2.jpg"',
 			$css
 		);
+		// Run the test.
 		$this->assertSame( $expected, $compiler->replace_css_url( $css ) );
 
 		// Test with spaces and single quotes.
@@ -117,6 +121,7 @@ EOB;
 			'"http://foo.com/assets/images/hero-2.jpg"',
 			$css
 		);
+		// Run the test.
 		$this->assertSame( $expected, $compiler->replace_css_url( $css ) );
 
 		// Test with spaces and double quotes.
@@ -130,6 +135,7 @@ EOB;
 			'"http://foo.com/assets/images/hero-2.jpg"',
 			$css
 		);
+		// Run the test.
 		$this->assertSame( $expected, $compiler->replace_css_url( $css ) );
 	}
 
@@ -153,6 +159,7 @@ EOB;
 			'"http://example.com/assets/images/hero-1.jpg"',
 			$css
 		);
+		// Run the test.
 		$this->assertSame( $expected, $compiler->replace_css_url( $css ) );
 
 		// Test with spaces and single quotes.
@@ -166,6 +173,7 @@ EOB;
 			'"http://example.com/assets/images/hero-1.jpg"',
 			$css
 		);
+		// Run the test.
 		$this->assertSame( $expected, $compiler->replace_css_url( $css ) );
 
 		// Test with spaces and double quotes.
@@ -179,6 +187,7 @@ EOB;
 			'"http://example.com/assets/images/hero-1.jpg"',
 			$css
 		);
+		// Run the test.
 		$this->assertSame( $expected, $compiler->replace_css_url( $css ) );
 	}
 
