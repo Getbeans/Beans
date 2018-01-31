@@ -190,9 +190,9 @@ class Tests_Beans_Compiler_Run_Compiler extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test cache_file() should compile jQuery, saving it to the virtual filesystem and enqueuing it WordPress.
+	 * Test cache_file() should compile jQuery, saving it to the virtual filesystem and enqueuing it in WordPress.
 	 */
-	public function test_should_compile_jquery() {
+	public function test_should_compile_save_and_enqueue_jquery() {
 		$fragment = vfsStream::url( 'compiled/fixtures/jquery.test.js' );
 		$config   = array(
 			'id'           => 'test-jquery',
@@ -225,7 +225,7 @@ class Tests_Beans_Compiler_Run_Compiler extends Compiler_Test_Case {
 	/**
 	 * Test cache_file() should compile JavaScript, saving it to the virtual filesystem and enqueuing it WordPress.
 	 */
-	public function test_should_compile_js() {
+	public function test_should_compile_save_and_enqueue_js() {
 		$fragment = vfsStream::url( 'compiled/fixtures/my-game-clock.js' );
 		$config   = array(
 			'id'           => 'test-js',
@@ -257,7 +257,7 @@ class Tests_Beans_Compiler_Run_Compiler extends Compiler_Test_Case {
 	/**
 	 * Test cache_file() should compile CSS, saving it to the virtual filesystem and enqueuing it WordPress.
 	 */
-	public function test_should_compile_css() {
+	public function test_should_compile_save_and_enqueue_css() {
 		$fragment = vfsStream::url( 'compiled/fixtures/style.css' );
 		$config   = array(
 			'id'           => 'test-css',
@@ -289,7 +289,7 @@ class Tests_Beans_Compiler_Run_Compiler extends Compiler_Test_Case {
 	/**
 	 * Test cache_file() should compile Less, saving it to the virtual filesystem and enqueuing it WordPress.
 	 */
-	public function test_should_compile_less() {
+	public function test_should_compile_save_and_enqueue_less() {
 		$config   = array(
 			'id'           => 'test-css',
 			'type'         => 'style',
