@@ -29,6 +29,8 @@ class Tests_Beans_Compiler_Get_Internal_Content extends Compiler_Test_Case {
 	 */
 	public function test_should_return_false_when_fragment_is_empty() {
 		$compiler = new _Beans_Compiler( array() );
+
+		// Run the test.
 		$this->assertfalse( $compiler->get_internal_content( '' ) );
 	}
 
@@ -48,7 +50,7 @@ class Tests_Beans_Compiler_Get_Internal_Content extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test get_internal_content() should fragment's contents.
+	 * Test get_internal_content() should return a fragment's contents.
 	 */
 	public function test_should_return_fragment_contents() {
 		// Set up the compiler.
@@ -68,6 +70,7 @@ class Tests_Beans_Compiler_Get_Internal_Content extends Compiler_Test_Case {
 		$this->assertContains( 'body {', $contents );
 		$this->assertContains( 'color: @body-color;', $contents );
 
+		// Clean up.
 		remove_filter( 'filesystem_method', array( $compiler, 'modify_filesystem_method' ) );
 	}
 }
