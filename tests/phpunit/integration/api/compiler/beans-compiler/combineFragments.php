@@ -93,7 +93,7 @@ class Tests_Beans_Compiler_Combine_Fragments extends Compiler_Test_Case {
 	/**
 	 * Test combine_fragments() should compile the Less fragments and return the compiled CSS.
 	 */
-	public function test_should_compiled_less_and_return_css() {
+	public function test_should_compile_less_and_return_css() {
 		$compiler = new _Beans_Compiler( array(
 			'id'        => 'test',
 			'type'      => 'style',
@@ -193,7 +193,7 @@ EOB;
 	}
 
 	/**
-	 * Test format_content() should return minified jQuery.
+	 * Test combine_fragments() should return minified jQuery.
 	 */
 	public function test_should_return_minified_jquery() {
 		$compiler = new _Beans_Compiler( array(
@@ -269,7 +269,7 @@ EOB;
 	}
 
 	/**
-	 * Test format_content() should return minified JavaScript.
+	 * Test combine_fragments() should return minified JavaScript.
 	 */
 	public function test_should_return_minified_javascript() {
 		$compiler = new _Beans_Compiler( array(

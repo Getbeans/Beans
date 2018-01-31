@@ -67,7 +67,7 @@ class Tests_Beans_Compiler_Combine_Fragments extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test combine_fragments() should return empty string when there are no fragments to combine.
+	 * Test combine_fragments() should return an empty string when there are no fragments to combine.
 	 */
 	public function test_should_return_empty_string_when_no_fragments() {
 		$compiler = new _Beans_Compiler( array() );
@@ -78,7 +78,7 @@ class Tests_Beans_Compiler_Combine_Fragments extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test combine_fragments() should return empty string when the fragment does not exist.
+	 * Test combine_fragments() should return an empty string when the fragment does not exist.
 	 */
 	public function test_should_return_empty_string_when_fragment_does_not_exist() {
 		$fragment = vfsStream::url( 'compiled/fixtures/' ) . 'invalid-file.js';
@@ -93,7 +93,7 @@ class Tests_Beans_Compiler_Combine_Fragments extends Compiler_Test_Case {
 	/**
 	 * Test combine_fragments() should compile the LESS fragments and return the compiled CSS.
 	 */
-	public function test_should_compiled_less_and_return_css() {
+	public function test_should_compile_less_and_return_css() {
 		$compiler = new _Beans_Compiler( array(
 			'id'        => 'test',
 			'type'      => 'style',
@@ -172,7 +172,7 @@ EOB;
 	 * Test combine_fragments() should return the original jQuery when "minify_js" is enabled,
 	 * but the site is in development mode.
 	 */
-	public function test_should_return_original_jquery_when_not_in_not_dev_mode() {
+	public function test_should_always_return_original_jquery_when_in_dev_mode() {
 		$compiler = new _Beans_Compiler( array(
 			'id'           => 'test',
 			'type'         => 'script',
@@ -193,7 +193,7 @@ EOB;
 	}
 
 	/**
-	 * Test format_content() should return minified jQuery.
+	 * Test combine_fragments() should return minified jQuery.
 	 */
 	public function test_should_return_minified_jquery() {
 		$compiler = new _Beans_Compiler( array(
@@ -242,7 +242,7 @@ EOB;
 	 * Test combine_fragments() should return the original JavaScript when "minify_js" is enabled,
 	 * but the site is in development mode.
 	 */
-	public function test_should_return_original_js_when_not_in_not_dev_mode() {
+	public function test_should_always_return_original_js_when_in_dev_mode() {
 		$compiler = new _Beans_Compiler( array(
 			'id'        => 'test',
 			'type'      => 'script',
@@ -262,7 +262,7 @@ EOB;
 	}
 
 	/**
-	 * Test format_content() should return minified JavaScript.
+	 * Test combine_fragments() should return minified JavaScript.
 	 */
 	public function test_should_return_minified_javascript() {
 		$compiler = new _Beans_Compiler( array(
