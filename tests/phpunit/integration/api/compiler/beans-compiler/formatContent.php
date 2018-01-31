@@ -131,7 +131,7 @@ EOB;
 	 * Test format_content() should return the original jQuery when "minify_js" is enabled,
 	 * but the site is in development mode.
 	 */
-	public function test_should_return_original_jquery_when_not_in_not_dev_mode() {
+	public function test_should_always_return_original_jquery_when_in_dev_mode() {
 		$compiler = new \_Beans_Compiler( array(
 			'id'        => 'test',
 			'type'      => 'script',
@@ -144,9 +144,10 @@ EOB;
 	}
 
 	/**
-	 * Test format_content() should return minified jQuery.
+	 * Test format_content() should return minified jQuery when "minify_js" is enabled
+	 * and the site is not in development mode.
 	 */
-	public function test_should_return_minified_jquery() {
+	public function test_should_return_minified_jquery_when_not_in_dev_mode_and_minify_js_enabled() {
 		$compiler = new \_Beans_Compiler( array(
 			'id'        => 'test',
 			'type'      => 'script',
@@ -183,7 +184,7 @@ EOB;
 	 * Test format_content() should return the original JavaScript when "minify_js" is enabled,
 	 * but the site is in development mode.
 	 */
-	public function test_should_return_original_js_when_not_in_not_dev_mode() {
+	public function test_should_always_return_original_js_when_in_dev_mode() {
 		$compiler = new \_Beans_Compiler( array(
 			'id'        => 'test',
 			'type'      => 'script',
@@ -196,9 +197,10 @@ EOB;
 	}
 
 	/**
-	 * Test format_content() should return minified JavaScript.
+	 * Test format_content() should return minified JavaScript when "minify_js" is enabled
+	 * and the site is not in development mode.
 	 */
-	public function test_should_return_minified_javascript() {
+	public function test_should_return_minified_js_when_not_in_dev_mode_and_minify_js_enabled() {
 		$compiler = new \_Beans_Compiler( array(
 			'id'        => 'test',
 			'type'      => 'script',
