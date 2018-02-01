@@ -51,7 +51,7 @@ class Tests_Beans_Compiler_Set_Filename extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test set_filename() should return the hash created with the modification time from each of the fragments.
+	 * Test set_filename() should exclude external fragments.
 	 */
 	public function test_should_exclude_external_fragments() {
 		$fragment = vfsStream::url( 'compiled/fixtures/my-game-clock.js' );
@@ -119,7 +119,7 @@ class Tests_Beans_Compiler_Set_Filename extends Compiler_Test_Case {
 		$this->assertFileExists( vfsStream::url( 'compiled/beans/compiler/test/' . $original_filename ) );
 
 		/**
-		 * Next step is to modify the fragment, which will change it's modification time.  Let's add an opening
+		 * Next step is to modify the fragment, which will change its modification time.  Let's add an opening
 		 * comment to the fragment's content and then set up the modified file for our tests.
 		 */
 		$file = $this->mock_filesystem->getChild( 'fixtures' )->getChild( 'jquery.test.js' );
