@@ -40,13 +40,36 @@ abstract class Actions_Test_Case extends WP_UnitTestCase {
 	protected static $test_ids;
 
 	/**
-	 * Setup the test before we run the test setups.
+	 * Set up the test before we run the test setups.
 	 */
 	public static function setUpBeforeClass() {
 		parent::setUpBeforeClass();
 
 		static::$test_actions = require dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'fixtures/test-actions.php';
 		static::$test_ids     = array_keys( static::$test_actions );
+	}
+
+	/**
+	 * Tear down the test before we exit this class.
+	 */
+	public static function tearDownAfterClass() {
+		parent::tearDownAfterClass();
+
+		global $_beans_registered_actions;
+		$_beans_registered_actions = array(
+			'added'    => array(),
+			'modified' => array(),
+			'removed'  => array(),
+			'replaced' => array(),
+		);
+
+		// Remove the test actions.
+		foreach ( static::$test_actions as $beans_id => $action ) {
+			remove_action( $action['hook'], $action['callback'], $action['priority'] );
+		}
+
+		static::$test_actions = null;
+		static::$test_ids     = null;
 	}
 
 	/**
@@ -66,6 +89,23 @@ abstract class Actions_Test_Case extends WP_UnitTestCase {
 			'removed'  => array(),
 			'replaced' => array(),
 		);
+	}
+
+	/**
+	 * Restore the original action.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string $beans_id The Beans unique ID.
+	 *
+	 * @return void
+	 */
+	protected function restore_original( $beans_id ) {
+		$action = static::$test_actions[ $beans_id ];
+
+		_beans_unset_action( $beans_id, 'added' );
+
+		beans_add_action( $beans_id, $action['hook'], $action['callback'], $action['priority'], $action['args'] );
 	}
 
 	/**
@@ -135,9 +175,22 @@ abstract class Actions_Test_Case extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Create a post, load it, and force the "template redirect" to fire.
+	 * Simulate going to the post and loading in the template and fragments.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return void
 	 */
 	protected function go_to_post() {
+
+		/**
+		 * Restore the actions. Why? The file loads once and initially adds the actions. But then we remove them
+		 * during our tests.
+		 */
+		foreach ( static::$test_ids as $beans_id ) {
+			$this->restore_original( $beans_id );
+		}
+
 		$post_id = self::factory()->post->create( array( 'post_title' => 'Hello Beans' ) );
 		$this->go_to( get_permalink( $post_id ) );
 		do_action( 'template_redirect' ); // @codingStandardsIgnoreLine
