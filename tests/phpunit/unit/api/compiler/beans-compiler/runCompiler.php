@@ -117,7 +117,7 @@ class Tests_Beans_Compiler_Run_Compiler extends Compiler_Test_Case {
 
 	/**
 	 * Test cache_file() should recompile when a fragment(s) changes.  When this happens, the existing cached file
-	 * is removed and the new one is stored in the filesystem.
+	 * is removed and the new file is stored in the filesystem.
 	 */
 	public function test_should_recompile_when_fragments_change() {
 		$fragment = vfsStream::url( 'compiled/fixtures/jquery.test.js' );
@@ -148,7 +148,7 @@ class Tests_Beans_Compiler_Run_Compiler extends Compiler_Test_Case {
 		$this->assertFileExists( $original_file );
 
 		/**
-		 * Next step is to modify the fragment, which will change it's modification time.  Let's add an opening
+		 * Next step is to modify the fragment, which will change its modification time.  Let's add an opening
 		 * comment to the fragment's content and then set up the modified file for our tests.
 		 */
 		$compiled_content = $this->get_compiled_jquery() . "console.log('Beans rocks!');";
@@ -162,7 +162,7 @@ class Tests_Beans_Compiler_Run_Compiler extends Compiler_Test_Case {
 		$this->assertFileNotExists( $modified_file );
 
 		/**
-		 * We've now completed the set up process.  Let's test that the original fragment has changed by
+		 * We've now completed the setup process.  Let's test that the original fragment has changed by
 		 * testing that it is not equal to the modification time, filename, and hashes.
 		 */
 		$this->assertNotEquals( $modified_filemtime, $original_filemtime );
@@ -189,9 +189,9 @@ class Tests_Beans_Compiler_Run_Compiler extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test cache_file() should compile jQuery, saving it to the virtual filesystem and enqueuing it WordPress.
+	 * Test cache_file() should compile jQuery, saving it to the virtual filesystem and enqueuing it in WordPress.
 	 */
-	public function test_should_compile_jquery() {
+	public function test_should_compile_save_and_enqueue_jquery() {
 		$fragment = vfsStream::url( 'compiled/fixtures/jquery.test.js' );
 		$config   = array(
 			'id'           => 'test-jquery',
@@ -221,9 +221,9 @@ class Tests_Beans_Compiler_Run_Compiler extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test cache_file() should compile JavaScript, saving it to the virtual filesystem and enqueuing it WordPress.
+	 * Test cache_file() should compile JavaScript, saving it to the virtual filesystem and enqueuing it in WordPress.
 	 */
-	public function test_should_compile_js() {
+	public function test_should_compile_save_and_enqueue_js() {
 		$fragment = vfsStream::url( 'compiled/fixtures/my-game-clock.js' );
 		$config   = array(
 			'id'           => 'test-js',
@@ -252,9 +252,9 @@ class Tests_Beans_Compiler_Run_Compiler extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test cache_file() should compile CSS, saving it to the virtual filesystem and enqueuing it WordPress.
+	 * Test cache_file() should compile CSS, saving it to the virtual filesystem and enqueuing it in WordPress.
 	 */
-	public function test_should_compile_css() {
+	public function test_should_compile_save_and_enqueue_css() {
 		$fragment = vfsStream::url( 'compiled/fixtures/style.css' );
 		$config   = array(
 			'id'           => 'test-css',
@@ -283,9 +283,9 @@ class Tests_Beans_Compiler_Run_Compiler extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test cache_file() should compile Less, saving it to the virtual filesystem and enqueuing it WordPress.
+	 * Test cache_file() should compile Less, saving it to the virtual filesystem and enqueuing it in WordPress.
 	 */
-	public function test_should_compile_less() {
+	public function test_should_compile_save_and_enqueue_less() {
 		$config   = array(
 			'id'           => 'test-css',
 			'type'         => 'style',
