@@ -35,6 +35,7 @@ class Tests_Beans_Compiler_Get extends Compiler_Test_Case {
 
 		$compiler = new \_Beans_Compiler( $config );
 
+		// Run the tests.
 		$this->assertArrayNotHasKey( 'depedencies', $compiler->config );
 		$this->assertArrayHasKey( 'dependencies', $compiler->config );
 		$this->assertSame( array( 'jquery' ), $compiler->config['dependencies'] );
@@ -88,7 +89,7 @@ class Tests_Beans_Compiler_Get extends Compiler_Test_Case {
 	/**
 	 * Test should return the absolute path to the compiled files directory.
 	 */
-	public function test_should_return_dir() {
+	public function test_should_return_absolute_path_to_compiled_files_dir() {
 		$config = array(
 			'id'     => 'test',
 			'type'   => 'style',
@@ -97,13 +98,14 @@ class Tests_Beans_Compiler_Get extends Compiler_Test_Case {
 
 		$compiler = new \_Beans_Compiler( $config );
 
+		// Run the test.
 		$this->assertSame( vfsStream::url( 'compiled/beans/compiler/test' ), $compiler->dir );
 	}
 
 	/**
-	 * Test should return compiled files directory's URL.
+	 * Test should return URL to the compiled files directory.
 	 */
-	public function test_should_return_url() {
+	public function test_should_return_url_to_compiled_files_dir() {
 		$config = array(
 			'id'   => 'test_scripts',
 			'type' => 'script',
@@ -111,6 +113,7 @@ class Tests_Beans_Compiler_Get extends Compiler_Test_Case {
 
 		$compiler = new \_Beans_Compiler( $config );
 
+		// Run the test.
 		$this->assertSame( $this->compiled_url . 'beans/compiler/test_scripts', $compiler->url );
 	}
 }
