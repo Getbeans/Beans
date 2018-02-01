@@ -25,7 +25,7 @@ require_once dirname( __DIR__ ) . '/includes/class-compiler-test-case.php';
 class Tests_Beans_Compiler_Set_Fragments extends Compiler_Test_Case {
 
 	/**
-	 * Test should return unchanged fragments, meaning no fragments were added or removed.
+	 * Test set_fragments() should return unchanged fragments, meaning no fragments were added or removed.
 	 */
 	public function test_should_return_unchanged_fragments() {
 		$config = array(
@@ -49,7 +49,7 @@ class Tests_Beans_Compiler_Set_Fragments extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test should return fragments merged with the fragments stored in the global variable.
+	 * Test set_fragments() should return fragments merged with the fragments stored in the global variable.
 	 */
 	public function test_should_return_fragments_merged_with_global() {
 		$config = array(
@@ -81,7 +81,7 @@ class Tests_Beans_Compiler_Set_Fragments extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test should fire the "beans_compiler_fragments_{id}" event.
+	 * Test set_fragments() should fire the "beans_compiler_fragments_{id}" event.
 	 */
 	public function test_should_fire_event() {
 		$config = array(
@@ -96,7 +96,7 @@ class Tests_Beans_Compiler_Set_Fragments extends Compiler_Test_Case {
 
 		$compiler = new \_Beans_Compiler( $config );
 
-		// Set up the expectation first before firing the event.
+		// Set up the expectation before firing the event.
 		Monkey\Filters\expectApplied( 'beans_compiler_fragments_test' )
 			->once()
 			->with( $config['fragments'] )
