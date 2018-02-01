@@ -25,20 +25,23 @@ require_once dirname( __DIR__ ) . '/includes/class-compiler-test-case.php';
 class Tests_Beans_Compiler_Get_Remote_Content extends Compiler_Test_Case {
 
 	/**
-	 * Test get_remote_content() should return false when fragment is empty.
+	 * Test get_remote_content() should return false when the fragment is empty.
 	 */
 	public function test_should_return_false_when_fragment_is_empty() {
 		$compiler = new _Beans_Compiler( array() );
 
+		// Run the tests.
 		$this->assertfalse( $compiler->get_remote_content() );
+
 		$this->set_current_fragment( $compiler, false );
 		$this->assertfalse( $compiler->get_remote_content() );
+
 		$this->set_current_fragment( $compiler, '' );
 		$this->assertfalse( $compiler->get_remote_content() );
 	}
 
 	/**
-	 * Test get_remote_content() should return empty string when the remote site or file does not exist.
+	 * Test get_remote_content() should return an empty string when the remote site or file does not exist.
 	 */
 	public function test_should_return_empty_string_when_remote_does_not_exist() {
 		// Set up the compiler.
@@ -57,7 +60,7 @@ class Tests_Beans_Compiler_Get_Remote_Content extends Compiler_Test_Case {
 	/**
 	 * Test get_remote_content() should retry and then return false when the remote file does not exist.
 	 */
-	public function test_should_return_retry_and_return_false() {
+	public function test_should_retry_and_return_false_when_remote_file_does_not_exist() {
 		// Set up the compiler.
 		$fragment = 'http://beans.local/invalid-file.js';
 		$compiler = new _Beans_Compiler( array() );
@@ -88,7 +91,7 @@ class Tests_Beans_Compiler_Get_Remote_Content extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test get_remote_content() should return the content when fragment is a relative url.
+	 * Test get_remote_content() should return the content when the fragment has a relative url.
 	 */
 	public function test_should_return_content_when_relative_url() {
 		// Set up the compiler.
@@ -124,7 +127,7 @@ class Tests_Beans_Compiler_Get_Remote_Content extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test get_remote_content() should return the content when fragment is http URL.
+	 * Test get_remote_content() should return the content when the fragment has an http URL.
 	 */
 	public function test_should_return_content_when_http() {
 		// Set up the compiler.
@@ -160,7 +163,7 @@ class Tests_Beans_Compiler_Get_Remote_Content extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test get_remote_content() should return the content when fragment is https URL.
+	 * Test get_remote_content() should return the content when the fragment has an https URL.
 	 */
 	public function test_should_return_content_when_https() {
 		// Set up the compiler.
