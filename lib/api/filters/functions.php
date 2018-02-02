@@ -6,34 +6,34 @@
  */
 
 /**
- * Hooks a function or method to a specific filter action.
+ * Hooks a callback (function or method) to a specific filter event.
  *
  * This function is similar to {@link http://codex.wordpress.org/Function_Reference/add_filter add_filter()}
- * with the exception that it accepts a $callback argument which is used to automatically create an
+ * with the exception that it accepts a $callback_or_value argument which is used to automatically create an
  * anonymous function.
  *
  * @since 1.0.0
  *
- * @param string   $id       The filter ID.
- * @param callback $callback The name of the function you wish to be called. Inline content will automatically
- *                           create an anonymous function.
- * @param int      $priority Optional. Used to specify the order in which the functions
- *                           associated with a particular action are executed. Default 10.
- *                           Lower numbers correspond with earlier execution,
- *                           and functions with the same priority are executed
- *                           in the order in which they were added to the action.
- * @param int      $args     Optional. The number of arguments the function accepts. Default 1.
+ * @param string         $hook              The name of the filter event to which the callback is hooked.
+ * @param callable|mixed $callback_or_value For a callback, specify the name of the function|method you wish to be
+ *                                          called when the filter event fires.
+ *                                          For a value, specify the value to be returned when the filter event fires.
+ *                                          Beans creates an anonymous function to hook into the filter event.
+ * @param int            $priority          Optional. Used to specify the order in which the callbacks associated with
+ *                                          a particular action are executed. Default is 10. Lower numbers correspond
+ *                                          with earlier execution.  Callbacks with the same priority are executed in
+ *                                          the order in which they were added to the filter.
+ * @param int            $args              Optional. The number of arguments the callback accepts. Default is 1.
  *
- * @return bool Will always return true.
+ * @return bool
  */
-function beans_add_filter( $id, $callback, $priority = 10, $args = 1 ) {
+function beans_add_filter( $hook, $callback_or_value, $priority = 10, $args = 1 ) {
 
-	if ( is_callable( $callback ) ) {
-		return add_filter( $id, $callback, $priority, $args );
+	if ( is_callable( $callback_or_value ) ) {
+		return add_filter( $hook, $callback_or_value, $priority, $args );
 	}
 
-	return _beans_add_anonymous_filter( $id, $callback, $priority, $args );
-
+	return _beans_add_anonymous_filter( $hook, $callback_or_value, $priority, $args );
 }
 
 /**
@@ -61,55 +61,50 @@ function beans_add_filter( $id, $callback, $priority = 10, $args = 1 ) {
  * @return mixed The filtered value after all hooked functions are applied to it.
  */
 function beans_apply_filters( $id, $value ) {
-
 	$args = func_get_args();
 
-	// Return simple filter if no sub-hook is set.
-	if ( ! preg_match_all( '#\[(.*?)\]#', $args[0], $matches ) ) {
+	// Return simple filter if no sub-hook(s) is(are) set.
+	if ( ! preg_match_all( '#\[(.*?)\]#', $args[0], $sub_hooks ) ) {
 		return call_user_func_array( 'apply_filters', $args );
 	}
 
-	$prefix = current( explode( '[', $args[0] ) );
+	$prefix          = current( explode( '[', $args[0] ) );
 	$variable_prefix = $prefix;
-	$suffix = preg_replace( '/^.*\]\s*/', '', $args[0] );
+	$suffix          = preg_replace( '/^.*\]\s*/', '', $args[0] );
 
 	// Base filter.
 	$args[0] = $prefix . $suffix;
-	$value = call_user_func_array( 'apply_filters', $args );
+	$value   = call_user_func_array( 'apply_filters', $args );
 
-	foreach ( $matches[0] as $i => $subhook ) {
+	foreach ( (array) $sub_hooks[0] as $index => $sub_hook ) {
 
-		$variable_prefix = $variable_prefix . $subhook;
-		$levels = array( $prefix . $subhook . $suffix );
+		// If there are more than 3 sub-hooks, stop processing.
+		if ( $index > 2 ) {
+			break;
+		}
+
+		$variable_prefix .= $sub_hook;
+		$levels           = array( $prefix . $sub_hook . $suffix );
 
 		// Cascade sub-hooks.
-		if ( $i > 0 ) {
-
-			if ( count( $matches[0] ) > 2 ) {
-				$levels[] = str_replace( $subhook, '', $id );
-			}
-
+		if ( $index > 0 ) {
 			$levels[] = $variable_prefix . $suffix;
-
 		}
 
 		// Apply sub-hooks.
 		foreach ( $levels as $level ) {
-
 			$args[0] = $level;
 			$args[1] = $value;
-			$value = call_user_func_array( 'apply_filters', $args );
+			$value   = call_user_func_array( 'apply_filters', $args );
 
-			// Apply filter whithout square brackets for backwards compatibility.
+			// Apply filter without square brackets for backwards compatibility.
 			$args[0] = preg_replace( '#(\[|\])#', '', $args[0] );
 			$args[1] = $value;
-			$value = call_user_func_array( 'apply_filters', $args );
-
+			$value   = call_user_func_array( 'apply_filters', $args );
 		}
 	}
 
 	return $value;
-
 }
 
 /**
@@ -120,72 +115,89 @@ function beans_apply_filters( $id, $value ) {
  *
  * @since 1.0.0
  *
- * @param string   $id       	  The filter ID.
- * @param callback|bool $callback Optional. The callback to check for. Default false.
+ * @param string        $id       A unique string used as a reference. Sub-hook(s) must be set in square brackets.
+ * @param callable|bool $callback Optional. The callback to check for. Default false.
  *
- * @return bool|int If $callback is omitted, returns boolean for whether the hook has
- *                  anything registered. When checking a specific function, the priority of that
- *                  hook is returned, or false if the function is not attached. When using the
- *                  $callback argument, this function may return a non-boolean value
- *                  that evaluates to false (e.g. 0), so use the === operator for testing the
- *                  return value.
+ * @return bool|int If $callback is omitted, returns boolean for whether the hook has any callbacks registered.
+ *                  When checking a specific callback, returns the priority of that hook when a callback is registered;
+ *                  else, it returns false. When using the `$callback` argument, this function may return a non-boolean
+ *                  value that evaluates to false (e.g. 0). Make sure you use the === operator for testing the return
+ *                  value.
  */
 function beans_has_filters( $id, $callback = false ) {
 
-	// Check simple filter if no subhook is set.
-	if ( ! preg_match_all( '#\[(.*?)\]#', $id, $matches ) ) {
+	// Check simple filter if no sub-hook is set.
+	if ( ! preg_match_all( '#\[(.*?)\]#', $id, $sub_hooks ) ) {
 		return has_filter( $id, $callback );
 	}
 
-	$prefix = current( explode( '[', $id ) );
+	$prefix          = current( explode( '[', $id ) );
 	$variable_prefix = $prefix;
-	$suffix = preg_replace( '/^.*\]\s*/', '', $id );
+	$suffix          = preg_replace( '/^.*\]\s*/', '', $id );
 
 	// Check base filter.
-	if ( has_filter( $prefix . $suffix, $callback ) ) {
-		return true;
+	$priority_number = has_filter( $prefix . $suffix, $callback );
+
+	if ( false !== $priority_number ) {
+		return $priority_number;
 	}
 
-	foreach ( $matches[0] as $i => $subhook ) {
+	foreach ( (array) $sub_hooks[0] as $index => $sub_hook ) {
 
-		$variable_prefix = $variable_prefix . $subhook;
-		$levels = array( $prefix . $subhook . $suffix );
+		// If there are more than 3 sub-hooks, return false.
+		if ( $index > 2 ) {
+			return false;
+		}
+
+		$variable_prefix .= $sub_hook;
+		$levels           = array( $prefix . $sub_hook . $suffix );
 
 		// Cascade sub-hooks.
-		if ( $i > 0 ) {
-
-			$levels[] = str_replace( $subhook, '', $id );
+		if ( $index > 0 ) {
 			$levels[] = $variable_prefix . $suffix;
-
 		}
 
 		// Apply sub-hooks.
 		foreach ( $levels as $level ) {
+			$priority_number = has_filter( $level, $callback );
 
-			if ( has_filter( $level, $callback ) ) {
-				return true;
+			if ( false !== $priority_number ) {
+				return $priority_number;
 			}
 
-			// Check filter whithout square brackets for backwards compatibility.
-			if ( has_filter( preg_replace( '#(\[|\])#', '', $level ), $callback ) ) {
-				return true;
+			// Check filter without square brackets for backwards compatibility.
+			$priority_number = has_filter( preg_replace( '#(\[|\])#', '', $level ), $callback );
+
+			if ( false !== $priority_number ) {
+				return $priority_number;
 			}
 		}
 	}
 
 	return false;
-
 }
 
 /**
  * Add anonymous callback using a class since php 5.2 is still supported.
  *
+ * @since  1.0.0
+ * @since  1.5.0 Returns the object.
  * @ignore
+ * @access private
+ *
+ * @param string $hook        The name of the filter event to which the callback is hooked.
+ * @param mixed  $value       The value that will be returned when the anonymous callback runs.
+ * @param int    $priority    Optional. Used to specify the order in which the functions
+ *                            associated with a particular filter are executed. Default 10.
+ *                            Lower numbers correspond with earlier execution,
+ *                            and functions with the same priority are executed
+ *                            in the order in which they were added to the filter.
+ * @param int    $args        Optional. The number of arguments the function accepts. Default 1.
+ *
+ * @return _Beans_Anonymous_Filters
  */
-function _beans_add_anonymous_filter( $id, $callback, $priority = 10, $args = 1 ) {
+function _beans_add_anonymous_filter( $hook, $value, $priority = 10, $args = 1 ) {
+	require_once BEANS_API_PATH . 'filters/class-beans-anonymous-filters.php';
 
-	require_once( BEANS_API_PATH . 'filters/class.php' );
-
-	new _Beans_Anonymous_Filters( $id, $callback, $priority, $args );
-
+	return new _Beans_Anonymous_Filters( $hook, $value, $priority, $args );
 }
