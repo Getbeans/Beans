@@ -124,6 +124,22 @@ abstract class Actions_Test_Case extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Check that the action has been registered in WordPress.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string $hook          The event's name (hook) that is registered in WordPress.
+	 * @param array  $action        The action to be checked.
+	 * @param bool   $remove_action When true, it removes the action automatically to clean up this test.
+	 *
+	 * @return void
+	 */
+	protected function check_registered_in_wp( $hook, array $action, $remove_action = true ) {
+		$this->assertTrue( has_action( $hook, $action['callback'] ) !== false );
+		$this->check_parameters_registered_in_wp( $action, $remove_action );
+	}
+
+	/**
 	 * Check that the right parameters are registered in WordPress.
 	 *
 	 * @since 1.5.0

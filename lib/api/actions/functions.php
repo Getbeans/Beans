@@ -149,6 +149,7 @@ function beans_modify_action( $id, $hook = null, $callback = null, $priority = n
  * This function is a shortcut of {@see beans_modify_action()}.
  *
  * @since 1.0.0
+ * @since 1.5.0 Return false if the hook is empty or not a string.
  *
  * @param string $id   The action's Beans ID, a unique ID tracked within Beans for this action.
  * @param string $hook The new action's event name to which the callback is hooked.
@@ -156,6 +157,11 @@ function beans_modify_action( $id, $hook = null, $callback = null, $priority = n
  * @return bool
  */
 function beans_modify_action_hook( $id, $hook ) {
+
+	if ( empty( $hook ) || ! is_string( $hook ) ) {
+		return false;
+	}
+
 	return beans_modify_action( $id, $hook );
 }
 
@@ -165,6 +171,7 @@ function beans_modify_action_hook( $id, $hook ) {
  * This function is a shortcut of {@see beans_modify_action()}.
  *
  * @since 1.0.0
+ * @since 1.5.0 Return false if the callback is empty.
  *
  * @param string   $id       The action's Beans ID, a unique ID tracked within Beans for this action.
  * @param callable $callback The new callback (function or method) you wish to be called.
@@ -172,6 +179,11 @@ function beans_modify_action_hook( $id, $hook ) {
  * @return bool
  */
 function beans_modify_action_callback( $id, $callback ) {
+
+	if ( empty( $callback ) ) {
+		return false;
+	}
+
 	return beans_modify_action( $id, null, $callback );
 }
 
@@ -258,6 +270,7 @@ function beans_replace_action( $id, $hook = null, $callback = null, $priority = 
  * This function is a shortcut of {@see beans_replace_action()}.
  *
  * @since 1.0.0
+ * @since 1.5.0 Return false if the hook is empty or not a string.
  *
  * @param string $id   The action's Beans ID, a unique ID tracked within Beans for this action.
  * @param string $hook The new action's event name to which the callback is hooked.
@@ -265,6 +278,11 @@ function beans_replace_action( $id, $hook = null, $callback = null, $priority = 
  * @return bool
  */
 function beans_replace_action_hook( $id, $hook ) {
+
+	if ( empty( $hook ) || ! is_string( $hook ) ) {
+		return false;
+	}
+
 	return beans_replace_action( $id, $hook );
 }
 
@@ -274,6 +292,7 @@ function beans_replace_action_hook( $id, $hook ) {
  * This function is a shortcut of {@see beans_replace_action()}.
  *
  * @since 1.0.0
+ * @since 1.5.0 Return false if the callback is empty.
  *
  * @param string $id       The action's Beans ID, a unique ID tracked within Beans for this action.
  * @param string $callback The new callback (function or method) you wish to be called.
@@ -281,6 +300,11 @@ function beans_replace_action_hook( $id, $hook ) {
  * @return bool
  */
 function beans_replace_action_callback( $id, $callback ) {
+
+	if ( empty( $callback ) ) {
+		return false;
+	}
+
 	return beans_replace_action( $id, null, $callback );
 }
 
@@ -425,7 +449,6 @@ if ( ! isset( $_beans_registered_actions ) ) {
 function _beans_get_action( $id, $status ) {
 	global $_beans_registered_actions;
 
-	$id                 = _beans_unique_action_id( $id );
 	$registered_actions = beans_get( $status, $_beans_registered_actions );
 
 	// If the status is empty, return false, as no actions are registered.
@@ -433,6 +456,7 @@ function _beans_get_action( $id, $status ) {
 		return false;
 	}
 
+	$id     = _beans_unique_action_id( $id );
 	$action = beans_get( $id, $registered_actions );
 
 	// If the action is empty, return false.
@@ -547,6 +571,7 @@ function _beans_merge_action( $id, array $action, $status ) {
  * @return array|bool
  */
 function _beans_get_current_action( $id ) {
+
 	// Bail out if the action is "removed".
 	if ( _beans_get_action( $id, 'removed' ) ) {
 		return false;
