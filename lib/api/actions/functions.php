@@ -42,7 +42,7 @@ function beans_add_action( $id, $hook, $callback, $priority = 10, $args = 1 ) {
 	$replaced_action = _beans_get_action( $id, 'replaced' );
 
 	// If the ID is set to be "replaced", then replace that(those) parameter(s).
-	if ( ! empty( $replaced_action ) && is_array( $replaced_action ) ) {
+	if ( ! empty( $replaced_action ) ) {
 		$action = array_merge( $action, $replaced_action );
 	}
 
@@ -56,7 +56,7 @@ function beans_add_action( $id, $hook, $callback, $priority = 10, $args = 1 ) {
 	$modified_action = _beans_get_action( $id, 'modified' );
 
 	// If the ID is set to be "modified", then modify that(those) parameter(s).
-	if ( ! empty( $modified_action ) && is_array( $modified_action ) ) {
+	if ( ! empty( $modified_action ) ) {
 		$action = array_merge( $action, $modified_action );
 	}
 
@@ -122,11 +122,10 @@ function beans_modify_action( $id, $hook = null, $callback = null, $priority = n
 		return false;
 	}
 
-	$current_action     = _beans_get_current_action( $id );
-	$has_current_action = ! empty( $current_action ) && is_array( $current_action );
+	$current_action = _beans_get_current_action( $id );
 
 	// If the action is registered, let's remove it.
-	if ( $has_current_action ) {
+	if ( ! empty( $current_action ) ) {
 		remove_action( $current_action['hook'], $current_action['callback'], $current_action['priority'], $current_action['args'] );
 	}
 
@@ -134,7 +133,7 @@ function beans_modify_action( $id, $hook = null, $callback = null, $priority = n
 	$action = _beans_merge_action( $id, $action, 'modified' );
 
 	// If there is no action to modify, bail out.
-	if ( ! $has_current_action ) {
+	if ( empty( $current_action ) ) {
 		return false;
 	}
 
@@ -555,7 +554,7 @@ function _beans_merge_action( $id, array $action, $status ) {
 	$registered_action = _beans_get_action( $id, $status );
 
 	// If the action's configuration is already registered with Beans, merge the new configuration with it.
-	if ( false !== $registered_action ) {
+	if ( ! empty( $registered_action ) ) {
 		$action = array_merge( $registered_action, $action );
 	}
 
@@ -585,13 +584,13 @@ function _beans_get_current_action( $id ) {
 
 	$added = _beans_get_action( $id, 'added' );
 
-	if ( false !== $added ) {
+	if ( ! empty( $added ) ) {
 		$action = $added;
 	}
 
 	$modified = _beans_get_action( $id, 'modified' );
 
-	if ( false !== $modified ) {
+	if ( ! empty( $modified ) ) {
 		$action = is_array( $action )
 			? array_merge( $action, $modified )
 			: $modified;
@@ -618,6 +617,7 @@ function _beans_get_current_action( $id ) {
  * @return bool
  */
 function _beans_is_action_valid( $action ) {
+
 	if ( empty( $action ) ) {
 		return false;
 	}
