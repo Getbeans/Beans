@@ -40,7 +40,7 @@ class Tests_BeansMergeAction extends Actions_Test_Case {
 		);
 
 		foreach ( static::$test_actions as $beans_id => $action ) {
-			$merged_action  = array_merge( $action, $modified_action );
+			$merged_action = array_merge( $action, $modified_action );
 
 			// Test each status.
 			foreach ( $this->statuses as $status ) {

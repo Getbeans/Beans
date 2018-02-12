@@ -84,7 +84,7 @@ class Tests_BeansSetAction extends Actions_Test_Case {
 	public function test_should_overwrite_existing_registered_action() {
 		global $_beans_registered_actions;
 
-		$new_action         = array(
+		$new_action = array(
 			'hook'     => 'bar',
 			'callback' => 'callback_bar',
 			'priority' => 20,
