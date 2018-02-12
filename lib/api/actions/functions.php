@@ -489,17 +489,21 @@ function _beans_get_action( $id, $status ) {
 function _beans_set_action( $id, $action, $status, $overwrite = false ) {
 	$id = _beans_unique_action_id( $id );
 
-	// Get the action, if it's already registered.
-	$registered_action = _beans_get_action( $id, $status );
+	// If not overwriting, let's check if an action is already registered for that id.
+	if ( ! $overwrite ) {
+		// Get the action, if it's already registered.
+		$registered_action = _beans_get_action( $id, $status );
 
-	// If the action is registered and we are not overwriting, return it.
-	if ( true !== $overwrite && ! empty( $registered_action ) ) {
-		return $registered_action;
+		// If yes, return the registered action.
+		if ( ! empty( $registered_action ) ) {
+			return $registered_action;
+		}
 	}
 
-	// Let's set (or overwrite) the action.
-	global $_beans_registered_actions;
-	$_beans_registered_actions[ $status ][ $id ] = $action;
+	if ( ! empty( $action ) || 'removed' === $status ) {
+		global $_beans_registered_actions;
+		$_beans_registered_actions[ $status ][ $id ] = $action;
+	}
 
 	return $action;
 }
