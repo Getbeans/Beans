@@ -126,7 +126,7 @@ function beans_modify_action( $id, $hook = null, $callback = null, $priority = n
 
 	// If the action is registered, let's remove it.
 	if ( ! empty( $current_action ) ) {
-		remove_action( $current_action['hook'], $current_action['callback'], $current_action['priority'], $current_action['args'] );
+		remove_action( $current_action['hook'], $current_action['callback'], $current_action['priority'] );
 	}
 
 	// Merge the modified parameters and register with Beans.
@@ -410,7 +410,7 @@ function beans_reset_action( $id ) {
 		return $action;
 	}
 
-	remove_action( $current['hook'], $current['callback'], $current['priority'], $current['args'] );
+	remove_action( $current['hook'], $current['callback'], $current['priority'] );
 	add_action( $action['hook'], $action['callback'], $action['priority'], $action['args'] );
 
 	return $action;
