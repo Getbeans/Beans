@@ -30,7 +30,7 @@ class Tests_BeansGetCurrentAction extends Actions_Test_Case {
 
 		foreach ( static::$test_actions as $beans_id => $action ) {
 			// Store the action in the registry.
-			$_beans_registered_actions['removed'][ $beans_id ] = wp_json_encode( $action );
+			$_beans_registered_actions['removed'][ $beans_id ] = $action;
 
 			// Test that it returns false.
 			$this->assertFalse( _beans_get_current_action( $beans_id ) );
@@ -44,18 +44,18 @@ class Tests_BeansGetCurrentAction extends Actions_Test_Case {
 		global $_beans_registered_actions;
 
 		// Test "added" status.
-		$_beans_registered_actions['added']['foo'] = wp_json_encode( array( 'hook' => 'foo' ) );
+		$_beans_registered_actions['added']['foo'] = array( 'hook' => 'foo' );
 		$this->assertFalse( _beans_get_current_action( 'foo' ) );
 
 		// Test "modified" status.
-		$_beans_registered_actions['modified']['bar'] = wp_json_encode( array(
+		$_beans_registered_actions['modified']['bar'] = array(
 			'hook'     => 'bar',
 			'priority' => 1,
-		) );
+		);
 		$this->assertFalse( _beans_get_current_action( 'bar' ) );
 
 		// Test merging "modified" into "added" status.
-		$_beans_registered_actions['modified']['foo'] = wp_json_encode( array( 'callback' => 'foo_cb' ) );
+		$_beans_registered_actions['modified']['foo'] = array( 'callback' => 'foo_cb' );
 		$this->assertFalse( _beans_get_current_action( 'foo' ) );
 	}
 
@@ -67,7 +67,7 @@ class Tests_BeansGetCurrentAction extends Actions_Test_Case {
 
 		foreach ( static::$test_actions as $beans_id => $action ) {
 			// Store the action in the registry.
-			$_beans_registered_actions['added'][ $beans_id ] = wp_json_encode( $action );
+			$_beans_registered_actions['added'][ $beans_id ] = $action;
 
 			// Test that we get the "added" action.
 			$this->assertSame( $action, _beans_get_current_action( $beans_id ) );
@@ -82,7 +82,7 @@ class Tests_BeansGetCurrentAction extends Actions_Test_Case {
 
 		foreach ( static::$test_actions as $beans_id => $action ) {
 			// Store the action in the registry.
-			$_beans_registered_actions['modified'][ $beans_id ] = wp_json_encode( $action );
+			$_beans_registered_actions['modified'][ $beans_id ] = $action;
 
 			// Test that we get the "modified" action.
 			$this->assertSame( $action, _beans_get_current_action( $beans_id ) );
@@ -103,8 +103,8 @@ class Tests_BeansGetCurrentAction extends Actions_Test_Case {
 
 		foreach ( static::$test_actions as $beans_id => $action ) {
 			// Store the action in the registry.
-			$_beans_registered_actions['added'][ $beans_id ]    = wp_json_encode( $action );
-			$_beans_registered_actions['modified'][ $beans_id ] = wp_json_encode( $modified_action );
+			$_beans_registered_actions['added'][ $beans_id ]    = $action;
+			$_beans_registered_actions['modified'][ $beans_id ] = $modified_action;
 
 			// Test that it merges the action.
 			$this->assertSame(

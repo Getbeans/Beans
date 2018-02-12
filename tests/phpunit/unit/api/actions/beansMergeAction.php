@@ -40,12 +40,11 @@ class Tests_BeansMergeAction extends Actions_Test_Case {
 		);
 
 		foreach ( static::$test_actions as $beans_id => $action ) {
-			$encoded_action = wp_json_encode( $action );
 			$merged_action  = array_merge( $action, $modified_action );
 
 			// Test each status.
 			foreach ( $this->statuses as $status ) {
-				$_beans_registered_actions[ $status ][ $beans_id ] = $encoded_action;
+				$_beans_registered_actions[ $status ][ $beans_id ] = $action;
 				$this->assertSame( $merged_action, _beans_merge_action( $beans_id, $modified_action, $status ) );
 			}
 		}
@@ -58,12 +57,11 @@ class Tests_BeansMergeAction extends Actions_Test_Case {
 		global $_beans_registered_actions;
 
 		foreach ( static::$test_actions as $beans_id => $action ) {
-			$encoded_action = wp_json_encode( $action );
 
 			// Test each status.
 			foreach ( $this->statuses as $status ) {
 				$this->assertSame( $action, _beans_merge_action( $beans_id, $action, $status ) );
-				$this->assertSame( $encoded_action, $_beans_registered_actions[ $status ][ $beans_id ] );
+				$this->assertSame( $action, $_beans_registered_actions[ $status ][ $beans_id ] );
 			}
 		}
 	}

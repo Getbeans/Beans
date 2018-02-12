@@ -464,7 +464,7 @@ function _beans_get_action( $id, $status ) {
 		return false;
 	}
 
-	return (array) json_decode( $action );
+	return $action;
 }
 
 /**
@@ -499,7 +499,7 @@ function _beans_set_action( $id, $action, $status, $overwrite = false ) {
 
 	// Let's set (or overwrite) the action.
 	global $_beans_registered_actions;
-	$_beans_registered_actions[ $status ][ $id ] = wp_json_encode( $action );
+	$_beans_registered_actions[ $status ][ $id ] = $action;
 
 	return $action;
 }
