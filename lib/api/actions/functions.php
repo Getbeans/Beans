@@ -591,31 +591,6 @@ function _beans_get_current_action( $id ) {
 }
 
 /**
- * Validates the action's configuration to ensure "hook", "callback", "priority", and "args" are
- * set and not null.
- *
- * @since  1.5.0
- * @ignore
- * @access private
- *
- * @param array|mixed $action Action's configuration.
- *
- * @return bool
- */
-function _beans_is_action_valid( $action ) {
-
-	if ( empty( $action ) ) {
-		return false;
-	}
-
-	if ( ! is_array( $action ) ) {
-		return;
-	}
-
-	return isset( $action['hook'], $action['callback'], $action['priority'], $action['args'] );
-}
-
-/**
  * Build the action's array for only the valid given arguments.
  *
  * @since 1.5.0
