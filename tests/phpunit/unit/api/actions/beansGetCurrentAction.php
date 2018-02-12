@@ -38,28 +38,6 @@ class Tests_BeansGetCurrentAction extends Actions_Test_Case {
 	}
 
 	/**
-	 * Test _beans_get_current_action() should return false when the action is invalid.
-	 */
-	public function test_should_return_false_when_action_is_invalid() {
-		global $_beans_registered_actions;
-
-		// Test "added" status.
-		$_beans_registered_actions['added']['foo'] = array( 'hook' => 'foo' );
-		$this->assertFalse( _beans_get_current_action( 'foo' ) );
-
-		// Test "modified" status.
-		$_beans_registered_actions['modified']['bar'] = array(
-			'hook'     => 'bar',
-			'priority' => 1,
-		);
-		$this->assertFalse( _beans_get_current_action( 'bar' ) );
-
-		// Test merging "modified" into "added" status.
-		$_beans_registered_actions['modified']['foo'] = array( 'callback' => 'foo_cb' );
-		$this->assertFalse( _beans_get_current_action( 'foo' ) );
-	}
-
-	/**
 	 * Test _beans_get_current_action() should return the "added" action.
 	 */
 	public function test_should_return_added_action() {
@@ -75,17 +53,19 @@ class Tests_BeansGetCurrentAction extends Actions_Test_Case {
 	}
 
 	/**
-	 * Test _beans_get_current_action() should return the "modified" action.
+	 * Test _beans_get_current_action() should return false when there's a "modified" action but no "added" action.
 	 */
-	public function test_should_return_modified_action() {
+	public function test_should_return_false_when_modified_but_no_added() {
 		global $_beans_registered_actions;
 
 		foreach ( static::$test_actions as $beans_id => $action ) {
 			// Store the action in the registry.
 			$_beans_registered_actions['modified'][ $beans_id ] = $action;
 
-			// Test that we get the "modified" action.
-			$this->assertSame( $action, _beans_get_current_action( $beans_id ) );
+			// Run the tests.
+			$this->assertFalse( _beans_get_current_action( $beans_id ) );
+			$this->assertArrayNotHasKey( $beans_id, $_beans_registered_actions['added'] );
+			$this->assertSame( $action, $_beans_registered_actions['modified'][ $beans_id ] );
 		}
 	}
 

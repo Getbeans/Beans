@@ -580,28 +580,21 @@ function _beans_get_current_action( $id ) {
 		return false;
 	}
 
-	$action = array();
-
 	$added = _beans_get_action( $id, 'added' );
 
-	if ( ! empty( $added ) ) {
-		$action = $added;
+	// If there is not "added" action registered, bail out.
+	if ( empty( $added ) ) {
+		return false;
 	}
 
 	$modified = _beans_get_action( $id, 'modified' );
 
+	// If the action is set to be modified, merge the changes and return the action.
 	if ( ! empty( $modified ) ) {
-		$action = is_array( $action )
-			? array_merge( $action, $modified )
-			: $modified;
+		return array_merge( $added, $modified );
 	}
 
-	// Stop here if the action is invalid.
-	if ( ! _beans_is_action_valid( $action ) ) {
-		return false;
-	}
-
-	return $action;
+	return $added;
 }
 
 /**
