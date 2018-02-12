@@ -369,7 +369,7 @@ function beans_remove_action( $id ) {
 
 	// When there is a current action, remove it.
 	if ( _beans_is_action_valid( $action ) ) {
-		remove_action( $action['hook'], $action['callback'], $action['priority'], $action['args'] );
+		remove_action( $action['hook'], $action['callback'], $action['priority'] );
 	}
 
 	// Store as "removed".
