@@ -60,11 +60,6 @@ function beans_add_action( $id, $hook, $callback, $priority = 10, $args = 1 ) {
 		$action = array_merge( $action, $modified_action );
 	}
 
-	// Bail out if it's not a valid action.
-	if ( ! _beans_is_action_valid( $action ) ) {
-		return false;
-	}
-
 	return add_action( $action['hook'], $action['callback'], $action['priority'], $action['args'] );
 }
 
