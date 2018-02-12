@@ -352,19 +352,17 @@ function beans_replace_action_arguments( $id, $args ) {
 function beans_remove_action( $id ) {
 	$action = _beans_get_current_action( $id );
 
-	// If the action is not registered yet, set it to a default configuration.
-	if ( empty( $action ) ) {
+	// When there is a current action, remove it.
+	if ( ! empty( $action ) ) {
+		remove_action( $action['hook'], $action['callback'], $action['priority'] );
+	} else {
+		// If the action is not registered yet, set it to a default configuration.
 		$action = array(
 			'hook'     => null,
 			'callback' => null,
 			'priority' => null,
 			'args'     => null,
 		);
-	}
-
-	// When there is a current action, remove it.
-	if ( _beans_is_action_valid( $action ) ) {
-		remove_action( $action['hook'], $action['callback'], $action['priority'] );
 	}
 
 	// Store as "removed".
