@@ -398,15 +398,15 @@ function beans_reset_action( $id ) {
 
 	$action = _beans_get_action( $id, 'added' );
 
-	// Bail out if there is no action.
-	if ( ! _beans_is_action_valid( $action ) ) {
+	// If there is no "added" action, bail out.
+	if ( empty( $action ) ) {
 		return false;
 	}
 
 	$current = _beans_get_current_action( $id );
 
-	// Return the action if there is no current action.
-	if ( ! _beans_is_action_valid( $current ) ) {
+	// If there's no current action, return the "added" action.
+	if ( empty( $current ) ) {
 		return $action;
 	}
 
