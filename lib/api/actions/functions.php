@@ -559,6 +559,7 @@ function _beans_merge_action( $id, array $action, $status ) {
  * Get the current action, meaning get from the "added" and/or "modified" statuses.
  *
  * @since  1.0.0
+ * @since  1.5.0 Bails out if there is not "added" action.
  * @ignore
  * @access private
  *
