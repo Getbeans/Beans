@@ -548,7 +548,7 @@ function beans_reset_attributes( $id ) {
  * @return void
  */
 function beans_add_attribute( $id, $attribute, $value ) {
-	$class = new _Beans_Attributes( $id, $attribute, $value );
+	$class = new _Beans_Attribute( $id, $attribute, $value );
 
 	$class->init( 'add' );
 }
@@ -573,7 +573,7 @@ function beans_add_attribute( $id, $attribute, $value ) {
  * @return void
  */
 function beans_replace_attribute( $id, $attribute, $value, $new_value = null ) {
-	$class = new _Beans_Attributes( $id, $attribute, $value, $new_value );
+	$class = new _Beans_Attribute( $id, $attribute, $value, $new_value );
 
 	$class->init( 'replace' );
 }
@@ -595,7 +595,7 @@ function beans_replace_attribute( $id, $attribute, $value, $new_value = null ) {
  * @return void
  */
 function beans_remove_attribute( $id, $attribute, $value = null ) {
-	$class = new _Beans_Attributes( $id, $attribute, $value );
+	$class = new _Beans_Attribute( $id, $attribute, $value );
 
 	$class->init( 'remove' );
 }
