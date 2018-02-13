@@ -555,7 +555,7 @@ function beans_add_attribute( $id, $attribute, $value ) {
 }
 
 /**
- * Replace a specific value from the attribute. If the attribute does not exist, it is added with the new value.
+ * Replace the attribute's value. If the attribute does not exist, it is added with the new value.
  *
  * This function must be called before the targeted markup is called.
  *
@@ -563,11 +563,11 @@ function beans_add_attribute( $id, $attribute, $value ) {
  * easy to find the content ID when inspecting an element in a web browser.
  *
  * @since 1.0.0
- * @since 1.5.0 Return the object.
+ * @since 1.5.0 Return the object. Allows replacement of all values.
  *
  * @param string $id        The markup ID.
  * @param string $attribute Name of the HTML attribute to target.
- * @param string $value     Value which should be replaced.
+ * @param string $value     Value which should be replaced. When empty ('', false, or null), it replaces all of the values for this attribute.
  * @param string $new_value Optional. Replacement value. If set to '' will display the attribute value as empty
  *                          (e.g. class=""). Setting it to 'false' will only display the attribute name
  *                          (e.g. data-example). Setting it to 'null' will not display anything.
