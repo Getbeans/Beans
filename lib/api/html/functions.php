@@ -545,14 +545,12 @@ function beans_reset_attributes( $id ) {
  *                          (e.g. class=""). Setting it to 'false' will only display the attribute name
  *                          (e.g. data-example). Setting it to 'null' will not display anything.
  *
- * @return array All targeted markup attributes.
+ * @return void
  */
 function beans_add_attribute( $id, $attribute, $value ) {
-
 	$class = new _Beans_Attributes( $id, $attribute, $value );
 
-	return $class->init( 'add' );
-
+	$class->init( 'add' );
 }
 
 /**
@@ -572,14 +570,12 @@ function beans_add_attribute( $id, $attribute, $value ) {
  *                          (e.g. class=""). Setting it to 'false' will only display the attribute name
  *                          (e.g. data-example). Setting it to 'null' will not display anything.
  *
- * @return array All targeted markup attributes.
+ * @return void
  */
 function beans_replace_attribute( $id, $attribute, $value, $new_value = null ) {
-
 	$class = new _Beans_Attributes( $id, $attribute, $value, $new_value );
 
-	return $class->init( 'replace' );
-
+	$class->init( 'replace' );
 }
 
 /**
@@ -596,14 +592,12 @@ function beans_replace_attribute( $id, $attribute, $value, $new_value = null ) {
  * @param string $attribute Name of the HTML attribute to target.
  * @param string $value     Optional. Name of the value to remove. Set it to 'false' to completely remove the attribute.
  *
- * @return array All targeted markup attributes remaining.
+ * @return void
  */
 function beans_remove_attribute( $id, $attribute, $value = null ) {
-
 	$class = new _Beans_Attributes( $id, $attribute, $value );
 
-	return $class->init( 'remove' );
-
+	$class->init( 'remove' );
 }
 
 /**
