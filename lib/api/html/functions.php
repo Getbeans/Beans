@@ -530,7 +530,7 @@ function beans_reset_attributes( $id ) {
 }
 
 /**
- * Add attribute to markup.
+ * Add a value to an existing attribute or add a new attribute.
  *
  * This function must be called before the targeted markup is called.
  *
@@ -555,7 +555,7 @@ function beans_add_attribute( $id, $attribute, $value ) {
 }
 
 /**
- * Replace attribute to markup.
+ * Replace a specific value from the attribute. If the attribute does not exist, it is added with the new value.
  *
  * This function must be called before the targeted markup is called.
  *
@@ -581,7 +581,7 @@ function beans_replace_attribute( $id, $attribute, $value, $new_value = null ) {
 }
 
 /**
- * Remove markup attribute.
+ * Remove a specific value from the attribute or remove the entire attribute.
  *
  * This function must be called before the targeted markup is called.
  *
@@ -593,12 +593,12 @@ function beans_replace_attribute( $id, $attribute, $value, $new_value = null ) {
  *
  * @param string $id        The markup ID.
  * @param string $attribute Name of the HTML attribute to target.
- * @param string $value     Optional. Name of the value to remove. Set it to 'false' to completely remove the attribute.
+ * @param string $value     Optional. The attribute value to remove. Set it to 'false' or null to completely remove the attribute.
  *
  * @return _Beans_Attribute
  */
 function beans_remove_attribute( $id, $attribute, $value = null ) {
-	$attribute = new _Beans_Attribute( $id, $attribute, $value );
+	$attribute = new _Beans_Attribute( $id, $attribute, $value, '' );
 
 	return $attribute->init( 'remove' );
 }
