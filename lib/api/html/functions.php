@@ -538,6 +538,7 @@ function beans_reset_attributes( $id ) {
  * easy to find the content ID when inspecting an element in a web browser.
  *
  * @since 1.0.0
+ * @since 1.5.0 Return the object.
  *
  * @param string $id        The markup ID.
  * @param string $attribute Name of the HTML attribute.
@@ -545,12 +546,12 @@ function beans_reset_attributes( $id ) {
  *                          (e.g. class=""). Setting it to 'false' will only display the attribute name
  *                          (e.g. data-example). Setting it to 'null' will not display anything.
  *
- * @return void
+ * @return _Beans_Attribute
  */
 function beans_add_attribute( $id, $attribute, $value ) {
 	$class = new _Beans_Attribute( $id, $attribute, $value );
 
-	$class->init( 'add' );
+	return $class->init( 'add' );
 }
 
 /**
@@ -562,6 +563,7 @@ function beans_add_attribute( $id, $attribute, $value ) {
  * easy to find the content ID when inspecting an element in a web browser.
  *
  * @since 1.0.0
+ * @since 1.5.0 Return the object.
  *
  * @param string $id        The markup ID.
  * @param string $attribute Name of the HTML attribute to target.
@@ -570,12 +572,12 @@ function beans_add_attribute( $id, $attribute, $value ) {
  *                          (e.g. class=""). Setting it to 'false' will only display the attribute name
  *                          (e.g. data-example). Setting it to 'null' will not display anything.
  *
- * @return void
+ * @return _Beans_Attribute
  */
 function beans_replace_attribute( $id, $attribute, $value, $new_value = null ) {
 	$class = new _Beans_Attribute( $id, $attribute, $value, $new_value );
 
-	$class->init( 'replace' );
+	return $class->init( 'replace' );
 }
 
 /**
@@ -587,17 +589,18 @@ function beans_replace_attribute( $id, $attribute, $value, $new_value = null ) {
  * easy to find the content ID when inspecting an element in a web browser.
  *
  * @since 1.0.0
+ * @since 1.5.0 Return the object.
  *
  * @param string $id        The markup ID.
  * @param string $attribute Name of the HTML attribute to target.
  * @param string $value     Optional. Name of the value to remove. Set it to 'false' to completely remove the attribute.
  *
- * @return void
+ * @return _Beans_Attribute
  */
 function beans_remove_attribute( $id, $attribute, $value = null ) {
 	$class = new _Beans_Attribute( $id, $attribute, $value );
 
-	$class->init( 'remove' );
+	return $class->init( 'remove' );
 }
 
 /**
