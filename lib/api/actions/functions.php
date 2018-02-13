@@ -481,12 +481,10 @@ function _beans_get_action( $id, $status ) {
 function _beans_set_action( $id, $action, $status, $overwrite = false ) {
 	$id = _beans_unique_action_id( $id );
 
-	// If not overwriting, let's check if an action is already registered for that id.
+	// If not overwriting, return the registered action (if it's registered).
 	if ( ! $overwrite ) {
-		// Get the action, if it's already registered.
 		$registered_action = _beans_get_action( $id, $status );
 
-		// If yes, return the registered action.
 		if ( ! empty( $registered_action ) ) {
 			return $registered_action;
 		}
@@ -559,7 +557,7 @@ function _beans_merge_action( $id, array $action, $status ) {
  * Get the current action, meaning get from the "added" and/or "modified" statuses.
  *
  * @since  1.0.0
- * @since  1.5.0 Bails out if there is not "added" action.
+ * @since  1.5.0 Bails out if there is no "added" action registered.
  * @ignore
  * @access private
  *
@@ -576,7 +574,7 @@ function _beans_get_current_action( $id ) {
 
 	$added = _beans_get_action( $id, 'added' );
 
-	// If there is not "added" action registered, bail out.
+	// If there is no "added" action registered, bail out.
 	if ( empty( $added ) ) {
 		return false;
 	}
