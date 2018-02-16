@@ -47,7 +47,6 @@ function beans_edit_image( $src, array $args, $output = 'STRING' ) {
  * @return object Post attachment data.
  */
 function beans_get_post_attachment( $post_id, $size = 'full' ) {
-
 	$id   = get_post_thumbnail_id( $post_id );
 	$post = get_post( $id );
 	$src  = wp_get_attachment_image_src( $id, $size );
@@ -63,32 +62,21 @@ function beans_get_post_attachment( $post_id, $size = 'full' ) {
 	$obj->description = $post->post_content;
 
 	return $obj;
-
 }
 
 /**
  * Edit post attachment.
  *
- * This function is shortuct of {@see beans_edit_image()}. It should be used to edit a post attachment.
+ * This function is shortcut of {@see beans_edit_image()}. It should be used to edit a post attachment.
  *
  * @since 1.0.0
  *
  * @param string $post_id     The post id.
- * @param array  $args        {
- *                            Array of arguments used by the image editor.
- *
- * @type array   $resize      Numeric array matching the
- *       {@link http://codex.wordpress.org/Class_Reference/WP_Image_Editor WP_Image_Editor} resize function arguments.
- * @type array   $crop        Numeric array matching the
- *       {@link http://codex.wordpress.org/Class_Reference/WP_Image_Editor WP_Image_Editor} crop function arguments.
- * @type array   $rotate      Numeric array matching the
- *       {@link http://codex.wordpress.org/Class_Reference/WP_Image_Editor WP_Image_Editor} rotate function arguments.
- * @type array   $flip        Numeric array matching the
- *       {@link http://codex.wordpress.org/Class_Reference/WP_Image_Editor WP_Image_Editor} flip function arguments.
- * @type array   $set_quality Numeric array matching the
- *       {@link http://codex.wordpress.org/Class_Reference/WP_Image_Editor WP_Image_Editor} set_quality function
- *       arguments.
- * }
+ * @param array  $args        An array of editor arguments, where the key is the {@see WP_Image_Editor} method name
+ *                            and the value is a numeric array of arguments for the method. Make sure that you
+ *                            specify all of the arguments the editor's method requires. Refer to
+ *                            {@link https://codex.wordpress.org/Class_Reference/WP_Image_Editor#Methods} for more
+ *                            information on the available methods and each method's arguments.
  *
  * @return object Edited post attachment data.
  */
@@ -99,14 +87,14 @@ function beans_edit_post_attachment( $post_id, $args = array() ) {
 	}
 
 	// Get full size image.
-	$attachement = beans_get_post_attachment( $post_id, 'full' );
+	$attachment = beans_get_post_attachment( $post_id, 'full' );
+	$edited     = beans_edit_image( $attachment->src, $args, 'ARRAY_A' );
 
-	if ( ! $edited = beans_edit_image( $attachement->src, $args, 'ARRAY_A' ) ) {
-		return $attachement;
+	if ( ! $edited ) {
+		return $attachment;
 	}
 
-	return (object) array_merge( (array) $attachement, $edited );
-
+	return (object) array_merge( (array) $attachment, $edited );
 }
 
 /**
