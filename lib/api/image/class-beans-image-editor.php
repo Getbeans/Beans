@@ -96,6 +96,9 @@ final class _Beans_Image_Editor {
 					case 'ARRAY_N':
 						return array_values( $array );
 
+					case 'ARRAY_A':
+						return $array;
+
 					case 'OBJECT':
 						return (object) $array;
 				}
