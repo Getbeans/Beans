@@ -72,64 +72,18 @@ final class _Beans_Image_Editor {
 	 * Run the editor.
 	 *
 	 * @since 1.0.0
+	 * @since 1.5.0 Refactored.
 	 *
 	 * @return array|object|string
 	 */
 	public function run() {
-		// Try to create image if it doesn't exist.
-		if ( ! file_exists( $this->rebuilt_path ) ) {
 
-			// Return original image source if it can't be edited.
-			if ( ! $this->create_edited_image() ) {
-
-				$array = array(
-					'src'    => $this->src,
-					'width'  => null,
-					'height' => null,
-				);
-
-				switch ( $this->output ) {
-
-					case 'STRING':
-						return $this->src;
-
-					case 'ARRAY_N':
-						return array_values( $array );
-
-					case 'ARRAY_A':
-						return $array;
-
-					case 'OBJECT':
-						return (object) $array;
-				}
-			}
+		// Return the edited image's info packet when the file already exists or we successfully create it.
+		if ( $this->edited_image_exists() || $this->create_edited_image() ) {
+			return $this->get_image_info( beans_path_to_url( $this->rebuilt_path ), true );
 		}
 
-		$src = beans_path_to_url( $this->rebuilt_path );
-
-		// Simply return the source if dimensions are not requested.
-		if ( 'STRING' === $this->output ) {
-			return $src;
-		}
-
-		// Get the new image dimensions.
-		list( $width, $height ) = @getimagesize( $this->rebuilt_path );
-
-		$array = array(
-			'src'    => $src,
-			'width'  => $width,
-			'height' => $height,
-		);
-
-		if ( 'ARRAY_N' === $this->output ) {
-			return array_values( $array );
-		}
-
-		if ( 'OBJECT' === $this->output ) {
-			return (object) $array;
-		}
-
-		return $array;
+		return $this->get_image_info( $this->src );
 	}
 
 	/**
@@ -162,6 +116,46 @@ final class _Beans_Image_Editor {
 	}
 
 	/**
+	 * Returns the image's information in the configured output format.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string $src                 Image's path or URL.
+	 * @param bool   $edited_image_exists When true, include the dimensions.
+	 *
+	 * @return array|object
+	 */
+	private function get_image_info( $src, $edited_image_exists = false ) {
+
+		if ( 'STRING' === $this->output ) {
+			return $src;
+		}
+
+		if ( $edited_image_exists ) {
+			list( $width, $height ) = @getimagesize( $this->rebuilt_path ); // @codingStandardsIgnoreLine - Generic.PHP.NoSilencedErrors.Discouraged  This is a valid use case.
+		} else {
+			$width  = null;
+			$height = null;
+		}
+
+		if ( 'ARRAY_N' === $this->output ) {
+			return array( $src, $width, $height );
+		}
+
+		$image_info = array(
+			'src'    => $src,
+			'width'  => $width,
+			'height' => $height,
+		);
+
+		if ( 'OBJECT' === $this->output ) {
+			return (object) $image_info;
+		}
+
+		return $image_info;
+	}
+
+	/**
 	 * Rebuild the image's path.
 	 *
 	 * @since 1.0.0
@@ -176,5 +170,16 @@ final class _Beans_Image_Editor {
 		$filename   = str_replace( '.' . $extension, '', $info['basename'] );
 
 		return "{$upload_dir}{$filename}-{$query}.{$extension}";
+	}
+
+	/**
+	 * Checks if the edited image exists.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return bool
+	 */
+	private function edited_image_exists() {
+		return file_exists( $this->rebuilt_path );
 	}
 }
