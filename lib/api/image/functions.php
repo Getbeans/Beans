@@ -28,7 +28,7 @@
  * @return string|array Image source if output set the STRING, image data otherwise.
  */
 function beans_edit_image( $src, array $args, $output = 'STRING' ) {
-	require_once BEANS_API_PATH . 'image/class-beans-images-editor.php';
+	require_once BEANS_API_PATH . 'image/class-beans-image-editor.php';
 	$editor = new _Beans_Image_Editor( $src, $args, $output );
 	return $editor->run();
 }
