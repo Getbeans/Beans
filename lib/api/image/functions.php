@@ -47,6 +47,7 @@ function beans_edit_image( $src, array $args, $output = 'STRING' ) {
  * @return object Post attachment data.
  */
 function beans_get_post_attachment( $post_id, $size = 'full' ) {
+
 	$id   = get_post_thumbnail_id( $post_id );
 	$post = get_post( $id );
 	$src  = wp_get_attachment_image_src( $id, $size );
@@ -62,6 +63,7 @@ function beans_get_post_attachment( $post_id, $size = 'full' ) {
 	$obj->description = $post->post_content;
 
 	return $obj;
+
 }
 
 /**

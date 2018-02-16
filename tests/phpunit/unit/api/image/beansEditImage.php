@@ -47,7 +47,7 @@ class Tests_Beans_Edit_Image extends Image_Test_Case {
 	 * Test init() should return original src when the image does not exist.
 	 */
 	public function test_should_return_original_src_when_no_image() {
-		$src    = 'path/does/not/exist/image.jpg';
+		$src = 'path/does/not/exist/image.jpg';
 
 		// Simulate the WordPress' Editor.
 		Monkey\Functions\expect( 'wp_get_image_editor' )->with( $src )->once();
