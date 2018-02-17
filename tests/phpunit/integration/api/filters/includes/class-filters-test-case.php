@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests Case for Beans' Filter API unit tests.
+ * Test Case for Beans' Filter API unit tests.
  *
  * @package Beans\Framework\Tests\Integration\API\Filters\Includes
  *

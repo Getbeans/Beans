@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests Case for Beans' Action API integration tests.
+ * Test Case for Beans' Action API integration tests.
  *
  * @package Beans\Framework\Tests\Integration\API\Actions\Includes
  *
