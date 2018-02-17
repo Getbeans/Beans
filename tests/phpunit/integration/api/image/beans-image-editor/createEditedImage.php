@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for get_image_info() method of _Beans_Image_Editor.
+ * Tests for create_edited_image() method of _Beans_Image_Editor.
  *
  * @package Beans\Framework\Tests\Integration\API\Image
  *
@@ -16,7 +16,7 @@ require_once dirname( __DIR__ ) . '/includes/class-image-test-case.php';
 require_once BEANS_API_PATH . 'image/class-beans-image-editor.php';
 
 /**
- * Class Tests_Beans_Edit_Image_GetImageInfo
+ * Class Tests_Beans_Edit_Image_CreateEditedImage
  *
  * @package Beans\Framework\Tests\Integration\API\Image
  * @group   integration-tests
@@ -41,17 +41,18 @@ class Tests_Beans_Edit_Image_CreateEditedImage extends Image_Test_Case {
 	}
 
 	/**
-	 * Test get_image_info() should edit the given image and then create a new "edited image", which is stored in the
+	 * Test create_edited_image() should edit the given image and then create a new "edited image", which is stored in
+	 * the
 	 * "rebuilt path".
 	 */
 	public function test_should_edit_create_and_store_image() {
-		$get_image_info = $this->get_reflective_method( 'create_edited_image' );
-		$rebuilt_path   = $this->get_reflective_property();
-		$image_sources  = array(
+		$created_edited_image = $this->get_reflective_method( 'create_edited_image' );
+		$rebuilt_path         = $this->get_reflective_property();
+		$image_sources        = array(
 			static::$fixtures_dir . '/image1.jpg',
 			static::$fixtures_dir . '/image2.jpg',
 		);
-		$args           = array( 'resize' => array( 800, false ) );
+		$args                 = array( 'resize' => array( 800, false ) );
 
 		foreach ( $image_sources as $src ) {
 			$editor           = new _Beans_Image_Editor( $src, $args );
@@ -59,7 +60,7 @@ class Tests_Beans_Edit_Image_CreateEditedImage extends Image_Test_Case {
 
 			// Run the tests.
 			$this->assertFileNotExists( $edited_image_src );
-			$this->assertTrue( $get_image_info->invoke( $editor ) );
+			$this->assertTrue( $created_edited_image->invoke( $editor ) );
 			$this->assertFileExists( $edited_image_src );
 
 			list( $width, $height ) = @getimagesize( $edited_image_src ); // @codingStandardsIgnoreLine - Generic.PHP.NoSilencedErrors.Discouraged  This is a valid use case.
@@ -69,19 +70,19 @@ class Tests_Beans_Edit_Image_CreateEditedImage extends Image_Test_Case {
 	}
 
 	/**
-	 * Test get_image_info() should return false when the image does not exist.
+	 * Test create_edited_image() should return false when the image does not exist.
 	 */
 	public function test_should_return_false_when_no_image() {
-		$get_image_info = $this->get_reflective_method( 'create_edited_image' );
-		$rebuilt_path   = $this->get_reflective_property();
-		$src            = 'path/does/not/exist/image.jpg';
+		$created_edited_image = $this->get_reflective_method( 'create_edited_image' );
+		$rebuilt_path         = $this->get_reflective_property();
+		$src                  = 'path/does/not/exist/image.jpg';
 
 		$editor           = new _Beans_Image_Editor( $src, array( 'resize' => array( 800, false ) ) );
 		$edited_image_src = $this->init_virtual_image( $rebuilt_path, $editor );
 
 		// Run the tests.
 		$this->assertFileNotExists( $src );
-		$this->assertFalse( $get_image_info->invoke( $editor ) );
+		$this->assertFalse( $created_edited_image->invoke( $editor ) );
 		$this->assertFileNotExists( $edited_image_src );
 	}
 }

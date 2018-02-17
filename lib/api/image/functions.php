@@ -18,8 +18,8 @@
  *
  * @param string $src         The image source.
  * @param array  $args        An array of editor arguments, where the key is the {@see WP_Image_Editor} method name
- *                            and the value is a numeric array of arguments for the method. Make sure that you
- *                            specify all of the arguments the editor's method requires. Refer to
+ *                            and the value is a numeric array of arguments for the method. Make sure to specify
+ *                            all of the arguments the WordPress editor's method requires. Refer to
  *                            {@link https://codex.wordpress.org/Class_Reference/WP_Image_Editor#Methods} for more
  *                            information on the available methods and each method's arguments.
  * @param string $output      Optional. Returned format. Accepts STRING, OBJECT, ARRAY_A, or ARRAY_N.
@@ -75,8 +75,8 @@ function beans_get_post_attachment( $post_id, $size = 'full' ) {
  *
  * @param string $post_id     The post id.
  * @param array  $args        An array of editor arguments, where the key is the {@see WP_Image_Editor} method name
- *                            and the value is a numeric array of arguments for the method. Make sure that you
- *                            specify all of the arguments the editor's method requires. Refer to
+ *                            and the value is a numeric array of arguments for the method. Make sure to specify
+ *                            all of the arguments the WordPress editor's method requires. Refer to
  *                            {@link https://codex.wordpress.org/Class_Reference/WP_Image_Editor#Methods} for more
  *                            information on the available methods and each method's arguments.
  *

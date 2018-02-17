@@ -20,7 +20,7 @@ require_once __DIR__ . '/includes/class-image-test-case.php';
  * @group   integration-tests
  * @group   api
  */
-class Tests_Beans_Edit_Image extends Image_Test_Case {
+class Tests_BeansEditImage extends Image_Test_Case {
 
 	/**
 	 * Path of the fixtures directory.
@@ -39,7 +39,7 @@ class Tests_Beans_Edit_Image extends Image_Test_Case {
 	}
 
 	/**
-	 * Test init() should return original src when the image does not exist.
+	 * Test beans_edit_image() should return original src when the image does not exist.
 	 */
 	public function test_should_return_original_src_when_no_image() {
 		$src = 'path/does/not/exist/image.jpg';
