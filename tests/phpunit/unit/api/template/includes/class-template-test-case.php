@@ -34,13 +34,6 @@ abstract class Template_Test_Case extends Test_Case {
 	protected $mock_filesystem;
 
 	/**
-	 * Flag is in admin area (back-end).
-	 *
-	 * @var bool
-	 */
-	protected $is_admin = false;
-
-	/**
 	 * Set up the test before we run the test setups.
 	 */
 	public static function setUpBeforeClass() {
@@ -71,7 +64,7 @@ abstract class Template_Test_Case extends Test_Case {
 	 */
 	private function set_up_virtual_filesystem() {
 		// Create the file structure and load each file's content.
-		$file_structure = array(
+		$file_structure                             = array(
 			'fragments' => array(
 				'branding.php'  => '<div class="tm-site-branding"><a href="http://example.com">Beans Tests</a></div>',
 				'post-body.php' => '<div class="tm-article-content"><p>Nulla in orci condimentum, facilisis ex et, blandit augue.</p></div>',
@@ -86,31 +79,5 @@ abstract class Template_Test_Case extends Test_Case {
 
 		// Set up the "templates" directory's virtual filesystem.
 		$this->mock_filesystem = vfsStream::setup( 'templates', 0755, $file_structure );
-	}
-
-	/**
-	 * Load the fragment into the virtual filesystem.  Loads from the fixtures/fragments/ folder.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $fragment Fragment's path or filename.
-	 *
-	 * @return void
-	 */
-	protected function load_fragment_into_virtual_filesystem( $fragment ) {
-		$structure['fragments'][ $fragment ] = file_get_contents( BEANS_THEME_DIR . '/lib/templates/fragments/' . basename( $fragment ) ); // @codingStandardsIgnoreLine - WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents - valid edge case.
-	}
-
-	/**
-	 * Load the structure into the virtual filesystem.  Loads from the fixtures/structure/ folder.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $structure Structure's path or filename.
-	 *
-	 * @return void
-	 */
-	protected function load_structure_into_virtual_filesystem( $structure ) {
-		$structure['structure'][ $structure ] = file_get_contents( BEANS_THEME_DIR . '/lib/templates/structure/' . basename( $structure ) ); // @codingStandardsIgnoreLine - WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents - valid edge case.
 	}
 }

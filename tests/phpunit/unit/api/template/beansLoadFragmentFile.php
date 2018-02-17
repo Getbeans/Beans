@@ -54,7 +54,7 @@ class Tests_BeansLoadFragmentFile extends Template_Test_Case {
 	/**
 	 * Test beans_load_fragment_file() should return true when after loading the fragment.
 	 */
-	public function test_should_return_true_after_loading_the_fragment() {
+	public function test_should_return_true_after_loading_fragment() {
 
 		foreach ( array( 'branding', 'post-body' ) as $fragment ) {
 			Monkey\Filters\expectApplied( "beans_pre_load_fragment_{$fragment}" )
