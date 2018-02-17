@@ -43,17 +43,18 @@ class Tests_Beans_Edit_Image_CreateEditedImage extends Image_Test_Case {
 	}
 
 	/**
-	 * Test create_edited_image() should edit the given image and then create a new "edited image", which is stored in the
+	 * Test create_edited_image() should edit the given image and then create a new "edited image", which is stored in
+	 * the
 	 * "rebuilt path".
 	 */
 	public function test_should_edit_create_and_store_image() {
 		$create_edited_image = $this->get_reflective_method( 'create_edited_image' );
-		$rebuilt_path   = $this->get_reflective_property();
-		$image_sources  = array(
+		$rebuilt_path        = $this->get_reflective_property();
+		$image_sources       = array(
 			static::$fixtures_dir . '/image1.jpg',
 			static::$fixtures_dir . '/image2.jpg',
 		);
-		$args           = array( 'resize' => array( 800, false ) );
+		$args                = array( 'resize' => array( 800, false ) );
 
 		foreach ( $image_sources as $src ) {
 			$editor           = new _Beans_Image_Editor( $src, $args );
@@ -83,9 +84,9 @@ class Tests_Beans_Edit_Image_CreateEditedImage extends Image_Test_Case {
 	 */
 	public function test_should_return_false_when_no_image() {
 		$create_edited_image = $this->get_reflective_method( 'create_edited_image' );
-		$rebuilt_path   = $this->get_reflective_property();
-		$src            = 'path/does/not/exist/image.jpg';
-		$args           = array( 'resize' => array( 800, false ) );
+		$rebuilt_path        = $this->get_reflective_property();
+		$src                 = 'path/does/not/exist/image.jpg';
+		$args                = array( 'resize' => array( 800, false ) );
 
 		$editor           = new _Beans_Image_Editor( $src, $args );
 		$edited_image_src = $this->init_virtual_image( $rebuilt_path, $editor );
