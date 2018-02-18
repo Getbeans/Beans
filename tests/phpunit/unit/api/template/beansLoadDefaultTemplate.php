@@ -41,7 +41,7 @@ class Tests_BeansLoadDefaultTemplate extends Template_Test_Case {
 	 * Test beans_load_default_template() should return true after loading the given structure.
 	 */
 	public function test_should_return_true_after_loading_structure() {
-		// Check with an invalid path/to the structure.
+		// Check with an invalid path to the structure.
 		$file = '/path/to/structure/content.php';
 		$this->assertFileExists( BEANS_STRUCTURE_PATH . basename( $file ) );
 		ob_start();

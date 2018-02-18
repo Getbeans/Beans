@@ -14,7 +14,7 @@
  *
  * Here are some guidelines for calling this function:
  *
- *      - Called it from a primary template file, e.g. single.php, page.php, home.php, archive.php, etc.
+ *      - Call it from a primary template file, e.g. single.php, page.php, home.php, archive.php, etc.
  *      - Do all modifications and customizations before calling this function.
  *      - Put this function on the last line of code in the template file.
  *

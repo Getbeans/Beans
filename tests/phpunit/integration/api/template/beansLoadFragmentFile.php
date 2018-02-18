@@ -47,7 +47,7 @@ class Tests_BeansLoadFragmentFile extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test beans_load_fragment_file() should return true when after loading the fragment.
+	 * Test beans_load_fragment_file() should return true after loading the fragment.
 	 */
 	public function test_should_return_true_after_loading_fragment() {
 		$this->assertFileExists( BEANS_FRAGMENTS_PATH . 'header.php' );

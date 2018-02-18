@@ -52,7 +52,7 @@ class Tests_BeansLoadFragmentFile extends Template_Test_Case {
 	}
 
 	/**
-	 * Test beans_load_fragment_file() should return true when after loading the fragment.
+	 * Test beans_load_fragment_file() should return true after loading the fragment.
 	 */
 	public function test_should_return_true_after_loading_fragment() {
 
