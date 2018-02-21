@@ -16,6 +16,7 @@
 	<testsuites>
 		<testsuite name="integration">
 			<directory suffix=".php">.</directory>
+			<exclude>./*/*/fixtures/</exclude>
 		</testsuite>
 	</testsuites>
 </phpunit>
