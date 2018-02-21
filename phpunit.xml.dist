@@ -23,6 +23,7 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">.</directory>
+            <exclude>./tests/TestCase.php</exclude>
         </whitelist>
     </filter>
 </phpunit>
