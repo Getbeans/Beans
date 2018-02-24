@@ -17,7 +17,7 @@ require_once dirname( __DIR__ ) . '/includes/class-fields-test-case.php';
 /**
  * Class Tests_BeansFieldImage
  *
- * @package Beans\Framework\Tests\Unit\API\Fields
+ * @package Beans\Framework\Tests\Unit\API\Fields\Types
  * @group   unit-tests
  * @group   api
  */
@@ -75,16 +75,16 @@ class Tests_BeansFieldImage extends Fields_Test_Case {
         <input class="image-id" type="hidden" name="beans_fields[beans_image_test]" value="1" />
         <img src="image.png" alt="This is the image alt value.">
         <div class="bs-toolbar">
-        	<button aria-label="Edit Image" type="button" class="button bs-button-edit dashicons dashicon-edit"></button>
-            <button aria-label="Delete Image" type="button" class="button bs-button-trash dashicons dashicon-trash"></button>
+        	<button aria-label="Edit Image" type="button" class="button bs-button-edit dashicons dashicons-edit"></button>
+            <button aria-label="Delete Image" type="button" class="button bs-button-trash dashicons dashicons-post-trash"></button>
         </div>
     </div>
     <div class="bs-image-wrap bs-image-template">
         <input class="image-id" type="hidden" name="beans_fields[beans_image_test]" value="" disabled="disabled" />
         <img src="" alt="">
         <div class="bs-toolbar">
-        	<button aria-label="Edit Image" type="button" class="button bs-button-edit dashicons dashicon-edit"></button>
-            <button aria-label="Delete Image" type="button" class="button bs-button-trash dashicons dashicon-trash"></button>
+        	<button aria-label="Edit Image" type="button" class="button bs-button-edit dashicons dashicons-edit"></button>
+            <button aria-label="Delete Image" type="button" class="button bs-button-trash dashicons dashicons-post-trash"></button>
         </div>
     </div>
 </div>
@@ -95,7 +95,7 @@ EOB;
 	}
 
 	/**
-	 * Test beans_field_image() should render multiple images field.
+	 * Test beans_field_image() should render a multiple images field.
 	 */
 	public function test_should_render_multiple_images_field() {
 		Monkey\Functions\expect( 'wp_get_attachment_image_src' )
@@ -131,27 +131,27 @@ EOB;
         <input class="image-id" type="hidden" name="beans_fields[beans_image_test][]" value="1" />
         <img src="image-1.png" alt="This is the image alt value.">
         <div class="bs-toolbar">
-            <button aria-label="Manage Images" type="button" class="button bs-button-menu dashicons dashicon-menu"></button>
-        	<button aria-label="Edit Image" type="button" class="button bs-button-edit dashicons dashicon-edit"></button>
-            <button aria-label="Delete Image" type="button" class="button bs-button-trash dashicons dashicon-trash"></button>
+            <button aria-label="Manage Images" type="button" class="button bs-button-menu dashicons dashicons-menu"></button>
+        	<button aria-label="Edit Image" type="button" class="button bs-button-edit dashicons dashicons-edit"></button>
+            <button aria-label="Delete Image" type="button" class="button bs-button-trash dashicons dashicons-post-trash"></button>
         </div>
     </div>
     <div class="bs-image-wrap">
         <input class="image-id" type="hidden" name="beans_fields[beans_image_test][]" value="2" />
         <img src="image-2.png" alt="This is the image alt value.">
         <div class="bs-toolbar">
-            <button aria-label="Manage Images" type="button" class="button bs-button-menu dashicons dashicon-menu"></button>
-        	<button aria-label="Edit Image" type="button" class="button bs-button-edit dashicons dashicon-edit"></button>
-            <button aria-label="Delete Image" type="button" class="button bs-button-trash dashicons dashicon-trash"></button>
+            <button aria-label="Manage Images" type="button" class="button bs-button-menu dashicons dashicons-menu"></button>
+        	<button aria-label="Edit Image" type="button" class="button bs-button-edit dashicons dashicons-edit"></button>
+            <button aria-label="Delete Image" type="button" class="button bs-button-trash dashicons dashicons-post-trash"></button>
         </div>
     </div>
     <div class="bs-image-wrap bs-image-template">
         <input class="image-id" type="hidden" name="beans_fields[beans_image_test][]" value="" disabled="disabled" />
         <img src="" alt="">
         <div class="bs-toolbar">
-            <button aria-label="Manage Images" type="button" class="button bs-button-menu dashicons dashicon-menu"></button>
-        	<button aria-label="Edit Image" type="button" class="button bs-button-edit dashicons dashicon-edit"></button>
-            <button aria-label="Delete Image" type="button" class="button bs-button-trash dashicons dashicon-trash"></button>
+            <button aria-label="Manage Images" type="button" class="button bs-button-menu dashicons dashicons-menu"></button>
+        	<button aria-label="Edit Image" type="button" class="button bs-button-edit dashicons dashicons-edit"></button>
+            <button aria-label="Delete Image" type="button" class="button bs-button-trash dashicons dashicons-post-trash"></button>
         </div>
     </div>
 </div>
@@ -192,16 +192,16 @@ EOB;
         <input class="image-id" type="hidden" name="beans_fields[beans_image_test]" value="1" />
         <img src="image.png" alt="Sorry, no alt was given for this image.">
         <div class="bs-toolbar">
-        	<button aria-label="Edit Image" type="button" class="button bs-button-edit dashicons dashicon-edit"></button>
-            <button aria-label="Delete Image" type="button" class="button bs-button-trash dashicons dashicon-trash"></button>
+        	<button aria-label="Edit Image" type="button" class="button bs-button-edit dashicons dashicons-edit"></button>
+            <button aria-label="Delete Image" type="button" class="button bs-button-trash dashicons dashicons-post-trash"></button>
         </div>
     </div>
     <div class="bs-image-wrap bs-image-template">
         <input class="image-id" type="hidden" name="beans_fields[beans_image_test]" value="" disabled="disabled" />
         <img src="" alt="">
         <div class="bs-toolbar">
-        	<button aria-label="Edit Image" type="button" class="button bs-button-edit dashicons dashicon-edit"></button>
-            <button aria-label="Delete Image" type="button" class="button bs-button-trash dashicons dashicon-trash"></button>
+        	<button aria-label="Edit Image" type="button" class="button bs-button-edit dashicons dashicons-edit"></button>
+            <button aria-label="Delete Image" type="button" class="button bs-button-trash dashicons dashicons-post-trash"></button>
         </div>
     </div>
 </div>
