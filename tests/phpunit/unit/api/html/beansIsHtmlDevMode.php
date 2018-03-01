@@ -33,6 +33,7 @@ class Tests_BeansIsHtmlDevMode extends HTML_Test_Case {
 			->with( 'beans_dev_mode', false )
 			->once()
 			->andReturn( false );
+
 		$this->assertFalse( _beans_is_html_dev_mode() );
 	}
 
@@ -40,13 +41,28 @@ class Tests_BeansIsHtmlDevMode extends HTML_Test_Case {
 	 * Test _beans_is_html_dev_mode() should return the option's value.
 	 */
 	public function test_should_return_option_value() {
-		$this->assertFalse( defined( 'BEANS_HTML_DEV_MODE' ) );
+		Monkey\Functions\expect( 'get_option' )
+			->with( 'beans_dev_mode', false )
+			->once()
+			->andReturn( 0 );
+
+		$this->assertFalse( _beans_is_html_dev_mode() );
 
 		Monkey\Functions\expect( 'get_option' )
 			->with( 'beans_dev_mode', false )
 			->once()
-			->andReturn( true );
+			->andReturn( 1 );
 
 		$this->assertTrue( _beans_is_html_dev_mode() );
+	}
+
+	/**
+	 * Test _beans_is_html_dev_mode() should return the constant's value.
+	 */
+	public function test_should_return_constant_value() {
+		Monkey\Functions\expect( 'get_option' )->never();
+
+		define( 'BEANS_HTML_DEV_MODE', 0 );
+		$this->assertFalse( _beans_is_html_dev_mode() );
 	}
 }
