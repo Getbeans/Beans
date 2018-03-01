@@ -29,22 +29,28 @@ class Tests_Beans_Attribute_Add extends HTML_Test_Case {
 	public function test_should_add_the_attribute_when_does_not_exist() {
 
 		foreach ( static::$test_attributes as $beans_id => $markup ) {
-			$instance = new _Beans_Attribute( $beans_id, 'data-test', 'foo' );
-
 			// Check that the attribute does not exist before we add it.
 			$this->assertArrayNotHasKey( 'data-test', $markup['attributes'] );
+
+			$actual = ( new _Beans_Attribute( $beans_id, 'data-test', 'foo' ) )->add( $markup['attributes'] );
 
 			// Check that the attribute is added with the given value.
 			$expected              = $markup['attributes'];
 			$expected['data-test'] = 'foo';
-			$this->assertSame( $expected, $instance->add( $markup['attributes'] ) );
+			$this->assertSame( $expected, $actual );
 		}
+	}
 
-		// Check it with an empty array.
-		$instance = new _Beans_Attribute( 'foo', 'data-test', 'test' );
-		$actual   = $instance->add( array() );
-		$this->assertArrayHasKey( 'data-test', $actual );
-		$this->assertSame( 'test', $actual['data-test'] );
+	/**
+	 * Test add() should add the attribute when an empty array is given.
+	 */
+	public function test_should_add_the_attribute_when_empty_array_given() {
+
+		foreach ( array_keys( static::$test_attributes ) as $beans_id ) {
+			$actual = ( new _Beans_Attribute( $beans_id, 'data-test', 'foo' ) )->add( array() );
+
+			$this->assertSame( array( 'data-test' => 'foo' ), $actual );
+		}
 	}
 
 	/**
@@ -53,16 +59,17 @@ class Tests_Beans_Attribute_Add extends HTML_Test_Case {
 	public function test_should_add_value_to_existing_attribute_values() {
 
 		foreach ( static::$test_attributes as $beans_id => $markup ) {
-			$name     = key( $markup['attributes'] );
-			$instance = new _Beans_Attribute( $beans_id, $name, 'beans-test' );
+			$name = key( $markup['attributes'] );
 
 			// This test seems silly as we just grabbed the key above.  But it's here to make a point that the attribute exists.
 			$this->assertArrayHasKey( $name, $markup['attributes'] );
 
+			$actual = ( new _Beans_Attribute( $beans_id, $name, 'beans-test' ) )->add( $markup['attributes'] );
+
 			// Check that the given value is appended to the end of the existing attribute.
 			$expected           = $markup['attributes'];
 			$expected[ $name ] .= ' beans-test';
-			$this->assertSame( $expected, $instance->add( $markup['attributes'] ) );
+			$this->assertSame( $expected, $actual );
 		}
 	}
 }

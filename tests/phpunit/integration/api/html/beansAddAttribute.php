@@ -50,9 +50,16 @@ class Tests_BeansAddAttribute extends HTML_Test_Case {
 		foreach ( static::$test_attributes as $beans_id => $markup ) {
 			$instance = beans_add_attribute( $beans_id, 'data-test', 'foo' );
 
+			// Check that the attribute does not exist before we add it.
+			$this->assertArrayNotHasKey( 'data-test', $markup['attributes'] );
+
+			// Fire the event to do the add.
+			$actual = apply_filters( "{$beans_id}_attributes", $markup['attributes'] ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- The hook's name is in the value.
+
+			// Check that the attribute is added with the given value.
 			$expected              = $markup['attributes'];
 			$expected['data-test'] = 'foo';
-			$this->assertSame( $expected, apply_filters( "{$beans_id}_attributes", $markup['attributes'] ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- The hook's name is in the value.
+			$this->assertSame( $expected, $actual );
 
 			// Clean up.
 			remove_filter( "{$beans_id}_attributes", array( $instance, 'add' ), 10 );
@@ -69,9 +76,12 @@ class Tests_BeansAddAttribute extends HTML_Test_Case {
 			$name     = key( $markup['attributes'] );
 			$instance = beans_add_attribute( $beans_id, $name, 'beans-test' );
 
+			// Fire the event to do the add.
+			$actual = apply_filters( "{$beans_id}_attributes", $markup['attributes'] ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- The hook's name is in the value.
+
 			$expected           = $markup['attributes'];
 			$expected[ $name ] .= ' beans-test';
-			$this->assertSame( $expected, apply_filters( "{$beans_id}_attributes", $markup['attributes'] ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- The hook's name is in the value.
+			$this->assertSame( $expected, $actual );
 
 			// Clean up.
 			remove_filter( "{$beans_id}_attributes", array( $instance, 'add' ), 10 );

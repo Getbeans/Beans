@@ -59,7 +59,7 @@ class Tests_BeansReplaceAttribute extends HTML_Test_Case {
 		// Check that the attribute does not contain the new value.
 		$this->assertNotContains( 'beans-test', $attributes['class'] );
 
-		// Run the full systems test by applying the filter.
+		// Fire the event to run the replace.
 		$actual = apply_filters( 'beans_post_attributes', $attributes );
 
 		// Check that the attribute is added with the given value.
@@ -93,9 +93,9 @@ class Tests_BeansReplaceAttribute extends HTML_Test_Case {
 			remove_filter( $hook, array( $instance, 'replace' ), 10 );
 
 			// Check when the target value is an empty string.
-			$instance = beans_replace_attribute( $beans_id, $name, null, '' );
+			$instance = beans_replace_attribute( $beans_id, $name, '', 'foo' );
 			$actual   = apply_filters( $hook, $markup['attributes'] ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- The hook's name is in the value.
-			$this->assertSame( '', $actual[ $name ] );
+			$this->assertSame( 'foo', $actual[ $name ] );
 			remove_filter( $hook, array( $instance, 'replace' ), 10 );
 
 			// Check when the target value is false.
@@ -118,7 +118,7 @@ class Tests_BeansReplaceAttribute extends HTML_Test_Case {
 			// Check that the attribute does not exist.
 			$this->assertArrayNotHasKey( 'data-test', $markup['attributes'] );
 
-			// Run the full systems test by applying the filter.
+			// Fire the event to run the replace.
 			$actual = apply_filters( "{$beans_id}_attributes", $markup['attributes'] ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- The hook's name is in the value.
 
 			// Check that the new attribute is added.
@@ -142,11 +142,12 @@ class Tests_BeansReplaceAttribute extends HTML_Test_Case {
 	public function test_should_add_attribute_when_an_empty_array_given() {
 
 		foreach ( static::$test_attributes as $beans_id => $markup ) {
-			$name  = key( $markup['attributes'] );
-			$value = current( $markup['attributes'] );
-
+			$name     = key( $markup['attributes'] );
+			$value    = current( $markup['attributes'] );
 			$instance = beans_replace_attribute( $beans_id, $name, $value, 'beans-test' );
-			$actual   = apply_filters( "{$beans_id}_attributes", array() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- The hook's name is in the value.
+
+			// Fire the event to run the replace.
+			$actual = apply_filters( "{$beans_id}_attributes", array() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- The hook's name is in the value.
 
 			// Check that it did add the attribute.
 			$this->assertArrayHasKey( $name, $actual );
