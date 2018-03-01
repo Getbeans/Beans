@@ -42,14 +42,14 @@ class Tests_BeansAddAttribute extends HTML_Test_Case {
 	}
 
 	/**
-	 * Systems test beans_add_attribute() should add the attribute when it does not exist in the given attributes.
+	 * Systems test beans_add_attribute() by firing the expected filter event for the given ID. Test should add the
+	 * attribute when it does not exist in the given attributes.
 	 */
 	public function test_should_add_the_attribute_when_does_not_exist() {
 
 		foreach ( static::$test_attributes as $beans_id => $markup ) {
 			$instance = beans_add_attribute( $beans_id, 'data-test', 'foo' );
 
-			// Run the full systems test by applying the filter.
 			$expected              = $markup['attributes'];
 			$expected['data-test'] = 'foo';
 			$this->assertSame( $expected, apply_filters( "{$beans_id}_attributes", $markup['attributes'] ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- The hook's name is in the value.
@@ -60,22 +60,21 @@ class Tests_BeansAddAttribute extends HTML_Test_Case {
 	}
 
 	/**
-	 * Test beans_add_attribute() should add the value to an existing attribute's values.
+	 * Systems test beans_add_attribute() by firing the expected filter event for the given ID. Test should add the
+	 * value to an existing attribute's values.
 	 */
 	public function test_should_add_value_to_existing_attribute_values() {
 
 		foreach ( static::$test_attributes as $beans_id => $markup ) {
-			$hook     = $beans_id . '_attributes';
 			$name     = key( $markup['attributes'] );
 			$instance = beans_add_attribute( $beans_id, $name, 'beans-test' );
 
-			// Run the full systems test by applying the filter.
-			$expected          = $markup['attributes'];
+			$expected           = $markup['attributes'];
 			$expected[ $name ] .= ' beans-test';
-			$this->assertSame( $expected, apply_filters( $hook, $markup['attributes'] ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- The hook's name is in the value.
+			$this->assertSame( $expected, apply_filters( "{$beans_id}_attributes", $markup['attributes'] ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- The hook's name is in the value.
 
 			// Clean up.
-			remove_filter( $hook, array( $instance, 'add' ), 10 );
+			remove_filter( "{$beans_id}_attributes", array( $instance, 'add' ), 10 );
 		}
 	}
 }
