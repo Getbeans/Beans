@@ -23,49 +23,54 @@ require_once __DIR__ . '/includes/class-html-test-case.php';
 class Tests_BeansAddAttribute extends HTML_Test_Case {
 
 	/**
-	 * Test beans_add_attribute() should add an empty value when no value is given.
+	 * Test beans_add_attribute() should return register the "add" callback to the given ID.
 	 */
-	public function test_should_add_empty_value_when_no_value_given() {
+	public function test_should_register_the_add_callback_to_given_id() {
+		$instance = beans_add_attribute( 'foo', 'data-test', 'test' );
 
-		foreach ( static::$test_markup as $beans_id => $markup ) {
-			$markup_attributes = isset( $markup['attributes'] ) ? $markup['attributes'] : array();
-			$attributes        = beans_add_attribute( $beans_id, 'data-test', '' );
-			$hook              = $beans_id . '_attributes';
+		$this->assertInstanceOf( \_Beans_Attribute::class, $instance );
+		$this->assertSame( 10, has_filter( 'foo_attributes', array( $instance, 'add' ), 10 ) );
 
-			// Run the tests.
-			$this->assertSame( 10, has_filter( $hook, array( $attributes, 'add' ), 10 ) );
-			$expected              = $markup_attributes;
-			$expected['data-test'] = '';
-			$this->assertSame( $expected, apply_filters( $hook, $markup_attributes ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- The hook's name is in the value.
+		// Clean up.
+		remove_filter( 'foo_attributes', array( $instance, 'add' ) );
+	}
+
+	/**
+	 * Test beans_add_attribute() should add the attribute when it does not exist in the given attributes.
+	 */
+	public function test_should_add_the_attribute_when_does_not_exist() {
+
+		foreach ( static::$test_attributes as $beans_id => $markup ) {
+			$hook     = $beans_id . '_attributes';
+			$instance = beans_add_attribute( $beans_id, 'data-test', 'foo' );
+
+			// Run the full systems test by applying the filter.
+			$expected              = $markup['attributes'];
+			$expected['data-test'] = 'foo';
+			$this->assertSame( $expected, apply_filters( $hook, $markup['attributes'] ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- The hook's name is in the value.
 
 			// Clean up.
-			remove_filter( $hook, array( $attributes, 'add' ), 10 );
+			remove_filter( $hook, array( $instance, 'add' ), 10 );
 		}
 	}
 
 	/**
-	 * Test beans_add_attribute() should add the value when the attribute exists.
+	 * Test beans_add_attribute() should add the value to an existing attribute's values.
 	 */
-	public function test_should_add_value_when_attribute_exists() {
+	public function test_should_add_value_to_existing_attribute_values() {
 
 		foreach ( static::$test_attributes as $beans_id => $markup ) {
+			$hook     = $beans_id . '_attributes';
+			$name     = key( $markup['attributes'] );
+			$instance = beans_add_attribute( $beans_id, $name, 'beans-test' );
 
-			// Skip if it doesn't have a class attribute.
-			if ( ! isset( $markup['attributes']['class'] ) ) {
-				continue;
-			}
-
-			$attributes = beans_add_attribute( $beans_id, 'class', 'beans-test' );
-			$hook       = $beans_id . '_attributes';
-
-			// Run the tests.
-			$this->assertSame( 10, has_filter( $hook, array( $attributes, 'add' ), 10 ) );
+			// Run the full systems test by applying the filter.
 			$expected           = $markup['attributes'];
-			$expected['class'] .= ' beans-test';
+			$expected[ $name ] .= ' beans-test';
 			$this->assertSame( $expected, apply_filters( $hook, $markup['attributes'] ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- The hook's name is in the value.
 
 			// Clean up.
-			remove_filter( $hook, array( $attributes, 'add' ), 10 );
+			remove_filter( $hook, array( $instance, 'add' ), 10 );
 		}
 	}
 }

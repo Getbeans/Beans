@@ -69,7 +69,7 @@ class Tests_Beans_Attribute_Remove extends HTML_Test_Case {
 	}
 
 	/**
-	 * Test remote() should remove the given value from the attribute.
+	 * Test remove() should remove the given value from the attribute.
 	 */
 	public function test_should_remove_the_given_value_from_attribute() {
 		$attributes = array(
