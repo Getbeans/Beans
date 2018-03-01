@@ -611,7 +611,11 @@ function beans_remove_attribute( $id, $attribute, $value = null ) {
 /**
  * Check if development mode is enabled taking in consideration legacy constant.
  *
+ * @since  1.5.0
  * @ignore
+ * @access private
+ *
+ * @return bool
  */
 function _beans_is_html_dev_mode() {
 
@@ -620,5 +624,4 @@ function _beans_is_html_dev_mode() {
 	}
 
 	return get_option( 'beans_dev_mode', false );
-
 }
