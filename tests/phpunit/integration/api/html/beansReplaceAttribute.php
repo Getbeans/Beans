@@ -17,8 +17,8 @@ require_once __DIR__ . '/includes/class-html-test-case.php';
  * Class Tests_BeansReplaceAttribute
  *
  * @package Beans\Framework\Tests\Integration\API\HTML
- * @group   integration-tests
  * @group   api
+ * @group   api-html
  */
 class Tests_BeansReplaceAttribute extends HTML_Test_Case {
 
@@ -42,7 +42,7 @@ class Tests_BeansReplaceAttribute extends HTML_Test_Case {
 	}
 
 	/**
-	 * Systems test beans_replace_attribute() by firing the expected filter event for the given ID. Test should replace
+	 * Test the end result of beans_replace_attribute() by firing the expected filter event for the given ID. Test should replace
 	 * an existing attribute value.
 	 */
 	public function test_should_replace_existing_attribute_value() {
@@ -71,7 +71,7 @@ class Tests_BeansReplaceAttribute extends HTML_Test_Case {
 	}
 
 	/**
-	 * Systems test beans_replace_attribute() by firing the expected filter event for the given ID. Test should replace
+	 * Test the end result of beans_replace_attribute() by firing the expected filter event for the given ID. Test should replace
 	 * (overwrite) all attribute's values with the new value when the target value is empty (null, empty string, etc.).
 	 */
 	public function test_should_overwrite_attribute_values_when_target_value_is_empty() {
@@ -107,7 +107,7 @@ class Tests_BeansReplaceAttribute extends HTML_Test_Case {
 	}
 
 	/**
-	 * Systems test beans_replace_attribute() by firing the expected filter event for the given ID. Test should add the
+	 * Test the end result of beans_replace_attribute() by firing the expected filter event for the given ID. Test should add the
 	 * attribute when it does not exists in the given attributes.
 	 */
 	public function test_should_add_attribute_when_does_not_exist() {
@@ -136,7 +136,7 @@ class Tests_BeansReplaceAttribute extends HTML_Test_Case {
 	}
 
 	/**
-	 * Systems test beans_replace_attribute() by firing the expected filter event for the given ID. Test should add the
+	 * Test the end result of beans_replace_attribute() by firing the expected filter event for the given ID. Test should add the
 	 * attribute when an empty array is given.
 	 */
 	public function test_should_add_attribute_when_an_empty_array_given() {

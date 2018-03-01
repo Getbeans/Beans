@@ -17,8 +17,8 @@ require_once __DIR__ . '/includes/class-html-test-case.php';
  * Class Tests_BeansAddAttribute
  *
  * @package Beans\Framework\Tests\Integration\API\HTML
- * @group   integration-tests
  * @group   api
+ * @group   api-html
  */
 class Tests_BeansAddAttribute extends HTML_Test_Case {
 
@@ -42,7 +42,7 @@ class Tests_BeansAddAttribute extends HTML_Test_Case {
 	}
 
 	/**
-	 * Systems test beans_add_attribute() by firing the expected filter event for the given ID. Test should add the
+	 * Test the end result of beans_add_attribute() by firing the expected filter event for the given ID. Test should add the
 	 * attribute when it does not exist in the given attributes.
 	 */
 	public function test_should_add_the_attribute_when_does_not_exist() {
@@ -67,7 +67,7 @@ class Tests_BeansAddAttribute extends HTML_Test_Case {
 	}
 
 	/**
-	 * Systems test beans_add_attribute() by firing the expected filter event for the given ID. Test should add the
+	 * Test the end result of beans_add_attribute() by firing the expected filter event for the given ID. Test should add the
 	 * value to an existing attribute's values.
 	 */
 	public function test_should_add_value_to_existing_attribute_values() {

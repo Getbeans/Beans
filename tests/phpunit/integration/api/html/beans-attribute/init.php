@@ -18,8 +18,8 @@ require_once dirname( __DIR__ ) . '/includes/class-html-test-case.php';
  * Class Tests_Beans_Attribute_Init
  *
  * @package Beans\Framework\Tests\Integration\API\HTML
- * @group   integration-tests
  * @group   api
+ * @group   api-html
  */
 class Tests_Beans_Attribute_Init extends HTML_Test_Case {
 

@@ -18,8 +18,8 @@ require_once __DIR__ . '/includes/class-html-test-case.php';
  * Class Tests_BeansIsHtmlDevMode
  *
  * @package Beans\Framework\Tests\Unit\API\HTML
- * @group   unit-tests
  * @group   api
+ * @group   api-html
  */
 class Tests_BeansIsHtmlDevMode extends HTML_Test_Case {
 

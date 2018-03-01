@@ -19,8 +19,8 @@ require_once dirname( __DIR__ ) . '/includes/class-html-test-case.php';
  * Class Tests_Beans_Attribute_Remove
  *
  * @package Beans\Framework\Tests\Unit\API\HTML
- * @group   unit-tests
  * @group   api
+ * @group   api-html
  */
 class Tests_Beans_Attribute_Remove extends HTML_Test_Case {
 
@@ -31,13 +31,14 @@ class Tests_Beans_Attribute_Remove extends HTML_Test_Case {
 	public function test_should_return_original_attributes_when_target_attribute_does_not_exist() {
 
 		foreach ( static::$test_attributes as $beans_id => $markup ) {
-			$instance = new _Beans_Attribute( $beans_id, 'data-test', 'test' );
-
 			// Check that the attribute does not exist before we run the test.
 			$this->assertArrayNotHasKey( 'data-test', $markup['attributes'] );
 
+			// Run the remove.
+			$actual = ( new _Beans_Attribute( $beans_id, 'data-test', 'test' ) )->remove( $markup['attributes'] );
+
 			// Check that the original attributes are returned.
-			$this->assertSame( $markup['attributes'], $instance->remove( $markup['attributes'] ) );
+			$this->assertSame( $markup['attributes'], $actual );
 		}
 	}
 
@@ -47,7 +48,9 @@ class Tests_Beans_Attribute_Remove extends HTML_Test_Case {
 	public function test_should_remove_attribute_when_value_is_null() {
 
 		foreach ( static::$test_attributes as $beans_id => $markup ) {
-			$name   = key( $markup['attributes'] );
+			$name = key( $markup['attributes'] );
+
+			// Run the remove.
 			$actual = ( new _Beans_Attribute( 'beans_test_post', $name ) )->remove( $markup['attributes'] );
 
 			// Check that the attribute is removed.
@@ -72,10 +75,10 @@ class Tests_Beans_Attribute_Remove extends HTML_Test_Case {
 			'itemprop'  => 'beans_post',
 		);
 
-		$instance = new _Beans_Attribute( 'beans_post', 'class', 'uk-panel-box' );
+		// Run the remove.
+		$actual = ( new _Beans_Attribute( 'beans_post', 'class', 'uk-panel-box' ) )->remove( $attributes );
 
 		// Check that it removed only that attribute value.
-		$actual = $instance->remove( $attributes );
 		$this->assertNotContains( 'uk-panel-box', $actual['class'] );
 		$this->assertSame( 'uk-article  category-beans', $actual['class'] );
 
@@ -89,14 +92,17 @@ class Tests_Beans_Attribute_Remove extends HTML_Test_Case {
 	 * Test remove() should the empty array when an empty array is given. Why? There is nothing to remove, as there are
 	 * no attributes.
 	 */
-	public function test_should_return_original_empty_array() {
+	public function test_should_return_empty_array_when_empty_array_given() {
 
 		foreach ( static::$test_attributes as $beans_id => $markup ) {
-			$name     = key( $markup['attributes'] );
-			$value    = current( $markup['attributes'] );
-			$instance = new _Beans_Attribute( $beans_id, $name, $value );
+			$name  = key( $markup['attributes'] );
+			$value = current( $markup['attributes'] );
 
-			$this->assertSame( array(), $instance->remove( array() ) );
+			// Run the remove.
+			$actual = ( new _Beans_Attribute( $beans_id, $name, $value ) )->remove( array() );
+
+			// Check that an empty array is returned.
+			$this->assertSame( array(), $actual );
 		}
 	}
 }

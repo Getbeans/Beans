@@ -19,8 +19,8 @@ require_once dirname( __DIR__ ) . '/includes/class-html-test-case.php';
  * Class Tests_Beans_Attribute_Replace
  *
  * @package Beans\Framework\Tests\Unit\API\HTML
- * @group   unit-tests
  * @group   api
+ * @group   api-html
  */
 class Tests_Beans_Attribute_Replace extends HTML_Test_Case {
 
