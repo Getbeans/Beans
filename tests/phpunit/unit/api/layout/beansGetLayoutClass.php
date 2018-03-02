@@ -16,8 +16,8 @@ use Brain\Monkey;
  * Class Tests_BeansGetLayoutClass
  *
  * @package Beans\Framework\Tests\Unit\API\Layout
- * @group   unit-tests
  * @group   api
+ * @group   api-layout
  */
 class Tests_BeansGetLayoutClass extends Test_Case {
 
@@ -28,7 +28,11 @@ class Tests_BeansGetLayoutClass extends Test_Case {
 		parent::setUp();
 
 		require_once BEANS_TESTS_LIB_DIR . 'api/layout/functions.php';
-		require_once BEANS_TESTS_LIB_DIR . 'api/utilities/functions.php';
+
+		$this->load_original_functions( array(
+			'api/utilities/functions.php',
+			'api/post-meta/functions.php',
+		) );
 	}
 
 	/**

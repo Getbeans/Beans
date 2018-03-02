@@ -27,7 +27,7 @@ abstract class Test_Case extends TestCase {
 		parent::setUp();
 		Monkey\setUp();
 
-		Functions\when( 'wp_normalize_path' )->alias( function ( $path ) {
+		Functions\when( 'wp_normalize_path' )->alias( function( $path ) {
 			$path = str_replace( '\\', '/', $path );
 			$path = preg_replace( '|(?<=.)/+|', '/', $path );
 
@@ -38,7 +38,7 @@ abstract class Test_Case extends TestCase {
 			return $path;
 		} );
 
-		Functions\when( 'wp_json_encode' )->alias( function ( $array ) {
+		Functions\when( 'wp_json_encode' )->alias( function( $array ) {
 			return json_encode( $array ); // phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode -- Required as part of our mock.
 		} );
 	}
@@ -49,5 +49,24 @@ abstract class Test_Case extends TestCase {
 	protected function tearDown() {
 		Monkey\tearDown();
 		parent::tearDown();
+	}
+
+	/**
+	 * Load the original Beans' functions into memory before we start.
+	 *
+	 * Then in our tests, we monkey patch via Brain Monkey, which redefines the original function.
+	 * At tear down, the original function is restored in Brain Monkey, by calling Patchwork\restoreAll().
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $files Array of files to load into memory.
+	 *
+	 * @return void
+	 */
+	protected function load_original_functions( array $files ) {
+
+		foreach ( $files as $file ) {
+			require_once BEANS_TESTS_LIB_DIR . $file;
+		}
 	}
 }
