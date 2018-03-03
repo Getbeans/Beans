@@ -61,21 +61,24 @@ abstract class Image_Test_Case extends Test_Case {
 	public static function setUpBeforeClass() {
 		parent::setUpBeforeClass();
 
-		require_once BEANS_TESTS_LIB_DIR . 'api/utilities/functions.php';
 		require_once BEANS_TESTS_LIB_DIR . 'api/image/functions.php';
 
 		foreach ( array( 'ARRAY_N', 'ARRAY_A', 'STRING', 'OBJECT' ) as $constant ) {
 			if ( ! defined( $constant ) ) {
-				define( $constant, $constant ); // @codingStandardsIgnoreLine - WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound - WordPress defined constants.
+				define( $constant, $constant ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound -- WordPress defined constants.
 			}
 		}
 	}
 
 	/**
-	 * Set up the test fixture.
+	 * Prepares the test environment before each test.
 	 */
 	protected function setUp() {
 		parent::setUp();
+
+		$this->load_original_functions( array(
+			'api/utilities/functions.php',
+		) );
 
 		$this->set_up_virtual_filesystem();
 		$this->images_dir = vfsStream::url( 'uploads/beans/images' );

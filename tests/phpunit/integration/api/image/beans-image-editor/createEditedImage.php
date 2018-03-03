@@ -63,7 +63,7 @@ class Tests_Beans_Edit_Image_CreateEditedImage extends Image_Test_Case {
 			$this->assertTrue( $created_edited_image->invoke( $editor ) );
 			$this->assertFileExists( $edited_image_src );
 
-			list( $width, $height ) = @getimagesize( $edited_image_src ); // @codingStandardsIgnoreLine - Generic.PHP.NoSilencedErrors.Discouraged  This is a valid use case.
+			list( $width, $height ) = @getimagesize( $edited_image_src ); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Valid use case.
 			$this->assertEquals( 800, $width );
 			$this->assertEquals( 420, $height );
 		}
