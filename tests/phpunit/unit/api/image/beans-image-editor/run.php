@@ -339,10 +339,10 @@ class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
 	 * Test run() should return an associative array when the edited image exists, meaning that it has already
 	 * been edited and stored.
 	 */
-	public function test_should_return_associatve_array_when_edited_image_exists() {
+	public function test_should_return_associative_array_when_edited_image_exists() {
 		$this->load_images_into_vfs();
 		$rebuilt_path = $this->get_reflective_property();
-		$args          = array( 'resize' => array( 600, false ) );
+		$args         = array( 'resize' => array( 600, false ) );
 
 		foreach ( $this->images as $virtual_path => $actual_path ) {
 			$editor           = new _Beans_Image_Editor( $actual_path, $args, ARRAY_A );
