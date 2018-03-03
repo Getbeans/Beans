@@ -139,7 +139,7 @@ abstract class Compiler_Test_Case extends Test_Case {
 
 		// Load the fixture files and content into the virtual filesystem.
 		foreach ( $filenames as $filename ) {
-			$structure['fixtures'][ $filename ] = file_get_contents( $fixtures_dir . $filename ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Valid edge case.
+			$structure['fixtures'][ $filename ] = file_get_contents( $fixtures_dir . $filename ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_file_get_contents, WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Valid edge case.
 		}
 
 		// Set up the "compiled" directory's virtual filesystem.
@@ -230,7 +230,7 @@ abstract class Compiler_Test_Case extends Test_Case {
 			$mock->shouldReceive( 'get_contents' )
 				->times( $times_called )
 				->with( $fragment )
-				->andReturn( file_get_contents( $fragment ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents && WordPress.WP.AlternativeFunctions.file_system_read_file_get_contents -- Valid in this edge case.
+				->andReturn( file_get_contents( $fragment ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_file_get_contents, WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Valid in this edge case.
 		}
 
 		$GLOBALS['wp_filesystem'] = $mock; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Valid use case as we are mocking the filesystem.

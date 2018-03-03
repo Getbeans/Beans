@@ -101,7 +101,7 @@ abstract class Compiler_Test_Case extends WP_UnitTestCase {
 
 		// Load the fixture files and content into the virtual filesystem.
 		foreach ( $filenames as $filename ) {
-			$structure['fixtures'][ $filename ] = file_get_contents( $fixtures_dir . $filename ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Valid edge case.
+			$structure['fixtures'][ $filename ] = file_get_contents( $fixtures_dir . $filename ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_file_get_contents, WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Valid edge case.
 		}
 
 		// Set up the "compiled" directory's virtual filesystem.
