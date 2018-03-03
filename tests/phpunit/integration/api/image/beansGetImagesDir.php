@@ -19,8 +19,8 @@ require_once __DIR__ . '/includes/class-image-test-case.php';
  * Class Tests_BeansGetImagesDir
  *
  * @package Beans\Framework\Tests\Integration\API\Image
- * @group   integration-tests
  * @group   api
+ * @group   api-image
  */
 class Tests_BeansGetImagesDir extends Image_Test_Case {
 
