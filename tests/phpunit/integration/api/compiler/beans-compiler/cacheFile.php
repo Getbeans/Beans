@@ -20,8 +20,8 @@ require_once dirname( __DIR__ ) . '/includes/class-compiler-test-case.php';
  * Class Tests_Beans_Compiler_Cache_File
  *
  * @package Beans\Framework\Tests\Integration\API\Compiler
- * @group   integration-tests
  * @group   api
+ * @group   api-compiler
  */
 class Tests_Beans_Compiler_Cache_File extends Compiler_Test_Case {
 
