@@ -61,8 +61,6 @@ abstract class Image_Test_Case extends Test_Case {
 	public static function setUpBeforeClass() {
 		parent::setUpBeforeClass();
 
-		require_once BEANS_TESTS_LIB_DIR . 'api/image/functions.php';
-
 		foreach ( array( 'ARRAY_N', 'ARRAY_A', 'STRING', 'OBJECT' ) as $constant ) {
 			if ( ! defined( $constant ) ) {
 				define( $constant, $constant ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound -- WordPress defined constants.
@@ -75,6 +73,8 @@ abstract class Image_Test_Case extends Test_Case {
 	 */
 	protected function setUp() {
 		parent::setUp();
+
+		require_once BEANS_TESTS_LIB_DIR . 'api/image/functions.php';
 
 		$this->load_original_functions( array(
 			'api/utilities/functions.php',

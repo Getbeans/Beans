@@ -15,7 +15,6 @@ use Brain\Monkey;
 use Mockery;
 
 require_once dirname( __DIR__ ) . '/includes/class-image-test-case.php';
-require_once BEANS_TESTS_LIB_DIR . 'api/image/class-beans-image-editor.php';
 
 /**
  * Class Tests_Beans_Edit_Image_CreateEditedImage
@@ -40,6 +39,15 @@ class Tests_Beans_Edit_Image_CreateEditedImage extends Image_Test_Case {
 		parent::setUpBeforeClass();
 
 		static::$fixtures_dir = realpath( __DIR__ . '/../fixtures' );
+	}
+
+	/**
+	 * Prepares the test environment before each test.
+	 */
+	public function setUp() {
+		parent::setUp();
+
+		require_once BEANS_TESTS_LIB_DIR . 'api/image/class-beans-image-editor.php';
 	}
 
 	/**

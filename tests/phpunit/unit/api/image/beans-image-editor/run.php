@@ -15,7 +15,6 @@ use Brain\Monkey;
 use Mockery;
 
 require_once dirname( __DIR__ ) . '/includes/class-image-test-case.php';
-require_once BEANS_TESTS_LIB_DIR . 'api/image/class-beans-image-editor.php';
 
 /**
  * Class Tests_Beans_Edit_Image_Run
@@ -47,6 +46,8 @@ class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
 	 */
 	protected function setUp() {
 		parent::setUp();
+
+		require_once BEANS_TESTS_LIB_DIR . 'api/image/class-beans-image-editor.php';
 
 		Monkey\Functions\when( 'is_main_site' )->justReturn( true );
 	}
