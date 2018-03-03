@@ -2,10 +2,10 @@
 /**
  * The Beans Image component contains a set of functions to edit images on the fly.
  *
- * Edited images are duplicates of the orinigals. All modified images are stored in a shared folder,
+ * Edited images are duplicates of the originals. All modified images are stored in a shared folder,
  * which makes it easy to delete them without impacting the originals.
  *
- * @package API\Image
+ * @package Beans\Framework\API\Image
  */
 
 /**
@@ -16,30 +16,21 @@
  *
  * @since 1.0.0
  *
- * @param string $src The image source.
- * @param array  $args {
- *      Associative array of arguments used by the image editor.
- *
- *      @type array $resize      Numeric array matching the {@link http://codex.wordpress.org/Class_Reference/WP_Image_Editor WP_Image_Editor} resize
- *                               function arguments.
- *      @type array $crop        Numeric array matching the {@link http://codex.wordpress.org/Class_Reference/WP_Image_Editor WP_Image_Editor} crop
- *                               function arguments.
- *      @type array $rotate      Numeric array matching the {@link http://codex.wordpress.org/Class_Reference/WP_Image_Editor WP_Image_Editor} rotate
- *                               function arguments.
- *      @type array $flip        Numeric array matching the {@link http://codex.wordpress.org/Class_Reference/WP_Image_Editor WP_Image_Editor} flip
- *                               function arguments.
- *      @type array $set_quality Numeric array matching the {@link http://codex.wordpress.org/Class_Reference/WP_Image_Editor WP_Image_Editor} set_quality
- *                               function arguments.
- * }
- * @param string $output Optional. Returned format. Accepts STRING, OBJECT, ARRAY_A, or ARRAY_N.
- *                            Default STRING.
+ * @param string $src         The image source.
+ * @param array  $args        An array of editor arguments, where the key is the {@see WP_Image_Editor} method name
+ *                            and the value is a numeric array of arguments for the method. Make sure to specify
+ *                            all of the arguments the WordPress editor's method requires. Refer to
+ *                            {@link https://codex.wordpress.org/Class_Reference/WP_Image_Editor#Methods} for more
+ *                            information on the available methods and each method's arguments.
+ * @param string $output      Optional. Returned format. Accepts STRING, OBJECT, ARRAY_A, or ARRAY_N.
+ *                            Default is STRING.
  *
  * @return string|array Image source if output set the STRING, image data otherwise.
  */
 function beans_edit_image( $src, array $args, $output = 'STRING' ) {
-	require_once BEANS_API_PATH . 'image/class-images.php';
-	$instance = new _Beans_Image_Editor( $src, $args, $output );
-	return $instance->init();
+	require_once BEANS_API_PATH . 'image/class-beans-image-editor.php';
+	$editor = new _Beans_Image_Editor( $src, $args, $output );
+	return $editor->run();
 }
 
 /**
@@ -76,25 +67,16 @@ function beans_get_post_attachment( $post_id, $size = 'full' ) {
 /**
  * Edit post attachment.
  *
- * This function is shortuct of {@see beans_edit_image()}. It should be used to edit a post attachment.
+ * This function is shortcut of {@see beans_edit_image()}. It should be used to edit a post attachment.
  *
  * @since 1.0.0
  *
- * @param string $post_id The post id.
- * @param array  $args {
- *      Array of arguments used by the image editor.
- *
- *      @type array $resize      Numeric array matching the {@link http://codex.wordpress.org/Class_Reference/WP_Image_Editor WP_Image_Editor} resize
- *                               function arguments.
- *      @type array $crop        Numeric array matching the {@link http://codex.wordpress.org/Class_Reference/WP_Image_Editor WP_Image_Editor} crop
- *                               function arguments.
- *      @type array $rotate      Numeric array matching the {@link http://codex.wordpress.org/Class_Reference/WP_Image_Editor WP_Image_Editor} rotate
- *                               function arguments.
- *      @type array $flip        Numeric array matching the {@link http://codex.wordpress.org/Class_Reference/WP_Image_Editor WP_Image_Editor} flip
- *                               function arguments.
- *      @type array $set_quality Numeric array matching the {@link http://codex.wordpress.org/Class_Reference/WP_Image_Editor WP_Image_Editor} set_quality
- *                               function arguments.
- * }
+ * @param string $post_id     The post id.
+ * @param array  $args        An array of editor arguments, where the key is the {@see WP_Image_Editor} method name
+ *                            and the value is a numeric array of arguments for the method. Make sure to specify
+ *                            all of the arguments the WordPress editor's method requires. Refer to
+ *                            {@link https://codex.wordpress.org/Class_Reference/WP_Image_Editor#Methods} for more
+ *                            information on the available methods and each method's arguments.
  *
  * @return object Edited post attachment data.
  */
@@ -105,22 +87,22 @@ function beans_edit_post_attachment( $post_id, $args = array() ) {
 	}
 
 	// Get full size image.
-	$attachement = beans_get_post_attachment( $post_id, 'full' );
-	$edited      = beans_edit_image( $attachement->src, $args, 'ARRAY_A' );
+	$attachment = beans_get_post_attachment( $post_id, 'full' );
+	$edited     = beans_edit_image( $attachment->src, $args, 'ARRAY_A' );
 
 	if ( ! $edited ) {
-		return $attachement;
+		return $attachment;
 	}
 
-	return (object) array_merge( (array) $attachement, $edited );
+	return (object) array_merge( (array) $attachment, $edited );
 }
 
 /**
- * Get edited images directory.
+ * Get the "edited images" storage directory, i.e. where the "edited images" are/will be stored.
  *
  * @since 1.0.0
  *
- * @return string Edited images directory.
+ * @return string
  */
 function beans_get_images_dir() {
 	$wp_upload_dir = wp_upload_dir();
@@ -129,6 +111,8 @@ function beans_get_images_dir() {
 	 * Filter the edited images directory.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @param string Default path to the Beans' edited images storage directory.
 	 */
 	$dir = apply_filters( 'beans_images_dir', trailingslashit( $wp_upload_dir['basedir'] ) . 'beans/images/' );
 
