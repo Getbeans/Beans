@@ -42,7 +42,7 @@ function beans_add_action( $id, $hook, $callback, $priority = 10, $args = 1 ) {
 	$replaced_action = _beans_get_action( $id, 'replaced' );
 
 	// If the ID is set to be "replaced", then replace that(those) parameter(s).
-	if ( ! empty( $replaced_action ) && is_array( $replaced_action ) ) {
+	if ( ! empty( $replaced_action ) ) {
 		$action = array_merge( $action, $replaced_action );
 	}
 
@@ -56,13 +56,8 @@ function beans_add_action( $id, $hook, $callback, $priority = 10, $args = 1 ) {
 	$modified_action = _beans_get_action( $id, 'modified' );
 
 	// If the ID is set to be "modified", then modify that(those) parameter(s).
-	if ( ! empty( $modified_action ) && is_array( $modified_action ) ) {
+	if ( ! empty( $modified_action ) ) {
 		$action = array_merge( $action, $modified_action );
-	}
-
-	// Bail out if it's not a valid action.
-	if ( ! _beans_is_action_valid( $action ) ) {
-		return false;
 	}
 
 	return add_action( $action['hook'], $action['callback'], $action['priority'], $action['args'] );
@@ -122,19 +117,18 @@ function beans_modify_action( $id, $hook = null, $callback = null, $priority = n
 		return false;
 	}
 
-	$current_action     = _beans_get_current_action( $id );
-	$has_current_action = ! empty( $current_action ) && is_array( $current_action );
+	$current_action = _beans_get_current_action( $id );
 
 	// If the action is registered, let's remove it.
-	if ( $has_current_action ) {
-		remove_action( $current_action['hook'], $current_action['callback'], $current_action['priority'], $current_action['args'] );
+	if ( ! empty( $current_action ) ) {
+		remove_action( $current_action['hook'], $current_action['callback'], $current_action['priority'] );
 	}
 
 	// Merge the modified parameters and register with Beans.
 	$action = _beans_merge_action( $id, $action, 'modified' );
 
 	// If there is no action to modify, bail out.
-	if ( ! $has_current_action ) {
+	if ( empty( $current_action ) ) {
 		return false;
 	}
 
@@ -358,19 +352,17 @@ function beans_replace_action_arguments( $id, $args ) {
 function beans_remove_action( $id ) {
 	$action = _beans_get_current_action( $id );
 
-	// If the action is not registered yet, set it to a default configuration.
-	if ( empty( $action ) ) {
+	// When there is a current action, remove it.
+	if ( ! empty( $action ) ) {
+		remove_action( $action['hook'], $action['callback'], $action['priority'] );
+	} else {
+		// If the action is not registered yet, set it to a default configuration.
 		$action = array(
 			'hook'     => null,
 			'callback' => null,
 			'priority' => null,
 			'args'     => null,
 		);
-	}
-
-	// When there is a current action, remove it.
-	if ( _beans_is_action_valid( $action ) ) {
-		remove_action( $action['hook'], $action['callback'], $action['priority'], $action['args'] );
 	}
 
 	// Store as "removed".
@@ -399,19 +391,19 @@ function beans_reset_action( $id ) {
 
 	$action = _beans_get_action( $id, 'added' );
 
-	// Bail out if there is no action.
-	if ( ! _beans_is_action_valid( $action ) ) {
+	// If there is no "added" action, bail out.
+	if ( empty( $action ) ) {
 		return false;
 	}
 
 	$current = _beans_get_current_action( $id );
 
-	// Return the action if there is no current action.
-	if ( ! _beans_is_action_valid( $current ) ) {
+	// If there's no current action, return the "added" action.
+	if ( empty( $current ) ) {
 		return $action;
 	}
 
-	remove_action( $current['hook'], $current['callback'], $current['priority'], $current['args'] );
+	remove_action( $current['hook'], $current['callback'], $current['priority'] );
 	add_action( $action['hook'], $action['callback'], $action['priority'], $action['args'] );
 
 	return $action;
@@ -464,7 +456,7 @@ function _beans_get_action( $id, $status ) {
 		return false;
 	}
 
-	return (array) json_decode( $action );
+	return $action;
 }
 
 /**
@@ -489,17 +481,19 @@ function _beans_get_action( $id, $status ) {
 function _beans_set_action( $id, $action, $status, $overwrite = false ) {
 	$id = _beans_unique_action_id( $id );
 
-	// Get the action, if it's already registered.
-	$registered_action = _beans_get_action( $id, $status );
+	// If not overwriting, return the registered action (if it's registered).
+	if ( ! $overwrite ) {
+		$registered_action = _beans_get_action( $id, $status );
 
-	// If the action is registered and we are not overwriting, return it.
-	if ( true !== $overwrite && ! empty( $registered_action ) ) {
-		return $registered_action;
+		if ( ! empty( $registered_action ) ) {
+			return $registered_action;
+		}
 	}
 
-	// Let's set (or overwrite) the action.
-	global $_beans_registered_actions;
-	$_beans_registered_actions[ $status ][ $id ] = wp_json_encode( $action );
+	if ( ! empty( $action ) || 'removed' === $status ) {
+		global $_beans_registered_actions;
+		$_beans_registered_actions[ $status ][ $id ] = $action;
+	}
 
 	return $action;
 }
@@ -551,7 +545,7 @@ function _beans_merge_action( $id, array $action, $status ) {
 	$registered_action = _beans_get_action( $id, $status );
 
 	// If the action's configuration is already registered with Beans, merge the new configuration with it.
-	if ( false !== $registered_action ) {
+	if ( ! empty( $registered_action ) ) {
 		$action = array_merge( $registered_action, $action );
 	}
 
@@ -563,6 +557,7 @@ function _beans_merge_action( $id, array $action, $status ) {
  * Get the current action, meaning get from the "added" and/or "modified" statuses.
  *
  * @since  1.0.0
+ * @since  1.5.0 Bails out if there is no "added" action registered.
  * @ignore
  * @access private
  *
@@ -577,52 +572,21 @@ function _beans_get_current_action( $id ) {
 		return false;
 	}
 
-	$action = array();
-
 	$added = _beans_get_action( $id, 'added' );
 
-	if ( false !== $added ) {
-		$action = $added;
+	// If there is no "added" action registered, bail out.
+	if ( empty( $added ) ) {
+		return false;
 	}
 
 	$modified = _beans_get_action( $id, 'modified' );
 
-	if ( false !== $modified ) {
-		$action = is_array( $action )
-			? array_merge( $action, $modified )
-			: $modified;
+	// If the action is set to be modified, merge the changes and return the action.
+	if ( ! empty( $modified ) ) {
+		return array_merge( $added, $modified );
 	}
 
-	// Stop here if the action is invalid.
-	if ( ! _beans_is_action_valid( $action ) ) {
-		return false;
-	}
-
-	return $action;
-}
-
-/**
- * Validates the action's configuration to ensure "hook", "callback", "priority", and "args" are
- * set and not null.
- *
- * @since  1.5.0
- * @ignore
- * @access private
- *
- * @param array|mixed $action Action's configuration.
- *
- * @return bool
- */
-function _beans_is_action_valid( $action ) {
-	if ( empty( $action ) ) {
-		return false;
-	}
-
-	if ( ! is_array( $action ) ) {
-		return;
-	}
-
-	return isset( $action['hook'], $action['callback'], $action['priority'], $action['args'] );
+	return $added;
 }
 
 /**

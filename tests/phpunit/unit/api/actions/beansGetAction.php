@@ -53,7 +53,7 @@ class Tests_BeansGetAction extends Actions_Test_Case {
 
 		foreach ( static::$test_actions as $beans_id => $action ) {
 			// Store the action in the registry.
-			$_beans_registered_actions['added'][ $beans_id ] = wp_json_encode( $action );
+			$_beans_registered_actions['added'][ $beans_id ] = $action;
 
 			// Test that we get the "added" action.
 			$this->assertSame( $action, _beans_get_action( $beans_id, 'added' ) );
@@ -73,7 +73,7 @@ class Tests_BeansGetAction extends Actions_Test_Case {
 
 		foreach ( static::$test_actions as $beans_id => $action ) {
 			// Store the action in the registry.
-			$_beans_registered_actions['modified'][ $beans_id ] = wp_json_encode( $action );
+			$_beans_registered_actions['modified'][ $beans_id ] = $action;
 
 			// Test that we get the "modified" action.
 			$this->assertSame( $action, _beans_get_action( $beans_id, 'modified' ) );
@@ -93,7 +93,7 @@ class Tests_BeansGetAction extends Actions_Test_Case {
 
 		foreach ( static::$test_actions as $beans_id => $action ) {
 			// Store the action in the registry.
-			$_beans_registered_actions['removed'][ $beans_id ] = wp_json_encode( $action );
+			$_beans_registered_actions['removed'][ $beans_id ] = $action;
 
 			// Test that we get the "removed" action.
 			$this->assertSame( $action, _beans_get_action( $beans_id, 'removed' ) );
@@ -113,7 +113,7 @@ class Tests_BeansGetAction extends Actions_Test_Case {
 
 		foreach ( static::$test_actions as $beans_id => $action ) {
 			// Store the action in the registry.
-			$_beans_registered_actions['replaced'][ $beans_id ] = wp_json_encode( $action );
+			$_beans_registered_actions['replaced'][ $beans_id ] = $action;
 
 			// Test that we get the "replaced" action.
 			$this->assertSame( $action, _beans_get_action( $beans_id, 'replaced' ) );
