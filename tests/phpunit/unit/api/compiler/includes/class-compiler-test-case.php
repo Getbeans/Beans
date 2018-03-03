@@ -63,7 +63,6 @@ abstract class Compiler_Test_Case extends Test_Case {
 	public static function setUpBeforeClass() {
 		parent::setUpBeforeClass();
 
-		require_once BEANS_TESTS_LIB_DIR . 'api/utilities/functions.php';
 		require_once BEANS_TESTS_LIB_DIR . 'api/compiler/class-beans-compiler.php';
 		require_once BEANS_TESTS_LIB_DIR . 'api/compiler/functions.php';
 
@@ -93,6 +92,10 @@ abstract class Compiler_Test_Case extends Test_Case {
 
 		Functions\expect( 'is_admin' )->andReturn( $this->is_admin );
 		Functions\expect( 'site_url' )->andReturn( 'http:://beans.local' );
+
+		$this->load_original_functions( array(
+			'api/utilities/functions.php',
+		) );
 	}
 
 	/**
