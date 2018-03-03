@@ -223,7 +223,7 @@ final class _Beans_Compiler {
 	 * @return string
 	 */
 	public function hash( array $given_array ) {
-		return substr( md5( @serialize( $given_array ) ), 0, 7 ); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Valid use case.
+		return substr( md5( @serialize( $given_array ) ), 0, 7 ); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged, WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize -- Valid use case.
 	}
 
 	/**
