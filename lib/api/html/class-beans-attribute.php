@@ -52,10 +52,10 @@ final class _Beans_Attribute {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string      $id              The markup ID.
-	 * @param string      $attribute       Name of the HTML attribute.
-	 * @param string|null $value           Optional. Value of the HTML attribute (i.e. value to be replaced or removed).
-	 * @param string|null $new_value       Optional. Replacement (new) value of the HTML attribute.
+	 * @param string      $id        The markup ID.
+	 * @param string      $attribute Name of the HTML attribute.
+	 * @param string|null $value     Optional. Value of the HTML attribute (i.e. value to be replaced or removed).
+	 * @param string|null $new_value Optional. Replacement (new) value of the HTML attribute.
 	 */
 	public function __construct( $id, $attribute, $value = null, $new_value = null ) {
 		$this->id        = $id;
@@ -72,9 +72,14 @@ final class _Beans_Attribute {
 	 *
 	 * @param array $method Method to register as the callback for this filter.
 	 *
-	 * @return self (for chaining)
+	 * @return void|self (for chaining)
 	 */
 	public function init( $method ) {
+
+		if ( ! method_exists( $this, $method ) ) {
+			return;
+		}
+
 		beans_add_filter( $this->id . '_attributes', array( $this, $method ) );
 
 		return $this;
@@ -133,6 +138,10 @@ final class _Beans_Attribute {
 	 * @return array
 	 */
 	public function remove( array $attributes ) {
+
+		if ( empty( $attributes ) ) {
+			return $attributes;
+		}
 
 		if ( ! $this->has_attribute( $attributes ) ) {
 			return $attributes;
