@@ -83,10 +83,10 @@ class Tests_BeansGetTermMeta extends Test_Case {
 	 * Test beans_get_term_meta() should return default when given and term_id is tag_ID but term meta does not exist.
 	 */
 	public function test_should_return_default_when_default_given_and_term_id_is_tag_id_but_term_meta_not_set() {
-		$_GET['tag_ID'] = 1;
 		Monkey\Functions\expect( 'get_queried_object' )
 			->once()
 			->andReturn( (object) array( 'post_id' => 1 ) );
+		Monkey\Functions\expect( 'beans_get' )->once()->with( 'tag_ID' )->andReturn( 1 );
 		Monkey\Functions\expect( 'get_option' )
 			->with( 'beans_term_1_beans_layout', 'default_fallback' )
 			->once()
@@ -100,10 +100,10 @@ class Tests_BeansGetTermMeta extends Test_Case {
 	 * exists.
 	 */
 	public function test_should_return_term_meta_when_default_given_and_term_id_is_tag_id_and_term_meta_exists() {
-		$_GET['tag_ID'] = 1;
 		Monkey\Functions\expect( 'get_queried_object' )
 			->once()
 			->andReturn( (object) array( 'post_id' => 1 ) );
+		Monkey\Functions\expect( 'beans_get' )->once()->with( 'tag_ID' )->andReturn( 1 );
 		Monkey\Functions\expect( 'get_option' )
 			->with( 'beans_term_1_beans_layout', 'default_fallback' )
 			->once()
