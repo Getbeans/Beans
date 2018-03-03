@@ -56,10 +56,26 @@ abstract class Image_Test_Case extends Test_Case {
 	protected $is_admin = false;
 
 	/**
+	 * Array of images.
+	 *
+	 * @var array
+	 */
+	protected $images;
+
+	/**
+	 * Path of the fixtures directory.
+	 *
+	 * @var string
+	 */
+	protected static $fixtures_dir;
+
+	/**
 	 * Set up the test before we run the test setups.
 	 */
 	public static function setUpBeforeClass() {
 		parent::setUpBeforeClass();
+
+		static::$fixtures_dir = __DIR__ . '/fixtures';
 
 		foreach ( array( 'ARRAY_N', 'ARRAY_A', 'STRING', 'OBJECT' ) as $constant ) {
 			if ( ! defined( $constant ) ) {
@@ -94,6 +110,11 @@ abstract class Image_Test_Case extends Test_Case {
 		) );
 
 		Monkey\Functions\expect( 'site_url' )->andReturn( 'http:://example.com' );
+
+		$this->images = array(
+			$this->images_dir . '/image1.jpg' => static::$fixtures_dir . '/image1.jpg',
+			$this->images_dir . '/image2.jpg' => static::$fixtures_dir . '/image2.jpg',
+		);
 	}
 
 	/**
@@ -110,6 +131,16 @@ abstract class Image_Test_Case extends Test_Case {
 
 		// Set up the "beans" directory's virtual filesystem.
 		$this->mock_filesystem = vfsStream::setup( 'uploads', 0755, $structure );
+	}
+
+	/**
+	 * Load the images into the virtual filesystem.
+	 */
+	protected function load_images_into_vfs() {
+
+		foreach ( $this->images as $virtual_path => $actual_path ) {
+			imagejpeg( imagecreatefromjpeg( $actual_path ), $virtual_path );
+		}
 	}
 
 	/**
