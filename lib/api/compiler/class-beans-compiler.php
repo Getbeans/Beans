@@ -163,7 +163,7 @@ final class _Beans_Compiler {
 	 */
 	private function maybe_make_dir() {
 
-		if ( ! @is_dir( $this->dir ) ) {  // @codingStandardsIgnoreLine - Generic.PHP.NoSilencedErrors.Discouraged  This is a valid use case.
+		if ( ! @is_dir( $this->dir ) ) {  // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- This is a valid use case.
 			wp_mkdir_p( $this->dir );
 		}
 
@@ -223,7 +223,7 @@ final class _Beans_Compiler {
 	 * @return string
 	 */
 	public function hash( array $given_array ) {
-		return substr( md5( @serialize( $given_array ) ), 0, 7 ); // @codingStandardsIgnoreLine - Generic.PHP.NoSilencedErrors.Discouraged  This is a valid use case.
+		return substr( md5( @serialize( $given_array ) ), 0, 7 ); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Valid use case.
 	}
 
 	/**
@@ -431,7 +431,7 @@ final class _Beans_Compiler {
 			$fragment = beans_url_to_path( $fragment );
 
 			// Stop here if it isn't a valid file.
-			if ( ! file_exists( $fragment ) || 0 === @filesize( $fragment ) ) { // @codingStandardsIgnoreLine - Generic.PHP.NoSilencedErrors.Discouraged  This is a valid use case.
+			if ( ! file_exists( $fragment ) || 0 === @filesize( $fragment ) ) { // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged  -- Valid use case.
 				return false;
 			}
 		}
@@ -680,7 +680,7 @@ final class _Beans_Compiler {
 			}
 
 			if ( file_exists( $fragment ) ) {
-				$fragments_filemtime[ $index ] = @filemtime( $fragment ); // @codingStandardsIgnoreLine - Generic.PHP.NoSilencedErrors.Discouraged  This is a valid use case.
+				$fragments_filemtime[ $index ] = @filemtime( $fragment ); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Valid use case.
 			}
 		}
 
@@ -727,7 +727,7 @@ final class _Beans_Compiler {
 	 * @return void
 	 */
 	private function remove_modified_files( $hash, $filemtime_hash ) {
-		$items = @scandir( $this->dir );  // @codingStandardsIgnoreLine - Generic.PHP.NoSilencedErrors.Discouraged  This is a valid use case.
+		$items = @scandir( $this->dir );  // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Valid use case.
 		unset( $items[0], $items[1] );
 
 		if ( empty( $items ) ) {
@@ -737,7 +737,7 @@ final class _Beans_Compiler {
 		foreach ( $items as $item ) {
 
 			// Skip this one if it's a directory.
-			if ( @is_dir( $item ) ) { // @codingStandardsIgnoreLine - Generic.PHP.NoSilencedErrors.Discouraged  This is a valid use case.
+			if ( @is_dir( $item ) ) { // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Valid use case.
 				continue;
 			}
 
@@ -764,7 +764,7 @@ final class _Beans_Compiler {
 			}
 
 			// Clean up other modified files.
-			@unlink( $this->dir . '/' . $item );  // @codingStandardsIgnoreLine - Generic.PHP.NoSilencedErrors.Discouraged  This is a valid use case.
+			@unlink( $this->dir . '/' . $item );  // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Valid use case.
 		}
 	}
 
@@ -919,7 +919,6 @@ final class _Beans_Compiler {
 	 */
 	public function __get( $property ) {
 
-		// If the property exists, return it.
 		if ( property_exists( $this, $property ) ) {
 			return $this->{$property};
 		}

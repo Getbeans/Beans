@@ -211,7 +211,7 @@ function beans_flush_compiler( $id, $file_format = false, $admin = false ) {
 
 		foreach ( $items as $item ) {
 			if ( false !== stripos( $item, '.' . $file_format ) ) {
-				@unlink( trailingslashit( $dir ) . $item ); // @codingStandardsIgnoreLine - Generic.PHP.NoSilencedErrors.Discouraged  This is a valid use case.
+				@unlink( trailingslashit( $dir ) . $item ); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Valid use case.
 			}
 		}
 

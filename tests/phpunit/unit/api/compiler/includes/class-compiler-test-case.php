@@ -67,7 +67,7 @@ abstract class Compiler_Test_Case extends Test_Case {
 		require_once BEANS_TESTS_LIB_DIR . 'api/compiler/functions.php';
 
 		if ( ! defined( 'FS_CHMOD_FILE' ) ) {
-			define( 'FS_CHMOD_FILE', 0644 ); // @codingStandardsIgnoreLine - WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound - valid constant.
+			define( 'FS_CHMOD_FILE', 0644 ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound -- Valid constant.
 		}
 	}
 
@@ -139,7 +139,7 @@ abstract class Compiler_Test_Case extends Test_Case {
 
 		// Load the fixture files and content into the virtual filesystem.
 		foreach ( $filenames as $filename ) {
-			$structure['fixtures'][ $filename ] = file_get_contents( $fixtures_dir . $filename ); // @codingStandardsIgnoreLine - WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents - valid edge case.
+			$structure['fixtures'][ $filename ] = file_get_contents( $fixtures_dir . $filename ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Valid edge case.
 		}
 
 		// Set up the "compiled" directory's virtual filesystem.
@@ -230,10 +230,10 @@ abstract class Compiler_Test_Case extends Test_Case {
 			$mock->shouldReceive( 'get_contents' )
 				->times( $times_called )
 				->with( $fragment )
-				->andReturn( file_get_contents( $fragment ) ); // @codingStandardsIgnoreLine - WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents && WordPress.WP.AlternativeFunctions.file_system_read_file_get_contents - valid in this edge case.
+				->andReturn( file_get_contents( $fragment ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents && WordPress.WP.AlternativeFunctions.file_system_read_file_get_contents -- Valid in this edge case.
 		}
 
-		$GLOBALS['wp_filesystem'] = $mock; // @codingStandardsIgnoreLine - WordPress.Variables.GlobalVariables.OverrideProhibited  This is a valid use case as we are mocking the filesystem.
+		$GLOBALS['wp_filesystem'] = $mock; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Valid use case as we are mocking the filesystem.
 	}
 
 	/**
@@ -241,7 +241,7 @@ abstract class Compiler_Test_Case extends Test_Case {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param bool $is_enabled Optional. When true, developement mode is enabled. Default is false.
+	 * @param bool $is_enabled Optional. When true, development mode is enabled. Default is false.
 	 *
 	 * @return void
 	 */
