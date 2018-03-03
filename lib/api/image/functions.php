@@ -62,7 +62,6 @@ function beans_get_post_attachment( $post_id, $size = 'full' ) {
 	$obj->description = $post->post_content;
 
 	return $obj;
-
 }
 
 /**
