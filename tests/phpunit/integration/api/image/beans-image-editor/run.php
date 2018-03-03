@@ -19,8 +19,8 @@ require_once BEANS_API_PATH . 'image/class-beans-image-editor.php';
  * Class Tests_Beans_Edit_Image_Run
  *
  * @package Beans\Framework\Tests\Integration\API\Image
- * @group   integration-tests
  * @group   api
+ * @group   api-image
  */
 class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
 

@@ -18,8 +18,8 @@ require_once __DIR__ . '/includes/class-image-test-case.php';
  * Class Tests_BeansEditImage
  *
  * @package Beans\Framework\Tests\Unit\API\Image
- * @group   unit-tests
  * @group   api
+ * @group   api-image
  */
 class Tests_BeansEditImage extends Image_Test_Case {
 

@@ -21,8 +21,8 @@ require_once BEANS_TESTS_LIB_DIR . 'api/image/class-beans-image-editor.php';
  * Class Tests_Beans_Edit_Image_CreateEditedImage
  *
  * @package Beans\Framework\Tests\Unit\API\Image
- * @group   unit-tests
  * @group   api
+ * @group   api-image
  */
 class Tests_Beans_Edit_Image_CreateEditedImage extends Image_Test_Case {
 
