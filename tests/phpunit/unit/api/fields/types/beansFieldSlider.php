@@ -17,8 +17,8 @@ require_once dirname( __DIR__ ) . '/includes/class-fields-test-case.php';
  * Class Tests_BeansFieldSlider
  *
  * @package Beans\Framework\Tests\Unit\API\Fields\Types
- * @group   unit-tests
  * @group   api
+ * @group   api-fields
  */
 class Tests_BeansFieldSlider extends Fields_Test_Case {
 

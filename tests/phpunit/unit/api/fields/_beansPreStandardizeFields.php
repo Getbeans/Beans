@@ -17,8 +17,8 @@ require_once __DIR__ . '/includes/class-fields-test-case.php';
  * Class Tests_BeansPreStandardizeFields
  *
  * @package Beans\Framework\Tests\Unit\API\Fields
- * @group   unit-tests
  * @group   api
+ * @group   api-fields
  */
 class Tests_BeansPreStandardizeFields extends Fields_Test_Case {
 

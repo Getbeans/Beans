@@ -17,8 +17,8 @@ require_once __DIR__ . '/includes/class-fields-test-case.php';
  * Class Tests_BeansField
  *
  * @package Beans\Framework\Tests\Integration\API\Fields
- * @group   integration-tests
  * @group   api
+ * @group   api-fields
  */
 class Tests_BeansField extends Fields_Test_Case {
 

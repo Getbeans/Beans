@@ -18,8 +18,8 @@ require_once dirname( __DIR__ ) . '/includes/class-fields-test-case.php';
  * Class Tests_BeansGetImageUrl
  *
  * @package Beans\Framework\Tests\Unit\API\Fields\Types
- * @group   integration-tests
  * @group   api
+ * @group   api-fields
  */
 class Tests_BeansGetImageUrl extends Fields_Test_Case {
 
