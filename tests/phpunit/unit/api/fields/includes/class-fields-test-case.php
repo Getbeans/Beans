@@ -118,6 +118,7 @@ abstract class Fields_Test_Case extends Test_Case {
 	 */
 	protected function get_reflective_property_value( $property ) {
 		$reflective = $this->get_reflective_property( $property );
+
 		return $reflective->getValue( new \_Beans_Fields() );
 	}
 
@@ -191,19 +192,17 @@ abstract class Fields_Test_Case extends Test_Case {
 		}
 
 		Monkey\Functions\when( 'checked' )->alias( function ( $actual, $value ) {
-			if ( $actual !== $value ) {
-				return;
-			}
 
-			echo " checked='checked'";
+			if ( $actual === $value ) {
+				echo " checked='checked'";
+			}
 		} );
 
 		Monkey\Functions\when( 'selected' )->alias( function ( $actual, $value ) {
-			if ( $actual !== $value ) {
-				return;
-			}
 
-			echo " selected='selected'";
+			if ( $actual === $value ) {
+				echo " selected='selected'";
+			}
 		} );
 
 		Monkey\Functions\when( '_n' )->alias( function ( $single, $plural, $number ) {
@@ -213,11 +212,7 @@ abstract class Fields_Test_Case extends Test_Case {
 		Monkey\Functions\when( 'beans_get' )->alias( function ( $needle, $haystack = false, $default = null ) {
 			$haystack = (array) $haystack;
 
-			if ( isset( $haystack[ $needle ] ) ) {
-				return $haystack[ $needle ];
-			}
-
-			return $default;
+			return isset( $haystack[ $needle ] ) ? $haystack[ $needle ] : $default;
 		} );
 	}
 }
