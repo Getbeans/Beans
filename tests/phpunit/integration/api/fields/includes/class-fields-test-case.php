@@ -32,6 +32,14 @@ abstract class Fields_Test_Case extends Test_Case {
 		parent::setUpBeforeClass();
 
 		static::$test_data = require dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'fixtures/test-fields.php';
+	}
+
+	/**
+	 * Prepares the test environment before each test.
+	 */
+	public function setUp() {
+		parent::setUp();
+
 		require_once BEANS_THEME_DIR . '/lib/api/fields/class-beans-fields.php';
 	}
 
