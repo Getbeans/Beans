@@ -48,31 +48,7 @@ abstract class Fields_Test_Case extends Test_Case {
 			'api/utilities/functions.php',
 		) );
 
-		foreach ( array( 'esc_attr', 'esc_html', 'esc_textarea', 'esc_url', 'wp_kses_post', '__' ) as $wp_function ) {
-			Monkey\Functions\when( $wp_function )->returnArg();
-		}
-
-		foreach ( array( 'esc_attr_e', 'esc_html_e', '_e' ) as $wp_function ) {
-			Monkey\Functions\when( $wp_function )->echoArg();
-		}
-
-		Monkey\Functions\when( 'checked' )->alias( function( $actual, $value ) {
-			if ( $actual !== $value ) {
-				return;
-			}
-
-			echo " checked='checked'";
-		} );
-		Monkey\Functions\when( 'selected' )->alias( function( $actual, $value ) {
-			if ( $actual !== $value ) {
-				return;
-			}
-
-			echo " selected='selected'";
-		} );
-		Monkey\Functions\when( '_n' )->alias( function( $single, $plural, $number ) {
-			return $number > 1 ? $plural : $single;
-		} );
+		$this->setup_function_mocks();
 	}
 
 	/**
@@ -199,5 +175,39 @@ abstract class Fields_Test_Case extends Test_Case {
 		$html = preg_replace( '/\s*(\<)/m', '$1$2', $html );
 
 		return str_replace( '>', ">\n", $html );
+	}
+
+	/**
+	 * Set up function mocks.
+	 */
+	protected function setup_function_mocks() {
+
+		foreach ( array( 'esc_attr', 'esc_html', 'esc_textarea', 'esc_url', 'wp_kses_post', '__' ) as $wp_function ) {
+			Monkey\Functions\when( $wp_function )->returnArg();
+		}
+
+		foreach ( array( 'esc_attr_e', 'esc_html_e', '_e' ) as $wp_function ) {
+			Monkey\Functions\when( $wp_function )->echoArg();
+		}
+
+		Monkey\Functions\when( 'checked' )->alias( function ( $actual, $value ) {
+			if ( $actual !== $value ) {
+				return;
+			}
+
+			echo " checked='checked'";
+		} );
+
+		Monkey\Functions\when( 'selected' )->alias( function ( $actual, $value ) {
+			if ( $actual !== $value ) {
+				return;
+			}
+
+			echo " selected='selected'";
+		} );
+
+		Monkey\Functions\when( '_n' )->alias( function ( $single, $plural, $number ) {
+			return $number > 1 ? $plural : $single;
+		} );
 	}
 }
