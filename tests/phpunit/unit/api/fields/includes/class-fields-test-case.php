@@ -209,5 +209,15 @@ abstract class Fields_Test_Case extends Test_Case {
 		Monkey\Functions\when( '_n' )->alias( function ( $single, $plural, $number ) {
 			return $number > 1 ? $plural : $single;
 		} );
+
+		Monkey\Functions\when( 'beans_get' )->alias( function ( $needle, $haystack = false, $default = null ) {
+			$haystack = (array) $haystack;
+
+			if ( isset( $haystack[ $needle ] ) ) {
+				return $haystack[ $needle ];
+			}
+
+			return $default;
+		} );
 	}
 }
