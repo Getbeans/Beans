@@ -22,7 +22,7 @@ use Brain\Monkey;
 class Tests_BeansGetLayoutClass extends Test_Case {
 
 	/**
-	 * Setup test fixture.
+	 * Prepares the test environment before each test.
 	 */
 	protected function setUp() {
 		parent::setUp();
@@ -33,6 +33,13 @@ class Tests_BeansGetLayoutClass extends Test_Case {
 			'api/utilities/functions.php',
 			'api/post-meta/functions.php',
 		) );
+
+		Monkey\Functions\when( 'beans_get' )->alias( function ( $needle, $haystack ) {
+
+			if ( isset( $haystack[ $needle ] ) ) {
+				return $haystack[ $needle ];
+			}
+		} );
 	}
 
 	/**
