@@ -48,31 +48,7 @@ abstract class Fields_Test_Case extends Test_Case {
 			'api/utilities/functions.php',
 		) );
 
-		foreach ( array( 'esc_attr', 'esc_html', 'esc_textarea', 'esc_url', 'wp_kses_post', '__' ) as $wp_function ) {
-			Monkey\Functions\when( $wp_function )->returnArg();
-		}
-
-		foreach ( array( 'esc_attr_e', 'esc_html_e', '_e' ) as $wp_function ) {
-			Monkey\Functions\when( $wp_function )->echoArg();
-		}
-
-		Monkey\Functions\when( 'checked' )->alias( function( $actual, $value ) {
-			if ( $actual !== $value ) {
-				return;
-			}
-
-			echo " checked='checked'";
-		} );
-		Monkey\Functions\when( 'selected' )->alias( function( $actual, $value ) {
-			if ( $actual !== $value ) {
-				return;
-			}
-
-			echo " selected='selected'";
-		} );
-		Monkey\Functions\when( '_n' )->alias( function( $single, $plural, $number ) {
-			return $number > 1 ? $plural : $single;
-		} );
+		$this->setup_function_mocks();
 	}
 
 	/**
@@ -142,6 +118,7 @@ abstract class Fields_Test_Case extends Test_Case {
 	 */
 	protected function get_reflective_property_value( $property ) {
 		$reflective = $this->get_reflective_property( $property );
+
 		return $reflective->getValue( new \_Beans_Fields() );
 	}
 
@@ -174,30 +151,55 @@ abstract class Fields_Test_Case extends Test_Case {
 	}
 
 	/**
-	 * Format the HTML by stripping out the whitespace between the HTML tags and then putting each tag on a separate
-	 * line.
-	 *
-	 * Why? We can then compare the actual vs. expected HTML patterns without worrying about tabs, new lines, and extra
-	 * spaces.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param string $html HTML to strip.
-	 *
-	 * @return string
+	 * Set up function mocks.
 	 */
-	protected function format_the_html( $html ) {
-		$html = trim( $html );
+	protected function setup_function_mocks() {
 
-		// Strip whitespace between the tags.
-		$html = preg_replace( '/(\>)\s*(\<)/m', '$1$2', $html );
+		foreach ( array( 'esc_attr', 'esc_html', 'esc_textarea', 'esc_url', 'wp_kses_post', '__' ) as $wp_function ) {
+			Monkey\Functions\when( $wp_function )->returnArg();
+		}
 
-		// Strip whitespace at the end of a tag.
-		$html = preg_replace( '/(\>)\s*/m', '$1$2', $html );
+		foreach ( array( 'esc_attr_e', 'esc_html_e', '_e' ) as $wp_function ) {
+			Monkey\Functions\when( $wp_function )->echoArg();
+		}
 
-		// Strip whitespace at the start of a tag.
-		$html = preg_replace( '/\s*(\<)/m', '$1$2', $html );
+		Monkey\Functions\when( 'checked' )->alias( function ( $actual, $value ) {
 
-		return str_replace( '>', ">\n", $html );
+			if ( $actual === $value ) {
+				echo " checked='checked'";
+			}
+		} );
+
+		Monkey\Functions\when( 'selected' )->alias( function ( $actual, $value ) {
+
+			if ( $actual === $value ) {
+				echo " selected='selected'";
+			}
+		} );
+
+		Monkey\Functions\when( '_n' )->alias( function ( $single, $plural, $number ) {
+			return $number > 1 ? $plural : $single;
+		} );
+
+		Monkey\Functions\when( 'beans_get' )->alias( function ( $needle, $haystack = false, $default = null ) {
+			$haystack = (array) $haystack;
+
+			return isset( $haystack[ $needle ] ) ? $haystack[ $needle ] : $default;
+		} );
+
+		Monkey\Functions\when( 'beans_esc_attributes' )->alias( function ( $attributes ) {
+			$string = '';
+
+			foreach ( (array) $attributes as $attribute => $value ) {
+
+				if ( null === $value ) {
+					continue;
+				}
+
+				$string .= $attribute . '="' . $value . '" ';
+			}
+
+			return trim( $string );
+		} );
 	}
 }

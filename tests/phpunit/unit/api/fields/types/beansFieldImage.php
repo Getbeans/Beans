@@ -18,8 +18,8 @@ require_once dirname( __DIR__ ) . '/includes/class-fields-test-case.php';
  * Class Tests_BeansFieldImage
  *
  * @package Beans\Framework\Tests\Unit\API\Fields\Types
- * @group   unit-tests
  * @group   api
+ * @group   api-fields
  */
 class Tests_BeansFieldImage extends Fields_Test_Case {
 
@@ -100,10 +100,11 @@ EOB;
 	public function test_should_render_multiple_images_field() {
 		Monkey\Functions\expect( 'wp_get_attachment_image_src' )
 			->times( 2 )
-			->andReturnUsing( function( $image_id ) {
+			->andReturnUsing( function ( $image_id ) {
 				if ( 'placeholder' === $image_id ) {
 					return '';
 				}
+
 				return "image-{$image_id}.png";
 			} );
 		Monkey\Functions\expect( 'get_post_meta' )

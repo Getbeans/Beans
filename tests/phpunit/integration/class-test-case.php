@@ -1,52 +1,36 @@
 <?php
 /**
- * Test Case for the unit tests.
+ * Test Case for the integration tests.
  *
- * @package Beans\Framework\Tests\Unit
+ * @package Beans\Framework\Tests\Integration
  *
  * @since   1.5.0
  */
 
-namespace Beans\Framework\Tests\Unit;
+namespace Beans\Framework\Tests\Integration;
 
 use Brain\Monkey;
-use Brain\Monkey\Functions;
-use PHPUnit\Framework\TestCase;
+use WP_UnitTestCase;
 
 /**
  * Abstract Class Test_Case
  *
- * @package Beans\Framework\Tests\Unit
+ * @package Beans\Framework\Tests\Integration
  */
-abstract class Test_Case extends TestCase {
+abstract class Test_Case extends WP_UnitTestCase {
 
 	/**
 	 * Prepares the test environment before each test.
 	 */
-	protected function setUp() {
+	public function setUp() {
 		parent::setUp();
 		Monkey\setUp();
-
-		Functions\when( 'wp_normalize_path' )->alias( function ( $path ) {
-			$path = str_replace( '\\', '/', $path );
-			$path = preg_replace( '|(?<=.)/+|', '/', $path );
-
-			if ( ':' === substr( $path, 1, 1 ) ) {
-				$path = ucfirst( $path );
-			}
-
-			return $path;
-		} );
-
-		Functions\when( 'wp_json_encode' )->alias( function ( $array ) {
-			return json_encode( $array ); // phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode -- Required as part of our mock.
-		} );
 	}
 
 	/**
 	 * Cleans up the test environment after each test.
 	 */
-	protected function tearDown() {
+	public function tearDown() {
 		Monkey\tearDown();
 		parent::tearDown();
 	}
@@ -57,7 +41,7 @@ abstract class Test_Case extends TestCase {
 	 * Then in our tests, we monkey patch via Brain Monkey, which redefines the original function.
 	 * At tear down, the original function is restored in Brain Monkey, by calling Patchwork\restoreAll().
 	 *
-	 * @since 1.0.0
+	 * @since 1.5.0
 	 *
 	 * @param array $files Array of files to load into memory.
 	 *

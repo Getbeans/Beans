@@ -17,16 +17,16 @@ require_once dirname( __DIR__ ) . '/includes/class-fields-test-case.php';
  * Class Tests_BeansStandardizeRadioImage
  *
  * @package Beans\Framework\Tests\Integration\API\Fields\Types
- * @group   integration-tests
  * @group   api
+ * @group   api-fields
  */
 class Tests_BeansStandardizeRadioImage extends Fields_Test_Case {
 
 	/**
-	 * Prepares the test environment before loading the tests.
+	 * Prepares the test environment before each test.
 	 */
-	public static function setUpBeforeClass() {
-		parent::setUpBeforeClass();
+	public function setUp() {
+		parent::setUp();
 
 		// Load the field type.
 		require_once BEANS_THEME_DIR . '/lib/api/fields/types/radio.php';
