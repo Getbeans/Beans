@@ -16,8 +16,8 @@ use Brain\Monkey\Actions;
  * Class Tests_BeansRenderAction
  *
  * @package Beans\Framework\Tests\Unit\API\Actions
- * @group   unit-tests
  * @group   api
+ * @group   api-actions
  */
 class Tests_BeansRenderAction extends Test_Case {
 

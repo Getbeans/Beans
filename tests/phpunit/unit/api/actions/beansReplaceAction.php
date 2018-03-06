@@ -18,8 +18,8 @@ require_once __DIR__ . '/includes/class-replace-action-test-case.php';
  * Class Tests_BeansReplaceAction
  *
  * @package Beans\Framework\Tests\Unit\API\Actions
- * @group   unit-tests
  * @group   api
+ * @group   api-actions
  */
 class Tests_BeansReplaceAction extends Replace_Action_Test_Case {
 

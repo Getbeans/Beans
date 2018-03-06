@@ -41,8 +41,6 @@ abstract class Actions_Test_Case extends Test_Case {
 
 		static::$test_actions = require dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'fixtures/test-actions.php';
 		static::$test_ids     = array_keys( static::$test_actions );
-
-		require_once BEANS_TESTS_LIB_DIR . 'api/actions/functions.php';
 	}
 
 	/**
@@ -75,12 +73,20 @@ abstract class Actions_Test_Case extends Test_Case {
 		parent::setUp();
 
 		$this->load_original_functions( array(
+			'api/actions/functions.php',
 			'api/utilities/functions.php',
 		) );
+
+		Monkey\Functions\when( 'beans_get' )->alias( function ( $needle, $haystack ) {
+
+			if ( isset( $haystack[ $needle ] ) ) {
+				return $haystack[ $needle ];
+			}
+		} );
 	}
 
 	/**
-	 * Reset the test fixture.
+	 * Cleans up the test environment after each test.
 	 */
 	protected function tearDown() {
 		parent::tearDown();
@@ -109,10 +115,11 @@ abstract class Actions_Test_Case extends Test_Case {
 	protected function go_to_post( $expect_added = false ) {
 
 		foreach ( static::$test_actions as $beans_id => $action ) {
+
 			if ( $expect_added ) {
 				Monkey\Actions\expectAdded( $action['hook'] )
 					->once()
-					->whenHappen( function( $callback, $priority, $args ) use ( $action ) {
+					->whenHappen( function ( $callback, $priority, $args ) use ( $action ) {
 						$this->assertSame( $action['callback'], $callback );
 						$this->assertSame( $action['priority'], $priority );
 						$this->assertSame( $action['args'], $args );

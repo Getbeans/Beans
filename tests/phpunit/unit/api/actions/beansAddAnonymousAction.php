@@ -17,13 +17,13 @@ use Brain\Monkey\Actions;
  * Class Tests_BeansAddAnonymousAction
  *
  * @package Beans\Framework\Tests\Unit\API\Actions
- * @group   unit-tests
  * @group   api
+ * @group   api-actions
  */
 class Tests_BeansAddAnonymousAction extends Test_Case {
 
 	/**
-	 * Setup test fixture.
+	 * Prepares the test environment before each test.
 	 */
 	protected function setUp() {
 		parent::setUp();
@@ -49,9 +49,7 @@ class Tests_BeansAddAnonymousAction extends Test_Case {
 	public function test_should_call_callback() {
 		$object = _beans_add_anonymous_action( 'beans_test_do_foo', array( 'foo_test_callback', array( 'foo' ) ) );
 
-		Functions\when( 'foo_test_callback' )
-			->justReturn( 'foo' );
-
+		Functions\when( 'foo_test_callback' )->justReturn( 'foo' );
 		Actions\expectDone( 'beans_test_do_foo' )
 			->once()
 			->whenHappen( function() use ( $object ) {
