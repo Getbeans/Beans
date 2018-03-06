@@ -72,8 +72,8 @@ abstract class Actions_Test_Case extends Test_Case {
 	protected function setUp() {
 		parent::setUp();
 
-		require_once BEANS_TESTS_LIB_DIR . 'api/actions/functions.php';
 		$this->load_original_functions( array(
+			'api/actions/functions.php',
 			'api/utilities/functions.php',
 		) );
 

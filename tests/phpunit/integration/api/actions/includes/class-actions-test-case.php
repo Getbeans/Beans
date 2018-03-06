@@ -73,7 +73,7 @@ abstract class Actions_Test_Case extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Reset the test fixture.
+	 * Cleans up the test environment after each test.
 	 */
 	public function tearDown() {
 		parent::tearDown();

@@ -18,8 +18,8 @@ require_once __DIR__ . '/includes/class-actions-test-case.php';
  * Class Tests_BeansModifyActionPriority
  *
  * @package Beans\Framework\Tests\Unit\API\Actions
- * @group   unit-tests
  * @group   api
+ * @group   api-actions
  */
 class Tests_BeansModifyActionPriority extends Actions_Test_Case {
 

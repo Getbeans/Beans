@@ -16,8 +16,8 @@ use WP_UnitTestCase;
  * Class Tests_BeansAddAnonymousAction
  *
  * @package Beans\Framework\Integration\Unit\API\Actions
- * @group   integration-tests
  * @group   api
+ * @group   api-actions
  */
 class Tests_BeansAddAnonymousAction extends WP_UnitTestCase {
 

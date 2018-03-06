@@ -17,8 +17,8 @@ require_once __DIR__ . '/includes/class-actions-test-case.php';
  * Class Tests_BeansModifyAction
  *
  * @package Beans\Framework\Tests\Integration\API\Actions
- * @group   integration-tests
  * @group   api
+ * @group   api-actions
  */
 class Tests_BeansModifyAction extends Actions_Test_Case {
 

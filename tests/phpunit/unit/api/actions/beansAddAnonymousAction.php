@@ -17,8 +17,8 @@ use Brain\Monkey\Actions;
  * Class Tests_BeansAddAnonymousAction
  *
  * @package Beans\Framework\Tests\Unit\API\Actions
- * @group   unit-tests
  * @group   api
+ * @group   api-actions
  */
 class Tests_BeansAddAnonymousAction extends Test_Case {
 

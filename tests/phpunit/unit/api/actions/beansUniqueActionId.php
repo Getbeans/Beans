@@ -15,8 +15,8 @@ use Beans\Framework\Tests\Unit\Test_Case;
  * Class Tests_BeansUniqueActionId
  *
  * @package Beans\Framework\Tests\Unit\API\Actions
- * @group   unit-tests
  * @group   api
+ * @group   api-actions
  */
 class Tests_BeansUniqueActionId extends Test_Case {
 

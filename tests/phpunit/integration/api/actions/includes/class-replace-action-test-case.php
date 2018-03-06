@@ -19,7 +19,7 @@ use WP_UnitTestCase;
 abstract class Replace_Action_Test_Case extends Actions_Test_Case {
 
 	/**
-	 * Set up the test fixture.
+	 * Prepares the test environment before each test.
 	 */
 	public function setUp() {
 		$this->reset_beans_registry = false;
@@ -31,7 +31,7 @@ abstract class Replace_Action_Test_Case extends Actions_Test_Case {
 	}
 
 	/**
-	 * Reset the test fixture.
+	 * Cleans up the test environment after each test.
 	 */
 	public function tearDown() {
 		parent::tearDown();
