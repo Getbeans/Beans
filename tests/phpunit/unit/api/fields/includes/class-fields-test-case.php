@@ -214,5 +214,20 @@ abstract class Fields_Test_Case extends Test_Case {
 
 			return isset( $haystack[ $needle ] ) ? $haystack[ $needle ] : $default;
 		} );
+
+		Monkey\Functions\when( 'beans_esc_attributes' )->alias( function ( $attributes ) {
+			$string = '';
+
+			foreach ( (array) $attributes as $attribute => $value ) {
+
+				if ( null === $value ) {
+					continue;
+				}
+
+				$string .= $attribute . '="' . $value . '" ';
+			}
+
+			return trim( $string );
+		} );
 	}
 }
