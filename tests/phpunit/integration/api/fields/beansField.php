@@ -10,7 +10,6 @@
 namespace Beans\Framework\Tests\Integration\API\Fields;
 
 use Beans\Framework\Tests\Integration\API\Fields\Includes\Fields_Test_Case;
-use Brain\Monkey;
 
 require_once __DIR__ . '/includes/class-fields-test-case.php';
 
@@ -67,8 +66,6 @@ class Tests_BeansField extends Fields_Test_Case {
 			'type'           => 'checkbox',
 			'default'        => false,
 		) );
-		Monkey\Actions\expectDone( 'beans_field_checkbox' )->once()->with( $field );
-		Monkey\Actions\expectDone( 'beans_field_group_label' )->once();
 
 		// Run the function and grab the HTML out of the buffer.
 		ob_start();
@@ -86,8 +83,10 @@ class Tests_BeansField extends Fields_Test_Case {
 	</div>
 </div>
 EOB;
-		// Run the test.
+		// Run the tests.
 		$this->assertSame( $this->format_the_html( $expected ), $this->format_the_html( $html ) );
+		$this->assertEquals( 1, did_action( 'beans_field_checkbox' ) );
+		$this->assertEquals( 0, did_action( 'beans_field_group_label' ) );
 
 		// Clean up.
 		beans_remove_action( 'beans_field_checkbox', 'beans_field_checkbox' );
@@ -111,7 +110,6 @@ EOB;
 				'yes' => 'Yes',
 			),
 		) );
-		Monkey\Actions\expectDone( 'beans_field_radio' )->once()->with( $field );
 
 		// Run the function and grab the HTML out of the buffer.
 		ob_start();
@@ -139,6 +137,8 @@ EOB;
 EOB;
 		// Run the test.
 		$this->assertSame( $this->format_the_html( $expected ), $this->format_the_html( $html ) );
+		$this->assertEquals( 1, did_action( 'beans_field_radio' ) );
+		$this->assertEquals( 0, did_action( 'beans_field_group_label' ) );
 
 		// Clean up.
 		beans_remove_action( 'beans_field_radio', 'beans_field_radio' );
@@ -182,11 +182,6 @@ EOB;
 			),
 		) );
 
-		Monkey\Actions\expectDone( 'beans_field_group_label' )->once();
-		Monkey\Actions\expectDone( 'beans_field_activate' )->once()->with( $group['fields'][0] );
-		Monkey\Actions\expectDone( 'beans_field_activate' )->once()->with( $group['fields'][0] );
-		Monkey\Actions\expectDone( 'beans_field_select' )->once()->with( $group['fields'][1] );
-
 		// Run the function and grab the HTML out of the buffer.
 		ob_start();
 		beans_field( $group );
@@ -212,8 +207,11 @@ EOB;
 	<div class="bs-field-description">This is a group of fields.</div>
 </div>
 EOB;
-		// Run the test.
+		// Run the tests.
 		$this->assertSame( $this->format_the_html( $expected ), $this->format_the_html( $html ) );
+		$this->assertEquals( 2, did_action( 'beans_field_group_label' ) );
+		$this->assertEquals( 1, did_action( 'beans_field_activation' ) );
+		$this->assertEquals( 1, did_action( 'beans_field_select' ) );
 
 		// Clean up.
 		beans_remove_action( 'beans_field_activation', 'beans_field_activation' );
