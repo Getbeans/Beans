@@ -91,6 +91,7 @@ abstract class Image_Test_Case extends Test_Case {
 		parent::setUp();
 
 		require_once BEANS_TESTS_LIB_DIR . 'api/image/functions.php';
+		require_once BEANS_TESTS_LIB_DIR . 'api/image/class-beans-image-editor.php';
 
 		$this->load_original_functions( array(
 			'api/utilities/functions.php',
@@ -100,6 +101,9 @@ abstract class Image_Test_Case extends Test_Case {
 		$this->images_dir = vfsStream::url( 'uploads/beans/images' );
 		$this->images_url = 'http:://example.com/uploads/beans/images/';
 
+		Monkey\Functions\when( 'beans_url_to_path' )->returnArg();
+		Monkey\Functions\when( 'beans_path_to_url' )->returnArg();
+
 		Monkey\Functions\expect( 'wp_upload_dir' )->andReturn( array(
 			'path'    => '',
 			'url'     => '',
@@ -108,8 +112,6 @@ abstract class Image_Test_Case extends Test_Case {
 			'baseurl' => $this->images_url,
 			'error'   => false,
 		) );
-
-		Monkey\Functions\expect( 'site_url' )->andReturn( 'http:://example.com' );
 
 		$this->images = array(
 			$this->images_dir . '/image1.jpg' => static::$fixtures_dir . '/image1.jpg',
