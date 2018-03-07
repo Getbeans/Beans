@@ -1,0 +1,11 @@
+# Default behaviour
+* text=auto
+
+# Text files
+*.php eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
