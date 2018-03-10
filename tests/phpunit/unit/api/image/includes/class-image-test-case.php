@@ -140,16 +140,13 @@ abstract class Image_Test_Case extends Test_Case {
 	 * @since 1.5.0
 	 *
 	 * @param string $method_name Method name for which to gain access.
+	 * @param string $class_name  Optional. Name of the target class.
 	 *
 	 * @return \ReflectionMethod
 	 * @throws \ReflectionException Throws an exception if method does not exist.
 	 */
-	protected function get_reflective_method( $method_name ) {
-		$class  = new \ReflectionClass( '_Beans_Image_Editor' );
-		$method = $class->getMethod( $method_name );
-		$method->setAccessible( true );
-
-		return $method;
+	protected function get_reflective_method( $method_name, $class_name = '_Beans_Image_Editor' ) {
+		return parent::get_reflective_method( $method_name, $class_name );
 	}
 
 	/**
@@ -157,17 +154,14 @@ abstract class Image_Test_Case extends Test_Case {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param string $property Optional. Property name for which to gain access.
+	 * @param string $property   Optional. Property name for which to gain access.
+	 * @param string $class_name Optional. Name of the target class.
 	 *
 	 * @return \ReflectionProperty|string
 	 * @throws \ReflectionException Throws an exception if property does not exist.
 	 */
-	protected function get_reflective_property( $property = 'rebuilt_path' ) {
-		$class    = new \ReflectionClass( '_Beans_Image_Editor' );
-		$property = $class->getProperty( $property );
-		$property->setAccessible( true );
-
-		return $property;
+	protected function get_reflective_property( $property = 'rebuilt_path', $class_name = '_Beans_Image_Editor' ) {
+		return parent::get_reflective_property( $property, $class_name );
 	}
 
 	/**

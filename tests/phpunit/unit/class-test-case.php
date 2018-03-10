@@ -97,4 +97,42 @@ abstract class Test_Case extends TestCase {
 
 		return str_replace( '>', ">\n", $html );
 	}
+
+	/**
+	 * Get reflective access to the private method.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string $method_name Method name for which to gain access.
+	 * @param string $class_name  Name of the target class.
+	 *
+	 * @return \ReflectionMethod
+	 * @throws \ReflectionException Throws an exception if method does not exist.
+	 */
+	protected function get_reflective_method( $method_name, $class_name ) {
+		$class  = new \ReflectionClass( $class_name );
+		$method = $class->getMethod( $method_name );
+		$method->setAccessible( true );
+
+		return $method;
+	}
+
+	/**
+	 * Get reflective access to the private property.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string $property   Property name for which to gain access.
+	 * @param string $class_name Name of the target class.
+	 *
+	 * @return \ReflectionProperty|string
+	 * @throws \ReflectionException Throws an exception if property does not exist.
+	 */
+	protected function get_reflective_property( $property, $class_name ) {
+		$class    = new \ReflectionClass( $class_name );
+		$property = $class->getProperty( $property );
+		$property->setAccessible( true );
+
+		return $property;
+	}
 }
