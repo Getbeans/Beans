@@ -40,30 +40,30 @@ class Tests_BeansApplyFilters extends Filters_Test_Case {
 	 * Test beans_apply_filters() should return value after calling one level of sub-hooks.
 	 */
 	public function test_should_return_value_after_calling_one_level_of_sub_hooks() {
-		add_filter( 'beans_loop_query_args', 'beans_loop_query_args_base' );
-		add_filter( 'beans_loop_query_args[_main]', 'beans_loop_query_args_main' );
+		add_filter( 'beans_test_query_args', 'beans_test_query_args_base' );
+		add_filter( 'beans_test_query_args[_main]', 'beans_test_query_args_main' );
 
-		$this->assertSame( array( 'base', '_main' ), beans_apply_filters( 'beans_loop_query_args[_main]', 'foo' ) );
+		$this->assertSame( array( 'base', '_main' ), beans_apply_filters( 'beans_test_query_args[_main]', 'foo' ) );
 	}
 
 	/**
 	 * Test beans_apply_filters() should return value after calling two levels of sub-hooks.
 	 */
 	public function test_should_return_value_after_calling_two_levels_of_sub_hooks() {
-		add_filter( 'beans_loop_query_args', 'beans_loop_query_args_base' );
-		add_filter( 'beans_loop_query_args[_main]', 'beans_loop_query_args_main' );
-		add_filter( 'beans_loop_query_args[_second]', function( $args ) {
+		add_filter( 'beans_test_query_args', 'beans_test_query_args_base' );
+		add_filter( 'beans_test_query_args[_main]', 'beans_test_query_args_main' );
+		add_filter( 'beans_test_query_args[_second]', function( $args ) {
 			$args[] = '_second';
 			return $args;
 		} );
-		add_filter( 'beans_loop_query_args[_main][_second]', function( $args ) {
+		add_filter( 'beans_test_query_args[_main][_second]', function( $args ) {
 			$args[] = '[_main][_second]';
 			return $args;
 		} );
 
 		$this->assertSame(
 			array( 'base', '_main', '_second', '[_main][_second]' ),
-			beans_apply_filters( 'beans_loop_query_args[_main][_second]', 'foo' )
+			beans_apply_filters( 'beans_test_query_args[_main][_second]', 'foo' )
 		);
 	}
 
@@ -71,28 +71,28 @@ class Tests_BeansApplyFilters extends Filters_Test_Case {
 	 * Test beans_apply_filters() should return value after calling three levels of sub-hooks.
 	 */
 	public function test_should_return_value_after_calling_three_levels_of_sub_hooks() {
-		add_filter( 'beans_loop_query_args', 'beans_loop_query_args_base' );
-		add_filter( 'beans_loop_query_args[_main]', 'beans_loop_query_args_main' );
-		add_filter( 'beans_loop_query_args[_second]', function( $args ) {
+		add_filter( 'beans_test_query_args', 'beans_test_query_args_base' );
+		add_filter( 'beans_test_query_args[_main]', 'beans_test_query_args_main' );
+		add_filter( 'beans_test_query_args[_second]', function( $args ) {
 			$args[] = '_second';
 			return $args;
 		} );
-		add_filter( 'beans_loop_query_args[_main][_second]', function( $args ) {
+		add_filter( 'beans_test_query_args[_main][_second]', function( $args ) {
 			$args[] = '[_main][_second]';
 			return $args;
 		} );
-		add_filter( 'beans_loop_query_args[_third]', function( $args ) {
+		add_filter( 'beans_test_query_args[_third]', function( $args ) {
 			$args[] = '_third';
 			return $args;
 		} );
-		add_filter( 'beans_loop_query_args[_main][_second][_third]', function( $args ) {
+		add_filter( 'beans_test_query_args[_main][_second][_third]', function( $args ) {
 			$args[] = '[_main][_second][_third]';
 			return $args;
 		} );
 
 		$this->assertSame(
 			array( 'base', '_main', '_second', '[_main][_second]', '_third', '[_main][_second][_third]' ),
-			beans_apply_filters( 'beans_loop_query_args[_main][_second][_third]', 'foo' )
+			beans_apply_filters( 'beans_test_query_args[_main][_second][_third]', 'foo' )
 		);
 	}
 }

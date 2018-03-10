@@ -10,7 +10,7 @@
 namespace Beans\Framework\Tests\Unit\API\Filters\Includes;
 
 use Beans\Framework\Tests\Unit\Test_Case;
-use Brain\Monkey\Functions;
+use Brain\Monkey;
 
 /**
  * Abstract Class Filters_Test_Case
@@ -32,8 +32,6 @@ abstract class Filters_Test_Case extends Test_Case {
 	public static function setUpBeforeClass() {
 		parent::setUpBeforeClass();
 
-		require_once dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'stubs/functions.php';
-
 		static::$test_filters = require dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'fixtures/test-filters.php';
 	}
 
@@ -43,8 +41,10 @@ abstract class Filters_Test_Case extends Test_Case {
 	protected function setUp() {
 		parent::setUp();
 
+		$this->mock_filter_callbacks();
+
 		$this->load_original_functions( array(
-			'api/utilities/functions.php',
+			'api/filters/functions.php',
 		) );
 	}
 
@@ -62,5 +62,20 @@ abstract class Filters_Test_Case extends Test_Case {
 
 			remove_filter( $filter['hook'], $filter['callback'], $filter['priority'] );
 		}
+	}
+
+	/**
+	 * Define the mocks for the filter callbacks.
+	 */
+	protected function mock_filter_callbacks() {
+		Monkey\Functions\when( 'beans_test_the_content' )->alias( function ( $post_title, $post_id ) {
+			return $post_title . '_' . $post_id;
+		} );
+		Monkey\Functions\when( 'beans_test_modify_widget_count' )->justReturn( 20 );
+		Monkey\Functions\when( 'beans_test_query_args_base' )->justReturn( array( 'base' ) );
+		Monkey\Functions\when( 'beans_test_query_args_main' )->alias( function ( $args ) {
+			$args[] = '_main';
+			return $args;
+		} );
 	}
 }

@@ -45,6 +45,8 @@ function beans_add_filter( $hook, $callback_or_value, $priority = 10, $args = 1 
  * Sub-hooks must be set in square brackets as part of the filter id argument. Sub-hooks are cascaded
  * in a similar way to CSS classes. Maximum 3 sub-hooks allowed.
  *
+ * Note: You can pass additional arguments to the functions that are hooked to <tt>$id</tt>.
+ *
  * @since 1.0.0
  *
  * @param string $id    A unique string used as a reference. Sub-hook(s) must be set in square brackets. Each sub-
@@ -56,7 +58,6 @@ function beans_add_filter( $hook, $callback_or_value, $priority = 10, $args = 1 
  *                      always run the parent filter first, so a filter set to the parent will apply
  *                      to all sub-hooks. Maximum 3 sub-hooks allowed.
  * @param mixed  $value The value on which the filters hooked to <tt>$id</tt> are applied to it.
- * @param mixed  $var   Additional variables passed to the functions hooked to <tt>$id</tt>. @codingStandardsIgnoreLine - Squiz.Commenting.FunctionComment.ExtraParamComment.
  *
  * @return mixed The filtered value after all hooked functions are applied to it.
  */

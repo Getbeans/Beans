@@ -16,19 +16,19 @@ return array(
 	),
 	'beans_widget_content_categories_output' => array(
 		'hook'     => 'beans_widget_content_categories_output',
-		'callback' => 'beans_modify_widget_count',
+		'callback' => 'beans_test_modify_widget_count',
 		'priority' => 10,
 		'args'     => 1,
 	),
-	'beans_loop_query_args'                  => array(
-		'hook'     => 'beans_loop_query_args',
-		'callback' => 'beans_loop_query_args_base',
+	'beans_test_query_args'                  => array(
+		'hook'     => 'beans_test_query_args',
+		'callback' => 'beans_test_query_args_base',
 		'priority' => 20,
 		'args'     => 1,
 	),
-	'beans_loop_query_args[_main]'           => array(
-		'hook'     => 'beans_loop_query_args[_main]',
-		'callback' => 'beans_loop_query_args_main',
+	'beans_test_query_args[_main]'           => array(
+		'hook'     => 'beans_test_query_args[_main]',
+		'callback' => 'beans_test_query_args_main',
 		'priority' => 20,
 		'args'     => 1,
 	),
