@@ -1,6 +1,6 @@
 <?php
 /**
- * Test Case for Beans' Filter API unit tests.
+ * Test Case for Beans' Filter API integration tests.
  *
  * @package Beans\Framework\Tests\Integration\API\Filters\Includes
  *
@@ -9,14 +9,15 @@
 
 namespace Beans\Framework\Tests\Integration\API\Filters\Includes;
 
-use WP_UnitTestCase;
+use Brain\Monkey;
+use Beans\Framework\Tests\Integration\Test_Case;
 
 /**
  * Abstract Class Filters_Test_Case
  *
  * @package Beans\Framework\Tests\Integration\API\Filters\Includes
  */
-abstract class Filters_Test_Case extends WP_UnitTestCase {
+abstract class Filters_Test_Case extends Test_Case {
 
 	/**
 	 * An array of filters to test.
@@ -31,9 +32,32 @@ abstract class Filters_Test_Case extends WP_UnitTestCase {
 	public static function setUpBeforeClass() {
 		parent::setUpBeforeClass();
 
-		require_once dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'stubs/functions.php';
-
 		static::$test_filters = require dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'fixtures/test-filters.php';
+	}
+
+	/**
+	 * Prepares the test environment before each test.
+	 */
+	public function setUp() {
+		parent::setUp();
+
+		$this->mock_filter_callbacks();
+	}
+
+	/**
+	 * Cleans up the test environment after each test.
+	 */
+	public function tearDown() {
+		parent::tearDown();
+
+		foreach ( static::$test_filters as $beans_id => $filter ) {
+
+			if ( ! isset( $filter['callback'] ) ) {
+				continue;
+			}
+
+			remove_filter( $filter['hook'], $filter['callback'], $filter['priority'] );
+		}
 	}
 
 	/**
@@ -67,5 +91,20 @@ abstract class Filters_Test_Case extends WP_UnitTestCase {
 		$post_id = self::factory()->post->create( array( 'post_title' => 'Hello Beans' ) );
 		$this->go_to( get_permalink( $post_id ) );
 		do_action( 'template_redirect' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Valid use case as we need to fire this action as part of our tests.
+	}
+
+	/**
+	 * Define the mocks for the filter callbacks.
+	 */
+	protected function mock_filter_callbacks() {
+		Monkey\Functions\when( 'beans_test_the_content' )->alias( function ( $post_title, $post_id ) {
+			return $post_title . '_' . $post_id;
+		} );
+		Monkey\Functions\when( 'beans_test_modify_widget_count' )->justReturn( 20 );
+		Monkey\Functions\when( 'beans_test_query_args_base' )->justReturn( array( 'base' ) );
+		Monkey\Functions\when( 'beans_test_query_args_main' )->alias( function ( $args ) {
+			$args[] = '_main';
+			return $args;
+		} );
 	}
 }

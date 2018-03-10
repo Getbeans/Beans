@@ -72,9 +72,9 @@ abstract class Filters_Test_Case extends Test_Case {
 		Monkey\Functions\when( 'beans_test_the_content' )->alias( function ( $post_title, $post_id ) {
 			return $post_title . '_' . $post_id;
 		} );
-		Monkey\Functions\when( 'beans_modify_widget_count' )->justReturn( 20 );
-		Monkey\Functions\when( 'beans_loop_query_args_base' )->justReturn( array( 'base' ) );
-		Monkey\Functions\when( 'beans_loop_query_args_main' )->alias( function ( $args ) {
+		Monkey\Functions\when( 'beans_test_modify_widget_count' )->justReturn( 20 );
+		Monkey\Functions\when( 'beans_test_query_args_base' )->justReturn( array( 'base' ) );
+		Monkey\Functions\when( 'beans_test_query_args_main' )->alias( function ( $args ) {
 			$args[] = '_main';
 			return $args;
 		} );
