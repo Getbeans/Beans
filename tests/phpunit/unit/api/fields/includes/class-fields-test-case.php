@@ -33,9 +33,6 @@ abstract class Fields_Test_Case extends Test_Case {
 		parent::setUpBeforeClass();
 
 		static::$test_data = require dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'fixtures/test-fields.php';
-
-		require_once BEANS_TESTS_LIB_DIR . 'api/fields/functions.php';
-		require_once BEANS_TESTS_LIB_DIR . 'api/fields/class-beans-fields.php';
 	}
 
 	/**
@@ -45,6 +42,8 @@ abstract class Fields_Test_Case extends Test_Case {
 		parent::setUp();
 
 		$this->load_original_functions( array(
+			'api/fields/functions.php',
+			'api/fields/class-beans-fields.php',
 			'api/utilities/functions.php',
 		) );
 
@@ -81,6 +80,7 @@ abstract class Fields_Test_Case extends Test_Case {
 	 * @param string $method_name Method name for which to gain access.
 	 *
 	 * @return \ReflectionMethod
+	 * @throws \ReflectionException Throws an exception if method does not exist.
 	 */
 	protected function get_reflective_method( $method_name ) {
 		$class  = new \ReflectionClass( '_Beans_Fields' );
@@ -98,6 +98,7 @@ abstract class Fields_Test_Case extends Test_Case {
 	 * @param string $property Property name for which to gain access.
 	 *
 	 * @return \ReflectionProperty|string
+	 * @throws \ReflectionException Throws an exception if property does not exist.
 	 */
 	protected function get_reflective_property( $property ) {
 		$class    = new \ReflectionClass( '_Beans_Fields' );
@@ -115,6 +116,7 @@ abstract class Fields_Test_Case extends Test_Case {
 	 * @param string $property Property name for which to gain access.
 	 *
 	 * @return mixed
+	 * @throws \ReflectionException Throws an exception if property does not exist.
 	 */
 	protected function get_reflective_property_value( $property ) {
 		$reflective = $this->get_reflective_property( $property );
