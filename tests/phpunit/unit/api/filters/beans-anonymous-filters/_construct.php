@@ -16,8 +16,8 @@ use Beans\Framework\Tests\Unit\Test_Case;
  * Class Tests_Beans_Anonymous_Filters_Construct.
  *
  * @package Beans\Framework\Tests\Unit\API\Filters
- * @group   unit-tests
  * @group   api
+ * @group   api-filters
  */
 class Tests_Beans_Anonymous_Filters_Construct extends Test_Case {
 

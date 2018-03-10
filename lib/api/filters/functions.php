@@ -45,7 +45,7 @@ function beans_add_filter( $hook, $callback_or_value, $priority = 10, $args = 1 
  * Sub-hooks must be set in square brackets as part of the filter id argument. Sub-hooks are cascaded
  * in a similar way to CSS classes. Maximum 3 sub-hooks allowed.
  *
- * Note: You can pass additional arguments to the functions that are hooked <tt>$id</tt>.
+ * Note: You can pass additional arguments to the functions that are hooked to <tt>$id</tt>.
  *
  * @since 1.0.0
  *
