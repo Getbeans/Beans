@@ -44,7 +44,6 @@ abstract class Filters_Test_Case extends Test_Case {
 		$this->mock_filter_callbacks();
 
 		$this->load_original_functions( array(
-			'api/utilities/functions.php',
 			'api/filters/functions.php',
 		) );
 	}
