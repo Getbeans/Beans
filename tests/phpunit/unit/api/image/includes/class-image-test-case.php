@@ -123,7 +123,7 @@ abstract class Image_Test_Case extends Test_Case {
 		// Set up the "beans" directory's virtual filesystem.
 		$this->mock_filesystem = vfsStream::setup( 'uploads', 0755, $structure );
 		$this->images_dir      = vfsStream::url( 'uploads/beans/images' );
-		$this->images_url      = 'http:://example.com/uploads/beans/images/';
+		$this->images_url      = 'http://example.com/uploads/beans/images/';
 	}
 
 	/**
