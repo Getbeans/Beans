@@ -97,20 +97,8 @@ abstract class Image_Test_Case extends Test_Case {
 		) );
 
 		$this->set_up_virtual_filesystem();
-		$this->images_dir = vfsStream::url( 'uploads/beans/images' );
-		$this->images_url = 'http:://example.com/uploads/beans/images/';
 
-		Monkey\Functions\when( 'beans_url_to_path' )->returnArg();
-		Monkey\Functions\when( 'beans_path_to_url' )->returnArg();
-
-		Monkey\Functions\expect( 'wp_upload_dir' )->andReturn( array(
-			'path'    => '',
-			'url'     => '',
-			'subdir'  => '',
-			'basedir' => vfsStream::url( 'uploads' ),
-			'baseurl' => $this->images_url,
-			'error'   => false,
-		) );
+		$this->setup_mocks();
 
 		$this->images = array(
 			$this->images_dir . '/image1.jpg' => static::$fixtures_dir . '/image1.jpg',
@@ -132,6 +120,8 @@ abstract class Image_Test_Case extends Test_Case {
 
 		// Set up the "beans" directory's virtual filesystem.
 		$this->mock_filesystem = vfsStream::setup( 'uploads', 0755, $structure );
+		$this->images_dir      = vfsStream::url( 'uploads/beans/images' );
+		$this->images_url      = 'http:://example.com/uploads/beans/images/';
 	}
 
 	/**
@@ -152,6 +142,7 @@ abstract class Image_Test_Case extends Test_Case {
 	 * @param string $method_name Method name for which to gain access.
 	 *
 	 * @return \ReflectionMethod
+	 * @throws \ReflectionException Throws an exception if method does not exist.
 	 */
 	protected function get_reflective_method( $method_name ) {
 		$class  = new \ReflectionClass( '_Beans_Image_Editor' );
@@ -169,6 +160,7 @@ abstract class Image_Test_Case extends Test_Case {
 	 * @param string $property Optional. Property name for which to gain access.
 	 *
 	 * @return \ReflectionProperty|string
+	 * @throws \ReflectionException Throws an exception if property does not exist.
 	 */
 	protected function get_reflective_property( $property = 'rebuilt_path' ) {
 		$class    = new \ReflectionClass( '_Beans_Image_Editor' );
@@ -197,6 +189,7 @@ abstract class Image_Test_Case extends Test_Case {
 
 		$path = $this->fix_virtual_dir( $path );
 		$rebuilt_path->setValue( $editor, $path );
+
 		return $rebuilt_path->getValue( $editor );
 	}
 
@@ -233,5 +226,26 @@ abstract class Image_Test_Case extends Test_Case {
 			: 'vfs:/';
 
 		return str_replace( $pattern, '', $path );
+	}
+
+	/**
+	 * Setup the mocks.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return void
+	 */
+	protected function setup_mocks() {
+		Monkey\Functions\when( 'beans_url_to_path' )->returnArg();
+		Monkey\Functions\when( 'beans_path_to_url' )->returnArg();
+
+		Monkey\Functions\expect( 'wp_upload_dir' )->andReturn( array(
+			'path'    => '',
+			'url'     => '',
+			'subdir'  => '',
+			'basedir' => vfsStream::url( 'uploads' ),
+			'baseurl' => $this->images_url,
+			'error'   => false,
+		) );
 	}
 }
