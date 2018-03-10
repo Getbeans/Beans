@@ -5,6 +5,8 @@
  * @package Beans\Framework\Tests\Unit\API\Fields\Includes
  *
  * @since   1.5.0
+ *
+ * phpcs:disable Generic.CodeAnalysis.UselessOverridingMethod.Found -- Valid use cases to minimize work in tests.
  */
 
 namespace Beans\Framework\Tests\Unit\API\Fields\Includes;
