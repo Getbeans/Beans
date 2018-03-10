@@ -90,10 +90,9 @@ abstract class Image_Test_Case extends Test_Case {
 	protected function setUp() {
 		parent::setUp();
 
-		require_once BEANS_TESTS_LIB_DIR . 'api/image/functions.php';
-		require_once BEANS_TESTS_LIB_DIR . 'api/image/class-beans-image-editor.php';
-
 		$this->load_original_functions( array(
+			'api/image/functions.php',
+			'api/image/class-beans-image-editor.php',
 			'api/utilities/functions.php',
 		) );
 
