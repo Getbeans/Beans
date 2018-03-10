@@ -37,7 +37,7 @@ final class _Beans_Anonymous_Filters {
 	 *                                in the order in which they were added to the filter.
 	 * @param int    $args            Optional. The number of arguments the function accepts. Default 1.
 	 */
-	public function __construct( $hook, $value_to_return, $priority, $args ) {
+	public function __construct( $hook, $value_to_return, $priority = 10, $args = 1 ) {
 		$this->value_to_return = $value_to_return;
 
 		add_filter( $hook, array( $this, 'callback' ), $priority, $args );
