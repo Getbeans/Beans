@@ -5,6 +5,8 @@
  * @package Beans\Framework\Tests\Unit\API\Image\Includes
  *
  * @since   1.5.0
+ *
+ * phpcs:disable Generic.CodeAnalysis.UselessOverridingMethod.Found -- Valid use cases to minimize work in tests.
  */
 
 namespace Beans\Framework\Tests\Unit\API\Image\Includes;
@@ -90,28 +92,15 @@ abstract class Image_Test_Case extends Test_Case {
 	protected function setUp() {
 		parent::setUp();
 
-		require_once BEANS_TESTS_LIB_DIR . 'api/image/functions.php';
-		require_once BEANS_TESTS_LIB_DIR . 'api/image/class-beans-image-editor.php';
-
 		$this->load_original_functions( array(
+			'api/image/functions.php',
+			'api/image/class-beans-image-editor.php',
 			'api/utilities/functions.php',
 		) );
 
 		$this->set_up_virtual_filesystem();
-		$this->images_dir = vfsStream::url( 'uploads/beans/images' );
-		$this->images_url = 'http:://example.com/uploads/beans/images/';
 
-		Monkey\Functions\when( 'beans_url_to_path' )->returnArg();
-		Monkey\Functions\when( 'beans_path_to_url' )->returnArg();
-
-		Monkey\Functions\expect( 'wp_upload_dir' )->andReturn( array(
-			'path'    => '',
-			'url'     => '',
-			'subdir'  => '',
-			'basedir' => vfsStream::url( 'uploads' ),
-			'baseurl' => $this->images_url,
-			'error'   => false,
-		) );
+		$this->setup_mocks();
 
 		$this->images = array(
 			$this->images_dir . '/image1.jpg' => static::$fixtures_dir . '/image1.jpg',
@@ -133,6 +122,8 @@ abstract class Image_Test_Case extends Test_Case {
 
 		// Set up the "beans" directory's virtual filesystem.
 		$this->mock_filesystem = vfsStream::setup( 'uploads', 0755, $structure );
+		$this->images_dir      = vfsStream::url( 'uploads/beans/images' );
+		$this->images_url      = 'http://example.com/uploads/beans/images/';
 	}
 
 	/**
@@ -151,15 +142,13 @@ abstract class Image_Test_Case extends Test_Case {
 	 * @since 1.5.0
 	 *
 	 * @param string $method_name Method name for which to gain access.
+	 * @param string $class_name  Optional. Name of the target class.
 	 *
 	 * @return \ReflectionMethod
+	 * @throws \ReflectionException Throws an exception if method does not exist.
 	 */
-	protected function get_reflective_method( $method_name ) {
-		$class  = new \ReflectionClass( '_Beans_Image_Editor' );
-		$method = $class->getMethod( $method_name );
-		$method->setAccessible( true );
-
-		return $method;
+	protected function get_reflective_method( $method_name, $class_name = '_Beans_Image_Editor' ) {
+		return parent::get_reflective_method( $method_name, $class_name );
 	}
 
 	/**
@@ -167,16 +156,14 @@ abstract class Image_Test_Case extends Test_Case {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param string $property Optional. Property name for which to gain access.
+	 * @param string $property   Optional. Property name for which to gain access.
+	 * @param string $class_name Optional. Name of the target class.
 	 *
 	 * @return \ReflectionProperty|string
+	 * @throws \ReflectionException Throws an exception if property does not exist.
 	 */
-	protected function get_reflective_property( $property = 'rebuilt_path' ) {
-		$class    = new \ReflectionClass( '_Beans_Image_Editor' );
-		$property = $class->getProperty( $property );
-		$property->setAccessible( true );
-
-		return $property;
+	protected function get_reflective_property( $property = 'rebuilt_path', $class_name = '_Beans_Image_Editor' ) {
+		return parent::get_reflective_property( $property, $class_name );
 	}
 
 	/**
@@ -198,6 +185,7 @@ abstract class Image_Test_Case extends Test_Case {
 
 		$path = $this->fix_virtual_dir( $path );
 		$rebuilt_path->setValue( $editor, $path );
+
 		return $rebuilt_path->getValue( $editor );
 	}
 
@@ -234,5 +222,26 @@ abstract class Image_Test_Case extends Test_Case {
 			: 'vfs:/';
 
 		return str_replace( $pattern, '', $path );
+	}
+
+	/**
+	 * Setup the mocks.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return void
+	 */
+	protected function setup_mocks() {
+		Monkey\Functions\when( 'beans_url_to_path' )->returnArg();
+		Monkey\Functions\when( 'beans_path_to_url' )->returnArg();
+
+		Monkey\Functions\expect( 'wp_upload_dir' )->andReturn( array(
+			'path'    => '',
+			'url'     => '',
+			'subdir'  => '',
+			'basedir' => vfsStream::url( 'uploads' ),
+			'baseurl' => $this->images_url,
+			'error'   => false,
+		) );
 	}
 }

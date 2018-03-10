@@ -34,21 +34,13 @@ abstract class Template_Test_Case extends Test_Case {
 	protected $mock_filesystem;
 
 	/**
-	 * Set up the test before we run the test setups.
-	 */
-	public static function setUpBeforeClass() {
-		parent::setUpBeforeClass();
-
-		require_once BEANS_TESTS_LIB_DIR . 'api/template/functions.php';
-	}
-
-	/**
 	 * Set up the test fixture.
 	 */
 	protected function setUp() {
 		parent::setUp();
 
 		$this->load_original_functions( array(
+			'api/template/functions.php',
 			'api/utilities/functions.php',
 		) );
 

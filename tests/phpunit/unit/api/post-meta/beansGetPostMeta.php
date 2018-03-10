@@ -27,9 +27,8 @@ class Tests_BeansGetPostMeta extends Test_Case {
 	protected function setUp() {
 		parent::setUp();
 
-		require_once BEANS_TESTS_LIB_DIR . 'api/post-meta/functions.php';
-
 		$this->load_original_functions( array(
+			'api/post-meta/functions.php',
 			'api/utilities/functions.php',
 		) );
 	}

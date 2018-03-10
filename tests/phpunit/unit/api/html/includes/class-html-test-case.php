@@ -42,9 +42,6 @@ abstract class HTML_Test_Case extends Test_Case {
 		static::$test_attributes = array_filter( static::$test_markup, function( $markup ) {
 			return isset( $markup['attributes'] );
 		} );
-
-		require_once BEANS_TESTS_LIB_DIR . 'api/html/class-beans-attribute.php';
-		require_once BEANS_TESTS_LIB_DIR . 'api/html/functions.php';
 	}
 
 	/**
@@ -54,6 +51,8 @@ abstract class HTML_Test_Case extends Test_Case {
 		parent::setUp();
 
 		$this->load_original_functions( array(
+			'api/html/class-beans-attribute.php',
+			'api/html/functions.php',
 			'api/filters/functions.php',
 		) );
 	}
