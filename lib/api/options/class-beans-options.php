@@ -151,7 +151,7 @@ final class _Beans_Options {
 
 		if ( beans_post( 'beans_reset_options' ) ) {
 			$this->reset();
-			add_action( 'admin_notices', array( $this, 'reset_notices' ) );
+			add_action( 'admin_notices', array( $this, 'render_reset_notice' ) );
 		}
 	}
 
@@ -231,7 +231,7 @@ final class _Beans_Options {
 	 *
 	 * @return void
 	 */
-	public function reset_notices() {
+	public function render_reset_notice() {
 
 		if ( $this->success ) {
 			?>
