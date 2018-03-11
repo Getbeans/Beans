@@ -51,6 +51,9 @@ abstract class Options_Test_Case extends Test_Case {
 	public function tearDown() {
 		parent::tearDown();
 
+		// Let's clean up after the test.
+		$this->clean_up_global_scope();
+
 		global $wp_meta_boxes;
 		$wp_meta_boxes = array(); // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Resetting global here for tests.
 	}
