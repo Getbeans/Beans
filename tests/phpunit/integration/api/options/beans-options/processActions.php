@@ -117,8 +117,8 @@ class Tests_Beans_Options_Actions extends Options_Test_Case {
 	 * Test process_actions() should not reset options when the nonce fails.
 	 */
 	public function test_should_not_reset_options_when_nonce_fails() {
-		$_POST['beans_reset_options']  = 1;
-		$test_data             = array(
+		$_POST['beans_reset_options'] = 1;
+		$test_data                    = array(
 			'beans_compile_all_styles'  => 1,
 			'beans_compile_all_scripts' => 1,
 			'beans_dev_mode'            => 1,
@@ -164,7 +164,7 @@ class Tests_Beans_Options_Actions extends Options_Test_Case {
 		// Setup the test.
 		$nonce                        = wp_create_nonce( 'beans_options_nonce' );
 		$_POST['beans_options_nonce'] = $nonce;
-		$_POST['beans_reset_options']  = 1;
+		$_POST['beans_reset_options'] = 1;
 		$test_data                    = array(
 			'beans_compile_all_styles'  => 1,
 			'beans_compile_all_scripts' => 1,

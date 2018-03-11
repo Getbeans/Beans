@@ -25,7 +25,7 @@ require_once dirname( __DIR__ ) . '/includes/class-options-test-case.php';
 class Tests_Beans_Options_Register extends Options_Test_Case {
 
 	/**
-	 * Test register() should merge default arguments and set the property.
+	 * Test register() should merge the default arguments and set the property.
 	 */
 	public function test_should_merge_default_args_and_set_property() {
 		$property = $this->get_reflective_property( 'args', '_Beans_Options' );
@@ -46,7 +46,7 @@ class Tests_Beans_Options_Register extends Options_Test_Case {
 	}
 
 	/**
-	 * Test register() should register callback to the 'admin_enqueue_scripts' hook.
+	 * Test register() should register the callback to the 'admin_enqueue_scripts' hook.
 	 */
 	public function test_should_register_callback_to_admin_enqueue_scripts_hook() {
 		$instance = new _Beans_Options();

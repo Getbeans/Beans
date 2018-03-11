@@ -24,23 +24,23 @@ require_once dirname( __DIR__ ) . '/includes/class-options-test-case.php';
  */
 class Tests_Beans_Options_Render_Metabox extends Options_Test_Case {
 
-//	/**
-//	 * Test render_metabox() should return null when the section does not fields registered.
-//	 */
-//	public function test_should_return_null_when_no_fields_registered() {
-//		$instance = new _Beans_Options();
-//
-//		foreach ( static::$test_data as $option ) {
-//			// Register the option.
-//			$instance->register( $option['section'], $option['args'] );
-//
-//			// Run the test.
-//			$this->assertNull( $instance->render_metabox() );
-//		}
-//	}
+	/**
+	 * Test render_metabox() should return null when the section does not fields registered.
+	 */
+	public function test_should_return_null_when_no_fields_registered() {
+		$instance = new _Beans_Options();
+
+		foreach ( static::$test_data as $option ) {
+			// Register the option.
+			$instance->register( $option['section'], $option['args'] );
+
+			// Run the test.
+			$this->assertNull( $instance->render_metabox() );
+		}
+	}
 
 	/**
-	 * Test render_metabox() should render registered fields.
+	 * Test render_metabox() should render the registered fields.
 	 */
 	public function test_should_render_registered_fields() {
 		$instance = new _Beans_Options();

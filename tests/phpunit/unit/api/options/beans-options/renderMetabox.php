@@ -43,7 +43,7 @@ class Tests_Beans_Options_Render_Metabox extends Options_Test_Case {
 	}
 
 	/**
-	 * Test render_metabox() should render registered fields.  For this test, we'll not render but rather check that
+	 * Test render_metabox() should render the registered fields.  For this test, we'll not render but rather check that
 	 * each function is called as expected.
 	 */
 	public function test_should_render_registered_fields() {

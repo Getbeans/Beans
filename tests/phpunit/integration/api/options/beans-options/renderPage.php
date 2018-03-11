@@ -25,14 +25,14 @@ require_once dirname( __DIR__ ) . '/includes/class-options-test-case.php';
 class Tests_Beans_Options_Render_Page extends Options_Test_Case {
 
 	/**
-	 * Test register() should return null when the page does not have a metabox.
+	 * Test render_page() should return null when the page does not have a metabox.
 	 */
 	public function test_should_return_null_when_page_does_not_have_metabox() {
 		$this->assertNull( ( new _Beans_Options() )->render_page( 'beans_settings' ) );
 	}
 
 	/**
-	 * Test register() should return render form when "normal" context is configured.
+	 * Test render_page() should render the form when "normal" context is configured.
 	 */
 	public function test_should_render_form_when_context_normal() {
 		$instance = new _Beans_Options();
@@ -77,7 +77,7 @@ EOB;
 	}
 
 	/**
-	 * Test register() should return render form when "column" context is configured.
+	 * Test render_page() should render the form when "column" context is configured.
 	 */
 	public function test_should_render_form_when_column_context() {
 		$instance = new _Beans_Options();

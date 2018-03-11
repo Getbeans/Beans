@@ -196,7 +196,7 @@ final class _Beans_Options {
 
 		$fields = beans_post( 'beans_fields' );
 
-		if ( ! ( $fields ) ) {
+		if ( ! $fields ) {
 			return false;
 		}
 
