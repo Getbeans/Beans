@@ -100,8 +100,13 @@ final class _Beans_Options {
 	 * @return void
 	 */
 	public function render_metabox() {
+		$fields = beans_get_fields( 'option', $this->section );
 
-		foreach ( beans_get_fields( 'option', $this->section ) as $field ) {
+		if ( empty( $fields ) ) {
+			return;
+		}
+
+		foreach ( $fields as $field ) {
 			beans_field( $field );
 		}
 	}
