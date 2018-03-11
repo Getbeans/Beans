@@ -1,0 +1,114 @@
+<?php
+/**
+ * Tests for actions() method of the _Beans_Options.
+ *
+ * @package Beans\Framework\Tests\Integration\API\Options
+ *
+ * @since   1.5.0
+ *
+ * phpcs:disable WordPress.CSRF.NonceVerification.NoNonceVerification -- Nonce verification is not needed in the test
+ * suite.
+ */
+
+namespace Beans\Framework\Tests\Integration\API\Options;
+
+use _Beans_Options;
+use Beans\Framework\Tests\Integration\API\Options\Includes\Options_Test_Case;
+
+require_once dirname( __DIR__ ) . '/includes/class-options-test-case.php';
+
+/**
+ * Class Tests_Beans_Options_Actions
+ *
+ * @package Beans\Framework\Tests\Integration\API\Options
+ * @group   api
+ * @group   api-options
+ */
+class Tests_Beans_Options_Actions extends Options_Test_Case {
+
+	/**
+	 * Test actions() should do nothing when it's not a save or reset action.
+	 */
+	public function test_should_do_nothing_when_no_save_or_reset_action() {
+		$instance = new _Beans_Options();
+
+		$this->assertArrayNotHasKey( 'beans_save_options', $_POST );
+		$this->assertArrayNotHasKey( 'beans_reset_options', $_POST );
+		$this->assertNull( $instance->actions() );
+		$this->assertFalse( has_action( 'admin_notices', array( $instance, 'render_save_notice' ) ) );
+		$this->assertFalse( has_action( 'admin_notices', array( $instance, 'render_reset_notice' ) ) );
+	}
+
+	/**
+	 * Test actions() should not save options when the nonce fails.
+	 */
+	public function test_should_not_save_options_when_nonce_fails() {
+		$test_data             = array(
+			'beans_compile_all_styles'  => 1,
+			'beans_compile_all_scripts' => 1,
+			'beans_dev_mode'            => 1,
+		);
+		$_POST['beans_fields'] = $test_data;
+		$success_property      = $this->get_reflective_property( 'success', '_Beans_Options' );
+		$instance              = new _Beans_Options();
+
+		// Check with no nonce.
+		$instance->actions();
+		$this->assertFalse( $success_property->getValue( $instance ) );
+
+		foreach ( $test_data as $option ) {
+			// Check that the value was not saved.
+			$this->assertNull( get_option( $option, null ) );
+		}
+
+		// Check with an invalid nonce.
+		$_POST['beans_options_nonce'] = 'invalid-nonce';
+
+		$instance->actions();
+		$this->assertFalse( $success_property->getValue( $instance ) );
+
+		foreach ( $test_data as $option ) {
+			// Check that the value was not saved.
+			$this->assertNull( get_option( $option, null ) );
+		}
+	}
+
+	/**
+	 * Test actions() should save the field values when it's a save action.
+	 */
+	public function test_should_save_field_values_when_save_action() {
+		// Setup the test.
+		$nonce                        = wp_create_nonce( 'beans_options_nonce' );
+		$_POST['beans_options_nonce'] = $nonce;
+		$_POST['beans_save_options']  = 1;
+		$test_data                    = array(
+			'beans_compile_all_styles'  => 1,
+			'beans_compile_all_scripts' => 1,
+			'beans_dev_mode'            => 1,
+		);
+		$_POST['beans_fields']        = $test_data;
+
+		$success_property = $this->get_reflective_property( 'success', '_Beans_Options' );
+		$instance         = new _Beans_Options();
+		$instance->actions();
+
+		// Check that the success property was set.
+		$this->assertTrue( $success_property->getValue( $instance ) );
+
+		// Check the save.
+		$this->assertArrayHasKey( 'beans_save_options', $_POST );
+		$this->assertEquals( 10, has_action( 'admin_notices', array( $instance, 'render_save_notice' ) ) );
+
+		// Check the reset.
+		$this->assertArrayNotHasKey( 'beans_reset_options', $_POST );
+		$this->assertFalse( has_action( 'admin_notices', array( $instance, 'render_reset_notice' ) ) );
+
+		foreach ( $test_data as $option => $value ) {
+			// Check that the value was saved.
+			$this->assertEquals( $value, get_option( $option ) );
+
+			// Clean up.
+			delete_option( $option );
+		}
+	}
+}
