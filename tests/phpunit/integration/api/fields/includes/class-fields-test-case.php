@@ -49,20 +49,9 @@ abstract class Fields_Test_Case extends Test_Case {
 	public function tearDown() {
 		parent::tearDown();
 
-		// Reset the "registered" container.
-		$registered = $this->get_reflective_property( 'registered' );
-		$registered->setValue( new \_Beans_Fields(), array(
-			'option'       => array(),
-			'post_meta'    => array(),
-			'term_meta'    => array(),
-			'wp_customize' => array(),
-		) );
+		$this->reset_fields_container();
 
-		// Reset the other static properties.
-		foreach ( array( 'field_types_loaded', 'field_assets_hook_loaded' ) as $property_name ) {
-			$property = $this->get_reflective_property( $property_name );
-			$property->setValue( new \_Beans_Fields(), array() );
-		}
+		$this->reset_actions_container();
 	}
 
 	/**
