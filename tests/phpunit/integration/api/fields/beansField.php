@@ -217,4 +217,98 @@ EOB;
 		beans_remove_action( 'beans_field_activation', 'beans_field_activation' );
 		beans_remove_action( 'beans_field_select', 'beans_field_select' );
 	}
+
+	/**
+	 * Test should render the single field. This is a full integration test for the Fields API.
+	 */
+	public function test_full_integration_should_render_single_field() {
+		$test_data = static::$test_data['single_fields'];
+
+		// Register the fields.
+		beans_register_fields( $test_data['fields'], 'beans_tests', $test_data['section'] );
+		$fields = beans_get_fields( 'beans_tests', $test_data['section'] );
+
+		// Register the checkbox, label, and description callbacks (as they've been unregistered in previous tests).
+		add_action( 'beans_field_checkbox', 'beans_field_checkbox' );
+		add_action( 'beans_field_group_label', 'beans_field_label' );
+		add_action( 'beans_field_wrap_prepend_markup', 'beans_field_label' );
+		add_action( 'beans_field_wrap_append_markup', 'beans_field_description' );
+
+		// Run the function and grab the HTML out of the buffer.
+		ob_start();
+		beans_field( $fields[1] );
+		$html = ob_get_clean();
+
+		$expected = <<<EOB
+<div class="bs-field-wrap bs-checkbox beans_tests">
+	<div class="bs-field-inside">
+		<div class="bs-field bs-checkbox">
+			<input type="hidden" value="0" name="beans_fields[beans_checkbox_test]" />
+			<input id="beans_checkbox_test" type="checkbox" name="beans_fields[beans_checkbox_test]" value="1" />
+			<span class="bs-checkbox-label">Enable the checkbox test</span>
+		</div>
+	</div>
+</div>
+EOB;
+		// Check the HTML.
+		$this->assertSame( $this->format_the_html( $expected ), $this->format_the_html( $html ) );
+
+		// Clean up.
+		remove_action( 'beans_field_checkbox', 'beans_field_checkbox' );
+		remove_action( 'beans_field_group_label', 'beans_field_label' );
+		remove_action( 'beans_field_wrap_prepend_markup', 'beans_field_label' );
+		remove_action( 'beans_field_wrap_append_markup', 'beans_field_description' );
+	}
+
+	/**
+	 * Test should render a group of fields. This is a full integration test for the Fields API.
+	 */
+	public function test_full_integration_should_render_group_of_fields() {
+		$test_data = static::$test_data['group'];
+
+		// Register the fields.
+		beans_register_fields( $test_data['fields'], 'beans_tests', $test_data['section'] );
+		$fields = beans_get_fields( 'beans_tests', $test_data['section'] );
+
+		// Register each field's callback (as it's been unregistered in previous tests).
+		foreach ( $test_data['fields'][0]['fields'] as $field ) {
+			add_action( 'beans_field_' . $field['type'], 'beans_field_' . $field['type'] );
+		}
+
+		// Run the function and grab the HTML out of the buffer.
+		ob_start();
+		beans_field( $fields[0] );
+		$html = ob_get_clean();
+
+		$expected = <<<EOB
+<div class="bs-field-wrap bs-group beans_tests">
+	<h3 class="bs-fields-header hndle">Group of fields</h3>
+	<div class="bs-field-inside">
+		<div class="bs-field bs-activation">
+			<input type="hidden" value="0" name="beans_fields[beans_compile_all_scripts]" />
+			<input id="beans_compile_all_scripts" type="checkbox" name="beans_fields[beans_compile_all_scripts]" value="1" />
+		</div>
+		<div class="bs-field bs-select">
+			<select id="beans_compile_all_scripts_mode" name="beans_fields[beans_compile_all_scripts_mode]" style="margin: -3px 0 0 -8px;">
+				<option value="aggressive" selected='selected'>Aggressive</option>
+				<option value="standard">Standard</option>
+			</select>
+		</div>
+		<div class="bs-field bs-checkbox">
+			<input type="hidden" value="0" name="beans_fields[beans_checkbox_test]" />
+			<input id="beans_checkbox_test" type="checkbox" name="beans_fields[beans_checkbox_test]" value="1" />
+			<span class="bs-checkbox-label">Enable the checkbox test</span>
+		</div>
+	</div>
+	<div class="bs-field-description">This is a group of fields.</div>
+</div>
+EOB;
+		// Check the HTML.
+		$this->assertSame( $this->format_the_html( $expected ), $this->format_the_html( $html ) );
+
+		// Clean up.
+		foreach ( $test_data['fields'][0]['fields'] as $field ) {
+			remove_action( 'beans_field_' . $field['type'], 'beans_field_' . $field['type'] );
+		}
+	}
 }

@@ -41,6 +41,10 @@ abstract class Fields_Test_Case extends Test_Case {
 		parent::setUp();
 
 		require_once BEANS_THEME_DIR . '/lib/api/fields/class-beans-fields.php';
+
+		add_action( 'beans_field_group_label', 'beans_field_label' );
+		add_action( 'beans_field_wrap_prepend_markup', 'beans_field_label' );
+		add_action( 'beans_field_wrap_append_markup', 'beans_field_description' );
 	}
 
 	/**
@@ -49,54 +53,9 @@ abstract class Fields_Test_Case extends Test_Case {
 	public function tearDown() {
 		parent::tearDown();
 
-		// Reset the "registered" container.
-		$registered = $this->get_reflective_property( 'registered' );
-		$registered->setValue( new \_Beans_Fields(), array(
-			'option'       => array(),
-			'post_meta'    => array(),
-			'term_meta'    => array(),
-			'wp_customize' => array(),
-		) );
-
-		// Reset the other static properties.
-		foreach ( array( 'field_types_loaded', 'field_assets_hook_loaded' ) as $property_name ) {
-			$property = $this->get_reflective_property( $property_name );
-			$property->setValue( new \_Beans_Fields(), array() );
-		}
-	}
-
-	/**
-	 * Get reflective access to the private method.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param string $method_name Method name for which to gain access.
-	 *
-	 * @return \ReflectionMethod
-	 */
-	protected function get_reflective_method( $method_name ) {
-		$class  = new \ReflectionClass( '_Beans_Fields' );
-		$method = $class->getMethod( $method_name );
-		$method->setAccessible( true );
-
-		return $method;
-	}
-
-	/**
-	 * Get reflective access to the private property.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param string $property Property name for which to gain access.
-	 *
-	 * @return \ReflectionProperty|string
-	 */
-	protected function get_reflective_property( $property ) {
-		$class    = new \ReflectionClass( '_Beans_Fields' );
-		$property = $class->getProperty( $property );
-		$property->setAccessible( true );
-
-		return $property;
+		remove_action( 'beans_field_group_label', 'beans_field_label' );
+		remove_action( 'beans_field_wrap_prepend_markup', 'beans_field_label' );
+		remove_action( 'beans_field_wrap_append_markup', 'beans_field_description' );
 	}
 
 	/**
@@ -107,9 +66,10 @@ abstract class Fields_Test_Case extends Test_Case {
 	 * @param string $property Property name for which to gain access.
 	 *
 	 * @return mixed
+	 * @throws \ReflectionException Throws an exception if property does not exist.
 	 */
 	protected function get_reflective_property_value( $property ) {
-		$reflective = $this->get_reflective_property( $property );
+		$reflective = $this->get_reflective_property( $property, '_Beans_Fields' );
 		return $reflective->getValue( new \_Beans_Fields() );
 	}
 
