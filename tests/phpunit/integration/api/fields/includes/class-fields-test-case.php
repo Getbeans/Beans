@@ -67,40 +67,6 @@ abstract class Fields_Test_Case extends Test_Case {
 	}
 
 	/**
-	 * Get reflective access to the private method.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param string $method_name Method name for which to gain access.
-	 *
-	 * @return \ReflectionMethod
-	 */
-	protected function get_reflective_method( $method_name ) {
-		$class  = new \ReflectionClass( '_Beans_Fields' );
-		$method = $class->getMethod( $method_name );
-		$method->setAccessible( true );
-
-		return $method;
-	}
-
-	/**
-	 * Get reflective access to the private property.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param string $property Property name for which to gain access.
-	 *
-	 * @return \ReflectionProperty|string
-	 */
-	protected function get_reflective_property( $property ) {
-		$class    = new \ReflectionClass( '_Beans_Fields' );
-		$property = $class->getProperty( $property );
-		$property->setAccessible( true );
-
-		return $property;
-	}
-
-	/**
 	 * Get the value of the private or protected property.
 	 *
 	 * @since 1.5.0
@@ -108,9 +74,10 @@ abstract class Fields_Test_Case extends Test_Case {
 	 * @param string $property Property name for which to gain access.
 	 *
 	 * @return mixed
+	 * @throws \ReflectionException Throws an exception if property does not exist.
 	 */
 	protected function get_reflective_property_value( $property ) {
-		$reflective = $this->get_reflective_property( $property );
+		$reflective = $this->get_reflective_property( $property, '_Beans_Fields' );
 		return $reflective->getValue( new \_Beans_Fields() );
 	}
 
