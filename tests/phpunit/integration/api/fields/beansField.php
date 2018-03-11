@@ -261,7 +261,7 @@ EOB;
 	}
 
 	/**
-	 * Test should render the single field. This is a full integration test for the Fields API.
+	 * Test should render a group of fields. This is a full integration test for the Fields API.
 	 */
 	public function test_full_integration_should_render_group_of_fields() {
 		$test_data = static::$test_data['group'];

@@ -33,7 +33,7 @@ abstract class Test_Case extends WP_UnitTestCase {
 		parent::setUp();
 		Monkey\setUp();
 
-		if ( $this->was_reset ) {
+		if ( ! $this->was_reset ) {
 			$this->reset_fields_container();
 			$this->reset_actions_container();
 			$this->was_reset = true;
