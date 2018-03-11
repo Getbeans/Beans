@@ -41,6 +41,10 @@ abstract class Fields_Test_Case extends Test_Case {
 		parent::setUp();
 
 		require_once BEANS_THEME_DIR . '/lib/api/fields/class-beans-fields.php';
+
+		$this->reset_fields_container();
+
+		$this->reset_actions_container();
 	}
 
 	/**
