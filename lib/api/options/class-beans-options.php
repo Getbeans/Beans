@@ -217,18 +217,11 @@ final class _Beans_Options {
 	public function render_save_notice() {
 
 		if ( $this->success ) {
-			?>
-			<div id="message" class="updated">
-				<p><?php esc_html_e( 'Settings saved successfully!', 'tm-beans' ); ?></p>
-			</div>
-			<?php
-		} else {
-			?>
-			<div id="message" class="error">
-				<p><?php esc_html_e( 'Settings could not be saved, please try again.', 'tm-beans' ); ?></p>
-			</div>
-			<?php
+			include dirname( __FILE__ ) . '/views/save-notice-success.php';
+			return;
 		}
+
+		include dirname( __FILE__ ) . '/views/save-notice-error.php';
 	}
 
 	/**
