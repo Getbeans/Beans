@@ -20,11 +20,24 @@ use WP_UnitTestCase;
 abstract class Test_Case extends WP_UnitTestCase {
 
 	/**
+	 * Reset flag.
+	 *
+	 * @var bool
+	 */
+	protected $was_reset = false;
+
+	/**
 	 * Prepares the test environment before each test.
 	 */
 	public function setUp() {
 		parent::setUp();
 		Monkey\setUp();
+
+		if ( $this->was_reset ) {
+			$this->reset_fields_container();
+			$this->reset_actions_container();
+			$this->was_reset = true;
+		}
 	}
 
 	/**
@@ -33,6 +46,9 @@ abstract class Test_Case extends WP_UnitTestCase {
 	public function tearDown() {
 		Monkey\tearDown();
 		parent::tearDown();
+
+		$this->reset_fields_container();
+		$this->reset_actions_container();
 	}
 
 	/**
@@ -99,6 +115,11 @@ abstract class Test_Case extends WP_UnitTestCase {
 	 * Reset the Fields API container, i.e. static memories.
 	 */
 	protected function reset_fields_container() {
+
+		if ( ! class_exists( '_Beans_Fields' ) ) {
+			return;
+		}
+
 		// Reset the "registered" container.
 		$registered = $this->get_reflective_property( 'registered', '_Beans_Fields' );
 		$registered->setValue( new \_Beans_Fields(), array(
