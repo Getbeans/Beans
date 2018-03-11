@@ -129,5 +129,5 @@ function _beans_options_page_actions() {
 	require_once BEANS_API_PATH . 'options/class-beans-options.php';
 
 	$class = new _Beans_Options();
-	$class->actions();
+	$class->process_actions();
 }

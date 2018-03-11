@@ -136,13 +136,13 @@ final class _Beans_Options {
 	}
 
 	/**
-	 * Form actions.
+	 * Process the form's actions.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
-	public function actions() {
+	public function process_actions() {
 
 		if ( beans_post( 'beans_save_options' ) ) {
 			$this->save();

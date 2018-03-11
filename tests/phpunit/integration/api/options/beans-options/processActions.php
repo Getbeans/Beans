@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for actions() method of the _Beans_Options.
+ * Tests for process_actions() method of the _Beans_Options.
  *
  * @package Beans\Framework\Tests\Integration\API\Options
  *
@@ -27,20 +27,20 @@ require_once dirname( __DIR__ ) . '/includes/class-options-test-case.php';
 class Tests_Beans_Options_Actions extends Options_Test_Case {
 
 	/**
-	 * Test actions() should do nothing when it's not a save or reset action.
+	 * Test process_actions() should do nothing when it's not a save or reset action.
 	 */
 	public function test_should_do_nothing_when_no_save_or_reset_action() {
 		$instance = new _Beans_Options();
 
 		$this->assertArrayNotHasKey( 'beans_save_options', $_POST );
 		$this->assertArrayNotHasKey( 'beans_reset_options', $_POST );
-		$this->assertNull( $instance->actions() );
+		$this->assertNull( $instance->process_actions() );
 		$this->assertFalse( has_action( 'admin_notices', array( $instance, 'render_save_notice' ) ) );
 		$this->assertFalse( has_action( 'admin_notices', array( $instance, 'render_reset_notice' ) ) );
 	}
 
 	/**
-	 * Test actions() should not save options when the nonce fails.
+	 * Test process_actions() should not save options when the nonce fails.
 	 */
 	public function test_should_not_save_options_when_nonce_fails() {
 		$_POST['beans_save_options'] = 1;
@@ -54,7 +54,7 @@ class Tests_Beans_Options_Actions extends Options_Test_Case {
 		$instance                    = new _Beans_Options();
 
 		// Check with no nonce.
-		$instance->actions();
+		$instance->process_actions();
 		$this->assertFalse( $success_property->getValue( $instance ) );
 
 		foreach ( $test_data as $option ) {
@@ -65,7 +65,7 @@ class Tests_Beans_Options_Actions extends Options_Test_Case {
 		// Check with an invalid nonce.
 		$_POST['beans_options_nonce'] = 'invalid-nonce';
 
-		$instance->actions();
+		$instance->process_actions();
 		$this->assertFalse( $success_property->getValue( $instance ) );
 
 		foreach ( $test_data as $option ) {
@@ -75,7 +75,7 @@ class Tests_Beans_Options_Actions extends Options_Test_Case {
 	}
 
 	/**
-	 * Test actions() should save the field values when it's a save action.
+	 * Test process_actions() should save the field values when it's a save action.
 	 */
 	public function test_should_save_field_values_when_save_action() {
 		// Setup the test.
@@ -91,7 +91,7 @@ class Tests_Beans_Options_Actions extends Options_Test_Case {
 
 		$success_property = $this->get_reflective_property( 'success', '_Beans_Options' );
 		$instance         = new _Beans_Options();
-		$instance->actions();
+		$instance->process_actions();
 
 		// Check that the success property was set.
 		$this->assertTrue( $success_property->getValue( $instance ) );
@@ -114,7 +114,7 @@ class Tests_Beans_Options_Actions extends Options_Test_Case {
 	}
 
 	/**
-	 * Test actions() should not reset options when the nonce fails.
+	 * Test process_actions() should not reset options when the nonce fails.
 	 */
 	public function test_should_not_reset_options_when_nonce_fails() {
 		$_POST['beans_reset_options']  = 1;
@@ -134,7 +134,7 @@ class Tests_Beans_Options_Actions extends Options_Test_Case {
 		$instance              = new _Beans_Options();
 
 		// Check with no nonce.
-		$instance->actions();
+		$instance->process_actions();
 		$this->assertFalse( $success_property->getValue( $instance ) );
 
 		foreach ( $test_data as $option => $value ) {
@@ -145,7 +145,7 @@ class Tests_Beans_Options_Actions extends Options_Test_Case {
 		// Check with an invalid nonce.
 		$_POST['beans_options_nonce'] = 'invalid-nonce';
 
-		$instance->actions();
+		$instance->process_actions();
 		$this->assertFalse( $success_property->getValue( $instance ) );
 
 		foreach ( $test_data as $option => $value ) {
@@ -158,7 +158,7 @@ class Tests_Beans_Options_Actions extends Options_Test_Case {
 	}
 
 	/**
-	 * Test actions() should delete the options when it's a reset action.
+	 * Test process_actions() should delete the options when it's a reset action.
 	 */
 	public function test_should_delete_options_when_reset_action() {
 		// Setup the test.
@@ -179,7 +179,7 @@ class Tests_Beans_Options_Actions extends Options_Test_Case {
 
 		$success_property = $this->get_reflective_property( 'success', '_Beans_Options' );
 		$instance         = new _Beans_Options();
-		$instance->actions();
+		$instance->process_actions();
 
 		// Check that the success property was set.
 		$this->assertTrue( $success_property->getValue( $instance ) );
