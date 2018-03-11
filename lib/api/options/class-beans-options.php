@@ -146,7 +146,7 @@ final class _Beans_Options {
 
 		if ( beans_post( 'beans_save_options' ) ) {
 			$this->save();
-			add_action( 'admin_notices', array( $this, 'save_notices' ) );
+			add_action( 'admin_notices', array( $this, 'render_save_notice' ) );
 		}
 
 		if ( beans_post( 'beans_reset_options' ) ) {
@@ -208,13 +208,13 @@ final class _Beans_Options {
 	}
 
 	/**
-	 * Save notice content.
+	 * Render the save notice.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
-	public function save_notices() {
+	public function render_save_notice() {
 
 		if ( $this->success ) {
 			?>
