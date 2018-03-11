@@ -112,15 +112,15 @@ final class _Beans_Options {
 	}
 
 	/**
-	 * Page content.
+	 * Render the page's (screen's) content.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param int $page Page ID.
+	 * @param string|WP_Screen $page The given page.
 	 *
 	 * @return void
 	 */
-	public function page( $page ) {
+	public function render_page( $page ) {
 		global $wp_meta_boxes;
 
 		$boxes = beans_get( $page, $wp_meta_boxes );

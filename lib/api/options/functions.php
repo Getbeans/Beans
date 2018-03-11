@@ -106,7 +106,7 @@ function beans_options( $menu_slug ) {
 	}
 
 	$class = new _Beans_Options();
-	$class->page( $menu_slug );
+	$class->render_page( $menu_slug );
 }
 
 add_action( 'wp_loaded', '_beans_options_page_actions' );

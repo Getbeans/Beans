@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for page() method of the _Beans_Options.
+ * Tests for render_page() method of the _Beans_Options.
  *
  * @package Beans\Framework\Tests\Unit\API\Options
  *
@@ -30,7 +30,7 @@ class Tests_Beans_Options_Render_Page extends Options_Test_Case {
 	public function test_should_return_null_when_page_does_not_have_metabox() {
 		Monkey\Functions\expect( 'beans_get' )->with( 'beans_tests', array() )->once()->andReturn( null );
 
-		$this->assertNull( ( new _Beans_Options() )->page( 'beans_tests' ) );
+		$this->assertNull( ( new _Beans_Options() )->render_page( 'beans_tests' ) );
 	}
 
 	/**
@@ -55,7 +55,7 @@ class Tests_Beans_Options_Render_Page extends Options_Test_Case {
 
 		// Run the method and grab the HTML out of the buffer.
 		ob_start();
-		( new _Beans_Options() )->page( 'beans_tests' );
+		( new _Beans_Options() )->render_page( 'beans_tests' );
 		$html = ob_get_clean();
 
 		$expected = <<<EOB
@@ -101,7 +101,7 @@ EOB;
 
 		// Run the method and grab the HTML out of the buffer.
 		ob_start();
-		( new _Beans_Options() )->page( 'beans_tests' );
+		( new _Beans_Options() )->render_page( 'beans_tests' );
 		$html = ob_get_clean();
 
 		$expected = <<<EOB
