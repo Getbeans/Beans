@@ -45,6 +45,10 @@ abstract class Fields_Test_Case extends Test_Case {
 		$this->reset_fields_container();
 
 		$this->reset_actions_container();
+
+		add_action( 'beans_field_group_label', 'beans_field_label' );
+		add_action( 'beans_field_wrap_prepend_markup', 'beans_field_label' );
+		add_action( 'beans_field_wrap_append_markup', 'beans_field_description' );
 	}
 
 	/**
@@ -56,6 +60,10 @@ abstract class Fields_Test_Case extends Test_Case {
 		$this->reset_fields_container();
 
 		$this->reset_actions_container();
+
+		remove_action( 'beans_field_group_label', 'beans_field_label' );
+		remove_action( 'beans_field_wrap_prepend_markup', 'beans_field_label' );
+		remove_action( 'beans_field_wrap_append_markup', 'beans_field_description' );
 	}
 
 	/**

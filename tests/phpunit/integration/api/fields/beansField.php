@@ -274,9 +274,6 @@ EOB;
 		foreach ( $test_data['fields'][0]['fields'] as $field ) {
 			add_action( 'beans_field_' . $field['type'], 'beans_field_' . $field['type'] );
 		}
-		add_action( 'beans_field_group_label', 'beans_field_label' );
-		add_action( 'beans_field_wrap_prepend_markup', 'beans_field_label' );
-		add_action( 'beans_field_wrap_append_markup', 'beans_field_description' );
 
 		// Run the function and grab the HTML out of the buffer.
 		ob_start();
@@ -313,8 +310,5 @@ EOB;
 		foreach ( $test_data['fields'][0]['fields'] as $field ) {
 			remove_action( 'beans_field_' . $field['type'], 'beans_field_' . $field['type'] );
 		}
-		remove_action( 'beans_field_group_label', 'beans_field_label' );
-		remove_action( 'beans_field_wrap_prepend_markup', 'beans_field_label' );
-		remove_action( 'beans_field_wrap_append_markup', 'beans_field_description' );
 	}
 }
