@@ -134,10 +134,10 @@ final class _Beans_Options {
 
 		// Set page data which will be used by the postbox.
 		?>
-		<form action="" method="post" class="bs-options" data-page="<?php echo esc_attr( beans_get( 'page' ) ); ?>">
+		<form action="" method="post" class="bs-options" data-page="<?php esc_attr_e( beans_get( 'page' ) ); ?>">
 			<?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
 			<?php wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false ); ?>
-			<input type="hidden" name="beans_options_nonce" value="<?php echo esc_attr( wp_create_nonce( 'beans_options_nonce' ) ); ?>" />
+			<input type="hidden" name="beans_options_nonce" value="<?php esc_attr_e( wp_create_nonce( 'beans_options_nonce' ) ); ?>" />
 			<div class="metabox-holder<?php echo esc_attr( $column_class ); ?>">
 				<?php
 				do_meta_boxes( $page, 'normal', null );
@@ -148,8 +148,8 @@ final class _Beans_Options {
 				?>
 			</div>
 			<p class="bs-options-form-actions">
-				<input type="submit" name="beans_save_options" value="<?php echo esc_attr__( 'Save', 'tm-beans' ); ?>" class="button-primary">
-				<input type="submit" name="beans_reset_options" value="<?php echo esc_attr__( 'Reset', 'tm-beans' ); ?>" class="button-secondary">
+				<input type="submit" name="beans_save_options" value="<?php esc_attr_e( 'Save', 'tm-beans' ); ?>" class="button-primary">
+				<input type="submit" name="beans_reset_options" value="<?php esc_attr_e( 'Reset', 'tm-beans' ); ?>" class="button-secondary">
 			</p>
 		</form>
 		<?php
