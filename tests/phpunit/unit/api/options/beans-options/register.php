@@ -76,7 +76,7 @@ class Tests_Beans_Options_Register extends Options_Test_Case {
 			$this->assertSame( array(
 				'id'       => $option['section'],
 				'title'    => $option['args']['title'],
-				'callback' => array( $instance, 'metabox_content' ),
+				'callback' => array( $instance, 'render_metabox' ),
 				'args'     => null,
 			), $wp_meta_boxes['beans_settings'][ $option['args']['context'] ]['default'][ $option['section'] ] );
 

@@ -75,11 +75,9 @@ final class _Beans_Options {
 	}
 
 	/**
-	 * Register the Metabox.
+	 * Register the Metabox with WordPress.
 	 *
 	 * @since 1.0.0
-	 * @ignore
-	 * @access private
 	 *
 	 * @return void
 	 */
@@ -87,7 +85,7 @@ final class _Beans_Options {
 		add_meta_box(
 			$this->section,
 			$this->args['title'],
-			array( $this, 'metabox_content' ),
+			array( $this, 'render_metabox' ),
 			beans_get( 'page' ),
 			$this->args['context'],
 			'default'
@@ -95,13 +93,13 @@ final class _Beans_Options {
 	}
 
 	/**
-	 * Metabox content.
+	 * Render the metabox's content. Callback that is fired by WordPress.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
-	public function metabox_content() {
+	public function render_metabox() {
 
 		foreach ( beans_get_fields( 'option', $this->section ) as $field ) {
 			beans_field( $field );
