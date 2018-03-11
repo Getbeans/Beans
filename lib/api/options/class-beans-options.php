@@ -225,7 +225,7 @@ final class _Beans_Options {
 	}
 
 	/**
-	 * Reset notice content.
+	 * Render the reset notice.
 	 *
 	 * @since 1.0.0
 	 *
@@ -234,17 +234,10 @@ final class _Beans_Options {
 	public function render_reset_notice() {
 
 		if ( $this->success ) {
-			?>
-			<div id="message" class="updated">
-				<p><?php esc_html_e( 'Settings reset successfully!', 'tm-beans' ); ?></p>
-			</div>
-			<?php
-		} else {
-			?>
-			<div id="message" class="error">
-				<p><?php esc_html_e( 'Settings could not be reset, please try again.', 'tm-beans' ); ?></p>
-			</div>
-			<?php
+			include dirname( __FILE__ ) . '/views/reset-notice-success.php';
+			return;
 		}
+
+		include dirname( __FILE__ ) . '/views/reset-notice-error.php';
 	}
 }
