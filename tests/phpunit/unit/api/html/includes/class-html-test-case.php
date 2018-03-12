@@ -10,6 +10,7 @@
 namespace Beans\Framework\Tests\Unit\API\HTML\Includes;
 
 use Beans\Framework\Tests\Unit\Test_Case;
+use Brain\Monkey;
 
 /**
  * Abstract Class HTML_Test_Case
@@ -55,5 +56,27 @@ abstract class HTML_Test_Case extends Test_Case {
 			'api/html/functions.php',
 			'api/filters/functions.php',
 		) );
+
+		$this->setup_mocks();
+	}
+
+	/**
+	 * Setup dependency function mocks.
+	 */
+	protected function setup_mocks() {
+		Monkey\Functions\when( 'beans_esc_attributes' )->alias( function( array $attributes ) {
+			$string = '';
+
+			foreach ( (array) $attributes as $attribute => $value ) {
+
+				if ( null === $value ) {
+					continue;
+				}
+
+				$string .= $attribute . '="' . $value . '" ';
+			}
+
+			return trim( $string );
+		} );
 	}
 }
