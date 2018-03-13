@@ -40,7 +40,7 @@ abstract class HTML_Test_Case extends Test_Case {
 		parent::setUpBeforeClass();
 
 		static::$test_markup     = require dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'fixtures/test-markup.php';
-		static::$test_attributes = array_filter( static::$test_markup, function( $markup ) {
+		static::$test_attributes = array_filter( static::$test_markup, function ( $markup ) {
 			return isset( $markup['attributes'] );
 		} );
 	}
@@ -64,19 +64,25 @@ abstract class HTML_Test_Case extends Test_Case {
 	 * Setup dependency function mocks.
 	 */
 	protected function setup_mocks() {
-		Monkey\Functions\when( 'beans_esc_attributes' )->alias( function( array $attributes ) {
-			$string = '';
+		Monkey\Functions\when( 'beans_esc_attributes' )->alias( array( $this, 'convert_attributes_into_html' ) );
+	}
 
-			foreach ( (array) $attributes as $attribute => $value ) {
+	/**
+	 * Convert an array of attributes into a combined HTML string.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param array $attributes The given attributes to combine.
+	 *
+	 * @return string
+	 */
+	public function convert_attributes_into_html( array $attributes ) {
+		$html = '';
 
-				if ( null === $value ) {
-					continue;
-				}
+		foreach ( $attributes as $attribute => $value ) {
+			$html .= $attribute . '="' . $value . '" ';
+		}
 
-				$string .= $attribute . '="' . $value . '" ';
-			}
-
-			return trim( $string );
-		} );
+		return rtrim( $html );
 	}
 }

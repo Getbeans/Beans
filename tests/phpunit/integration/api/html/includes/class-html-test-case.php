@@ -43,4 +43,23 @@ abstract class HTML_Test_Case extends WP_UnitTestCase {
 			return isset( $markup['attributes'] );
 		} );
 	}
+
+	/**
+	 * Convert an array of attributes into a combined HTML string.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param array $attributes The given attributes to combine.
+	 *
+	 * @return string
+	 */
+	public function convert_attributes_into_html( array $attributes ) {
+		$html = '';
+
+		foreach ( $attributes as $attribute => $value ) {
+			$html .= $attribute . '="' . $value . '" ';
+		}
+
+		return rtrim( $html );
+	}
 }
