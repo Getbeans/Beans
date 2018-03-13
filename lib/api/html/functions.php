@@ -484,7 +484,7 @@ function beans_add_attributes( $id, $attributes = array() ) {
 	$args    = func_get_args();
 	$args[0] = $id . '_attributes';
 
-	if ( ! isset( $args[1] ) ) {
+	if ( empty( $args[1] ) ) {
 		$args[1] = array();
 	}
 
