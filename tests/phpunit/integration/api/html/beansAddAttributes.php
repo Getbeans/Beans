@@ -10,6 +10,7 @@
 namespace Beans\Framework\Tests\Integration\API\HTML;
 
 use Beans\Framework\Tests\Integration\API\HTML\Includes\HTML_Test_Case;
+use Brain\Monkey;
 
 require_once __DIR__ . '/includes/class-html-test-case.php';
 
@@ -50,5 +51,27 @@ class Tests_BeansAddAttributes extends HTML_Test_Case {
 		$this->assertSame( '', beans_add_attributes( 'foo', null ) );
 		$this->assertSame( '', beans_add_attributes( 'foo', '' ) );
 		$this->assertSame( '', beans_add_attributes( 'foo', false ) );
+	}
+
+	/**
+	 * Test beans_add_attributes() should return filtered attributes when there is a registered callback.  This test
+	 * ensures the registration component works as expected.
+	 */
+	public function test_should_return_filtered_attributes_when_registered_callback() {
+		// Setup the test.
+		$attributes = array( 'class' => 'foo' );
+		Monkey\Functions\expect( 'foo_attributes_callback' )
+			->with( $attributes )
+			->once()
+			->andReturnUsing( function ( $attributes ) {
+				return array( 'class' => 'changed-me' );
+			} );
+		add_action( 'foo_attributes', 'foo_attributes_callback' );
+
+		// Run the test.
+		$this->assertSame( 'class="changed-me"', beans_add_attributes( 'foo', $attributes ) );
+
+		// Clean up.
+		remove_action( 'foo_attributes', 'foo_attributes_callback' );
 	}
 }

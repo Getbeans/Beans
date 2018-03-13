@@ -77,4 +77,17 @@ class Tests_BeansAddAttributes extends HTML_Test_Case {
 		$this->assertSame( '', beans_add_attributes( 'foo', '' ) );
 		$this->assertSame( '', beans_add_attributes( 'foo', false ) );
 	}
+
+	/**
+	 * Test beans_add_attributes() should pass additional arguments when given.
+	 */
+	public function test_should_pass_additional_arguments_when_given() {
+		$attributes = array( 'class' => 'foo' );
+		Monkey\Functions\expect( 'beans_apply_filters' )
+			->with( 'foo_attributes', $attributes, 14, 'hi' )
+			->once()
+			->andReturn( $attributes );
+
+		$this->assertSame( 'class="foo"', beans_add_attributes( 'foo', $attributes, 14, 'hi' ) );
+	}
 }
