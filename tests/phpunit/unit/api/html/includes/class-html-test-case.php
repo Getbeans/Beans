@@ -40,7 +40,7 @@ abstract class HTML_Test_Case extends Test_Case {
 		parent::setUpBeforeClass();
 
 		static::$test_markup     = require dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'fixtures/test-markup.php';
-		static::$test_attributes = array_filter( static::$test_markup, function ( $markup ) {
+		static::$test_attributes = array_filter( static::$test_markup, function( $markup ) {
 			return isset( $markup['attributes'] );
 		} );
 	}
