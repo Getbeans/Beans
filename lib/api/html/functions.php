@@ -462,7 +462,7 @@ function beans_wrap_inner_markup( $id, $new_id, $tag, $attributes = array() ) {
  * Convert an array of attributes into a properly formatted HTML string.
  *
  * The attributes are registered in Beans via the given ID.  Using this ID, we can hook into the filter, i.e.
- * "$id_attributes", to modify, replace, extend, or remove one or more of the register attributes.
+ * "$id_attributes", to modify, replace, extend, or remove one or more of the registered attributes.
  *
  * Since this function uses {@see beans_apply_filters()}, the $id argument may contain sub-hook(s).
  *

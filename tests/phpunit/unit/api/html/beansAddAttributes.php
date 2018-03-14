@@ -29,7 +29,7 @@ class Tests_BeansAddAttributes extends HTML_Test_Case {
 	protected function setup_mocks() {
 		parent::setup_mocks();
 
-		Monkey\Functions\when( 'wp_parse_args' )->alias( function ( $args ) {
+		Monkey\Functions\when( 'wp_parse_args' )->alias( function( $args ) {
 
 			if ( is_array( $args ) ) {
 				return $args;
@@ -64,7 +64,7 @@ class Tests_BeansAddAttributes extends HTML_Test_Case {
 	}
 
 	/**
-	 * Test beans_add_attributes() should return empty string when no attributes.
+	 * Test beans_add_attributes() should return an empty string when no attributes are given.
 	 */
 	public function test_should_return_empty_string_when_no_attributes() {
 		Monkey\Functions\expect( 'beans_apply_filters' )

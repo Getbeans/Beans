@@ -44,7 +44,7 @@ class Tests_BeansAddAttributes extends HTML_Test_Case {
 	}
 
 	/**
-	 * Test beans_add_attributes() should return empty string when no attributes.
+	 * Test beans_add_attributes() should return an empty string when no attributes are given.
 	 */
 	public function test_should_return_empty_string_when_no_attributes() {
 		$this->assertSame( '', beans_add_attributes( 'foo' ) );
