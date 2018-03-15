@@ -75,7 +75,7 @@ class Tests_Beans_Options_Actions extends Options_Test_Case {
 	}
 
 	/**
-	 * Test process_actions() should save the field values when it's a save action.
+	 * Test process_actions() should save the field values when a save action is passed.
 	 */
 	public function test_should_save_field_values_when_save_action() {
 		// Setup the test.

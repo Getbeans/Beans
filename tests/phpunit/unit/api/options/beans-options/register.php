@@ -56,9 +56,9 @@ class Tests_Beans_Options_Register extends Options_Test_Case {
 	}
 
 	/**
-	 * Test register() should register meta box with WordPress.
+	 * Test register() should register the metabox with WordPress.
 	 */
-	public function test_should_register_meta_box_with_wp() {
+	public function test_should_register_metabox_with_wp() {
 		$instance = new _Beans_Options();
 
 		foreach ( static::$test_data as $option ) {
