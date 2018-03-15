@@ -93,7 +93,7 @@ final class _Beans_Options {
 	}
 
 	/**
-	 * Render the metabox's content. Callback that is fired by WordPress.
+	 * Render the metabox's content. The callback is fired by WordPress.
 	 *
 	 * @since 1.0.0
 	 *

@@ -1,6 +1,6 @@
 <?php
 /**
- * View file for reset notice when an error occurs with the resetting process.
+ * View file for the reset notice when an error occurs with the reset process.
  *
  * @package Beans\Framework\API\Options
  *

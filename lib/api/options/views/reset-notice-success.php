@@ -1,6 +1,6 @@
 <?php
 /**
- * View file for reset notice when the settings were successfully reset.
+ * View file for the reset notice when the settings were successfully reset.
  *
  * @package Beans\Framework\API\Options
  *

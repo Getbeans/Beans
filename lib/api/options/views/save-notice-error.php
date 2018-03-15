@@ -1,6 +1,6 @@
 <?php
 /**
- * View file for save notice when an error occurs with the saving process.
+ * View file for the save notice when an error occurs during the save process.
  *
  * @package Beans\Framework\API\Options
  *

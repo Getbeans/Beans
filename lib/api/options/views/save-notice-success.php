@@ -1,6 +1,6 @@
 <?php
 /**
- * View file for save notice when the settings were successfully saved.
+ * View file for the save notice when the settings were successfully saved.
  *
  * @package Beans\Framework\API\Options
  *
