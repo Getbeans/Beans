@@ -83,7 +83,7 @@ class Tests_BeansWrapMarkup extends HTML_Test_Case {
 		$this->assertTrue( has_action( 'foo_after_markup', array( $anonymous_action_mock, 'callback' ) ) );
 
 		// Clean up.
-		remove_action( 'foo_before_markup', array( $anonymous_action_mock, 'callback' ), 1 );
+		remove_action( 'foo_after_markup', array( $anonymous_action_mock, 'callback' ), 1 );
 	}
 
 	/**
