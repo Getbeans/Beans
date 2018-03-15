@@ -7,12 +7,12 @@
  * @since   1.5.0
  */
 
-namespace Beans\Framework\Tests\Unit\api\html\fixtures;
+namespace Beans\Framework\Tests\Unit\API\HTML\Fixtures;
 
 /**
  * Class Anonymous_Action_Stub
  *
- * @package Beans\Framework\Tests\Unit\api\html\fixtures
+ * @package Beans\Framework\Tests\Unit\API\HTML\Fixtures
  */
 class Anonymous_Action_Stub {
 

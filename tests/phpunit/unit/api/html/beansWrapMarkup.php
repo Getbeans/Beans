@@ -9,7 +9,7 @@
 
 namespace Beans\Framework\Tests\Unit\API\HTML;
 
-use Beans\Framework\Tests\Unit\api\html\fixtures\Anonymous_Action_Stub;
+use Beans\Framework\Tests\Unit\API\HTML\Fixtures\Anonymous_Action_Stub;
 use Beans\Framework\Tests\Unit\API\HTML\Includes\HTML_Test_Case;
 use Brain\Monkey;
 
