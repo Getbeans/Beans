@@ -75,11 +75,9 @@ final class _Beans_Options {
 	}
 
 	/**
-	 * Register the Metabox.
+	 * Register the Metabox with WordPress.
 	 *
 	 * @since 1.0.0
-	 * @ignore
-	 * @access private
 	 *
 	 * @return void
 	 */
@@ -87,7 +85,7 @@ final class _Beans_Options {
 		add_meta_box(
 			$this->section,
 			$this->args['title'],
-			array( $this, 'metabox_content' ),
+			array( $this, 'render_metabox' ),
 			beans_get( 'page' ),
 			$this->args['context'],
 			'default'
@@ -95,29 +93,34 @@ final class _Beans_Options {
 	}
 
 	/**
-	 * Metabox content.
+	 * Render the metabox's content. The callback is fired by WordPress.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
-	public function metabox_content() {
+	public function render_metabox() {
+		$fields = beans_get_fields( 'option', $this->section );
 
-		foreach ( beans_get_fields( 'option', $this->section ) as $field ) {
+		if ( empty( $fields ) ) {
+			return;
+		}
+
+		foreach ( $fields as $field ) {
 			beans_field( $field );
 		}
 	}
 
 	/**
-	 * Page content.
+	 * Render the page's (screen's) content.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param int $page Page ID.
+	 * @param string|WP_Screen $page The given page.
 	 *
 	 * @return void
 	 */
-	public function page( $page ) {
+	public function render_page( $page ) {
 		global $wp_meta_boxes;
 
 		$boxes = beans_get( $page, $wp_meta_boxes );
@@ -129,46 +132,26 @@ final class _Beans_Options {
 		// Only add a column class if there is more than 1 metabox.
 		$column_class = beans_get( 'column', $boxes, array() ) ? ' column' : false;
 
-		// Set page data which will be used by the postbox.
-		?>
-		<form action="" method="post" class="bs-options" data-page="<?php echo esc_attr( beans_get( 'page' ) ); ?>">
-			<?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
-			<?php wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false ); ?>
-			<input type="hidden" name="beans_options_nonce" value="<?php echo esc_attr( wp_create_nonce( 'beans_options_nonce' ) ); ?>" />
-			<div class="metabox-holder<?php echo esc_attr( $column_class ); ?>">
-				<?php
-				do_meta_boxes( $page, 'normal', null );
-
-				if ( $column_class ) {
-					do_meta_boxes( $page, 'column', null );
-				}
-				?>
-			</div>
-			<p class="bs-options-form-actions">
-				<input type="submit" name="beans_save_options" value="<?php echo esc_attr__( 'Save', 'tm-beans' ); ?>" class="button-primary">
-				<input type="submit" name="beans_reset_options" value="<?php echo esc_attr__( 'Reset', 'tm-beans' ); ?>" class="button-secondary">
-			</p>
-		</form>
-		<?php
+		include dirname( __FILE__ ) . '/views/page.php';
 	}
 
 	/**
-	 * Form actions.
+	 * Process the form's actions.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
-	public function actions() {
+	public function process_actions() {
 
 		if ( beans_post( 'beans_save_options' ) ) {
 			$this->save();
-			add_action( 'admin_notices', array( $this, 'save_notices' ) );
+			add_action( 'admin_notices', array( $this, 'render_save_notice' ) );
 		}
 
 		if ( beans_post( 'beans_reset_options' ) ) {
 			$this->reset();
-			add_action( 'admin_notices', array( $this, 'reset_notices' ) );
+			add_action( 'admin_notices', array( $this, 'render_reset_notice' ) );
 		}
 	}
 
@@ -187,7 +170,7 @@ final class _Beans_Options {
 
 		$fields = beans_post( 'beans_fields' );
 
-		if ( ! ( $fields ) ) {
+		if ( ! $fields ) {
 			return false;
 		}
 
@@ -213,7 +196,7 @@ final class _Beans_Options {
 
 		$fields = beans_post( 'beans_fields' );
 
-		if ( ! ( $fields ) ) {
+		if ( ! $fields ) {
 			return false;
 		}
 
@@ -225,50 +208,36 @@ final class _Beans_Options {
 	}
 
 	/**
-	 * Save notice content.
+	 * Render the save notice.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
-	public function save_notices() {
+	public function render_save_notice() {
 
 		if ( $this->success ) {
-			?>
-			<div id="message" class="updated">
-				<p><?php esc_html_e( 'Settings saved successfully!', 'tm-beans' ); ?></p>
-			</div>
-			<?php
-		} else {
-			?>
-			<div id="message" class="error">
-				<p><?php esc_html_e( 'Settings could not be saved, please try again.', 'tm-beans' ); ?></p>
-			</div>
-			<?php
+			include dirname( __FILE__ ) . '/views/save-notice-success.php';
+			return;
 		}
+
+		include dirname( __FILE__ ) . '/views/save-notice-error.php';
 	}
 
 	/**
-	 * Reset notice content.
+	 * Render the reset notice.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
-	public function reset_notices() {
+	public function render_reset_notice() {
 
 		if ( $this->success ) {
-			?>
-			<div id="message" class="updated">
-				<p><?php esc_html_e( 'Settings reset successfully!', 'tm-beans' ); ?></p>
-			</div>
-			<?php
-		} else {
-			?>
-			<div id="message" class="error">
-				<p><?php esc_html_e( 'Settings could not be reset, please try again.', 'tm-beans' ); ?></p>
-			</div>
-			<?php
+			include dirname( __FILE__ ) . '/views/reset-notice-success.php';
+			return;
 		}
+
+		include dirname( __FILE__ ) . '/views/reset-notice-error.php';
 	}
 }
