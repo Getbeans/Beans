@@ -34,7 +34,7 @@ class Tests_BeansWrapMarkup extends HTML_Test_Case {
 	}
 
 	/**
-	 * Test beans_wrap_markup() should false when an empty tag is given.
+	 * Test beans_wrap_markup() should return false when an empty tag is given.
 	 */
 	public function test_should_return_false_when_empty_tag_is_given() {
 		$this->assertFalse( beans_wrap_markup( 'foo', '', null ) );
