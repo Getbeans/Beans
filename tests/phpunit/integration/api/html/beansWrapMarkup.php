@@ -36,10 +36,6 @@ class Tests_BeansWrapMarkup extends HTML_Test_Case {
 	protected function get_instance_from_wp( $hook, $priority ) {
 		global $wp_filter;
 
-		// Run a couple of checks to make sure WordPress has the registration.
-		$this->assertArrayHasKey( $hook, $wp_filter );
-		$this->assertArrayHasKey( $priority, $wp_filter[ $hook ] );
-
 		return end( $wp_filter[ $hook ]->callbacks[ $priority ] )['function'][0];
 	}
 
@@ -51,6 +47,9 @@ class Tests_BeansWrapMarkup extends HTML_Test_Case {
 
 		// Check that it did register a callback to the hook.
 		$this->assertTrue( has_action( 'foo_before_markup' ) );
+		global $wp_filter;
+		$this->assertArrayHasKey( 'foo_before_markup', $wp_filter );
+		$this->assertArrayHasKey( 9999, $wp_filter['foo_before_markup'] );
 
 		// Check that the correct arguments were stored in the instance.
 		$instance = $this->get_instance_from_wp( 'foo_before_markup', 9999 );
@@ -78,21 +77,12 @@ class Tests_BeansWrapMarkup extends HTML_Test_Case {
 
 		// Check that it did register a callback to the hook.
 		$this->assertTrue( has_action( 'foo_after_markup' ) );
-
-		// Check that the correct arguments were stored in the instance.
-		$instance = $this->get_instance_from_wp( 'foo_after_markup', 1 );
-		$this->assertSame(
-			array(
-				'beans_close_markup',
-				array(
-					1 => 'new_foo',
-					2 => 'div',
-				),
-			),
-			$instance->callback
-		);
+		global $wp_filter;
+		$this->assertArrayHasKey( 'foo_after_markup', $wp_filter );
+		$this->assertArrayHasKey( 1, $wp_filter['foo_after_markup'] );
 
 		// Clean up.
+		$instance = $this->get_instance_from_wp( 'foo_after_markup', 1 );
 		remove_action( 'foo_after_markup', array( $instance, 'callback' ), 1 );
 	}
 
@@ -147,7 +137,8 @@ class Tests_BeansWrapMarkup extends HTML_Test_Case {
 	}
 
 	/**
-	 * Test beans_wrap_markup() should pass the extra arguments to the anonymous action for the given ID's '_after_markup' hook.
+	 * Test beans_wrap_markup() should pass the extra arguments to the anonymous action for the given ID's
+	 * '_after_markup' hook.
 	 */
 	public function test_should_pass_extra_arguments_for_after_markup_hook() {
 		beans_wrap_markup( 'extra_args', '', 'div', array( 'class' => 'test-wrap' ), 'Beans Rocks!', 47 );
