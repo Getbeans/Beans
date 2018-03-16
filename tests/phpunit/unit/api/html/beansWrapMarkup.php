@@ -34,6 +34,15 @@ class Tests_BeansWrapMarkup extends HTML_Test_Case {
 	}
 
 	/**
+	 * Test beans_wrap_markup() should false when an empty tag is given.
+	 */
+	public function test_should_return_false_when_empty_tag_is_given() {
+		$this->assertFalse( beans_wrap_markup( 'foo', '', null ) );
+		$this->assertFalse( beans_wrap_markup( 'foo', '', '' ) );
+		$this->assertFalse( beans_wrap_markup( 'foo', '', false, array( 'class' => 'test-wrap' ) ) );
+	}
+
+	/**
 	 * Test beans_wrap_markup() should register beans_open_markup() to the given ID's '_before_markup' hook.
 	 */
 	public function test_should_register_beans_open_markup_to_given_id_before_markup_hook() {

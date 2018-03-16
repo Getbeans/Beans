@@ -401,6 +401,7 @@ function beans_reset_markup( $id ) {
  * Note: You can pass additional arguments to the functions that are hooked to <tt>$id</tt>.
  *
  * @since 1.0.0
+ * @since 1.5.0 Bails out if an empty $tag is given.
  *
  * @param string       $id         The wrap markup's ID.
  * @param string       $new_id     A unique string used as a reference. The $id argument may contain sub-hook(s).
@@ -412,9 +413,14 @@ function beans_reset_markup( $id ) {
  *                                 the attribute name (e.g. data-example). Setting it to 'null' will not
  *                                 display anything.
  *
- * @return bool Will always return true.
+ * @return bool
  */
 function beans_wrap_markup( $id, $new_id, $tag, $attributes = array() ) {
+
+	if ( ! $tag ) {
+		return false;
+	}
+
 	$args = func_get_args();
 	unset( $args[0] );
 
