@@ -52,7 +52,7 @@ class Tests_BeansWrapMarkup extends HTML_Test_Case {
 		$this->assertArrayHasKey( 9999, $wp_filter['foo_before_markup'] );
 
 		// Check that the correct arguments were stored in the instance.
-		$instance = $this->get_instance_from_wp( 'foo_before_markup', 9999 );
+		$anonomyous_action = $this->get_instance_from_wp( 'foo_before_markup', 9999 );
 		$this->assertSame(
 			array(
 				'beans_open_markup',
@@ -62,11 +62,11 @@ class Tests_BeansWrapMarkup extends HTML_Test_Case {
 					3 => array( 'class' => 'test-wrap' ),
 				),
 			),
-			$instance->callback
+			$anonomyous_action->callback
 		);
 
 		// Clean up.
-		remove_action( 'foo_before_markup', array( $instance, 'callback' ), 9999 );
+		remove_action( 'foo_before_markup', array( $anonomyous_action, 'callback' ), 9999 );
 	}
 
 	/**
@@ -81,9 +81,21 @@ class Tests_BeansWrapMarkup extends HTML_Test_Case {
 		$this->assertArrayHasKey( 'foo_after_markup', $wp_filter );
 		$this->assertArrayHasKey( 1, $wp_filter['foo_after_markup'] );
 
+		// Check that the correct arguments were stored in the instance.
+		$anonomyous_action = $this->get_instance_from_wp( 'foo_after_markup', 1 );
+		$this->assertSame(
+			array(
+				'beans_close_markup',
+				array(
+					1 => 'new_foo',
+					2 => 'div',
+				),
+			),
+			$anonomyous_action->callback
+		);
+
 		// Clean up.
-		$instance = $this->get_instance_from_wp( 'foo_after_markup', 1 );
-		remove_action( 'foo_after_markup', array( $instance, 'callback' ), 1 );
+		remove_action( 'foo_after_markup', array( $anonomyous_action, 'callback' ), 1 );
 	}
 
 	/**
@@ -92,21 +104,12 @@ class Tests_BeansWrapMarkup extends HTML_Test_Case {
 	public function test_should_not_pass_attributes_for_after_markup_hook() {
 		beans_wrap_markup( 'no_atts', '', 'div', array( 'class' => 'test-wrap' ) );
 
-		// Check that the correct arguments were stored in the instance.
-		$instance = $this->get_instance_from_wp( 'no_atts_after_markup', 1 );
-		$this->assertSame(
-			array(
-				'beans_close_markup',
-				array(
-					1 => '',
-					2 => 'div',
-				),
-			),
-			$instance->callback
-		);
+		// Check that the attributes do not exist.
+		$anonomyous_action = $this->get_instance_from_wp( 'no_atts_after_markup', 1 );
+		$this->assertNotContains( array( 'class' => 'test-wrap' ), $anonomyous_action->callback[1] );
 
 		// Clean up.
-		remove_action( 'no_atts_after_markup', array( $instance, 'callback' ), 1 );
+		remove_action( 'no_atts_after_markup', array( $anonomyous_action, 'callback' ), 1 );
 	}
 
 	/**
@@ -117,7 +120,7 @@ class Tests_BeansWrapMarkup extends HTML_Test_Case {
 		beans_wrap_markup( 'extra_args', '', 'div', array( 'class' => 'test-wrap' ), 47, 'Beans Rocks!' );
 
 		// Check that the correct arguments were stored in the instance.
-		$instance = $this->get_instance_from_wp( 'extra_args_before_markup', 9999 );
+		$anonomyous_action = $this->get_instance_from_wp( 'extra_args_before_markup', 9999 );
 		$this->assertSame(
 			array(
 				'beans_open_markup',
@@ -129,11 +132,11 @@ class Tests_BeansWrapMarkup extends HTML_Test_Case {
 					5 => 'Beans Rocks!',
 				),
 			),
-			$instance->callback
+			$anonomyous_action->callback
 		);
 
 		// Clean up.
-		remove_action( 'extra_args_before_markup', array( $instance, 'callback' ), 9999 );
+		remove_action( 'extra_args_before_markup', array( $anonomyous_action, 'callback' ), 9999 );
 	}
 
 	/**
@@ -144,7 +147,7 @@ class Tests_BeansWrapMarkup extends HTML_Test_Case {
 		beans_wrap_markup( 'extra_args', '', 'div', array( 'class' => 'test-wrap' ), 'Beans Rocks!', 47 );
 
 		// Check that the correct arguments were stored in the instance.
-		$instance = $this->get_instance_from_wp( 'extra_args_after_markup', 1 );
+		$anonomyous_action = $this->get_instance_from_wp( 'extra_args_after_markup', 1 );
 		$this->assertSame(
 			array(
 				'beans_close_markup',
@@ -155,10 +158,10 @@ class Tests_BeansWrapMarkup extends HTML_Test_Case {
 					5 => 47,
 				),
 			),
-			$instance->callback
+			$anonomyous_action->callback
 		);
 
 		// Clean up.
-		remove_action( 'extra_args_after_markup', array( $instance, 'callback' ), 1 );
+		remove_action( 'extra_args_after_markup', array( $anonomyous_action, 'callback' ), 1 );
 	}
 }
