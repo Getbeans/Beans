@@ -23,7 +23,7 @@
 function beans_get_post_meta( $meta_key, $default = false, $post_id = false ) {
 
 	if ( ! $post_id ) {
-		$id      = get_the_id();
+		$id      = get_the_ID();
 		$post_id = ! $id ? beans_get( 'post' ) : $id;
 	}
 

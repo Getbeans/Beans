@@ -37,7 +37,7 @@ class Tests_BeansGetPostMeta extends Test_Case {
 	 * Test beans_get_post_meta() should return the default when the post_id cannot be resolved.
 	 */
 	public function test_should_return_default_when_post_id_cannot_be_resolved() {
-		Monkey\Functions\expect( 'get_the_id' )->twice()->andReturn( false );
+		Monkey\Functions\expect( 'get_the_ID' )->twice()->andReturn( false );
 		Monkey\Functions\expect( 'beans_get' )->twice()->andReturn( null );
 		Monkey\Functions\expect( 'get_post_meta' )->never();
 
@@ -60,11 +60,11 @@ class Tests_BeansGetPostMeta extends Test_Case {
 	 * Test beans_get_post_meta() should get the post ID when none is provided.
 	 */
 	public function test_should_get_post_id_when_none_is_provided() {
-		Monkey\Functions\expect( 'get_the_id' )->once()->andReturn( 47 );
+		Monkey\Functions\expect( 'get_the_ID' )->once()->andReturn( 47 );
 		Monkey\Functions\expect( 'get_post_meta' )->with( 47 )->once()->andReturn( array() );
 		$this->assertSame( 'c', beans_get_post_meta( 'beans_layout', 'c' ) );
 
-		Monkey\Functions\expect( 'get_the_id' )->once()->andReturn( 0 );
+		Monkey\Functions\expect( 'get_the_ID' )->once()->andReturn( 0 );
 		Monkey\Functions\expect( 'beans_get' )->once()->with( 'post' )->andReturn( 18 );
 		Monkey\Functions\expect( 'get_post_meta' )->with( '18' )->once()->andReturn( array() );
 		$this->assertSame( 'c', beans_get_post_meta( 'beans_layout', 'c' ) );
@@ -86,7 +86,7 @@ class Tests_BeansGetPostMeta extends Test_Case {
 			->andReturn( 'c_sp' );
 		$this->assertSame( 'c_sp', beans_get_post_meta( 'beans_layout', false, 521 ) );
 
-		Monkey\Functions\expect( 'get_the_id' )->once()->andReturn( 47 );
+		Monkey\Functions\expect( 'get_the_ID' )->once()->andReturn( 47 );
 		Monkey\Functions\expect( 'get_post_meta' )
 			->with( 47 )
 			->once()
@@ -99,7 +99,7 @@ class Tests_BeansGetPostMeta extends Test_Case {
 			->andReturn( 'sp_c' );
 		$this->assertSame( 'sp_c', beans_get_post_meta( 'beans_layout' ) );
 
-		Monkey\Functions\expect( 'get_the_id' )->once()->andReturn( 0 );
+		Monkey\Functions\expect( 'get_the_ID' )->once()->andReturn( 0 );
 		Monkey\Functions\expect( 'beans_get' )->once()->with( 'post' )->andReturn( 18 );
 		Monkey\Functions\expect( 'get_post_meta' )
 			->with( '18' )
