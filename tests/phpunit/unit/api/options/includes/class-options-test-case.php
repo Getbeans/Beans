@@ -49,6 +49,7 @@ abstract class Options_Test_Case extends Test_Case {
 		) );
 
 		$this->setup_function_mocks();
+		$this->setup_common_wp_stubs();
 	}
 
 	/**
@@ -62,10 +63,10 @@ abstract class Options_Test_Case extends Test_Case {
 	}
 
 	/**
-	 * Set up function mocks.
+	 * Setup dependency function mocks.
 	 */
 	protected function setup_function_mocks() {
-		Monkey\Functions\when( 'add_meta_box' )->alias( function ( $id, $title, $callback, $screen = null, $context = 'advanced', $priority = 'default', $callback_args = null ) {
+		Monkey\Functions\when( 'add_meta_box' )->alias( function( $id, $title, $callback, $screen = null, $context = 'advanced', $priority = 'default', $callback_args = null ) {
 			global $wp_meta_boxes;
 
 			if ( empty( $screen ) ) {
@@ -88,13 +89,5 @@ abstract class Options_Test_Case extends Test_Case {
 				),
 			);
 		} );
-
-		foreach ( array( 'esc_attr', 'esc_html', '__' ) as $wp_function ) {
-			Monkey\Functions\when( $wp_function )->returnArg();
-		}
-
-		foreach ( array( 'esc_attr_e', 'esc_html_e' ) as $wp_function ) {
-			Monkey\Functions\when( $wp_function )->echoArg();
-		}
 	}
 }
