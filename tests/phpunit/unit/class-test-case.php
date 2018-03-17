@@ -27,7 +27,7 @@ abstract class Test_Case extends TestCase {
 		parent::setUp();
 		Monkey\setUp();
 
-		Functions\when( 'wp_normalize_path' )->alias( function ( $path ) {
+		Functions\when( 'wp_normalize_path' )->alias( function( $path ) {
 			$path = str_replace( '\\', '/', $path );
 			$path = preg_replace( '|(?<=.)/+|', '/', $path );
 
@@ -38,9 +38,35 @@ abstract class Test_Case extends TestCase {
 			return $path;
 		} );
 
-		Functions\when( 'wp_json_encode' )->alias( function ( $array ) {
+		Functions\when( 'wp_json_encode' )->alias( function( $array ) {
 			return json_encode( $array ); // phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode -- Required as part of our mock.
 		} );
+	}
+
+	/**
+	 * Setup the stubs for the common WordPress escaping and internationalization functions.
+	 */
+	protected function setup_common_wp_stubs() {
+		// Common escaping functions.
+		Monkey\Functions\stubs( array(
+			'esc_attr',
+			'esc_html',
+			'esc_textarea',
+			'esc_url',
+			'wp_kses_post',
+		) );
+
+		// Common internationalization functions.
+		Monkey\Functions\stubs( array(
+			'__',
+			'esc_html__',
+			'esc_html_x',
+			'esc_attr_x',
+		) );
+
+		foreach ( array( 'esc_attr_e', 'esc_html_e', '_e' ) as $wp_function ) {
+			Monkey\Functions\when( $wp_function )->echoArg();
+		}
 	}
 
 	/**

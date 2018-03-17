@@ -24,10 +24,10 @@ require_once __DIR__ . '/includes/class-html-test-case.php';
 class Tests_BeansAddAttributes extends HTML_Test_Case {
 
 	/**
-	 * Setup dependency function mocks.
+	 * Prepares the test environment before each test.
 	 */
-	protected function setup_mocks() {
-		parent::setup_mocks();
+	protected function setup() {
+		parent::setUp();
 
 		Monkey\Functions\when( 'wp_parse_args' )->alias( function( $args ) {
 

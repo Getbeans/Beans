@@ -57,13 +57,14 @@ abstract class HTML_Test_Case extends Test_Case {
 			'api/filters/functions.php',
 		) );
 
-		$this->setup_mocks();
+		$this->setup_function_mocks();
+		$this->setup_common_wp_stubs();
 	}
 
 	/**
 	 * Setup dependency function mocks.
 	 */
-	protected function setup_mocks() {
+	protected function setup_function_mocks() {
 		Monkey\Functions\when( 'beans_esc_attributes' )->alias( array( $this, 'convert_attributes_into_html' ) );
 	}
 

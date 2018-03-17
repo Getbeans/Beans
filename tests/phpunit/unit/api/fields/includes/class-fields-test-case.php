@@ -50,6 +50,7 @@ abstract class Fields_Test_Case extends Test_Case {
 		) );
 
 		$this->setup_function_mocks();
+		$this->setup_common_wp_stubs();
 	}
 
 	/**
@@ -152,40 +153,31 @@ abstract class Fields_Test_Case extends Test_Case {
 	 * Set up function mocks.
 	 */
 	protected function setup_function_mocks() {
-
-		foreach ( array( 'esc_attr', 'esc_html', 'esc_textarea', 'esc_url', 'wp_kses_post', '__' ) as $wp_function ) {
-			Monkey\Functions\when( $wp_function )->returnArg();
-		}
-
-		foreach ( array( 'esc_attr_e', 'esc_html_e', '_e' ) as $wp_function ) {
-			Monkey\Functions\when( $wp_function )->echoArg();
-		}
-
-		Monkey\Functions\when( 'checked' )->alias( function ( $actual, $value ) {
+		Monkey\Functions\when( 'checked' )->alias( function( $actual, $value ) {
 
 			if ( $actual === $value ) {
 				echo " checked='checked'";
 			}
 		} );
 
-		Monkey\Functions\when( 'selected' )->alias( function ( $actual, $value ) {
+		Monkey\Functions\when( 'selected' )->alias( function( $actual, $value ) {
 
 			if ( $actual === $value ) {
 				echo " selected='selected'";
 			}
 		} );
 
-		Monkey\Functions\when( '_n' )->alias( function ( $single, $plural, $number ) {
+		Monkey\Functions\when( '_n' )->alias( function( $single, $plural, $number ) {
 			return $number > 1 ? $plural : $single;
 		} );
 
-		Monkey\Functions\when( 'beans_get' )->alias( function ( $needle, $haystack = false, $default = null ) {
+		Monkey\Functions\when( 'beans_get' )->alias( function( $needle, $haystack = false, $default = null ) {
 			$haystack = (array) $haystack;
 
 			return isset( $haystack[ $needle ] ) ? $haystack[ $needle ] : $default;
 		} );
 
-		Monkey\Functions\when( 'beans_esc_attributes' )->alias( function ( $attributes ) {
+		Monkey\Functions\when( 'beans_esc_attributes' )->alias( function( $attributes ) {
 			$string = '';
 
 			foreach ( (array) $attributes as $attribute => $value ) {
