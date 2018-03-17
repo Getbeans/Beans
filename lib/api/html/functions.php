@@ -456,6 +456,11 @@ function beans_wrap_markup( $id, $new_id, $tag, $attributes = array() ) {
  * @return bool Will always return true.
  */
 function beans_wrap_inner_markup( $id, $new_id, $tag, $attributes = array() ) {
+
+	if ( ! $tag ) {
+		return false;
+	}
+
 	$args = func_get_args();
 	unset( $args[0] );
 
