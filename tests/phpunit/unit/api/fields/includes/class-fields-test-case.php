@@ -50,6 +50,7 @@ abstract class Fields_Test_Case extends Test_Case {
 		) );
 
 		$this->setup_function_mocks();
+		$this->setup_common_wp_stubs();
 	}
 
 	/**
@@ -152,11 +153,6 @@ abstract class Fields_Test_Case extends Test_Case {
 	 * Set up function mocks.
 	 */
 	protected function setup_function_mocks() {
-
-		foreach ( array( 'esc_attr_e', 'esc_html_e', '_e' ) as $wp_function ) {
-			Monkey\Functions\when( $wp_function )->echoArg();
-		}
-
 		Monkey\Functions\when( 'checked' )->alias( function( $actual, $value ) {
 
 			if ( $actual === $value ) {

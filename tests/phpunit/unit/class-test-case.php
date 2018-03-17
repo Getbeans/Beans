@@ -47,12 +47,17 @@ abstract class Test_Case extends TestCase {
 	 * Setup the stubs for the common WordPress escaping and internationalization functions.
 	 */
 	protected function setup_common_wp_stubs() {
+		// Common escaping functions.
 		Monkey\Functions\stubs( array(
 			'esc_attr',
 			'esc_html',
 			'esc_textarea',
 			'esc_url',
 			'wp_kses_post',
+		) );
+
+		// Common internationalization functions.
+		Monkey\Functions\stubs( array(
 			'__',
 			'esc_html__',
 			'esc_html_x',

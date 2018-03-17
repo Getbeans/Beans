@@ -100,7 +100,7 @@ abstract class Image_Test_Case extends Test_Case {
 
 		$this->set_up_virtual_filesystem();
 
-		$this->setup_mocks();
+		$this->setup_function_mocks();
 
 		$this->images = array(
 			$this->images_dir . '/image1.jpg' => static::$fixtures_dir . '/image1.jpg',
@@ -231,7 +231,7 @@ abstract class Image_Test_Case extends Test_Case {
 	 *
 	 * @return void
 	 */
-	protected function setup_mocks() {
+	protected function setup_function_mocks() {
 		Monkey\Functions\when( 'beans_url_to_path' )->returnArg();
 		Monkey\Functions\when( 'beans_path_to_url' )->returnArg();
 
