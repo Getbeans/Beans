@@ -434,18 +434,23 @@ function beans_wrap_markup( $id, $new_id, $tag, $attributes = array() ) {
 }
 
 /**
- * Wrap markup inner content.
+ * Register the wrap inner content's markup with Beans using the given markup ID.
  *
- * This function calls {@see beans_open_markup()} after the opening markup and {@see beans_close_markup()}
- * before the closing markup.
+ * This function registers an anonymous callback to the following action hooks:
+ *
+ *    1. `$id_prepend_markup`:  When this hook fires, {@see beans_open_markup()} is called to build the wrap inner
+ *        content's HTML markup just after the wrap's opening tag.
+ *    2. `$id_append_markup`: When this hook fires, {@see beans_close_markup()} is called to build the wrap inner
+ *        content's HTML markup just before the wrap's closing tag.
  *
  * Note: You can pass additional arguments to the functions that are hooked to <tt>$id</tt>.
  *
  * @since 1.0.0
+ * @since 1.5.0 Bails out if an empty $tag is given.
  *
- * @param string       $id         The markup ID.
+ * @param string       $id         The wrap markup's ID.
  * @param string       $new_id     A unique string used as a reference. The $id argument may contain sub-hook(s).
- * @param string       $tag        The HTML wrap tag.
+ * @param string       $tag        The wrap inner content's HTML tag.
  * @param string|array $attributes Optional. Query string or array of attributes. The array key defines the
  *                                 attribute name and the array value define the attribute value. Setting
  *                                 the array value to '' will display the attribute value as empty
@@ -453,9 +458,14 @@ function beans_wrap_markup( $id, $new_id, $tag, $attributes = array() ) {
  *                                 the attribute name (e.g. data-example). Setting it to 'null' will not
  *                                 display anything.
  *
- * @return bool Will always return true.
+ * @return bool
  */
 function beans_wrap_inner_markup( $id, $new_id, $tag, $attributes = array() ) {
+
+	if ( ! $tag ) {
+		return false;
+	}
+
 	$args = func_get_args();
 	unset( $args[0] );
 
