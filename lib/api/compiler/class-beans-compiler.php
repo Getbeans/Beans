@@ -626,7 +626,7 @@ final class _Beans_Compiler {
 		}
 
 		// Rebuild the URL and make sure it is valid using the beans_path_to_url function.
-		$url = beans_path_to_url( trailingslashit( $base ) . ltrim( end( $paths ), '/' ) );
+		$url = beans_path_to_url( trailingslashit( $base ) . ltrim( end( $paths ), '/\\' ) );
 
 		// Return the rebuilt path converted to an URL.
 		return 'url("' . $url . '")';
