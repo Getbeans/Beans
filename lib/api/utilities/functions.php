@@ -109,7 +109,7 @@ function beans_path_to_url( $path, $force_rebuild = false ) {
 	static $root_path, $root_url;
 
 	// Stop here if it is already a url or data format.
-	if ( preg_match( '#^(http|https|\/\/|data)#', $path ) ) {
+	if ( _beans_is_uri( $path ) ) {
 		return $path;
 	}
 
@@ -512,4 +512,23 @@ function beans_esc_attributes( $attributes ) {
 	}
 
 	return trim( $string );
+}
+
+/**
+ * Checks if the given input is a URL or data URI.  It checks that the given input begins with:
+ *      - http
+ *      - https
+ *      - //
+ *      - data
+ *
+ * @since  1.5.0
+ * @ignore
+ * @access private
+ *
+ * @param string $maybe_uri The given input to check.
+ *
+ * @return bool
+ */
+function _beans_is_uri( $maybe_uri ) {
+	return ( 1 === preg_match( '#^(http|https|\/\/|data)#', $maybe_uri ) );
 }
