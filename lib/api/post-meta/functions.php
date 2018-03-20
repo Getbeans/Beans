@@ -14,17 +14,20 @@
  *
  * @since 1.0.0
  *
- * @param string           $meta_key The post meta id searched.
- * @param mixed            $default  Optional. The default value to return of the post meta value doesn't exist.
- * @param int|string|false $post_id  Optional. Overwrite the current post id.
+ * @param string     $meta_key The post meta id searched.
+ * @param mixed      $default  Optional. The default value to return of the post meta value doesn't exist.
+ * @param int|string $post_id  Optional. Overwrite the current post id.
  *
- * @return mixed Saved data if exist, otherwise default value set.
+ * @return mixed Returns the meta value, if it exists; else, the default value is returned.
  */
-function beans_get_post_meta( $meta_key, $default = false, $post_id = false ) {
+function beans_get_post_meta( $meta_key, $default = false, $post_id = '' ) {
 
 	if ( ! $post_id ) {
-		$id      = get_the_ID();
-		$post_id = ! $id ? beans_get( 'post' ) : $id;
+		$post_id = get_the_ID();
+
+		if ( ! $post_id ) {
+			$post_id = (int) beans_get( 'post' );
+		}
 	}
 
 	if ( ! $post_id ) {
