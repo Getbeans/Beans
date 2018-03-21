@@ -134,6 +134,7 @@ function beans_modify_action( $id, $hook = null, $callback = null, $priority = n
 
 	// Overwrite the modified parameters.
 	$action = array_merge( $current_action, $action );
+
 	return add_action( $action['hook'], $action['callback'], $action['priority'], $action['args'] );
 }
 
@@ -712,7 +713,8 @@ function _beans_render_action( $hook ) {
 }
 
 /**
- * Calls beans_render_function when the hook is registered.
+ * Render all hooked action callbacks by firing {@see do_action()}.  The output is captured in the buffer and then
+ * returned.
  *
  * @since  1.5.0
  * @ignore
@@ -725,12 +727,15 @@ function _beans_render_action( $hook ) {
  */
 function _beans_when_has_action_do_render( array $args, &$output = '' ) {
 
-	if ( has_action( $args[0] ) ) {
-		$output .= call_user_func_array( 'beans_render_function', array_merge( array( 'do_action' ), $args ) );
-		return $output;
+	if ( ! has_action( $args[0] ) ) {
+		return false;
 	}
 
-	return false;
+	ob_start();
+	call_user_func_array( 'do_action', $args );
+	$output .= ob_get_clean();
+
+	return $output;
 }
 
 /**
