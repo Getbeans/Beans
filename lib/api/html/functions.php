@@ -74,17 +74,21 @@ function beans_remove_output( $id ) {
 }
 
 /**
- * Register open markup and attributes by ID.
+ * Build the opening HTML element's markup.  This function fires 3 separate hooks:
  *
- * The Beans HTML "markups" and "attributes" functions make it really easy to modify, replace, extend,
- * remove or hook into registered markup or attributes.
+ *      1. "{id}_before_markup" - which fires first before the element.
+ *      2. "{$id}_prepend_markup" - which fires after the element when the element is not self-closing.
+ *      3. "{$id}_after_markup" - which fires after the element when the element is self-closing.
  *
- * The "data-markup-id" is added as a HTML attribute if the development mode is enabled. This makes it very
- * easy to find the content ID when inspecting an element in a web browser.
+ * These 3 hooks along with the attributes make it really easy to modify, replace, extend, remove or hook the
+ * markup and/or attributes.
  *
- * Since this function uses {@see beans_apply_filters()}, the $id argument may contain sub-hook(s).
+ * When in development mode, the "data-markup-id" attribute is added to the element, i.e. making it
+ * easier to identify the content ID when inspecting an element in your web browser.
  *
- * Note: You can pass additional arguments to the functions that are hooked to <tt>$id</tt>.
+ * Notes:
+ *      1. Since this function uses {@see beans_apply_filters()}, the $id argument may contain sub-hook(s).
+ *      2. You can pass additional arguments to the functions that are hooked to <tt>$id</tt>.
  *
  * @since 1.0.0
  *
@@ -99,67 +103,56 @@ function beans_remove_output( $id ) {
  *                                 the attribute name (e.g. data-example). Setting it to 'null' will not
  *                                 display anything.
  *
- * @return string The output.
+ * @return string|void
  */
 function beans_open_markup( $id, $tag, $attributes = array() ) {
-	global $_temp_beans_selfclose_markup;
-
 	$args            = func_get_args();
 	$attributes_args = $args;
 
 	// Set markup tag filter id.
 	$args[0] = $id . '_markup';
 
-	if ( isset( $args[2] ) ) {
+	// If there are attributes, remove them from $args.
+	if ( $attributes ) {
 		unset( $args[2] );
 	}
 
-	// Remove function $tag argument.
-	unset( $attributes_args[1] );
-
-	// Stop here if the tag is set to false, the before and after actions won't run in this case.
+	// Filter the tag.
 	$tag = call_user_func_array( 'beans_apply_filters', $args );
 
+	// Stop here if the tag is set to null, the before and after actions won't run in this case.
 	if ( null === $tag ) {
 		return;
 	}
 
-	// Remove function $tag argument.
+	global $_temp_beans_selfclose_markup;
+
+	// Remove function $tag arguments.
 	unset( $args[1] );
+	unset( $attributes_args[1] );
 
-	// Set before action id.
+	// Set and then fire the before action hook.
 	$args[0] = $id . '_before_markup';
-
-	$output = call_user_func_array( '_beans_render_action', $args );
+	$output  = call_user_func_array( '_beans_render_action', $args );
 
 	// Don't output the tag if empty, the before and after actions still run.
 	if ( $tag ) {
 		$output .= '<' . $tag . ' ' . call_user_func_array( 'beans_add_attributes', $attributes_args ) . ( _beans_is_html_dev_mode() ? ' data-markup-id="' . $id . '"' : null ) . ( $_temp_beans_selfclose_markup ? '/' : '' ) . '>';
 	}
 
-	// Set after action id.
+	// Set and then fire the after action hook.
 	$args[0] = $id . ( $_temp_beans_selfclose_markup ? '_after_markup' : '_prepend_markup' );
-
 	$output .= call_user_func_array( '_beans_render_action', $args );
 
-	// Reset temp selfclose global to reduce memory usage.
+	// Reset the global variable to reduce memory usage.
 	unset( $GLOBALS['_temp_beans_selfclose_markup'] );
 
 	return $output;
 }
 
 /**
- * Echo open markup and attributes registered by ID.
- *
- * The Beans HTML "markups" and "attributes" functions make it really easy to modify, replace, extend,
- * remove or hook into registered markup or attributes.
- *
- * The "data-markup-id" is added as a HTML attribute if the development mode is enabled. This makes it very
- * easy to find the content ID when inspecting an element in a web browser.
- *
- * Since this function uses {@see beans_apply_filters()}, the $id argument may contain sub-hook(s).
- *
- * Note: You can pass additional arguments to the functions that are hooked to <tt>$id</tt>.
+ * Echo the opening HTML element's markup.  This function is a wrapper for {@see beans_open_markup()}.  See
+ * {@see beans_open_markup()} for more details.
  *
  * @since 1.4.0
  *
