@@ -90,7 +90,7 @@ final class _Beans_WP_Customize {
 	 *
 	 * @return void
 	 */
-	private function add_section( $wp_customize ) {
+	private function add_section( WP_Customize_Manager $wp_customize ) {
 
 		if ( $wp_customize->get_section( $this->section ) ) {
 			return;
@@ -117,7 +117,7 @@ final class _Beans_WP_Customize {
 	 *
 	 * @return void
 	 */
-	private function add_setting( $wp_customize, $field ) {
+	private function add_setting( WP_Customize_Manager $wp_customize, $field ) {
 		$defaults = array(
 			'db_type'    => 'theme_mod',
 			'capability' => 'edit_theme_options',
@@ -149,7 +149,9 @@ final class _Beans_WP_Customize {
 	 *
 	 * @return void
 	 */
-	private function add_control( $wp_customize, $field ) {
+	private function add_control( WP_Customize_Manager $wp_customize, $field ) {
+		require_once 'class-beans-wp-customize-control.php';
+
 		$class = '_Beans_WP_Customize_Control';
 
 		if ( $field['type'] !== $class && class_exists( $field['type'] ) ) {
@@ -182,46 +184,3 @@ final class _Beans_WP_Customize {
 		return $value;
 	}
 }
-
-if ( class_exists( 'WP_Customize_Control' ) ) :
-	/**
-	 * Render Beans fields content for WP Customize.
-	 *
-	 * @since   1.0.0
-	 *
-	 * @ignore
-	 * @access  private
-	 *
-	 * @package Beans\Framework\API\WP_Customize
-	 */
-	class _Beans_WP_Customize_Control extends WP_Customize_Control { // phpcs:ignore Generic.Files.OneClassPerFile.MultipleFound, Generic.Classes.OpeningBraceSameLine.ContentAfterBrace -- Will be fixed.
-
-		/**
-		 * Field data.
-		 *
-		 * @var string
-		 */
-		private $beans_field;
-
-		/**
-		 * Constructor.
-		 */
-		public function __construct() {
-			$args = func_get_args();
-			call_user_func_array( array( 'parent', '__construct' ), $args );
-			$this->beans_field = end( $args );
-		}
-
-		/**
-		 * Field content.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @return void
-		 */
-		public function render_content() {
-			beans_field( $this->beans_field );
-		}
-	}
-
-endif;
