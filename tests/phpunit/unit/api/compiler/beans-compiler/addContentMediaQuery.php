@@ -9,9 +9,8 @@
 
 namespace Beans\Framework\Tests\Unit\API\Compiler;
 
-use _Beans_Compiler;
 use Beans\Framework\Tests\Unit\API\Compiler\Includes\Compiler_Test_Case;
-use Brain\Monkey\Functions;
+use Brain\Monkey;
 
 require_once dirname( __DIR__ ) . '/includes/class-compiler-test-case.php';
 
@@ -28,7 +27,10 @@ class Tests_Beans_Compiler_Add_Content_Media_Query extends Compiler_Test_Case {
 	 * Test add_content_media_query() should return original content when current fragment is callable.
 	 */
 	public function test_should_return_content_when_fragment_is_callable() {
-		$compiler = new _Beans_Compiler( array() );
+		Monkey\Functions\expect( 'wp_parse_args' )->never();
+		Monkey\Functions\expect( 'beans_get' )->never();
+
+		$compiler = $this->create_compiler();
 		$css      = <<<EOB
 .foo {
     margin: 0;
@@ -44,7 +46,10 @@ EOB;
 	 * Test add_content_media_query() should return original content when there are no query args.
 	 */
 	public function test_should_return_content_when_no_query_args() {
-		$compiler = new _Beans_Compiler( array() );
+		Monkey\Functions\expect( 'wp_parse_args' )->never();
+		Monkey\Functions\expect( 'beans_get' )->never();
+
+		$compiler = $this->create_compiler();
 		$css      = <<<EOB
 .foo {
     margin: 0;
@@ -64,7 +69,10 @@ EOB;
 	 * query arg is not present in the current fragment.
 	 */
 	public function test_should_return_content_when_no_media_query() {
-		$compiler = new _Beans_Compiler( array() );
+		Monkey\Functions\expect( 'wp_parse_args' )->never();
+		Monkey\Functions\expect( 'beans_get' )->never();
+
+		$compiler = $this->create_compiler( array() );
 		$css      = <<<EOB
 .foo {
     margin: 0;
@@ -83,7 +91,7 @@ EOB;
 	 * Test add_content_media_query() should wrap the content in the specified media query.
 	 */
 	public function test_should_wrap_content_in_media_query() {
-		$compiler      = new _Beans_Compiler( array() );
+		$compiler      = $this->create_compiler( array() );
 		$css           = <<<EOB
 .foo {
     margin: 0;
@@ -98,15 +106,22 @@ EOB;
 			'(min-width: 768px)',
 		);
 
-		Functions\stubs( [
-			'wp_parse_args' => function( $query_args ) {
-				parse_str( $query_args, $args );
-				return $args;
-			},
-		] );
-
 		foreach ( $media_queries as $media_query ) {
 			$this->set_current_fragment( $compiler, 'http://foo.com/base.css?beans_compiler_media_query=' . $media_query );
+
+			Monkey\Functions\expect( 'wp_parse_args' )
+				->once()
+				->with( 'beans_compiler_media_query=' . $media_query )
+				->andReturnUsing( function( $query_args ) {
+					parse_str( $query_args, $args );
+
+					return $args;
+				} );
+			Monkey\Functions\expect( 'beans_get' )
+				->once()
+				->with( 'beans_compiler_media_query', array( 'beans_compiler_media_query' => $media_query ) )
+				->andReturn( $media_query );
+
 			$this->assertSame(
 				"@media {$media_query} {\n{$css}\n}\n",
 				$compiler->add_content_media_query( $css )

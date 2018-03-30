@@ -38,12 +38,18 @@ class Tests_Beans_Compiler_Set_Fragments extends Compiler_Test_Case {
 			),
 		);
 
-		$compiler = new \_Beans_Compiler( $config );
+		$compiler = $this->create_compiler( $config );
+
+		// Setup the mock.
+		Monkey\Functions\expect( 'beans_get' )
+			->once()
+			->with( 'test', array() )
+			->andReturn();
 
 		// Check before we start.
 		$this->assertSame( $config['fragments'], $compiler->config['fragments'] );
 
-		// Set the fragments. Test.
+		// Run the test.
 		$compiler->set_fragments();
 		$this->assertSame( $config['fragments'], $compiler->config['fragments'] );
 	}
@@ -62,7 +68,7 @@ class Tests_Beans_Compiler_Set_Fragments extends Compiler_Test_Case {
 			),
 		);
 
-		$compiler = new \_Beans_Compiler( $config );
+		$compiler = $this->create_compiler( $config );
 		global $_beans_compiler_added_fragments;
 		$_beans_compiler_added_fragments['less'] = array(
 			'test' => array(
@@ -71,10 +77,16 @@ class Tests_Beans_Compiler_Set_Fragments extends Compiler_Test_Case {
 			),
 		);
 
+		// Setup the mock.
+		Monkey\Functions\expect( 'beans_get' )
+			->once()
+			->with( 'test', $_beans_compiler_added_fragments['less'] )
+			->andReturn( $_beans_compiler_added_fragments['less']['test'] );
+
 		// Check before we start.
 		$this->assertSame( $config['fragments'], $compiler->config['fragments'] );
 
-		// Set the fragments. Test.
+		// Run the test.
 		$expected = array_merge( $config['fragments'], $_beans_compiler_added_fragments['less']['test'] );
 		$compiler->set_fragments();
 		$this->assertSame( $expected, $compiler->config['fragments'] );
@@ -94,15 +106,19 @@ class Tests_Beans_Compiler_Set_Fragments extends Compiler_Test_Case {
 			),
 		);
 
-		$compiler = new \_Beans_Compiler( $config );
+		$compiler = $this->create_compiler( $config );
 
-		// Set up the expectation before firing the event.
+		// Setup the mock.
+		Monkey\Functions\expect( 'beans_get' )
+			->once()
+			->with( 'test', array() )
+			->andReturn();
 		Monkey\Filters\expectApplied( 'beans_compiler_fragments_test' )
 			->once()
 			->with( $config['fragments'] )
 			->andReturn( $compiler->config['fragments'] );
 
-		// Set the fragments. Test.
+		// Run the test.
 		$compiler->set_fragments();
 		$this->assertSame( $config['fragments'], $compiler->config['fragments'] );
 	}
