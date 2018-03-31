@@ -1,6 +1,6 @@
 <?php
 /**
- * Test Case for Beans' Field API integration tests.
+ * Test Case for Beans' WP Customize API integration tests.
  *
  * @package Beans\Framework\Tests\Integration\API\WPCustomize\Includes
  *
@@ -12,7 +12,7 @@ namespace Beans\Framework\Tests\Integration\API\WPCustomize\Includes;
 use Beans\Framework\Tests\Integration\Test_Case;
 
 /**
- * Abstract Class Fields_Test_Case
+ * Abstract Class WP_Customize_Test_Case
  *
  * @package Beans\Framework\Tests\Integration\API\WPCustomize\Includes
  */

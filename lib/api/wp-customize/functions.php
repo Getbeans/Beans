@@ -46,7 +46,7 @@
  *                                text to the section. Default false.
  * }
  *
- * @return bool|null False on failure.
+ * @return bool False on failure.
  */
 function beans_register_wp_customize_options( array $fields, $section, $args = array() ) {
 
