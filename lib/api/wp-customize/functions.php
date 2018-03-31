@@ -46,7 +46,7 @@
  *                                text to the section. Default false.
  * }
  *
- * @return bool True on success, false on failure.
+ * @return bool|null False on failure.
  */
 function beans_register_wp_customize_options( array $fields, $section, $args = array() ) {
 
@@ -63,7 +63,7 @@ function beans_register_wp_customize_options( array $fields, $section, $args = a
 
 	// Stop here if the current page isn't concerned.
 	if ( ! is_customize_preview() ) {
-		return;
+		return false;
 	}
 
 	// Stop here if the field can't be registered.

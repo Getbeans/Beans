@@ -117,7 +117,7 @@ final class _Beans_WP_Customize {
 	 *
 	 * @return void
 	 */
-	private function add_setting( WP_Customize_Manager $wp_customize, $field ) {
+	private function add_setting( WP_Customize_Manager $wp_customize, array $field ) {
 		$defaults = array(
 			'db_type'    => 'theme_mod',
 			'capability' => 'edit_theme_options',
@@ -149,7 +149,7 @@ final class _Beans_WP_Customize {
 	 *
 	 * @return void
 	 */
-	private function add_control( WP_Customize_Manager $wp_customize, $field ) {
+	private function add_control( WP_Customize_Manager $wp_customize, array $field ) {
 		require_once 'class-beans-wp-customize-control.php';
 
 		$class = '_Beans_WP_Customize_Control';
