@@ -49,7 +49,6 @@ abstract class WP_Customize_Test_Case extends Test_Case {
 			'api/utilities/functions.php',
 		) );
 
-//		$this->setup_function_mocks();
 		$this->setup_common_wp_stubs();
 	}
 
@@ -73,9 +72,9 @@ abstract class WP_Customize_Test_Case extends Test_Case {
 			$property = $this->get_reflective_property( $property_name );
 			$property->setValue( new \_Beans_Fields(), array() );
 		}
-
 	}
 
+	// phpcs:disable Generic.CodeAnalysis.UselessOverridingMethod.Found -- It's actually needed.
 	/**
 	 * Get reflective access to the private method.
 	 *
@@ -105,6 +104,7 @@ abstract class WP_Customize_Test_Case extends Test_Case {
 	protected function get_reflective_property( $property, $class_name = '_Beans_Fields' ) {
 		return parent::get_reflective_property( $property, $class_name );
 	}
+	// phpcs:enable Generic.CodeAnalysis.UselessOverridingMethod.Found
 
 	/**
 	 * Get the value of the private or protected property.
@@ -150,32 +150,5 @@ abstract class WP_Customize_Test_Case extends Test_Case {
 		}
 
 		return $merged_field;
-	}
-
-	/**
-	 * Set up function mocks.
-	 */
-	protected function setup_function_mocks() {
-
-		Monkey\Functions\when( 'beans_get' )->alias( function( $needle, $haystack = false, $default = null ) {
-			$haystack = (array) $haystack;
-
-			return isset( $haystack[ $needle ] ) ? $haystack[ $needle ] : $default;
-		} );
-
-		Monkey\Functions\when( 'beans_esc_attributes' )->alias( function( $attributes ) {
-			$string = '';
-
-			foreach ( (array) $attributes as $attribute => $value ) {
-
-				if ( null === $value ) {
-					continue;
-				}
-
-				$string .= $attribute . '="' . $value . '" ';
-			}
-
-			return trim( $string );
-		} );
 	}
 }

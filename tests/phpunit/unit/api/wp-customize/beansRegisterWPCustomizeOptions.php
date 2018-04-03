@@ -33,7 +33,6 @@ class Tests_BeansRegisterWPCustomizeOptions extends WP_Customize_Test_Case {
 		Monkey\Functions\when( '_beans_pre_standardize_fields' )->alias( function( $fields ) {
 			return $fields;
 		});
-
 	}
 
 	/**
