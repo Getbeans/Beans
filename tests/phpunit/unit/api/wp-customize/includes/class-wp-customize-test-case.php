@@ -46,32 +46,9 @@ abstract class WP_Customize_Test_Case extends Test_Case {
 			'api/wp-customize/class-beans-wp-customize.php',
 			'api/wp-customize/class-beans-wp-customize-control.php',
 			'api/fields/class-beans-fields.php',
-			'api/utilities/functions.php',
 		) );
 
 		$this->setup_common_wp_stubs();
-	}
-
-	/**
-	 * Cleans up the test environment after each test.
-	 */
-	public function tearDown() {
-		parent::tearDown();
-
-		// Reset the "registered" container.
-		$registered = $this->get_reflective_property( 'registered' );
-		$registered->setValue( new \_Beans_Fields(), array(
-			'option'       => array(),
-			'post_meta'    => array(),
-			'term_meta'    => array(),
-			'wp_customize' => array(),
-		) );
-
-		// Reset the other static properties.
-		foreach ( array( 'field_types_loaded', 'field_assets_hook_loaded' ) as $property_name ) {
-			$property = $this->get_reflective_property( $property_name );
-			$property->setValue( new \_Beans_Fields(), array() );
-		}
 	}
 
 	// phpcs:disable Generic.CodeAnalysis.UselessOverridingMethod.Found -- It's actually needed.
