@@ -104,6 +104,11 @@ function beans_register_post_meta( array $fields, $conditions, $section, $args =
  */
 function _beans_is_post_meta_conditions( $conditions ) {
 
+	// If user has designated boolean true, it's always true. Nothing more to do here.
+	if ( true === $conditions ) {
+		return true;
+	}
+
 	// Check if it is a new post and treat it as such.
 	if ( false !== stripos( $_SERVER['REQUEST_URI'], 'post-new.php' ) ) {
 		$current_post_type = beans_get( 'post_type' );
@@ -136,7 +141,6 @@ function _beans_is_post_meta_conditions( $conditions ) {
 	}
 
 	$statements = array(
-		true === $conditions,
 		in_array( $current_post_type, (array) $conditions, true ), // Check post type.
 		isset( $post_id ) && in_array( $post_id, (array) $conditions, true ), // Check post id.
 		isset( $post_id ) && in_array( get_post_meta( $post_id, '_wp_page_template', true ), (array) $conditions, true ), // Check page template.
