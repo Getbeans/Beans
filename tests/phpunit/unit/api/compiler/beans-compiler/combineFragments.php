@@ -9,8 +9,8 @@
 
 namespace Beans\Framework\Tests\Unit\API\Compiler;
 
-use _Beans_Compiler;
 use Beans\Framework\Tests\Unit\API\Compiler\Includes\Compiler_Test_Case;
+use Brain\Monkey;
 use org\bovigo\vfs\vfsStream;
 
 require_once dirname( __DIR__ ) . '/includes/class-compiler-test-case.php';
@@ -70,7 +70,7 @@ class Tests_Beans_Compiler_Combine_Fragments extends Compiler_Test_Case {
 	 * Test combine_fragments() should return an empty string when there are no fragments to combine.
 	 */
 	public function test_should_return_empty_string_when_no_fragments() {
-		$compiler = new _Beans_Compiler( array() );
+		$compiler = $this->create_compiler( array() );
 
 		// Run the test.
 		$compiler->combine_fragments();
@@ -82,8 +82,19 @@ class Tests_Beans_Compiler_Combine_Fragments extends Compiler_Test_Case {
 	 */
 	public function test_should_return_empty_string_when_fragment_does_not_exist() {
 		$fragment = vfsStream::url( 'compiled/fixtures/' ) . 'invalid-file.js';
-		$compiler = new _Beans_Compiler( array() );
-		$this->set_current_fragment( $compiler, $fragment );
+		$compiler = $this->create_compiler( array(
+			'id'           => 'test-script',
+			'type'         => 'script',
+			'fragments'    => array( $fragment ),
+			'dependencies' => array( 'javascript' ),
+			'in_footer'    => true,
+			'minify_js'    => true,
+		) );
+
+		// Setup the mocks.
+		Monkey\Functions\when( 'beans_url_to_path' )->returnArg();
+		Monkey\Functions\when( 'wp_remote_get' )->justReturn();
+		Monkey\Functions\when( 'is_wp_error' )->justReturn( true );
 
 		// Run the test.
 		$compiler->combine_fragments();
@@ -94,7 +105,7 @@ class Tests_Beans_Compiler_Combine_Fragments extends Compiler_Test_Case {
 	 * Test combine_fragments() should compile the LESS fragments and return the compiled CSS.
 	 */
 	public function test_should_compile_less_and_return_css() {
-		$compiler = new _Beans_Compiler( array(
+		$compiler = $this->create_compiler( array(
 			'id'        => 'test',
 			'type'      => 'style',
 			'format'    => 'less',
@@ -105,8 +116,10 @@ class Tests_Beans_Compiler_Combine_Fragments extends Compiler_Test_Case {
 		) );
 
 		// Set up the mocks.
+		Monkey\Functions\expect( 'beans_url_to_path' )->never();
+		Monkey\Functions\expect( 'wp_remote_get' )->never();
+		Monkey\Functions\expect( '_beans_is_compiler_dev_mode' )->once()->andReturn( true );
 		$this->mock_filesystem_for_fragments( $compiler );
-		$this->mock_dev_mode( true );
 
 		// Run the test.
 		$compiler->combine_fragments();
@@ -125,7 +138,7 @@ EOB;
 	 * Test combine_fragments() should return minified, compiled CSS from the Less combined fragments.
 	 */
 	public function test_should_return_minified_compiled_css() {
-		$compiler = new _Beans_Compiler( array(
+		$compiler = $this->create_compiler( array(
 			'id'        => 'test',
 			'type'      => 'style',
 			'format'    => 'less',
@@ -136,8 +149,10 @@ EOB;
 		) );
 
 		// Set up the mocks.
+		Monkey\Functions\expect( 'beans_url_to_path' )->never();
+		Monkey\Functions\expect( 'wp_remote_get' )->never();
+		Monkey\Functions\expect( '_beans_is_compiler_dev_mode' )->once()->andReturn( false );
 		$this->mock_filesystem_for_fragments( $compiler );
-		$this->mock_dev_mode( false );
 
 		// Run the test.
 		$compiler->combine_fragments();
@@ -149,7 +164,7 @@ EOB;
 	 * but "minify_js" is disabled.
 	 */
 	public function test_should_return_original_jquery_when_minify_js_disabled() {
-		$compiler = new _Beans_Compiler( array(
+		$compiler = $this->create_compiler( array(
 			'id'           => 'test',
 			'type'         => 'script',
 			'minify_js'    => false,
@@ -160,8 +175,10 @@ EOB;
 		) );
 
 		// Set up the mocks.
+		Monkey\Functions\expect( 'beans_url_to_path' )->never();
+		Monkey\Functions\expect( 'wp_remote_get' )->never();
+		Monkey\Functions\expect( '_beans_is_compiler_dev_mode' )->once()->andReturn( false );
 		$this->mock_filesystem_for_fragments( $compiler );
-		$this->mock_dev_mode( false );
 
 		// Run the test.
 		$compiler->combine_fragments();
@@ -173,7 +190,7 @@ EOB;
 	 * but the site is in development mode.
 	 */
 	public function test_should_always_return_original_jquery_when_in_dev_mode() {
-		$compiler = new _Beans_Compiler( array(
+		$compiler = $this->create_compiler( array(
 			'id'           => 'test',
 			'type'         => 'script',
 			'minify_js'    => true,
@@ -184,8 +201,10 @@ EOB;
 		) );
 
 		// Set up the mocks.
+		Monkey\Functions\expect( 'beans_url_to_path' )->never();
+		Monkey\Functions\expect( 'wp_remote_get' )->never();
+		Monkey\Functions\expect( '_beans_is_compiler_dev_mode' )->once()->andReturn( true );
 		$this->mock_filesystem_for_fragments( $compiler );
-		$this->mock_dev_mode( true );
 
 		// Run the test.
 		$compiler->combine_fragments();
@@ -196,7 +215,7 @@ EOB;
 	 * Test combine_fragments() should return minified jQuery.
 	 */
 	public function test_should_return_minified_jquery() {
-		$compiler = new _Beans_Compiler( array(
+		$compiler = $this->create_compiler( array(
 			'id'           => 'test',
 			'type'         => 'script',
 			'minify_js'    => true,
@@ -207,8 +226,10 @@ EOB;
 		) );
 
 		// Set up the mocks.
+		Monkey\Functions\expect( 'beans_url_to_path' )->never();
+		Monkey\Functions\expect( 'wp_remote_get' )->never();
+		Monkey\Functions\expect( '_beans_is_compiler_dev_mode' )->once()->andReturn( false );
 		$this->mock_filesystem_for_fragments( $compiler );
-		$this->mock_dev_mode( false );
 
 		// Run the test.
 		$compiler->combine_fragments();
@@ -220,7 +241,7 @@ EOB;
 	 * but "minify_js" is disabled.
 	 */
 	public function test_should_return_original_js_when_minify_js_disabled() {
-		$compiler = new _Beans_Compiler( array(
+		$compiler = $this->create_compiler( array(
 			'id'        => 'test',
 			'type'      => 'script',
 			'minify_js' => false,
@@ -230,8 +251,10 @@ EOB;
 		) );
 
 		// Set up the mocks.
+		Monkey\Functions\expect( 'beans_url_to_path' )->never();
+		Monkey\Functions\expect( 'wp_remote_get' )->never();
+		Monkey\Functions\expect( '_beans_is_compiler_dev_mode' )->once()->andReturn( false );
 		$this->mock_filesystem_for_fragments( $compiler );
-		$this->mock_dev_mode( false );
 
 		// Run the test.
 		$compiler->combine_fragments();
@@ -243,7 +266,7 @@ EOB;
 	 * but the site is in development mode.
 	 */
 	public function test_should_always_return_original_js_when_in_dev_mode() {
-		$compiler = new _Beans_Compiler( array(
+		$compiler = $this->create_compiler( array(
 			'id'        => 'test',
 			'type'      => 'script',
 			'minify_js' => true,
@@ -253,8 +276,10 @@ EOB;
 		) );
 
 		// Set up the mocks.
+		Monkey\Functions\expect( 'beans_url_to_path' )->never();
+		Monkey\Functions\expect( 'wp_remote_get' )->never();
+		Monkey\Functions\expect( '_beans_is_compiler_dev_mode' )->once()->andReturn( true );
 		$this->mock_filesystem_for_fragments( $compiler );
-		$this->mock_dev_mode( true );
 
 		// Run the test.
 		$compiler->combine_fragments();
@@ -265,7 +290,7 @@ EOB;
 	 * Test combine_fragments() should return minified JavaScript.
 	 */
 	public function test_should_return_minified_javascript() {
-		$compiler = new _Beans_Compiler( array(
+		$compiler = $this->create_compiler( array(
 			'id'        => 'test',
 			'type'      => 'script',
 			'minify_js' => true,
@@ -275,8 +300,10 @@ EOB;
 		) );
 
 		// Set up the mocks.
+		Monkey\Functions\expect( 'beans_url_to_path' )->never();
+		Monkey\Functions\expect( 'wp_remote_get' )->never();
+		Monkey\Functions\expect( '_beans_is_compiler_dev_mode' )->once()->andReturn( false );
 		$this->mock_filesystem_for_fragments( $compiler );
-		$this->mock_dev_mode( false );
 
 		// Run the test.
 		$compiler->combine_fragments();

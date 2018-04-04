@@ -16,7 +16,7 @@
  *
  * @package Beans\Framework\API\Actions
  */
-final class _Beans_Anonymous_Actions {
+final class _Beans_Anonymous_Action {
 
 	/**
 	 * The callback to register to the given $hook.
@@ -51,6 +51,6 @@ final class _Beans_Anonymous_Actions {
 	 * @return void
 	 */
 	public function callback() {
-		echo call_user_func_array( $this->callback[0], $this->callback[1] ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- The callback should escape the output.
+		echo call_user_func_array( $this->callback[0], $this->callback[1] ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- The callback handles escaping its output, as Beans does not know what HTML or content will be passed back to it.
 	}
 }

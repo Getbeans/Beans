@@ -33,15 +33,6 @@ class Tests_BeansFieldRadio extends Fields_Test_Case {
 	}
 
 	/**
-	 * Cleans up the test environment after each test.
-	 */
-	public function tearDown() {
-		parent::setUp();
-
-		beans_remove_action( 'beans_field_radio', 'beans_field_radio' );
-	}
-
-	/**
 	 * Test beans_field_radio() should render the radio field with image options.
 	 */
 	public function test_should_render_radio_field_with_image_options() {
@@ -65,8 +56,8 @@ class Tests_BeansFieldRadio extends Fields_Test_Case {
 		$html = ob_get_clean();
 
 		$expected = <<<EOB
-<fieldset>
-	<legend class="screen-reader-text">The layout settings.</legend>
+<fieldset class="bs-field-fieldset">
+	<legend class="bs-field-legend">Layout</legend>
     <label class="" for="beans_layout_default_fallback">
         <input id="beans_layout_default_fallback" type="radio" name="beans_fields[beans_layout]" value="default_fallback" checked='checked' />
         Use Default Layout</label>
@@ -125,8 +116,8 @@ EOB;
 		$html = ob_get_clean();
 
 		$expected = <<<EOB
-<fieldset>
-	<legend class="screen-reader-text">The layout settings.</legend>
+<fieldset class="bs-field-fieldset">
+	<legend class="bs-field-legend">Layout</legend>
     <label class="" for="beans_layout_default_fallback">
         <input id="beans_layout_default_fallback" type="radio" name="beans_fields[beans_layout]" value="default_fallback" checked='checked' />
         Use Default Layout</label>

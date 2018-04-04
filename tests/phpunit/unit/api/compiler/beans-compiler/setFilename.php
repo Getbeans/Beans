@@ -38,13 +38,11 @@ class Tests_Beans_Compiler_Set_Filename extends Compiler_Test_Case {
 			'minify_js'    => true,
 			'version'      => null,
 		);
-		$compiler = new \_Beans_Compiler( $config );
+		$compiler = $this->create_compiler( $config );
 
-		// Set up the mocks.
-		$this->mock_dev_mode( true );
 		$this->add_virtual_directory( 'test-script' );
 
-		// Set the filename. Test.
+		// Run the tests.
 		$compiler->set_filename();
 		$expected = $this->get_filename( $compiler, $config, filemtime( $fragment ) );
 		$this->assertSame( $expected, $compiler->filename );
@@ -68,18 +66,11 @@ class Tests_Beans_Compiler_Set_Filename extends Compiler_Test_Case {
 			'minify_js'    => true,
 			'version'      => null,
 		);
-		$compiler = new \_Beans_Compiler( $config );
+		$compiler = $this->create_compiler( $config );
 
-		// Set up the mocks.
-		$this->mock_dev_mode( true );
 		$this->add_virtual_directory( 'test-script' );
 
-		// Test that we are in dev mode & the directory does exist.
-		$this->assertTrue( _beans_is_compiler_dev_mode() );
-		$this->directoryExists( vfsStream::url( 'compiled/beans/compiler/test-script' ) );
-		$this->assertTrue( is_dir( $compiler->dir ) );
-
-		// Set the filename. Test.
+		// Run the tests.
 		$compiler->set_filename();
 		$expected = $this->get_filename( $compiler, $config, filemtime( $fragment ) );
 		$this->assertSame( $expected, $compiler->filename );
@@ -100,10 +91,8 @@ class Tests_Beans_Compiler_Set_Filename extends Compiler_Test_Case {
 			'minify_js'    => true,
 			'version'      => null,
 		);
-		$compiler = new \_Beans_Compiler( $config );
+		$compiler = $this->create_compiler( $config );
 
-		// Set up the mocks.
-		$this->mock_dev_mode( true );
 		$this->add_virtual_directory( $config['id'] );
 
 		/**

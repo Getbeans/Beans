@@ -11,8 +11,8 @@
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Variables are used within a function's scope.
 ?>
 
-<fieldset>
-	<legend class="screen-reader-text"><?php echo esc_html( $field['description'] ); ?></legend>
+<fieldset class="bs-field-fieldset">
+	<legend class="bs-field-legend"><?php echo esc_html( $field['label'] ); ?></legend>
 <?php
 
 // Clean the field's ID prefix once before we start the loop.

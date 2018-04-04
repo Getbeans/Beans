@@ -9,23 +9,24 @@
  */
 
 /**
- * Register output by ID.
+ * Register the output for the given ID.  This function enables the output to be:
  *
- * The output can be modified using the available Beans HTML "output" functions.
+ *      1. modified by registering a callback to "{$id}_output"
+ *      2. removed by using {@see beans_remove_output()}.
  *
- * HTML comments containing the ID are added before and after the output if the development mode is enabled.
- * This makes it very easy to find a content ID when inspecting an element in your web browser.
+ * When in development mode, HTML comments containing the ID are added before and after the output, i.e. making it
+ * easier to identify the content ID when inspecting an element in your web browser.
  *
- * Since this function uses {@see beans_apply_filters()}, the $id argument may contain sub-hook(s).
- *
- * Note: You can pass additional arguments to the functions that are hooked to <tt>$id</tt>.
+ * Notes:
+ *      1. Since this function uses {@see beans_apply_filters()}, the $id argument may contain sub-hook(s).
+ *      2. You can pass additional arguments to the functions that are hooked to <tt>$id</tt>.
  *
  * @since 1.0.0
  *
  * @param string $id     A unique string used as a reference. The $id argument may contain sub-hook(s).
- * @param string $output Content to output.
+ * @param string $output The given content to output.
  *
- * @return string The output.
+ * @return string|void
  */
 function beans_output( $id, $output ) {
 	$args    = func_get_args();
@@ -38,6 +39,7 @@ function beans_output( $id, $output ) {
 	}
 
 	if ( _beans_is_html_dev_mode() ) {
+		$id     = esc_attr( $id );
 		$output = "<!-- open output: $id -->" . $output . "<!-- close output: $id -->";
 	}
 
@@ -45,154 +47,128 @@ function beans_output( $id, $output ) {
 }
 
 /**
- * Echo output registered by ID.
- *
- * The output can be modified using the available Beans HTML "output" functions.
- *
- * HTML comments containing the ID are added before and after the output if the development mode is enabled.
- * This makes it very easy to find a content ID when inspecting an element in your web browser.
- *
- * Since this function uses {@see beans_apply_filters()}, the $id argument may contain sub-hook(s).
- *
- * Note: You can pass additional arguments to the functions that are hooked to <tt>$id</tt>.
+ * Register and then echo the output for the given ID.  This function is a wrapper for {@see beans_output()}.  See
+ * {@see beans_output()} for more details.
  *
  * @since 1.4.0
- * @uses beans_output()  To register output by ID.
+ * @uses  beans_output()  To register output by ID.
  *
  * @param string $id     A unique string used as a reference. The $id argument may contain sub-hook(s).
- * @param string $output Content to output.
+ * @param string $output The given content to output.
  */
 function beans_output_e( $id, $output ) {
 	$args = func_get_args();
-	echo call_user_func_array( 'beans_output', $args ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Pending security audit.
+	echo call_user_func_array( 'beans_output', $args ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Escaped in beans_output.
 }
 
 /**
- * Remove output.
- *
- * HTML comments containing the ID are added before and after the output if the development mode is enabled.
- * This makes it very easy to find a content ID when inspecting an element in your web browser.
+ * Removes the HTML output for the given $id, meaning the output will not render.
  *
  * @since 1.0.0
  *
- * @param string $id The output ID.
+ * @param string $id The output's ID.
  *
- * @return bool Will always return true.
+ * @return bool|_Beans_Anonymous_Filters
  */
 function beans_remove_output( $id ) {
-	return beans_add_filter( $id . '_output', false );
+	return beans_add_filter( $id . '_output', false, 99999999 );
 }
 
 /**
- * Register open markup and attributes by ID.
+ * Build the opening HTML element's markup.  This function fires 3 separate hooks:
  *
- * The Beans HTML "markups" and "attributes" functions make it really easy to modify, replace, extend,
- * remove or hook into registered markup or attributes.
+ *      1. "{id}_before_markup" - which fires first before the element.
+ *      2. "{$id}_prepend_markup" - which fires after the element when the element is not self-closing.
+ *      3. "{$id}_after_markup" - which fires after the element when the element is self-closing.
  *
- * The "data-markup-id" is added as a HTML attribute if the development mode is enabled. This makes it very
- * easy to find the content ID when inspecting an element in a web browser.
+ * These 3 hooks along with the attributes make it really easy to modify, replace, extend, remove or hook the
+ * markup and/or attributes.
  *
- * Since this function uses {@see beans_apply_filters()}, the $id argument may contain sub-hook(s).
+ * When in development mode, the "data-markup-id" attribute is added to the element, i.e. making it
+ * easier to identify the content ID when inspecting an element in your web browser.
  *
- * Note: You can pass additional arguments to the functions that are hooked to <tt>$id</tt>.
+ * Notes:
+ *      1. Since this function uses {@see beans_apply_filters()}, the $id argument may contain sub-hook(s).
+ *      2. You can pass additional arguments to the functions that are hooked to <tt>$id</tt>.
  *
  * @since 1.0.0
  *
  * @param string       $id         A unique string used as a reference. The $id argument may contain sub-hooks(s).
- * @param string|bool  $tag        The HTML tag. If set to False or empty, the markup HTML tag will be removed but
- *                                 the actions hook will be called. If set the Null, both markup HTML tag and actions
- *                                 hooks will be removed.
+ * @param string|bool  $tag        The HTML tag. When set to false or an empty string, the HTML markup tag will not be
+ *                                 built, but both action hooks will fire. If set to null, the function bails out, i.e.
+ *                                 the HTML markup tag will not be built and neither action hook fires.
  * @param string|array $attributes Optional. Query string or array of attributes. The array key defines the
- *                                 attribute name and the array value defines the attribute value. Setting
- *                                 the array value to '' will display the attribute value as empty
- *                                 (e.g. class=""). Setting it to 'false' will only display
- *                                 the attribute name (e.g. data-example). Setting it to 'null' will not
- *                                 display anything.
+ *                                 attribute name and the array value defines the attribute value.
  *
- * @return string The output.
+ * @return string|void
  */
 function beans_open_markup( $id, $tag, $attributes = array() ) {
-	global $_temp_beans_selfclose_markup;
-
 	$args            = func_get_args();
 	$attributes_args = $args;
 
 	// Set markup tag filter id.
 	$args[0] = $id . '_markup';
 
-	if ( isset( $args[2] ) ) {
+	// If there are attributes, remove them from $args.
+	if ( $attributes ) {
 		unset( $args[2] );
 	}
 
-	// Remove function $tag argument.
-	unset( $attributes_args[1] );
-
-	// Stop here if the tag is set to false, the before and after actions won't run in this case.
+	// Filter the tag.
 	$tag = call_user_func_array( 'beans_apply_filters', $args );
 
+	// If the tag is set to null, bail out.
 	if ( null === $tag ) {
 		return;
 	}
 
-	// Remove function $tag argument.
+	global $_beans_is_selfclose_markup;
+
+	// Remove the $tag argument.
 	unset( $args[1] );
+	unset( $attributes_args[1] );
 
-	// Set before action id.
+	// Set and then fire the before action hook.
 	$args[0] = $id . '_before_markup';
+	$output  = call_user_func_array( '_beans_render_action', $args );
 
-	$output = call_user_func_array( '_beans_render_action', $args );
-
-	// Don't output the tag if empty, the before and after actions still run.
+	// Build the opening tag when tag is available.
 	if ( $tag ) {
-		$output .= '<' . $tag . ' ' . call_user_func_array( 'beans_add_attributes', $attributes_args ) . ( _beans_is_html_dev_mode() ? ' data-markup-id="' . $id . '"' : null ) . ( $_temp_beans_selfclose_markup ? '/' : '' ) . '>';
+		$output .= '<' . esc_attr( $tag ) . ' ' . call_user_func_array( 'beans_add_attributes', $attributes_args ) . ( _beans_is_html_dev_mode() ? ' data-markup-id="' . esc_attr( $id ) . '"' : null ) . ( $_beans_is_selfclose_markup ? '/' : '' ) . '>';
 	}
 
-	// Set after action id.
-	$args[0] = $id . ( $_temp_beans_selfclose_markup ? '_after_markup' : '_prepend_markup' );
-
+	// Set and then fire the after action hook.
+	$args[0] = $id . ( $_beans_is_selfclose_markup ? '_after_markup' : '_prepend_markup' );
 	$output .= call_user_func_array( '_beans_render_action', $args );
 
-	// Reset temp selfclose global to reduce memory usage.
-	unset( $GLOBALS['_temp_beans_selfclose_markup'] );
+	// Reset the global variable to reduce memory usage.
+	unset( $GLOBALS['_beans_is_selfclose_markup'] );
 
 	return $output;
 }
 
 /**
- * Echo open markup and attributes registered by ID.
- *
- * The Beans HTML "markups" and "attributes" functions make it really easy to modify, replace, extend,
- * remove or hook into registered markup or attributes.
- *
- * The "data-markup-id" is added as a HTML attribute if the development mode is enabled. This makes it very
- * easy to find the content ID when inspecting an element in a web browser.
- *
- * Since this function uses {@see beans_apply_filters()}, the $id argument may contain sub-hook(s).
- *
- * Note: You can pass additional arguments to the functions that are hooked to <tt>$id</tt>.
+ * Echo the opening HTML tag's markup.  This function is a wrapper for {@see beans_open_markup()}.  See
+ * {@see beans_open_markup()} for more details.
  *
  * @since 1.4.0
  *
  * @param string       $id         A unique string used as a reference. The $id argument may contain sub-hooks(s).
- * @param string|bool  $tag        The HTML tag. If set to False or empty, the markup HTML tag will be removed but
- *                                 the actions hook will be called. If set the Null, both markup HTML tag and actions
- *                                 hooks will be removed.
+ * @param string|bool  $tag        The HTML tag. When set to false or an empty string, the HTML markup tag will not be
+ *                                 built, but both action hooks will fire. If set to null, the function bails out, i.e.
+ *                                 the HTML markup tag will not be built and neither action hook fires.
  * @param string|array $attributes Optional. Query string or array of attributes. The array key defines the
- *                                 attribute name and the array value defines the attribute value. Setting
- *                                 the array value to '' will display the attribute value as empty
- *                                 (e.g. class=""). Setting it to 'false' will only display
- *                                 the attribute name (e.g. data-example). Setting it to 'null' will not
- *                                 display anything.
+ *                                 attribute name and the array value defines the attribute value.
  *
  * @return void
  */
 function beans_open_markup_e( $id, $tag, $attributes = array() ) {
 	$args = func_get_args();
-	echo call_user_func_array( 'beans_open_markup', $args ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Pending security audit.
+	echo call_user_func_array( 'beans_open_markup', $args ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Escaped in beans_open_markup().
 }
 
 /**
- * Register self-close markup and attributes by ID.
+ * Build the self-closing HTML element's markup.
  *
  * This function is shortcut of {@see beans_open_markup()}. It should be used for self-closing HTML markup such as
  * images or inputs.
@@ -200,182 +176,155 @@ function beans_open_markup_e( $id, $tag, $attributes = array() ) {
  * Note: You can pass additional arguments to the functions that are hooked to <tt>$id</tt>.
  *
  * @since 1.0.0
+ * @since 1.5.0 Unsets the global variable.
  *
- * @param string       $id         A unique string used as a reference. The $id argument may contain sub-hook(s).
- * @param string|bool  $tag        The HTML self-close tag.If set to False or empty, the markup HTML tag will
- *                                 be removed but the actions hook will be called. If set the Null, both
- *                                 markup HTML tag and actions hooks will be removed.
- * @param string|array $attributes Optional. Query string or array of attributes. The array key defines the
- *                                 attribute name and the array value defines the attribute value. Setting
- *                                 the array value to '' will display the attribute value as empty
- *                                 (e.g. class=""). Setting it to 'false' will only display
- *                                 the attribute name (e.g. data-example). Setting it to 'null' will not
- *                                 display anything.
+ * @global bool        $_beans_is_selfclose_markup When true, indicates a self-closing element should be built.
  *
- * @return string The output.
+ * @param string       $id         A unique string used as a reference. The $id argument may contain sub-hooks(s).
+ * @param string|bool  $tag        The self-closing HTML tag. When set to false or an empty string, the HTML markup tag
+ *                                 will not be built, but both action hooks will fire. If set to null, the function
+ *                                 bails out, i.e. the HTML markup tag will not be built and neither action hook fires.
+ * @param string|array $attributes Optional. Query string or array of attributes. The array key defines the attribute
+ *                                 name and the array value defines the attribute value.
+ *
+ * @return string|void
  */
 function beans_selfclose_markup( $id, $tag, $attributes = array() ) {
-	global $_temp_beans_selfclose_markup;
+	global $_beans_is_selfclose_markup;
 
-	$_temp_beans_selfclose_markup = true; // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Used in function scope.
-	$args                         = func_get_args();
+	$_beans_is_selfclose_markup = true;
 
-	return call_user_func_array( 'beans_open_markup', $args );
+	$html = call_user_func_array( 'beans_open_markup', func_get_args() );
+
+	// Reset the global variable to reduce memory usage.
+	unset( $GLOBALS['_beans_is_selfclose_markup'] );
+
+	return $html;
 }
 
 /**
- * Echo self-close markup and attributes registered by ID.
- *
- * This function is shortcut of {@see beans_open_markup()}. It should be used for self-closing HTML markup such as
- * images or inputs.
- *
- * Note: You can pass additional arguments to the functions that are hooked to <tt>$id</tt>.
+ * Echo the self-closing HTML element's markup. This function is a wrapper for {@see beans_selfclose_markup()}.  See
+ * {@see beans_selfclose_markup()} for more details.
  *
  * @since 1.4.0
  *
- * @param string       $id         A unique string used as a reference. The $id argument may contain sub-hook(s).
- * @param string|bool  $tag        The HTML self-close tag.If set to False or empty, the markup HTML tag will
- *                                 be removed but the actions hook will be called. If set the Null, both
- *                                 markup HTML tag and actions hooks will be removed.
- * @param string|array $attributes Optional. Query string or array of attributes. The array key defines the
- *                                 attribute name and the array value defines the attribute value. Setting
- *                                 the array value to '' will display the attribute value as empty
- *                                 (e.g. class=""). Setting it to 'false' will only display
- *                                 the attribute name (e.g. data-example). Setting it to 'null' will not
- *                                 display anything.
+ * @param string       $id         A unique string used as a reference. The $id argument may contain sub-hooks(s).
+ * @param string|bool  $tag        The self-closing HTML tag. When set to false or an empty string, the HTML markup tag
+ *                                 will not be built, but both action hooks will fire. If set to null, the function
+ *                                 bails out, i.e. the HTML markup tag will not be built and neither action hook fires.
+ * @param string|array $attributes Optional. Query string or array of attributes. The array key defines the attribute
+ *                                 name and the array value defines the attribute value.
  *
  * @return void
  */
 function beans_selfclose_markup_e( $id, $tag, $attributes = array() ) {
-	$args = func_get_args();
-	echo call_user_func_array( 'beans_selfclose_markup', $args ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Pending security audit.
+	echo call_user_func_array( 'beans_selfclose_markup', func_get_args() ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Escaped in beans_open_markup().
 }
 
 /**
- * Register close markup by ID.
+ * Build the closing HTML element's markup.  This function fires 2 separate hooks:
  *
- * This function is similar to {@see beans_open_markup()}, but does not accept HTML attributes. The $id
- * argument must be the identical to the opening markup.
+ *      1. "{id}_append_markup" - which fires first before the closing tag.
+ *      2. "{$id}_after_markup" - which fires after the closing tag.
  *
  * Note: You can pass additional arguments to the functions that are hooked to <tt>$id</tt>.
  *
  * @since 1.0.0
  *
  * @param string $id  Identical to the opening markup ID.
- * @param string $tag The HTML tag.
+ * @param string $tag The HTML tag. When set to false or an empty string, the HTML markup tag will not be built, but
+ *                    both action hooks will fire. If set to null, the function bails out, i.e. the HTML markup
+ *                    tag will not be built and neither action hook fires.
  *
- * @return string The output.
+ * @return string|void
  */
 function beans_close_markup( $id, $tag ) {
-	// Stop here if the tag is set to false, the before and after actions won't run in this case.
+	// Filter the tag.
 	$tag = beans_apply_filters( $id . '_markup', $tag );
 
+	// If the tag is set to null, bail out.
 	if ( null === $tag ) {
 		return;
 	}
 
 	$args = func_get_args();
 
-	// Remove function $tag argument.
+	// Remove the $tag argument.
 	unset( $args[1] );
 
-	// Set before action id.
+	// Set and then fire the append action hook.
 	$args[0] = $id . '_append_markup';
+	$output  = call_user_func_array( '_beans_render_action', $args );
 
-	$output = call_user_func_array( '_beans_render_action', $args );
-
-	// Don't output the tag if empty, the before and after actions still run.
+	// Build the closing tag when tag is available.
 	if ( $tag ) {
-		$output .= '</' . $tag . '>';
+		$output .= '</' . esc_attr( $tag ) . '>';
 	}
 
-	// Set after action id.
+	// Set and then fire the after action hook.
 	$args[0] = $id . '_after_markup';
-
 	$output .= call_user_func_array( '_beans_render_action', $args );
 
 	return $output;
 }
 
 /**
- * Echo close markup registered by ID.
- *
- * This function is similar to {@see beans_open_markup()}, but does not accept HTML attributes. The $id
- * argument must be the identical to the opening markup.
- *
- * Note: You can pass additional arguments to the functions that are hooked to <tt>$id</tt>.
+ * Echo the closing HTML tag's markup.  This function is a wrapper for {@see beans_close_markup()}.  See
+ * {@see beans_close_markup()} for more details.
  *
  * @since 1.4.0
  *
  * @param string $id  Identical to the opening markup ID.
- * @param string $tag The HTML tag.
+ * @param string $tag The HTML tag. When set to false or an empty string, the HTML markup tag will not be built, but
+ *                    both action hooks will fire. If set to null, the function bails out, i.e. the HTML markup
+ *                    tag will not be built and neither action hook fires.
+ *
+ * @return void
  */
 function beans_close_markup_e( $id, $tag ) {
 	$args = func_get_args();
-	echo call_user_func_array( 'beans_close_markup', $args ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Pending security audit.
+	echo call_user_func_array( 'beans_close_markup', $args ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Escaped in beans_close_markup().
 }
 
 /**
- * Modify opening and closing HTML tag. Also works for self-closing markup.
- *
- * This function will automatically modify the opening and the closing HTML tag. If the markup is self-closing,
- * the HTML tag will be modified accordingly.
- *
- * The "data-markup-id" is added as a HTML attribute if the development mode is enabled. This makes it very
- * easy to find the content ID when inspecting an element in a web browser.
+ * Modify the opening and closing or self-closing HTML tag.
  *
  * @since 1.0.0
  *
- * @param string          $id       The markup ID.
+ * @param string          $id       The target markup's ID.
  * @param string|callback $markup   The replacement HTML tag. A callback is accepted if conditions need to be
  *                                  applied. If arguments are available, then they are passed to the callback.
  * @param int             $priority Optional. Used to specify the order in which the functions
- *                                  associated with a particular action are executed. Default 10.
- *                                  Lower numbers correspond with earlier execution,
- *                                  and functions with the same priority are executed
- *                                  in the order in which they were added to the action.
- * @param int             $args     Optional. The number of arguments the function accepts. Default 1.
+ *                                  associated with a particular action are executed. Default is 10.
+ * @param int             $args     Optional. The number of arguments the callback accepts. Default is 1.
  *
- * @return bool Will always return true.
+ * @return bool|_Beans_Anonymous_Filters
  */
 function beans_modify_markup( $id, $markup, $priority = 10, $args = 1 ) {
 	return beans_add_filter( $id . '_markup', $markup, $priority, $args );
 }
 
 /**
- * Remove markup.
+ * Remove the markup.
  *
  * This function will automatically remove the opening and the closing HTML tag. If the markup is self-closing,
  * the HTML tag will be removed accordingly.
  *
- * The "data-markup-id" is added as a HTML attribute if the development mode is enabled. This makes it very
- * easy to find the content ID when inspecting an element in a web browser.
- *
  * @since 1.0.0
  *
- * @param string $id             The markup ID.
- * @param bool   $remove_actions Optional. Whether elements attached to a markup should be removed or not. This must be used
- *                               with absolute caution.
+ * @param string $id             The target markup's ID.
+ * @param bool   $remove_actions Optional. When true, the markup including the before and prepend/after hooks will be
+ *                               removed. When false, only the HTML element will be removed.
  *
- * @return bool Will always return true.
+ * @return bool|_Beans_Anonymous_Filters
  */
 function beans_remove_markup( $id, $remove_actions = false ) {
-
-	if ( $remove_actions ) {
-		return beans_add_filter( $id . '_markup', null );
-	}
-
-	return beans_add_filter( $id . '_markup', false );
+	return beans_add_filter( $id . '_markup', $remove_actions ? null : false );
 }
 
 /**
- * Reset markup.
- *
- * This function will automatically reset the opening and the closing HTML tag to its original value. If the markup is self-closed,
- * the HTML tag will be reset accordingly.
- *
- * The "data-markup-id" is added as a HTML attribute if the development mode is enabled. This makes it very
- * easy to find the content ID when inspecting an element in a web browser.
+ * Reset the given markup's tag.  This function will automatically reset the opening and closing HTML tag or
+ * self-closing tag to its original value.
  *
  * @since 1.3.1
  *

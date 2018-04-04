@@ -33,15 +33,6 @@ class Tests_BeansFieldActivation extends Fields_Test_Case {
 	}
 
 	/**
-	 * Cleans up the test environment after each test.
-	 */
-	public function tearDown() {
-		parent::setUp();
-
-		beans_remove_action( 'beans_field_activation', 'beans_field_activation' );
-	}
-
-	/**
 	 * Test beans_field_activation() should render the activation field.
 	 */
 	public function test_should_render_activation_field() {
@@ -59,6 +50,7 @@ class Tests_BeansFieldActivation extends Fields_Test_Case {
 		$expected = <<<EOB
 <input type="hidden" value="0" name="beans_fields[beans_compile_all_scripts]" />
 <input id="beans_compile_all_scripts" type="checkbox" name="beans_fields[beans_compile_all_scripts]" value="1" />
+<label for="beans_compile_all_scripts"></label>
 EOB;
 		// Run the test.
 		$this->assertSame( $this->format_the_html( $expected ), $this->format_the_html( $html ) );
@@ -85,6 +77,7 @@ EOB;
 		$expected = <<<EOB
 <input type="hidden" value="0" name="beans_fields[beans_compile_all_scripts]" />
 <input id="beans_compile_all_scripts" type="checkbox" name="beans_fields[beans_compile_all_scripts]" value="1" data-test="foo"/>
+<label for="beans_compile_all_scripts"></label>
 EOB;
 		// Run the test.
 		$this->assertSame( $this->format_the_html( $expected ), $this->format_the_html( $html ) );

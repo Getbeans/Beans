@@ -28,14 +28,11 @@ class Tests_Beans_Compiler_CacheFileExist extends Compiler_Test_Case {
 	 */
 	public function test_should_return_false_when_filename_not_generated() {
 		$fragment = vfsStream::url( 'compiled/fixtures/my-game-clock.js' );
-		$compiler = new \_Beans_Compiler( array(
+		$compiler = $this->create_compiler( array(
 			'id'        => 'test',
 			'type'      => 'script',
 			'fragments' => array( $fragment ),
 		) );
-
-		// Check that the filename does not exist.
-		$this->assertArrayNotHasKey( 'filename', $compiler->config );
 
 		// Run cache_file_exist().
 		$this->assertFalse( $compiler->cache_file_exist() );
@@ -46,23 +43,18 @@ class Tests_Beans_Compiler_CacheFileExist extends Compiler_Test_Case {
 	 */
 	public function test_should_return_false_when_file_does_not_exist() {
 		$fragment = vfsStream::url( 'compiled/fixtures/my-game-clock.js' );
-		$compiler = new \_Beans_Compiler( array(
+		$compiler = $this->create_compiler( array(
 			'id'        => 'test-script',
 			'type'      => 'script',
 			'fragments' => array( $fragment ),
 		) );
 
-		// Set up the mocks.
-		$this->mock_dev_mode( true );
-		$this->add_virtual_directory( 'test-script' );
+		// Mock the compiler's property.
+		$filename = '9a71ddb-b8d5d01.js';
+		$this->set_reflective_property( $filename, 'filename', $compiler );
 
-		// Generate the filename.
-		$compiler->set_filename();
-
-		// Check that the cached file does not exist in the virtual filesystem.
-		$this->assertFileNotExists( vfsStream::url( 'compiled/beans/compiler/test-script/' . $compiler->filename ) );
-
-		// Run cache_file_exist().
+		// Run the tests.
+		$this->assertFileNotExists( vfsStream::url( 'compiled/beans/compiler/test-script/' . $filename ) );
 		$this->assertFalse( $compiler->cache_file_exist() );
 	}
 
@@ -71,25 +63,21 @@ class Tests_Beans_Compiler_CacheFileExist extends Compiler_Test_Case {
 	 */
 	public function test_should_return_true_when_file_exists() {
 		$fragment = vfsStream::url( 'compiled/fixtures/my-game-clock.js' );
-		$compiler = new \_Beans_Compiler( array(
+		$compiler = $this->create_compiler( array(
 			'id'        => 'test-script',
 			'type'      => 'script',
 			'fragments' => array( $fragment ),
 		) );
 
-		// Set up the mocks.
-		$this->mock_dev_mode( true );
-		$this->add_virtual_directory( 'test-script' );
+		// Mock the compiler's property.
+		$filename = '9a71ddb-b8d5d01.js';
+		$this->set_reflective_property( $filename, 'filename', $compiler );
 
 		// Add the cached file to the virtual filesystem.
-		$compiler->set_filename();
-		vfsStream::newFile( $compiler->filename )
-			->at( $this->mock_filesystem->getChild( 'compiled/beans/compiler/test-script' ) );
+		$cached_file = $this->create_virtual_file( 'test-script', $filename, $this->get_compiled_js() );
 
-		// Check that the filename exists.
-		$this->assertFileExists( vfsStream::url( 'compiled/beans/compiler/test-script/' . $compiler->filename ) );
-
-		// Run cache_file_exist().
+		// Run the tests.
+		$this->assertFileExists( $cached_file );
 		$this->assertTrue( $compiler->cache_file_exist() );
 	}
 }

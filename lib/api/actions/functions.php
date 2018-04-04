@@ -134,6 +134,7 @@ function beans_modify_action( $id, $hook = null, $callback = null, $priority = n
 
 	// Overwrite the modified parameters.
 	$action = array_merge( $current_action, $action );
+
 	return add_action( $action['hook'], $action['callback'], $action['priority'], $action['args'] );
 }
 
@@ -252,8 +253,10 @@ function beans_replace_action( $id, $hook = null, $callback = null, $priority = 
 	// Modify the action.
 	$is_modified = beans_modify_action( $id, $hook, $callback, $priority, $args );
 
-	// Now merge the current action with the replaced one.
-	_beans_merge_action( $id, $action, 'added' );
+	// If there's a current action, merge it with the replaced one; else, it will be replaced when the original is added.
+	if ( $is_modified ) {
+		_beans_merge_action( $id, $action, 'added' );
+	}
 
 	return $is_modified;
 }
@@ -645,12 +648,12 @@ function _beans_build_action_array( $hook = null, $callback = null, $priority = 
  *                            in the order in which they were added to the action.
  * @param int    $number_args Optional. The number of arguments the function accepts. Default 1.
  *
- * @return _Beans_Anonymous_Actions
+ * @return _Beans_Anonymous_Action
  */
 function _beans_add_anonymous_action( $hook, array $callback, $priority = 10, $number_args = 1 ) {
 	require_once BEANS_API_PATH . 'actions/class-beans-anonymous-action.php';
 
-	return new _Beans_Anonymous_Actions( $hook, $callback, $priority, $number_args );
+	return new _Beans_Anonymous_Action( $hook, $callback, $priority, $number_args );
 }
 
 /**
@@ -712,7 +715,8 @@ function _beans_render_action( $hook ) {
 }
 
 /**
- * Calls beans_render_function when the hook is registered.
+ * Render all hooked action callbacks by firing {@see do_action()}.  The output is captured in the buffer and then
+ * returned.
  *
  * @since  1.5.0
  * @ignore
@@ -725,12 +729,15 @@ function _beans_render_action( $hook ) {
  */
 function _beans_when_has_action_do_render( array $args, &$output = '' ) {
 
-	if ( has_action( $args[0] ) ) {
-		$output .= call_user_func_array( 'beans_render_function', array_merge( array( 'do_action' ), $args ) );
-		return $output;
+	if ( ! has_action( $args[0] ) ) {
+		return false;
 	}
 
-	return false;
+	ob_start();
+	call_user_func_array( 'do_action', $args );
+	$output .= ob_get_clean();
+
+	return $output;
 }
 
 /**

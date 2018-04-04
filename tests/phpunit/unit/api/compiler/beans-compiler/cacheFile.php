@@ -9,8 +9,8 @@
 
 namespace Beans\Framework\Tests\Unit\API\Compiler;
 
-use _Beans_Compiler;
 use Beans\Framework\Tests\Unit\API\Compiler\Includes\Compiler_Test_Case;
+use Mockery;
 use org\bovigo\vfs\vfsStream;
 
 require_once dirname( __DIR__ ) . '/includes/class-compiler-test-case.php';
@@ -25,10 +25,10 @@ require_once dirname( __DIR__ ) . '/includes/class-compiler-test-case.php';
 class Tests_Beans_Compiler_Cache_File extends Compiler_Test_Case {
 
 	/**
-	 * Test cache_file() should not create the file.
+	 * Test cache_file() should not create the file when the filename is empty.
 	 */
-	public function test_should_not_create_the_file() {
-		$compiler = new _Beans_Compiler( array(
+	public function test_should_not_create_the_file_when_filename_empty() {
+		$compiler = $this->create_compiler( array(
 			'id'           => 'test-script',
 			'type'         => 'script',
 			'fragments'    => array( vfsStream::url( 'compiled/fixtures/jquery.test.js' ) ),
@@ -37,25 +37,18 @@ class Tests_Beans_Compiler_Cache_File extends Compiler_Test_Case {
 			'minify_js'    => true,
 		) );
 
-		// Set up the tests.
-		$this->mock_dev_mode( false );
-		$this->mock_filesystem_for_fragments( $compiler );
-		$this->add_virtual_directory( $compiler->config['id'] );
-		$this->set_current_fragment( $compiler, $compiler->config['fragments'][0] );
-		$compiler->set_filename();
-		$compiler->combine_fragments();
-		$this->mock_creating_file( $compiler );
-
 		// Run the tests.
 		$this->assertFalse( $compiler->cache_file() );
-		$this->assertFileNotExists( $compiler->get_filename() );
+
+		$this->set_reflective_property( null, 'filename', $compiler );
+		$this->assertFalse( $compiler->cache_file() );
 	}
 
 	/**
 	 * Test cache_file() should create the compiled jQuery file.
 	 */
 	public function test_should_create_compiled_jquery_file() {
-		$compiler = new _Beans_Compiler( array(
+		$compiler = $this->create_compiler( array(
 			'id'           => 'test-jquery',
 			'type'         => 'script',
 			'fragments'    => array( vfsStream::url( 'compiled/fixtures/jquery.test.js' ) ),
@@ -64,26 +57,27 @@ class Tests_Beans_Compiler_Cache_File extends Compiler_Test_Case {
 			'minify_js'    => true,
 		) );
 
-		// Set up the tests.
-		$this->mock_dev_mode( false );
-		$this->mock_filesystem_for_fragments( $compiler );
-		$this->add_virtual_directory( $compiler->config['id'] );
-		$this->set_current_fragment( $compiler, $compiler->config['fragments'][0] );
-		$compiler->set_filename();
-		$compiler->combine_fragments();
-		$this->mock_creating_file( $compiler, true );
+		// Mock the compiler's properties.
+		$compiled_content = $this->get_compiled_jquery();
+		$filename         = '099c7b1-68d31c8.js';
+		$cached_file      = vfsStream::url( 'compiled/beans/compiler/test-jquery/' . $filename );
+		$this->set_reflective_property( $compiled_content, 'compiled_content', $compiler );
+		$this->set_reflective_property( $filename, 'filename', $compiler );
+
+		// Mock the filesystem.
+		$this->mock_creating_file( 'test-jquery', $filename, $cached_file, $compiled_content );
 
 		// Run the tests.
+		$this->assertFileNotExists( $cached_file );
 		$this->assertTrue( $compiler->cache_file() );
-		$this->assertFileExists( $compiler->get_filename() );
-		$this->assertSame( $this->get_compiled_jquery(), $this->get_cached_file_contents( $compiler ) );
+		$this->assertFileExists( $cached_file );
 	}
 
 	/**
 	 * Test cache_file() should create the compiled JavaScript file.
 	 */
 	public function test_should_create_compiled_javascript_file() {
-		$compiler = new _Beans_Compiler( array(
+		$compiler = $this->create_compiler( array(
 			'id'        => 'test-js',
 			'type'      => 'script',
 			'fragments' => array( vfsStream::url( 'compiled/fixtures/my-game-clock.js' ) ),
@@ -91,53 +85,55 @@ class Tests_Beans_Compiler_Cache_File extends Compiler_Test_Case {
 			'minify_js' => true,
 		) );
 
-		// Set up the tests.
-		$this->mock_dev_mode( false );
-		$this->mock_filesystem_for_fragments( $compiler );
-		$this->add_virtual_directory( $compiler->config['id'] );
-		$this->set_current_fragment( $compiler, $compiler->config['fragments'][0] );
-		$compiler->set_filename();
-		$compiler->combine_fragments();
-		$this->mock_creating_file( $compiler, true );
+		// Mock the compiler's properties.
+		$compiled_content = $this->get_compiled_jquery();
+		$filename         = '9a71ddb-b8d5d01.js';
+		$cached_file      = vfsStream::url( 'compiled/beans/compiler/test-js/' . $filename );
+		$this->set_reflective_property( $compiled_content, 'compiled_content', $compiler );
+		$this->set_reflective_property( $filename, 'filename', $compiler );
+
+		// Mock the filesystem.
+		$this->mock_creating_file( 'test-js', $filename, $cached_file, $compiled_content );
 
 		// Run the tests.
+		$this->assertFileNotExists( $cached_file );
 		$this->assertTrue( $compiler->cache_file() );
-		$this->assertFileExists( $compiler->get_filename() );
-		$this->assertSame( $this->get_compiled_js(), $this->get_cached_file_contents( $compiler ) );
+		$this->assertFileExists( $cached_file );
 	}
 
 	/**
 	 * Test cache_file() should create the compiled CSS file.
 	 */
 	public function test_should_create_compiled_css_file() {
-		$compiler = new _Beans_Compiler( array(
+		$compiler = $this->create_compiler( array(
 			'id'        => 'test-css',
 			'type'      => 'style',
 			'format'    => 'css',
 			'fragments' => array( vfsStream::url( 'compiled/fixtures/style.css' ) ),
 		) );
 
-		// Set up the tests.
-		$this->mock_dev_mode( false );
-		$this->mock_filesystem_for_fragments( $compiler );
-		$this->add_virtual_directory( $compiler->config['id'] );
-		$this->set_current_fragment( $compiler, $compiler->config['fragments'][0] );
-		$compiler->set_filename();
-		$compiler->combine_fragments();
-		$this->mock_creating_file( $compiler, true );
+		// Mock the compiler's properties.
+		$compiled_content = $this->get_compiled_css();
+		$filename         = '83b8fbe-3ff95a6.css';
+		$cached_file      = vfsStream::url( 'compiled/beans/compiler/test-css/' . $filename );
+		$this->set_reflective_property( $compiled_content, 'compiled_content', $compiler );
+		$this->set_reflective_property( $filename, 'filename', $compiler );
+
+		// Mock the filesystem.
+		$this->mock_creating_file( 'test-css', $filename, $cached_file, $compiled_content );
 
 		// Run the tests.
+		$this->assertFileNotExists( $cached_file );
 		$this->assertTrue( $compiler->cache_file() );
-		$this->assertFileExists( $compiler->get_filename() );
-		$this->assertSame( $this->get_compiled_css(), $this->get_cached_file_contents( $compiler ) );
+		$this->assertFileExists( $cached_file );
 	}
 
 	/**
 	 * Test cache_file() should create the compiled LESS file.
 	 */
 	public function test_should_create_compiled_less_file() {
-		$compiler = new _Beans_Compiler( array(
-			'id'        => 'test-css',
+		$compiler = $this->create_compiler( array(
+			'id'        => 'test-less',
 			'type'      => 'style',
 			'format'    => 'less',
 			'fragments' => array(
@@ -146,19 +142,23 @@ class Tests_Beans_Compiler_Cache_File extends Compiler_Test_Case {
 			),
 		) );
 
-		// Set up the tests.
-		$this->mock_dev_mode( false );
-		$this->mock_filesystem_for_fragments( $compiler );
-		$this->add_virtual_directory( $compiler->config['id'] );
-		$this->set_current_fragment( $compiler, $compiler->config['fragments'][0] );
-		$compiler->set_filename();
-		$compiler->combine_fragments();
-		$this->mock_creating_file( $compiler, true );
+		// Mock the compiler's properties.
+		$compiled_content = $this->get_compiled_less();
+		$filename         = '033690d-9814877.css';
+		$cached_file      = vfsStream::url( 'compiled/beans/compiler/test-less/' . $filename );
+		$this->set_reflective_property( $compiled_content, 'compiled_content', $compiler );
+		$this->set_reflective_property( $filename, 'filename', $compiler );
+
+		// Just checking that the filename is what we expect.
+		$this->assertSame( $cached_file, $compiler->get_filename() );
+
+		// Mock the filesystem.
+		$this->mock_creating_file( 'test-less', $filename, $cached_file, $compiled_content );
 
 		// Run the tests.
+		$this->assertFileNotExists( $cached_file );
 		$this->assertTrue( $compiler->cache_file() );
-		$this->assertFileExists( $compiler->get_filename() );
-		$this->assertSame( $this->get_compiled_less(), $this->get_cached_file_contents( $compiler ) );
+		$this->assertFileExists( $cached_file );
 	}
 
 	/**
@@ -166,38 +166,23 @@ class Tests_Beans_Compiler_Cache_File extends Compiler_Test_Case {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param _Beans_Compiler $compiler      Instance of the compiler.
-	 * @param bool            $should_create Optional. When true, mock creating the file. Default is false.
+	 * @param string $folder_name      Name of the folder to create, which is the configuration's ID.
+	 * @param string $filename         File's name.
+	 * @param string $cached_file      Cached file's name.
+	 * @param string $compiled_content The compiled content.
 	 *
 	 * @return void
 	 */
-	private function mock_creating_file( $compiler, $should_create = false ) {
-		$GLOBALS['wp_filesystem']->shouldReceive( 'put_contents' )
+	private function mock_creating_file( $folder_name, $filename, $cached_file, $compiled_content ) {
+		$mock = Mockery::mock( 'WP_Filesystem_Direct' );
+		$mock->shouldReceive( 'put_contents' )
 			->once()
-			->andReturn( $should_create );
+			->with( $cached_file, $compiled_content, FS_CHMOD_FILE )
+			->andReturnUsing( function( $cached_filename, $content ) use ( $folder_name, $filename ) {
+				$this->create_virtual_file( $folder_name, $filename, $content );
 
-		if ( ! $should_create ) {
-			return;
-		}
-
-		vfsStream::newFile( $compiler->filename )
-			->at( $this->mock_filesystem->getChild( 'compiled/beans/compiler/' . $compiler->config['id'] ) )
-			->setContent( $compiler->compiled_content );
-	}
-
-	/**
-	 * Get the file's content.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param _Beans_Compiler $compiler Instance of the compiler.
-	 *
-	 * @return string
-	 */
-	private function get_cached_file_contents( $compiler ) {
-		return $this->mock_filesystem
-			->getChild( 'beans/compiler/' . $compiler->config['id'] )
-			->getChild( $compiler->filename )
-			->getcontent();
+				return true;
+			} );
+		$GLOBALS['wp_filesystem'] = $mock; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Valid use case as we are mocking the filesystem.
 	}
 }

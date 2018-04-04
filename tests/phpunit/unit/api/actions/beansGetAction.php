@@ -10,6 +10,7 @@
 namespace Beans\Framework\Tests\Unit\API\Actions;
 
 use Beans\Framework\Tests\Unit\API\Actions\Includes\Actions_Test_Case;
+use Brain\Monkey;
 
 /**
  * Class Tests_BeansGetAction
@@ -19,6 +20,15 @@ use Beans\Framework\Tests\Unit\API\Actions\Includes\Actions_Test_Case;
  * @group   api-actions
  */
 class Tests_BeansGetAction extends Actions_Test_Case {
+
+	/**
+	 * Prepares the test environment before each test.
+	 */
+	protected function setUp() {
+		parent::setUp();
+
+		Monkey\Functions\when( '_beans_unique_action_id' )->returnArg();
+	}
 
 	/**
 	 * Test _beans_get_action() should return false when registry is empty.

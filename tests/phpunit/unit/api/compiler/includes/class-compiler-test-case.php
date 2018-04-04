@@ -72,7 +72,7 @@ abstract class Compiler_Test_Case extends Test_Case {
 	}
 
 	/**
-	 * Set up the test fixture.
+	 * Prepares the test environment before each test.
 	 */
 	protected function setUp() {
 		parent::setUp();
@@ -81,7 +81,7 @@ abstract class Compiler_Test_Case extends Test_Case {
 		$this->compiled_dir = vfsStream::url( 'compiled' );
 		$this->compiled_url = 'http:://beans.local/compiled/';
 
-		Functions\expect( 'wp_upload_dir' )->andReturn( array(
+		Functions\when( 'wp_upload_dir' )->justReturn( array(
 			'path'    => '',
 			'url'     => '',
 			'subdir'  => '',
@@ -89,9 +89,8 @@ abstract class Compiler_Test_Case extends Test_Case {
 			'baseurl' => $this->compiled_url,
 			'error'   => false,
 		) );
-
-		Functions\expect( 'is_admin' )->andReturn( $this->is_admin );
-		Functions\expect( 'site_url' )->andReturn( 'http:://beans.local' );
+		Functions\when( 'is_admin' )->justReturn( $this->is_admin );
+		Functions\when( 'site_url' )->justReturn( 'http:://beans.local' );
 
 		$this->load_original_functions( array(
 			'api/utilities/functions.php',
@@ -168,6 +167,47 @@ abstract class Compiler_Test_Case extends Test_Case {
 	}
 
 	/**
+	 * Create a file in the virtual directory system.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $folder_name Name of the folder to create, which is the configuration's ID.
+	 * @param string $filename    File's name.
+	 * @param string $content     The content to store in the file.
+	 *
+	 * @return string
+	 */
+	protected function create_virtual_file( $folder_name, $filename, $content ) {
+		$this->add_virtual_directory( $folder_name );
+		vfsStream::newFile( $filename )
+			->at( $this->mock_filesystem->getChild( 'compiled/beans/compiler/' . $folder_name ) )
+			->setContent( $content );
+
+		$cached_file = vfsStream::url( 'compiled/beans/compiler/' . $folder_name . '/' . $filename );
+
+		// vfs has a little quirk: We need to check the file to finish storing it in the system.  This helps us to modify it later.
+		file_exists( $cached_file );
+
+		return $cached_file;
+	}
+
+	/**
+	 * Create the compiler.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $config Compiler's configuration parameters.
+	 *
+	 * @return \_Beans_Compiler
+	 */
+	protected function create_compiler( array $config = array() ) {
+		Monkey\Functions\when( 'beans_get_compiler_dir' )->justReturn( vfsStream::url( 'compiled/beans/compiler/' ) );
+		Monkey\Functions\when( 'beans_get_compiler_url' )->justReturn( $this->compiled_url . 'beans/compiler/' );
+
+		return new \_Beans_Compiler( $config );
+	}
+
+	/**
 	 * Set the protected property "current_fragment".
 	 *
 	 * @since 1.5.0
@@ -175,13 +215,11 @@ abstract class Compiler_Test_Case extends Test_Case {
 	 * @param \_Beans_Compiler $compiler The Compiler instance.
 	 * @param mixed            $fragment The given value to set.
 	 *
-	 * @return void
+	 * @return \ReflectionProperty|string
+	 * @throws \ReflectionException Throws an exception if property does not exist.
 	 */
 	protected function set_current_fragment( $compiler, $fragment ) {
-		$current_fragment = ( new \ReflectionClass( $compiler ) )->getProperty( 'current_fragment' );
-		$current_fragment->setAccessible( true );
-		$current_fragment->setValue( $compiler, $fragment );
-		$current_fragment->setAccessible( false );
+		return $this->set_reflective_property( $fragment, 'current_fragment', $compiler );
 	}
 
 	/**
@@ -237,21 +275,6 @@ abstract class Compiler_Test_Case extends Test_Case {
 	}
 
 	/**
-	 * Mock the site's development mode.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param bool $is_enabled Optional. When true, development mode is enabled. Default is false.
-	 *
-	 * @return void
-	 */
-	protected function mock_dev_mode( $is_enabled = false ) {
-		Monkey\Functions\expect( 'get_option' )
-			->with( 'beans_dev_mode', false )
-			->andReturn( $is_enabled );
-	}
-
-	/**
 	 * Get the compiled jQuery.
 	 *
 	 * @since 1.5.0
@@ -264,6 +287,7 @@ abstract class Compiler_Test_Case extends Test_Case {
 var clickHandler=function(event){event.preventDefault();}
 $(document).ready(function(){init();});})(jQuery);
 EOB;
+
 		return str_replace( '/$', '$', $compiled_content );
 	}
 
