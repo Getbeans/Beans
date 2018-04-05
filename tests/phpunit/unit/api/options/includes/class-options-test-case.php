@@ -38,7 +38,7 @@ abstract class Options_Test_Case extends Test_Case {
 	/**
 	 * Prepares the test environment before each test.
 	 */
-	public function setUp() {
+	protected function setUp() {
 		parent::setUp();
 
 		$this->load_original_functions( array(
@@ -56,10 +56,10 @@ abstract class Options_Test_Case extends Test_Case {
 	 * Cleans up the test environment after each test.
 	 */
 	protected function tearDown() {
-		parent::tearDown();
-
 		global $wp_meta_boxes;
 		$wp_meta_boxes = array(); // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Resetting global here for tests.
+
+		parent::tearDown();
 	}
 
 	/**
