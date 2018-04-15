@@ -44,6 +44,23 @@ abstract class WP_Customize_Test_Case extends Test_Case {
 	}
 
 	/**
+	 * Get reflective access to the private method.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string $method_name Method name for which to gain access.
+	 *
+	 * @return \ReflectionMethod
+	 */
+	protected function get_reflective_method( $method_name ) {
+		$class  = new \ReflectionClass( '_Beans_WP_Customize' );
+		$method = $class->getMethod( $method_name );
+		$method->setAccessible( true );
+
+		return $method;
+	}
+
+	/**
 	 * Get the value of the private or protected property.
 	 *
 	 * @since 1.5.0
@@ -54,8 +71,8 @@ abstract class WP_Customize_Test_Case extends Test_Case {
 	 * @throws \ReflectionException Throws an exception if property does not exist.
 	 */
 	protected function get_reflective_property_value( $property ) {
-		$reflective = $this->get_reflective_property( $property, '_Beans_Fields' );
-		return $reflective->getValue( new \_Beans_Fields() );
+		$reflective = $this->get_reflective_property( $property, '_Beans_WP_Customize' );
+		return $reflective->getValue( new \_Beans_WP_Customize() );
 	}
 
 	/**

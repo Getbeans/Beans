@@ -19,7 +19,7 @@
 final class _Beans_WP_Customize {
 
 	/**
-	 * Metabox arguments
+	 * Metabox arguments.
 	 *
 	 * @var array
 	 */
@@ -36,9 +36,9 @@ final class _Beans_WP_Customize {
 	 * Constructor.
 	 *
 	 * @param string $section Field section.
-	 * @param array  $args Meta box arguments.
+	 * @param array  $args Metabox arguments.
 	 */
-	public function __construct( $section, $args ) {
+	public function __construct( $section, array $args ) {
 		$defaults = array(
 			'title'       => __( 'Undefined', 'tm-beans' ),
 			'priority'    => 30,
@@ -68,15 +68,31 @@ final class _Beans_WP_Customize {
 		$fields = beans_get_fields( 'wp_customize', $this->section );
 
 		foreach ( $fields as $field ) {
-
-			if ( 'group' === $field['type'] ) {
-				foreach ( $field['fields'] as $_field ) {
-					$this->add_setting( $wp_customize, $_field );
-				}
-			}
-
+			$this->add_group_setting( $wp_customize, $field );
 			$this->add_setting( $wp_customize, $field );
 			$this->add_control( $wp_customize, $field );
+		}
+	}
+
+	/**
+	 * Add Group setting.
+	 *
+	 * @since 1.5.0
+	 * @ignore
+	 *
+	 * @param WP_Customize_Manager $wp_customize WP Customizer Manager object.
+	 * @param array                $field Metabox settings.
+	 *
+	 * @return void
+	 */
+	private function add_group_setting( WP_Customize_Manager $wp_customize, array $field ) {
+
+		if ( 'group' !== $field['type'] ) {
+			return;
+		}
+
+		foreach ( $field['fields'] as $_field ) {
+			$this->add_setting( $wp_customize, $_field );
 		}
 	}
 
@@ -113,7 +129,13 @@ final class _Beans_WP_Customize {
 	 * @ignore
 	 *
 	 * @param WP_Customize_Manager $wp_customize WP Customizer Manager object.
-	 * @param array                $field Meta box settings.
+	 * @param array                $field {
+	 *      Array of Metabox settings.
+	 *
+	 *      @type string $db_type    Optional. Defines how the setting will be saved. Defaults to 'theme_mod'.
+	 *      @type string $capability Optional. Defines the user's permission level needed to see the setting. Defaults to 'edit_theme_options'.
+	 *      @type string $transport  Optional. Defines how the live preview is updated. Defaults to 'refresh'.
+	 * }
 	 *
 	 * @return void
 	 */
@@ -145,7 +167,13 @@ final class _Beans_WP_Customize {
 	 * @ignore
 	 *
 	 * @param WP_Customize_Manager $wp_customize WP Customizer Manager object.
-	 * @param array                $field Meta box settings.
+	 * @param array                $field {
+	 *      Metabox settings.
+	 *
+	 *      @type string $type  Field type or WP_Customize control class.
+	 *      @type string $name  Name of the control.
+	 *      @type string $label Label of the control.
+	 * }
 	 *
 	 * @return void
 	 */

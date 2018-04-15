@@ -30,16 +30,25 @@ class Tests_BeansRegisterWPCustomizeOptions extends WP_Customize_Test_Case {
 	public function setUp() {
 		parent::setUp();
 
-		Monkey\Functions\when( '_beans_pre_standardize_fields' )->alias( function( $fields ) {
-			return $fields;
-		});
+		Monkey\Functions\when( '_beans_pre_standardize_fields' )->returnArg();
 	}
 
 	/**
 	 * Test beans_register_wp_customize_options() should return false when not in the WP Customizer .
 	 */
 	public function test_should_return_null_when_no_customizer() {
-		Monkey\Functions\when( 'is_customize_preview' )->justReturn( false );
+		Monkey\Functions\expect( 'is_customize_preview' )
+			->withNoArgs()
+			->once()
+			->ordered()
+			->andReturn( false )
+			->andAlsoExpectIt()
+			->withNoArgs()
+			->once()
+			->ordered()
+			->andReturn( false );
+
+		Monkey\Functions\expect( 'beans_register_fields' )->never();
 
 		$this->assertFalse( beans_register_wp_customize_options( array(), '', array() ) );
 		$this->assertFalse( beans_register_wp_customize_options( array(), 'post_meta', array( 1, 2, 3 ) ) );
@@ -49,8 +58,27 @@ class Tests_BeansRegisterWPCustomizeOptions extends WP_Customize_Test_Case {
 	 * Test beans_register_wp_customize_options() should return false when there are no options.
 	 */
 	public function test_should_return_false_when_no_options() {
-		Monkey\Functions\when( 'is_customize_preview' )->justReturn( true );
-		Monkey\Functions\when( 'beans_register_fields' )->justReturn( false );
+		Monkey\Functions\expect( 'is_customize_preview' )
+			->withNoArgs()
+			->once()
+			->ordered()
+			->andReturn( true )
+			->andAlsoExpectIt()
+			->withNoArgs()
+			->once()
+			->ordered()
+			->andReturn( true );
+
+		Monkey\Functions\expect( 'beans_register_fields' )
+			->with( array(), 'wp_customize', '' )
+			->once()
+			->ordered()
+			->andReturn( false )
+			->andAlsoExpectIt()
+			->with( array(), 'wp_customize', 'post_meta' )
+			->once()
+			->ordered()
+			->andReturn( false );
 
 		$this->assertFalse( beans_register_wp_customize_options( array(), '', array() ) );
 		$this->assertFalse( beans_register_wp_customize_options( array(), 'post_meta', array( 1, 2, 3 ) ) );
@@ -67,11 +95,33 @@ class Tests_BeansRegisterWPCustomizeOptions extends WP_Customize_Test_Case {
 		$wp_customize = $mocked_wp_customize; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Limited to test function scope.
 		$mocked_wp_customize->shouldReceive( 'get_section' )->andReturn( true );
 
-		Monkey\Functions\when( 'is_customize_preview' )->justReturn( true );
-		Monkey\Functions\when( 'beans_get_fields' )->justReturn( array() );
-		Monkey\Functions\when( 'beans_add_attribute' )->justReturn( array() );
-		Monkey\Functions\when( 'beans_register_fields' )->justReturn( true );
+		Monkey\Functions\expect( 'is_customize_preview' )
+			->withNoArgs()
+			->once()
+			->ordered()
+			->andReturn( true );
 
-		$this->assertNull( beans_register_wp_customize_options( $test_data['fields'], $test_data['section'], $test_data['args'] ) );
+		Monkey\Functions\expect( 'beans_get_fields' )
+			->with( 'wp_customize', $test_data['section'] )
+			->once()
+			->ordered()
+			->andReturn( array() );
+
+		Monkey\Functions\expect( 'beans_add_attribute' )
+			->with( 'beans_field_label', 'class', 'customize-control-title' )
+			->once()
+			->ordered()
+			->andReturn( array() );
+
+		Monkey\Functions\expect( 'beans_register_fields' )
+			->with( $test_data['fields'], 'wp_customize', $test_data['section'] )
+			->once()
+			->ordered()
+			->andReturn( true );
+
+		beans_register_wp_customize_options( $test_data['fields'], $test_data['section'], $test_data['args'] );
+
+		// Placeholder for PHPUnit, as it requires an assertion.  The real test is the "expect" above.
+		$this->assertTrue( true );
 	}
 }

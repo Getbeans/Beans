@@ -63,7 +63,7 @@ abstract class WP_Customize_Test_Case extends Test_Case {
 	 * @return \ReflectionMethod
 	 * @throws \ReflectionException Throws an exception if method does not exist.
 	 */
-	protected function get_reflective_method( $method_name, $class_name = '_Beans_Fields' ) {
+	protected function get_reflective_method( $method_name, $class_name = '_Beans_WP_Customize' ) {
 		return parent::get_reflective_method( $method_name, $class_name );
 	}
 
@@ -78,7 +78,7 @@ abstract class WP_Customize_Test_Case extends Test_Case {
 	 * @return \ReflectionProperty|string
 	 * @throws \ReflectionException Throws an exception if property does not exist.
 	 */
-	protected function get_reflective_property( $property, $class_name = '_Beans_Fields' ) {
+	protected function get_reflective_property( $property, $class_name = '_Beans_WP_Customize' ) {
 		return parent::get_reflective_property( $property, $class_name );
 	}
 	// phpcs:enable Generic.CodeAnalysis.UselessOverridingMethod.Found
@@ -96,7 +96,7 @@ abstract class WP_Customize_Test_Case extends Test_Case {
 	protected function get_reflective_property_value( $property ) {
 		$reflective = $this->get_reflective_property( $property );
 
-		return $reflective->getValue( new \_Beans_Fields() );
+		return $reflective->getValue( new \_Beans_WP_Customize() );
 	}
 
 	/**

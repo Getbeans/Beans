@@ -39,9 +39,10 @@ class Tests_BeansRegisterWPCustomizeOptions extends WP_Customize_Test_Case {
 	 * Cleans up the test environment after each test.
 	 */
 	public function tearDown() {
-		parent::tearDown();
 		global $wp_customize;
 		$wp_customize = null; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Limited to test function scope.
+
+		parent::tearDown();
 	}
 
 	/**
@@ -73,7 +74,7 @@ class Tests_BeansRegisterWPCustomizeOptions extends WP_Customize_Test_Case {
 
 		$test_data = static::$test_data['single_fields'];
 
-		$this->assertNull( beans_register_wp_customize_options( $test_data['fields'], $test_data['section'], $test_data['args'] ) );
+		beans_register_wp_customize_options( $test_data['fields'], $test_data['section'], $test_data['args'] );
 
 		// Check what was registered.
 		$registered = $this->get_reflective_property_value( 'registered' );

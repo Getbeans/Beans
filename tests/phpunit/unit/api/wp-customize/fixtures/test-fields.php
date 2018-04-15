@@ -11,8 +11,12 @@ return array(
 	// Single fields.
 	'single_fields' => array(
 		'fields'  => array(
+			'name'  => 'beans-test',
+			'type'  => 'radio',
+			'label' => 'Layout',
 			array(
 				'id'      => 'beans_customizer_layout',
+				'name'    => 'beans-test',
 				'label'   => 'Layout',
 				'type'    => 'radio',
 				'default' => 'default_fallback',
@@ -25,6 +29,7 @@ return array(
 			),
 			array(
 				'id'             => 'beans_customizer_checkbox',
+				'name'           => 'beans-test',
 				'label'          => false,
 				'checkbox_label' => 'Enable the checkbox test',
 				'type'           => 'checkbox',
@@ -32,6 +37,7 @@ return array(
 			),
 			array(
 				'id'      => 'beans_customizer_text',
+				'name'    => 'beans-test',
 				'type'    => 'text',
 				'default' => 'Testing the text field.',
 			),
@@ -48,38 +54,43 @@ return array(
 	// Group of fields.
 	'group'         => array(
 		'fields'  => array(
-			array(
-				'id'          => 'beans_group_test',
-				'label'       => 'Group of fields',
-				'description' => 'This is a group of fields.',
-				'type'        => 'group',
-				'fields'      => array(
-					array(
-						'id'      => 'beans_compile_all_scripts',
-						'type'    => 'activation',
-						'default' => false,
+			'name'   => 'beans-test',
+			'type'   => 'group',
+			'fields' => array(
+				array(
+					'id'      => 'beans_compile_all_scripts',
+					'name'    => 'beans-test',
+					'type'    => 'activation',
+					'default' => false,
+				),
+				array(
+					'id'         => 'beans_compile_all_scripts_mode',
+					'name'       => 'beans-test',
+					'type'       => 'select',
+					'default'    => 'aggressive',
+					'attributes' => array( 'style' => 'margin: -3px 0 0 -8px;' ),
+					'options'    => array(
+						'aggressive' => 'Aggressive',
+						'standard'   => 'Standard',
 					),
-					array(
-						'id'         => 'beans_compile_all_scripts_mode',
-						'type'       => 'select',
-						'default'    => 'aggressive',
-						'attributes' => array( 'style' => 'margin: -3px 0 0 -8px;' ),
-						'options'    => array(
-							'aggressive' => 'Aggressive',
-							'standard'   => 'Standard',
-						),
-					),
-					array(
-						'id'             => 'beans_checkbox_test',
-						'label'          => false,
-						'checkbox_label' => 'Enable the checkbox test',
-						'type'           => 'checkbox',
-						'default'        => false,
-					),
+				),
+				array(
+					'id'             => 'beans_checkbox_test',
+					'name'           => 'beans-test',
+					'label'          => false,
+					'checkbox_label' => 'Enable the checkbox test',
+					'type'           => 'checkbox',
+					'default'        => false,
 				),
 			),
 		),
 		'context' => 'group_tests',
 		'section' => 'tm-beans-customizer',
+		'name'    => 'beans-test',
+		'args'    => array(
+			'title'       => 'Beans Customizer Section',
+			'priority'    => 250,
+			'description' => 'Customizer Beans Section',
+		),
 	),
 );
