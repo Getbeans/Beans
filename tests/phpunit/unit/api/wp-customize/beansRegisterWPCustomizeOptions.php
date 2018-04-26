@@ -2,14 +2,14 @@
 /**
  * Tests for beans_register_wp_customize_options()
  *
- * @package Beans\Framework\Tests\Integration\API\WPCustomize
+ * @package Beans\Framework\Tests\Integration\API\WP_Customize
  *
  * @since   1.5.0
  */
 
-namespace Beans\Framework\Tests\Unit\API\WPCustomize;
+namespace Beans\Framework\Tests\Unit\API\WP_Customize;
 
-use Beans\Framework\Tests\Unit\API\WPCustomize\Includes\WP_Customize_Test_Case;
+use Beans\Framework\Tests\Unit\API\WP_Customize\Includes\WP_Customize_Test_Case;
 use Brain\Monkey;
 use Mockery;
 
@@ -18,7 +18,7 @@ require_once __DIR__ . '/includes/class-wp-customize-test-case.php';
 /**
  * Class Tests_BeansRegisterWPCustomizeOptions
  *
- * @package Beans\Framework\Tests\Unit\API\WPCustomize
+ * @package Beans\Framework\Tests\Unit\API\WP_Customize
  * @group   api
  * @group   api-wp-customize
  */

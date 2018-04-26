@@ -2,7 +2,7 @@
 /**
  * Test data for the WP Customize unit tests.
  *
- * @package Beans\Framework\Tests\Integration\API\WP-Customize\Fixtures
+ * @package Beans\Framework\Tests\Integration\API\WP_Customize\Fixtures
  *
  * @since   1.5.0
  */
@@ -37,7 +37,7 @@ return array(
 			),
 		),
 		'context' => 'beans-test',
-		'section' => 'tm-beans-customizer',
+		'section' => 'tm-beans-test-customizer',
 		'args'    => array(
 			'title'       => 'Beans Customizer Section',
 			'priority'    => 250,
@@ -80,6 +80,11 @@ return array(
 			),
 		),
 		'context' => 'group_tests',
-		'section' => 'tm-beans-customizer',
+		'section' => 'tm-beans-group-test-customizer',
+		'args'    => array(
+			'title'       => 'Beans Customizer Group Section',
+			'priority'    => 250,
+			'description' => 'Customizer Beans Group Section',
+		),
 	),
 );

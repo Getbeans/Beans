@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for add() method of _Beans_WP_Customize.
+ * Tests for add_setting() method of _Beans_WP_Customize.
  *
  * @package Beans\Framework\Tests\Unit\API\WP_Customize
  *
@@ -17,26 +17,21 @@ use Mockery;
 require_once dirname( __DIR__ ) . '/includes/class-wp-customize-test-case.php';
 
 /**
- * Class Tests_BeansWPCustomize_Add
+ * Class Tests_BeansWPCustomize_AddSetting
  *
  * @package Beans\Framework\Tests\Unit\API\WP_Customize
  * @group   api
  * @group   api-wp-customize
  */
-class Tests_BeansWPCustomize_Add extends WP_Customize_Test_Case {
+class Tests_BeansWPCustomize_AddSetting extends WP_Customize_Test_Case {
 
 	/**
-	 * Test add() should call expected functions and WP_Customize_Control.
+	 * Test add_setting() should call beans_get() and WP_Customize_Manager.
 	 */
-	public function test_add_should_call_wp_customize_control() {
+	public function test_add_setting_should_call_beans_get_and_wp_customize_manager() {
 		$test_data = static::$test_data['single_fields'];
 
 		Monkey\Functions\expect( 'beans_get_fields' )
-		->with( 'wp_customize', $test_data['section'] )
-		->once()
-		->ordered()
-		->andReturn( array() )
-		->andAlsoExpectIt()
 		->with( 'wp_customize', $test_data['section'] )
 		->once()
 		->ordered()
@@ -47,11 +42,15 @@ class Tests_BeansWPCustomize_Add extends WP_Customize_Test_Case {
 		->once()
 		->andReturn( true );
 
-		$this->wp_customize_mock->shouldReceive( 'get_section' )->andReturn( true );
+		Monkey\Functions\expect( 'beans_get' )
+		->once()
+		->andReturn( 'default' );
 
-		$customizer = new _Beans_WP_Customize( $test_data['section'], $test_data['args'] );
-		$add        = $this->get_reflective_method( 'add', '_Beans_WP_Customize' );
+		$this->wp_customize_mock->shouldReceive( 'get_section', 'add_setting', 'add_section' )->andReturn( true );
 
-		$this->assertNull( $add->invoke( $customizer ) );
+		$customizer  = new _Beans_WP_Customize( $test_data['section'], $test_data['args'] );
+		$add_setting = $this->get_reflective_method( 'add_setting', '_Beans_WP_Customize' );
+
+		$this->assertNull( $add_setting->invoke( $customizer, $this->wp_customize_mock, $test_data['fields'] ) );
 	}
 }

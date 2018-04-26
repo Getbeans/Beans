@@ -2,20 +2,21 @@
 /**
  * Test Case for Beans' WP Customize API unit tests.
  *
- * @package Beans\Framework\Tests\Unit\API\WPCustomize\Includes
+ * @package Beans\Framework\Tests\Unit\API\WP_Customize\Includes
  *
  * @since   1.5.0
  */
 
-namespace Beans\Framework\Tests\Unit\API\WPCustomize\Includes;
+namespace Beans\Framework\Tests\Unit\API\WP_Customize\Includes;
 
 use Beans\Framework\Tests\Unit\Test_Case;
 use Brain\Monkey;
+use Mockery;
 
 /**
  * Abstract Class WP_Customize_Test_Case
  *
- * @package Beans\Framework\Tests\Unit\API\WPCustomize\Includes
+ * @package Beans\Framework\Tests\Unit\API\WP_Customize\Includes
  */
 abstract class WP_Customize_Test_Case extends Test_Case {
 
@@ -36,6 +37,13 @@ abstract class WP_Customize_Test_Case extends Test_Case {
 	}
 
 	/**
+	 * Mocked WP Customizer Manager object.
+	 *
+	 * @var WP_Customize_Manager
+	 */
+	protected $wp_customize_mock;
+
+	/**
 	 * Prepares the test environment before each test.
 	 */
 	public function setUp() {
@@ -45,58 +53,13 @@ abstract class WP_Customize_Test_Case extends Test_Case {
 			'api/wp-customize/functions.php',
 			'api/wp-customize/class-beans-wp-customize.php',
 			'api/wp-customize/class-beans-wp-customize-control.php',
-			'api/fields/class-beans-fields.php',
 		) );
 
 		$this->setup_common_wp_stubs();
-	}
 
-	// phpcs:disable Generic.CodeAnalysis.UselessOverridingMethod.Found -- It's actually needed.
-	/**
-	 * Get reflective access to the private method.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param string $method_name Method name for which to gain access.
-	 * @param string $class_name  Optional. Name of the target class.
-	 *
-	 * @return \ReflectionMethod
-	 * @throws \ReflectionException Throws an exception if method does not exist.
-	 */
-	protected function get_reflective_method( $method_name, $class_name = '_Beans_WP_Customize' ) {
-		return parent::get_reflective_method( $method_name, $class_name );
-	}
-
-	/**
-	 * Get reflective access to the private property.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param string $property   Property name for which to gain access.
-	 * @param string $class_name Optional. Name of the target class.
-	 *
-	 * @return \ReflectionProperty|string
-	 * @throws \ReflectionException Throws an exception if property does not exist.
-	 */
-	protected function get_reflective_property( $property, $class_name = '_Beans_WP_Customize' ) {
-		return parent::get_reflective_property( $property, $class_name );
-	}
-	// phpcs:enable Generic.CodeAnalysis.UselessOverridingMethod.Found
-
-	/**
-	 * Get the value of the private or protected property.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param string $property Property name for which to gain access.
-	 *
-	 * @return mixed
-	 * @throws \ReflectionException Throws an exception if property does not exist.
-	 */
-	protected function get_reflective_property_value( $property ) {
-		$reflective = $this->get_reflective_property( $property );
-
-		return $reflective->getValue( new \_Beans_WP_Customize() );
+		$this->wp_customize_mock = Mockery::mock( 'WP_Customize_Manager' );
+		global $wp_customize;
+		$wp_customize = $this->wp_customize_mock; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Limited to test function scope.
 	}
 
 	/**

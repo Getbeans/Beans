@@ -75,28 +75,6 @@ final class _Beans_WP_Customize {
 	}
 
 	/**
-	 * Add Group setting.
-	 *
-	 * @since 1.5.0
-	 * @ignore
-	 *
-	 * @param WP_Customize_Manager $wp_customize WP Customizer Manager object.
-	 * @param array                $field Metabox settings.
-	 *
-	 * @return void
-	 */
-	private function add_group_setting( WP_Customize_Manager $wp_customize, array $field ) {
-
-		if ( 'group' !== $field['type'] ) {
-			return;
-		}
-
-		foreach ( $field['fields'] as $_field ) {
-			$this->add_setting( $wp_customize, $_field );
-		}
-	}
-
-	/**
 	 * Add Section.
 	 *
 	 * @since 1.0.0
@@ -120,6 +98,28 @@ final class _Beans_WP_Customize {
 				'description' => $this->args['description'],
 			)
 		);
+	}
+
+	/**
+	 * Add Group setting.
+	 *
+	 * @since 1.5.0
+	 * @ignore
+	 *
+	 * @param WP_Customize_Manager $wp_customize WP Customizer Manager object.
+	 * @param array                $field Metabox settings.
+	 *
+	 * @return void
+	 */
+	private function add_group_setting( WP_Customize_Manager $wp_customize, array $field ) {
+
+		if ( 'group' !== $field['type'] ) {
+			return;
+		}
+
+		foreach ( $field['fields'] as $_field ) {
+			$this->add_setting( $wp_customize, $_field );
+		}
 	}
 
 	/**

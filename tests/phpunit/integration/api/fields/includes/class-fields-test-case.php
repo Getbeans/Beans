@@ -59,21 +59,6 @@ abstract class Fields_Test_Case extends Test_Case {
 	}
 
 	/**
-	 * Get the value of the private or protected property.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param string $property Property name for which to gain access.
-	 *
-	 * @return mixed
-	 * @throws \ReflectionException Throws an exception if property does not exist.
-	 */
-	protected function get_reflective_property_value( $property ) {
-		$reflective = $this->get_reflective_property( $property, '_Beans_Fields' );
-		return $reflective->getValue( new \_Beans_Fields() );
-	}
-
-	/**
 	 * Merge the given field with the default structure.
 	 *
 	 * @since 1.5.0

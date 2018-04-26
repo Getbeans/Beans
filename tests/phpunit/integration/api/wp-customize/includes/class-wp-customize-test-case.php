@@ -2,19 +2,22 @@
 /**
  * Test Case for Beans' WP Customize API integration tests.
  *
- * @package Beans\Framework\Tests\Integration\API\WPCustomize\Includes
+ * @package Beans\Framework\Tests\Integration\API\WP_Customize\Includes
  *
  * @since   1.5.0
  */
 
-namespace Beans\Framework\Tests\Integration\API\WPCustomize\Includes;
+namespace Beans\Framework\Tests\Integration\API\WP_Customize\Includes;
 
 use Beans\Framework\Tests\Integration\Test_Case;
+use WP_Customize_Manager;
+
+require_once dirname( dirname( dirname( getcwd() ) ) ) . '/wp-includes/class-wp-customize-manager.php';
 
 /**
  * Abstract Class WP_Customize_Test_Case
  *
- * @package Beans\Framework\Tests\Integration\API\WPCustomize\Includes
+ * @package Beans\Framework\Tests\Integration\API\WP_Customize\Includes
  */
 abstract class WP_Customize_Test_Case extends Test_Case {
 
@@ -35,44 +38,33 @@ abstract class WP_Customize_Test_Case extends Test_Case {
 	}
 
 	/**
+	 * WP Customizer Manager object.
+	 *
+	 * @var WP_Customize_Manager
+	 */
+	protected $wp_customize;
+
+	/**
 	 * Prepares the test environment before each test.
 	 */
 	public function setUp() {
 		parent::setUp();
 
 		require_once BEANS_THEME_DIR . '/lib/api/wp-customize/class-beans-wp-customize.php';
+
+		global $wp_customize;
+		$this->wp_customize = new WP_Customize_Manager();
+		$wp_customize       = $this->wp_customize; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Limited to test function scope.
 	}
 
 	/**
-	 * Get reflective access to the private method.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param string $method_name Method name for which to gain access.
-	 *
-	 * @return \ReflectionMethod
+	 * Cleans up the test environment after each test.
 	 */
-	protected function get_reflective_method( $method_name ) {
-		$class  = new \ReflectionClass( '_Beans_WP_Customize' );
-		$method = $class->getMethod( $method_name );
-		$method->setAccessible( true );
+	public function tearDown() {
+		global $wp_customize;
+		$wp_customize = null; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Limited to test function scope.
 
-		return $method;
-	}
-
-	/**
-	 * Get the value of the private or protected property.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param string $property Property name for which to gain access.
-	 *
-	 * @return mixed
-	 * @throws \ReflectionException Throws an exception if property does not exist.
-	 */
-	protected function get_reflective_property_value( $property ) {
-		$reflective = $this->get_reflective_property( $property, '_Beans_WP_Customize' );
-		return $reflective->getValue( new \_Beans_WP_Customize() );
+		parent::tearDown();
 	}
 
 	/**

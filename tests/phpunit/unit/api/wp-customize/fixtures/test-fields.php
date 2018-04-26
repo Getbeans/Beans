@@ -2,7 +2,7 @@
 /**
  * Test data for the WP Customize unit tests.
  *
- * @package Beans\Framework\Tests\Integration\API\WP-Customize\Fixtures
+ * @package Beans\Framework\Tests\Integration\API\WP_Customize\Fixtures
  *
  * @since   1.5.0
  */
