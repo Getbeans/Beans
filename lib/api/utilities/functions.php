@@ -532,3 +532,16 @@ function beans_esc_attributes( $attributes ) {
 function _beans_is_uri( $maybe_uri ) {
 	return ( 1 === preg_match( '#^(http|https|\/\/|data)#', $maybe_uri ) );
 }
+
+/**
+ * Checks if WP is doing an autosave.
+ *
+ * @since 1.5.0
+ * @ignore
+ * @access private
+ *
+ * @return bool
+ */
+function _beans_doing_autosave() {
+	return defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE;
+}
