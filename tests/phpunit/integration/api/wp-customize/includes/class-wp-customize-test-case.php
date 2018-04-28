@@ -1,22 +1,25 @@
 <?php
 /**
- * Test Case for Beans' Field API integration tests.
+ * Test Case for Beans' WP Customize API integration tests.
  *
- * @package Beans\Framework\Tests\Integration\API\Fields\Includes
+ * @package Beans\Framework\Tests\Integration\API\WP_Customize\Includes
  *
  * @since   1.5.0
  */
 
-namespace Beans\Framework\Tests\Integration\API\Fields\Includes;
+namespace Beans\Framework\Tests\Integration\API\WP_Customize\Includes;
 
 use Beans\Framework\Tests\Integration\Test_Case;
+use WP_Customize_Manager;
+
+require_once dirname( dirname( dirname( getcwd() ) ) ) . '/wp-includes/class-wp-customize-manager.php';
 
 /**
- * Abstract Class Fields_Test_Case
+ * Abstract Class WP_Customize_Test_Case
  *
- * @package Beans\Framework\Tests\Integration\API\Fields\Includes
+ * @package Beans\Framework\Tests\Integration\API\WP_Customize\Includes
  */
-abstract class Fields_Test_Case extends Test_Case {
+abstract class WP_Customize_Test_Case extends Test_Case {
 
 	/**
 	 * An array of test data.
@@ -35,25 +38,31 @@ abstract class Fields_Test_Case extends Test_Case {
 	}
 
 	/**
+	 * WP Customizer Manager object.
+	 *
+	 * @var WP_Customize_Manager
+	 */
+	protected $wp_customize;
+
+	/**
 	 * Prepares the test environment before each test.
 	 */
 	public function setUp() {
 		parent::setUp();
 
-		require_once BEANS_THEME_DIR . '/lib/api/fields/class-beans-fields.php';
+		require_once BEANS_THEME_DIR . '/lib/api/wp-customize/class-beans-wp-customize.php';
 
-		add_action( 'beans_field_group_label', 'beans_field_label' );
-		add_action( 'beans_field_wrap_prepend_markup', 'beans_field_label' );
-		add_action( 'beans_field_wrap_append_markup', 'beans_field_description' );
+		global $wp_customize;
+		$this->wp_customize = new WP_Customize_Manager();
+		$wp_customize       = $this->wp_customize; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Limited to test function scope.
 	}
 
 	/**
 	 * Cleans up the test environment after each test.
 	 */
 	public function tearDown() {
-		remove_action( 'beans_field_group_label', 'beans_field_label' );
-		remove_action( 'beans_field_wrap_prepend_markup', 'beans_field_label' );
-		remove_action( 'beans_field_wrap_append_markup', 'beans_field_description' );
+		global $wp_customize;
+		$wp_customize = null; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Limited to test function scope.
 
 		parent::tearDown();
 	}
@@ -73,11 +82,13 @@ abstract class Fields_Test_Case extends Test_Case {
 			'label'       => false,
 			'description' => false,
 			'default'     => false,
-			'context'     => 'beans_tests',
-			'attributes'  => array(),
+			'context'     => 'wp_customize',
+			'attributes'  => array(
+				'data-customize-setting-link' => $field['id'],
+			),
 			'db_group'    => false,
 		), $field );
-		$field['name'] = 'beans_fields[' . $field['id'] . ']';
+		$field['name'] = $field['id'];
 
 		if ( 'group' === $field['type'] ) {
 
