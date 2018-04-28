@@ -224,22 +224,39 @@ function _beans_get_layout_classes( array $args ) {
 function beans_get_layouts_for_options( $add_default = false ) {
 	$base    = BEANS_ADMIN_ASSETS_URL . 'images/layouts/';
 	$layouts = array(
-		'c' => $base . 'c.png',
+		'c' => array(
+			'src'                => $base . 'c.png',
+			'alt'                => __( 'Full-Width Content Layout', 'tm-beans' ),
+			'screen_reader_text' => __( 'Option for the Full-Width Content Layout.', 'tm-beans' ),
+		),
 	);
 
 	// Add sidebar primary layouts if the primary widget area is registered.
 	$has_primary = beans_has_widget_area( 'sidebar_primary' );
 
 	if ( $has_primary ) {
-		$layouts['c_sp'] = $base . 'cs.png';
-		$layouts['sp_c'] = $base . 'sc.png';
+		$layouts['c_sp']['src']                = $base . 'cs.png';
+		$layouts['c_sp']['alt']                = __( 'Content and Primary Sidebar Layout', 'tm-beans' );
+		$layouts['c_sp']['screen_reader_text'] = __( 'Option for the Content and Primary Sidebar Layout.', 'tm-beans' );
+
+		$layouts['sp_c']['src']                = $base . 'sc.png';
+		$layouts['sp_c']['alt']                = __( 'Primary Sidebar and Content Layout', 'tm-beans' );
+		$layouts['sp_c']['screen_reader_text'] = __( 'Option for the Primary Sidebar and Content Layout.', 'tm-beans' );
 	}
 
 	// Add sidebar secondary layouts if the primary and secondary widget area are registered.
 	if ( $has_primary && beans_has_widget_area( 'sidebar_secondary' ) ) {
-		$layouts['c_sp_ss'] = $base . 'css.png';
-		$layouts['sp_ss_c'] = $base . 'ssc.png';
-		$layouts['sp_c_ss'] = $base . 'scs.png';
+		$layouts['c_sp_ss']['src']                = $base . 'css.png';
+		$layouts['c_sp_ss']['alt']                = __( 'Content, Primary Sidebar and Secondary Sidebar Layout', 'tm-beans' );
+		$layouts['c_sp_ss']['screen_reader_text'] = __( 'Option for the Content, Primary Sidebar and Secondary Sidebar Layout.', 'tm-beans' );
+
+		$layouts['sp_ss_c']['src']                = $base . 'ssc.png';
+		$layouts['sp_ss_c']['alt']                = __( 'Primary Sidebar, Secondary Sidebar and Content Layout', 'tm-beans' );
+		$layouts['sp_ss_c']['screen_reader_text'] = __( 'Option for the Primary Sidebar, Secondary Sidebar and Content Layout.', 'tm-beans' );
+
+		$layouts['sp_c_ss']['src']                = $base . 'scs.png';
+		$layouts['sp_c_ss']['alt']                = __( 'Primary Sidebar, Content and Secondary Sidebar Layout', 'tm-beans' );
+		$layouts['sp_c_ss']['screen_reader_text'] = __( 'Option for the Primary Sidebar, Content and Secondary Sidebar Layout.', 'tm-beans' );
 	}
 
 	/**
