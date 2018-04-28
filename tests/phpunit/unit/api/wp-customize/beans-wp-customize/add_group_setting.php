@@ -32,19 +32,19 @@ class Tests_BeansWPCustomize_AddGroupSetting extends WP_Customize_Test_Case {
 		$test_data = static::$test_data['group'];
 
 		Monkey\Functions\expect( 'beans_get_fields' )
-		->with( 'wp_customize', $test_data['section'] )
-		->once()
-		->ordered()
-		->andReturn( array() );
+			->with( 'wp_customize', $test_data['section'] )
+			->once()
+			->ordered()
+			->andReturn( array() );
 
 		Monkey\Functions\expect( 'beans_add_attribute' )
-		->with( 'beans_field_label', 'class', 'customize-control-title' )
-		->once()
-		->andReturn( true );
+			->with( 'beans_field_label', 'class', 'customize-control-title' )
+			->once()
+			->andReturn( true );
 
 		Monkey\Functions\expect( 'beans_get' )
-		->times( 3 )
-		->andReturn( 'default' );
+			->times( 3 )
+			->andReturn( 'default' );
 
 		$this->wp_customize_mock->shouldReceive( 'get_section', 'add_setting', 'add_section' )->andReturn( true );
 
@@ -61,15 +61,15 @@ class Tests_BeansWPCustomize_AddGroupSetting extends WP_Customize_Test_Case {
 		$test_data = static::$test_data['single_fields'];
 
 		Monkey\Functions\expect( 'beans_get_fields' )
-		->with( 'wp_customize', $test_data['section'] )
-		->once()
-		->ordered()
-		->andReturn( array() );
+			->with( 'wp_customize', $test_data['section'] )
+			->once()
+			->ordered()
+			->andReturn( array() );
 
 		Monkey\Functions\expect( 'beans_add_attribute' )
-		->with( 'beans_field_label', 'class', 'customize-control-title' )
-		->once()
-		->andReturn( true );
+			->with( 'beans_field_label', 'class', 'customize-control-title' )
+			->once()
+			->andReturn( true );
 
 		$this->wp_customize_mock->shouldReceive( 'get_section', 'add_setting', 'add_section' )->andReturn( true );
 

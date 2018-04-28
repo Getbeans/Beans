@@ -32,15 +32,15 @@ class Tests_BeansWPCustomize_AddSection extends WP_Customize_Test_Case {
 		$test_data = static::$test_data['single_fields'];
 
 		Monkey\Functions\expect( 'beans_get_fields' )
-		->with( 'wp_customize', $test_data['section'] )
-		->once()
-		->ordered()
-		->andReturn( array() );
+			->with( 'wp_customize', $test_data['section'] )
+			->once()
+			->ordered()
+			->andReturn( array() );
 
 		Monkey\Functions\expect( 'beans_add_attribute' )
-		->with( 'beans_field_label', 'class', 'customize-control-title' )
-		->once()
-		->andReturn( true );
+			->with( 'beans_field_label', 'class', 'customize-control-title' )
+			->once()
+			->andReturn( true );
 
 		$this->wp_customize_mock->shouldReceive( 'get_section' )->andReturn( true );
 
