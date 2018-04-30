@@ -10,6 +10,7 @@
 namespace Beans\Framework\Tests\Unit\API\Term_Meta\Includes;
 
 use Beans\Framework\Tests\Unit\Test_Case;
+use Brain\Monkey;
 
 /**
  * Abstract Class Beans_term_Meta_Test_Case
@@ -17,6 +18,22 @@ use Beans\Framework\Tests\Unit\Test_Case;
  * @package Beans\Framework\Tests\Unit\API\Term_Meta\Includes
  */
 abstract class Beans_Term_Meta_Test_Case extends Test_Case {
+
+	/**
+	 * An array of test data.
+	 *
+	 * @var array
+	 */
+	protected static $test_data;
+
+	/**
+	 * Setup the test before we run the test setups.
+	 */
+	public static function setUpBeforeClass() {
+		parent::setUpBeforeClass();
+
+		static::$test_data = require dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'fixtures/test-fields.php';
+	}
 
 	/**
 	 * Setup test fixture.
@@ -33,6 +50,8 @@ abstract class Beans_Term_Meta_Test_Case extends Test_Case {
 		) );
 
 		$this->setup_common_wp_stubs();
+		Monkey\Functions\when( '_beans_pre_standardize_fields' )->returnArg();
+
 	}
 
 }
