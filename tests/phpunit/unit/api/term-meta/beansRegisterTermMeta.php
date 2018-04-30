@@ -43,10 +43,12 @@ class Tests_BeansRegisterTermMeta extends Beans_Term_Meta_Test_Case {
 			->andReturn( true );
 		Monkey\Functions\expect( 'is_admin' )->once()->andReturn( false );
 
-		$this->assertFalse( beans_register_term_meta(
-			static::$test_data,
-			'sample-taxonomy',
-			'tm-beans' )
+		$this->assertFalse(
+			beans_register_term_meta(
+				static::$test_data,
+				'sample-taxonomy',
+				'tm-beans'
+			)
 		);
 	}
 
@@ -64,9 +66,11 @@ class Tests_BeansRegisterTermMeta extends Beans_Term_Meta_Test_Case {
 			->with( static::$test_data, 'term_meta', 'tm-beans' )
 			->andReturn( false );
 
-		$this->assertFalse( beans_register_term_meta( static::$test_data,
-			'sample-taxonomy',
-			'tm-beans' )
+		$this->assertFalse(
+			beans_register_term_meta( static::$test_data,
+				'sample-taxonomy',
+				'tm-beans'
+			)
 		);
 	}
 
@@ -84,9 +88,12 @@ class Tests_BeansRegisterTermMeta extends Beans_Term_Meta_Test_Case {
 			->with( static::$test_data, 'term_meta', 'tm-beans' )
 			->andReturn( true );
 
-		$this->assertTrue( beans_register_term_meta( static::$test_data,
+		$this->assertTrue(
+			beans_register_term_meta(
+				static::$test_data,
 				'sample-taxonomy',
-				'tm-beans' )
+				'tm-beans'
+			)
 		);
 	}
 }

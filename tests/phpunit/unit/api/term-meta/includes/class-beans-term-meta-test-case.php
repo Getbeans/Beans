@@ -51,7 +51,6 @@ abstract class Beans_Term_Meta_Test_Case extends Test_Case {
 
 		$this->setup_common_wp_stubs();
 		Monkey\Functions\when( '_beans_pre_standardize_fields' )->returnArg();
-
 	}
 
 }

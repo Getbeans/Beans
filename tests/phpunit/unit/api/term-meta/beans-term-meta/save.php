@@ -70,7 +70,7 @@ class Tests_BeansTermMeta_Save extends Beans_Term_Meta_Test_Case {
 			->andAlsoExpectIt()
 			->once()
 			->with( 'beans_fields' )
-			->andReturn( false );;
+			->andReturn( false );
 
 		$term_meta = new _Beans_Term_Meta( 'tm-beans' );
 
@@ -97,7 +97,7 @@ class Tests_BeansTermMeta_Save extends Beans_Term_Meta_Test_Case {
 			->andReturn( static::$test_data );
 		Monkey\Functions\expect( 'update_option' )
 			->once()
-			->with('beans_term_1234_sample-field', 'sample-value' )
+			->with( 'beans_term_1234_sample-field', 'sample-value' )
 			->andReturn( true );
 
 		$term_meta = new _Beans_Term_Meta( 'tm-beans' );
