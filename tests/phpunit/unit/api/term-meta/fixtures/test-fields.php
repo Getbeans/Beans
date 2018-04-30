@@ -9,8 +9,9 @@
 
 return array(
 	array(
-		'id'    => 'field_id',
-		'type'  => 'radio',
-		'label' => 'Field Label',
+		'id'      => 'field_id',
+		'context' => 'term_meta',
+		'type'    => 'radio',
+		'label'   => 'Field Label',
 	),
 );
