@@ -23,6 +23,13 @@ require_once dirname( __FILE__ ) . '/includes/class-beans-term-meta-test-case.ph
 class Tests_BeansIsAdminTerm extends Beans_Term_Meta_Test_Case {
 
 	/**
+	 * Tests beans_register_term_meta() should return true when taxonomies are boolean true.
+	 */
+	public function tests_should_return_true_when_taxonomies_are_boolean_true() {
+		$this->assertTrue( _beans_is_admin_term( true ) );
+	}
+
+	/**
 	 * Tests beans_register_term_meta() should return false when current taxonomies cannot be found.
 	 */
 	public function tests_should_return_false_when_current_taxonomies_not_found() {
@@ -32,18 +39,6 @@ class Tests_BeansIsAdminTerm extends Beans_Term_Meta_Test_Case {
 			->andReturn( false );
 
 		$this->assertFalse( _beans_is_admin_term( false ) );
-	}
-
-	/**
-	 * Tests beans_register_term_meta() should return true when taxonomies are boolean true.
-	 */
-	public function tests_should_return_true_when_taxonomies_are_boolean_true() {
-		Monkey\Functions\expect( 'beans_get_or_post' )
-			->once()
-			->with( 'taxonomy' )
-			->andReturn( true );
-
-		$this->assertTrue( _beans_is_admin_term( true ) );
 	}
 
 	/**
