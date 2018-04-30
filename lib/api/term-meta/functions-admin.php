@@ -76,6 +76,8 @@ function beans_register_term_meta( array $fields, $taxonomies, $section ) {
 	require_once BEANS_API_PATH . 'term-meta/class-beans-term-meta.php';
 
 	new _Beans_Term_Meta( $section );
+
+	return true;
 }
 
 /**
