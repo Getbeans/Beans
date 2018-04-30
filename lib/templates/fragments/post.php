@@ -548,7 +548,7 @@ function beans_post_navigation() {
 			// phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
 			echo get_previous_post_link(
 				'%link',
-				beans_output( 'beans_previous_text[_post_navigation_item]', __( 'Previous', 'tm-beans' ) )
+				beans_output( 'beans_previous_text[_post_navigation_item]', __( 'Previous Page', 'tm-beans' ) )
 			);
 
 		beans_close_markup_e( 'beans_post_navigation_item[_previous]', 'li' );
@@ -560,7 +560,7 @@ function beans_post_navigation() {
 			// phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
 			echo get_next_post_link(
 				'%link',
-				beans_output( 'beans_next_text[_post_navigation_item]', __( 'Next', 'tm-beans' ) )
+				beans_output( 'beans_next_text[_post_navigation_item]', __( 'Next Page', 'tm-beans' ) )
 			);
 
 		beans_close_markup_e( 'beans_post_navigation_item[_next]', 'li' );
@@ -632,7 +632,7 @@ function beans_posts_pagination() {
 
 				beans_close_markup_e( 'beans_previous_icon[_posts_pagination]', 'span' );
 
-				beans_output_e( 'beans_previous_text[_posts_pagination]', __( 'Previous Posts', 'tm-beans' ) );
+				beans_output_e( 'beans_previous_text[_posts_pagination]', __( 'Previous Page', 'tm-beans' ) );
 
 			beans_close_markup_e( 'beans_previous_link[_posts_pagination]', 'a' );
 
@@ -721,7 +721,7 @@ function beans_posts_pagination() {
 				$current
 			);
 
-				beans_output_e( 'beans_next_text[_posts_pagination]', __( 'Next Posts', 'tm-beans' ) );
+				beans_output_e( 'beans_next_text[_posts_pagination]', __( 'Next Page', 'tm-beans' ) );
 
 				beans_open_markup_e(
 					'beans_next_icon[_posts_pagination]',
