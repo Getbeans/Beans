@@ -34,11 +34,11 @@ class Tests_BeansTermMeta_RenderFields extends Beans_Term_Meta_Test_Case {
 			->andReturn( static::$test_data );
 		Monkey\Functions\expect( 'beans_field_label' )
 			->once()
-			->with( static::$test_data[0] )
+			->with( static::$test_data['sample-field'] )
 			->andReturnUsing( function() { echo 'field-label'; } );
 		Monkey\Functions\expect( 'beans_field' )
 			->once()
-			->with( static::$test_data[0] )
+			->with( static::$test_data['sample-field'] )
 			->andReturnUsing( function() { echo 'field-markup'; } );
 
 		$terms_meta = new _Beans_Term_Meta( 'tm-beans' );

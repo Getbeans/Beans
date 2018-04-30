@@ -8,7 +8,7 @@
  */
 
 return array(
-	array(
+	'sample-field' => array(
 		'id'      => 'field_id',
 		'context' => 'term_meta',
 		'type'    => 'radio',
