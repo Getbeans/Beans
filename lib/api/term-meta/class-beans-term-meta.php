@@ -104,7 +104,7 @@ final class _Beans_Term_Meta {
 	 */
 	public function save( $term_id ) {
 
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		if ( _beans_doing_ajax() ) {
 			return $term_id;
 		}
 
