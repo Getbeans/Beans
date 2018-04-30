@@ -64,7 +64,7 @@ function beans_register_term_meta( array $fields, $taxonomies, $section ) {
 
 	// Stop here if the current page isn't concerned.
 	if ( ! _beans_is_admin_term( $taxonomies ) || ! is_admin() ) {
-		return;
+		return false;
 	}
 
 	// Stop here if the field can't be registered.
