@@ -33,7 +33,7 @@ final class _Beans_Term_Meta {
 	public function __construct( $section ) {
 		$this->section = $section;
 		$this->do_once();
-		add_action( beans_get( 'taxonomy' ) . '_edit_form_fields', array( $this, 'fields' ) );
+		add_action( beans_get( 'taxonomy' ) . '_edit_form_fields', array( $this, 'render_fields' ) );
 	}
 
 	/**
@@ -47,7 +47,7 @@ final class _Beans_Term_Meta {
 		static $once = false;
 
 		if ( ! $once ) {
-			add_action( beans_get( 'taxonomy' ) . '_edit_form', array( $this, 'nonce' ) );
+			add_action( beans_get( 'taxonomy' ) . '_edit_form', array( $this, 'render_nonce' ) );
 			add_action( 'edit_term', array( $this, 'save' ) );
 			add_action( 'delete_term', array( $this, 'delete' ), 10, 3 );
 
@@ -62,7 +62,7 @@ final class _Beans_Term_Meta {
 	 *
 	 * @return void
 	 */
-	public function nonce() {
+	public function render_nonce() {
 	?>
 	<input type="hidden" name="beans_term_meta_nonce" value="<?php echo esc_attr( wp_create_nonce( 'beans_term_meta_nonce' ) ); ?>" />
 	<?php
@@ -75,7 +75,7 @@ final class _Beans_Term_Meta {
 	 *
 	 * @return void
 	 */
-	public function fields() {
+	public function render_fields() {
 		beans_remove_action( 'beans_field_label' );
 		beans_modify_action_hook( 'beans_field_description', 'beans_field_wrap_after_markup' );
 		beans_modify_markup( 'beans_field_description', 'p' );
