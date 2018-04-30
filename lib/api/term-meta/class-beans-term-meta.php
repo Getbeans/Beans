@@ -67,7 +67,7 @@ final class _Beans_Term_Meta {
 	}
 
 	/**
-	 * Fields content.
+	 * Render fields content.
 	 *
 	 * @since 1.0.0
 	 *
@@ -83,10 +83,10 @@ final class _Beans_Term_Meta {
 			?>
 			<tr class="form-field">
 				<th scope="row">
-					<?php echo esc_html( beans_field_label( $field ) ); ?>
+					<?php beans_field_label( $field ); ?>
 				</th>
 				<td>
-					<?php echo esc_html( beans_field( $field ) ); ?>
+					<?php beans_field( $field ); ?>
 				</td>
 			</tr>
 			<?php
