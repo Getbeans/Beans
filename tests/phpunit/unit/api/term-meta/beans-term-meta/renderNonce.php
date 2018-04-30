@@ -23,6 +23,7 @@ require_once dirname( __DIR__ ) . '/includes/class-beans-term-meta-test-case.php
  * @group   api-term-meta
  */
 class Tests_BeansTermMeta_RenderNonce extends Beans_Term_Meta_Test_Case {
+
 	/**
 	 * Test _Beans_Term_Meta::nonce() should echo correct nonce HTML when called.
 	 */
@@ -40,5 +41,4 @@ class Tests_BeansTermMeta_RenderNonce extends Beans_Term_Meta_Test_Case {
 
 		$this->assertContains( $expected_html_output, $actual_output );
 	}
-
 }
