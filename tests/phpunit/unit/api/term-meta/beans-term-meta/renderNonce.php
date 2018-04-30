@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the nonce method of _Beans_Term_Meta.
+ * Tests the render_nonce method of _Beans_Term_Meta.
  *
  * @package Beans\Framework\Tests\Unit\API\Term_Meta
  *
