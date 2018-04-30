@@ -56,16 +56,14 @@ final class _Beans_Term_Meta {
 	}
 
 	/**
-	 * Term meta nonce.
+	 * Render term meta nonce.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
 	public function render_nonce() {
-	?>
-	<input type="hidden" name="beans_term_meta_nonce" value="<?php echo esc_attr( wp_create_nonce( 'beans_term_meta_nonce' ) ); ?>" />
-	<?php
+		include dirname( __FILE__ ) . '/views/nonce.php';
 	}
 
 	/**
