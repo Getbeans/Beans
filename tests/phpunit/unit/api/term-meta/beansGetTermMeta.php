@@ -9,8 +9,10 @@
 
 namespace Beans\Framework\Tests\Unit\API\Term_Meta;
 
-use Beans\Framework\Tests\Unit\Test_Case;
+use Beans\Framework\Tests\Unit\API\Term_Meta\Includes\Beans_Term_Meta_Test_Case;
 use Brain\Monkey;
+
+require_once dirname( __FILE__ ) . '/includes/class-beans-term-meta-test-case.php';
 
 /**
  * Class Tests_BeansGetTermMeta
@@ -19,18 +21,7 @@ use Brain\Monkey;
  * @group   api
  * @group   api-term-meta
  */
-class Tests_BeansGetTermMeta extends Test_Case {
-	/**
-	 * Setup test fixture.
-	 */
-	protected function setUp() {
-		parent::setUp();
-
-		$this->load_original_functions( array(
-			'api/term-meta/functions.php',
-			'api/utilities/functions.php',
-		) );
-	}
+class Tests_BeansGetTermMeta extends Beans_Term_Meta_Test_Case {
 
 	/**
 	 * Test beans_get_term_meta() should return false when default not given and term meta does not exist.
