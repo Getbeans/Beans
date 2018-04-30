@@ -100,7 +100,7 @@ final class _Beans_Term_Meta {
 	 *
 	 * @param int $term_id Term ID.
 	 *
-	 * @return int
+	 * @return null|int Null on success or Term ID on fail.
 	 */
 	public function save( $term_id ) {
 
