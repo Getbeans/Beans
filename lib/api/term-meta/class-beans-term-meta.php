@@ -82,16 +82,7 @@ final class _Beans_Term_Meta {
 		beans_add_attribute( 'beans_field_description', 'class', 'description' );
 
 		foreach ( beans_get_fields( 'term_meta', $this->section ) as $field ) {
-			?>
-            <tr class="form-field">
-                <th scope="row">
-					<?php beans_field_label( $field ); ?>
-                </th>
-                <td>
-					<?php beans_field( $field ); ?>
-                </td>
-            </tr>
-			<?php
+			include dirname( __FILE__ ) . '/views/term-meta-field.php';
 		}
 	}
 
