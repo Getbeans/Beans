@@ -27,7 +27,7 @@ class Tests_BeansRegisterTermMeta extends Beans_Term_Meta_Test_Case {
 	/**
 	 * Tests beans_register_term_meta() should return false when taxonomy is not concerned.
 	 */
-	public function tests_should_return_false_when_taxonomies_not_concerned() {
+	public function tests_should_return_false_when_current_taxonomy_not_concerned() {
 		$this->assertFalse( beans_register_term_meta( static::$test_data['fields'], array( 'sample-taxonomy' ), 'tm-beans' ) );
 	}
 

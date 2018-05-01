@@ -25,7 +25,7 @@ class Tests_BeansRegisterTermMeta extends Beans_Term_Meta_Test_Case {
 	/**
 	 * Tests beans_register_term_meta() should return false when current taxonomy is not concerned.
 	 */
-	public function tests_should_return_false_when_taxonomies_are_empty() {
+	public function tests_should_return_false_when_current_taxonomy_not_concerned() {
 		Monkey\Functions\expect( '_beans_is_admin_term' )
 			->once()
 			->with( array( 'sample-taxonomy' ) )
