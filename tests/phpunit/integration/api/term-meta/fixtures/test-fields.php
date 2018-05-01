@@ -23,7 +23,7 @@ return array(
 		),
 		array(
 			'id'             => 'beans_checkbox_test',
-			'label'          => false,
+			'label'          => 'Checkbox Test Field Label',
 			'checkbox_label' => 'Enable the checkbox test',
 			'type'           => 'checkbox',
 			'default'        => false,
@@ -34,6 +34,4 @@ return array(
 			'default' => 'Testing the text field.',
 		),
 	),
-	'context' => 'tests',
-	'section' => 'tm-beans',
 );
