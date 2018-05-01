@@ -8,7 +8,7 @@
  */
 
 return array(
-	'fields'  => array(
+	'fields' => array(
 		array(
 			'id'      => 'beans_layout_test',
 			'label'   => 'Layout',

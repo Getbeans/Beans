@@ -7,12 +7,13 @@
  * @since   1.0.0
  * @since   1.5.0 Moved to view file.
  */
+
 ?>
 <tr class="form-field">
-    <th scope="row">
+	<th scope="row">
 		<?php beans_field_label( $field ); ?>
-    </th>
-    <td>
+	</th>
+	<td>
 		<?php beans_field( $field ); ?>
-    </td>
+	</td>
 </tr>

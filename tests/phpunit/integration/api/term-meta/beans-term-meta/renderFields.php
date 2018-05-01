@@ -14,7 +14,6 @@ use _Beans_Term_Meta;
 
 require_once BEANS_THEME_DIR . '/lib/api/term-meta/class-beans-term-meta.php';
 require_once BEANS_THEME_DIR . '/lib/api/term-meta/functions-admin.php';
-//require_once BEANS_THEME_DIR . '/lib/api/fields/class-beans-fields.php';
 require_once dirname( __DIR__ ) . '/includes/class-beans-term-meta-test-case.php';
 
 /**
