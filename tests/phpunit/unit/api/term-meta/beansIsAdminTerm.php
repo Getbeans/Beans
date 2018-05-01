@@ -1,5 +1,5 @@
 <?php
-/** Tests for beans_is_admin_term()
+/** Tests for _beans_is_admin_term()
  *
  * @package Beans\Framework\Tests\Unit\API\Term_Meta
  *
