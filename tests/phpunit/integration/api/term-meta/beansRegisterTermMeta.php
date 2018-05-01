@@ -7,7 +7,7 @@
  * @since   1.5.0
  */
 
-namespace Beans\Framework\Tests\Integration\API\Post_Meta;
+namespace Beans\Framework\Tests\Integration\API\Term_Meta;
 
 use Beans\Framework\Tests\Integration\API\Term_Meta\Includes\Beans_Term_Meta_Test_Case;
 use WP_UnitTestCase;
