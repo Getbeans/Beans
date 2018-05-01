@@ -16,7 +16,7 @@ require_once BEANS_THEME_DIR . '/lib/api/term-meta/class-beans-term-meta.php';
 require_once dirname( __DIR__ ) . '/includes/class-beans-term-meta-test-case.php';
 
 /**
- * Class Tests_BeansGetPostMeta
+ * Class Tests_BeansTermMeta_Construct
  *
  * @package Beans\Framework\Tests\Integration\API\Term_Meta
  * @group   api

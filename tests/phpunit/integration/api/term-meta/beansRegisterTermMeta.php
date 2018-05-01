@@ -16,7 +16,7 @@ require_once BEANS_API_PATH . 'term-meta/functions-admin.php';
 require_once dirname( __FILE__ ) . '/includes/class-beans-term-meta-test-case.php';
 
 /**
- * Class Tests_BeansGetPostMeta
+ * Class Tests_BeansRegisterTermMeta
  *
  * @package Beans\Framework\Tests\Integration\API\Term_Meta
  * @group   api
