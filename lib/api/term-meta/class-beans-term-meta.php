@@ -44,15 +44,17 @@ final class _Beans_Term_Meta {
 	 * @return void
 	 */
 	private function do_once() {
-		static $once = false;
+		static $did_once = false;
 
-		if ( ! $once ) {
-			add_action( beans_get( 'taxonomy' ) . '_edit_form', array( $this, 'render_nonce' ) );
-			add_action( 'edit_term', array( $this, 'save' ) );
-			add_action( 'delete_term', array( $this, 'delete' ), 10, 3 );
-
-			$once = true;
+		if ( $did_once ) {
+			return;
 		}
+
+		add_action( beans_get( 'taxonomy' ) . '_edit_form', array( $this, 'render_nonce' ) );
+		add_action( 'edit_term', array( $this, 'save' ) );
+		add_action( 'delete_term', array( $this, 'delete' ), 10, 3 );
+
+		$did_once = true;
 	}
 
 	/**
@@ -81,14 +83,14 @@ final class _Beans_Term_Meta {
 
 		foreach ( beans_get_fields( 'term_meta', $this->section ) as $field ) {
 			?>
-			<tr class="form-field">
-				<th scope="row">
+            <tr class="form-field">
+                <th scope="row">
 					<?php beans_field_label( $field ); ?>
-				</th>
-				<td>
+                </th>
+                <td>
 					<?php beans_field( $field ); ?>
-				</td>
-			</tr>
+                </td>
+            </tr>
 			<?php
 		}
 	}
