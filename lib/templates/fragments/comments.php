@@ -300,15 +300,16 @@ function beans_comments_navigation() {
 
 			$previous_icon  = beans_open_markup(
 				'beans_previous_icon[_comments_navigation]',
-				'i',
+				'span',
 				array(
-					'class' => 'uk-icon-angle-double-left uk-margin-small-right',
+					'class'       => 'uk-icon-angle-double-left uk-margin-small-right',
+					'aria-hidden' => 'true',
 				)
 			);
-			$previous_icon .= beans_close_markup( 'beans_previous_icon[_comments_navigation]', 'i' );
+			$previous_icon .= beans_close_markup( 'beans_previous_icon[_comments_navigation]', 'span' );
 
 			echo get_previous_comments_link( // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
-				$previous_icon . beans_output( 'beans_previous_text[_comments_navigation]', __( 'Previous', 'tm-beans' ) )
+				$previous_icon . beans_output( 'beans_previous_text[_comments_navigation]', __( 'Previous Comments', 'tm-beans' ) )
 			);
 
 		beans_close_markup_e( 'beans_comments_navigation_item[_previous]', 'li' );
@@ -320,15 +321,16 @@ function beans_comments_navigation() {
 
 			$next_icon  = beans_open_markup(
 				'beans_next_icon[_comments_navigation]',
-				'i',
+				'span',
 				array(
-					'class' => 'uk-icon-angle-double-right uk-margin-small-right',
+					'class'       => 'uk-icon-angle-double-right uk-margin-small-right',
+					'aria-hidden' => 'true',
 				)
 			);
-			$next_icon .= beans_close_markup( 'beans_next_icon[_comments_navigation]', 'i' );
+			$next_icon .= beans_close_markup( 'beans_next_icon[_comments_navigation]', 'span' );
 
 			echo get_next_comments_link( // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
-				beans_output( 'beans_next_text[_comments_navigation]', __( 'Next', 'tm-beans' ) ) . $next_icon
+				beans_output( 'beans_next_text[_comments_navigation]', __( 'Next Comments ', 'tm-beans' ) ) . $next_icon
 			);
 
 		beans_close_markup_e( 'beans_comments_navigation_item_[_next]', 'li' );

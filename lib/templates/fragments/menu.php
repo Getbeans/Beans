@@ -78,9 +78,16 @@ function beans_primary_menu_offcanvas_button() {
 		)
 	);
 
-		beans_open_markup_e( 'beans_primary_menu_offcanvas_button_icon', 'i', array( 'class' => 'uk-icon-navicon uk-margin-small-right' ) );
+		beans_open_markup_e(
+			'beans_primary_menu_offcanvas_button_icon',
+			'span',
+			array(
+				'class'       => 'uk-icon-navicon uk-margin-small-right',
+				'aria-hidden' => 'true',
+			)
+		);
 
-		beans_close_markup_e( 'beans_primary_menu_offcanvas_button_icon', 'i' );
+		beans_close_markup_e( 'beans_primary_menu_offcanvas_button_icon', 'span' );
 
 		beans_output_e( 'beans_offcanvas_menu_button', __( 'Menu', 'tm-beans' ) );
 

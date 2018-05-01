@@ -40,9 +40,16 @@ function beans_search_form() {
 			)
 		);
 
-		$output .= beans_open_markup( 'beans_search_form_input_icon', 'i', 'class=uk-icon-search' );
+		$output .= beans_open_markup(
+			'beans_search_form_input_icon',
+			'span',
+			array(
+				'class'       => 'uk-icon-search',
+				'aria-hidden' => 'true',
+			)
+		);
 
-		$output .= beans_close_markup( 'beans_search_form_input_icon', 'i' );
+		$output .= beans_close_markup( 'beans_search_form_input_icon', 'span' );
 
 	$output .= beans_close_markup( 'beans_search_form', 'form' );
 

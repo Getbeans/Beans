@@ -340,12 +340,13 @@ function beans_post_more_link() {
 
 		$output .= beans_open_markup(
 			'beans_next_icon[_more_link]',
-			'i',
+			'span',
 			array(
-				'class' => 'uk-icon-angle-double-right uk-margin-small-left',
+				'class'       => 'uk-icon-angle-double-right uk-margin-small-left',
+				'aria-hidden' => 'true',
 			)
 		);
-		$output .= beans_close_markup( 'beans_next_icon[_more_link]', 'i' );
+		$output .= beans_close_markup( 'beans_next_icon[_more_link]', 'span' );
 
 	$output .= beans_close_markup( 'beans_post_more_link', 'a' );
 
@@ -442,13 +443,14 @@ function beans_previous_post_link( $output, $format, $link, $post ) {
 
 		$output .= beans_open_markup(
 			'beans_previous_icon[_post_navigation]',
-			'i',
+			'span',
 			array(
-				'class' => 'uk-icon-angle-double-left uk-margin-small-right',
+				'class'       => 'uk-icon-angle-double-left uk-margin-small-right',
+				'aria-hidden' => 'true',
 			)
 		);
 
-		$output .= beans_close_markup( 'beans_previous_icon[_post_navigation]', 'i' );
+		$output .= beans_close_markup( 'beans_previous_icon[_post_navigation]', 'span' );
 
 		$output .= beans_output( 'beans_previous_text[_post_navigation]', $text );
 
@@ -489,13 +491,14 @@ function beans_next_post_link( $output, $format, $link, $post ) {
 
 		$output .= beans_open_markup(
 			'beans_next_icon[_post_navigation]',
-			'i',
+			'span',
 			array(
-				'class' => 'uk-icon-angle-double-right uk-margin-small-left',
+				'class'       => 'uk-icon-angle-double-right uk-margin-small-left',
+				'aria-hidden' => 'true',
 			)
 		);
 
-		$output .= beans_close_markup( 'beans_next_icon[_post_navigation]', 'i' );
+		$output .= beans_close_markup( 'beans_next_icon[_post_navigation]', 'span' );
 
 	$output .= beans_close_markup( 'beans_next_link[_post_navigation]', 'a' );
 
@@ -540,19 +543,25 @@ function beans_post_navigation() {
 	);
 
 	if ( $previous ) {
-		// Previous.
 		beans_open_markup_e( 'beans_post_navigation_item[_previous]', 'li', array( 'class' => 'uk-pagination-previous' ) );
 
-			echo get_previous_post_link( '%link', __( 'Previous', 'tm-beans' ) ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Echoes HTMl output.
+			// phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
+			echo get_previous_post_link(
+				'%link',
+				beans_output( 'beans_previous_text[_post_navigation_item]', __( 'Previous Page', 'tm-beans' ) )
+			);
 
 		beans_close_markup_e( 'beans_post_navigation_item[_previous]', 'li' );
 	}
 
 	if ( $next ) {
-		// Next.
 		beans_open_markup_e( 'beans_post_navigation_item[_next]', 'li', array( 'class' => 'uk-pagination-next' ) );
 
-			echo get_next_post_link( '%link', __( 'Next', 'tm-beans' ) ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Echoes HTMl output.
+			// phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
+			echo get_next_post_link(
+				'%link',
+				beans_output( 'beans_next_text[_post_navigation_item]', __( 'Next Page', 'tm-beans' ) )
+			);
 
 		beans_close_markup_e( 'beans_post_navigation_item[_next]', 'li' );
 	}
@@ -614,15 +623,16 @@ function beans_posts_pagination() {
 
 				beans_open_markup_e(
 					'beans_previous_icon[_posts_pagination]',
-					'i',
+					'span',
 					array(
-						'class' => 'uk-icon-angle-double-left uk-margin-small-right',
+						'class'       => 'uk-icon-angle-double-left uk-margin-small-right',
+						'aria-hidden' => 'true',
 					)
 				);
 
-				beans_close_markup_e( 'beans_previous_icon[_posts_pagination]', 'i' );
+				beans_close_markup_e( 'beans_previous_icon[_posts_pagination]', 'span' );
 
-				beans_output_e( 'beans_previous_text[_posts_pagination]', __( 'Previous', 'tm-beans' ) );
+				beans_output_e( 'beans_previous_text[_posts_pagination]', __( 'Previous Page', 'tm-beans' ) );
 
 			beans_close_markup_e( 'beans_previous_link[_posts_pagination]', 'a' );
 
@@ -711,11 +721,18 @@ function beans_posts_pagination() {
 				$current
 			);
 
-				beans_output_e( 'beans_next_text[_posts_pagination]', __( 'Next', 'tm-beans' ) );
+				beans_output_e( 'beans_next_text[_posts_pagination]', __( 'Next Page', 'tm-beans' ) );
 
-				beans_open_markup_e( 'beans_next_icon[_posts_pagination]', 'i', array( 'class' => 'uk-icon-angle-double-right uk-margin-small-left' ) );
+				beans_open_markup_e(
+					'beans_next_icon[_posts_pagination]',
+					'span',
+					array(
+						'class'       => 'uk-icon-angle-double-right uk-margin-small-left',
+						'aria-hidden' => 'true',
+					)
+				);
 
-				beans_close_markup_e( 'beans_next_icon[_posts_pagination]', 'i' );
+				beans_close_markup_e( 'beans_next_icon[_posts_pagination]', 'span' );
 
 			beans_close_markup_e( 'beans_next_link[_posts_pagination]', 'a' );
 
