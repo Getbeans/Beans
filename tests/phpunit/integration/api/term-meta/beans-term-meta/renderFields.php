@@ -26,6 +26,28 @@ require_once dirname( __DIR__ ) . '/includes/class-beans-term-meta-test-case.php
 class Tests_BeansTermMeta_RenderFields extends Beans_Term_Meta_Test_Case {
 
 	/**
+	 * Tests render_fields() should configure the correct beans actions and attributes when called.
+	 */
+	public function test_render_fields_should_configure_correct_beans_actions_and_attributes_when_called() {
+		global $_beans_registered_actions;
+
+		set_current_screen( 'edit' );
+		$_POST['taxonomy'] = 'category';
+		beans_register_term_meta( static::$test_data['fields'], 'category', 'tm-beans' );
+
+		$term_meta = new _Beans_Term_Meta( 'tm-beans' );
+
+		ob_start();
+		$term_meta->render_fields();
+		ob_get_clean();
+
+		$this->assertArrayHasKey( 'beans_field_label', $_beans_registered_actions['removed'] );
+		$this->assertArrayHasKey( 'beans_field_description', $_beans_registered_actions['modified'] );
+		// $this->assertEquals( 10, has_filter( 'beans_field_description_markup', array( '\\_Beans_Anonymous_Filters', 'callback' ) ) );
+		// $this->assertEquals( 10, has_filter( 'beans_field_description_attribute', array( \\_Beans_Anonymous_Filters', 'callback' ) ) );
+	}
+
+	/**
 	 * Tests render_fields() should output field html when called.
 	 */
 	public function test_render_fields_should_output_field_html_when_called() {
@@ -34,17 +56,12 @@ class Tests_BeansTermMeta_RenderFields extends Beans_Term_Meta_Test_Case {
 		beans_add_smart_action( 'beans_field_checkbox', 'beans_field_checkbox' );
 		beans_add_smart_action( 'beans_field_text', 'beans_field_text' );
 
-		// Set WP state to admin and category tax.
 		set_current_screen( 'edit' );
 		$_POST['taxonomy'] = 'category';
-
-		// Register term meta fields.
 		beans_register_term_meta( static::$test_data['fields'], 'category', 'tm-beans' );
 
-		// Create a term meta object.
 		$term_meta = new _Beans_Term_Meta( 'tm-beans' );
 
-		// Capture output of render_fields() method.
 		ob_start();
 		$term_meta->render_fields();
 		$output = ob_get_clean();
