@@ -49,6 +49,7 @@ class Tests_BeansTermMeta_RenderFields extends Beans_Term_Meta_Test_Case {
 		$output = trim( ob_get_clean() );
 
 		// Check output is as expected.
+		$beans_theme_url = BEANS_THEME_URL;
 		$expected_output = require dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'fixtures/test-field-outout-html.php';
 		$this->assertEquals( $expected_output, $output );
 	}

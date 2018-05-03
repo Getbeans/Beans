@@ -16,9 +16,9 @@ return array(
 			'default' => 'default_fallback',
 			'options' => array(
 				'default_fallback' => 'Use Default Layout',
-				'c'                => BEANS_THEME_DIR . 'lib/admin/assets/images/layouts/c.png',
-				'c_sp'             => BEANS_THEME_DIR . 'lib/admin/assets/images/layouts/c_sp.png',
-				'sp_c'             => BEANS_THEME_DIR . 'lib/admin/assets/images/layouts/sp_c.png',
+				'c'                => BEANS_THEME_URL . 'lib/admin/assets/images/layouts/c.png',
+				'c_sp'             => BEANS_THEME_URL . 'lib/admin/assets/images/layouts/c_sp.png',
+				'sp_c'             => BEANS_THEME_URL . 'lib/admin/assets/images/layouts/sp_c.png',
 			),
 		),
 		array(

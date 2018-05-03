@@ -20,17 +20,17 @@ return <<<FIELDSHTML
 	<input id="beans_layout_test_default_fallback" type="radio" name="beans_fields[beans_layout_test]" value="default_fallback" checked='checked' /> 	Use Default Layout		</label>
 		<label class="bs-has-image" for="beans_layout_test_c">
 					<span class="screen-reader-text">Option for c</span>
-			<img src="/app/public/wp-content/themes/tm-beanslib/admin/assets/images/layouts/c.png" alt="Option for c" />
+			<img src="{$beans_theme_url}lib/admin/assets/images/layouts/c.png" alt="Option for c" />
 			<input id="beans_layout_test_c" class="screen-reader-text" type="radio" name="beans_fields[beans_layout_test]" value="c" /> 		
 		</label>
 		<label class="bs-has-image" for="beans_layout_test_c_sp">
 					<span class="screen-reader-text">Option for c_sp</span>
-			<img src="/app/public/wp-content/themes/tm-beanslib/admin/assets/images/layouts/c_sp.png" alt="Option for c_sp" />
+			<img src="{$beans_theme_url}lib/admin/assets/images/layouts/c_sp.png" alt="Option for c_sp" />
 			<input id="beans_layout_test_c_sp" class="screen-reader-text" type="radio" name="beans_fields[beans_layout_test]" value="c_sp" /> 		
 		</label>
 		<label class="bs-has-image" for="beans_layout_test_sp_c">
 					<span class="screen-reader-text">Option for sp_c</span>
-			<img src="/app/public/wp-content/themes/tm-beanslib/admin/assets/images/layouts/sp_c.png" alt="Option for sp_c" />
+			<img src="{$beans_theme_url}lib/admin/assets/images/layouts/sp_c.png" alt="Option for sp_c" />
 			<input id="beans_layout_test_sp_c" class="screen-reader-text" type="radio" name="beans_fields[beans_layout_test]" value="sp_c" /> 		
 		</label>
 </fieldset>
