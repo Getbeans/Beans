@@ -29,9 +29,10 @@ return array(
 			'default'        => false,
 		),
 		array(
-			'id'      => 'beans_text_test',
-			'type'    => 'text',
-			'default' => 'Testing the text field.',
+			'id'          => 'beans_text_test',
+			'description' => 'Sample Text Field Description',
+			'type'        => 'text',
+			'default'     => 'Testing the text field.',
 		),
 	),
 );
