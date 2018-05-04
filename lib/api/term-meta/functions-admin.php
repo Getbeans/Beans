@@ -102,5 +102,5 @@ function _beans_is_admin_term( $taxonomies ) {
 		return false;
 	}
 
-	return ( in_array( $taxonomy, (array) $taxonomies, true ) );
+	return in_array( $taxonomy, (array) $taxonomies, true );
 }
