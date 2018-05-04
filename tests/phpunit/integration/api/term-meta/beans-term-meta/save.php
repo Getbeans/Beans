@@ -47,9 +47,9 @@ class Tests_BeansTermMeta_Save extends Beans_Term_Meta_Test_Case {
 	}
 
 	/**
-	 * Tests _Beans_Term_Meta::save() should run update_option() and return null when fields are successfully updated.
+	 * Tests _Beans_Term_Meta::save() should save term meta in the database.
 	 */
-	public function test_should_return_null_when_fields_are_updated() {
+	public function test_should_save_term_meta_in_db() {
 		// Setup a valid nonce and fields.
 		$_POST['beans_term_meta_nonce'] = wp_create_nonce( 'beans_term_meta_nonce' );
 		$_POST['beans_fields']          = static::$test_data['fields'];

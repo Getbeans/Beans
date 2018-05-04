@@ -26,10 +26,9 @@ require_once dirname( __DIR__ ) . '/includes/class-beans-term-meta-test-case.php
 class Tests_BeansTermMeta_RenderFields extends Beans_Term_Meta_Test_Case {
 
 	/**
-	 * Tests _Beans_Term_Meta::render_fields() should output field html.
+	 * Tests _Beans_Term_Meta::render_fields() should render field html.
 	 */
-	public function test_should_output_field_html() {
-
+	public function test_should_render_field_html() {
 		// Register beans actions to render fields.
 		beans_add_smart_action( 'beans_field_radio', 'beans_field_radio' );
 		beans_add_smart_action( 'beans_field_checkbox', 'beans_field_checkbox' );
