@@ -88,6 +88,7 @@ function beans_register_term_meta( array $fields, $taxonomies, $section ) {
  * @access private
  *
  * @param array|bool $taxonomies Array of taxonomies or true for all taxonomies.
+ *
  * @return bool
  */
 function _beans_is_admin_term( $taxonomies ) {
@@ -97,13 +98,9 @@ function _beans_is_admin_term( $taxonomies ) {
 
 	$taxonomy = beans_get_or_post( 'taxonomy' );
 
-	if ( ! $taxonomy ) {
+	if ( empty( $taxonomy ) ) {
 		return false;
 	}
 
-	if ( in_array( $taxonomy, (array) $taxonomies, true ) ) {
-		return true;
-	}
-
-	return false;
+	return ( in_array( $taxonomy, (array) $taxonomies, true ) );
 }
