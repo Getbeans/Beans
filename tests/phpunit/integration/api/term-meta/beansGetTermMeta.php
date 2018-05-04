@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for beans_get_term_meta()
+ * Tests for _beans_get_term_meta()
  *
  * @package Beans\Framework\Tests\Integration\API\Term_Meta
  *

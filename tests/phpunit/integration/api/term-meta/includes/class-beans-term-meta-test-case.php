@@ -44,5 +44,4 @@ abstract class Beans_Term_Meta_Test_Case extends WP_UnitTestCase {
 
 		parent::tearDown();
 	}
-
 }

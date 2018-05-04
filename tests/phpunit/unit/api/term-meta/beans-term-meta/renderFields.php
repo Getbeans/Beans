@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the render_fields method of _Beans_Term_Meta.
+ * Tests the render_fields() method of _Beans_Term_Meta.
  *
  * @package Beans\Framework\Tests\Unit\API\Term_Meta
  *
@@ -25,9 +25,9 @@ require_once dirname( __DIR__ ) . '/includes/class-beans-term-meta-test-case.php
 class Tests_BeansTermMeta_RenderFields extends Beans_Term_Meta_Test_Case {
 
 	/**
-	 * Tests _beans_term_meta::render_fields() should output fields HTML when called.
+	 * Tests _beans_term_meta::render_fields() should output fields HTML.
 	 */
-	public function test_render_fields_renders_fields_html_when_called() {
+	public function test_should_render_fields_html() {
 		Monkey\Functions\expect( 'beans_get_fields' )
 			->once()
 			->with( 'term_meta', 'tm-beans' )

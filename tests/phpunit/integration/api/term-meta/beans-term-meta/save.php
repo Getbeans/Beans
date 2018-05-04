@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for _beans_term_meta::save()
+ * Tests for _Beans_Term_Meta::save()
  *
  * @package Beans\Framework\Tests\Integration\API\Term_Meta
  *
@@ -26,18 +26,18 @@ require_once dirname( __DIR__ ) . '/includes/class-beans-term-meta-test-case.php
 class Tests_BeansTermMeta_Save extends Beans_Term_Meta_Test_Case {
 
 	/**
-	 * Tests _beans_term_meta::save() should return term_id when nonce is invalid.
+	 * Tests _Beans_Term_Meta::save() should return term_id when nonce is invalid.
 	 */
-	public function test_beans_term_meta_save_should_return_term_id_when_nonce_is_invalid() {
+	public function test_should_return_term_id_when_nonce_is_invalid() {
 		$term_meta = new _Beans_Term_Meta( 'tm-beans' );
 
 		$this->assertEquals( 753, $term_meta->save( 753 ) );
 	}
 
 	/**
-	 * Tests _beans_term_meta::save() should return term_id when fields are falsey.
+	 * Tests _Beans_Term_Meta::save() should return term_id when fields are falsey.
 	 */
-	public function test_beans_term_meta_save_should_return_term_id_when_fields_are_falsey() {
+	public function test_should_return_term_id_when_fields_are_falsey() {
 		// Setup a valid nonce but no fields.
 		$_POST['beans_term_meta_nonce'] = wp_create_nonce( 'beans_term_meta_nonce' );
 
@@ -47,9 +47,9 @@ class Tests_BeansTermMeta_Save extends Beans_Term_Meta_Test_Case {
 	}
 
 	/**
-	 * Tests _beans_term_meta::save() should run update_option() and return null when fields are successfully updated.
+	 * Tests _Beans_Term_Meta::save() should run update_option() and return null when fields are successfully updated.
 	 */
-	public function test_beans_term_meta_save_should_return_null_when_fields_are_updated() {
+	public function test_should_return_null_when_fields_are_updated() {
 		// Setup a valid nonce and fields.
 		$_POST['beans_term_meta_nonce'] = wp_create_nonce( 'beans_term_meta_nonce' );
 		$_POST['beans_fields']          = static::$test_data['fields'];

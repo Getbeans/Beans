@@ -67,7 +67,8 @@ class Tests_BeansRegisterTermMeta extends Beans_Term_Meta_Test_Case {
 			->andReturn( false );
 
 		$this->assertFalse(
-			beans_register_term_meta( static::$test_data,
+			beans_register_term_meta(
+				static::$test_data,
 				'sample-taxonomy',
 				'tm-beans'
 			)

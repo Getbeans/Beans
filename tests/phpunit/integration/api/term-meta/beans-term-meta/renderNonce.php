@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for _beans_term_meta::render_nonce()
+ * Tests for _Beans_Term_Meta::render_nonce()
  *
  * @package Beans\Framework\Tests\Integration\API\Term_Meta
  *
@@ -25,9 +25,9 @@ require_once dirname( __DIR__ ) . '/includes/class-beans-term-meta-test-case.php
 class Tests_BeansTermMeta_RenderNonce extends Beans_Term_Meta_Test_Case {
 
 	/**
-	 * Tests _beans_term_meta::render_nonce() should output nonce HTML when called.
+	 * Tests _Beans_Term_Meta::render_nonce() should output nonce HTML.
 	 */
-	public function test_nonce_should_echo_nonce_input_html() {
+	public function test_should_echo_nonce_input_html() {
 		$term_meta = new _Beans_Term_Meta( 'tm-beans' );
 
 		$expected_html_output = '<input type="hidden" name="beans_term_meta_nonce" value="%x" />';

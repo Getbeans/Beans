@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for _beans_term_meta::construct()
+ * Tests for _Beans_Term_Meta::construct()
  *
  * @package Beans\Framework\Tests\Integration\API\Term_Meta
  *
@@ -27,7 +27,7 @@ class Tests_BeansTermMeta_Construct extends Beans_Term_Meta_Test_Case {
 	/**
 	 * Tests __construct should set correct hooks when class is instantiated.
 	 */
-	public function test_construct_should_set_correct_hooks_when_class_is_instantiated() {
+	public function test_should_set_correct_hooks_when_class_is_instantiated() {
 		$_GET['taxonomy'] = 'sample-taxonomy';
 
 		// First instantiation sets all hooks.

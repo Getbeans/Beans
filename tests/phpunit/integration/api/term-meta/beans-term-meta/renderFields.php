@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for _beans_term_meta::render_fields()
+ * Tests for _Beans_Term_Meta::render_fields()
  *
  * @package Beans\Framework\Tests\Integration\API\Term_Meta
  *
@@ -26,9 +26,9 @@ require_once dirname( __DIR__ ) . '/includes/class-beans-term-meta-test-case.php
 class Tests_BeansTermMeta_RenderFields extends Beans_Term_Meta_Test_Case {
 
 	/**
-	 * Tests render_fields() should output field html when called.
+	 * Tests _Beans_Term_Meta::render_fields() should output field html.
 	 */
-	public function test_render_fields_should_output_field_html_when_called() {
+	public function test_should_output_field_html() {
 
 		// Register beans actions to render fields.
 		beans_add_smart_action( 'beans_field_radio', 'beans_field_radio' );

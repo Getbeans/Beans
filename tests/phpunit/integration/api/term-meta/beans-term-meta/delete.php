@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for _beans_term_meta::delete()
+ * Tests for _Beans_Term_Meta::delete()
  *
  * @package Beans\Framework\Tests\Integration\API\Term_Meta
  *
@@ -26,9 +26,9 @@ require_once dirname( __DIR__ ) . '/includes/class-beans-term-meta-test-case.php
 class Tests_BeansTermMeta_Delete extends Beans_Term_Meta_Test_Case {
 
 	/**
-	 * Tests _beans_term_meta::delete() should remove term meta option from db options table when called.
+	 * Tests _Beans_Term_Meta::delete() should remove term meta option from db options table.
 	 */
-	public function test_delete_should_remove_term_meta_option_from_db_options_table_when_called() {
+	public function test_should_remove_term_meta_option_from_db_options_table() {
 		add_option( 'beans_term_123_field', 'term-meta-value', '', false );
 
 		$term_meta = new _Beans_Term_Meta( 'tm-beams' );
