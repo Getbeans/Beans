@@ -33,7 +33,7 @@ final class _Beans_Term_Meta {
 	public function __construct( $section ) {
 		$this->section = $section;
 		$this->do_once();
-		add_action( beans_get( 'taxonomy' ) . '_edit_form_fields', array( $this, 'fields' ) );
+		add_action( beans_get( 'taxonomy' ) . '_edit_form_fields', array( $this, 'render_fields' ) );
 	}
 
 	/**
@@ -44,54 +44,45 @@ final class _Beans_Term_Meta {
 	 * @return void
 	 */
 	private function do_once() {
-		static $once = false;
+		static $did_once = false;
 
-		if ( ! $once ) {
-			add_action( beans_get( 'taxonomy' ) . '_edit_form', array( $this, 'nonce' ) );
-			add_action( 'edit_term', array( $this, 'save' ) );
-			add_action( 'delete_term', array( $this, 'delete' ), 10, 3 );
-
-			$once = true;
+		if ( $did_once ) {
+			return;
 		}
+
+		add_action( beans_get( 'taxonomy' ) . '_edit_form', array( $this, 'render_nonce' ) );
+		add_action( 'edit_term', array( $this, 'save' ) );
+		add_action( 'delete_term', array( $this, 'delete' ), 10, 3 );
+
+		$did_once = true;
 	}
 
 	/**
-	 * Term meta nonce.
+	 * Render term meta nonce.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
-	public function nonce() {
-	?>
-	<input type="hidden" name="beans_term_meta_nonce" value="<?php echo esc_attr( wp_create_nonce( 'beans_term_meta_nonce' ) ); ?>" />
-	<?php
+	public function render_nonce() {
+		include dirname( __FILE__ ) . '/views/nonce.php';
 	}
 
 	/**
-	 * Fields content.
+	 * Render fields content.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
-	public function fields() {
+	public function render_fields() {
 		beans_remove_action( 'beans_field_label' );
 		beans_modify_action_hook( 'beans_field_description', 'beans_field_wrap_after_markup' );
 		beans_modify_markup( 'beans_field_description', 'p' );
 		beans_add_attribute( 'beans_field_description', 'class', 'description' );
 
 		foreach ( beans_get_fields( 'term_meta', $this->section ) as $field ) {
-			?>
-			<tr class="form-field">
-				<th scope="row">
-					<?php echo esc_html( beans_field_label( $field ) ); ?>
-				</th>
-				<td>
-					<?php echo esc_html( beans_field( $field ) ); ?>
-				</td>
-			</tr>
-			<?php
+			include dirname( __FILE__ ) . '/views/term-meta-field.php';
 		}
 	}
 
@@ -102,11 +93,11 @@ final class _Beans_Term_Meta {
 	 *
 	 * @param int $term_id Term ID.
 	 *
-	 * @return int
+	 * @return null|int Null on success or Term ID on fail.
 	 */
 	public function save( $term_id ) {
 
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		if ( _beans_doing_ajax() ) {
 			return $term_id;
 		}
 

@@ -64,7 +64,7 @@ function beans_register_term_meta( array $fields, $taxonomies, $section ) {
 
 	// Stop here if the current page isn't concerned.
 	if ( ! _beans_is_admin_term( $taxonomies ) || ! is_admin() ) {
-		return;
+		return false;
 	}
 
 	// Stop here if the field can't be registered.
@@ -73,9 +73,11 @@ function beans_register_term_meta( array $fields, $taxonomies, $section ) {
 	}
 
 	// Load the class only if this function is called to prevent unnecessary memory usage.
-	require_once BEANS_API_PATH . 'term-meta/class.php';
+	require_once BEANS_API_PATH . 'term-meta/class-beans-term-meta.php';
 
 	new _Beans_Term_Meta( $section );
+
+	return true;
 }
 
 /**
@@ -85,23 +87,20 @@ function beans_register_term_meta( array $fields, $taxonomies, $section ) {
  * @ignore
  * @access private
  *
- * @param array $taxonomies Array of taxonomies.
+ * @param array|bool $taxonomies Array of taxonomies or true for all taxonomies.
+ *
  * @return bool
  */
 function _beans_is_admin_term( $taxonomies ) {
-	$taxonomy = beans_get_or_post( 'taxonomy' );
-
-	if ( ! $taxonomy ) {
-		return false;
-	}
-
 	if ( true === $taxonomies ) {
 		return true;
 	}
 
-	if ( in_array( $taxonomy, (array) $taxonomies, true ) ) {
-		return true;
+	$taxonomy = beans_get_or_post( 'taxonomy' );
+
+	if ( empty( $taxonomy ) ) {
+		return false;
 	}
 
-	return false;
+	return in_array( $taxonomy, (array) $taxonomies, true );
 }

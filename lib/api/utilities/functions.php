@@ -534,6 +534,19 @@ function _beans_is_uri( $maybe_uri ) {
 }
 
 /**
+ * Checks if WP is doing ajax.
+ *
+ * @since 1.5.0
+ * @ignore
+ * @access private
+ *
+ * @return bool
+ */
+function _beans_doing_ajax() {
+	return defined( 'DOING_AJAX' ) && DOING_AJAX;
+}
+
+/**
  * Checks if WP is doing an autosave.
  *
  * @since 1.5.0
