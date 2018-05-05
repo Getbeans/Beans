@@ -63,9 +63,6 @@ abstract class Compiler_Test_Case extends Test_Case {
 	public static function setUpBeforeClass() {
 		parent::setUpBeforeClass();
 
-		require_once BEANS_TESTS_LIB_DIR . 'api/compiler/class-beans-compiler.php';
-		require_once BEANS_TESTS_LIB_DIR . 'api/compiler/functions.php';
-
 		if ( ! defined( 'FS_CHMOD_FILE' ) ) {
 			define( 'FS_CHMOD_FILE', 0644 ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound -- Valid constant.
 		}
@@ -84,6 +81,8 @@ abstract class Compiler_Test_Case extends Test_Case {
 
 		$this->load_original_functions( array(
 			'api/utilities/functions.php',
+			'api/compiler/class-beans-compiler.php',
+			'api/compiler/functions.php',
 		) );
 	}
 
@@ -91,7 +90,6 @@ abstract class Compiler_Test_Case extends Test_Case {
 	 * Tear down the test fixture.
 	 */
 	protected function tearDown() {
-
 		// Reset the global fragments container.
 		global $_beans_compiler_added_fragments;
 		$_beans_compiler_added_fragments = array(
