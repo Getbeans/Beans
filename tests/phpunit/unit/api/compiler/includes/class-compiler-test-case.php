@@ -80,17 +80,7 @@ abstract class Compiler_Test_Case extends Test_Case {
 		$this->set_up_virtual_filesystem();
 		$this->compiled_dir = vfsStream::url( 'compiled' );
 		$this->compiled_url = 'http:://beans.local/compiled/';
-
-		Functions\when( 'wp_upload_dir' )->justReturn( array(
-			'path'    => '',
-			'url'     => '',
-			'subdir'  => '',
-			'basedir' => $this->compiled_dir,
-			'baseurl' => $this->compiled_url,
-			'error'   => false,
-		) );
-		Functions\when( 'is_admin' )->justReturn( $this->is_admin );
-		Functions\when( 'site_url' )->justReturn( 'http:://beans.local' );
+		$this->setup_function_mocks();
 
 		$this->load_original_functions( array(
 			'api/utilities/functions.php',
@@ -114,6 +104,22 @@ abstract class Compiler_Test_Case extends Test_Case {
 
 		Mockery::close();
 		parent::tearDown();
+	}
+
+	/**
+	 * Set up function mocks.
+	 */
+	protected function setup_function_mocks() {
+		Functions\when( 'wp_upload_dir' )->justReturn( array(
+			'path'    => '',
+			'url'     => '',
+			'subdir'  => '',
+			'basedir' => $this->compiled_dir,
+			'baseurl' => $this->compiled_url,
+			'error'   => false,
+		) );
+		Functions\when( 'is_admin' )->justReturn( $this->is_admin );
+		Functions\when( 'site_url' )->justReturn( 'http:://beans.local' );
 	}
 
 	/**
