@@ -24,7 +24,7 @@ require_once dirname( __DIR__ ) . '/includes/class-compiler-test-case.php';
 class Tests_BeansCompiler_Get extends Compiler_Test_Case {
 
 	/**
-	 * Test should fix the configuration's dependency key.
+	 * Test _Beans_Compiler::_get() should fix the configuration's dependency key.
 	 */
 	public function test_should_fix_configuration_dependency_key() {
 		$config = array(
@@ -42,7 +42,7 @@ class Tests_BeansCompiler_Get extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test should return the configuration.
+	 * Test _Beans_Compiler::_get() should return the configuration.
 	 */
 	public function test_should_return_configuration() {
 		$compiler = $this->create_compiler( array(
@@ -87,7 +87,7 @@ class Tests_BeansCompiler_Get extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test should return the absolute path to the compiled files directory.
+	 * Test _Beans_Compiler::_get() should return the absolute path to the compiled files directory.
 	 */
 	public function test_should_return_absolute_path_to_compiled_files_dir() {
 		$config = array(
@@ -103,7 +103,7 @@ class Tests_BeansCompiler_Get extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test should return URL to the compiled files directory.
+	 * Test _Beans_Compiler::_get() should return URL to the compiled files directory.
 	 */
 	public function test_should_return_url_to_compiled_files_dir() {
 		$config = array(

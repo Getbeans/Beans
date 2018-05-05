@@ -24,7 +24,7 @@ require_once dirname( __DIR__ ) . '/includes/class-compiler-test-case.php';
 class Tests_BeansCompiler_CacheFileExist extends Compiler_Test_Case {
 
 	/**
-	 * Test cache_file_exist() should return false when the filename has not been generated.
+	 * Test _Beans_Compiler::cache_file_exist() should return false when the filename has not been generated.
 	 */
 	public function test_should_return_false_when_filename_not_generated() {
 		$fragment = vfsStream::url( 'compiled/fixtures/my-game-clock.js' );
@@ -39,7 +39,7 @@ class Tests_BeansCompiler_CacheFileExist extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test cache_file_exist() should return false when the cached file does not exist.
+	 * Test _Beans_Compiler::cache_file_exist() should return false when the cached file does not exist.
 	 */
 	public function test_should_return_false_when_file_does_not_exist() {
 		$fragment = vfsStream::url( 'compiled/fixtures/my-game-clock.js' );
@@ -59,7 +59,7 @@ class Tests_BeansCompiler_CacheFileExist extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test cache_file_exist() should return true when the cached file does exist.
+	 * Test _Beans_Compiler::cache_file_exist() should return true when the cached file does exist.
 	 */
 	public function test_should_return_true_when_file_exists() {
 		$fragment = vfsStream::url( 'compiled/fixtures/my-game-clock.js' );

@@ -24,7 +24,7 @@ require_once dirname( __DIR__ ) . '/includes/class-compiler-test-case.php';
 class Tests_BeansCompiler_AddContentMediaQuery extends Compiler_Test_Case {
 
 	/**
-	 * Test add_content_media_query() should return original content when current fragment is callable.
+	 * Test _Beans_Compiler::add_content_media_query() should return original content when current fragment is callable.
 	 */
 	public function test_should_return_content_when_fragment_is_callable() {
 		Monkey\Functions\expect( 'wp_parse_args' )->never();
@@ -43,7 +43,7 @@ EOB;
 	}
 
 	/**
-	 * Test add_content_media_query() should return original content when there are no query args.
+	 * Test _Beans_Compiler::add_content_media_query() should return original content when there are no query args.
 	 */
 	public function test_should_return_content_when_no_query_args() {
 		Monkey\Functions\expect( 'wp_parse_args' )->never();
@@ -65,8 +65,8 @@ EOB;
 	}
 
 	/**
-	 * Test add_content_media_query() should return original content when the 'beans_compiler_media_query'
-	 * query arg is not present in the current fragment.
+	 * Test _Beans_Compiler::add_content_media_query() should return original content when the
+	 * 'beans_compiler_media_query' query arg is not present in the current fragment.
 	 */
 	public function test_should_return_content_when_no_media_query() {
 		Monkey\Functions\expect( 'wp_parse_args' )->never();
@@ -88,7 +88,7 @@ EOB;
 	}
 
 	/**
-	 * Test add_content_media_query() should wrap the content in the specified media query.
+	 * Test _Beans_Compiler::add_content_media_query() should wrap the content in the specified media query.
 	 */
 	public function test_should_wrap_content_in_media_query() {
 		$compiler      = $this->create_compiler( array() );

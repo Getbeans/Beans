@@ -25,7 +25,7 @@ require_once dirname( __DIR__ ) . '/includes/class-compiler-test-case.php';
 class Tests_BeansCompiler_CacheFile extends Compiler_Test_Case {
 
 	/**
-	 * Test cache_file() should not create the file when the filename is empty.
+	 * Test _Beans_Compiler::cache_file() should not create the file when the filename is empty.
 	 */
 	public function test_should_not_create_the_file_when_filename_empty() {
 		$compiler = $this->create_compiler( array(
@@ -45,7 +45,7 @@ class Tests_BeansCompiler_CacheFile extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test cache_file() should create the compiled jQuery file.
+	 * Test _Beans_Compiler::cache_file() should create the compiled jQuery file.
 	 */
 	public function test_should_create_compiled_jquery_file() {
 		$compiler = $this->create_compiler( array(
@@ -74,7 +74,7 @@ class Tests_BeansCompiler_CacheFile extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test cache_file() should create the compiled JavaScript file.
+	 * Test _Beans_Compiler::cache_file() should create the compiled JavaScript file.
 	 */
 	public function test_should_create_compiled_javascript_file() {
 		$compiler = $this->create_compiler( array(
@@ -102,7 +102,7 @@ class Tests_BeansCompiler_CacheFile extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test cache_file() should create the compiled CSS file.
+	 * Test _Beans_Compiler::cache_file() should create the compiled CSS file.
 	 */
 	public function test_should_create_compiled_css_file() {
 		$compiler = $this->create_compiler( array(
@@ -129,7 +129,7 @@ class Tests_BeansCompiler_CacheFile extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test cache_file() should create the compiled LESS file.
+	 * Test _Beans_Compiler::cache_file() should create the compiled LESS file.
 	 */
 	public function test_should_create_compiled_less_file() {
 		$compiler = $this->create_compiler( array(
