@@ -9,6 +9,7 @@
 
 namespace Beans\Framework\Tests\Integration\API\Compiler\Includes;
 
+use _Beans_Compiler;
 use WP_UnitTestCase;
 use Mockery;
 use org\bovigo\vfs\vfsStream;
@@ -134,7 +135,7 @@ abstract class Compiler_Test_Case extends WP_UnitTestCase {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param \_Beans_Compiler $compiler The Compiler instance.
+	 * @param _Beans_Compiler $compiler The Compiler instance.
 	 * @param mixed            $fragment The given value to set.
 	 *
 	 * @return void
@@ -153,10 +154,10 @@ abstract class Compiler_Test_Case extends WP_UnitTestCase {
 	 *
 	 * @param array $config Compiler's configuration.
 	 *
-	 * @return \_Beans_Compiler
+	 * @return _Beans_Compiler
 	 */
 	protected function create_compiler( $config ) {
-		$compiler = new \_Beans_Compiler( $config );
+		$compiler = new _Beans_Compiler( $config );
 
 		$dir = ( new \ReflectionClass( $compiler ) )->getProperty( 'dir' );
 		$dir->setAccessible( true );
@@ -174,7 +175,7 @@ abstract class Compiler_Test_Case extends WP_UnitTestCase {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param \_Beans_Compiler $compiler  Instance of the compiler.
+	 * @param _Beans_Compiler $compiler  Instance of the compiler.
 	 * @param array            $config    The compiler's configuration.
 	 * @param int              $filemtime Optional. The fragment's filemtime. Default is null.
 	 *
