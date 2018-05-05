@@ -9,6 +9,7 @@
 
 namespace Beans\Framework\Tests\Unit\API\Compiler\Includes;
 
+use _Beans_Compiler;
 use Beans\Framework\Tests\Unit\Test_Case;
 use Brain\Monkey;
 use Brain\Monkey\Functions;
@@ -203,13 +204,13 @@ abstract class Compiler_Test_Case extends Test_Case {
 	 *
 	 * @param array $config Compiler's configuration parameters.
 	 *
-	 * @return \_Beans_Compiler
+	 * @return _Beans_Compiler
 	 */
 	protected function create_compiler( array $config = array() ) {
 		Monkey\Functions\when( 'beans_get_compiler_dir' )->justReturn( vfsStream::url( 'compiled/beans/compiler/' ) );
 		Monkey\Functions\when( 'beans_get_compiler_url' )->justReturn( $this->compiled_url . 'beans/compiler/' );
 
-		return new \_Beans_Compiler( $config );
+		return new _Beans_Compiler( $config );
 	}
 
 	/**
@@ -217,7 +218,7 @@ abstract class Compiler_Test_Case extends Test_Case {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param \_Beans_Compiler $compiler The Compiler instance.
+	 * @param _Beans_Compiler $compiler The Compiler instance.
 	 * @param mixed            $fragment The given value to set.
 	 *
 	 * @return \ReflectionProperty|string
@@ -232,7 +233,7 @@ abstract class Compiler_Test_Case extends Test_Case {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param \_Beans_Compiler $compiler  Instance of the compiler.
+	 * @param _Beans_Compiler $compiler  Instance of the compiler.
 	 * @param array            $config    The compiler's configuration.
 	 * @param int              $filemtime Optional. The fragment's filemtime. Default is null.
 	 *
