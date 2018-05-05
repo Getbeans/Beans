@@ -219,7 +219,7 @@ abstract class Compiler_Test_Case extends Test_Case {
 	 * @since 1.5.0
 	 *
 	 * @param _Beans_Compiler $compiler The Compiler instance.
-	 * @param mixed            $fragment The given value to set.
+	 * @param mixed           $fragment The given value to set.
 	 *
 	 * @return \ReflectionProperty|string
 	 * @throws \ReflectionException Throws an exception if property does not exist.
@@ -234,8 +234,8 @@ abstract class Compiler_Test_Case extends Test_Case {
 	 * @since 1.5.0
 	 *
 	 * @param _Beans_Compiler $compiler  Instance of the compiler.
-	 * @param array            $config    The compiler's configuration.
-	 * @param int              $filemtime Optional. The fragment's filemtime. Default is null.
+	 * @param array           $config    The compiler's configuration.
+	 * @param int             $filemtime Optional. The fragment's filemtime. Default is null.
 	 *
 	 * @return string
 	 */
