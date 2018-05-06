@@ -25,7 +25,8 @@ require_once dirname( __DIR__ ) . '/includes/class-compiler-test-case.php';
 class Tests_BeansCompiler_Filesystem extends Compiler_Test_Case {
 
 	/**
-	 * Test filesystem() should return true when the WP Filesystem is initialized to WP_Filesystem_Direct.
+	 * Test _Beans_Compiler::filesystem() should return true when the WP Filesystem is initialized to
+	 * WP_Filesystem_Direct.
 	 */
 	public function test_should_return_true_when_wp_filesystem_is_init() {
 		// Initialize the wp_filesystem global variable.

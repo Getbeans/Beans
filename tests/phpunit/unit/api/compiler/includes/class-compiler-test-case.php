@@ -9,6 +9,7 @@
 
 namespace Beans\Framework\Tests\Unit\API\Compiler\Includes;
 
+use _Beans_Compiler;
 use Beans\Framework\Tests\Unit\Test_Case;
 use Brain\Monkey;
 use Brain\Monkey\Functions;
@@ -63,9 +64,6 @@ abstract class Compiler_Test_Case extends Test_Case {
 	public static function setUpBeforeClass() {
 		parent::setUpBeforeClass();
 
-		require_once BEANS_TESTS_LIB_DIR . 'api/compiler/class-beans-compiler.php';
-		require_once BEANS_TESTS_LIB_DIR . 'api/compiler/functions.php';
-
 		if ( ! defined( 'FS_CHMOD_FILE' ) ) {
 			define( 'FS_CHMOD_FILE', 0644 ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound -- Valid constant.
 		}
@@ -80,20 +78,12 @@ abstract class Compiler_Test_Case extends Test_Case {
 		$this->set_up_virtual_filesystem();
 		$this->compiled_dir = vfsStream::url( 'compiled' );
 		$this->compiled_url = 'http:://beans.local/compiled/';
-
-		Functions\when( 'wp_upload_dir' )->justReturn( array(
-			'path'    => '',
-			'url'     => '',
-			'subdir'  => '',
-			'basedir' => $this->compiled_dir,
-			'baseurl' => $this->compiled_url,
-			'error'   => false,
-		) );
-		Functions\when( 'is_admin' )->justReturn( $this->is_admin );
-		Functions\when( 'site_url' )->justReturn( 'http:://beans.local' );
+		$this->setup_function_mocks();
 
 		$this->load_original_functions( array(
 			'api/utilities/functions.php',
+			'api/compiler/class-beans-compiler.php',
+			'api/compiler/functions.php',
 		) );
 	}
 
@@ -101,7 +91,6 @@ abstract class Compiler_Test_Case extends Test_Case {
 	 * Tear down the test fixture.
 	 */
 	protected function tearDown() {
-
 		// Reset the global fragments container.
 		global $_beans_compiler_added_fragments;
 		$_beans_compiler_added_fragments = array(
@@ -114,6 +103,22 @@ abstract class Compiler_Test_Case extends Test_Case {
 
 		Mockery::close();
 		parent::tearDown();
+	}
+
+	/**
+	 * Set up function mocks.
+	 */
+	protected function setup_function_mocks() {
+		Functions\when( 'wp_upload_dir' )->justReturn( array(
+			'path'    => '',
+			'url'     => '',
+			'subdir'  => '',
+			'basedir' => $this->compiled_dir,
+			'baseurl' => $this->compiled_url,
+			'error'   => false,
+		) );
+		Functions\when( 'is_admin' )->justReturn( $this->is_admin );
+		Functions\when( 'site_url' )->justReturn( 'http:://beans.local' );
 	}
 
 	/**
@@ -199,13 +204,13 @@ abstract class Compiler_Test_Case extends Test_Case {
 	 *
 	 * @param array $config Compiler's configuration parameters.
 	 *
-	 * @return \_Beans_Compiler
+	 * @return _Beans_Compiler
 	 */
 	protected function create_compiler( array $config = array() ) {
 		Monkey\Functions\when( 'beans_get_compiler_dir' )->justReturn( vfsStream::url( 'compiled/beans/compiler/' ) );
 		Monkey\Functions\when( 'beans_get_compiler_url' )->justReturn( $this->compiled_url . 'beans/compiler/' );
 
-		return new \_Beans_Compiler( $config );
+		return new _Beans_Compiler( $config );
 	}
 
 	/**
@@ -213,8 +218,8 @@ abstract class Compiler_Test_Case extends Test_Case {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param \_Beans_Compiler $compiler The Compiler instance.
-	 * @param mixed            $fragment The given value to set.
+	 * @param _Beans_Compiler $compiler The Compiler instance.
+	 * @param mixed           $fragment The given value to set.
 	 *
 	 * @return \ReflectionProperty|string
 	 * @throws \ReflectionException Throws an exception if property does not exist.
@@ -228,9 +233,9 @@ abstract class Compiler_Test_Case extends Test_Case {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param \_Beans_Compiler $compiler  Instance of the compiler.
-	 * @param array            $config    The compiler's configuration.
-	 * @param int              $filemtime Optional. The fragment's filemtime. Default is null.
+	 * @param _Beans_Compiler $compiler  Instance of the compiler.
+	 * @param array           $config    The compiler's configuration.
+	 * @param int             $filemtime Optional. The fragment's filemtime. Default is null.
 	 *
 	 * @return string
 	 */

@@ -24,7 +24,8 @@ require_once dirname( __DIR__ ) . '/includes/class-compiler-test-case.php';
 class Tests_BeansCompiler_SetFilename extends Compiler_Test_Case {
 
 	/**
-	 * Test set_filename() should return the hash created with the modification time from each of the fragments.
+	 * Test _Beans_Compiler::set_filename() should return the hash created with the modification time from each of the
+	 * fragments.
 	 */
 	public function test_should_return_hash_created_with_fragments_filemtime() {
 		$fragment = vfsStream::url( 'compiled/fixtures/jquery.test.js' );
@@ -51,7 +52,7 @@ class Tests_BeansCompiler_SetFilename extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test set_filename() should exclude external fragments.
+	 * Test _Beans_Compiler::set_filename() should exclude external fragments.
 	 */
 	public function test_should_exclude_external_fragments() {
 		$fragment = vfsStream::url( 'compiled/fixtures/my-game-clock.js' );
@@ -86,7 +87,7 @@ class Tests_BeansCompiler_SetFilename extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test set_filename() should remove the old compiled file.
+	 * Test _Beans_Compiler::set_filename() should remove the old compiled file.
 	 */
 	public function test_should_remove_old_file() {
 		$fragment = vfsStream::url( 'compiled/fixtures/jquery.test.js' );

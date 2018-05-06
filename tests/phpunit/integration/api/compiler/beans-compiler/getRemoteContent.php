@@ -24,7 +24,7 @@ require_once dirname( __DIR__ ) . '/includes/class-compiler-test-case.php';
 class Tests_BeansCompiler_GetRemoteContent extends Compiler_Test_Case {
 
 	/**
-	 * Test get_remote_content() should return false when fragment is empty.
+	 * Test _Beans_Compiler::get_remote_content() should return false when fragment is empty.
 	 */
 	public function test_should_return_false_when_fragment_is_empty() {
 		$compiler = new _Beans_Compiler( array() );
@@ -34,7 +34,8 @@ class Tests_BeansCompiler_GetRemoteContent extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test get_remote_content() should return empty string when the remote site or file does not exist.
+	 * Test _Beans_Compiler::get_remote_content() should return empty string when the remote site or file does not
+	 * exist.
 	 */
 	public function test_should_return_empty_string_when_remote_does_not_exist() {
 		$fragment = 'http://beans.local/invalid-file.js';
@@ -48,7 +49,7 @@ class Tests_BeansCompiler_GetRemoteContent extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test get_remote_content() should return the content when fragment is a relative url.
+	 * Test _Beans_Compiler::get_remote_content() should return the content when fragment is a relative url.
 	 */
 	public function test_should_return_content_when_fragment_is_relative_url() {
 		$fragment = '//fonts.googleapis.com/css?family=Lato';
@@ -67,7 +68,7 @@ class Tests_BeansCompiler_GetRemoteContent extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test get_remote_content() should return the content when fragment is an http URL.
+	 * Test _Beans_Compiler::get_remote_content() should return the content when fragment is an http URL.
 	 */
 	public function test_should_return_content_when_fragment_is_http() {
 		$fragment = 'http://fonts.googleapis.com/css?family=Roboto';
@@ -86,7 +87,7 @@ class Tests_BeansCompiler_GetRemoteContent extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test get_remote_content() should return the content when fragment is an https URL.
+	 * Test _Beans_Compiler::get_remote_content() should return the content when fragment is an https URL.
 	 */
 	public function test_should_return_content_when_fragment_is_https() {
 		$fragment = 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css';

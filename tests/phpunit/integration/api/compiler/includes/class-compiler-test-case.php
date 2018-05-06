@@ -9,6 +9,7 @@
 
 namespace Beans\Framework\Tests\Integration\API\Compiler\Includes;
 
+use _Beans_Compiler;
 use WP_UnitTestCase;
 use Mockery;
 use org\bovigo\vfs\vfsStream;
@@ -134,10 +135,11 @@ abstract class Compiler_Test_Case extends WP_UnitTestCase {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param \_Beans_Compiler $compiler The Compiler instance.
-	 * @param mixed            $fragment The given value to set.
+	 * @param _Beans_Compiler $compiler The Compiler instance.
+	 * @param mixed           $fragment The given value to set.
 	 *
 	 * @return void
+	 * @throws \ReflectionException Throws reflection error.
 	 */
 	protected function set_current_fragment( $compiler, $fragment ) {
 		$current_fragment = ( new \ReflectionClass( $compiler ) )->getProperty( 'current_fragment' );
@@ -153,10 +155,11 @@ abstract class Compiler_Test_Case extends WP_UnitTestCase {
 	 *
 	 * @param array $config Compiler's configuration.
 	 *
-	 * @return \_Beans_Compiler
+	 * @return _Beans_Compiler
+	 * @throws \ReflectionException Throws reflection error.
 	 */
 	protected function create_compiler( $config ) {
-		$compiler = new \_Beans_Compiler( $config );
+		$compiler = new _Beans_Compiler( $config );
 
 		$dir = ( new \ReflectionClass( $compiler ) )->getProperty( 'dir' );
 		$dir->setAccessible( true );
@@ -166,6 +169,7 @@ abstract class Compiler_Test_Case extends WP_UnitTestCase {
 		}
 
 		$dir->setAccessible( false );
+
 		return $compiler;
 	}
 
@@ -174,9 +178,9 @@ abstract class Compiler_Test_Case extends WP_UnitTestCase {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param \_Beans_Compiler $compiler  Instance of the compiler.
-	 * @param array            $config    The compiler's configuration.
-	 * @param int              $filemtime Optional. The fragment's filemtime. Default is null.
+	 * @param _Beans_Compiler $compiler  Instance of the compiler.
+	 * @param array           $config    The compiler's configuration.
+	 * @param int             $filemtime Optional. The fragment's filemtime. Default is null.
 	 *
 	 * @return string
 	 */
@@ -260,6 +264,7 @@ abstract class Compiler_Test_Case extends WP_UnitTestCase {
 var clickHandler=function(event){event.preventDefault();}
 $(document).ready(function(){init();});})(jQuery);
 EOB;
+
 		return str_replace( '/$', '$', $compiled_content );
 	}
 

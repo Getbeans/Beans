@@ -25,7 +25,7 @@ require_once dirname( __DIR__ ) . '/includes/class-compiler-test-case.php';
 class Tests_BeansCompiler_Filesystem extends Compiler_Test_Case {
 
 	/**
-	 * Test filesystem() should render a report and die when no filesystem is selected.
+	 * Test _Beans_Compiler::filesystem() should render a report and die when no filesystem is selected.
 	 */
 	public function test_should_render_report_and_die_when_no_filesystem_selected() {
 		$compiler = new _Beans_Compiler( array() );
@@ -59,7 +59,7 @@ class Tests_BeansCompiler_Filesystem extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test filesystem() should initialize the WP Filesystem.
+	 * Test _Beans_Compiler::filesystem() should initialize the WP Filesystem.
 	 */
 	public function test_should_init_wp_filesystem() {
 		$compiler = new _Beans_Compiler( array() );
@@ -79,7 +79,7 @@ class Tests_BeansCompiler_Filesystem extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test filesystem() should set WP_Filesystem_Direct when not set as WP_Filesystem method.
+	 * Test _Beans_Compiler::filesystem() should set WP_Filesystem_Direct when not set as WP_Filesystem method.
 	 */
 	public function test_should_set_wp_filesystem_direct() {
 		// First, set something else as the WP_Filesystem method.
