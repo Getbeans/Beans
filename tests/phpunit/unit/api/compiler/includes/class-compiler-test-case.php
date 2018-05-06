@@ -21,7 +21,7 @@ use org\bovigo\vfs\vfsStream;
  *
  * @package Beans\Framework\Tests\Unit\API\Compiler\Includes
  */
-abstract class Compiler_Test_Case extends Test_Case {
+abstract class Compiler_Test_Case extends Compiler_Base_Test_Case {
 
 	/**
 	 * When true, return the given path when doing wp_normalize_path().
@@ -31,32 +31,25 @@ abstract class Compiler_Test_Case extends Test_Case {
 	protected $just_return_path = true;
 
 	/**
-	 * Path to the compiled files' directory.
-	 *
-	 * @var string
-	 */
-	protected $compiled_dir;
-
-	/**
-	 * Path to the compiled files directory's URL.
-	 *
-	 * @var string
-	 */
-	protected $compiled_url;
-
-	/**
-	 * Instance of vfsStreamDirectory to mock the filesystem.
-	 *
-	 * @var vfsStreamDirectory
-	 */
-	protected $mock_filesystem;
-
-	/**
 	 * Flag is in admin area (back-end).
 	 *
 	 * @var bool
 	 */
 	protected $is_admin = false;
+
+	/**
+	 * An array of fixture filenames.
+	 *
+	 * @var array
+	 */
+	protected static $fixture_filenames;
+
+	/**
+	 * The test fixtures directory.
+	 *
+	 * @var string
+	 */
+	protected static $fixtures_dir;
 
 	/**
 	 * Set up the test before we run the test setups.
@@ -67,6 +60,17 @@ abstract class Compiler_Test_Case extends Test_Case {
 		if ( ! defined( 'FS_CHMOD_FILE' ) ) {
 			define( 'FS_CHMOD_FILE', 0644 ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound -- Valid constant.
 		}
+
+		static::$fixture_filenames = [
+			'jquery.test.js',
+			'my-game-clock.js',
+			'style.css',
+			'test.less',
+			'variables.less',
+		];
+		static::$fixtures_dir      = basename( __DIR__ ) === 'compiler'
+			? __DIR__ . DIRECTORY_SEPARATOR . 'fixtures' . DIRECTORY_SEPARATOR
+			: dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'fixtures' . DIRECTORY_SEPARATOR;
 	}
 
 	/**
@@ -74,16 +78,10 @@ abstract class Compiler_Test_Case extends Test_Case {
 	 */
 	protected function setUp() {
 		parent::setUp();
-
-		$this->set_up_virtual_filesystem();
-		$this->compiled_dir = vfsStream::url( 'compiled' );
-		$this->compiled_url = 'http:://beans.local/compiled/';
-		$this->setup_function_mocks();
+		$this->set_up_function_mocks();
 
 		$this->load_original_functions( array(
-			'api/utilities/functions.php',
 			'api/compiler/class-beans-compiler.php',
-			'api/compiler/functions.php',
 		) );
 	}
 
@@ -106,9 +104,46 @@ abstract class Compiler_Test_Case extends Test_Case {
 	}
 
 	/**
+	 * Set up the virtual filesystem.
+	 */
+	protected function set_up_virtual_filesystem() {
+		parent::set_up_virtual_filesystem();
+
+		// Set the fixture file dates back a week.
+		$fixtures_dir           = $this->mock_filesystem->getChild( 'fixtures' );
+		$file_modification_time = time() - ( 7 * 24 * 60 * 60 );
+		foreach ( static::$fixture_filenames as $filename ) {
+			$fixtures_dir->getChild( $filename )->lastModified( $file_modification_time );
+		}
+	}
+
+	/**
+	 * Get the virtual filesystem's structure.
+	 */
+	protected function get_virtual_structure() {
+		$structure             = parent::get_virtual_structure();
+		$structure['fixtures'] = $this->get_fixtures_content();
+
+		return $structure;
+	}
+
+	/**
+	 * Get the test fixture's content.
+	 */
+	private function get_fixtures_content() {
+		$fixtures = [];
+
+		foreach ( static::$fixture_filenames as $filename ) {
+			$fixtures[ $filename ] = file_get_contents( static::$fixtures_dir . $filename ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_file_get_contents, WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Valid edge case.
+		}
+
+		return $fixtures;
+	}
+
+	/**
 	 * Set up function mocks.
 	 */
-	protected function setup_function_mocks() {
+	protected function set_up_function_mocks() {
 		Functions\when( 'wp_upload_dir' )->justReturn( array(
 			'path'    => '',
 			'url'     => '',
@@ -119,43 +154,6 @@ abstract class Compiler_Test_Case extends Test_Case {
 		) );
 		Functions\when( 'is_admin' )->justReturn( $this->is_admin );
 		Functions\when( 'site_url' )->justReturn( 'http:://beans.local' );
-	}
-
-	/**
-	 * Set up the virtual filesystem.
-	 */
-	private function set_up_virtual_filesystem() {
-		$structure = array(
-			'beans'    => array(
-				'compiler'       => array(
-					'index.php' => '',
-				),
-				'admin-compiler' => array(
-					'index.php' => '',
-				),
-			),
-			'fixtures' => array(),
-		);
-
-		$filenames    = array( 'jquery.test.js', 'my-game-clock.js', 'style.css', 'test.less', 'variables.less' );
-		$fixtures_dir = basename( __DIR__ ) === 'compiler'
-			? __DIR__ . DIRECTORY_SEPARATOR . 'fixtures' . DIRECTORY_SEPARATOR
-			: dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'fixtures' . DIRECTORY_SEPARATOR;
-
-		// Load the fixture files and content into the virtual filesystem.
-		foreach ( $filenames as $filename ) {
-			$structure['fixtures'][ $filename ] = file_get_contents( $fixtures_dir . $filename ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_file_get_contents, WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Valid edge case.
-		}
-
-		// Set up the "compiled" directory's virtual filesystem.
-		$this->mock_filesystem = vfsStream::setup( 'compiled', 0755, $structure );
-
-		// Set the fixture file dates back a week.
-		$fixtures_dir           = $this->mock_filesystem->getChild( 'fixtures' );
-		$file_modification_time = time() - ( 7 * 24 * 60 * 60 );
-		foreach ( $filenames as $filename ) {
-			$fixtures_dir->getChild( $filename )->lastModified( $file_modification_time );
-		}
 	}
 
 	/**
