@@ -10,37 +10,17 @@
 namespace Beans\Framework\Tests\Integration\API\Compiler\Includes;
 
 use _Beans_Compiler;
-use WP_UnitTestCase;
 use Mockery;
 use org\bovigo\vfs\vfsStream;
+
+require_once __DIR__ . '/class-base-test-case.php';
 
 /**
  * Abstract Class Compiler_Test_Case
  *
  * @package Beans\Framework\Tests\Integration\API\Compiler\Includes
  */
-abstract class Compiler_Test_Case extends WP_UnitTestCase {
-
-	/**
-	 * When true, return the given path when doing wp_normalize_path().
-	 *
-	 * @var bool
-	 */
-	protected $just_return_path = true;
-
-	/**
-	 * Path to the compiled files' directory.
-	 *
-	 * @var string
-	 */
-	protected $compiled_dir;
-
-	/**
-	 * Instance of vfsStreamDirectory to mock the filesystem.
-	 *
-	 * @var vfsStreamDirectory
-	 */
-	protected $mock_filesystem;
+abstract class Compiler_Test_Case extends Base_Test_Case {
 
 	/**
 	 * Flag is in admin area (back-end).
@@ -49,24 +29,37 @@ abstract class Compiler_Test_Case extends WP_UnitTestCase {
 	 */
 	protected $is_admin = false;
 
+
 	/**
-	 * Set up the test fixture.
+	 * An array of fixture filenames.
+	 *
+	 * @var array
 	 */
-	public function setUp() {
-		parent::setUp();
+	protected static $fixture_filenames;
 
-		$this->set_up_virtual_filesystem();
-		$this->compiled_dir = vfsStream::url( 'compiled' );
+	/**
+	 * The test fixtures directory.
+	 *
+	 * @var string
+	 */
+	protected static $fixtures_dir;
 
-		// Set the Uploads directory to our virtual filesystem.
-		add_filter( 'upload_dir', function( array $uploads_dir ) {
-			$uploads_dir['path']    = $this->compiled_dir . $uploads_dir['subdir'];
-			$uploads_dir['url']     = str_replace( 'wp-content/uploads', 'compiled', $uploads_dir['url'] );
-			$uploads_dir['basedir'] = $this->compiled_dir;
-			$uploads_dir['baseurl'] = str_replace( 'wp-content/uploads', 'compiled', $uploads_dir['baseurl'] );
+	/**
+	 * Set up the test before we run the test setups.
+	 */
+	public static function setUpBeforeClass() {
+		parent::setUpBeforeClass();
 
-			return $uploads_dir;
-		} );
+		static::$fixture_filenames = [
+			'jquery.test.js',
+			'my-game-clock.js',
+			'style.css',
+			'test.less',
+			'variables.less',
+		];
+		static::$fixtures_dir      = basename( __DIR__ ) === 'compiler'
+			? __DIR__ . DIRECTORY_SEPARATOR . 'fixtures' . DIRECTORY_SEPARATOR
+			: dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'fixtures' . DIRECTORY_SEPARATOR;
 	}
 
 	/**
@@ -74,46 +67,44 @@ abstract class Compiler_Test_Case extends WP_UnitTestCase {
 	 */
 	public function tearDown() {
 		unset( $GLOBALS['wp_filesystem'] );
-
-		Mockery::close();
 		parent::tearDown();
 	}
 
 	/**
 	 * Set up the virtual filesystem.
 	 */
-	private function set_up_virtual_filesystem() {
-		$structure = array(
-			'beans'    => array(
-				'compiler'       => array(
-					'index.php' => '',
-				),
-				'admin-compiler' => array(
-					'index.php' => '',
-				),
-			),
-			'fixtures' => array(),
-		);
-
-		$filenames    = array( 'jquery.test.js', 'my-game-clock.js', 'style.css', 'test.less', 'variables.less' );
-		$fixtures_dir = basename( __DIR__ ) === 'compiler'
-			? __DIR__ . DIRECTORY_SEPARATOR . 'fixtures' . DIRECTORY_SEPARATOR
-			: dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'fixtures' . DIRECTORY_SEPARATOR;
-
-		// Load the fixture files and content into the virtual filesystem.
-		foreach ( $filenames as $filename ) {
-			$structure['fixtures'][ $filename ] = file_get_contents( $fixtures_dir . $filename ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_file_get_contents, WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Valid edge case.
-		}
-
-		// Set up the "compiled" directory's virtual filesystem.
-		$this->mock_filesystem = vfsStream::setup( 'compiled', 0755, $structure );
+	protected function set_up_virtual_filesystem() {
+		parent::set_up_virtual_filesystem();
 
 		// Set the fixture file dates back a week.
 		$fixtures_dir           = $this->mock_filesystem->getChild( 'fixtures' );
 		$file_modification_time = time() - ( 7 * 24 * 60 * 60 );
-		foreach ( $filenames as $filename ) {
+		foreach ( static::$fixture_filenames as $filename ) {
 			$fixtures_dir->getChild( $filename )->lastModified( $file_modification_time );
 		}
+	}
+
+	/**
+	 * Get the virtual filesystem's structure.
+	 */
+	protected function get_virtual_structure() {
+		$structure             = parent::get_virtual_structure();
+		$structure['fixtures'] = $this->get_fixtures_content();
+
+		return $structure;
+	}
+
+	/**
+	 * Get the test fixture's content.
+	 */
+	private function get_fixtures_content() {
+		$fixtures = [];
+
+		foreach ( static::$fixture_filenames as $filename ) {
+			$fixtures[ $filename ] = file_get_contents( static::$fixtures_dir . $filename ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_file_get_contents, WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Valid edge case.
+		}
+
+		return $fixtures;
 	}
 
 	/**

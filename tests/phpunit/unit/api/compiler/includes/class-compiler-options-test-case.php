@@ -9,8 +9,6 @@
 
 namespace Beans\Framework\Tests\Unit\API\Compiler\Includes;
 
-use org\bovigo\vfs\vfsStream;
-
 require_once __DIR__ . '/class-base-test-case.php';
 
 /**
@@ -32,32 +30,5 @@ abstract class Compiler_Options_Test_Case extends Base_Test_Case {
 		) );
 
 		$this->setup_common_wp_stubs();
-	}
-
-	/**
-	 * Set up the virtual filesystem.
-	 */
-	protected function set_up_virtual_filesystem() {
-		$this->mock_filesystem = vfsStream::setup(
-			'compiled',
-			0755,
-			$this->get_virtual_structure()
-		);
-	}
-
-	/**
-	 * Get the virtual filesystem's structure.
-	 */
-	protected function get_virtual_structure() {
-		return array(
-			'beans' => array(
-				'compiler'       => array(
-					'index.php' => '',
-				),
-				'admin-compiler' => array(
-					'index.php' => '',
-				),
-			),
-		);
 	}
 }
