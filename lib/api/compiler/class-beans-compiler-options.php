@@ -184,5 +184,3 @@ final class _Beans_Compiler_Options {
 		}
 	}
 }
-
-new _Beans_Compiler_Options();
