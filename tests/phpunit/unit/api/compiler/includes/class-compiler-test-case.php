@@ -10,18 +10,19 @@
 namespace Beans\Framework\Tests\Unit\API\Compiler\Includes;
 
 use _Beans_Compiler;
-use Beans\Framework\Tests\Unit\Test_Case;
 use Brain\Monkey;
 use Brain\Monkey\Functions;
 use Mockery;
 use org\bovigo\vfs\vfsStream;
+
+require_once __DIR__ . '/class-base-test-case.php';
 
 /**
  * Abstract Class Compiler_Test_Case
  *
  * @package Beans\Framework\Tests\Unit\API\Compiler\Includes
  */
-abstract class Compiler_Test_Case extends Compiler_Base_Test_Case {
+abstract class Compiler_Test_Case extends Base_Test_Case {
 
 	/**
 	 * When true, return the given path when doing wp_normalize_path().

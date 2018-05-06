@@ -13,11 +13,11 @@ use Beans\Framework\Tests\Unit\Test_Case;
 use org\bovigo\vfs\vfsStream;
 
 /**
- * Abstract Class Compiler_Base_Test_Case
+ * Abstract Class Base_Test_Case
  *
  * @package Beans\Framework\Tests\Unit\API\Compiler\Includes
  */
-abstract class Compiler_Base_Test_Case extends Test_Case {
+abstract class Base_Test_Case extends Test_Case {
 
 	/**
 	 * Path to the compiled files' directory.
@@ -54,6 +54,8 @@ abstract class Compiler_Base_Test_Case extends Test_Case {
 			'api/utilities/functions.php',
 			'api/compiler/functions.php',
 		) );
+
+		$this->setup_common_wp_stubs();
 	}
 
 	/**

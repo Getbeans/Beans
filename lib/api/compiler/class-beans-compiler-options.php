@@ -24,8 +24,8 @@ final class _Beans_Compiler_Options {
 	public function __construct() {
 		add_action( 'admin_init', array( $this, 'register' ) );
 		add_action( 'admin_init', array( $this, 'flush' ), -1 );
-		add_action( 'admin_notices', array( $this, 'admin_notice' ) );
-		add_action( 'beans_field_flush_cache', array( $this, 'option' ) );
+		add_action( 'admin_notices', array( $this, 'render_success_notice' ) );
+		add_action( 'beans_field_flush_cache', array( $this, 'render_flush_button' ) );
 		add_action( 'beans_field_description_beans_compile_all_styles_append_markup', array( $this, 'maybe_disable_style_notice' ) );
 		add_action( 'beans_field_description_beans_compile_all_scripts_group_append_markup', array( $this, 'maybe_disable_scripts_notice' ) );
 	}
@@ -35,7 +35,7 @@ final class _Beans_Compiler_Options {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return void
+	 * @return bool
 	 */
 	public function register() {
 		$fields = array(
@@ -90,7 +90,7 @@ final class _Beans_Compiler_Options {
 			) );
 		}
 
-		beans_register_options( $fields, 'beans_settings', 'compiler_options', array(
+		return beans_register_options( $fields, 'beans_settings', 'compiler_options', array(
 			'title'   => __( 'Compiler options', 'tm-beans' ),
 			'context' => 'normal',
 		) );
@@ -113,13 +113,13 @@ final class _Beans_Compiler_Options {
 	}
 
 	/**
-	 * Cache cleaner notice.
+	 * Renders the success notice.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
-	public function admin_notice() {
+	public function render_success_notice() {
 
 		if ( ! beans_post( 'beans_flush_compiler_cache' ) ) {
 			return;
@@ -131,7 +131,7 @@ final class _Beans_Compiler_Options {
 	}
 
 	/**
-	 * Add button used to flush cache.
+	 * Render the flush button, which is used to flush the cache.
 	 *
 	 * @since 1.0.0
 	 *
@@ -139,7 +139,7 @@ final class _Beans_Compiler_Options {
 	 *
 	 * @return void
 	 */
-	public function option( $field ) {
+	public function render_flush_button( $field ) {
 
 		if ( 'beans_compiler_items' !== $field['id'] ) {
 			return;
