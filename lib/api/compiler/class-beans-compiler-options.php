@@ -19,9 +19,9 @@
 final class _Beans_Compiler_Options {
 
 	/**
-	 * Constructor.
+	 * Initialize the hooks.
 	 */
-	public function __construct() {
+	public function init() {
 		add_action( 'admin_init', array( $this, 'register' ) );
 		add_action( 'admin_init', array( $this, 'flush' ), -1 );
 		add_action( 'admin_notices', array( $this, 'render_success_notice' ) );

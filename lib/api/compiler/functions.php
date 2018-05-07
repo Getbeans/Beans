@@ -295,7 +295,10 @@ function beans_add_compiler_options_to_settings() {
 		return;
 	}
 
-	return new _Beans_Compiler_Options();
+	$instance = new _Beans_Compiler_Options();
+	$instance->init();
+
+	return $instance;
 }
 
 /**
