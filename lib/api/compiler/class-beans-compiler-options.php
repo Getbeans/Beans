@@ -38,56 +38,16 @@ final class _Beans_Compiler_Options {
 	 * @return bool
 	 */
 	public function register() {
-		$fields = array(
-			array(
-				'id'          => 'beans_compiler_items',
-				'type'        => 'flush_cache',
-				'description' => __( 'Clear CSS and Javascript cached files. New cached versions will be compiled on page load.', 'tm-beans' ),
-			),
-		);
+		$fields = require dirname( __FILE__ ) . '/config/fields.php';
 
-		// Add the styles compiler option only if it is supported.
-		if ( beans_get_component_support( 'wp_styles_compiler' ) ) {
-			$fields = array_merge( $fields, array(
-				array(
-					'id'             => 'beans_compile_all_styles',
-					'label'          => __( 'Compile all WordPress styles', 'tm-beans' ),
-					'checkbox_label' => __( 'Select to compile styles.', 'tm-beans' ),
-					'type'           => 'checkbox',
-					'default'        => false,
-					'description'    => __( 'Compile and cache all the CSS files that have been enqueued to the WordPress head.', 'tm-beans' ),
-				),
-			) );
+		// If styles are not supported, from the style fields.
+		if ( ! beans_get_component_support( 'wp_styles_compiler' ) ) {
+			unset( $fields['beans_compile_all_styles'] );
 		}
 
-		// Add the scripts compiler option only if it is supported.
-		if ( beans_get_component_support( 'wp_scripts_compiler' ) ) {
-			$fields = array_merge( $fields, array(
-				array(
-					'id'          => 'beans_compile_all_scripts_group',
-					'label'       => __( 'Compile all WordPress scripts', 'tm-beans' ),
-					'type'        => 'group',
-					'fields'      => array(
-						array(
-							'id'      => 'beans_compile_all_scripts',
-							'type'    => 'activation',
-							'label'   => __( 'Select to compile scripts.', 'tm-beans' ),
-							'default' => false,
-						),
-						array(
-							'id'      => 'beans_compile_all_scripts_mode',
-							'type'    => 'select',
-							'label'   => __( 'Choose the level of compilation.', 'tm-beans' ),
-							'default' => 'aggressive',
-							'options' => array(
-								'aggressive' => __( 'Aggressive', 'tm-beans' ),
-								'standard'   => __( 'Standard', 'tm-beans' ),
-							),
-						),
-					),
-					'description' => __( 'Compile and cache all the JavaScript files that have been enqueued to the WordPress head. <br/> JavaScript is outputted in the footer if the level is set to <strong>Aggressive</strong> and might conflict with some third-party plugins which are not following WordPress standards.', 'tm-beans' ),
-				),
-			) );
+		// If scripts are not supported, from the script fields.
+		if ( ! beans_get_component_support( 'wp_scripts_compiler' ) ) {
+			unset( $fields['beans_compile_all_scripts_group'] );
 		}
 
 		return beans_register_options( $fields, 'beans_settings', 'compiler_options', array(
