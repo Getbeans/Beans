@@ -26,8 +26,8 @@ final class _Beans_Compiler_Options {
 		add_action( 'admin_init', array( $this, 'flush' ), -1 );
 		add_action( 'admin_notices', array( $this, 'render_success_notice' ) );
 		add_action( 'beans_field_flush_cache', array( $this, 'render_flush_button' ) );
-		add_action( 'beans_field_description_beans_compile_all_styles_append_markup', array( $this, 'maybe_disable_style_notice' ) );
-		add_action( 'beans_field_description_beans_compile_all_scripts_group_append_markup', array( $this, 'maybe_disable_scripts_notice' ) );
+		add_action( 'beans_field_description_beans_compile_all_styles_append_markup', array( $this, 'render_styles_not_compiled_notice' ) );
+		add_action( 'beans_field_description_beans_compile_all_scripts_group_append_markup', array( $this, 'render_scripts_not_compiled_notice' ) );
 	}
 
 	/**
@@ -151,20 +151,25 @@ final class _Beans_Compiler_Options {
 	}
 
 	/**
-	 * Maybe show disabled notice.
+	 * Render a notice when styles should not be compiled.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
-	public function maybe_disable_style_notice() {
+	public function render_styles_not_compiled_notice() {
 
-		if ( get_option( 'beans_compile_all_styles' ) && _beans_is_compiler_dev_mode() ) {
-			?>
-			<br />
-			<span style="color: #d85030;"><?php esc_html_e( 'Styles are not compiled in development mode.', 'tm-beans' ); ?></span>
-			<?php
+		if ( ! _beans_is_compiler_dev_mode() ) {
+			return;
 		}
+
+		if ( ! get_option( 'beans_compile_all_styles' ) ) {
+			return;
+		}
+
+		$message = __( 'Styles are not compiled in development mode.', 'tm-beans' );
+
+		include dirname( __FILE__ ) . '/views/not-compiled-notice.php';
 	}
 
 	/**
@@ -174,13 +179,18 @@ final class _Beans_Compiler_Options {
 	 *
 	 * @return void
 	 */
-	public function maybe_disable_scripts_notice() {
+	public function render_scripts_not_compiled_notice() {
 
-		if ( get_option( 'beans_compile_all_scripts' ) && _beans_is_compiler_dev_mode() ) {
-			?>
-			<br />
-			<span style="color: #d85030;"><?php esc_html_e( 'Scripts are not compiled in development mode.', 'tm-beans' ); ?></span>
-			<?php
+		if ( ! _beans_is_compiler_dev_mode() ) {
+			return;
 		}
+
+		if ( ! get_option( 'beans_compile_all_scripts' ) ) {
+			return;
+		}
+
+		$message = __( 'Scripts are not compiled in development mode.', 'tm-beans' );
+
+		include dirname( __FILE__ ) . '/views/not-compiled-notice.php';
 	}
 }
