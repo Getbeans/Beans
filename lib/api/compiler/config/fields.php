@@ -8,12 +8,12 @@
  */
 
 return array(
-	'beans_compiler_items' => array(
+	'beans_compiler_items'            => array(
 		'id'          => 'beans_compiler_items',
 		'type'        => 'flush_cache',
 		'description' => __( 'Clear CSS and Javascript cached files. New cached versions will be compiled on page load.', 'tm-beans' ),
 	),
-	'beans_compile_all_styles' => array(
+	'beans_compile_all_styles'        => array(
 		'id'             => 'beans_compile_all_styles',
 		'label'          => __( 'Compile all WordPress styles', 'tm-beans' ),
 		'checkbox_label' => __( 'Select to compile styles.', 'tm-beans' ),

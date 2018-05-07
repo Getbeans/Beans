@@ -23,11 +23,17 @@ final class _Beans_Compiler_Options {
 	 */
 	public function init() {
 		add_action( 'admin_init', array( $this, 'register' ) );
-		add_action( 'admin_init', array( $this, 'flush' ), -1 );
+		add_action( 'admin_init', array( $this, 'flush' ), - 1 );
 		add_action( 'admin_notices', array( $this, 'render_success_notice' ) );
 		add_action( 'beans_field_flush_cache', array( $this, 'render_flush_button' ) );
-		add_action( 'beans_field_description_beans_compile_all_styles_append_markup', array( $this, 'render_styles_not_compiled_notice' ) );
-		add_action( 'beans_field_description_beans_compile_all_scripts_group_append_markup', array( $this, 'render_scripts_not_compiled_notice' ) );
+		add_action(
+			'beans_field_description_beans_compile_all_styles_append_markup',
+			array( $this, 'render_styles_not_compiled_notice' )
+		);
+		add_action(
+			'beans_field_description_beans_compile_all_scripts_group_append_markup',
+			array( $this, 'render_scripts_not_compiled_notice' )
+		);
 	}
 
 	/**
@@ -50,10 +56,15 @@ final class _Beans_Compiler_Options {
 			unset( $fields['beans_compile_all_scripts_group'] );
 		}
 
-		return beans_register_options( $fields, 'beans_settings', 'compiler_options', array(
-			'title'   => __( 'Compiler options', 'tm-beans' ),
-			'context' => 'normal',
-		) );
+		return beans_register_options(
+			$fields,
+			'beans_settings',
+			'compiler_options',
+			array(
+				'title'   => __( 'Compiler options', 'tm-beans' ),
+				'context' => 'normal',
+			)
+		);
 	}
 
 	/**

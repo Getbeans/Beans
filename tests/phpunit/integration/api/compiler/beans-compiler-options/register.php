@@ -70,8 +70,8 @@ class Tests_BeansCompilerOptions_Register extends Compiler_Options_Test_Case {
 		$this->assertNotEmpty( $registered_fields );
 		$this->assertCount( 1, $registered_fields );
 		$this->assertArraySubset( [
-			'id'          => 'beans_compiler_items',
-			'type'        => 'flush_cache',
+			'id'   => 'beans_compiler_items',
+			'type' => 'flush_cache',
 		], current( $registered_fields ) );
 
 		// Check that the metabox did get registered.
@@ -99,13 +99,13 @@ class Tests_BeansCompilerOptions_Register extends Compiler_Options_Test_Case {
 		$registered_fields = beans_get_fields( 'option', 'compiler_options' );
 		$this->assertCount( 2, $registered_fields );
 		$this->assertArraySubset( [
-			'id'          => 'beans_compiler_items',
-			'type'        => 'flush_cache',
+			'id'   => 'beans_compiler_items',
+			'type' => 'flush_cache',
 		], current( $registered_fields ) );
 		$this->assertArraySubset( [
-			'id'          => 'beans_compile_all_scripts_group',
-			'label'       => 'Compile all WordPress scripts',
-			'type'        => 'group',
+			'id'    => 'beans_compile_all_scripts_group',
+			'label' => 'Compile all WordPress scripts',
+			'type'  => 'group',
 		], next( $registered_fields ) );
 
 		// Check that the metabox did get registered.
@@ -133,8 +133,8 @@ class Tests_BeansCompilerOptions_Register extends Compiler_Options_Test_Case {
 		$registered_fields = beans_get_fields( 'option', 'compiler_options' );
 		$this->assertCount( 2, $registered_fields );
 		$this->assertArraySubset( [
-			'id'          => 'beans_compiler_items',
-			'type'        => 'flush_cache',
+			'id'   => 'beans_compiler_items',
+			'type' => 'flush_cache',
 		], current( $registered_fields ) );
 		$this->assertArraySubset( [
 			'id'             => 'beans_compile_all_styles',
@@ -169,8 +169,8 @@ class Tests_BeansCompilerOptions_Register extends Compiler_Options_Test_Case {
 		$registered_fields = beans_get_fields( 'option', 'compiler_options' );
 		$this->assertCount( 3, $registered_fields );
 		$this->assertArraySubset( [
-			'id'          => 'beans_compiler_items',
-			'type'        => 'flush_cache',
+			'id'   => 'beans_compiler_items',
+			'type' => 'flush_cache',
 		], current( $registered_fields ) );
 		$this->assertArraySubset( [
 			'id'             => 'beans_compile_all_styles',
@@ -180,9 +180,9 @@ class Tests_BeansCompilerOptions_Register extends Compiler_Options_Test_Case {
 			'default'        => false,
 		], next( $registered_fields ) );
 		$this->assertArraySubset( [
-			'id'          => 'beans_compile_all_scripts_group',
-			'label'       => 'Compile all WordPress scripts',
-			'type'        => 'group',
+			'id'    => 'beans_compile_all_scripts_group',
+			'label' => 'Compile all WordPress scripts',
+			'type'  => 'group',
 		], next( $registered_fields ) );
 
 		// Check that the metabox did get registered.
