@@ -97,7 +97,7 @@ final class _Beans_Compiler_Options {
 	}
 
 	/**
-	 * Flush images for all folders set.
+	 * Flush the cached files.
 	 *
 	 * @since 1.0.0
 	 *
@@ -125,9 +125,7 @@ final class _Beans_Compiler_Options {
 			return;
 		}
 
-		?>
-		<div id="message" class="updated"><p><?php esc_html_e( 'Cache flushed successfully!', 'tm-beans' ); ?></p></div>
-		<?php
+		include dirname( __FILE__ ) . '/views/flushed-notice.php';
 	}
 
 	/**
@@ -145,9 +143,7 @@ final class _Beans_Compiler_Options {
 			return;
 		}
 
-		?>
-		<input type="submit" name="beans_flush_compiler_cache" value="<?php esc_html_e( 'Flush assets cache', 'tm-beans' ); ?>" class="button-secondary" />
-		<?php
+		include dirname( __FILE__ ) . '/views/flush-button.php';
 	}
 
 	/**
