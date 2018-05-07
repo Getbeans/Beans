@@ -109,6 +109,9 @@ final class _Beans_Compiler_Options {
 			return;
 		}
 
+		var_dump( beans_get_compiler_dir() );
+		die();
+
 		beans_remove_dir( beans_get_compiler_dir() );
 	}
 

@@ -21,13 +21,6 @@ use org\bovigo\vfs\vfsStream;
 abstract class Base_Test_Case extends WP_UnitTestCase {
 
 	/**
-	 * When true, return the given path when doing wp_normalize_path().
-	 *
-	 * @var bool
-	 */
-	protected $just_return_path = true;
-
-	/**
 	 * Path to the compiled files' directory.
 	 *
 	 * @var string
@@ -54,7 +47,7 @@ abstract class Base_Test_Case extends WP_UnitTestCase {
 		add_filter( 'upload_dir', function( array $uploads_dir ) {
 			$uploads_dir['path']    = $this->compiled_dir . $uploads_dir['subdir'];
 			$uploads_dir['url']     = str_replace( 'wp-content/uploads', 'compiled', $uploads_dir['url'] );
-			$uploads_dir['basedir'] = $this->compiled_dir;
+			$uploads_dir['basedir'] = str_replace( 'vfs://', 'vfs:///', $this->compiled_dir );
 			$uploads_dir['baseurl'] = str_replace( 'wp-content/uploads', 'compiled', $uploads_dir['baseurl'] );
 
 			return $uploads_dir;

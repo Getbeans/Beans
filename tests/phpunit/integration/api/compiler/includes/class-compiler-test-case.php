@@ -29,7 +29,6 @@ abstract class Compiler_Test_Case extends Base_Test_Case {
 	 */
 	protected $is_admin = false;
 
-
 	/**
 	 * An array of fixture filenames.
 	 *
@@ -49,6 +48,8 @@ abstract class Compiler_Test_Case extends Base_Test_Case {
 	 */
 	public static function setUpBeforeClass() {
 		parent::setUpBeforeClass();
+
+		set_current_screen( 'front' );
 
 		static::$fixture_filenames = [
 			'jquery.test.js',
@@ -227,19 +228,6 @@ abstract class Compiler_Test_Case extends Base_Test_Case {
 		}
 
 		$GLOBALS['wp_filesystem'] = $mock; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Valid use case, as we are mocking the filesystem.
-	}
-
-	/**
-	 * Set Development Mode.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param bool $is_enabled Optional. When true, turns on development mode. Default is false.
-	 *
-	 * @return void
-	 */
-	protected function set_dev_mode( $is_enabled = false ) {
-		update_option( 'beans_dev_mode', $is_enabled );
 	}
 
 	/**
