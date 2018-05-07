@@ -315,7 +315,7 @@ function _beans_is_compiler_dev_mode() {
 		return BEANS_COMPILER_DEV_MODE;
 	}
 
-	return get_option( 'beans_dev_mode', false );
+	return (bool) get_option( 'beans_dev_mode', false );
 }
 
 /**

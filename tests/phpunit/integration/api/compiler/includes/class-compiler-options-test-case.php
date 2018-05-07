@@ -41,20 +41,8 @@ abstract class Compiler_Options_Test_Case extends Base_Test_Case {
 	 */
 	protected function go_to_settings_page() {
 		set_current_screen( 'themes.php?page=beans_settings' );
+		$_GET['page'] = 'beans_settings';
 
 		$this->assertTrue( is_admin() );
-	}
-
-	/**
-	 * Set Development Mode.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param bool $is_enabled Optional. When true, turns on development mode. Default is false.
-	 *
-	 * @return void
-	 */
-	protected function set_dev_mode( $is_enabled = false ) {
-		update_option( 'beans_dev_mode', $is_enabled );
 	}
 }

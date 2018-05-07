@@ -9,8 +9,8 @@
 
 namespace Beans\Framework\Tests\Integration\API\Compiler\Includes;
 
+use Beans\Framework\Tests\Integration\Test_Case;
 use Mockery;
-use WP_UnitTestCase;
 use org\bovigo\vfs\vfsStream;
 
 /**
@@ -18,7 +18,7 @@ use org\bovigo\vfs\vfsStream;
  *
  * @package Beans\Framework\Tests\Integration\API\Compiler\Includes
  */
-abstract class Base_Test_Case extends WP_UnitTestCase {
+abstract class Base_Test_Case extends Test_Case {
 
 	/**
 	 * Path to the compiled files' directory.
@@ -47,7 +47,7 @@ abstract class Base_Test_Case extends WP_UnitTestCase {
 		add_filter( 'upload_dir', function( array $uploads_dir ) {
 			$uploads_dir['path']    = $this->compiled_dir . $uploads_dir['subdir'];
 			$uploads_dir['url']     = str_replace( 'wp-content/uploads', 'compiled', $uploads_dir['url'] );
-			$uploads_dir['basedir'] = str_replace( 'vfs://', 'vfs:///', $this->compiled_dir );
+			$uploads_dir['basedir'] = $this->compiled_dir;
 			$uploads_dir['baseurl'] = str_replace( 'wp-content/uploads', 'compiled', $uploads_dir['baseurl'] );
 
 			return $uploads_dir;
@@ -87,5 +87,18 @@ abstract class Base_Test_Case extends WP_UnitTestCase {
 				),
 			),
 		);
+	}
+
+	/**
+	 * Set Development Mode.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param bool $is_enabled Optional. When true, turns on development mode. Default is false.
+	 *
+	 * @return void
+	 */
+	protected function set_dev_mode( $is_enabled = false ) {
+		update_option( 'beans_dev_mode', $is_enabled );
 	}
 }
