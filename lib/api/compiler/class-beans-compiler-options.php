@@ -1,6 +1,6 @@
 <?php
 /**
- * This class provides the means to set the options and actions of the Beans Compiler.
+ * This class handles adding the Beans' Compiler options to the Beans' Settings page.
  *
  * @package Beans\Framework\API\Compiler
  *
@@ -8,7 +8,7 @@
  */
 
 /**
- * Options and Actions used by Beans Compiler.
+ * Beans Compiler Options Handler.
  *
  * @since   1.0.0
  * @ignore
@@ -20,10 +20,14 @@ final class _Beans_Compiler_Options {
 
 	/**
 	 * Initialize the hooks.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return void
 	 */
 	public function init() {
 		add_action( 'admin_init', array( $this, 'register' ) );
-		add_action( 'admin_init', array( $this, 'flush' ), - 1 );
+		add_action( 'admin_init', array( $this, 'flush' ), -1 );
 		add_action( 'admin_notices', array( $this, 'render_success_notice' ) );
 		add_action( 'beans_field_flush_cache', array( $this, 'render_flush_button' ) );
 		add_action(
