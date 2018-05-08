@@ -38,4 +38,21 @@ class Tests_BeansCompilerOptions_Flush extends Compiler_Options_Test_Case {
 		// Check that it still exists and was not removed.
 		$this->directoryExists( vfsStream::url( 'compiled/beans/compiler/' ) );
 	}
+
+	/**
+	 * Test _Beans_Compiler_Options::flush() should should remove the cached directory.
+	 */
+	public function test_should_remove_cached_dir() {
+		// Check that the cached directory exists before we start.
+		$this->directoryExists( vfsStream::url( 'compiled/beans/compiler/' ) );
+
+		$this->go_to_settings_page();
+		$_POST['beans_flush_compiler_cache'] = 1;
+
+		// Return the virtual filesystem's path to avoid wp_normalize_path converting its prefix from vfs::// to vfs:/.
+		Monkey\Functions\when( 'wp_normalize_path' )->returnArg();
+
+		$this->assertNull( ( new _Beans_Compiler_Options() )->flush() );
+		$this->assertDirectoryNotExists( vfsStream::url( 'compiled/beans/compiler/' ) );
+	}
 }
