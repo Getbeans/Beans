@@ -22,6 +22,9 @@ if ( ! defined( 'WP_PLUGIN_DIR' ) ) {
 	define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . 'plugins/' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound -- When this constant is not already defined, we define it here. It's a valid use case for our testing suite.
 }
 
+// Load Patchwork before everything else in order to allow us to redefine WordPress and Beans functions.
+require_once BEANS_THEME_DIR . '/vendor/brain/monkey/inc/patchwork-loader.php';
+
 /**
  * Get the WordPress' tests suite directory.
  *

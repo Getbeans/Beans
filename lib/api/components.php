@@ -60,7 +60,7 @@ function beans_load_api_components( $components ) {
 			'options'     => $root . 'options/functions.php',
 			'post-meta'   => $root . 'post-meta/functions-admin.php',
 			'term-meta'   => $root . 'term-meta/functions-admin.php',
-			'compiler'    => $root . 'compiler/class-options.php',
+			'compiler'    => $root . 'compiler/class-beans-compiler-options.php',
 			'image'       => $root . 'image/class-options.php',
 			'_admin_menu' => $root . 'admin-menu.php', // Internal use.
 		);

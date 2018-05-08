@@ -281,6 +281,26 @@ function beans_get_compiler_url( $is_admin = false ) {
 	return trailingslashit( $wp_upload_dir['baseurl'] ) . $suffix;
 }
 
+add_action( 'beans_loaded_api_component_compiler', 'beans_add_compiler_options_to_settings' );
+/**
+ * Add the "compiler options" to the Beans Settings page.
+ *
+ * @since 1.5.0
+ *
+ * @return _Beans_Compiler_Options|void
+ */
+function beans_add_compiler_options_to_settings() {
+
+	if ( ! class_exists( '_Beans_Compiler_Options' ) ) {
+		return;
+	}
+
+	$instance = new _Beans_Compiler_Options();
+	$instance->init();
+
+	return $instance;
+}
+
 /**
  * Check if development mode is enabled.
  *
@@ -298,7 +318,7 @@ function _beans_is_compiler_dev_mode() {
 		return BEANS_COMPILER_DEV_MODE;
 	}
 
-	return get_option( 'beans_dev_mode', false );
+	return (bool) get_option( 'beans_dev_mode', false );
 }
 
 /**
