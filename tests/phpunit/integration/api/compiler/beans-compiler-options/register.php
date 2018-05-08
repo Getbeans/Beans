@@ -50,10 +50,10 @@ class Tests_BeansCompilerOptions_Register extends Compiler_Options_Test_Case {
 	}
 
 	/**
-	 * Test _Beans_Compiler_Options::register() should register only flush button when the styles and scripts are not
-	 * supported.
+	 * Test _Beans_Compiler_Options::register() should register only the flush button when the styles and scripts are
+	 * not supported.
 	 */
-	public function test_should_only_register_flush_button_when_styles_scripts_not_supported() {
+	public function test_should_only_register_only_flush_button_when_styles_scripts_not_supported() {
 		$this->go_to_settings_page();
 
 		// Set up the tests by removing these API components.

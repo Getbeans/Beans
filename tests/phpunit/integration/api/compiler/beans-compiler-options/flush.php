@@ -26,7 +26,7 @@ require_once dirname( __DIR__ ) . '/includes/class-compiler-options-test-case.ph
 class Tests_BeansCompilerOptions_Flush extends Compiler_Options_Test_Case {
 
 	/**
-	 * Test _Beans_Compiler_Options::flush() should should not remove the cached directory when this is not a 'compiler
+	 * Test _Beans_Compiler_Options::flush() should not remove the cached directory when this is not a 'compiler
 	 * cache flush'.
 	 */
 	public function test_should_not_remove_cached_dir_when_not_a_flush() {

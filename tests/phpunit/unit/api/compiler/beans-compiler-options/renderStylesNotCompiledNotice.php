@@ -25,7 +25,8 @@ require_once dirname( __DIR__ ) . '/includes/class-compiler-options-test-case.ph
 class Tests_BeansCompilerOptions_RenderStylesNotCompiledNotice extends Compiler_Options_Test_Case {
 
 	/**
-	 * Test _Beans_Compiler_Options::render_styles_not_compiled_notice() should not render when Compiler is not in dev mode.
+	 * Test _Beans_Compiler_Options::render_styles_not_compiled_notice() should not render when Compiler is not in dev
+	 * mode.
 	 */
 	public function test_should_not_render_when_compiler_not_in_dev_mode() {
 		Monkey\Functions\expect( '_beans_is_compiler_dev_mode' )
@@ -38,7 +39,8 @@ class Tests_BeansCompilerOptions_RenderStylesNotCompiledNotice extends Compiler_
 	}
 
 	/**
-	 * Test _Beans_Compiler_Options::render_styles_not_compiled_notice() should not render when compile styles not an option.
+	 * Test _Beans_Compiler_Options::render_styles_not_compiled_notice() should not render when compile styles is not
+	 * an option.
 	 */
 	public function test_should_not_render_when_compile_styles_not_an_option() {
 		Monkey\Functions\expect( '_beans_is_compiler_dev_mode' )
@@ -54,8 +56,8 @@ class Tests_BeansCompilerOptions_RenderStylesNotCompiledNotice extends Compiler_
 	}
 
 	/**
-	 * Test _Beans_Compiler_Options::render_styles_not_compiled_notice() should render when compile styles is selected and
-	 * Compiler is in dev mode.
+	 * Test _Beans_Compiler_Options::render_styles_not_compiled_notice() should render when compile styles is selected
+	 * and Compiler is in dev mode.
 	 */
 	public function test_should_render_when_compile_styles_selected_and_compiler_in_dev_mode() {
 		Monkey\Functions\expect( '_beans_is_compiler_dev_mode' )
