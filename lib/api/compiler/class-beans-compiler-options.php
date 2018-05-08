@@ -44,20 +44,8 @@ final class _Beans_Compiler_Options {
 	 * @return bool
 	 */
 	public function register() {
-		$fields = require dirname( __FILE__ ) . '/config/fields.php';
-
-		// If styles are not supported, from the style fields.
-		if ( ! beans_get_component_support( 'wp_styles_compiler' ) ) {
-			unset( $fields['beans_compile_all_styles'] );
-		}
-
-		// If scripts are not supported, from the script fields.
-		if ( ! beans_get_component_support( 'wp_scripts_compiler' ) ) {
-			unset( $fields['beans_compile_all_scripts_group'] );
-		}
-
 		return beans_register_options(
-			$fields,
+			$this->get_fields_to_register(),
 			'beans_settings',
 			'compiler_options',
 			array(
@@ -65,6 +53,42 @@ final class _Beans_Compiler_Options {
 				'context' => 'normal',
 			)
 		);
+	}
+
+	/**
+	 * Get the fields to register.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return array
+	 */
+	private function get_fields_to_register() {
+		$fields = require dirname( __FILE__ ) . '/config/fields.php';
+
+		// If not supported, remove the styles' fields.
+		if ( $this->is_not_supported( 'wp_styles_compiler' ) ) {
+			unset( $fields['beans_compile_all_styles'] );
+		}
+
+		// If not supported, remove the scripts' fields.
+		if ( $this->is_not_supported( 'wp_scripts_compiler' ) ) {
+			unset( $fields['beans_compile_all_scripts_group'] );
+		}
+
+		return $fields;
+	}
+
+	/**
+	 * Checks if the component is not supported.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string $component The component to check.
+	 *
+	 * @return bool
+	 */
+	private function is_not_supported( $component ) {
+		return ! beans_get_component_support( $component );
 	}
 
 	/**
