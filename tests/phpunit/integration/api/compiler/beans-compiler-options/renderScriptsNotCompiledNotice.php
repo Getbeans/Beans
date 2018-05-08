@@ -24,7 +24,8 @@ require_once dirname( __DIR__ ) . '/includes/class-compiler-options-test-case.ph
 class Tests_BeansCompilerOptions_RenderScriptsNotCompiledNotice extends Compiler_Options_Test_Case {
 
 	/**
-	 * Test _Beans_Compiler_Options::render_scripts_not_compiled_notice() should not render when Compiler is not in dev mode.
+	 * Test _Beans_Compiler_Options::render_scripts_not_compiled_notice() should not render when Compiler is not in dev
+	 * mode.
 	 */
 	public function test_should_not_render_when_compiler_not_in_dev_mode() {
 		$this->assertFalse( _beans_is_compiler_dev_mode() );
@@ -33,8 +34,8 @@ class Tests_BeansCompilerOptions_RenderScriptsNotCompiledNotice extends Compiler
 	}
 
 	/**
-	 * Test _Beans_Compiler_Options::render_scripts_not_compiled_notice() should not render when compile scripts not an
-	 * option.
+	 * Test _Beans_Compiler_Options::render_scripts_not_compiled_notice() should not render when compile scripts is not
+	 * an option.
 	 */
 	public function test_should_not_render_when_compile_scripts_not_an_option() {
 		add_option( 'beans_dev_mode', 1 );
@@ -45,8 +46,8 @@ class Tests_BeansCompilerOptions_RenderScriptsNotCompiledNotice extends Compiler
 	}
 
 	/**
-	 * Test _Beans_Compiler_Options::render_scripts_not_compiled_notice() should render when compile scripts is selected and
-	 * Compiler is in dev mode.
+	 * Test _Beans_Compiler_Options::render_scripts_not_compiled_notice() should render when compile scripts is
+	 * selected and Compiler is in dev mode.
 	 */
 	public function test_should_render_when_compile_scripts_selected_and_compiler_in_dev_mode() {
 		add_option( 'beans_dev_mode', 1 );

@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the render_flush_button() method of _Beans_Compiler_Options.
+ * Tests the render_success_notice() method of _Beans_Compiler_Options.
  *
  * @package Beans\Framework\Tests\Unit\API\Compiler
  *
@@ -16,36 +16,46 @@ use Brain\Monkey;
 require_once dirname( __DIR__ ) . '/includes/class-compiler-options-test-case.php';
 
 /**
- * Class Tests_BeansCompilerOptions_RenderFlushButton
+ * Class Tests_BeansCompilerOptions_RenderSuccessNotice
  *
  * @package Beans\Framework\Tests\Unit\API\Compiler
  * @group   api
  * @group   api-compiler
  */
-class Tests_BeansCompilerOptions_RenderFlushButton extends Compiler_Options_Test_Case {
+class Tests_BeansCompilerOptions_RenderSuccessNotice extends Compiler_Options_Test_Case {
 
 	/**
-	 * Test _Beans_Compiler_Options::render_flush_button() should not render when the field is not for compiler options.
+	 * Test _Beans_Compiler_Options::render_success_notice() should not render when not flushing compiler cache.
 	 */
-	public function test_should_not_render_when_field_is_not_compiler_options() {
+	public function test_should_not_render_when_not_flushing_compiler_cache() {
+		Monkey\Functions\expect( 'beans_post' )
+			->once()
+			->with( 'beans_flush_compiler_cache' )
+			->andReturn( false );
 		Monkey\Functions\expect( 'esc_html_e' )->never();
 
 		ob_start();
-		( new _Beans_Compiler_Options() )->render_flush_button( [ 'id' => 'foo' ] );
+		( new _Beans_Compiler_Options() )->render_success_notice();
 
 		$this->assertEmpty( ob_get_clean() );
 	}
 
 	/**
-	 * Test _Beans_Compiler_Options::render_flush_button() should render when the field is for compiler options.
+	 * Test _Beans_Compiler_Options::render_success_notice() should render when flushing compiler cache.
 	 */
-	public function test_should_render_when_field_is_compiler_items_options() {
+	public function test_should_render_when_flushing_compiler_cache() {
+		Monkey\Functions\expect( 'beans_post' )
+			->once()
+			->with( 'beans_flush_compiler_cache' )
+			->andReturn( true );
 		ob_start();
-		( new _Beans_Compiler_Options() )->render_flush_button( [ 'id' => 'beans_compiler_items' ] );
+		( new _Beans_Compiler_Options() )->render_success_notice();
 		$actual = ob_get_clean();
 
 		$expected = <<<EOB
-<input type="submit" name="beans_flush_compiler_cache" value="Flush assets cache" class="button-secondary" />
+<div id="message" class="updated">
+	<p>Cache flushed successfully!</p>
+</div>
 EOB;
 		$this->assertSame( $this->format_the_html( $expected ), $this->format_the_html( $actual ) );
 	}
