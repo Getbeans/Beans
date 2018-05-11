@@ -26,9 +26,13 @@ final class _Beans_Page_Compiler {
 	private $dequeued_scripts = array();
 
 	/**
-	 * Constructor.
+	 * Initialize the hooks.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return void
 	 */
-	public function __construct() {
+	public function init() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'compile_page_styles' ), 9999 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'compile_page_scripts' ), 9999 );
 	}

@@ -307,7 +307,7 @@ add_action( 'beans_loaded_api_component_compiler', 'beans_add_page_assets_compil
  *
  * @since 1.5.0
  *
- * @return _Beans_Compiler_Options|void
+ * @return _Beans_Page_Compiler|void
  */
 function beans_add_page_assets_compiler() {
 
@@ -315,7 +315,10 @@ function beans_add_page_assets_compiler() {
 		return;
 	}
 
-	return new _Beans_Page_Compiler();
+	$instance = new _Beans_Page_Compiler();
+	$instance->init();
+
+	return $instance;
 }
 
 /**
