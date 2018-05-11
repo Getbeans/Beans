@@ -301,6 +301,23 @@ function beans_add_compiler_options_to_settings() {
 	return $instance;
 }
 
+add_action( 'beans_loaded_api_component_compiler', 'beans_add_page_assets_compiler' );
+/**
+ * Add the page assets' compiler.
+ *
+ * @since 1.5.0
+ *
+ * @return _Beans_Compiler_Options|void
+ */
+function beans_add_page_assets_compiler() {
+
+	if ( ! class_exists( '_Beans_Page_Compiler' ) ) {
+		return;
+	}
+
+	return new _Beans_Page_Compiler();
+}
+
 /**
  * Check if development mode is enabled.
  *

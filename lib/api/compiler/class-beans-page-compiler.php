@@ -189,5 +189,3 @@ final class _Beans_Page_Compiler {
 		printf( "<script type='text/javascript'>\n%s\n</script>\n", $localized ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Needs review.
 	}
 }
-
-new _Beans_Page_Compiler();
