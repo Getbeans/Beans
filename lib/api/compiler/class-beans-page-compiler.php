@@ -89,6 +89,7 @@ final class _Beans_Page_Compiler {
 			return;
 		}
 
+		$this->dequeued_scripts = $scripts;
 		add_action( 'wp_print_scripts', array( $this, 'dequeue_scripts' ), 9999 );
 
 		beans_compile_js_fragments( 'beans', $scripts, array(
@@ -156,8 +157,6 @@ final class _Beans_Page_Compiler {
 				}
 
 				$assets->done[] = $handle;
-			} elseif ( 'script' === $type ) {
-				$this->dequeued_scripts[ $handle ] = $asset->src;
 			}
 
 			if ( $asset->src ) {
