@@ -23,7 +23,7 @@ require_once dirname( __DIR__ ) . '/includes/class-page-compiler-test-case.php';
  * @group   api
  * @group   api-compiler
  */
-class Tests_BeansPageCompiler_CompileStyles extends Page_Compiler_Test_Case {
+class Tests_BeansPageCompiler_CompilePageStyles extends Page_Compiler_Test_Case {
 
 	/**
 	 * Test _Beans_Page_Compiler::compile_page_styles() should not compile when the styles compiler is not supported.
