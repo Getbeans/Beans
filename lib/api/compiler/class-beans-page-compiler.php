@@ -89,6 +89,8 @@ final class _Beans_Page_Compiler {
 			return;
 		}
 
+		add_action( 'wp_print_scripts', array( $this, 'dequeue_scripts' ), 9999 );
+
 		beans_compile_js_fragments( 'beans', $scripts, array(
 			'in_footer' => 'aggressive' === get_option( 'beans_compile_all_scripts_mode', 'aggressive' ),
 			'version'   => null,
@@ -123,10 +125,6 @@ final class _Beans_Page_Compiler {
 
 		if ( ! $assets ) {
 			return array();
-		}
-
-		if ( 'script' === $type ) {
-			add_action( 'wp_print_scripts', array( $this, 'dequeue_scripts' ), 9999 );
 		}
 
 		if ( ! $dependencies ) {
