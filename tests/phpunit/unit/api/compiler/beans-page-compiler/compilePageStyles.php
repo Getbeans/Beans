@@ -81,7 +81,6 @@ class Tests_BeansPageCompiler_CompileStyles extends Page_Compiler_Test_Case {
 		Monkey\Functions\when( 'beans_get_component_support' )->justReturn( true );
 		Monkey\Functions\when( 'get_option' )->justReturn( true );
 		Monkey\Functions\when( '_beans_is_compiler_dev_mode' )->justReturn( false );
-		Monkey\Functions\expect( 'add_action' )->never();
 		Monkey\Functions\expect( 'add_query_arg' )->never();
 
 		// Check that beans_get() only gets called once.
@@ -101,7 +100,6 @@ class Tests_BeansPageCompiler_CompileStyles extends Page_Compiler_Test_Case {
 		Monkey\Functions\when( 'beans_get_component_support' )->justReturn( true );
 		Monkey\Functions\when( 'get_option' )->justReturn( true );
 		Monkey\Functions\when( '_beans_is_compiler_dev_mode' )->justReturn( false );
-		Monkey\Functions\expect( 'add_action' )->never();
 		Monkey\Functions\expect( 'add_query_arg' )->never();
 
 		// Initialize the mocked assets.
@@ -124,7 +122,6 @@ class Tests_BeansPageCompiler_CompileStyles extends Page_Compiler_Test_Case {
 		Monkey\Functions\when( 'beans_get_component_support' )->justReturn( true );
 		Monkey\Functions\when( 'get_option' )->justReturn( true );
 		Monkey\Functions\when( '_beans_is_compiler_dev_mode' )->justReturn( false );
-		Monkey\Functions\expect( 'add_action' )->never();
 		Monkey\Functions\expect( 'add_query_arg' )->never();
 
 		// Initialize the mocked assets.
@@ -163,7 +160,6 @@ class Tests_BeansPageCompiler_CompileStyles extends Page_Compiler_Test_Case {
 		Monkey\Functions\when( 'beans_get_component_support' )->justReturn( true );
 		Monkey\Functions\when( 'get_option' )->justReturn( true );
 		Monkey\Functions\when( '_beans_is_compiler_dev_mode' )->justReturn( false );
-		Monkey\Functions\expect( 'add_action' )->never();
 		Monkey\Functions\expect( 'add_query_arg' )->never();
 
 		// Initialize the mocked assets.
@@ -202,7 +198,6 @@ class Tests_BeansPageCompiler_CompileStyles extends Page_Compiler_Test_Case {
 		Monkey\Functions\when( 'beans_get_component_support' )->justReturn( true );
 		Monkey\Functions\when( 'get_option' )->justReturn( true );
 		Monkey\Functions\when( '_beans_is_compiler_dev_mode' )->justReturn( false );
-		Monkey\Functions\expect( 'add_action' )->never();
 		Monkey\Functions\expect( 'add_query_arg' )->never();
 
 		// Initialize the mocked assets.
@@ -252,7 +247,6 @@ class Tests_BeansPageCompiler_CompileStyles extends Page_Compiler_Test_Case {
 		Monkey\Functions\when( 'beans_get_component_support' )->justReturn( true );
 		Monkey\Functions\when( 'get_option' )->justReturn( true );
 		Monkey\Functions\when( '_beans_is_compiler_dev_mode' )->justReturn( false );
-		Monkey\Functions\expect( 'add_action' )->never();
 
 		// Initialize the mocked assets.
 		$assets                                  = $this->get_mock_assets( [ 'admin-bar', 'child-style' ] );
@@ -299,7 +293,6 @@ class Tests_BeansPageCompiler_CompileStyles extends Page_Compiler_Test_Case {
 		Monkey\Functions\when( 'beans_get_component_support' )->justReturn( true );
 		Monkey\Functions\when( 'get_option' )->justReturn( true );
 		Monkey\Functions\when( '_beans_is_compiler_dev_mode' )->justReturn( false );
-		Monkey\Functions\expect( 'add_action' )->never();
 		Monkey\Functions\expect( 'add_query_arg' )->never();
 
 		// Initialize the mocked assets.
