@@ -159,7 +159,9 @@ final class _Beans_Page_Compiler {
 				$this->dequeued_scripts[ $id ] = $args->src;
 			}
 
-			$fragments[ $id ] = $args->src;
+			if ( ! empty( $args->src ) ) {
+				$fragments[ $id ] = $args->src;
+			}
 		}
 
 		return $fragments;
