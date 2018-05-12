@@ -26,6 +26,13 @@ final class _Beans_Page_Compiler {
 	private $dequeued_scripts = array();
 
 	/**
+	 * Skip these asset handles when compiling.
+	 *
+	 * @var array
+	 */
+	private $skip_asset_handles = array( 'admin-bar', 'open-sans', 'dashicons' );
+
+	/**
 	 * Initialize the hooks.
 	 *
 	 * @since 1.5.0
@@ -137,7 +144,7 @@ final class _Beans_Page_Compiler {
 		foreach ( $dependencies as $handle ) {
 
 			// Don't compile admin bar assets.
-			if ( in_array( $handle, array( 'admin-bar', 'open-sans', 'dashicons' ), true ) ) {
+			if ( in_array( $handle, $this->skip_asset_handles, true ) ) {
 				continue;
 			}
 
