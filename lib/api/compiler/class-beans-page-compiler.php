@@ -155,6 +155,10 @@ final class _Beans_Page_Compiler {
 
 			$this->get_deps_to_be_compiled( $type, $asset, $fragments );
 
+			if ( empty( $asset->src ) ) {
+				continue;
+			}
+
 			if ( 'style' === $type ) {
 
 				// Add compiler media query if set.
@@ -165,9 +169,7 @@ final class _Beans_Page_Compiler {
 				$assets->done[] = $handle;
 			}
 
-			if ( $asset->src ) {
-				$fragments[ $handle ] = $asset->src;
-			}
+			$fragments[ $handle ] = $asset->src;
 		}
 
 		return $fragments;
