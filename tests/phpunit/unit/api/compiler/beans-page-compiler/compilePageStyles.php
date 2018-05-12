@@ -380,7 +380,7 @@ class Tests_BeansPageCompiler_CompileStyles extends Page_Compiler_Test_Case {
 	 * @return \Mockery\MockInterface
 	 */
 	protected function get_mock_assets( array $queue ) {
-		$wp_styles_mock        = \Mockery::mock( 'WP_Styles' );
+		$wp_styles_mock        = Mockery::mock( 'WP_Styles' );
 		$wp_styles_mock->queue = $queue;
 		$registered            = [];
 
@@ -418,26 +418,5 @@ class Tests_BeansPageCompiler_CompileStyles extends Page_Compiler_Test_Case {
 		$wp_styles_mock->registered = $registered;
 
 		return $wp_styles_mock;
-	}
-
-	/**
-	 * Get the deps mock.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param array $config Configuration parameters to set the properties.
-	 *
-	 * @return Mockery\MockInterface
-	 */
-	protected function get_deps_mock( array $config ) {
-		$mock         = \Mockery::mock( '_WP_Dependency' );
-		$mock->handle = $config['handle'];
-		$mock->src    = $config['src'];
-		$mock->deps   = isset( $config['deps'] ) ? $config['deps'] : [];
-		$mock->ver    = isset( $config['ver'] ) ? $config['ver'] : false;
-		$mock->args   = isset( $config['args'] ) ? $config['args'] : 'all';
-		$mock->extra  = isset( $config['extra'] ) ? $config['extra'] : [];
-
-		return $mock;
 	}
 }
