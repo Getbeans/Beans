@@ -46,15 +46,30 @@ final class _Beans_Page_Compiler {
 	 */
 	public function compile_page_styles() {
 
-		if ( ! beans_get_component_support( 'wp_styles_compiler' ) || ! get_option( 'beans_compile_all_styles', false ) || _beans_is_compiler_dev_mode() ) {
+		if ( $this->do_not_compile_styles() ) {
 			return;
 		}
 
 		$styles = $this->compile_enqueued( 'style' );
 
-		if ( $styles ) {
-			beans_compile_css_fragments( 'beans', $styles, array( 'version' => null ) );
+		if ( empty( $styles ) ) {
+			return;
 		}
+
+		beans_compile_css_fragments( 'beans', $styles, array( 'version' => null ) );
+	}
+
+	/**
+	 * Checks if the page's styles should not be compiled.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return bool
+	 */
+	private function do_not_compile_styles() {
+		return ! beans_get_component_support( 'wp_styles_compiler' ) ||
+		       ! get_option( 'beans_compile_all_styles', false ) ||
+		       _beans_is_compiler_dev_mode();
 	}
 
 	/**
@@ -83,17 +98,16 @@ final class _Beans_Page_Compiler {
 	/**
 	 * Compile all wp enqueued assets.
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @ignore
 	 * @access private
 	 *
-	 * @param string $type Type of asset, e.g. style or script.
+	 * @param string $type         Type of asset, e.g. style or script.
 	 * @param string $dependencies Optional. Dependencies of the asset. Default is false.
 	 *
 	 * @return array
 	 */
 	private function compile_enqueued( $type, $dependencies = false ) {
-
 		$assets = beans_get( "wp_{$type}s", $GLOBALS );
 
 		if ( ! $assets ) {
