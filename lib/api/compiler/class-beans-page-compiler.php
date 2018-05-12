@@ -67,9 +67,7 @@ final class _Beans_Page_Compiler {
 	 * @return bool
 	 */
 	private function do_not_compile_styles() {
-		return ! beans_get_component_support( 'wp_styles_compiler' ) ||
-		       ! get_option( 'beans_compile_all_styles', false ) ||
-		       _beans_is_compiler_dev_mode();
+		return ! beans_get_component_support( 'wp_styles_compiler' ) || ! get_option( 'beans_compile_all_styles', false ) || _beans_is_compiler_dev_mode();
 	}
 
 	/**
@@ -102,8 +100,8 @@ final class _Beans_Page_Compiler {
 	 * @ignore
 	 * @access private
 	 *
-	 * @param string $type         Type of asset, e.g. style or script.
-	 * @param string $dependencies Optional. Dependencies of the asset. Default is false.
+	 * @param string       $type         Type of asset, e.g. style or script.
+	 * @param string|array $dependencies Optional. The asset's dependency(ies). Default is false.
 	 *
 	 * @return array
 	 */
@@ -137,15 +135,7 @@ final class _Beans_Page_Compiler {
 				continue;
 			}
 
-			if ( $asset->deps ) {
-
-				foreach ( $this->compile_enqueued( $type, $asset->deps ) as $dep_handle => $dep_src ) {
-
-					if ( ! empty( $dep_src ) ) {
-						$fragments[ $dep_handle ] = $dep_src;
-					}
-				}
-			}
+			$this->get_deps_to_be_compiled( $type, $asset, $fragments );
 
 			if ( 'style' === $type ) {
 
@@ -165,6 +155,33 @@ final class _Beans_Page_Compiler {
 		}
 
 		return $fragments;
+	}
+
+	/**
+	 * Get the asset's dependencies to be compiled.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string         $type  Type of asset.
+	 * @param _WP_Dependency $asset Instance of the asset.
+	 * @param array          $srcs  Array of compiled asset srcs to be compiled. Passed by reference.
+	 *
+	 * @return void
+	 */
+	private function get_deps_to_be_compiled( $type, $asset, array &$srcs ) {
+
+		if ( empty( $asset->deps ) ) {
+			return;
+		}
+
+		foreach ( $this->compile_enqueued( $type, $asset->deps, true ) as $dep_handle => $dep_src ) {
+
+			if ( empty( $dep_src ) ) {
+				continue;
+			}
+
+			$srcs[ $dep_handle ] = $dep_src;
+		}
 	}
 
 	/**
