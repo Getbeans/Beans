@@ -79,18 +79,31 @@ final class _Beans_Page_Compiler {
 	 */
 	public function compile_page_scripts() {
 
-		if ( ! beans_get_component_support( 'wp_scripts_compiler' ) || ! get_option( 'beans_compile_all_scripts', false ) || _beans_is_compiler_dev_mode() ) {
+		if ( $this->do_not_compile_scripts() ) {
 			return;
 		}
 
 		$scripts = $this->compile_enqueued( 'script' );
 
-		if ( $scripts ) {
-			beans_compile_js_fragments( 'beans', $scripts, array(
-				'in_footer' => ( 'aggressive' === get_option( 'beans_compile_all_scripts_mode', 'aggressive' ) ) ? true : false,
-				'version'   => null,
-			) );
+		if ( empty( $scripts ) ) {
+			return;
 		}
+
+		beans_compile_js_fragments( 'beans', $scripts, array(
+			'in_footer' => 'aggressive' === get_option( 'beans_compile_all_scripts_mode', 'aggressive' ),
+			'version'   => null,
+		) );
+	}
+
+	/**
+	 * Checks if the page's scripts should not be compiled.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return bool
+	 */
+	private function do_not_compile_scripts() {
+		return ! beans_get_component_support( 'wp_scripts_compiler' ) || ! get_option( 'beans_compile_all_scripts', false ) || _beans_is_compiler_dev_mode();
 	}
 
 	/**
@@ -149,7 +162,7 @@ final class _Beans_Page_Compiler {
 				$this->dequeued_scripts[ $handle ] = $asset->src;
 			}
 
-			if ( ! empty( $asset->src ) ) {
+			if ( $asset->src ) {
 				$fragments[ $handle ] = $asset->src;
 			}
 		}
