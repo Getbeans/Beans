@@ -26,11 +26,11 @@ final class _Beans_Page_Compiler {
 	private $dequeued_scripts = array();
 
 	/**
-	 * Skip these asset handles when compiling.
+	 * An array of assets to not compile.
 	 *
 	 * @var array
 	 */
-	private $skip_asset_handles = array( 'admin-bar', 'open-sans', 'dashicons' );
+	private $handles_not_to_compile = array( 'admin-bar', 'open-sans', 'dashicons' );
 
 	/**
 	 * Initialize the hooks.
@@ -143,8 +143,7 @@ final class _Beans_Page_Compiler {
 
 		foreach ( $dependencies as $handle ) {
 
-			// Don't compile admin bar assets.
-			if ( in_array( $handle, $this->skip_asset_handles, true ) ) {
+			if ( $this->do_not_compile_asset( $handle ) ) {
 				continue;
 			}
 
@@ -172,6 +171,19 @@ final class _Beans_Page_Compiler {
 		}
 
 		return $fragments;
+	}
+
+	/**
+	 * Checks the given asset's handle to determine if it should not be compiled.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string $handle The asset handle to check.
+	 *
+	 * @return bool
+	 */
+	private function do_not_compile_asset( $handle ) {
+		return in_array( $handle, $this->handles_not_to_compile, true );
 	}
 
 	/**
