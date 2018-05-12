@@ -33,6 +33,13 @@ final class _Beans_Page_Compiler {
 	private $handles_not_to_compile = array( 'admin-bar', 'open-sans', 'dashicons' );
 
 	/**
+	 * An array of the handles that have been processed.
+	 *
+	 * @var array
+	 */
+	private $processed_handles = array();
+
+	/**
 	 * Initialize the hooks.
 	 *
 	 * @since 1.5.0
@@ -57,7 +64,8 @@ final class _Beans_Page_Compiler {
 			return;
 		}
 
-		$styles = $this->compile_enqueued( 'style' );
+		$this->processed_handles = array();
+		$styles                  = $this->compile_enqueued( 'style' );
 
 		if ( empty( $styles ) ) {
 			return;
@@ -90,7 +98,8 @@ final class _Beans_Page_Compiler {
 			return;
 		}
 
-		$scripts = $this->compile_enqueued( 'script' );
+		$this->processed_handles = array();
+		$scripts                 = $this->compile_enqueued( 'script' );
 
 		if ( empty( $scripts ) ) {
 			return;
@@ -147,6 +156,10 @@ final class _Beans_Page_Compiler {
 				continue;
 			}
 
+			if ( $this->did_handle( $handle ) ) {
+				continue;
+			}
+
 			$asset = beans_get( $handle, $assets->registered );
 
 			if ( ! $asset ) {
@@ -160,11 +173,7 @@ final class _Beans_Page_Compiler {
 			}
 
 			if ( 'style' === $type ) {
-
-				// Add compiler media query if set.
-				if ( 'all' !== $asset->args ) {
-					$asset->src = add_query_arg( array( 'beans_compiler_media_query' => $asset->args ), $asset->src );
-				}
+				$this->maybe_add_media_query_to_src( $asset );
 
 				$assets->done[] = $handle;
 			}
@@ -173,6 +182,46 @@ final class _Beans_Page_Compiler {
 		}
 
 		return $fragments;
+	}
+
+	/**
+	 * Checks if the handle has already been processed.  If no, it stores the handle.
+	 *
+	 * Note: This check eliminates processing dependencies that are in more than one asset.  For example, if more than
+	 * one script requires 'jquery', then this check ensures we only process jquery's dependencies once.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string $handle The asset's handle.
+	 *
+	 * @return bool
+	 */
+	private function did_handle( $handle ) {
+		if ( in_array( $handle, $this->processed_handles ) ) {
+			return true;
+		}
+
+		$this->processed_handles[] = $handle;
+
+		return false;
+	}
+
+	/**
+	 * When the args are not set to "all," adds the media query to the asset's src.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param _WP_Dependency $asset The given asset.
+	 *
+	 * @return void
+	 */
+	private function maybe_add_media_query_to_src( $asset ) {
+		// Add compiler media query if set.
+		if ( 'all' === $asset->args ) {
+			return;
+		}
+
+		$asset->src = add_query_arg( array( 'beans_compiler_media_query' => $asset->args ), $asset->src );
 	}
 
 	/**

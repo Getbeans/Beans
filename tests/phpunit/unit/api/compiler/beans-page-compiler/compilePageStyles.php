@@ -330,16 +330,7 @@ class Tests_BeansPageCompiler_CompilePageStyles extends Page_Compiler_Test_Case 
 			->once()
 			->with( 'debug-bar-actions-filters', $assets->registered )
 			->andReturn( $assets->registered['debug-bar-actions-filters'] )
-			->andAlsoExpectIt()
-			->ordered()
-			->once()
-			->with( 'wp_styles', $GLOBALS )
-			->andReturn( $assets )
-			->andAlsoExpectIt()
-			->ordered()
-			->once()
-			->with( 'debug-bar', $assets->registered )
-			->andReturn( $assets->registered['debug-bar'] );
+			->andAlsoExpectIt();
 
 		// Mock how beans_compile_css_fragments() will be called.
 		Monkey\Functions\expect( 'beans_compile_css_fragments' )
@@ -360,7 +351,7 @@ class Tests_BeansPageCompiler_CompilePageStyles extends Page_Compiler_Test_Case 
 		$this->assertNull( ( new _Beans_Page_Compiler() )->compile_page_styles() );
 
 		// Check the asset's done state.
-		$this->assertSame( [ 'debug-bar', 'uikit', 'child-style', 'debug-bar', 'debug-bar-actions-filters' ], $assets->done );
+		$this->assertSame( [ 'debug-bar', 'uikit', 'child-style', 'debug-bar-actions-filters' ], $assets->done );
 	}
 
 	/**

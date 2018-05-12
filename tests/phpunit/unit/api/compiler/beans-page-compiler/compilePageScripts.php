@@ -307,33 +307,7 @@ class Tests_BeansPageCompiler_CompilePageScripts extends Page_Compiler_Test_Case
 			->once()
 			->with( 'uikit', $assets->registered )
 			->andReturn( $assets->registered['uikit'] )
-			->andAlsoExpectIt()
-			// Recursive stack for dependencies.
-			->ordered()
-			->once()
-			->with( 'wp_scripts', $GLOBALS )
-			->andReturn( $assets )
-			->andAlsoExpectIt()
-			->ordered()
-			->once()
-			->with( 'jquery', $assets->registered )
-			->andReturn( $assets->registered['jquery'] )
-			->andAlsoExpectIt()
-			// Recursive stack for jquery's dependencies.
-			->ordered()
-			->once()
-			->with( 'wp_scripts', $GLOBALS )
-			->andReturn( $assets )
-			->andAlsoExpectIt()
-			->ordered()
-			->once()
-			->with( 'jquery-core', $assets->registered )
-			->andReturn( $assets->registered['jquery-core'] )
-			->andAlsoExpectIt()
-			->ordered()
-			->once()
-			->with( 'jquery-migrate', $assets->registered )
-			->andReturn( $assets->registered['jquery-migrate'] );
+			->andAlsoExpectIt();
 
 		// Mock how beans_compile_js_fragments() will be called.
 		Monkey\Functions\expect( 'beans_compile_js_fragments' )
