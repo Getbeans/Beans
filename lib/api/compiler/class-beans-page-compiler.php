@@ -124,11 +124,11 @@ final class _Beans_Page_Compiler {
 	 * @access private
 	 *
 	 * @param string       $type         Type of asset, e.g. style or script.
-	 * @param string|array $dependencies Optional. The asset's dependency(ies). Default is false.
+	 * @param string|array $dependencies Optional. The asset's dependency(ies). Default is an empty string.
 	 *
 	 * @return array
 	 */
-	private function compile_enqueued( $type, $dependencies = false ) {
+	private function compile_enqueued( $type, $dependencies = '' ) {
 		$assets = beans_get( "wp_{$type}s", $GLOBALS );
 
 		if ( ! $assets ) {
