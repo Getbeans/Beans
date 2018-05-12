@@ -124,25 +124,25 @@ final class _Beans_Page_Compiler {
 
 		$fragments = array();
 
-		foreach ( $dependencies as $id ) {
+		foreach ( $dependencies as $handle ) {
 
 			// Don't compile admin bar assets.
-			if ( in_array( $id, array( 'admin-bar', 'open-sans', 'dashicons' ), true ) ) {
+			if ( in_array( $handle, array( 'admin-bar', 'open-sans', 'dashicons' ), true ) ) {
 				continue;
 			}
 
-			$args = beans_get( $id, $assets->registered );
+			$asset = beans_get( $handle, $assets->registered );
 
-			if ( ! $args ) {
+			if ( ! $asset ) {
 				continue;
 			}
 
-			if ( $args->deps ) {
+			if ( $asset->deps ) {
 
-				foreach ( $this->compile_enqueued( $type, $args->deps ) as $dep_id => $dep_src ) {
+				foreach ( $this->compile_enqueued( $type, $asset->deps ) as $dep_handle => $dep_src ) {
 
 					if ( ! empty( $dep_src ) ) {
-						$fragments[ $dep_id ] = $dep_src;
+						$fragments[ $dep_handle ] = $dep_src;
 					}
 				}
 			}
@@ -150,17 +150,17 @@ final class _Beans_Page_Compiler {
 			if ( 'style' === $type ) {
 
 				// Add compiler media query if set.
-				if ( 'all' !== $args->args ) {
-					$args->src = add_query_arg( array( 'beans_compiler_media_query' => $args->args ), $args->src );
+				if ( 'all' !== $asset->args ) {
+					$asset->src = add_query_arg( array( 'beans_compiler_media_query' => $asset->args ), $asset->src );
 				}
 
-				$assets->done[] = $id;
+				$assets->done[] = $handle;
 			} elseif ( 'script' === $type ) {
-				$this->dequeued_scripts[ $id ] = $args->src;
+				$this->dequeued_scripts[ $handle ] = $asset->src;
 			}
 
-			if ( ! empty( $args->src ) ) {
-				$fragments[ $id ] = $args->src;
+			if ( ! empty( $asset->src ) ) {
+				$fragments[ $handle ] = $asset->src;
 			}
 		}
 
