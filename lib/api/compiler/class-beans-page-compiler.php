@@ -278,31 +278,29 @@ final class _Beans_Page_Compiler {
 	 * @return void
 	 */
 	public function dequeue_scripts() {
-		global $wp_scripts;
 
 		if ( empty( $this->dequeued_scripts ) ) {
 			return;
 		}
 
+		global $wp_scripts;
 		$localized = '';
 
 		// Fetch the localized content and dequeue script.
 		foreach ( $this->dequeued_scripts as $handle => $src ) {
+			$script = beans_get( $handle, $wp_scripts->registered );
 
-			$args = beans_get( $handle, $wp_scripts->registered );
-
-			if ( ! $args ) {
+			if ( ! $script ) {
 				continue;
 			}
 
-			if ( isset( $args->extra['data'] ) ) {
-				$localized .= $args->extra['data'] . "\n";
+			if ( isset( $script->extra['data'] ) ) {
+				$localized .= $script->extra['data'] . "\n";
 			}
 
 			$wp_scripts->done[] = $handle;
 		}
 
-		// Stop here if there isn't any content to add.
 		if ( empty( $localized ) ) {
 			return;
 		}
