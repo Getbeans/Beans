@@ -121,7 +121,7 @@ function beans_get_images_dir() {
 
 add_action( 'beans_loaded_api_component_image', 'beans_add_image_options_to_settings' );
 /**
- * Add the "impage options" to the Beans Settings page.
+ * Add the "image options" to the Beans Settings page.
  *
  * @since 1.5.0
  *
@@ -133,5 +133,8 @@ function beans_add_image_options_to_settings() {
 		return;
 	}
 
-	return new _Beans_Image_Options();
+	$instance = new _Beans_Image_Options();
+	$instance->init();
+
+	return $instance;
 }

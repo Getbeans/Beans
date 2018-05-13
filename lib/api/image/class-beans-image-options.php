@@ -19,9 +19,13 @@
 final class _Beans_Image_Options {
 
 	/**
-	 * Constructor.
+	 * Initialize the hooks.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return void
 	 */
-	public function __construct() {
+	public function init() {
 		// Load with priority 15 so that we can check if other Beans metaboxes exist.
 		add_action( 'admin_init', array( $this, 'register' ), 15 );
 		add_action( 'admin_init', array( $this, 'flush' ), - 1 );
