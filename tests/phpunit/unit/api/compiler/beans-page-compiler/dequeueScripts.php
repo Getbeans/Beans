@@ -44,7 +44,7 @@ class Tests_BeansPageCompiler_DequeueScripts extends Page_Compiler_Test_Case {
 
 		// Set the scripts to be dequeued.
 		$dequeued_scripts = $this->get_reflective_property( 'dequeued_scripts', '_Beans_Page_Compiler' );
-		$dequeued_scripts->setValue( $compiler, [ 'uikit'     => $assets->registered['uikit']->src ] );
+		$dequeued_scripts->setValue( $compiler, [ 'uikit' => $assets->registered['uikit']->src ] );
 
 		// Set up the asset mocks.
 		Monkey\Functions\expect( 'beans_get' )
@@ -209,7 +209,7 @@ EOB;
 		$wp_scripts_mock->registered = $registered;
 
 		global $wp_scripts;
-		$wp_scripts = $wp_scripts_mock;
+		$wp_scripts = $wp_scripts_mock; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Valid use case to load mocks for tests.
 
 		return $wp_scripts_mock;
 	}

@@ -67,11 +67,6 @@ final class _Beans_Page_Compiler {
 		$this->processed_handles = array();
 		$styles                  = $this->compile_enqueued( 'style' );
 
-		if ( isset( $GLOBALS['tonya'] ) ) {
-			var_dump( $styles );
-			die();
-		}
-
 		if ( empty( $styles ) ) {
 			return;
 		}
@@ -202,7 +197,7 @@ final class _Beans_Page_Compiler {
 	 * @return bool
 	 */
 	private function did_handle( $handle ) {
-		if ( in_array( $handle, $this->processed_handles ) ) {
+		if ( in_array( $handle, $this->processed_handles, true ) ) {
 			return true;
 		}
 
