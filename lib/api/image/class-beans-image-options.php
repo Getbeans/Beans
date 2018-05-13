@@ -24,7 +24,7 @@ final class _Beans_Image_Options {
 	public function __construct() {
 		// Load with priority 15 so that we can check if other Beans metaboxes exist.
 		add_action( 'admin_init', array( $this, 'register' ), 15 );
-		add_action( 'admin_init', array( $this, 'flush' ), -1 );
+		add_action( 'admin_init', array( $this, 'flush' ), - 1 );
 		add_action( 'admin_notices', array( $this, 'admin_notice' ) );
 		add_action( 'beans_field_flush_edited_images', array( $this, 'option' ) );
 	}
@@ -49,7 +49,8 @@ final class _Beans_Image_Options {
 
 		beans_register_options( $fields, 'beans_settings', 'images_options', array(
 			'title'   => __( 'Images options', 'tm-beans' ),
-			'context' => beans_get( 'beans_settings', $wp_meta_boxes ) ? 'column' : 'normal', // Check of other beans boxes.
+			'context' => beans_get( 'beans_settings', $wp_meta_boxes ) ? 'column' : 'normal',
+			// Check of other beans boxes.
 		) );
 	}
 
@@ -83,7 +84,8 @@ final class _Beans_Image_Options {
 		}
 
 		?>
-		<div id="message" class="updated"><p><?php esc_html_e( 'Images flushed successfully!', 'tm-beans' ); ?></p></div>
+        <div id="message" class="updated"><p><?php esc_html_e( 'Images flushed successfully!', 'tm-beans' ); ?></p>
+        </div>
 		<?php
 	}
 
@@ -103,9 +105,8 @@ final class _Beans_Image_Options {
 		}
 
 		?>
-		<input type="submit" name="beans_flush_edited_images" value="<?php esc_html_e( 'Flush images', 'tm-beans' ); ?>" class="button-secondary" />
+        <input type="submit" name="beans_flush_edited_images" value="<?php esc_html_e( 'Flush images', 'tm-beans' ); ?>"
+               class="button-secondary"/>
 		<?php
 	}
 }
-
-new _Beans_Image_Options();
