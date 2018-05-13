@@ -37,6 +37,15 @@ abstract class Options_Test_Case extends Base_Test_Case {
 	}
 
 	/**
+	 * Set up the test before we run the test setups.
+	 */
+	public static function setUpAfterClass() {
+		parent::setUpAfterClass();
+
+		set_current_screen( 'front' );
+	}
+
+	/**
 	 * Go to the Settings Page.
 	 */
 	protected function go_to_settings_page() {

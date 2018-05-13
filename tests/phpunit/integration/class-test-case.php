@@ -27,6 +27,15 @@ abstract class Test_Case extends WP_UnitTestCase {
 	protected $was_reset = false;
 
 	/**
+	 * Set up the test before we run the test setups.
+	 */
+	public static function setUpBeforeClass() {
+		parent::setUpBeforeClass();
+
+		set_current_screen( 'front' );
+	}
+
+	/**
 	 * Prepares the test environment before each test.
 	 */
 	public function setUp() {

@@ -9,16 +9,16 @@
 
 namespace Beans\Framework\Tests\Integration\API\Layout;
 
-use WP_UnitTestCase;
+use Beans\Framework\Tests\Integration\Test_Case;
 
 /**
  * Class Tests_BeansGetDefaultLayout
  *
  * @package Beans\Framework\Tests\Integration\API\Layout
- * @group   integration-tests
  * @group   api
+ * @group   api-layout
  */
-class Tests_BeansGetDefaultLayout extends WP_UnitTestCase {
+class Tests_BeansGetDefaultLayout extends Test_Case {
 
 	/**
 	 * Prepares the test environment before each test.
