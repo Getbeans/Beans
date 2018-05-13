@@ -4,15 +4,15 @@
  *
  * @package Beans\Framework\Api\Image
  *
- * @since 1.0.0
+ * @since   1.0.0
  */
 
 /**
  * Beans Image Options Handler.
  *
- * @since 1.0.0
+ * @since   1.0.0
  * @ignore
- * @access private
+ * @access  private
  *
  * @package Beans\Framework\API\Image
  */
@@ -34,7 +34,7 @@ final class _Beans_Image_Options {
 	}
 
 	/**
-	 * Register options.
+	 * Register the options.
 	 *
 	 * @since 1.0.0
 	 *
@@ -43,18 +43,25 @@ final class _Beans_Image_Options {
 	public function register() {
 		global $wp_meta_boxes;
 
-		$fields = array(
-			array(
-				'id'          => 'beans_edited_images_directories',
-				'type'        => 'flush_edited_images',
-				'description' => __( 'Clear all edited images. New images will be created on page load.', 'tm-beans' ),
-			),
+		return beans_register_options(
+			$this->get_fields_to_register(),
+			'beans_settings',
+			'images_options', array(
+				'title'   => __( 'Images options', 'tm-beans' ),
+				'context' => beans_get( 'beans_settings', $wp_meta_boxes ) ? 'column' : 'normal',
+			)
 		);
+	}
 
-		return beans_register_options( $fields, 'beans_settings', 'images_options', array(
-			'title'   => __( 'Images options', 'tm-beans' ),
-			'context' => beans_get( 'beans_settings', $wp_meta_boxes ) ? 'column' : 'normal',
-		) );
+	/**
+	 * Get the fields to register.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return array
+	 */
+	private function get_fields_to_register() {
+		return require dirname( __FILE__ ) . '/config/fields.php';
 	}
 
 	/**

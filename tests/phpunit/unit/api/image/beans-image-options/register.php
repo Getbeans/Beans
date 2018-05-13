@@ -37,13 +37,7 @@ class Tests_BeansImageOptions_Register extends Options_Test_Case {
 	protected function setUp() {
 		parent::setUp();
 
-		$this->fields = [
-			[
-				'id'          => 'beans_edited_images_directories',
-				'type'        => 'flush_edited_images',
-				'description' => 'Clear all edited images. New images will be created on page load.',
-			],
-		];
+		$this->fields = require BEANS_THEME_DIR . '/lib/api/image/config/fields.php';
 	}
 
 	/**
