@@ -287,9 +287,9 @@ final class _Beans_Page_Compiler {
 		$localized = '';
 
 		// Fetch the localized content and dequeue script.
-		foreach ( $this->dequeued_scripts as $id => $src ) {
+		foreach ( $this->dequeued_scripts as $handle => $src ) {
 
-			$args = beans_get( $id, $wp_scripts->registered );
+			$args = beans_get( $handle, $wp_scripts->registered );
 
 			if ( ! $args ) {
 				continue;
@@ -299,7 +299,7 @@ final class _Beans_Page_Compiler {
 				$localized .= $args->extra['data'] . "\n";
 			}
 
-			$wp_scripts->done[] = $id;
+			$wp_scripts->done[] = $handle;
 		}
 
 		// Stop here if there isn't any content to add.
