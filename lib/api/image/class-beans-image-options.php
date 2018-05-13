@@ -1,6 +1,6 @@
 <?php
 /**
- * This class provides the means to add image options.
+ * This class handles adding the Beans' Image options to the Beans' Settings page.
  *
  * @package Beans\Framework\Api\Image
  *
@@ -8,7 +8,7 @@
  */
 
 /**
- * Beans image options.
+ * Beans Image Options Handler.
  *
  * @since 1.0.0
  * @ignore
