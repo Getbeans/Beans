@@ -67,6 +67,14 @@ abstract class Compiler_Test_Case extends Base_Test_Case {
 	 * Tear down the test fixture.
 	 */
 	public function tearDown() {
+		wp_dequeue_script( 'test-jquery' );
+		unset( $GLOBALS['wp_scripts']->registered['test-jquery'] );
+		wp_dequeue_script( 'test-script' );
+		unset( $GLOBALS['wp_scripts']->registered['test-script'] );
+		wp_dequeue_script( 'test-js' );
+		unset( $GLOBALS['wp_scripts']->registered['test-js'] );
+		wp_dequeue_style( 'test-css' );
+		unset( $GLOBALS['wp_styles']->registered['test-css'] );
 		unset( $GLOBALS['wp_filesystem'] );
 		parent::tearDown();
 	}

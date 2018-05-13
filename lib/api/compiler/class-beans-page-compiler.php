@@ -67,6 +67,11 @@ final class _Beans_Page_Compiler {
 		$this->processed_handles = array();
 		$styles                  = $this->compile_enqueued( 'style' );
 
+		if ( isset( $GLOBALS['tonya'] ) ) {
+			var_dump( $styles );
+			die();
+		}
+
 		if ( empty( $styles ) ) {
 			return;
 		}
