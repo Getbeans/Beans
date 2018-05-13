@@ -38,7 +38,7 @@ final class _Beans_Image_Options {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return void
+	 * @return bool
 	 */
 	public function register() {
 		global $wp_meta_boxes;
@@ -51,10 +51,9 @@ final class _Beans_Image_Options {
 			),
 		);
 
-		beans_register_options( $fields, 'beans_settings', 'images_options', array(
+		return beans_register_options( $fields, 'beans_settings', 'images_options', array(
 			'title'   => __( 'Images options', 'tm-beans' ),
 			'context' => beans_get( 'beans_settings', $wp_meta_boxes ) ? 'column' : 'normal',
-			// Check of other beans boxes.
 		) );
 	}
 
@@ -109,8 +108,7 @@ final class _Beans_Image_Options {
 		}
 
 		?>
-        <input type="submit" name="beans_flush_edited_images" value="<?php esc_html_e( 'Flush images', 'tm-beans' ); ?>"
-               class="button-secondary"/>
+        <input type="submit" name="beans_flush_edited_images" value="<?php esc_html_e( 'Flush images', 'tm-beans' ); ?>" class="button-secondary" />
 		<?php
 	}
 }
