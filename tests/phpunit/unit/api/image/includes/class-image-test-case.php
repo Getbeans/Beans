@@ -11,16 +11,17 @@
 
 namespace Beans\Framework\Tests\Unit\API\Image\Includes;
 
-use Beans\Framework\Tests\Unit\Test_Case;
 use Brain\Monkey;
 use org\bovigo\vfs\vfsStream;
+
+require_once __DIR__ . '/class-base-test-case.php';
 
 /**
  * Abstract Class Image_Test_Case
  *
  * @package Beans\Framework\Tests\Unit\API\Image\Includes
  */
-abstract class Image_Test_Case extends Test_Case {
+abstract class Image_Test_Case extends Base_Test_Case {
 
 	/**
 	 * When true, return the given path when doing wp_normalize_path().
@@ -28,27 +29,6 @@ abstract class Image_Test_Case extends Test_Case {
 	 * @var bool
 	 */
 	protected $just_return_path = true;
-
-	/**
-	 * Path to the images' directory.
-	 *
-	 * @var string
-	 */
-	protected $images_dir;
-
-	/**
-	 * Path to the images directory's URL.
-	 *
-	 * @var string
-	 */
-	protected $images_url;
-
-	/**
-	 * Instance of vfsStreamDirectory to mock the filesystem.
-	 *
-	 * @var vfsStreamDirectory
-	 */
-	protected $mock_filesystem;
 
 	/**
 	 * Flag is in admin area (back-end).
@@ -92,38 +72,16 @@ abstract class Image_Test_Case extends Test_Case {
 	protected function setUp() {
 		parent::setUp();
 
-		$this->load_original_functions( array(
-			'api/image/functions.php',
-			'api/image/class-beans-image-editor.php',
-			'api/utilities/functions.php',
-		) );
-
-		$this->set_up_virtual_filesystem();
-
 		$this->setup_function_mocks();
 
-		$this->images = array(
+		$this->load_original_functions( [
+			'api/image/class-beans-image-editor.php',
+		] );
+
+		$this->images = [
 			$this->images_dir . '/image1.jpg' => static::$fixtures_dir . '/image1.jpg',
 			$this->images_dir . '/image2.jpg' => static::$fixtures_dir . '/image2.jpg',
-		);
-	}
-
-	/**
-	 * Set up the virtual filesystem.
-	 */
-	private function set_up_virtual_filesystem() {
-		$structure = array(
-			'beans' => array(
-				'images' => array(
-					'index.php' => '',
-				),
-			),
-		);
-
-		// Set up the "beans" directory's virtual filesystem.
-		$this->mock_filesystem = vfsStream::setup( 'uploads', 0755, $structure );
-		$this->images_dir      = vfsStream::url( 'uploads/beans/images' );
-		$this->images_url      = 'http://example.com/uploads/beans/images/';
+		];
 	}
 
 	/**
