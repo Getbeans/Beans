@@ -86,10 +86,7 @@ final class _Beans_Image_Options {
 			return;
 		}
 
-		?>
-        <div id="message" class="updated"><p><?php esc_html_e( 'Images flushed successfully!', 'tm-beans' ); ?></p>
-        </div>
-		<?php
+		include dirname( __FILE__ ) . '/views/flushed-notice.php';
 	}
 
 	/**
@@ -107,8 +104,6 @@ final class _Beans_Image_Options {
 			return;
 		}
 
-		?>
-        <input type="submit" name="beans_flush_edited_images" value="<?php esc_html_e( 'Flush images', 'tm-beans' ); ?>" class="button-secondary" />
-		<?php
+		include dirname( __FILE__ ) . '/views/flush-button.php';
 	}
 }
