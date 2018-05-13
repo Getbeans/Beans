@@ -306,6 +306,6 @@ final class _Beans_Page_Compiler {
 		}
 
 		// Add localized content since it was removed with dequeue scripts.
-		printf( "<script type='text/javascript'>\n%s\n</script>\n", $localized ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Needs review.
+		require dirname( __FILE__ ) . '/views/localized-content.php';
 	}
 }
