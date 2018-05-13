@@ -41,14 +41,12 @@ final class _Beans_Image_Options {
 	 * @return bool
 	 */
 	public function register() {
-		global $wp_meta_boxes;
-
 		return beans_register_options(
 			$this->get_fields_to_register(),
 			'beans_settings',
 			'images_options', array(
 				'title'   => __( 'Images options', 'tm-beans' ),
-				'context' => beans_get( 'beans_settings', $wp_meta_boxes ) ? 'column' : 'normal',
+				'context' => $this->has_metaboxes() ? 'column' : 'normal',
 			)
 		);
 	}
@@ -62,6 +60,20 @@ final class _Beans_Image_Options {
 	 */
 	private function get_fields_to_register() {
 		return require dirname( __FILE__ ) . '/config/fields.php';
+	}
+
+	/**
+	 * Checks if there are metaboxes registered already.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return bool
+	 */
+	private function has_metaboxes() {
+		global $wp_meta_boxes;
+
+		$metaboxes = beans_get( 'beans_settings', $wp_meta_boxes );
+		return ! empty( $metaboxes );
 	}
 
 	/**
