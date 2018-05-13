@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the admin_notice() method of _Beans_Image_Options.
+ * Tests the render_success_notice() method of _Beans_Image_Options.
  *
  * @package Beans\Framework\Tests\Unit\API\Image
  *
@@ -25,7 +25,7 @@ require_once dirname( __DIR__ ) . '/includes/class-options-test-case.php';
 class Tests_BeansImageOptions_AdminNotice extends Options_Test_Case {
 
 	/**
-	 * Test _Beans_Image_Options::admin_notice() should not render when not flushing edited images cache.
+	 * Test _Beans_Image_Options::render_success_notice() should not render when not flushing edited images cache.
 	 */
 	public function test_should_not_render_when_not_flushing_edited_images_cache() {
 		Monkey\Functions\expect( 'beans_post' )
@@ -35,12 +35,12 @@ class Tests_BeansImageOptions_AdminNotice extends Options_Test_Case {
 		Monkey\Functions\expect( 'esc_html_e' )->never();
 
 		ob_start();
-		( new _Beans_Image_Options() )->admin_notice();
+		( new _Beans_Image_Options() )->render_success_notice();
 		$this->assertEmpty( ob_get_clean() );
 	}
 
 	/**
-	 * Test _Beans_Image_Options::admin_notice() should render when flushing edited images cache.
+	 * Test _Beans_Image_Options::render_success_notice() should render when flushing edited images cache.
 	 */
 	public function test_should_render_when_flushing_edited_images_cache() {
 		Monkey\Functions\expect( 'beans_post' )
@@ -48,7 +48,7 @@ class Tests_BeansImageOptions_AdminNotice extends Options_Test_Case {
 			->with( 'beans_flush_edited_images' )
 			->andReturn( true );
 		ob_start();
-		( new _Beans_Image_Options() )->admin_notice();
+		( new _Beans_Image_Options() )->render_success_notice();
 		$actual = ob_get_clean();
 
 		$expected = <<<EOB

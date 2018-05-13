@@ -29,8 +29,8 @@ final class _Beans_Image_Options {
 		// Load with priority 15 so that we can check if other Beans metaboxes exist.
 		add_action( 'admin_init', array( $this, 'register' ), 15 );
 		add_action( 'admin_init', array( $this, 'flush' ), - 1 );
-		add_action( 'admin_notices', array( $this, 'admin_notice' ) );
-		add_action( 'beans_field_flush_edited_images', array( $this, 'option' ) );
+		add_action( 'admin_notices', array( $this, 'render_success_notice' ) );
+		add_action( 'beans_field_flush_edited_images', array( $this, 'render_flush_button' ) );
 	}
 
 	/**
@@ -74,13 +74,13 @@ final class _Beans_Image_Options {
 	}
 
 	/**
-	 * Image editor notice notice.
+	 * Renders the success admin notice.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
-	public function admin_notice() {
+	public function render_success_notice() {
 
 		if ( ! beans_post( 'beans_flush_edited_images' ) ) {
 			return;
@@ -93,15 +93,15 @@ final class _Beans_Image_Options {
 	}
 
 	/**
-	 * Add a button to flush images.
+	 * Render the flush button, which is used to flush the images' cache.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $field Metabox settings.
+	 * @param array $field Registered options.
 	 *
 	 * @return void
 	 */
-	public function option( $field ) {
+	public function render_flush_button( $field ) {
 
 		if ( 'beans_edited_images_directories' !== $field['id'] ) {
 			return;
