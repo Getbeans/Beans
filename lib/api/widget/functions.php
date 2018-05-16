@@ -28,7 +28,7 @@
  * @param array $args {
  *      Optional. Arguments used by the widget area.
  *
- *      @type string $id                         Optional. The unique identifier by which the widget area will be called.
+ *      @type string $id                         The unique identifier by which the widget area will be called.
  *      @type string $name                       Optional. The name or title of the widget area displayed in the
  *                                               admin dashboard.
  *      @type string $description                Optional. The widget area description.
