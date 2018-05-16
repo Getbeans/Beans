@@ -123,11 +123,7 @@ function beans_is_active_widget_area( $id ) {
 function beans_has_widget_area( $id ) {
 	global $wp_registered_sidebars;
 
-	if ( isset( $wp_registered_sidebars[ $id ] ) ) {
-		return true;
-	}
-
-	return false;
+	return isset( $wp_registered_sidebars[ $id ] );
 }
 
 /**
