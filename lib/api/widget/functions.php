@@ -218,7 +218,7 @@ function beans_widget_area_shortcodes( $content ) {
 		$content = build_query( $content );
 	}
 
-	return beans_array_shortcodes( $string, $GLOBALS['_beans_widget_area'] );
+	return beans_array_shortcodes( $content, $GLOBALS['_beans_widget_area'] );
 }
 
 /**
