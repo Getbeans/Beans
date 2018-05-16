@@ -48,7 +48,7 @@ function beans_register_widget_area( $args = array(), $widget_control = array() 
 	$id = beans_get( 'id', $args );
 
 	if ( ! $id ) {
-		return;
+		return '';
 	}
 
 	/**
