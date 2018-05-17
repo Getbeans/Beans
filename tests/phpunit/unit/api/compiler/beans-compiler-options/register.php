@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the register() method of _Beans_Compiler_Options.
+ * Tests for the register() method of _Beans_Compiler_Options.
  *
  * @package Beans\Framework\Tests\Unit\API\Compiler
  *
@@ -44,7 +44,7 @@ class Tests_BeansCompilerOptions_Register extends Compiler_Options_Test_Case {
 	 * Test _Beans_Compiler_Options::register() should register only the flush button when the styles and scripts are
 	 * not supported.
 	 */
-	public function test_should_only_register_only_flush_button_when_styles_scripts_not_supported() {
+	public function test_should_register_only_flush_button_when_styles_and_scripts_not_supported() {
 		unset( $this->fields['beans_compile_all_styles'] );
 		unset( $this->fields['beans_compile_all_scripts_group'] );
 
@@ -135,7 +135,7 @@ class Tests_BeansCompilerOptions_Register extends Compiler_Options_Test_Case {
 	/**
 	 * Test _Beans_Compiler_Options::register() should register all options when styles and scripts are supported.
 	 */
-	public function test_should_register_all_options_when_styles_scripts_supported() {
+	public function test_should_register_all_options_when_styles_and_scripts_supported() {
 		Monkey\Functions\expect( 'beans_get_component_support' )
 			->once()
 			->with( 'wp_styles_compiler' )

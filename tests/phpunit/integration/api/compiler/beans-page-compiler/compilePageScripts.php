@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the compile_page_scripts() method of _Beans_Page_Compiler.
+ * Tests for the compile_page_scripts() method of _Beans_Page_Compiler.
  *
  * @package Beans\Framework\Tests\Integration\API\Compiler
  *
@@ -25,7 +25,7 @@ require_once dirname( __DIR__ ) . '/includes/class-page-compiler-test-case.php';
 class Tests_BeansPageCompiler_CompilePageScripts extends Page_Compiler_Test_Case {
 
 	/**
-	 * Tear down the test fixture.
+	 * Cleans up the test environment after each test.
 	 */
 	public function tearDown() {
 		wp_dequeue_script( 'admin-bar' );

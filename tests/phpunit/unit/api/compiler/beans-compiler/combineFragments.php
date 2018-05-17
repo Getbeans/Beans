@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the combine_fragments method of _Beans_Compiler.
+ * Tests for the combine_fragments() method of _Beans_Compiler.
  *
  * @package Beans\Framework\Tests\Unit\API\Compiler
  *
@@ -91,7 +91,7 @@ class Tests_BeansCompiler_CombineFragments extends Compiler_Test_Case {
 			'minify_js'    => true,
 		) );
 
-		// Setup the mocks.
+		// Set up the mocks.
 		Monkey\Functions\when( 'beans_url_to_path' )->returnArg();
 		Monkey\Functions\when( 'wp_remote_get' )->justReturn();
 		Monkey\Functions\when( 'is_wp_error' )->justReturn( true );

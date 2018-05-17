@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the dequeue_scripts() method of _Beans_Page_Compiler.
+ * Tests for the dequeue_scripts() method of _Beans_Page_Compiler.
  *
  * @package Beans\Framework\Tests\Unit\API\Compiler
  *
@@ -150,7 +150,7 @@ class Tests_BeansPageCompiler_DequeueScripts extends Page_Compiler_Test_Case {
 		$expected = <<<EOB
 <script type='text/javascript'>
 	var testParams = "hello-beans";
-</script>	
+</script>
 EOB;
 
 		$this->assertSame( $this->format_the_html( $expected ), $this->format_the_html( $inline_script ) );

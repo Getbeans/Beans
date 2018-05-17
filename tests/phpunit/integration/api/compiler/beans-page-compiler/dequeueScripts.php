@@ -24,7 +24,7 @@ require_once dirname( __DIR__ ) . '/includes/class-page-compiler-test-case.php';
 class Tests_BeansPageCompiler_DequeueScripts extends Page_Compiler_Test_Case {
 
 	/**
-	 * Tear down the test fixture.
+	 * Cleans up the test environment after each test.
 	 */
 	public function tearDown() {
 		foreach ( [ 'test-compiler-js', 'test-uikit-js' ] as $handle ) {
@@ -122,7 +122,7 @@ class Tests_BeansPageCompiler_DequeueScripts extends Page_Compiler_Test_Case {
 <script type='text/javascript'>
 	var testParams = "hello-beans";
 </script>
-	
+
 EOB;
 
 		$this->assertSame( $this->format_the_html( $expected ), $this->format_the_html( $inline_script ) );

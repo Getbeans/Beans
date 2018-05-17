@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the cache_file method of _Beans_Compiler.
+ * Tests for the cache_file() method of _Beans_Compiler.
  *
  * @package Beans\Framework\Tests\Integration\API\Compiler
  *

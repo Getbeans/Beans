@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the get_internal_content method of _Beans_Compiler.
+ * Tests for the get_internal_content() method of _Beans_Compiler.
  *
  * @package Beans\Framework\Tests\Unit\API\Compiler
  *
@@ -63,7 +63,7 @@ class Tests_BeansCompiler_GetInternalContent extends Compiler_Test_Case {
 			'fragments' => array( $fragment ),
 		) );
 
-		// Setup the mocks.
+		// Set up the mocks.
 		$this->set_reflective_property( $fragment, 'current_fragment', $compiler );
 		$this->mock_filesystem_for_fragments( $compiler );
 

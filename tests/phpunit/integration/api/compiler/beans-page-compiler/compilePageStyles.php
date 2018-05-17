@@ -25,7 +25,7 @@ require_once dirname( __DIR__ ) . '/includes/class-page-compiler-test-case.php';
 class Tests_BeansPageCompiler_CompilePageStyles extends Page_Compiler_Test_Case {
 
 	/**
-	 * Tear down the test fixture.
+	 * Cleans up the test environment after each test.
 	 */
 	public function tearDown() {
 		wp_dequeue_style( 'admin-bar' );

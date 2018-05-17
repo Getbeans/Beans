@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the render_styles_not_compiled_notice() method of _Beans_Compiler_Options.
+ * Tests for the render_styles_not_compiled_notice() method of _Beans_Compiler_Options.
  *
  * @package Beans\Framework\Tests\Unit\API\Compiler
  *
@@ -73,7 +73,7 @@ class Tests_BeansCompilerOptions_RenderStylesNotCompiledNotice extends Compiler_
 		$actual = ob_get_clean();
 
 		$expected = <<<EOB
-<br />		
+<br />
 <span style="color: #d85030;">Styles are not compiled in development mode.</span>
 EOB;
 		$this->assertSame( $this->format_the_html( $expected ), $this->format_the_html( $actual ) );
