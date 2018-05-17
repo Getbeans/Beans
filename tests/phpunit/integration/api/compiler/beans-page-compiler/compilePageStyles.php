@@ -86,9 +86,9 @@ class Tests_BeansPageCompiler_CompilePageStyles extends Page_Compiler_Test_Case 
 	}
 
 	/**
-	 * Test _Beans_Page_Compiler::compile_page_styles() should not compile when there are not styles.
+	 * Test _Beans_Page_Compiler::compile_page_styles() should not compile when there are no styles.
 	 */
-	public function test_should_not_compile_when_there_are_not_styles() {
+	public function test_should_not_compile_when_there_are_no_styles() {
 		beans_add_api_component_support( 'wp_styles_compiler' );
 		update_option( 'beans_compile_all_styles', 1 );
 		delete_option( 'beans_dev_mode' );
@@ -211,7 +211,7 @@ class Tests_BeansPageCompiler_CompilePageStyles extends Page_Compiler_Test_Case 
 	/**
 	 * Test _Beans_Page_Compiler::compile_page_styles() should compile styles and dependencies.
 	 */
-	public function test_should_compile_style_and_deps() {
+	public function test_should_compile_styles_and_deps() {
 		beans_add_api_component_support( 'wp_styles_compiler' );
 		update_option( 'beans_compile_all_styles', 1 );
 		delete_option( 'beans_dev_mode' );

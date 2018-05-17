@@ -75,9 +75,9 @@ class Tests_BeansPageCompiler_CompilePageScripts extends Page_Compiler_Test_Case
 	}
 
 	/**
-	 * Test _Beans_Page_Compiler::compile_page_scripts() should not compile when there are not scripts.
+	 * Test _Beans_Page_Compiler::compile_page_scripts() should not compile when there are no scripts.
 	 */
-	public function test_should_not_compile_when_there_are_not_scripts() {
+	public function test_should_not_compile_when_there_are_no_scripts() {
 		Monkey\Functions\when( 'beans_get_component_support' )->justReturn( true );
 		Monkey\Functions\when( 'get_option' )->justReturn( true );
 		Monkey\Functions\when( '_beans_is_compiler_dev_mode' )->justReturn( false );
@@ -87,7 +87,7 @@ class Tests_BeansPageCompiler_CompilePageScripts extends Page_Compiler_Test_Case
 		// Check that beans_get() only gets called once.
 		Monkey\Functions\expect( 'beans_get' )->once()->andReturn( null );
 
-		// Check that this function does not get called.
+		// Check that beans_compile_js_fragments() does not get called.
 		Monkey\Functions\expect( 'beans_compile_js_fragments' )->never();
 
 		// Run the tests.
@@ -129,7 +129,7 @@ class Tests_BeansPageCompiler_CompilePageScripts extends Page_Compiler_Test_Case
 		$assets                      = $this->get_mock_assets( [ 'admin-bar', 'uikit' ] );
 		$assets->registered['uikit'] = null;
 
-		// Set up the order of how beans_get() will be called.
+		// Check the order of how beans_get() will be called.
 		Monkey\Functions\expect( 'beans_get' )
 			->ordered()
 			->once()
@@ -162,7 +162,7 @@ class Tests_BeansPageCompiler_CompilePageScripts extends Page_Compiler_Test_Case
 		$assets->registered['uikit']->src  = '';
 		$assets->registered['uikit']->deps = [];
 
-		// Set up the order of how beans_get() will be called.
+		// Check the order of how beans_get() will be called.
 		Monkey\Functions\expect( 'beans_get' )
 			->ordered()
 			->once()
@@ -204,7 +204,7 @@ class Tests_BeansPageCompiler_CompilePageScripts extends Page_Compiler_Test_Case
 		$assets->registered['uikit']->deps     = [];
 		$assets->registered['debug-bar']->deps = [];
 
-		// Set up the order of how beans_get() will be called.
+		// Check the order of how beans_get() will be called.
 		Monkey\Functions\expect( 'beans_get' )
 			->ordered()
 			->once()
@@ -262,7 +262,7 @@ class Tests_BeansPageCompiler_CompilePageScripts extends Page_Compiler_Test_Case
 		// Initialize the mocked assets.
 		$assets = $this->get_mock_assets( [ 'admin-bar', 'debug-bar', 'uikit' ] );
 
-		// Set up the order of how beans_get() will be called.
+		// Check the order of how beans_get() will be called.
 		Monkey\Functions\expect( 'beans_get' )
 			->ordered()
 			->once()

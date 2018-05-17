@@ -26,7 +26,7 @@ final class _Beans_Page_Compiler {
 	private $dequeued_scripts = array();
 
 	/**
-	 * An array of assets to not compile.
+	 * An array of assets not to compile.
 	 *
 	 * @var array
 	 */
@@ -52,7 +52,7 @@ final class _Beans_Page_Compiler {
 	}
 
 	/**
-	 * Enqueue compiled wp styles.
+	 * Enqueue the compiled WP styles.
 	 *
 	 * @since 1.0.0
 	 *
@@ -86,7 +86,7 @@ final class _Beans_Page_Compiler {
 	}
 
 	/**
-	 * Enqueue compiled wp scripts.
+	 * Enqueue the compiled WP scripts.
 	 *
 	 * @since 1.0.0
 	 *
@@ -126,7 +126,7 @@ final class _Beans_Page_Compiler {
 	}
 
 	/**
-	 * Compile all wp enqueued assets.
+	 * Compile all of the enqueued assets, i.e. all assets that are registered with WordPress.
 	 *
 	 * @since  1.0.0
 	 * @ignore

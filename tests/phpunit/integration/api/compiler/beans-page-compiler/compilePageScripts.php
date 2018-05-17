@@ -86,9 +86,9 @@ class Tests_BeansPageCompiler_CompilePageScripts extends Page_Compiler_Test_Case
 	}
 
 	/**
-	 * Test _Beans_Page_Compiler::compile_page_scripts() should not compile when there are not scripts.
+	 * Test _Beans_Page_Compiler::compile_page_scripts() should not compile when there are no scripts.
 	 */
-	public function test_should_not_compile_when_there_are_not_scripts() {
+	public function test_should_not_compile_when_there_are_no_scripts() {
 		beans_add_api_component_support( 'wp_scripts_compiler' );
 		update_option( 'beans_compile_all_scripts', 1 );
 		delete_option( 'beans_dev_mode' );

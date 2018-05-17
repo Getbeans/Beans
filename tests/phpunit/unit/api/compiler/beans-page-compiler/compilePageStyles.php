@@ -75,9 +75,9 @@ class Tests_BeansPageCompiler_CompilePageStyles extends Page_Compiler_Test_Case 
 	}
 
 	/**
-	 * Test _Beans_Page_Compiler::compile_page_styles() should not compile when there are not styles.
+	 * Test _Beans_Page_Compiler::compile_page_styles() should not compile when there are no styles.
 	 */
-	public function test_should_not_compile_when_there_are_not_styles() {
+	public function test_should_not_compile_when_there_are_no_styles() {
 		Monkey\Functions\when( 'beans_get_component_support' )->justReturn( true );
 		Monkey\Functions\when( 'get_option' )->justReturn( true );
 		Monkey\Functions\when( '_beans_is_compiler_dev_mode' )->justReturn( false );
@@ -86,7 +86,7 @@ class Tests_BeansPageCompiler_CompilePageStyles extends Page_Compiler_Test_Case 
 		// Check that beans_get() only gets called once.
 		Monkey\Functions\expect( 'beans_get' )->once()->andReturn( null );
 
-		// Check that this function does not get called.
+		// Check that beans_compile_css_fragments() does not get called.
 		Monkey\Functions\expect( 'beans_compile_css_fragments' )->never();
 
 		// Run the tests.
@@ -129,7 +129,7 @@ class Tests_BeansPageCompiler_CompilePageStyles extends Page_Compiler_Test_Case 
 		$assets->registered['uikit']       = null;
 		$assets->registered['child-style'] = null;
 
-		// Set up the order of how beans_get() will be called.
+		// Check the order of how beans_get() will be called.
 		Monkey\Functions\expect( 'beans_get' )
 			->ordered()
 			->once()
@@ -167,7 +167,7 @@ class Tests_BeansPageCompiler_CompilePageStyles extends Page_Compiler_Test_Case 
 		$assets->registered['uikit']->src       = '';
 		$assets->registered['child-style']->src = '';
 
-		// Set up the order of how beans_get() will be called.
+		// Check the order of how beans_get() will be called.
 		Monkey\Functions\expect( 'beans_get' )
 			->ordered()
 			->once()
@@ -203,7 +203,7 @@ class Tests_BeansPageCompiler_CompilePageStyles extends Page_Compiler_Test_Case 
 		// Initialize the mocked assets.
 		$assets = $this->get_mock_assets( [ 'admin-bar', 'uikit', 'child-style' ] );
 
-		// Set up the order of how beans_get() will be called.
+		// Check the order of how beans_get() will be called.
 		Monkey\Functions\expect( 'beans_get' )
 			->ordered()
 			->once()
@@ -254,7 +254,7 @@ class Tests_BeansPageCompiler_CompilePageStyles extends Page_Compiler_Test_Case 
 		$original_src                            = $assets->registered['child-style']->src;
 		$new_src                                 = $original_src . '?beans_compiler_media_query=screen';
 
-		// Set up the order of how beans_get() will be called.
+		// Check the order of how beans_get() will be called.
 		Monkey\Functions\expect( 'beans_get' )
 			->ordered()
 			->once()
@@ -304,7 +304,7 @@ class Tests_BeansPageCompiler_CompilePageStyles extends Page_Compiler_Test_Case 
 			'debug-bar-actions-filters',
 		] );
 
-		// Set up the order of how beans_get() will be called.
+		// Check the order of how beans_get() will be called.
 		Monkey\Functions\expect( 'beans_get' )
 			->ordered()
 			->once()
