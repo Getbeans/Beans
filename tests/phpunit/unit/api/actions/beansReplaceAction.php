@@ -27,7 +27,7 @@ class Tests_BeansReplaceAction extends Replace_Action_Test_Case {
 	 * Test beans_replace_action() should return false when there's nothing to replace,
 	 * i.e. no arguments passed.
 	 */
-	public function test_should_return_false_when_nothing_to_modify() {
+	public function test_should_return_false_when_nothing_to_replace() {
 
 		foreach ( static::$test_actions as $beans_id => $original_action ) {
 			// Check that neither of these functions are called.

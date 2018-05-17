@@ -26,7 +26,7 @@ class Tests_BeansModifyActionCallback extends Actions_Test_Case {
 	/**
 	 * Test beans_modify_action_callback() should return false when the callable is empty.
 	 */
-	public function test_should_return_false_when_not_callable() {
+	public function test_should_return_false_when_callable_empty() {
 
 		foreach ( static::$test_ids as $beans_id ) {
 			Monkey\Functions\expect( 'beans_modify_action' )->never();

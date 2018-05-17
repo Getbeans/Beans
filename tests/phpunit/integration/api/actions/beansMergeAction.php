@@ -51,7 +51,7 @@ class Tests_BeansMergeAction extends Actions_Test_Case {
 	}
 
 	/**
-	 * Test _beans_merge_action() should store a unregistered action.
+	 * Test _beans_merge_action() should store an unregistered action.
 	 */
 	public function test_should_store_new_action() {
 		global $_beans_registered_actions;

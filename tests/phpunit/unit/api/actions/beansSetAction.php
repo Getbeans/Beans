@@ -31,7 +31,7 @@ class Tests_BeansSetAction extends Actions_Test_Case {
 	protected $statuses = array( 'added', 'modified', 'removed', 'replaced' );
 
 	/**
-	 * Test _beans_set_action() should set (registered) the action and then return it.
+	 * Test _beans_set_action() should set (register) the action and then return it.
 	 */
 	public function test_should_set_and_return_action() {
 		global $_beans_registered_actions;

@@ -33,7 +33,7 @@ class Tests_BeansUnsetAction extends Actions_Test_Case {
 	/**
 	 * Test _beans_unset_action() should return false when action is not registered.
 	 */
-	public function test_should_return_false_when_not_registered() {
+	public function test_should_return_false_when_action_not_registered() {
 		global $_beans_registered_actions;
 
 		foreach ( static::$test_actions as $beans_id => $action ) {

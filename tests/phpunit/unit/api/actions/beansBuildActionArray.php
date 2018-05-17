@@ -22,7 +22,7 @@ use Brain\Monkey;
 class Tests_BeansBuildActionArray extends Test_Case {
 
 	/**
-	 * Setup test fixture.
+	 * Prepares the test environment before each test.
 	 */
 	protected function setUp() {
 		parent::setUp();
@@ -31,7 +31,7 @@ class Tests_BeansBuildActionArray extends Test_Case {
 	}
 
 	/**
-	 * Test _beans_build_action_array() should return empty array when all of the arguments are invalid.
+	 * Test _beans_build_action_array() should return an empty array when all of the arguments are invalid.
 	 */
 	public function test_should_return_empty_array_when_invalid_arguments() {
 		$this->assertEmpty( _beans_build_action_array() );
@@ -94,7 +94,7 @@ class Tests_BeansBuildActionArray extends Test_Case {
 	/**
 	 * Test _beans_build_action_array() should return only the valid arguments.
 	 */
-	public function test_should_return_valid_args() {
+	public function test_should_return_valid_arguments() {
 		$this->assertEquals(
 			array(
 				'hook'     => 'foo',
