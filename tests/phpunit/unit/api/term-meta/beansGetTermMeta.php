@@ -24,9 +24,9 @@ require_once dirname( __FILE__ ) . '/includes/class-beans-term-meta-test-case.ph
 class Tests_BeansGetTermMeta extends Beans_Term_Meta_Test_Case {
 
 	/**
-	 * Test beans_get_term_meta() should return false when default not given and term meta does not exist.
+	 * Test beans_get_term_meta() should return false when no default given and term meta does not exist.
 	 */
-	public function test_should_return_false_when_no_optional_arguments_given_and_term_meta_not_set() {
+	public function test_should_return_false_when_no_default_given_and_term_meta_not_set() {
 		Monkey\Functions\expect( 'get_queried_object' )
 			->once()
 			->andReturn( (object) array( 'post_id' => 1 ) ); // return an object with no term_id.
@@ -54,7 +54,7 @@ class Tests_BeansGetTermMeta extends Beans_Term_Meta_Test_Case {
 
 	/**
 	 * Test beans_get_term_meta() should return meta term's value when queried object has a term_id and meta for that
-	 * id exists.
+	 * ID exists.
 	 */
 	public function test_should_return_term_meta_when_queried_object_has_term_id_and_meta_is_set() {
 		Monkey\Functions\expect( 'get_queried_object' )

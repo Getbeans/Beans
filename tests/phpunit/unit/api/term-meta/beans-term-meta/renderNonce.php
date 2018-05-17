@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the render_nonce() method of _Beans_Term_Meta.
+ * Tests for the render_nonce() method of _Beans_Term_Meta.
  *
  * @package Beans\Framework\Tests\Unit\API\Term_Meta
  *
@@ -25,7 +25,7 @@ require_once dirname( __DIR__ ) . '/includes/class-beans-term-meta-test-case.php
 class Tests_BeansTermMeta_RenderNonce extends Beans_Term_Meta_Test_Case {
 
 	/**
-	 * Test _Beans_Term_Meta::nonce() should render the nonce HTML.
+	 * Test _Beans_Term_Meta::render_nonce() should render the nonce HTML.
 	 */
 	public function test_should_render_nonce_html() {
 		Monkey\Functions\expect( 'wp_create_nonce' )

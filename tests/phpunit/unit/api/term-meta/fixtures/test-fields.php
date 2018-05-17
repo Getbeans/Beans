@@ -1,6 +1,6 @@
 <?php
 /**
- * Test data for the Term Meta unit tests.
+ * Test data for the Beans Term Meta API unit tests.
  *
  * @package Beans\Framework\Tests\Unit\API\Term_Meta\Fixtures
  *

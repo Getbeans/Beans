@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the save() method of _Beans_Term_Meta.
+ * Tests for the save() method of _Beans_Term_Meta.
  *
  * @package Beans\Framework\Tests\Unit\API\Term_Meta
  *
@@ -25,7 +25,7 @@ require_once dirname( __DIR__ ) . '/includes/class-beans-term-meta-test-case.php
 class Tests_BeansTermMeta_Save extends Beans_Term_Meta_Test_Case {
 
 	/**
-	 * Tests _Beans_Term_Meta::save() should return term_id when doing_ajax.
+	 * Test _Beans_Term_Meta::save() should return term_ID when doing_ajax.
 	 */
 	public function test_should_return_term_id_when_doing_ajax() {
 		Monkey\Functions\expect( '_beans_doing_ajax' )->once()->andReturn( true );
@@ -36,7 +36,7 @@ class Tests_BeansTermMeta_Save extends Beans_Term_Meta_Test_Case {
 	}
 
 	/**
-	 * Tests _Beans_Term_Meta::save() should return term_id when nonce is invalid.
+	 * Test _Beans_Term_Meta::save() should return term_ID when nonce is invalid.
 	 */
 	public function test_should_return_term_id_when_nonce_is_invalid() {
 		Monkey\Functions\expect( '_beans_doing_ajax' )->once()->andReturn( false );
@@ -55,7 +55,7 @@ class Tests_BeansTermMeta_Save extends Beans_Term_Meta_Test_Case {
 	}
 
 	/**
-	 * Tests _Beans_Term_Meta::save() should return term_id when fields are falsey.
+	 * Test _Beans_Term_Meta::save() should return term_ID when fields are falsey.
 	 */
 	public function test_should_return_term_id_when_fields_are_falsey() {
 		Monkey\Functions\expect( '_beans_doing_ajax' )->once()->andReturn( false );
@@ -78,7 +78,7 @@ class Tests_BeansTermMeta_Save extends Beans_Term_Meta_Test_Case {
 	}
 
 	/**
-	 * Tests _Beans_Term_Meta::save() should return null when fields are updated.
+	 * Test _Beans_Term_Meta::save() should return null when fields are updated.
 	 */
 	public function test_should_return_null_when_fields_are_updated() {
 		Monkey\Functions\when( 'stripslashes_deep' )->justReturn( 'sample-value' );

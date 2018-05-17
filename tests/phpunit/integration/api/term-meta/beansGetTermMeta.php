@@ -21,9 +21,9 @@ use WP_UnitTestCase;
 class Tests_BeansGetTermMeta extends WP_UnitTestCase {
 
 	/**
-	 * Test beans_get_term_meta() should return false when default not given and term meta does not exist.
+	 * Test beans_get_term_meta() should return false when no default given and term meta does not exist.
 	 */
-	public function test_should_return_false_when_no_optional_arguments_given_and_term_meta_not_set() {
+	public function test_should_return_false_when_no_default_given_and_term_meta_does_not_exist() {
 		$this->assertFalse( beans_get_term_meta( 'beans_layout' ) );
 
 		$_GET['tag_ID'] = 1; // a tag_ID is set.
@@ -38,7 +38,7 @@ class Tests_BeansGetTermMeta extends WP_UnitTestCase {
 	/**
 	 * Test beans_get_term_meta() should return default when given and term meta does not exist.
 	 */
-	public function test_should_return_default_when_default_given_and_term_meta_not_set() {
+	public function test_should_return_default_when_default_given_and_term_meta_does_not_exist() {
 		$default_term_id  = $this->factory()->category->create();
 		$provided_term_id = $this->factory()->category->create();
 		$this->go_to( ( '?cat=' . $default_term_id ) );
@@ -50,7 +50,7 @@ class Tests_BeansGetTermMeta extends WP_UnitTestCase {
 	/**
 	 * Test beans_get_term_meta() should return term's meta value when it exists.
 	 */
-	public function test_should_return_term_meta_when_meta_is_set() {
+	public function test_should_return_term_meta_when_it_exists() {
 		$default_term_id = $this->factory()->category->create();
 		update_option( "beans_term_{$default_term_id}_beans_layout", 'sp-c' );
 		$provided_term_id = $this->factory()->category->create();
@@ -62,18 +62,18 @@ class Tests_BeansGetTermMeta extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test beans_get_term_meta() should return default when given and tag_ID set but term meta does not exist.
+	 * Test beans_get_term_meta() should return default when given, tag_ID set but term meta does not exist.
 	 */
-	public function test_should_return_default_when_given_and_tag_id_exists_but_term_meta_not_set() {
+	public function test_should_return_default_when_given_tag_id_set_but_term_meta_does_not_exist() {
 		$_GET['tag_ID'] = 2;
 
 		$this->assertSame( 'default_fallback', beans_get_term_meta( 'beans_layout', 'default_fallback' ) );
 	}
 
 	/**
-	 * Test beans_get_term_meta() should return meta term's value when given and tag_ID set and meta exists.
+	 * Test beans_get_term_meta() should return meta term's value when given, tag_ID is set and meta exists.
 	 */
-	public function test_should_return_term_meta_when_given_and_tag_id_exists_but_term_meta_not_set() {
+	public function test_should_return_term_meta_when_given_tag_id_set_and_term_meta_exist() {
 		$_GET['tag_ID'] = 3;
 		update_option( 'beans_term_3_beans_layout', 'sp-c' );
 
