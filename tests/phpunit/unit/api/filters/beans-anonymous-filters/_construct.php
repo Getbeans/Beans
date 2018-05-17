@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for _Beans_Anonymous_Filters __construct() method.
+ * Tests for the __construct() method of _Beans_Anonymous_Filters.
  *
  * @package Beans\Framework\Tests\Unit\API\Filters
  *
@@ -13,16 +13,16 @@ use _Beans_Anonymous_Filters;
 use Beans\Framework\Tests\Unit\Test_Case;
 
 /**
- * Class Tests_Beans_Anonymous_Filters_Construct.
+ * Class Tests_BeansAnonymousFilters_Construct.
  *
  * @package Beans\Framework\Tests\Unit\API\Filters
  * @group   api
  * @group   api-filters
  */
-class Tests_Beans_Anonymous_Filters_Construct extends Test_Case {
+class Tests_BeansAnonymousFilters_Construct extends Test_Case {
 
 	/**
-	 * Setup test fixture.
+	 * Prepares the test environment before each test.
 	 */
 	protected function setUp() {
 		parent::setUp();
@@ -31,7 +31,7 @@ class Tests_Beans_Anonymous_Filters_Construct extends Test_Case {
 	}
 
 	/**
-	 * Test _construct() should store callback.
+	 * Test __construct() should store callback.
 	 */
 	public function test_should_store_callback() {
 		$object = new _Beans_Anonymous_Filters( 'do_foo', 'foo', 20 );
@@ -43,7 +43,7 @@ class Tests_Beans_Anonymous_Filters_Construct extends Test_Case {
 	}
 
 	/**
-	 * Test _Beans_Anonymous_Filters() should register callback to the given hook.
+	 * Test __construct() should register callback to the given hook.
 	 */
 	public function test_should_register_callback_to_hook() {
 		$object = new _Beans_Anonymous_Filters( 'do_foo', false, 20 );
