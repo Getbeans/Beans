@@ -36,7 +36,7 @@ class Tests_BeansPathToUrl extends Test_Case {
 	protected $beans_tests_relative_path;
 
 	/**
-	 * Setup test fixture.
+	 * Prepares the test environment before each test.
 	 */
 	protected function setUp() {
 		parent::setUp();
@@ -75,7 +75,7 @@ class Tests_BeansPathToUrl extends Test_Case {
 	/**
 	 * Test beans_path_to_url() should bail out when Data URI.
 	 */
-	public function test_should_bail_out_when_data_url() {
+	public function test_should_bail_out_when_data_uri() {
 		$this->assertSame( 'data:,Hello%2C%20World!', beans_path_to_url( 'data:,Hello%2C%20World!' ) );
 		$this->assertSame(
 			'data:text/plain;base64,SGVsbG8sIFdvcmxkIQ%3D%3D',

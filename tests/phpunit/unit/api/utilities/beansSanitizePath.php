@@ -21,7 +21,7 @@ use Beans\Framework\Tests\Unit\Test_Case;
 class Tests_BeansSanitizePath extends Test_Case {
 
 	/**
-	 * Setup test fixture.
+	 * Prepares the test environment before each test.
 	 */
 	protected function setUp() {
 		parent::setUp();
@@ -44,7 +44,7 @@ class Tests_BeansSanitizePath extends Test_Case {
 		$this->assertSame( $this->prepare_path( BEANS_TESTS_DIR ), beans_sanitize_path( BEANS_TESTS_DIR ) );
 		$this->assertSame( $this->prepare_path( __DIR__ ), beans_sanitize_path( __DIR__ ) );
 
-		// Test phpunit's path.
+		// Test PHPUnit's path.
 		$this->assertSame(
 			$this->prepare_path( BEANS_TESTS_DIR ) . '/bootstrap.php',
 			beans_sanitize_path( BEANS_TESTS_DIR . DIRECTORY_SEPARATOR . 'bootstrap.php' )

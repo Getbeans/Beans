@@ -29,7 +29,7 @@ class Tests_BeansUrlToPath extends Test_Case {
 	protected $abspath;
 
 	/**
-	 * Setup test fixture.
+	 * Prepares the test environment before each test.
 	 */
 	protected function setUp() {
 		parent::setUp();
