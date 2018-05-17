@@ -1,5 +1,6 @@
 <?php
-/** Tests for beans_post_meta_page_template_reload.
+/**
+ * Tests for _beans_post_meta_page_template_reload()
  *
  * @package Beans\Framework\Tests\Unit\API\Post_Meta
  *
@@ -51,7 +52,7 @@ class Tests_BeansPostMetaPageTemplateReload extends Test_Case {
 	}
 
 	/**
-	 * Test _beans_post_meta_page_template_reload should output script html when post meta is assigned to page templates.
+	 * Test _beans_post_meta_page_template_reload should output script HTML when post meta is assigned to page templates.
 	 */
 	public function test_should_output_script_html_when_post_meta_assigned_to_page_templates() {
 		global $_beans_post_meta_conditions, $pagenow;

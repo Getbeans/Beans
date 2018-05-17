@@ -1,5 +1,6 @@
 <?php
-/** Tests for beans_register_post_meta()
+/**
+ * Tests for beans_register_post_meta()
  *
  * @package Beans\Framework\Tests\Unit\API\Post_Meta
  *
@@ -46,7 +47,7 @@ class Tests_BeansRegisterPostMeta extends Beans_Post_Meta_Test_Case {
 	}
 
 	/**
-	 * Test beans_register_post_meta should return false when not on the admin side.
+	 * Test beans_register_post_meta should return false when not is_admin().
 	 */
 	public function test_should_return_false_when_not_is_admin() {
 		Monkey\Functions\when( '_beans_pre_standardize_fields' )->returnArg();

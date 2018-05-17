@@ -1,6 +1,6 @@
 <?php
 /**
- *  Test field data for use with metabox_content method tests.
+ *  Test field data for use with the metabox_content() method tests.
  *
  * @package Beans\Framework\Tests\Integration\API\Post_Meta\Fixtures
  *

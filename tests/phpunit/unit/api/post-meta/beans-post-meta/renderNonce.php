@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the nonce method of _Beans_Post_Meta.
+ * Tests for the render_nonce() method of _Beans_Post_Meta.
  *
  * @package Beans\Framework\Tests\Unit\API\Post_Meta
  *
@@ -25,9 +25,9 @@ require_once dirname( __DIR__ ) . '/includes/class-beans-post-meta-test-case.php
 class Tests_BeansPostMeta_RenderNonce extends Beans_Post_Meta_Test_Case {
 
 	/**
-	 * Test _Beans_Post_Meta::nonce() should echo correct nonce input HTML.
+	 * Test _Beans_Post_Meta::render_nonce() should echo correct nonce input HTML.
 	 */
-	public function test_nonce_should_echo_nonce_input_html() {
+	public function test_should_echo_nonce_input_html() {
 		Monkey\Functions\expect( 'wp_create_nonce' )->once()->with( 'beans_post_meta_nonce' )->andReturn( '123456' );
 		$expected_html_output = '<input type="hidden" name="beans_post_meta_nonce" value="123456" />';
 

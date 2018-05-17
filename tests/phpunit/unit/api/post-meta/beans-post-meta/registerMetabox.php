@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the register_metabox method of _Beans_Post_Meta.
+ * Tests for the register_metabox() method of _Beans_Post_Meta.
  *
  * @package Beans\Framework\Tests\Unit\API\Post_Meta
  *

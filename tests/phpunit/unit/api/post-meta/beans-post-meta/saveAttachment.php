@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the save_attachment method of _Beans_Post_Meta.
+ * Tests the save_attachment() method of _Beans_Post_Meta.
  *
  * @package Beans\Framework\Tests\Unit\API\Post_Meta
  *
@@ -27,7 +27,7 @@ class Tests_BeansPostMeta_SaveAttachment extends Beans_Post_Meta_Test_Case {
 	/**
 	 * Test _Beans_Post_Meta::save_attachment() should not update post meta when _beans_doing_autosave() is true.
 	 */
-	public function test_save_attachment_should_not_update_post_meta_when_doing_autosave() {
+	public function test_should_not_update_post_meta_when_doing_autosave() {
 		$post_meta  = new _Beans_Post_Meta( 'tm-beans', array( 'title' => 'Post Options' ) );
 		$attachment = array( 'ID' => 543 );
 
@@ -39,7 +39,7 @@ class Tests_BeansPostMeta_SaveAttachment extends Beans_Post_Meta_Test_Case {
 	/**
 	 * Test _Beans_Post_Meta::save_attachment() should run update_post_meta() and return attachment when ok_to_save() is true.
 	 */
-	public function test_save_attachment_should_run_update_post_meta_and_return_attachment_when_ok_to_save() {
+	public function test_should_run_update_post_meta_and_return_attachment_when_ok_to_save() {
 		$post_meta  = new _Beans_Post_Meta( 'tm-beans', array( 'title' => 'Post Options' ) );
 		$attachment = array( 'ID' => 543 );
 		$fields     = array( 'beans_post_test_field' => 'beans_test_post_field_value' );
@@ -55,4 +55,3 @@ class Tests_BeansPostMeta_SaveAttachment extends Beans_Post_Meta_Test_Case {
 		$this->assertEquals( $attachment, $post_meta->save_attachment( $attachment ) );
 	}
 }
-

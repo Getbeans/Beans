@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for beans_is_post_meta_conditions()
+ * Tests for _beans_is_post_meta_conditions()
  *
  * @package Beans\Framework\Tests\Integration\API\Post_Meta
  *
@@ -15,7 +15,7 @@ require_once BEANS_API_PATH . 'post-meta/functions-admin.php';
 require_once dirname( __FILE__ ) . '/includes/class-beans-post-meta-test-case.php';
 
 /**
- * Class Tests_BeansGetPostMeta
+ * Class Tests_BeansIsGetPostMetaConditions
  *
  * @package Beans\Framework\Tests\Integration\API\Post_Meta
  * @group   api
@@ -24,14 +24,14 @@ require_once dirname( __FILE__ ) . '/includes/class-beans-post-meta-test-case.ph
 class Tests_BeansIsPostMetaConditions extends Beans_Post_Meta_Test_Case {
 
 	/**
-	 * Tests is_post_meta_conditions() should return true when $conditions are a boolean true.
+	 * Test _beans_is_post_meta_conditions() should return true when $conditions are a boolean true.
 	 */
 	public function test_should_return_true_for_boolean_true_condition() {
 		$this->assertTrue( _beans_is_post_meta_conditions( true ) );
 	}
 
 	/**
-	 * Tests is_post_meta_conditions() should return true when is a new post and $conditions include 'post'.
+	 * Test _beans_is_post_meta_conditions() should return true when it's a new post and $conditions include 'post'.
 	 */
 	public function test_should_return_true_when_new_post_and_conditions_include_post() {
 		set_current_screen( 'post' );
@@ -44,7 +44,7 @@ class Tests_BeansIsPostMetaConditions extends Beans_Post_Meta_Test_Case {
 	}
 
 	/**
-	 * Tests is_post_meta_conditions() should return false when is a new post and $conditions don't include 'post'.
+	 * Test _beans_is_post_meta_conditions() should return false when it's a new post and $conditions don't include 'post'.
 	 */
 	public function test_should_return_false_when_new_post_and_conditions_do_not_include_post() {
 		set_current_screen( 'post' );
@@ -57,7 +57,7 @@ class Tests_BeansIsPostMetaConditions extends Beans_Post_Meta_Test_Case {
 	}
 
 	/**
-	 * Tests is_post_meta_conditions() should return false when post_id can't be found.
+	 * Test _beans_is_post_meta_conditions() should return false when post_ID can't be found.
 	 */
 	public function test_should_return_false_when_post_id_not_found() {
 		set_current_screen( 'edit' );
@@ -66,13 +66,13 @@ class Tests_BeansIsPostMetaConditions extends Beans_Post_Meta_Test_Case {
 	}
 
 	/**
-	 * Tests is_post_meta_conditions() should return true when $conditions match post type.
+	 * Test _beans_is_post_meta_conditions() should return true when $conditions match post type.
 	 */
 	public function test_should_return_true_when_conditions_match_post_type() {
 		$post_id = $this->factory()->post->create( array( 'post_type' => 'cpt' ) );
 		set_current_screen( 'cpt' );
 
-		// Setup for when post_id is in GET.
+		// Setup for when post_ID is in GET.
 		$_GET['post'] = $post_id;
 
 		$this->assertTrue( _beans_is_post_meta_conditions( array( 'cpt' ) ) );
@@ -80,7 +80,7 @@ class Tests_BeansIsPostMetaConditions extends Beans_Post_Meta_Test_Case {
 		// Clear Global GET.
 		$_GET['post'] = null;
 
-		// Set up for when post_id is in POST.
+		// Setup for when post_ID is in POST.
 		$_POST['post_ID'] = $post_id;
 
 		$this->assertTrue( _beans_is_post_meta_conditions( array( 'cpt' ) ) );
@@ -90,13 +90,13 @@ class Tests_BeansIsPostMetaConditions extends Beans_Post_Meta_Test_Case {
 	}
 
 	/**
-	 * Tests is_post_meta_conditions() should return true when conditions match post ID.
+	 * Test _beans_is_post_meta_conditions() should return true when conditions match post_ID.
 	 */
 	public function test_should_return_true_when_conditions_match_post_id() {
 		$post_id = $this->factory()->post->create();
 		set_current_screen( 'edit' );
 
-		// Setup for when post_id is in GET.
+		// Setup for when post_ID is in GET.
 		$_GET['post'] = $post_id;
 
 		$this->assertTrue( _beans_is_post_meta_conditions( array( $post_id ) ) );
@@ -104,7 +104,7 @@ class Tests_BeansIsPostMetaConditions extends Beans_Post_Meta_Test_Case {
 		// Clear Global GET.
 		$_GET['post'] = null;
 
-		// Set up for when post_id is in POST.
+		// Setup for when post_ID is in POST.
 		$_POST['post_ID'] = $post_id;
 
 		$this->assertTrue( _beans_is_post_meta_conditions( array( $post_id ) ) );
@@ -114,14 +114,14 @@ class Tests_BeansIsPostMetaConditions extends Beans_Post_Meta_Test_Case {
 	}
 
 	/**
-	 * Tests is_post_meta_conditions() should return true when conditions match a page template name.
+	 * Test _beans_is_post_meta_conditions() should return true when conditions match a page template name.
 	 */
 	public function test_should_return_true_when_conditions_match_page_template_name() {
 		$page_id = $this->factory()->post->create( array( 'post_type' => 'page' ) );
 		set_current_screen( 'edit' );
 		add_post_meta( $page_id, '_wp_page_template', 'page-template-name' );
 
-		// Setup for when post_id is in GET.
+		// Setup for when post_ID is in GET.
 		$_GET['post'] = $page_id;
 
 		$this->assertTrue( _beans_is_post_meta_conditions( array( 'page-template-name' ) ) );
@@ -129,7 +129,7 @@ class Tests_BeansIsPostMetaConditions extends Beans_Post_Meta_Test_Case {
 		// Clear Global GET.
 		$_GET['post'] = null;
 
-		// Set up for when post_id is in POST.
+		// Setup for when post_ID is in POST.
 		$_POST['post_ID'] = $page_id;
 
 		$this->assertTrue( _beans_is_post_meta_conditions( array( 'page-template-name' ) ) );
@@ -139,7 +139,7 @@ class Tests_BeansIsPostMetaConditions extends Beans_Post_Meta_Test_Case {
 	}
 
 	/**
-	 * Tests is_post_meta_conditions() should return false when no conditions match.
+	 * Test _beans_is_post_meta_conditions() should return false when no conditions match.
 	 */
 	public function test_should_return_false_when_no_conditions_match() {
 
@@ -147,7 +147,7 @@ class Tests_BeansIsPostMetaConditions extends Beans_Post_Meta_Test_Case {
 		set_current_screen( 'edit' );
 		add_post_meta( $page_id, '_wp_page_template', 'page-template-name' );
 
-		// Setup for when post_id is in GET.
+		// Setup for when post_ID is in GET.
 		$_GET['post'] = $page_id;
 
 		$this->assertFalse( _beans_is_post_meta_conditions( array( 'some-other-conditions' ) ) );
@@ -155,7 +155,7 @@ class Tests_BeansIsPostMetaConditions extends Beans_Post_Meta_Test_Case {
 		// Clear Global GET.
 		$_GET['post'] = null;
 
-		// Set up for when post_id is in POST.
+		// Setup for when post_ID is in POST.
 		$_POST['post_ID'] = $page_id;
 
 		$this->assertFalse( _beans_is_post_meta_conditions( array( 'some-other-conditions' ) ) );

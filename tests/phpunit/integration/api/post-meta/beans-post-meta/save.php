@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for the save method of _Beans_Post_Meta.
+ * Tests for the save() method of _Beans_Post_Meta.
  *
  * @package Beans\Framework\Tests\Integration\API\Post_Meta
  *
@@ -25,9 +25,9 @@ require_once dirname( __DIR__ ) . '/includes/class-beans-post-meta-test-case.php
 class Tests_BeansPostMeta_Save extends Beans_Post_Meta_Test_Case {
 
 	/**
-	 * Test _Beans_Post_Meta::save() should return post_id when ok_to_save() is false.
+	 * Test _Beans_Post_Meta::save() should return the post_ID when ok_to_save() is false.
 	 */
-	public function test_save_should_return_post_id_when_ok_to_save_is_false() {
+	public function test_should_return_post_id_when_ok_to_save_is_false() {
 		$post_meta = new _Beans_Post_Meta( 'tm-beans', array( 'title' => 'Post Options' ) );
 		$post_id   = $this->factory()->post->create();
 
@@ -37,7 +37,7 @@ class Tests_BeansPostMeta_Save extends Beans_Post_Meta_Test_Case {
 	/**
 	 * Test _Beans_Post_Meta::save() should run update_post_meta() and return null when ok_to_save() is true.
 	 */
-	public function test_save_should_run_update_post_meta_and_return_null_when_ok_to_save() {
+	public function test_should_run_update_post_meta_and_return_null_when_ok_to_save() {
 		$post_meta = new _Beans_Post_Meta( 'tm-beans', array( 'title' => 'Post Options' ) );
 		$post_id   = $this->factory()->post->create();
 

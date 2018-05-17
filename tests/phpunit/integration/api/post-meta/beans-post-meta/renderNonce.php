@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for the render_nonce method of _Beans_Post_Meta.
+ * Tests for the render_nonce() method of _Beans_Post_Meta.
  *
  * @package Beans\Framework\Tests\Integration\API\Post_Meta
  *
@@ -16,18 +16,18 @@ require_once BEANS_THEME_DIR . '/lib/api/post-meta/class-beans-post-meta.php';
 require_once dirname( __DIR__ ) . '/includes/class-beans-post-meta-test-case.php';
 
 /**
- * Class Tests_BeansPostMeta_Render_Nonce
+ * Class Tests_BeansPostMeta_RenderNonce
  *
  * @package Beans\Framework\Tests\Integration\API\Post_Meta
  * @group   api
  * @group   api-post-meta
  */
-class Tests_BeansPostMeta_Render_Nonce extends Beans_Post_Meta_Test_Case {
+class Tests_BeansPostMeta_RenderNonce extends Beans_Post_Meta_Test_Case {
 
 	/**
-	 * Test _Beans_Post_Meta::nonce() should echo correct nonce input HTML when called.
+	 * Test _Beans_Post_Meta::render_nonce() should echo correct nonce input HTML when called.
 	 */
-	public function test_nonce_should_echo_nonce_input_html() {
+	public function test_should_echo_nonce_input_html() {
 		$post_meta = new _Beans_Post_Meta( 'tm-beans', array( 'title' => 'Post Options' ) );
 
 		$expected_html_output = '<input type="hidden" name="beans_post_meta_nonce" value="%x" />';
