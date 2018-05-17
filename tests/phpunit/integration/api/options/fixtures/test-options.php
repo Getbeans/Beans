@@ -1,6 +1,6 @@
 <?php
 /**
- * Array of test data for the Beans Options API
+ * Array of test data for the Beans Options API integration tests.
  *
  * @package Beans\Framework\Tests\Integration\API\Options\Fixtures
  *

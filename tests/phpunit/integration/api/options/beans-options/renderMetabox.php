@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for render_metabox() method of the _Beans_Options.
+ * Tests for the render_metabox() method of _Beans_Options.
  *
  * @package Beans\Framework\Tests\Integration\API\Options
  *
@@ -16,16 +16,16 @@ use Brain\Monkey;
 require_once dirname( __DIR__ ) . '/includes/class-options-test-case.php';
 
 /**
- * Class Tests_Beans_Options_Render_Metabox
+ * Class Tests_BeansOptions_RenderMetabox
  *
  * @package Beans\Framework\Tests\Integration\API\Options
  * @group   api
  * @group   api-options
  */
-class Tests_Beans_Options_Render_Metabox extends Options_Test_Case {
+class Tests_BeansOptions_RenderMetabox extends Options_Test_Case {
 
 	/**
-	 * Test render_metabox() should return null when the section does not have fields registered.
+	 * Test _Beans_Options::render_metabox() should return null when the section does not have fields registered.
 	 */
 	public function test_should_return_null_when_no_fields_registered() {
 		$instance = new _Beans_Options();
@@ -40,7 +40,7 @@ class Tests_Beans_Options_Render_Metabox extends Options_Test_Case {
 	}
 
 	/**
-	 * Test render_metabox() should render the registered fields.
+	 * Test _Beans_Options::render_metabox() should render the registered fields.
 	 */
 	public function test_should_render_registered_fields() {
 		$instance = new _Beans_Options();
