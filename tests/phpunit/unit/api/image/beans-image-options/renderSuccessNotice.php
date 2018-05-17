@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the render_success_notice() method of _Beans_Image_Options.
+ * Tests for the render_success_notice() method of _Beans_Image_Options.
  *
  * @package Beans\Framework\Tests\Unit\API\Image
  *

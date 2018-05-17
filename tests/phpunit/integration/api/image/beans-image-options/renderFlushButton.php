@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the render_flush_button() method of _Beans_Image_Options.
+ * Tests for the render_flush_button() method of _Beans_Image_Options.
  *
  * @package Beans\Framework\Tests\Integration\API\Image
  *

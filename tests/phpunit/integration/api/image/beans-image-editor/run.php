@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for run() method of _Beans_Image_Editor.
+ * Tests for the run() method of _Beans_Image_Editor.
  *
  * @package Beans\Framework\Tests\Integration\API\Image
  *
@@ -16,13 +16,13 @@ require_once dirname( __DIR__ ) . '/includes/class-image-test-case.php';
 require_once BEANS_API_PATH . 'image/class-beans-image-editor.php';
 
 /**
- * Class Tests_Beans_Edit_Image_Run
+ * Class Tests_BeansImageEditor_Run
  *
  * @package Beans\Framework\Tests\Integration\API\Image
  * @group   api
  * @group   api-image
  */
-class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
+class Tests_BeansImageEditor_Run extends Image_Test_Case {
 
 	/**
 	 * Path of the fixtures directory.
@@ -41,9 +41,9 @@ class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
 	}
 
 	/**
-	 * Test run() should edit the existing image, store it in the "rebuilt path", and then return its URL.
+	 * Test _Beans_Image_Editor::run() should edit the existing image, store it in the "rebuilt path", and then return its URL.
 	 */
-	public function test_should_edit_store_and_return_its_url() {
+	public function test_should_edit_store_image_and_return_its_url() {
 		$rebuilt_path  = $this->get_reflective_property( 'rebuilt_path', '_Beans_Image_Editor' );
 		$image_sources = array(
 			static::$fixtures_dir . '/image1.jpg',
@@ -69,7 +69,7 @@ class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
 	}
 
 	/**
-	 * Test init() should return original src when the image does not exist.
+	 * Test _Beans_Image_Editor::run() should return original src when the image does not exist.
 	 */
 	public function test_should_return_original_src_when_no_image() {
 		$src    = 'path/does/not/exist/image.jpg';
@@ -81,7 +81,7 @@ class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
 	}
 
 	/**
-	 * Test run() should return the URL when the edited image exists, meaning that it has already been edited and
+	 * Test _Beans_Image_Editor::run() should return the URL when the edited image exists, meaning that it has already been edited and
 	 * stored.
 	 */
 	public function test_should_return_url_when_edited_image_exists() {
@@ -106,10 +106,10 @@ class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
 	}
 
 	/**
-	 * Test run() should edit the existing image, store it in the "rebuilt path", and then return an indexed array of its
+	 * Test _Beans_Image_Editor::run() should edit the existing image, store it in the "rebuilt path", and then return an indexed array of its
 	 * image info.
 	 */
-	public function test_should_edit_store_and_return_indexed_array() {
+	public function test_should_edit_store_image_and_return_indexed_array() {
 		$rebuilt_path  = $this->get_reflective_property( 'rebuilt_path', '_Beans_Image_Editor' );
 		$image_sources = array(
 			static::$fixtures_dir . '/image1.jpg',
@@ -135,7 +135,7 @@ class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
 	}
 
 	/**
-	 * Test run() should return an indexed array with the original src when the image does not exist.
+	 * Test _Beans_Image_Editor::run() should return an indexed array with the original src when the image does not exist.
 	 */
 	public function test_should_return_indexed_array_with_original_src_when_no_image() {
 		$src    = 'path/does/not/exist/image.jpg';
@@ -147,7 +147,7 @@ class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
 	}
 
 	/**
-	 * Test run() should return return an indexed array when the edited image exists, meaning that it has already been
+	 * Test _Beans_Image_Editor::run() should return an indexed array when the edited image exists, meaning that it has already been
 	 * edited and stored.
 	 */
 	public function test_should_return_index_array_when_edited_image_exists() {
@@ -172,10 +172,10 @@ class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
 	}
 
 	/**
-	 * Test run() should edit the existing image, store it in the "rebuilt path", and then return its image info as an
+	 * Test _Beans_Image_Editor::run() should edit the existing image, store it in the "rebuilt path", and then return its image info as an
 	 * object.
 	 */
-	public function test_should_edit_store_and_return_object() {
+	public function test_should_edit_store_image_and_return_object() {
 		$rebuilt_path  = $this->get_reflective_property( 'rebuilt_path', '_Beans_Image_Editor' );
 		$image_sources = array(
 			static::$fixtures_dir . '/image1.jpg',
@@ -204,7 +204,7 @@ class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
 	}
 
 	/**
-	 * Test run() should return an object with the original src when the image does not exist.
+	 * Test _Beans_Image_Editor::run() should return an object with the original src when the image does not exist.
 	 */
 	public function test_should_return_object_with_original_src_when_no_image() {
 		$src    = 'path/does/not/exist/image.jpg';
@@ -220,7 +220,7 @@ class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
 	}
 
 	/**
-	 * Test run() should return an object when the edited image exists, meaning that it has already been
+	 * Test _Beans_Image_Editor::run() should return an object when the edited image exists, meaning that it has already been
 	 * edited and stored.
 	 */
 	public function test_should_return_object_when_edited_image_exists() {
@@ -250,10 +250,10 @@ class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
 	}
 
 	/**
-	 * Test run() should edit the existing image, store it in the "rebuilt path", and then return its image info as an
+	 * Test _Beans_Image_Editor::run() should edit the existing image, store it in the "rebuilt path", and then return its image info as an
 	 * associative array.
 	 */
-	public function test_should_edit_image_and_return_associative_array() {
+	public function test_should_edit_store_image_and_return_associative_array() {
 		$rebuilt_path  = $this->get_reflective_property( 'rebuilt_path', '_Beans_Image_Editor' );
 		$image_sources = array(
 			static::$fixtures_dir . '/image1.jpg',
@@ -286,7 +286,7 @@ class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
 	}
 
 	/**
-	 * Test run() should return an array with the original src when the image does not exist.
+	 * Test _Beans_Image_Editor::run() should return an array with the original src when the image does not exist.
 	 */
 	public function test_should_return_associative_array_with_original_src_when_no_image() {
 		$src    = 'path/does/not/exist/image.jpg';
@@ -305,7 +305,7 @@ class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
 	}
 
 	/**
-	 * Test run() should return an associative array when the edited image exists, meaning that it has already
+	 * Test _Beans_Image_Editor::run() should return an associative array when the edited image exists, meaning that it has already
 	 * been edited and stored.
 	 */
 	public function test_should_return_associatve_array_when_edited_image_exists() {
