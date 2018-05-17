@@ -77,7 +77,7 @@ final class _Beans_Image_Options {
 	}
 
 	/**
-	 * Flush images for all folders set.
+	 * Flush images from the Beans cached folder.
 	 *
 	 * @since 1.0.0
 	 *

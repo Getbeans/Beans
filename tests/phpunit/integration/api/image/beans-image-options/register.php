@@ -1,6 +1,6 @@
 <?php
 /**
- * Integration the register() method of _Beans_Image_Options.
+ * Tests the register() method of _Beans_Image_Options.
  *
  * @package Beans\Framework\Test\Integration\API\Image
  *
@@ -11,7 +11,6 @@ namespace Beans\Framework\Tests\Integration\API\Image;
 
 use _Beans_Image_Options;
 use Beans\Framework\Tests\Integration\API\Image\Includes\Options_Test_Case;
-use Brain\Monkey;
 
 require_once dirname( __DIR__ ) . '/includes/class-options-test-case.php';
 

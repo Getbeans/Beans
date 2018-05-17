@@ -16,13 +16,13 @@ use Brain\Monkey;
 require_once dirname( __DIR__ ) . '/includes/class-options-test-case.php';
 
 /**
- * Class Tests_BeansImageOptions_AdminNotice
+ * Class Tests_BeansImageOptions_RenderSuccessNotice
  *
  * @package Beans\Framework\Tests\Unit\API\Image
  * @group   api
  * @group   api-image
  */
-class Tests_BeansImageOptions_AdminNotice extends Options_Test_Case {
+class Tests_BeansImageOptions_RenderSuccessNotice extends Options_Test_Case {
 
 	/**
 	 * Test _Beans_Image_Options::render_success_notice() should not render when not flushing edited images cache.

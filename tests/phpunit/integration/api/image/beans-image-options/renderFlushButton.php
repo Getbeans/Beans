@@ -11,18 +11,17 @@ namespace Beans\Framework\Tests\Integration\API\Image;
 
 use _Beans_Image_Options;
 use Beans\Framework\Tests\Integration\API\Image\Includes\Options_Test_Case;
-use Brain\Monkey;
 
 require_once dirname( __DIR__ ) . '/includes/class-options-test-case.php';
 
 /**
- * Class Tests_BeansImageOptions_Option
+ * Class Tests_BeansImageOptions_RenderFlushButton
  *
  * @package Beans\Framework\Tests\Integration\API\Image
  * @group   api
  * @group   api-image
  */
-class Tests_BeansImageOptions_Option extends Options_Test_Case {
+class Tests_BeansImageOptions_RenderFlushButton extends Options_Test_Case {
 
 	/**
 	 * Test _Beans_Image_Options::render_flush_button() should not render when the field is not for image options.
