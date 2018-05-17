@@ -43,7 +43,7 @@ function beans_load_api_components( $components ) {
 		'compiler'     => array(
 			$root . 'compiler/functions.php',
 			$root . 'compiler/class-beans-compiler.php',
-			$root . 'compiler/class-page-compiler.php',
+			$root . 'compiler/class-beans-page-compiler.php',
 		),
 		'uikit'        => array(
 			$root . 'uikit/functions.php',

@@ -1,6 +1,6 @@
 <?php
 /**
- * Test Case for Beans Compiler API Options integration tests.
+ * Test Case for Beans Compiler API Options unit tests.
  *
  * @package Beans\Framework\Tests\Unit\API\Compiler\Includes
  *
