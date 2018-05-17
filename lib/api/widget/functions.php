@@ -127,15 +127,15 @@ function beans_has_widget_area( $id ) {
 }
 
 /**
- * Display a widget area.
+ * Get the output of a widget area.
  *
- * @since 1.0.0
+ * @since 1.5.0
  *
  * @param string $id The ID of the registered widget area.
  *
  * @return string|bool The output, if a widget area was found and called. False if not found.
  */
-function beans_widget_area( $id ) {
+function beans_get_widget_area_output( $id ) {
 
 	// Stop here if the widget area is not registered.
 	if ( ! beans_has_widget_area( $id ) ) {
@@ -154,7 +154,7 @@ function beans_widget_area( $id ) {
 	ob_start();
 
 	/**
-	 * Fires when {@see beans_widget_area()} is called.
+	 * Fires when {@see beans_get_widget_area_output()} is called.
 	 *
 	 * @since 1.0.0
 	 */
