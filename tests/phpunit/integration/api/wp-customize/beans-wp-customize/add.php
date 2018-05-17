@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for add() method of _Beans_WP_Customize.
+ * Tests for the add() method of _Beans_WP_Customize.
  *
  * @package Beans\Framework\Tests\Integration\API\WP_Customize
  *
@@ -24,7 +24,7 @@ require_once dirname( __DIR__ ) . '/includes/class-wp-customize-test-case.php';
 class Tests_BeansWPCustomize_Add extends WP_Customize_Test_Case {
 
 	/**
-	 * Test add() should add section, settings and controls to the WP Customizer.
+	 * Test _Beans_WP_Customize::add() should add section, settings and controls to the WP Customizer.
 	 */
 	public function test_should_add_section_settings_and_controls_to_wp_customizer() {
 		$test_data = static::$test_data['single_fields'];
@@ -46,7 +46,7 @@ class Tests_BeansWPCustomize_Add extends WP_Customize_Test_Case {
 	}
 
 	/**
-	 * Test add() should add section and settings of grouped fields to the WP Customizer.
+	 * Test _Beans_WP_Customize::add() should add section and settings of grouped fields to the WP Customizer.
 	 */
 	public function test_should_add_section_and_settings_of_grouped_fields_to_wp_customizer() {
 		$test_data = static::$test_data['group'];

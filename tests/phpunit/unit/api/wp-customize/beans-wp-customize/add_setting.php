@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for add_setting() method of _Beans_WP_Customize.
+ * Tests for the add_setting() method of _Beans_WP_Customize.
  *
  * @package Beans\Framework\Tests\Unit\API\WP_Customize
  *
@@ -26,9 +26,9 @@ require_once dirname( __DIR__ ) . '/includes/class-wp-customize-test-case.php';
 class Tests_BeansWPCustomize_AddSetting extends WP_Customize_Test_Case {
 
 	/**
-	 * Test add_setting() should call beans_get() and WP_Customize_Manager.
+	 * Test _Beans_WP_Customize::add_setting() should call beans_get() and WP_Customize_Manager.
 	 */
-	public function test_add_setting_should_call_beans_get_and_wp_customize_manager() {
+	public function test_should_call_beans_get_and_wp_customize_manager() {
 		$test_data = static::$test_data['single_fields'];
 
 		Monkey\Functions\expect( 'beans_get_fields' )

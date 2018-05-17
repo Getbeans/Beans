@@ -60,7 +60,7 @@ abstract class Test_Case extends TestCase {
 	}
 
 	/**
-	 * Setup the stubs for the common WordPress escaping and internationalization functions.
+	 * Set up the stubs for the common WordPress escaping and internationalization functions.
 	 */
 	protected function setup_common_wp_stubs() {
 		// Common escaping functions.
