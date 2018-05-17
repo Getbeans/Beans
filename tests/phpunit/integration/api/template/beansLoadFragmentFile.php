@@ -10,7 +10,7 @@
 namespace Beans\Framework\Tests\Integration\API\Template;
 
 use Brain\Monkey;
-use WP_UnitTestCase;
+use Beans\Framework\Tests\Integration\Test_Case;
 
 /**
  * Class Tests_BeansLoadFragmentFile
@@ -19,7 +19,7 @@ use WP_UnitTestCase;
  * @group   api
  * @group   api-template
  */
-class Tests_BeansLoadFragmentFile extends WP_UnitTestCase {
+class Tests_BeansLoadFragmentFile extends Test_Case {
 
 	/**
 	 * Test beans_load_fragment_file() should return false when short-circuiting the function.

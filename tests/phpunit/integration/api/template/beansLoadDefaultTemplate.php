@@ -9,7 +9,7 @@
 
 namespace Beans\Framework\Tests\Integration\API\Template;
 
-use WP_UnitTestCase;
+use Beans\Framework\Tests\Integration\Test_Case;
 
 /**
  * Class Tests_BeansLoadDefaultTemplate
@@ -18,7 +18,7 @@ use WP_UnitTestCase;
  * @group   api
  * @group   api-template
  */
-class Tests_BeansLoadDefaultTemplate extends WP_UnitTestCase {
+class Tests_BeansLoadDefaultTemplate extends Test_Case {
 
 	/**
 	 * Test beans_load_default_template() should return false when the template does not exist.
