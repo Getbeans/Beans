@@ -9,15 +9,16 @@
 
 namespace Beans\Framework\Tests\Integration\API\Image\Includes;
 
-use Beans\Framework\Tests\Integration\Test_Case;
 use org\bovigo\vfs\vfsStream;
+
+require_once __DIR__ . '/class-base-test-case.php';
 
 /**
  * Abstract Class Image_Test_Case
  *
  * @package Beans\Framework\Tests\Integration\API\Image\Includes
  */
-abstract class Image_Test_Case extends Test_Case {
+abstract class Image_Test_Case extends Base_Test_Case {
 
 	/**
 	 * When true, return the given path when doing wp_normalize_path().
@@ -25,54 +26,6 @@ abstract class Image_Test_Case extends Test_Case {
 	 * @var bool
 	 */
 	protected $just_return_path = true;
-
-	/**
-	 * Path to the images' directory.
-	 *
-	 * @var string
-	 */
-	protected $images_dir;
-
-	/**
-	 * Instance of vfsStreamDirectory to mock the filesystem.
-	 *
-	 * @var vfsStreamDirectory
-	 */
-	protected $mock_filesystem;
-
-	/**
-	 * Set up the test fixture.
-	 */
-	public function setUp() {
-		parent::setUp();
-
-		$this->set_up_virtual_filesystem();
-		$this->images_dir = vfsStream::url( 'uploads/beans/images' );
-
-		// Set the Uploads directory to our virtual filesystem.
-		add_filter( 'upload_dir', function( array $uploads_dir ) {
-			$virtual_dir            = vfsStream::url( 'uploads' );
-			$uploads_dir['path']    = $virtual_dir . $uploads_dir['subdir'];
-			$uploads_dir['basedir'] = $virtual_dir;
-			return $uploads_dir;
-		} );
-	}
-
-	/**
-	 * Set up the virtual filesystem.
-	 */
-	private function set_up_virtual_filesystem() {
-		$structure = array(
-			'beans' => array(
-				'images' => array(
-					'index.php' => '',
-				),
-			),
-		);
-
-		// Set up the "beans" directory's virtual filesystem.
-		$this->mock_filesystem = vfsStream::setup( 'uploads', 0755, $structure );
-	}
 
 	/**
 	 * Initialize the virtual "edited" image.

@@ -9,16 +9,16 @@
 
 namespace Beans\Framework\Tests\Integration\API\Layout;
 
-use WP_UnitTestCase;
+use Beans\Framework\Tests\Integration\Test_Case;
 
 /**
  * Class Tests_BeansGetLayout
  *
  * @package Beans\Framework\Tests\Integration\API\Layout
- * @group   integration-tests
  * @group   api
+ * @group   api-layout
  */
-class Tests_BeansGetLayout extends WP_UnitTestCase {
+class Tests_BeansGetLayout extends Test_Case {
 
 	/**
 	 * Test beans_get_layout() should return the layout for a single post or page.
