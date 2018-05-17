@@ -1,6 +1,6 @@
 <?php
 /**
- * Test data for the Fields unit tests.
+ * Test data for the Beans Fields API unit tests.
  *
  * @package Beans\Framework\Tests\Unit\API\Fields\Fixtures
  *
