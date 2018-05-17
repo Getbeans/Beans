@@ -110,7 +110,7 @@ class Tests_BeansReplaceAttribute extends HTML_Test_Case {
 	 * Test the end result of beans_replace_attribute() by firing the expected filter event for the given ID. Test should add the
 	 * attribute when it does not exists in the given attributes.
 	 */
-	public function test_should_add_attribute_when_does_not_exist() {
+	public function test_should_add_attribute_when_it_does_not_exist() {
 
 		foreach ( static::$test_attributes as $beans_id => $markup ) {
 			$instance = beans_replace_attribute( $beans_id, 'data-test', 'foo', 'beans-test' );

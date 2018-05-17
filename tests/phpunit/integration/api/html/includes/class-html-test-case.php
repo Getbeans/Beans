@@ -40,7 +40,7 @@ abstract class HTML_Test_Case extends WP_UnitTestCase {
 	protected static $test_attachments;
 
 	/**
-	 * Setup the test before we run the test setups.
+	 * Set up the test before we run the test setups.
 	 */
 	public static function setUpBeforeClass() {
 		parent::setUpBeforeClass();

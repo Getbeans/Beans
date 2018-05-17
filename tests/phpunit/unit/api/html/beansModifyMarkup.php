@@ -53,7 +53,7 @@ class Tests_BeansModifyMarkup extends HTML_Test_Case {
 			->with( 'beans_archive_title_markup', 'h2', 10, 1 );
 		beans_modify_markup( 'beans_archive_title', 'h2' );
 
-		// Test is focused above on ensuring beans_add_filter() is called with the right arguments.
+		// Placeholder for PHPUnit, as it requires an assertion. The real test is the "expect" above.
 		$this->assertTrue( true );
 	}
 }

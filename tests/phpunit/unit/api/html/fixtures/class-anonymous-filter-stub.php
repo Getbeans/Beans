@@ -1,6 +1,6 @@
 <?php
 /**
- * Stub for the _Beans_Anonymous_Filters.
+ * Stub for _Beans_Anonymous_Filters.
  *
  * @package Beans\Framework\Tests\Unit\API\HTML\Fixtures
  *

@@ -26,7 +26,7 @@ class Tests_BeansOutputE extends HTML_Test_Case {
 	/**
 	 * Test beans_output_e() should echo an empty string when the output is empty.
 	 */
-	public function test_should_echo_null_when_output_is_empty() {
+	public function test_should_echo_empty_string_when_output_is_empty() {
 		$ids = array(
 			'beans_post_meta_item_date'     => null,
 			'beans_post_meta_item_author'   => '',
@@ -84,9 +84,9 @@ EOB;
 	}
 
 	/**
-	 * Test beans_output() should pass the additional arguments.
+	 * Test beans_output_e() should pass the additional arguments.
 	 */
-	public function test_should_pass_additional_args() {
+	public function test_should_pass_additional_arguments() {
 		add_filter( 'beans_breadcrumb_item_text_output', 'return_fired_output', 10, 3 );
 		Monkey\Functions\expect( 'return_fired_output' )
 			->twice()

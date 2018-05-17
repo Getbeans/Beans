@@ -54,7 +54,7 @@ class Tests_BeansSelfcloseMarkup extends HTML_Test_Case {
 			beans_selfclose_markup( $attachment['id'], $attachment['tag'], $attachment['attributes'], $attachment['attachment'] );
 		}
 
-		// The assertions are above. This assertion is a placeholder, as PHPUnit requires a specific assert to run.
+		// Placeholder for PHPUnit, as it requires an assertion. The real test is the "expect" above.
 		$this->assertTrue( true );
 	}
 }

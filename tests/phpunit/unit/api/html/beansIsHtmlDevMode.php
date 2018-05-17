@@ -26,7 +26,7 @@ class Tests_BeansIsHtmlDevMode extends HTML_Test_Case {
 	/**
 	 * Test _beans_is_html_dev_mode() should return false when the option does not exist.
 	 */
-	public function test_should_false_when_option_does_not_exist() {
+	public function test_should_return_false_when_option_does_not_exist() {
 		$this->assertFalse( defined( 'BEANS_HTML_DEV_MODE' ) );
 
 		Monkey\Functions\expect( 'get_option' )

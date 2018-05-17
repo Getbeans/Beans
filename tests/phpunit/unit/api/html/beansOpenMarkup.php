@@ -117,7 +117,7 @@ class Tests_BeansOpenMarkup extends HTML_Test_Case {
 	}
 
 	/**
-	 * Test beans_open_markup() should return a built HTML when before or prepend hooks are registered.
+	 * Test beans_open_markup() should return the built HTML when before or prepend hooks are registered.
 	 */
 	public function test_should_return_built_html_when_before_or_prepend_hooks() {
 		Monkey\Functions\expect( 'beans_add_attributes' )

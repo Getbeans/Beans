@@ -1,6 +1,6 @@
 <?php
 /**
- * Array of test attachment HTML markup and attributes.
+ * Array of test attachment HTML markup and attributes for the Beans HTMl API integration tests.
  *
  * @package Beans\Framework\Tests\Integration\API\HTML\Fixtures
  *

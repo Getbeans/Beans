@@ -31,7 +31,7 @@ class Tests_BeansRemoveOutput extends HTML_Test_Case {
 	}
 
 	/**
-	 * Test beans_remove_output() should register callback to the "{$id}_output" filter hook.
+	 * Test beans_remove_output() should register a callback to the "{$id}_output" filter hook.
 	 */
 	public function test_should_return_register_callback_to_id_output_filter() {
 		$anonymous_filter = beans_remove_output( 'beans_post_meta_item_date' );

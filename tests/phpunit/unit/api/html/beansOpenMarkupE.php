@@ -24,9 +24,9 @@ require_once __DIR__ . '/includes/class-html-test-case.php';
 class Tests_BeansOpenMarkupE extends HTML_Test_Case {
 
 	/**
-	 * Test beans_open_markup_e() should echo empty when the tag is set to null.
+	 * Test beans_open_markup_e() should echo empty string when the tag is set to null.
 	 */
-	public function test_should_echo_empty_when_tag_set_to_null() {
+	public function test_should_echo_empty_string_when_tag_set_to_null() {
 		Monkey\Functions\expect( 'beans_open_markup' )
 			->once()
 			->with( 'beans_archive_title', null, array( 'class' => 'uk-article-title' ) )
