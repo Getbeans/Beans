@@ -20,13 +20,6 @@ use WP_UnitTestCase;
 abstract class Test_Case extends WP_UnitTestCase {
 
 	/**
-	 * Reset flag.
-	 *
-	 * @var bool
-	 */
-	protected $was_reset = false;
-
-	/**
 	 * Set up the test before we run the test setups.
 	 */
 	public static function setUpBeforeClass() {
@@ -41,12 +34,6 @@ abstract class Test_Case extends WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 		Monkey\setUp();
-
-		if ( ! $this->was_reset ) {
-			$this->reset_fields_container();
-			$this->reset_actions_container();
-			$this->was_reset = true;
-		}
 	}
 
 	/**
