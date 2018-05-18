@@ -28,6 +28,22 @@ class Tests_BeansTermMeta_RenderFields extends Beans_Term_Meta_Test_Case {
 	 * Tests _beans_term_meta::render_fields() should render fields HTML.
 	 */
 	public function test_should_render_fields_html() {
+		Monkey\Functions\expect( 'beans_remove_action' )
+			->once()
+			->with( 'beans_field_label' )
+			->andReturn();
+		Monkey\Functions\expect( 'beans_modify_action_hook' )
+			->once()
+			->with( 'beans_field_description', 'beans_field_wrap_after_markup' )
+			->andReturn();
+		Monkey\Functions\expect( 'beans_modify_markup' )
+			->once()
+			->with( 'beans_field_description', 'p' )
+			->andReturn();
+		Monkey\Functions\expect( 'beans_add_attribute' )
+			->once()
+			->with( 'beans_field_description', 'class', 'description' )
+			->andReturn();
 		Monkey\Functions\expect( 'beans_get_fields' )
 			->once()
 			->with( 'term_meta', 'tm-beans' )

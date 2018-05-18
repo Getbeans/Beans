@@ -10,14 +10,13 @@
 namespace Beans\Framework\Tests\Integration\API\Term_Meta\Includes;
 
 use Beans\Framework\Tests\Integration\Test_Case;
-use WP_UnitTestCase;
 
 /**
  * Abstract Class Beans_Term_Meta_Test_Case
  *
  * @package Beans\Framework\Tests\Integration\API\Term_Meta\Includes
  */
-abstract class Beans_Term_Meta_Test_Case extends WP_UnitTestCase {
+abstract class Beans_Term_Meta_Test_Case extends Test_Case {
 
 	/**
 	 * An array of test data.
