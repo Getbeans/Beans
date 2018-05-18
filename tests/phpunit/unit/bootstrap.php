@@ -33,5 +33,6 @@ if ( ! file_exists( $beans_autoload_path . 'autoload.php' ) ) {
 require_once $beans_autoload_path . 'autoload.php';
 unset( $beans_autoload_path );
 
+require_once dirname( __DIR__ ) . '/functions.php';
 require_once dirname( __DIR__ ) . '/test-case-trait.php';
 require_once BEANS_TESTS_DIR . '/class-test-case.php';
