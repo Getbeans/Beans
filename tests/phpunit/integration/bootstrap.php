@@ -73,4 +73,5 @@ tests_add_filter( 'setup_theme', function() {
 require_once $beans_tests_dir . '/includes/bootstrap.php';
 
 // Load the Integration Test Case.
+require_once dirname( __DIR__ ) . '/test-case-trait.php';
 require_once BEANS_TESTS_DIR . '/class-test-case.php';
