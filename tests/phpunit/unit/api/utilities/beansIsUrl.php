@@ -15,8 +15,8 @@ use Beans\Framework\Tests\Unit\Test_Case;
  * Class Tests_BeansIsUrl
  *
  * @package Beans\Framework\Tests\Unit\API\Utilities
- * @group   unit-tests
  * @group   api
+ * @group   api-utilities
  */
 class Tests_BeansIsUrl extends Test_Case {
 

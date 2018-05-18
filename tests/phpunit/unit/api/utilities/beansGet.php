@@ -15,8 +15,8 @@ use Beans\Framework\Tests\Unit\Test_Case;
  * Class Tests_BeansGet
  *
  * @package Beans\Framework\Tests\Unit\API\Utilities
- * @group   unit-tests
  * @group   api
+ * @group   api-utilities
  */
 class Tests_BeansGet extends Test_Case {
 

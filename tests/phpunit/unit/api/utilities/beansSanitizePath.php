@@ -15,8 +15,8 @@ use Beans\Framework\Tests\Unit\Test_Case;
  * Class Tests_BeansSanitizePath
  *
  * @package Beans\Framework\Tests\Unit\API\Utilities
- * @group   unit-tests
  * @group   api
+ * @group   api-utilities
  */
 class Tests_BeansSanitizePath extends Test_Case {
 

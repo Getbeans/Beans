@@ -16,8 +16,8 @@ use Brain\Monkey\Functions;
  * Class Tests_BeansRenderFunction
  *
  * @package Beans\Framework\Tests\Unit\API\Utilities
- * @group   unit-tests
  * @group   api
+ * @group   api-utilities
  */
 class Tests_BeansRenderFunction extends Test_Case {
 
