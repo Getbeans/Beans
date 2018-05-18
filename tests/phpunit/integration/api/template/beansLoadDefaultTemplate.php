@@ -15,8 +15,8 @@ use WP_UnitTestCase;
  * Class Tests_BeansLoadDefaultTemplate
  *
  * @package Beans\Framework\Tests\Integration\API\Template
- * @group   integration-tests
  * @group   api
+ * @group   api-template
  */
 class Tests_BeansLoadDefaultTemplate extends WP_UnitTestCase {
 

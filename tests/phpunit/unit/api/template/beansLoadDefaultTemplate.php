@@ -18,8 +18,8 @@ require_once __DIR__ . '/includes/class-template-test-case.php';
  * Class Tests_BeansLoadDefaultTemplate
  *
  * @package Beans\Framework\Tests\Unit\API\Template
- * @group   unit-tests
  * @group   api
+ * @group   api-template
  */
 class Tests_BeansLoadDefaultTemplate extends Template_Test_Case {
 
