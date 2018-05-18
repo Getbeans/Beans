@@ -51,7 +51,7 @@ class Tests_BeansTermMeta_RenderFields extends Beans_Term_Meta_Test_Case {
 
 		// Check output is as expected.
 		$beans_theme_url = BEANS_THEME_URL;
-		$expected_html = <<<FIELDSHTML
+		$expected_html   = <<<FIELDSHTML
 <tr class="form-field">
 	<th scope="row"></th>
 	<td>

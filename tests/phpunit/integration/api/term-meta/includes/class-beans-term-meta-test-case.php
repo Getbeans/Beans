@@ -33,14 +33,4 @@ abstract class Beans_Term_Meta_Test_Case extends Test_Case {
 
 		static::$test_data = require dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'fixtures/test-fields.php';
 	}
-
-	/**
-	 * Fixture to clean up after tests.
-	 */
-	public function tearDown() {
-		unset( $GLOBALS['current_screen'] );
-		$this->clean_up_global_scope();
-
-		parent::tearDown();
-	}
 }

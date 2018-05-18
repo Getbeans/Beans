@@ -39,6 +39,7 @@ class Beans_Resetter {
 	protected function reset_global_state() {
 		$_GET  = [];
 		$_POST = [];
+		unset( $GLOBALS['current_screen'] );
 	}
 
 	/**
