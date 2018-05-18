@@ -44,6 +44,7 @@ abstract class Fields_Test_Case extends Test_Case {
 		parent::setUp();
 
 		$this->load_original_functions( array(
+			'api/actions/functions.php',
 			'api/fields/functions.php',
 			'api/fields/class-beans-fields.php',
 			'api/utilities/functions.php',
@@ -123,5 +124,7 @@ abstract class Fields_Test_Case extends Test_Case {
 
 			return trim( $string );
 		} );
+
+		Monkey\Functions\when( 'beans_add_smart_action' )->justReturn();
 	}
 }
