@@ -15,8 +15,8 @@ use WP_UnitTestCase;
  * Class Tests_BeansAddAnonymousFilter
  *
  * @package Beans\Framework\Tests\Integration\API\Filters
- * @group   integration-tests
  * @group   api
+ * @group   api-filters
  */
 class Tests_BeansAddAnonymousFilter extends WP_UnitTestCase {
 
