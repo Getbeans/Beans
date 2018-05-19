@@ -40,6 +40,7 @@ class Tests_BeansField extends Fields_Test_Case {
 
 		beans_add_smart_action( 'beans_field_group_label', 'beans_field_label' );
 		beans_add_smart_action( 'beans_field_wrap_prepend_markup', 'beans_field_label' );
+		beans_add_smart_action( 'beans_field_wrap_append_markup', 'beans_field_description' );
 	}
 
 	/**

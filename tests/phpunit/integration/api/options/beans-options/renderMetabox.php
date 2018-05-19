@@ -48,6 +48,8 @@ class Tests_Beans_Options_Render_Metabox extends Options_Test_Case {
 		// Register the field and option.
 		$option = end( static::$test_data );
 		beans_register_fields( $option['fields'], 'option', $option['section'] );
+		beans_add_smart_action( 'beans_field_wrap_prepend_markup', 'beans_field_label' );
+		beans_add_smart_action( 'beans_field_wrap_append_markup', 'beans_field_description' );
 		beans_add_smart_action( 'beans_field_checkbox', 'beans_field_checkbox' );
 		$instance->register( $option['section'], $option['args'] );
 
@@ -67,6 +69,7 @@ class Tests_Beans_Options_Render_Metabox extends Options_Test_Case {
 			<span class="bs-checkbox-label">Enable development mode</span>
 		</div>
 	</div>
+	<div class="bs-field-description">This option should be enabled while your website is in development.</div>
 </div>
 EOB;
 		$this->assertSame( $this->format_the_html( $expected ), $this->format_the_html( $html ) );

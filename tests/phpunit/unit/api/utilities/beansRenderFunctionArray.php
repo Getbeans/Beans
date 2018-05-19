@@ -15,8 +15,8 @@ use Beans\Framework\Tests\Unit\Test_Case;
  * Class Tests_BeansRenderFunctionArray
  *
  * @package Beans\Framework\Tests\API\Utilities
- * @group   unit-tests
  * @group   api
+ * @group   api-utilities
  */
 class Tests_BeansRenderFunctionArray extends Test_Case {
 

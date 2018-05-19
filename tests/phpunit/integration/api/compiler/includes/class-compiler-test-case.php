@@ -278,12 +278,9 @@ EOB;
 	 */
 	protected function get_compiled_css() {
 		return <<<EOB
-body{background-color:#fff;color:#000;font-size:18px;
-}
-a{color:#cc0000;
-}
-p{margin-bottom:30px;
-}
+body{background-color:#fff;color:#000;font-size:18px}
+a{color:#cc0000}
+p{margin-bottom:30px}
 EOB;
 	}
 
@@ -296,8 +293,7 @@ EOB;
 	 */
 	protected function get_compiled_less() {
 		return <<<EOB
-body{background-color:#fff;color:#000;font-size:18px;
-}
+body{background-color:#fff;color:#000;font-size:18px}
 EOB;
 	}
 }

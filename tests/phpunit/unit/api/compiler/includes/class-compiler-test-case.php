@@ -87,24 +87,6 @@ abstract class Compiler_Test_Case extends Base_Test_Case {
 	}
 
 	/**
-	 * Tear down the test fixture.
-	 */
-	protected function tearDown() {
-		// Reset the global fragments container.
-		global $_beans_compiler_added_fragments;
-		$_beans_compiler_added_fragments = array(
-			'css'  => array(),
-			'less' => array(),
-			'js'   => array(),
-		);
-
-		unset( $GLOBALS['wp_filesystem'] );
-
-		Mockery::close();
-		parent::tearDown();
-	}
-
-	/**
 	 * Set up the virtual filesystem.
 	 */
 	protected function set_up_virtual_filesystem() {
@@ -319,12 +301,9 @@ EOB;
 	 */
 	protected function get_compiled_css() {
 		return <<<EOB
-body{background-color:#fff;color:#000;font-size:18px;
-}
-a{color:#cc0000;
-}
-p{margin-bottom:30px;
-}
+body{background-color:#fff;color:#000;font-size:18px}
+a{color:#cc0000}
+p{margin-bottom:30px}
 EOB;
 	}
 
@@ -337,8 +316,18 @@ EOB;
 	 */
 	protected function get_compiled_less() {
 		return <<<EOB
-body{background-color:#fff;color:#000;font-size:18px;
-}
+body{background-color:#fff;color:#000;font-size:18px}
 EOB;
+	}
+
+	/**
+	 * Strip out the non-essential characters for cross-platform testing.
+	 *
+	 * @param string $string The string to be processed.
+	 *
+	 * @return string
+	 */
+	protected function strip_characters( $string ) {
+		return str_replace( [ "\r\n", "\r", "\n", "\t", ' ' ], '', $string );
 	}
 }

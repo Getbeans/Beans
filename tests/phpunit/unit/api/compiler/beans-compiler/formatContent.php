@@ -127,8 +127,7 @@ EOB;
 
 		// Run the test.
 		$expected_css = <<<EOB
-body{background-color:#fff;color:#000;font-size:18px;
-}
+body{background-color:#fff;color:#000;font-size:18px}
 EOB;
 		$this->assertSame( $expected_css, $compiler->format_content( $this->less ) );
 	}

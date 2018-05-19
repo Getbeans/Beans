@@ -10,14 +10,13 @@
 namespace Beans\Framework\Tests\Integration\API\Term_Meta\Includes;
 
 use Beans\Framework\Tests\Integration\Test_Case;
-use WP_UnitTestCase;
 
 /**
  * Abstract Class Beans_Term_Meta_Test_Case
  *
  * @package Beans\Framework\Tests\Integration\API\Term_Meta\Includes
  */
-abstract class Beans_Term_Meta_Test_Case extends WP_UnitTestCase {
+abstract class Beans_Term_Meta_Test_Case extends Test_Case {
 
 	/**
 	 * An array of test data.
@@ -33,15 +32,5 @@ abstract class Beans_Term_Meta_Test_Case extends WP_UnitTestCase {
 		parent::setUpBeforeClass();
 
 		static::$test_data = require dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'fixtures/test-fields.php';
-	}
-
-	/**
-	 * Fixture to clean up after tests.
-	 */
-	public function tearDown() {
-		unset( $GLOBALS['current_screen'] );
-		$this->clean_up_global_scope();
-
-		parent::tearDown();
 	}
 }

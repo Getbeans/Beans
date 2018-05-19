@@ -571,6 +571,7 @@ final class _Beans_Compiler {
 			}
 
 			$js_min = new JSMin( $content );
+
 			return $js_min->min();
 		}
 
@@ -785,11 +786,13 @@ final class _Beans_Compiler {
 	private function strip_whitespace( $content ) {
 		$replace = array(
 			'#/\*.*?\*/#s' => '', // Strip comments.
-			'#\s\s+#'      => ' ', // Strip excess whitespace.
 		);
 
 		$search  = array_keys( $replace );
 		$content = preg_replace( $search, $replace, $content );
+
+		// Strip all new lines, tabs, and whitespace.
+		$content = str_replace( array( "\r\n", "\r", "\n", "\t", ' ' ), '', $content );
 
 		$replace = array(
 			': '  => ':',
@@ -801,7 +804,7 @@ final class _Beans_Compiler {
 			';}'  => '}', // Strip optional semicolons.
 			',\n' => ',', // Don't wrap multiple selectors.
 			'\n}' => '}', // Don't wrap closing braces.
-			'} '  => "}\n", // Put each rule on it's own line.
+			'}'   => "}\n", // Put each rule on it's own line.
 			'\n'  => '', // Remove all line breaks.
 		);
 

@@ -17,8 +17,8 @@ require_once __DIR__ . '/includes/class-filters-test-case.php';
  * Class Tests_BeansApplyFilters
  *
  * @package Beans\Framework\Tests\Integration\API\Filters
- * @group   integration-tests
  * @group   api
+ * @group   api-filters
  */
 class Tests_BeansApplyFilters extends Filters_Test_Case {
 

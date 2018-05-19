@@ -78,6 +78,6 @@ body {
 }
 
 EOB;
-		$this->assertSame( $expected, $compiler->get_internal_content() );
+		$this->assertSame( $this->strip_characters( $expected ), $this->strip_characters( $compiler->get_internal_content() ) );
 	}
 }

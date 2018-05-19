@@ -16,8 +16,8 @@ use Brain\Monkey\Functions;
  * Class Tests_BeansPathToUrl
  *
  * @package Beans\Framework\Tests\Unit\API\Utilities
- * @group   unit-tests
  * @group   api
+ * @group   api-utilities
  */
 class Tests_BeansPathToUrl extends Test_Case {
 

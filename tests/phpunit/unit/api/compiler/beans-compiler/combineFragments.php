@@ -154,9 +154,13 @@ EOB;
 		Monkey\Functions\expect( '_beans_is_compiler_dev_mode' )->once()->andReturn( false );
 		$this->mock_filesystem_for_fragments( $compiler );
 
+		$expected_css = <<<EOB
+body{background-color:#fff;color:#000;font-size:18px}
+EOB;
+
 		// Run the test.
 		$compiler->combine_fragments();
-		$this->assertContains( 'body{background-color:#fff;color:#000;font-size:18px;', $compiler->compiled_content );
+		$this->assertSame( $expected_css, $compiler->compiled_content );
 	}
 
 	/**
