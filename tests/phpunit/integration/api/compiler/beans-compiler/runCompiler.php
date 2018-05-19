@@ -12,6 +12,7 @@ namespace Beans\Framework\Tests\Integration\API\Compiler;
 use _Beans_Compiler;
 use Beans\Framework\Tests\Integration\API\Compiler\Includes\Compiler_Test_Case;
 use org\bovigo\vfs\vfsStream;
+use Brain\Monkey;
 
 require_once dirname( __DIR__ ) . '/includes/class-compiler-test-case.php';
 
@@ -72,6 +73,9 @@ class Tests_BeansCompiler_RunCompiler extends Compiler_Test_Case {
 				->getContent();
 		$this->jquery = $fixtures->getChild( 'jquery.test.js' )->getContent();
 		$this->js     = $fixtures->getChild( 'my-game-clock.js' )->getContent();
+
+		// Return the virtual filesystem's path to avoid wp_normalize_path converting its prefix from vfs::// to vfs:/.
+		Monkey\Functions\when( 'wp_normalize_path' )->returnArg();
 	}
 
 	/**
@@ -90,7 +94,7 @@ class Tests_BeansCompiler_RunCompiler extends Compiler_Test_Case {
 			'minify_js'    => true,
 			'version'      => '1.5.0',
 		);
-		$compiler = $this->create_compiler( $config );
+		$compiler = new _Beans_Compiler( $config );
 
 		// Store the cached file into the virtual filesystem.
 		$this->add_virtual_directory( $config['id'] );
@@ -131,7 +135,7 @@ class Tests_BeansCompiler_RunCompiler extends Compiler_Test_Case {
 			'minify_js'    => true,
 			'version'      => null,
 		);
-		$compiler = $this->create_compiler( $config );
+		$compiler = new _Beans_Compiler( $config );
 
 		/**
 		 * Set up the original "compiled" file. This is the file that should get removed during this
@@ -205,7 +209,7 @@ class Tests_BeansCompiler_RunCompiler extends Compiler_Test_Case {
 			'minify_js'    => true,
 			'version'      => null,
 		);
-		$compiler = $this->create_compiler( $config );
+		$compiler = new _Beans_Compiler( $config );
 
 		// Set up the mocks.
 		$this->add_virtual_directory( $config['id'] );
@@ -239,7 +243,7 @@ class Tests_BeansCompiler_RunCompiler extends Compiler_Test_Case {
 			'minify_js'    => true,
 			'version'      => null,
 		);
-		$compiler = $this->create_compiler( $config );
+		$compiler = new _Beans_Compiler( $config );
 
 		// Set up the mocks.
 		$this->add_virtual_directory( $config['id'] );
@@ -272,7 +276,7 @@ class Tests_BeansCompiler_RunCompiler extends Compiler_Test_Case {
 			'minify_js'    => false,
 			'version'      => '1.5.0',
 		);
-		$compiler = $this->create_compiler( $config );
+		$compiler = new _Beans_Compiler( $config );
 
 		// Set up the mocks.
 		$this->add_virtual_directory( $config['id'] );
@@ -307,7 +311,7 @@ class Tests_BeansCompiler_RunCompiler extends Compiler_Test_Case {
 			'minify_js'    => false,
 			'version'      => '1.5.0',
 		);
-		$compiler = $this->create_compiler( $config );
+		$compiler = new _Beans_Compiler( $config );
 
 		// Set up the mocks.
 		$this->add_virtual_directory( $config['id'] );

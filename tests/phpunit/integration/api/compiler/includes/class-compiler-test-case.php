@@ -149,31 +149,6 @@ abstract class Compiler_Test_Case extends Base_Test_Case {
 	}
 
 	/**
-	 * Fix the compiler's "dir" property, as the wp_normalize_path() converts "vfs://" to "vfs:/".
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param array $config Compiler's configuration.
-	 *
-	 * @return _Beans_Compiler
-	 * @throws \ReflectionException Throws reflection error.
-	 */
-	protected function create_compiler( $config ) {
-		$compiler = new _Beans_Compiler( $config );
-
-		$dir = ( new \ReflectionClass( $compiler ) )->getProperty( 'dir' );
-		$dir->setAccessible( true );
-
-		if ( substr( $compiler->dir, 0, 6 ) !== 'vfs://' ) {
-			$dir->setValue( $compiler, str_replace( 'vfs:/', 'vfs://', $compiler->dir ) );
-		}
-
-		$dir->setAccessible( false );
-
-		return $compiler;
-	}
-
-	/**
 	 * Get the filename.
 	 *
 	 * @since 1.5.0

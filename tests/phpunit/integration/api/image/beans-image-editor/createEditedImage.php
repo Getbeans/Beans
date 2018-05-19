@@ -11,6 +11,7 @@ namespace Beans\Framework\Tests\Integration\API\Image;
 
 use _Beans_Image_Editor;
 use Beans\Framework\Tests\Integration\API\Image\Includes\Image_Test_Case;
+use Brain\Monkey;
 
 require_once dirname( __DIR__ ) . '/includes/class-image-test-case.php';
 require_once BEANS_API_PATH . 'image/class-beans-image-editor.php';
@@ -52,6 +53,9 @@ class Tests_BeansImageEditor_CreateEditedImage extends Image_Test_Case {
 			static::$fixtures_dir . '/image2.jpg',
 		);
 		$args                 = array( 'resize' => array( 800, false ) );
+
+		// Return the virtual filesystem's path to avoid wp_normalize_path converting its prefix from vfs::// to vfs:/.
+		Monkey\Functions\when( 'wp_normalize_path' )->returnArg();
 
 		foreach ( $image_sources as $src ) {
 			$editor           = new _Beans_Image_Editor( $src, $args );

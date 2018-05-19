@@ -44,43 +44,7 @@ abstract class Image_Test_Case extends Base_Test_Case {
 			$path = $rebuilt_path->getValue( $editor );
 		}
 
-		$path = $this->fix_virtual_dir( $path );
 		$rebuilt_path->setValue( $editor, $path );
 		return $rebuilt_path->getValue( $editor );
-	}
-
-	/**
-	 * Fix the virtual directory. Modify the root, as wp_normalize_path changes it.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param string $path The path to fix.
-	 *
-	 * @return string
-	 */
-	protected function fix_virtual_dir( $path ) {
-
-		if ( substr( $path, 0, 6 ) === 'vfs://' ) {
-			return $path;
-		}
-
-		return str_replace( 'vfs:/', 'vfs://', $path );
-	}
-
-	/**
-	 * Removes the vfsStream's root, i.e. vfs:// or vfs:/.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param string $path The path to fix.
-	 *
-	 * @return string
-	 */
-	protected function remove_virtual_dir_root( $path ) {
-		$pattern = substr( $path, 0, 6 ) === 'vfs://'
-			? 'vfs://'
-			: 'vfs:/';
-
-		return str_replace( $pattern, '', $path );
 	}
 }
