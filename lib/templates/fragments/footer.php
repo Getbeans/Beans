@@ -37,7 +37,7 @@ function beans_footer_content() {
 			'a',
 			array(
 				'href' => 'http://www.getbeans.io', // Automatically escaped.
-				'rel'  => 'designer',
+				'rel'  => 'nofollow',
 			)
 		);
 
