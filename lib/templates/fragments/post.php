@@ -512,6 +512,8 @@ beans_add_smart_action( 'beans_post_after_markup', 'beans_post_navigation' );
  * @since 1.0.0
  *
  * @return void
+ *
+ * phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact -- Layout mirrors HTML markup
  */
 function beans_post_navigation() {
 
@@ -614,7 +616,7 @@ function beans_posts_pagination() {
 		'nav',
 		array(
 			'role'       => 'navigation',
-			'aria-label' => 'Posts Pagination Navigation'
+			'aria-label' => 'Posts Pagination Navigation',
 		)
 	);
 

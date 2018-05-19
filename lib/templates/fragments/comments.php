@@ -278,6 +278,8 @@ beans_add_smart_action( 'beans_comments_list_after_markup', 'beans_comments_navi
  * @since 1.0.0
  *
  * @return void
+ *
+ * phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact -- Layout mirrors HTML markup.
  */
 function beans_comments_navigation() {
 
@@ -442,7 +444,7 @@ beans_add_smart_action( 'comment_form_field_comment', 'beans_comment_form_commen
  * @return string
  */
 function beans_comment_form_comment() {
-	$output = beans_open_markup( 'beans_comment_form[_comment]', 'p', array( 'class' => 'uk-margin-top' ) );
+	$output = beans_open_markup( 'beans_comment_form[_comment]', 'fieldset', array( 'class' => 'uk-margin-top' ) );
 
 		/**
 		 * Filter whether the comment form textarea legend should load or not.
@@ -470,7 +472,7 @@ function beans_comment_form_comment() {
 
 		$output .= beans_close_markup( 'beans_comment_form_field[_comment]', 'textarea' );
 
-	$output .= beans_close_markup( 'beans_comment_form[_comment]', 'p' );
+	$output .= beans_close_markup( 'beans_comment_form[_comment]', 'fieldset' );
 
 	return $output;
 }
