@@ -111,11 +111,12 @@ EOB;
 		// Turn off development mode.
 		update_option( 'beans_dev_mode', false );
 
+		$expected_css = <<<EOB
+body{background-color:#fff;color:#000;font-size:18px}
+EOB;
+
 		// Run the test.
-		$this->assertContains(
-			'body{background-color:#fff;color:#000;font-size:18px;',
-			$compiler->format_content( $this->less )
-		);
+		$this->assertSame( $expected_css, $compiler->format_content( $this->less ) );
 	}
 
 	/**
