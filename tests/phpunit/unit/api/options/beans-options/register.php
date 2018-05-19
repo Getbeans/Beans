@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for register() method of the _Beans_Options.
+ * Tests for the register() method of _Beans_Options.
  *
  * @package Beans\Framework\Tests\Unit\API\Options
  *
@@ -16,16 +16,16 @@ use Brain\Monkey;
 require_once dirname( __DIR__ ) . '/includes/class-options-test-case.php';
 
 /**
- * Class Tests_Beans_Options_Register
+ * Class Tests_BeansOptions_Register
  *
  * @package Beans\Framework\Tests\Unit\API\Options
  * @group   api
  * @group   api-options
  */
-class Tests_Beans_Options_Register extends Options_Test_Case {
+class Tests_BeansOptions_Register extends Options_Test_Case {
 
 	/**
-	 * Test register() should merge the default arguments and set the property.
+	 * Test _Beans_Options::register() should merge the default arguments and set the property.
 	 */
 	public function test_should_merge_default_args_and_set_property() {
 		$property = $this->get_reflective_property( 'args', '_Beans_Options' );
@@ -46,7 +46,7 @@ class Tests_Beans_Options_Register extends Options_Test_Case {
 	}
 
 	/**
-	 * Test register() should register the callback to the 'admin_enqueue_scripts' hook.
+	 * Test _Beans_Options::register() should register the callback to the 'admin_enqueue_scripts' hook.
 	 */
 	public function test_should_register_callback_to_admin_enqueue_scripts_hook() {
 		$instance = new _Beans_Options();
@@ -56,7 +56,7 @@ class Tests_Beans_Options_Register extends Options_Test_Case {
 	}
 
 	/**
-	 * Test register() should register the metabox with WordPress.
+	 * Test _Beans_Options::register() should register the metabox with WordPress.
 	 */
 	public function test_should_register_metabox_with_wp() {
 		$instance = new _Beans_Options();

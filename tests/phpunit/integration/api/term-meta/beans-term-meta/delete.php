@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for _Beans_Term_Meta::delete()
+ * Tests for the delete() method of _Beans_Term_Meta.
  *
  * @package Beans\Framework\Tests\Integration\API\Term_Meta
  *
@@ -26,7 +26,7 @@ require_once dirname( __DIR__ ) . '/includes/class-beans-term-meta-test-case.php
 class Tests_BeansTermMeta_Delete extends Beans_Term_Meta_Test_Case {
 
 	/**
-	 * Tests _Beans_Term_Meta::delete() should remove term meta option from db options table.
+	 * Test _Beans_Term_Meta::delete() should remove term meta option from database options table.
 	 */
 	public function test_should_remove_term_meta_option_from_db_options_table() {
 		add_option( 'beans_term_123_field', 'term-meta-value', '', false );
@@ -34,7 +34,7 @@ class Tests_BeansTermMeta_Delete extends Beans_Term_Meta_Test_Case {
 		$term_meta = new _Beans_Term_Meta( 'tm-beams' );
 		$term_meta->delete( 123 );
 
-		// Clean the options cache so we're sure to go fresh to the database.
+		// Clean the options cache to make sure we are calling the database.
 		wp_cache_delete( 'beans_term_123_field', 'options' );
 
 		$this->assertFalse( get_option( 'beans_term_123_field' ) );

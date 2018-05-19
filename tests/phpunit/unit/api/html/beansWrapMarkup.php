@@ -46,7 +46,7 @@ class Tests_BeansWrapMarkup extends HTML_Test_Case {
 	 * Test beans_wrap_markup() should register beans_open_markup() to the given ID's '_before_markup' hook.
 	 */
 	public function test_should_register_beans_open_markup_to_given_id_before_markup_hook() {
-		// Setup the tests.
+		// Set up the tests.
 		$args                  = array(
 			'beans_open_markup',
 			array(
@@ -73,7 +73,7 @@ class Tests_BeansWrapMarkup extends HTML_Test_Case {
 	 * Test beans_wrap_markup() should register beans_close_markup() to the given ID's '_after_markup' hook.
 	 */
 	public function test_should_register_beans_close_markup_to_given_id_after_markup_hook() {
-		// Setup the tests.
+		// Set up the tests.
 		$args                  = array(
 			'beans_close_markup',
 			array(
@@ -99,7 +99,7 @@ class Tests_BeansWrapMarkup extends HTML_Test_Case {
 	 * Test beans_wrap_markup() should not pass the given attributes to anonymous action.
 	 */
 	public function test_should_not_pass_attributes_for_after_markup_hook() {
-		// Setup the tests.
+		// Set up the tests.
 		$args                  = array(
 			'beans_close_markup',
 			array(
@@ -125,7 +125,7 @@ class Tests_BeansWrapMarkup extends HTML_Test_Case {
 	 * Test beans_wrap_markup() should pass the extra arguments to the anonymous action for the given ID's '_before_markup' hook.
 	 */
 	public function test_should_pass_extra_arguments_for_before_markup_hook() {
-		// Setup the tests.
+		// Set up the tests.
 		$args                  = array(
 			'beans_open_markup',
 			array(
@@ -154,7 +154,7 @@ class Tests_BeansWrapMarkup extends HTML_Test_Case {
 	 * Test beans_wrap_markup() should pass the extra arguments to the anonymous action for the given ID's '_after_markup' hook.
 	 */
 	public function test_should_pass_extra_arguments_for_after_markup_hook() {
-		// Setup the tests.
+		// Set up the tests.
 		$args                  = array(
 			'beans_close_markup',
 			array(

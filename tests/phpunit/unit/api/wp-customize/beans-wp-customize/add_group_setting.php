@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for add_group_setting() method of _Beans_WP_Customize.
+ * Tests for the add_group_setting() method of _Beans_WP_Customize.
  *
  * @package Beans\Framework\Tests\Unit\API\WP_Customize
  *
@@ -26,9 +26,9 @@ require_once dirname( __DIR__ ) . '/includes/class-wp-customize-test-case.php';
 class Tests_BeansWPCustomize_AddGroupSetting extends WP_Customize_Test_Case {
 
 	/**
-	 * Test add_group_setting() should call beans_get() when there are grouped fields.
+	 * Test _Beans_WP_Customize::add_group_setting() should call beans_get() when there are grouped fields.
 	 */
-	public function test_add_group_setting_should_call_beans_get_when_grouped_fields() {
+	public function test_should_call_beans_get_when_grouped_fields() {
 		$test_data = static::$test_data['group'];
 
 		Monkey\Functions\expect( 'beans_get_fields' )
@@ -55,9 +55,9 @@ class Tests_BeansWPCustomize_AddGroupSetting extends WP_Customize_Test_Case {
 	}
 
 	/**
-	 * Test add_group_setting() should not call beans_get() when no grouped fields.
+	 * Test _Beans_WP_Customize::add_group_setting() should not call beans_get() when there are no grouped fields.
 	 */
-	public function test_add_group_setting_should_not_call_beans_get_when_no_grouped_fields() {
+	public function test_should_not_call_beans_get_when_no_grouped_fields() {
 		$test_data = static::$test_data['single_fields'];
 
 		Monkey\Functions\expect( 'beans_get_fields' )

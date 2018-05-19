@@ -27,7 +27,7 @@ abstract class Filters_Test_Case extends Test_Case {
 	protected static $test_filters;
 
 	/**
-	 * Setup the test before we run the test setups.
+	 * Set up the test before we run the test setups.
 	 */
 	public static function setUpBeforeClass() {
 		parent::setUpBeforeClass();

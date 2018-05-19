@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the register() method of _Beans_Image_Options.
+ * Tests for the register() method of _Beans_Image_Options.
  *
  * @package Beans\Framework\Test\Integration\API\Image
  *
@@ -15,13 +15,13 @@ use Beans\Framework\Tests\Integration\API\Image\Includes\Options_Test_Case;
 require_once dirname( __DIR__ ) . '/includes/class-options-test-case.php';
 
 /**
- * Class Integration_BeansImageOptions_Register
+ * Class Tests_BeansImageOptions_Register
  *
  * @package Beans\Framework\Tests\Integration\API\Image
  * @group   api
  * @group   api-image
  */
-class Integration_BeansImageOptions_Register extends Options_Test_Case {
+class Tests_BeansImageOptions_Register extends Options_Test_Case {
 
 	/**
 	 * Array of fields.

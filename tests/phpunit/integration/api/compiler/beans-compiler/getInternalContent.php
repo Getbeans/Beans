@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the get_internal_content method of _Beans_Compiler.
+ * Tests for the get_internal_content() method of _Beans_Compiler.
  *
  * @package Beans\Framework\Tests\Integration\API\Compiler
  *

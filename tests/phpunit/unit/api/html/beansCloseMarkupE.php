@@ -26,7 +26,7 @@ class Tests_BeansCloseMarkupE extends HTML_Test_Case {
 	/**
 	 * Test beans_close_markup_e() should echo an empty string when the tag is set to null.
 	 */
-	public function test_should_echo_empty_when_tag_set_to_null() {
+	public function test_should_echo_empty_string_when_tag_set_to_null() {
 		Monkey\Functions\expect( 'beans_apply_filters' )
 			->once()
 			->with( 'beans_archive_title_markup', null )

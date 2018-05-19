@@ -19,7 +19,7 @@ use Beans\Framework\Tests\Unit\Test_Case;
 abstract class Beans_Post_Meta_Test_Case extends Test_Case {
 
 	/**
-	 * Setup test fixture.
+	 * Prepares the test environment before each test.
 	 */
 	protected function setUp() {
 		parent::setUp();

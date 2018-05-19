@@ -1,6 +1,6 @@
 <?php
 /**
- *  Test field data for use with render_fields method tests.
+ *  Test field data for use with the render_fields() method tests.
  *
  * @package Beans\Framework\Tests\Integration\API\Term_Meta\Fixtures
  *

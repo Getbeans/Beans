@@ -26,7 +26,7 @@ class Tests_BeansSelfcloseMarkupE extends HTML_Test_Case {
 	/**
 	 * Test beans_selfclose_markup_e() should invoke beans_selfclose_markup().
 	 */
-	public function test_should_invoke_beans_open_markup() {
+	public function test_should_invoke_beans_selfclose_markup() {
 
 		foreach ( static::$test_attachments as $attachment ) {
 			Monkey\Functions\expect( 'beans_selfclose_markup' )
@@ -39,7 +39,7 @@ class Tests_BeansSelfcloseMarkupE extends HTML_Test_Case {
 			ob_get_clean();
 		}
 
-		// The assertions are above. This assertion is a placeholder, as PHPUnit requires a specific assert to run.
+		// Placeholder for PHPUnit, as it requires an assertion. The real test is the "expect" above.
 		$this->assertTrue( true );
 	}
 }

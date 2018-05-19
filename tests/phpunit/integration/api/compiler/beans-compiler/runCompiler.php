@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the run_compiler method of _Beans_Compiler.
+ * Tests for the run_compiler() method of _Beans_Compiler.
  *
  * @package Beans\Framework\Tests\Integration\API\Compiler
  *

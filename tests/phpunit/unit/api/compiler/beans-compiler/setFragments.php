@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the set_fragments method of _Beans_Compiler.
+ * Tests for the set_fragments() method of _Beans_Compiler.
  *
  * @package Beans\Framework\Tests\Unit\API\Compiler
  *
@@ -41,7 +41,7 @@ class Tests_BeansCompiler_SetFragments extends Compiler_Test_Case {
 
 		$compiler = $this->create_compiler( $config );
 
-		// Setup the mock.
+		// Set up the mock.
 		Monkey\Functions\expect( 'beans_get' )
 			->once()
 			->with( 'test', array() )
@@ -79,7 +79,7 @@ class Tests_BeansCompiler_SetFragments extends Compiler_Test_Case {
 			),
 		);
 
-		// Setup the mock.
+		// Set up the mock.
 		Monkey\Functions\expect( 'beans_get' )
 			->once()
 			->with( 'test', $_beans_compiler_added_fragments['less'] )
@@ -110,7 +110,7 @@ class Tests_BeansCompiler_SetFragments extends Compiler_Test_Case {
 
 		$compiler = $this->create_compiler( $config );
 
-		// Setup the mock.
+		// Set up the mock.
 		Monkey\Functions\expect( 'beans_get' )
 			->once()
 			->with( 'test', array() )

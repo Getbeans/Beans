@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for run() method of _Beans_Image_Editor.
+ * Tests for the run() method of _Beans_Image_Editor.
  *
  * @package Beans\Framework\Tests\Unit\API\Image
  *
@@ -17,13 +17,13 @@ use Mockery;
 require_once dirname( __DIR__ ) . '/includes/class-image-test-case.php';
 
 /**
- * Class Tests_Beans_Edit_Image_Run
+ * Class Tests_BeansImageEditor_Run
  *
  * @package Beans\Framework\Tests\Unit\API\Image
  * @group   api
  * @group   api-image
  */
-class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
+class Tests_BeansImageEditor_Run extends Image_Test_Case {
 
 	/**
 	 * Set up the test fixture before we start.
@@ -35,9 +35,9 @@ class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
 	}
 
 	/**
-	 * Test run() should edit the existing image, store it in the "rebuilt path", and then return its URL.
+	 * Test _Beans_Image_Editor::run() should edit the existing image, store it in the "rebuilt path", and then return its URL.
 	 */
-	public function test_should_edit_store_and_return_its_url() {
+	public function test_should_edit_store_image_and_return_its_url() {
 		$rebuilt_path = $this->get_reflective_property( 'rebuilt_path', '_Beans_Image_Editor' );
 		$args         = array( 'resize' => array( 800, false ) );
 
@@ -66,13 +66,13 @@ class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
 	}
 
 	/**
-	 * Test init() should return original src when the image does not exist.
+	 * Test _Beans_Image_Editor::run() should return original src when the image does not exist.
 	 */
 	public function test_should_return_original_src_when_no_image() {
 		$src    = 'path/does/not/exist/image.jpg';
 		$editor = new _Beans_Image_Editor( $src, array( 'resize' => array( 800, false ) ) );
 
-		// Setup the mocks.
+		// Set up the mocks.
 		Monkey\Functions\expect( 'wp_get_image_editor' )->with( $src )->once();
 		Monkey\Functions\expect( 'is_wp_error' )->once()->andReturn( true );
 		Monkey\Functions\expect( 'beans_path_to_url' )->never();
@@ -83,7 +83,7 @@ class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
 	}
 
 	/**
-	 * Test run() should return the URL when the edited image exists, meaning that it has already been edited and
+	 * Test _Beans_Image_Editor::run() should return the URL when the edited image exists, meaning that it has already been edited and
 	 * stored.
 	 */
 	public function test_should_return_url_when_edited_image_exists() {
@@ -106,10 +106,10 @@ class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
 	}
 
 	/**
-	 * Test run() should edit the existing image, store it in the "rebuilt path", and then return an indexed array of
+	 * Test _Beans_Image_Editor::run() should edit the existing image, store it in the "rebuilt path", and then return an indexed array of
 	 * its image info.
 	 */
-	public function test_should_edit_store_and_return_indexed_array() {
+	public function test_should_edit_store_image_and_return_indexed_array() {
 		$rebuilt_path = $this->get_reflective_property( 'rebuilt_path', '_Beans_Image_Editor' );
 		$args         = array( 'resize' => array( 800, false ) );
 
@@ -138,13 +138,13 @@ class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
 	}
 
 	/**
-	 * Test run() should return an indexed array with the original src when the image does not exist.
+	 * Test _Beans_Image_Editor::run() should return an indexed array with the original src when the image does not exist.
 	 */
 	public function test_should_return_indexed_array_with_original_src_when_no_image() {
 		$src    = 'path/does/not/exist/image.jpg';
 		$editor = new _Beans_Image_Editor( $src, array( 'resize' => array( 800, false ) ), ARRAY_N );
 
-		// Setup the mocks.
+		// Set up the mocks.
 		Monkey\Functions\expect( 'wp_get_image_editor' )->with( $src )->once();
 		Monkey\Functions\expect( 'is_wp_error' )->once()->andReturn( true );
 		Monkey\Functions\expect( 'beans_path_to_url' )->never();
@@ -155,7 +155,7 @@ class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
 	}
 
 	/**
-	 * Test run() should return return an indexed array when the edited image exists, meaning that it has already been
+	 * Test _Beans_Image_Editor::run() should return return an indexed array when the edited image exists, meaning that it has already been
 	 * edited and stored.
 	 */
 	public function test_should_return_index_array_when_edited_image_exists() {
@@ -178,10 +178,10 @@ class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
 	}
 
 	/**
-	 * Test run() should edit the existing image, store it in the "rebuilt path", and then return its image info as an
+	 * Test _Beans_Image_Editor::run() should edit the existing image, store it in the "rebuilt path", and then return its image info as an
 	 * object.
 	 */
-	public function test_should_edit_store_and_return_object() {
+	public function test_should_edit_store_image_and_return_object() {
 		$rebuilt_path = $this->get_reflective_property( 'rebuilt_path', '_Beans_Image_Editor' );
 		$args         = array( 'resize' => array( 400, false ) );
 
@@ -213,13 +213,13 @@ class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
 	}
 
 	/**
-	 * Test run() should return an object with the original src when the image does not exist.
+	 * Test _Beans_Image_Editor::run() should return an object with the original src when the image does not exist.
 	 */
 	public function test_should_return_object_with_original_src_when_no_image() {
 		$src    = 'path/does/not/exist/image.jpg';
 		$editor = new _Beans_Image_Editor( $src, array( 'resize' => array( 800, false ) ), OBJECT );
 
-		// Setup the mocks.
+		// Set up the mocks.
 		Monkey\Functions\expect( 'wp_get_image_editor' )->with( $src )->once();
 		Monkey\Functions\expect( 'is_wp_error' )->once()->andReturn( true );
 		Monkey\Functions\expect( 'beans_path_to_url' )->never();
@@ -234,7 +234,7 @@ class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
 	}
 
 	/**
-	 * Test run() should return an object when the edited image exists, meaning that it has already been
+	 * Test _Beans_Image_Editor::run() should return an object when the edited image exists, meaning that it has already been
 	 * edited and stored.
 	 */
 	public function test_should_return_object_when_edited_image_exists() {
@@ -261,10 +261,10 @@ class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
 	}
 
 	/**
-	 * Test run() should edit the existing image, store it in the "rebuilt path", and then return its image info as an
+	 * Test _Beans_Image_Editor::run() should edit the existing image, store it in the "rebuilt path", and then return its image info as an
 	 * associative array.
 	 */
-	public function test_should_edit_image_and_return_associative_array() {
+	public function test_should_edit_store_image_and_return_associative_array() {
 		$rebuilt_path = $this->get_reflective_property( 'rebuilt_path', '_Beans_Image_Editor' );
 		$args         = array( 'resize' => array( 600, false ) );
 
@@ -300,13 +300,13 @@ class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
 	}
 
 	/**
-	 * Test run() should return an associative array with the original src when the image does not exist.
+	 * Test _Beans_Image_Editor::run() should return an associative array with the original src when the image does not exist.
 	 */
 	public function test_should_return_associative_array_with_original_src_when_no_image() {
 		$src    = 'path/does/not/exist/image.jpg';
 		$editor = new _Beans_Image_Editor( $src, array( 'resize' => array( 800, false ) ), ARRAY_A );
 
-		// Setup the mocks.
+		// Set up the mocks.
 		Monkey\Functions\expect( 'wp_get_image_editor' )->with( $src )->once();
 		Monkey\Functions\expect( 'is_wp_error' )->once()->andReturn( true );
 		Monkey\Functions\expect( 'beans_path_to_url' )->never();
@@ -324,7 +324,7 @@ class Tests_Beans_Edit_Image_Run extends Image_Test_Case {
 	}
 
 	/**
-	 * Test run() should return an associative array when the edited image exists, meaning that it has already
+	 * Test _Beans_Image_Editor::run() should return an associative array when the edited image exists, meaning that it has already
 	 * been edited and stored.
 	 */
 	public function test_should_return_associative_array_when_edited_image_exists() {

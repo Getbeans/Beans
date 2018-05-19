@@ -25,7 +25,7 @@ class Tests_BeansOpenMarkupE extends HTML_Test_Case {
 	/**
 	 * Test beans_open_markup_e() should echo an empty string when the tag is set to null.
 	 */
-	public function test_should_echo_empty_when_tag_set_to_null() {
+	public function test_should_echo_empty_string_when_tag_set_to_null() {
 		ob_start();
 		beans_open_markup_e( 'beans_archive_title', null, array( 'class' => 'uk-article-title' ) );
 		$this->assertEquals( '', ob_get_clean() );

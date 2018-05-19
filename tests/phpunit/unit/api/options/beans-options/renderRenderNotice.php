@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for render_reset_notice() method of the _Beans_Options.
+ * Tests for the render_reset_notice() method of _Beans_Options.
  *
  * @package Beans\Framework\Tests\Unit\API\Options
  *
@@ -16,16 +16,16 @@ use Brain\Monkey;
 require_once dirname( __DIR__ ) . '/includes/class-options-test-case.php';
 
 /**
- * Class Tests_Beans_Options_Render_Reset_Notice
+ * Class Tests_BeansOptions_RenderResetNotice
  *
  * @package Beans\Framework\Tests\Unit\API\Options
  * @group   api
  * @group   api-options
  */
-class Tests_Beans_Options_Render_Reset_Notice extends Options_Test_Case {
+class Tests_BeansOptions_RenderResetNotice extends Options_Test_Case {
 
 	/**
-	 * Test render_reset_notice() should render the error message when the "success" property is not set.
+	 * Test _Beans_Options::render_reset_notice() should render the error message when the "success" property is not set.
 	 */
 	public function test_should_render_error_message_when_success_not_set() {
 		// Run the method and grab the HTML out of the buffer.
@@ -43,7 +43,7 @@ EOB;
 	}
 
 	/**
-	 * Test render_reset_notice() should render the updated message when the "success" property is set.
+	 * Test _Beans_Options::render_reset_notice() should render the updated message when the "success" property is set.
 	 */
 	public function test_should_render_updated_message_when_success_is_set() {
 		$property = $this->get_reflective_property( 'success', '_Beans_Options' );

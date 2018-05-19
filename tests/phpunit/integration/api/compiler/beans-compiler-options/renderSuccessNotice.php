@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the render_success_notice() method of _Beans_Compiler_Options.
+ * Tests for the render_success_notice() method of _Beans_Compiler_Options.
  *
  * @package Beans\Framework\Tests\Integration\API\Compiler
  *

@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the get_extension method of _Beans_Compiler.
+ * Tests for the get_extension() method of _Beans_Compiler.
  *
  * @package Beans\Framework\Tests\Unit\API\Compiler
  *

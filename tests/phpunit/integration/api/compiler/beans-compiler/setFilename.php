@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the set_filename method of _Beans_Compiler.
+ * Tests for the set_filename() method of _Beans_Compiler.
  *
  * @package Beans\Framework\Tests\Integration\API\Compiler
  *

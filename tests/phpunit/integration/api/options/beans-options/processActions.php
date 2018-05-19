@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for process_actions() method of the _Beans_Options.
+ * Tests for the process_actions() method of _Beans_Options.
  *
  * @package Beans\Framework\Tests\Integration\API\Options
  *
@@ -18,16 +18,16 @@ use Beans\Framework\Tests\Integration\API\Options\Includes\Options_Test_Case;
 require_once dirname( __DIR__ ) . '/includes/class-options-test-case.php';
 
 /**
- * Class Tests_Beans_Options_Actions
+ * Class Tests_BeansOptions_ProcessActions
  *
  * @package Beans\Framework\Tests\Integration\API\Options
  * @group   api
  * @group   api-options
  */
-class Tests_Beans_Options_Actions extends Options_Test_Case {
+class Tests_BeansOptions_ProcessActions extends Options_Test_Case {
 
 	/**
-	 * Test process_actions() should do nothing when it's not a save or reset action.
+	 * Test _Beans_Options::process_actions() should do nothing when it's not a save or reset action.
 	 */
 	public function test_should_do_nothing_when_no_save_or_reset_action() {
 		$instance = new _Beans_Options();
@@ -40,7 +40,7 @@ class Tests_Beans_Options_Actions extends Options_Test_Case {
 	}
 
 	/**
-	 * Test process_actions() should not save options when the nonce fails.
+	 * Test _Beans_Options::process_actions() should not save options when the nonce fails.
 	 */
 	public function test_should_not_save_options_when_nonce_fails() {
 		$_POST['beans_save_options'] = 1;
@@ -75,10 +75,10 @@ class Tests_Beans_Options_Actions extends Options_Test_Case {
 	}
 
 	/**
-	 * Test process_actions() should save the field values when a save action is passed.
+	 * Test _Beans_Options::process_actions() should save the field values when a save action is passed.
 	 */
 	public function test_should_save_field_values_when_save_action() {
-		// Setup the test.
+		// Set up the test.
 		$nonce                        = wp_create_nonce( 'beans_options_nonce' );
 		$_POST['beans_options_nonce'] = $nonce;
 		$_POST['beans_save_options']  = 1;
@@ -114,7 +114,7 @@ class Tests_Beans_Options_Actions extends Options_Test_Case {
 	}
 
 	/**
-	 * Test process_actions() should not reset options when the nonce fails.
+	 * Test _Beans_Options::process_actions() should not reset options when the nonce fails.
 	 */
 	public function test_should_not_reset_options_when_nonce_fails() {
 		$_POST['beans_reset_options'] = 1;
@@ -158,10 +158,10 @@ class Tests_Beans_Options_Actions extends Options_Test_Case {
 	}
 
 	/**
-	 * Test process_actions() should delete the options when it's a reset action.
+	 * Test _Beans_Options::process_actions() should delete the options when it's a reset action.
 	 */
 	public function test_should_delete_options_when_reset_action() {
-		// Setup the test.
+		// Set up the test.
 		$nonce                        = wp_create_nonce( 'beans_options_nonce' );
 		$_POST['beans_options_nonce'] = $nonce;
 		$_POST['beans_reset_options'] = 1;

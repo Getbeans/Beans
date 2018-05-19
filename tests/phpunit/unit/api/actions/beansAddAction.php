@@ -26,7 +26,7 @@ class Tests_BeansAddAction extends Actions_Test_Case {
 	/**
 	 * Test beans_add_action() should add the action in both Beans and WordPress.
 	 */
-	public function test_should_add_action() {
+	public function test_should_add_action_in_beans_and_wordpress() {
 		global $_beans_registered_actions;
 
 		foreach ( static::$test_actions as $beans_id => $action ) {
@@ -79,7 +79,7 @@ class Tests_BeansAddAction extends Actions_Test_Case {
 	 * This test makes sure nothing breaks if beans_add_action() is called more than once
 	 * with the exact same set of conditions.
 	 */
-	public function test_should_overwrite_add_action() {
+	public function test_should_overwrite_add_action_in_beans_and_wordpress() {
 		global $_beans_registered_actions;
 
 		Monkey\Functions\when( '_beans_get_action' )->justReturn( false );

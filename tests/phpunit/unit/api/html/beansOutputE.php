@@ -26,7 +26,7 @@ class Tests_BeansOutputE extends HTML_Test_Case {
 	/**
 	 * Test beans_output_e() should echo an empty string when the output is empty.
 	 */
-	public function test_should_echo_null_when_output_is_empty() {
+	public function test_should_echo_empty_string_when_output_is_empty() {
 		Monkey\Functions\expect( 'beans_output' )->times( 3 )->andReturnUsing( function( $id, $output ) {
 			return $output;
 		} );

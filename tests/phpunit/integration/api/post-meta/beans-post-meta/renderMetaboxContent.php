@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for the metabox_content method of _Beans_Post_Meta.
+ * Tests for the render_metabox_content() method of _Beans_Post_Meta.
  *
  * @package Beans\Framework\Tests\Integration\API\Post_Meta
  *
@@ -25,9 +25,9 @@ require_once dirname( __DIR__ ) . '/includes/class-beans-post-meta-test-case.php
 class Tests_BeansPostMeta_RenderMetaboxContent extends Beans_Post_Meta_Test_Case {
 
 	/**
-	 * Test _Beans_Post_Meta::metabox_content() should output post meta fields markup when called.
+	 * Test _Beans_Post_Meta::render_metabox_content() should output post meta fields markup when called.
 	 */
-	public function test_metabox_content_should_output_fields_markup() {
+	public function test_should_output_fields_markup() {
 		$test_data = require dirname( ( __DIR__ ) ) . DIRECTORY_SEPARATOR . 'fixtures/test-fields.php';
 		$post_meta = new _Beans_Post_Meta( 'tm-beans', array( 'title' => 'Post Options' ) );
 

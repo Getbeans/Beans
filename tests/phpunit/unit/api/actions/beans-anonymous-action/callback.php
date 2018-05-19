@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for callback() method of _Beans_Anonymous_Action.
+ * Tests for the callback() method of _Beans_Anonymous_Action.
  *
  * @package Beans\Framework\Tests\Unit\API\Actions
  *
@@ -34,7 +34,7 @@ class Tests_BeansAnonymousAction_Callback extends Actions_Test_Case {
 	}
 
 	/**
-	 * Test callback() should invoke the given callback, passing the arguments to it.
+	 * Test _Beans_Anonymous_Action::callback() should invoke the given callback, passing the arguments to it.
 	 */
 	public function test_should_invoke_callback() {
 		$anonymous_action = new _Beans_Anonymous_Action( 'beans_test_do_foo', array(
@@ -52,12 +52,12 @@ class Tests_BeansAnonymousAction_Callback extends Actions_Test_Case {
 		$anonymous_action->callback();
 		ob_get_clean();
 
-		// Placeholder for PHPUnit, as it requires an assertion.  The real test is the "expect" above.
+		// Placeholder for PHPUnit, as it requires an assertion. The real test is the "expect" above.
 		$this->assertTrue( true );
 	}
 
 	/**
-	 * Test callback() should echo the returned content.
+	 * Test _Beans_Anonymous_Action::callback() should echo the returned content.
 	 */
 	public function test_should_echo_returned_content() {
 		$anonymous_action = new _Beans_Anonymous_Action( 'beans_test_do_foo', array(

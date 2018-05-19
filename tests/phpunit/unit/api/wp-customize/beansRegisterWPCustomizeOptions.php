@@ -34,9 +34,9 @@ class Tests_BeansRegisterWPCustomizeOptions extends WP_Customize_Test_Case {
 	}
 
 	/**
-	 * Test beans_register_wp_customize_options() should return false when not in the WP Customizer .
+	 * Test beans_register_wp_customize_options() should return false when not in the WP Customizer.
 	 */
-	public function test_should_return_null_when_no_customizer() {
+	public function test_should_return_false_when_no_customizer() {
 		Monkey\Functions\expect( 'is_customize_preview' )
 			->withNoArgs()
 			->once()

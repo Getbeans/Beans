@@ -71,7 +71,7 @@ class Tests_BeansGetCurrentAction extends Actions_Test_Case {
 	/**
 	 * Test _beans_get_current_action() should return false when there's a "modified" action but no "added" action.
 	 */
-	public function test_should_return_false_when_modified_but_no_added() {
+	public function test_should_return_false_when_modified_but_no_added_action() {
 
 		foreach ( static::$test_actions as $beans_id => $action ) {
 			Monkey\Functions\expect( '_beans_get_action' )
@@ -95,7 +95,7 @@ class Tests_BeansGetCurrentAction extends Actions_Test_Case {
 	/**
 	 * Test _beans_get_current_action() should return the merged "added" and "modified" action.
 	 */
-	public function test_should_return_merged_added_and_modified() {
+	public function test_should_return_merged_added_and_modified_action() {
 		$modified_action = array(
 			'callback' => 'callback',
 			'priority' => 27,

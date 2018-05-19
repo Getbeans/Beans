@@ -153,7 +153,7 @@ abstract class Image_Test_Case extends Base_Test_Case {
 	}
 
 	/**
-	 * Setup the mocks.
+	 * Set up the mocks.
 	 *
 	 * @since 1.5.0
 	 *

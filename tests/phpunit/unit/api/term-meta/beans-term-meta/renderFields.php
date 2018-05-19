@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the render_fields() method of _Beans_Term_Meta.
+ * Tests for the render_fields() method of _Beans_Term_Meta.
  *
  * @package Beans\Framework\Tests\Unit\API\Term_Meta
  *

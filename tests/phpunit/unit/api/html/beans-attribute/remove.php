@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for remove() method of the _Beans_Attribute.
+ * Tests for the remove() method of _Beans_Attribute.
  *
  * @package Beans\Framework\Tests\Unit\API\HTML
  *
@@ -16,16 +16,16 @@ use Brain\Monkey;
 require_once dirname( __DIR__ ) . '/includes/class-html-test-case.php';
 
 /**
- * Class Tests_Beans_Attribute_Remove
+ * Class Tests_BeansAttribute_Remove
  *
  * @package Beans\Framework\Tests\Unit\API\HTML
  * @group   api
  * @group   api-html
  */
-class Tests_Beans_Attribute_Remove extends HTML_Test_Case {
+class Tests_BeansAttribute_Remove extends HTML_Test_Case {
 
 	/**
-	 * Test remove() should return the original attributes when the target attribute does not exist, meaning there's
+	 * Test _Beans_Attribute::remove() should return the original attributes when the target attribute does not exist, meaning there's
 	 * nothing to remove in the given attributes.
 	 */
 	public function test_should_return_original_attributes_when_target_attribute_does_not_exist() {
@@ -43,7 +43,7 @@ class Tests_Beans_Attribute_Remove extends HTML_Test_Case {
 	}
 
 	/**
-	 * Test remove() should remove the attribute when the given value is null.
+	 * Test _Beans_Attribute::remove() should remove the attribute when the given value is null.
 	 */
 	public function test_should_remove_attribute_when_value_is_null() {
 
@@ -64,7 +64,7 @@ class Tests_Beans_Attribute_Remove extends HTML_Test_Case {
 	}
 
 	/**
-	 * Test remove() should remove the given value from the attribute.
+	 * Test _Beans_Attribute::remove() should remove the given value from the attribute.
 	 */
 	public function test_should_remove_the_given_value_from_attribute() {
 		$attributes = array(
@@ -89,7 +89,7 @@ class Tests_Beans_Attribute_Remove extends HTML_Test_Case {
 	}
 
 	/**
-	 * Test remove() should the empty array when an empty array is given. Why? There is nothing to remove, as there are
+	 * Test _Beans_Attribute::remove() should return an empty array when an empty array is given. Why? There is nothing to remove, as there are
 	 * no attributes.
 	 */
 	public function test_should_return_empty_array_when_empty_array_given() {

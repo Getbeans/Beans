@@ -55,7 +55,7 @@ abstract class Base_Test_Case extends Test_Case {
 	}
 
 	/**
-	 * Tear down the test fixture.
+	 * Cleans up the test environment after each test.
 	 */
 	public function tearDown() {
 		Mockery::close();

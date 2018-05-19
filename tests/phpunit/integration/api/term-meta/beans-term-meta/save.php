@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for _Beans_Term_Meta::save()
+ * Tests for the save() method of _Beans_Term_Meta.
  *
  * @package Beans\Framework\Tests\Integration\API\Term_Meta
  *
@@ -26,7 +26,7 @@ require_once dirname( __DIR__ ) . '/includes/class-beans-term-meta-test-case.php
 class Tests_BeansTermMeta_Save extends Beans_Term_Meta_Test_Case {
 
 	/**
-	 * Tests _Beans_Term_Meta::save() should return term_id when nonce is invalid.
+	 * Tests _Beans_Term_Meta::save() should return the term_id when nonce is invalid.
 	 */
 	public function test_should_return_term_id_when_nonce_is_invalid() {
 		$term_meta = new _Beans_Term_Meta( 'tm-beans' );
@@ -35,7 +35,7 @@ class Tests_BeansTermMeta_Save extends Beans_Term_Meta_Test_Case {
 	}
 
 	/**
-	 * Tests _Beans_Term_Meta::save() should return term_id when fields are falsey.
+	 * Tests _Beans_Term_Meta::save() should return the term_id when fields are falsey.
 	 */
 	public function test_should_return_term_id_when_fields_are_falsey() {
 		// Setup a valid nonce but no fields.

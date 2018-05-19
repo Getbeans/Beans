@@ -21,7 +21,7 @@ use Beans\Framework\Tests\Unit\Test_Case;
 class Tests_BeansUniqueActionId extends Test_Case {
 
 	/**
-	 * Setup test fixture.
+	 * Prepares the test environment before each test.
 	 */
 	protected function setUp() {
 		parent::setUp();

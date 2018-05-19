@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the format_content method of _Beans_Compiler.
+ * Tests for the format_content() method of _Beans_Compiler.
  *
  * @package Beans\Framework\Tests\Unit\API\Compiler
  *
@@ -93,7 +93,7 @@ body {
 }
 
 EOB;
-		// Setup the mocks.
+		// Set up the mocks.
 		Monkey\Functions\expect( '_beans_is_compiler_dev_mode' )->once()->andReturn( true );
 		$mock = \Mockery::mock( 'Beans_Lessc' );
 		$mock->shouldReceive( 'compile' )->andReturn( $compiled_css );
@@ -120,7 +120,7 @@ body {
 }
 
 EOB;
-		// Setup the mocks.
+		// Set up the mocks.
 		Monkey\Functions\expect( '_beans_is_compiler_dev_mode' )->once()->andReturn( false );
 		$mock = \Mockery::mock( 'Beans_Lessc' );
 		$mock->shouldReceive( 'compile' )->andReturn( $compiled_css );
@@ -143,7 +143,7 @@ EOB;
 			'minify_js' => false,
 		) );
 
-		// Setup the mocks.
+		// Set up the mocks.
 		Monkey\Functions\expect( '_beans_is_compiler_dev_mode' )->once()->andReturn( false );
 		\Mockery::mock( 'JSMin' )->shouldNotReceive( 'min' );
 
@@ -162,7 +162,7 @@ EOB;
 			'minify_js' => true,
 		) );
 
-		// Setup the mocks.
+		// Set up the mocks.
 		Monkey\Functions\expect( '_beans_is_compiler_dev_mode' )->once()->andReturn( true );
 		\Mockery::mock( 'JSMin' )->shouldNotReceive( 'min' );
 
@@ -188,7 +188,7 @@ $(document).ready(function(){init();});})(jQuery);
 EOB;
 		$compiled_jquery = str_replace( '/$', '$', $compiled_jquery );
 
-		// Setup the mocks.
+		// Set up the mocks.
 		Monkey\Functions\expect( '_beans_is_compiler_dev_mode' )->once()->andReturn( false );
 		$mock = \Mockery::mock( 'JSMin' );
 		$mock->shouldReceive( 'min' )->andReturn( $compiled_jquery );
@@ -208,7 +208,7 @@ EOB;
 			'minify_js' => false,
 		) );
 
-		// Setup the mocks.
+		// Set up the mocks.
 		Monkey\Functions\expect( '_beans_is_compiler_dev_mode' )->once()->andReturn( false );
 		\Mockery::mock( 'JSMin' )->shouldNotReceive( 'min' );
 
@@ -227,7 +227,7 @@ EOB;
 			'minify_js' => true,
 		) );
 
-		// Setup the mocks.
+		// Set up the mocks.
 		Monkey\Functions\expect( '_beans_is_compiler_dev_mode' )->once()->andReturn( true );
 		\Mockery::mock( 'JSMin' )->shouldNotReceive( 'min' );
 
@@ -250,7 +250,7 @@ EOB;
 class MyGameClock{constructor(maxTime){this.maxTime=maxTime;this.currentClock=0;}
 getRemainingTime(){return this.maxTime-this.currentClock;}}
 EOB;
-		// Setup the mocks.
+		// Set up the mocks.
 		Monkey\Functions\expect( '_beans_is_compiler_dev_mode' )->once()->andReturn( false );
 		$mock = \Mockery::mock( 'JSMin' );
 		$mock->shouldReceive( 'min' )->andReturn( $compiled_js );

@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the register() method of _Beans_Compiler_Options.
+ * Tests for the register() method of _Beans_Compiler_Options.
  *
  * @package Beans\Framework\Tests\Integration\API\Compiler
  *

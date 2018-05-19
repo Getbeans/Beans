@@ -1,6 +1,6 @@
 <?php
 /**
- * Test data for the WP Customize unit tests.
+ * Test data for the Beans WP Customize API integration tests.
  *
  * @package Beans\Framework\Tests\Integration\API\WP_Customize\Fixtures
  *

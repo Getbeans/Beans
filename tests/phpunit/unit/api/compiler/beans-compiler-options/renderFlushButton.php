@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the render_flush_button() method of _Beans_Compiler_Options.
+ * Tests for the render_flush_button() method of _Beans_Compiler_Options.
  *
  * @package Beans\Framework\Tests\Unit\API\Compiler
  *

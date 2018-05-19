@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for _Beans_Term_Meta::render_nonce()
+ * Tests for the render_nonce() method of _Beans_Term_Meta.
  *
  * @package Beans\Framework\Tests\Integration\API\Term_Meta
  *

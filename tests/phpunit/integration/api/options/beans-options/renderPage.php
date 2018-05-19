@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for render_page() method of the _Beans_Options.
+ * Tests for the render_page() method of _Beans_Options.
  *
  * @package Beans\Framework\Tests\Integration\API\Options
  *
@@ -16,23 +16,23 @@ use Brain\Monkey;
 require_once dirname( __DIR__ ) . '/includes/class-options-test-case.php';
 
 /**
- * Class Tests_Beans_Options_Render_Page
+ * Class Tests_BeansOptions_RenderPage
  *
  * @package Beans\Framework\Tests\Integration\API\Options
  * @group   api
  * @group   api-options
  */
-class Tests_Beans_Options_Render_Page extends Options_Test_Case {
+class Tests_BeansOptions_RenderPage extends Options_Test_Case {
 
 	/**
-	 * Test render_page() should return null when the page does not have a metabox.
+	 * Test _Beans_Options::render_page() should return null when the page does not have a metabox.
 	 */
 	public function test_should_return_null_when_page_does_not_have_metabox() {
 		$this->assertNull( ( new _Beans_Options() )->render_page( 'beans_settings' ) );
 	}
 
 	/**
-	 * Test render_page() should render the form when "normal" context is configured.
+	 * Test _Beans_Options::render_page() should render the form when "normal" context is configured.
 	 */
 	public function test_should_render_form_when_context_normal() {
 		$instance = new _Beans_Options();
@@ -77,7 +77,7 @@ EOB;
 	}
 
 	/**
-	 * Test render_page() should render the form when "column" context is configured.
+	 * Test _Beans_Options::render_page() should render the form when "column" context is configured.
 	 */
 	public function test_should_render_form_when_column_context() {
 		$instance = new _Beans_Options();
@@ -131,7 +131,7 @@ EOB;
 				</button>
 				<h2 class="hndle"><span>Mode options</span></h2>
 				<div class="inside"></div>
-			</div>				
+			</div>
 		</div>
 	</div>
 	<p class="bs-options-form-actions">

@@ -58,7 +58,7 @@ class Tests_BeansAddAttributes extends HTML_Test_Case {
 	 * ensures the registration component works as expected.
 	 */
 	public function test_should_return_filtered_attributes_when_registered_callback() {
-		// Setup the test.
+		// Set up the test.
 		$attributes = array( 'class' => 'foo' );
 		Monkey\Functions\expect( 'foo_attributes_callback' )
 			->with( $attributes )

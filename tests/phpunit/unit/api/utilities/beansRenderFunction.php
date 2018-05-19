@@ -22,7 +22,7 @@ use Brain\Monkey\Functions;
 class Tests_BeansRenderFunction extends Test_Case {
 
 	/**
-	 * Setup test fixture.
+	 * Prepares the test environment before each test.
 	 */
 	protected function setUp() {
 		parent::setUp();

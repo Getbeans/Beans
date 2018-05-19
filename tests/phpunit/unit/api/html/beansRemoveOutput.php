@@ -63,7 +63,7 @@ class Tests_BeansRemoveOutput extends HTML_Test_Case {
 			beans_remove_output( $id );
 		}
 
-		// Tests are focused above on ensuring beans_add_filter() is called with the right arguments.
+		// Placeholder for PHPUnit, as it requires an assertion. The real test is the "expect" above.
 		$this->assertTrue( true );
 	}
 }

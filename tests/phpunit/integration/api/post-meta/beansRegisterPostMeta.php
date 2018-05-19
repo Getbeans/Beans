@@ -15,7 +15,7 @@ require_once BEANS_API_PATH . 'post-meta/functions-admin.php';
 require_once dirname( __FILE__ ) . '/includes/class-beans-post-meta-test-case.php';
 
 /**
- * Class Tests_BeansGetPostMeta
+ * Class Tests_BeansRegisterPostMeta
  *
  * @package Beans\Framework\Tests\Integration\API\Post_Meta
  * @group   api
@@ -24,7 +24,7 @@ require_once dirname( __FILE__ ) . '/includes/class-beans-post-meta-test-case.ph
 class Tests_BeansRegisterPostMeta extends Beans_Post_Meta_Test_Case {
 
 	/**
-	 * Test beans_register_post_meta() should return false when not on the admin side.
+	 * Test beans_register_post_meta() should return false when not is_admin().
 	 */
 	public function test_should_return_false_when_not_is_admin() {
 

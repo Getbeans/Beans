@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the flush() method of _Beans_Image_Options.
+ * Tests for the flush() method of _Beans_Image_Options.
  *
  * @package Beans\Framework\Tests\Unit\API\Image
  *

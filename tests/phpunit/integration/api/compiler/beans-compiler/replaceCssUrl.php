@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the replace_css_url method of _Beans_Compiler.
+ * Tests for the replace_css_url() method of _Beans_Compiler.
  *
  * @package Beans\Framework\Tests\Integration\API\Compiler
  *

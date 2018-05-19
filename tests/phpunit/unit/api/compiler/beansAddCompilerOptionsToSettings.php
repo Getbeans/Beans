@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the beans_add_compiler_options_to_settings() callback.
+ * Tests for beans_add_compiler_options_to_settings()
  *
  * @package Beans\Framework\Tests\Unit\API\Compiler
  *

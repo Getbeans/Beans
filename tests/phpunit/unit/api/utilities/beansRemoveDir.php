@@ -22,7 +22,7 @@ use org\bovigo\vfs\vfsStream;
 class Tests_BeansRemoveDir extends Test_Case {
 
 	/**
-	 * Setup test fixture.
+	 * Prepares the test environment before each test.
 	 */
 	protected function setUp() {
 		parent::setUp();

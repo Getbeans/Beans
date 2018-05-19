@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for _Beans_Term_Meta::render_fields()
+ * Tests for the render_fields() methods of _Beans_Term_Meta.
  *
  * @package Beans\Framework\Tests\Integration\API\Term_Meta
  *
@@ -29,7 +29,7 @@ class Tests_BeansTermMeta_RenderFields extends Beans_Term_Meta_Test_Case {
 	 * Tests _Beans_Term_Meta::render_fields() should render field html.
 	 */
 	public function test_should_render_field_html() {
-		// Register beans actions to render fields.
+		// Register Beans actions to render fields.
 		beans_add_smart_action( 'beans_field_radio', 'beans_field_radio' );
 		beans_add_smart_action( 'beans_field_checkbox', 'beans_field_checkbox' );
 		beans_add_smart_action( 'beans_field_text', 'beans_field_text' );
@@ -43,7 +43,7 @@ class Tests_BeansTermMeta_RenderFields extends Beans_Term_Meta_Test_Case {
 		// Register test fields.
 		beans_register_term_meta( static::$test_data['fields'], 'category', 'tm-beans' );
 
-		// Call render_fields() method and capture output.
+		// Call the render_fields() method and capture the output.
 		$term_meta = new _Beans_Term_Meta( 'tm-beans' );
 		ob_start();
 		$term_meta->render_fields();
@@ -66,17 +66,17 @@ class Tests_BeansTermMeta_RenderFields extends Beans_Term_Meta_Test_Case {
 							<label class="bs-has-image" for="beans_layout_test_c">
 								<span class="screen-reader-text">Option for c</span>
 								<img src="{$beans_theme_url}lib/admin/assets/images/layouts/c.png" alt="Option for c" />
-								<input id="beans_layout_test_c" class="screen-reader-text" type="radio" name="beans_fields[beans_layout_test]" value="c" /> 		
+								<input id="beans_layout_test_c" class="screen-reader-text" type="radio" name="beans_fields[beans_layout_test]" value="c" />
 							</label>
 							<label class="bs-has-image" for="beans_layout_test_c_sp">
 								<span class="screen-reader-text">Option for c_sp</span>
 								<img src="{$beans_theme_url}lib/admin/assets/images/layouts/c_sp.png" alt="Option for c_sp" />
-								<input id="beans_layout_test_c_sp" class="screen-reader-text" type="radio" name="beans_fields[beans_layout_test]" value="c_sp" /> 		
+								<input id="beans_layout_test_c_sp" class="screen-reader-text" type="radio" name="beans_fields[beans_layout_test]" value="c_sp" />
 							</label>
 							<label class="bs-has-image" for="beans_layout_test_sp_c">
 								<span class="screen-reader-text">Option for sp_c</span>
 								<img src="{$beans_theme_url}lib/admin/assets/images/layouts/sp_c.png" alt="Option for sp_c" />
-								<input id="beans_layout_test_sp_c" class="screen-reader-text" type="radio" name="beans_fields[beans_layout_test]" value="sp_c" /> 		
+								<input id="beans_layout_test_sp_c" class="screen-reader-text" type="radio" name="beans_fields[beans_layout_test]" value="sp_c" />
 							</label>
 					</fieldset>
 				</div>

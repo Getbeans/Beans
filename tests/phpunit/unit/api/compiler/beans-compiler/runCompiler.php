@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the run_compiler method of _Beans_Compiler.
+ * Tests for the run_compiler() method of _Beans_Compiler.
  *
  * @package Beans\Framework\Tests\Unit\API\Compiler
  *
@@ -67,7 +67,7 @@ class Tests_BeansCompiler_RunCompiler extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test _Beans_Compiler::cache_file() should enqueue the existing cached file when no modifications (no fragments
+	 * Test _Beans_Compiler::run_compiler() should enqueue the existing cached file when no modifications (no fragments
 	 * have changed to warrant re-compiling the file).
 	 */
 	public function test_should_enqueue_existing_cached_file_when_no_modifications() {
@@ -121,7 +121,7 @@ class Tests_BeansCompiler_RunCompiler extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test _Beans_Compiler::cache_file() should recompile when a fragment(s) changes.  When this happens, the existing
+	 * Test _Beans_Compiler::run_compiler() should recompile when a fragment(s) changes.  When this happens, the existing
 	 * cached file is removed and the new file is stored in the filesystem.
 	 */
 	public function test_should_recompile_when_fragments_change() {
@@ -197,7 +197,7 @@ class Tests_BeansCompiler_RunCompiler extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test _Beans_Compiler::cache_file() should compile jQuery, saving it to the virtual filesystem and enqueuing it
+	 * Test _Beans_Compiler::run_compiler() should compile jQuery, saving it to the virtual filesystem and enqueuing it
 	 * in WordPress.
 	 */
 	public function test_should_compile_save_and_enqueue_jquery() {
@@ -227,7 +227,7 @@ class Tests_BeansCompiler_RunCompiler extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test _Beans_Compiler::cache_file() should compile JavaScript, saving it to the virtual filesystem and enqueuing
+	 * Test _Beans_Compiler::run_compiler() should compile JavaScript, saving it to the virtual filesystem and enqueuing
 	 * it in WordPress.
 	 */
 	public function test_should_compile_save_and_enqueue_js() {
@@ -257,7 +257,7 @@ class Tests_BeansCompiler_RunCompiler extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test _Beans_Compiler::cache_file() should compile CSS, saving it to the virtual filesystem and enqueuing it in
+	 * Test _Beans_Compiler::run_compiler() should compile CSS, saving it to the virtual filesystem and enqueuing it in
 	 * WordPress.
 	 */
 	public function test_should_compile_save_and_enqueue_css() {
@@ -287,7 +287,7 @@ class Tests_BeansCompiler_RunCompiler extends Compiler_Test_Case {
 	}
 
 	/**
-	 * Test _Beans_Compiler::cache_file() should compile Less, saving it to the virtual filesystem and enqueuing it in
+	 * Test _Beans_Compiler::run_compiler() should compile Less, saving it to the virtual filesystem and enqueuing it in
 	 * WordPress.
 	 */
 	public function test_should_compile_save_and_enqueue_less() {

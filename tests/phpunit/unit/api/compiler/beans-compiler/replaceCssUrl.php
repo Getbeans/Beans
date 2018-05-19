@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the replace_css_url method of _Beans_Compiler.
+ * Tests for the replace_css_url() method of _Beans_Compiler.
  *
  * @package Beans\Framework\Tests\Unit\API\Compiler
  *
@@ -24,7 +24,7 @@ require_once dirname( __DIR__ ) . '/includes/class-compiler-test-case.php';
 class Tests_BeansCompiler_ReplaceCssUrl extends Compiler_Test_Case {
 
 	/**
-	 * Test _Beans_Compiler::replace_css_url() should return original content when there is no url source in the CSS.
+	 * Test _Beans_Compiler::replace_css_url() should return original content when there is no URL source in the CSS.
 	 */
 	public function test_should_return_original_content_when_no_url() {
 		$compiler = $this->create_compiler();

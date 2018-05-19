@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the combine_fragments method of _Beans_Compiler.
+ * Tests for the combine_fragments() method of _Beans_Compiler.
  *
  * @package Beans\Framework\Tests\Integration\API\Compiler
  *

@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for replace() method of the _Beans_Attribute.
+ * Tests for the replace() method of _Beans_Attribute.
  *
  * @package Beans\Framework\Tests\Unit\API\HTML
  *
@@ -16,16 +16,16 @@ use Brain\Monkey;
 require_once dirname( __DIR__ ) . '/includes/class-html-test-case.php';
 
 /**
- * Class Tests_Beans_Attribute_Replace
+ * Class Tests_BeansAttribute_Replace
  *
  * @package Beans\Framework\Tests\Unit\API\HTML
  * @group   api
  * @group   api-html
  */
-class Tests_Beans_Attribute_Replace extends HTML_Test_Case {
+class Tests_BeansAttribute_Replace extends HTML_Test_Case {
 
 	/**
-	 * Test replace() should replace an existing attribute value.
+	 * Test _Beans_Attribute::replace() should replace an existing attribute value.
 	 */
 	public function test_should_replace_existing_attribute_value() {
 		$attributes = array(
@@ -50,7 +50,7 @@ class Tests_Beans_Attribute_Replace extends HTML_Test_Case {
 	}
 
 	/**
-	 * Test replace() should replace (overwrite) all attribute's values with the new value when the target value is
+	 * Test _Beans_Attribute::replace() should replace (overwrite) all attribute's values with the new value when the target value is
 	 * empty (null, empty string, etc.).
 	 */
 	public function test_should_overwrite_attribute_values_with_new_value() {
@@ -77,9 +77,9 @@ class Tests_Beans_Attribute_Replace extends HTML_Test_Case {
 	}
 
 	/**
-	 * Test replace() should add the attribute when it does not exists in the given attributes.
+	 * Test _Beans_Attribute::replace() should add the attribute when it does not exists in the given attributes.
 	 */
-	public function test_should_add_attribute_when_does_not_exist() {
+	public function test_should_add_attribute_when_it_does_not_exist() {
 
 		foreach ( static::$test_attributes as $beans_id => $markup ) {
 
@@ -103,7 +103,7 @@ class Tests_Beans_Attribute_Replace extends HTML_Test_Case {
 	}
 
 	/**
-	 * Test replace() should add the attribute when an empty array is given.
+	 * Test _Beans_Attribute::replace() should add the attribute when an empty array is given.
 	 */
 	public function test_should_add_attribute_when_an_empty_array_given() {
 

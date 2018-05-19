@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the format_content method of _Beans_Compiler.
+ * Tests for the format_content() method of _Beans_Compiler.
  *
  * @package Beans\Framework\Tests\Integration\API\Compiler
  *

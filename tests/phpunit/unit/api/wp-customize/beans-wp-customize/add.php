@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for add() method of _Beans_WP_Customize.
+ * Tests for the add() method of _Beans_WP_Customize.
  *
  * @package Beans\Framework\Tests\Unit\API\WP_Customize
  *
@@ -26,9 +26,9 @@ require_once dirname( __DIR__ ) . '/includes/class-wp-customize-test-case.php';
 class Tests_BeansWPCustomize_Add extends WP_Customize_Test_Case {
 
 	/**
-	 * Test add() should call expected functions and WP_Customize_Control.
+	 * Test _Beans_WP_Customize::add() should call expected functions and WP_Customize_Control.
 	 */
-	public function test_add_should_call_wp_customize_control() {
+	public function test_should_call_wp_customize_control() {
 		$test_data = static::$test_data['single_fields'];
 
 		Monkey\Functions\expect( 'beans_get_fields' )

@@ -1,5 +1,6 @@
 <?php
-/** Tests for beans_register_term_meta()
+/**
+ * Tests for beans_register_term_meta()
  *
  * @package Beans\Framework\Tests\Unit\API\Term_Meta
  *
@@ -14,7 +15,7 @@ use Brain\Monkey;
 require_once dirname( __FILE__ ) . '/includes/class-beans-term-meta-test-case.php';
 
 /**
- * Class Tests_BeansRegisterPostMeta
+ * Class Tests_BeansRegisterTermMeta
  *
  * @package Beans\Framework\Tests\Unit\API\Term_Meta
  * @group   api
@@ -23,9 +24,9 @@ require_once dirname( __FILE__ ) . '/includes/class-beans-term-meta-test-case.ph
 class Tests_BeansRegisterTermMeta extends Beans_Term_Meta_Test_Case {
 
 	/**
-	 * Tests beans_register_term_meta() should return false when current taxonomy is not concerned.
+	 * Test beans_register_term_meta() should return false when current taxonomy is not concerned.
 	 */
-	public function tests_should_return_false_when_current_taxonomy_not_concerned() {
+	public function test_should_return_false_when_current_taxonomy_not_concerned() {
 		Monkey\Functions\expect( '_beans_is_admin_term' )
 			->once()
 			->with( array( 'sample-taxonomy' ) )
@@ -34,9 +35,9 @@ class Tests_BeansRegisterTermMeta extends Beans_Term_Meta_Test_Case {
 	}
 
 	/**
-	 * Tests beans_register_term_meta() should return false when not is_admin().
+	 * Test beans_register_term_meta() should return false when not is_admin().
 	 */
-	public function tests_should_return_false_when_not_is_admin() {
+	public function test_should_return_false_when_not_is_admin() {
 		Monkey\Functions\expect( '_beans_is_admin_term' )
 			->once()
 			->with( array( 'sample-taxonomy' ) )
@@ -53,7 +54,7 @@ class Tests_BeansRegisterTermMeta extends Beans_Term_Meta_Test_Case {
 	}
 
 	/**
-	 * Tests beans_register_term_meta() should return false when fields cannot be registered.
+	 * Test beans_register_term_meta() should return false when fields cannot be registered.
 	 */
 	public function test_should_return_false_when_fields_cannot_be_registered() {
 		Monkey\Functions\expect( '_beans_is_admin_term' )
@@ -76,7 +77,7 @@ class Tests_BeansRegisterTermMeta extends Beans_Term_Meta_Test_Case {
 	}
 
 	/**
-	 * Tests beans_register_term_meta() should return true when term meta fields are successfully registered.
+	 * Test beans_register_term_meta() should return true when term meta fields are successfully registered.
 	 */
 	public function test_should_return_true_when_fields_are_successfully_registered() {
 		Monkey\Functions\expect( '_beans_is_admin_term' )

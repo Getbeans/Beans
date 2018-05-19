@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for add() method of the _Beans_Attribute.
+ * Tests for the add() method of _Beans_Attribute.
  *
  * @package Beans\Framework\Tests\Unit\API\HTML
  *
@@ -15,16 +15,16 @@ use Beans\Framework\Tests\Unit\API\HTML\Includes\HTML_Test_Case;
 require_once dirname( __DIR__ ) . '/includes/class-html-test-case.php';
 
 /**
- * Class Tests_Beans_Attribute_Add
+ * Class Tests_BeansAttribute_Add
  *
  * @package Beans\Framework\Tests\Unit\API\HTML
  * @group   api
  * @group   api-html
  */
-class Tests_Beans_Attribute_Add extends HTML_Test_Case {
+class Tests_BeansAttribute_Add extends HTML_Test_Case {
 
 	/**
-	 * Test add() should add the attribute when it does not exist in the given attributes.
+	 * Test _Beans_Attribute::add() should add the attribute when it does not exist in the given attributes.
 	 */
 	public function test_should_add_the_attribute_when_does_not_exist() {
 
@@ -42,7 +42,7 @@ class Tests_Beans_Attribute_Add extends HTML_Test_Case {
 	}
 
 	/**
-	 * Test add() should add the attribute when an empty array is given.
+	 * Test _Beans_Attribute::add() should add the attribute when an empty array is given.
 	 */
 	public function test_should_add_the_attribute_when_empty_array_given() {
 
@@ -54,7 +54,7 @@ class Tests_Beans_Attribute_Add extends HTML_Test_Case {
 	}
 
 	/**
-	 * Test add() should add the value to an existing attribute's values.
+	 * Test _Beans_Attribute::add() should add the value to an existing attribute's values.
 	 */
 	public function test_should_add_value_to_existing_attribute_values() {
 

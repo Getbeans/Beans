@@ -22,7 +22,7 @@ use Brain\Monkey\Actions;
 class Tests_BeansRenderAction extends Test_Case {
 
 	/**
-	 * Setup test fixture.
+	 * Prepares the test environment before each test.
 	 */
 	protected function setUp() {
 		parent::setUp();
@@ -48,7 +48,7 @@ class Tests_BeansRenderAction extends Test_Case {
 	/**
 	 * Test _beans_render_action() should return after calling the hook with no sub-hook.
 	 */
-	public function test_should_return_after_calling_hook_no_subhook() {
+	public function test_should_return_after_calling_hook_with_no_subhook() {
 		// Testing with a closure.
 		$expected_args = array(
 			array( 'foo' ),
@@ -60,7 +60,7 @@ class Tests_BeansRenderAction extends Test_Case {
 			$this->assertTrue( doing_action( 'beans_stub' ) );
 			$this->assertEquals( $expected_args[ $args[0] ], $args[1] );
 
-			// Let's echo out to ensure this callback will was called.
+			// Let's echo out to ensure this callback was called.
 			echo $args[1][0];  // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Not testing escaping functionality.
 		};
 		add_action( 'beans_stub', $callback );

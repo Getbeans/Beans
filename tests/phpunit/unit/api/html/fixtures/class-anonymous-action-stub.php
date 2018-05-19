@@ -1,6 +1,6 @@
 <?php
 /**
- * Stub for the _Beans_Anonymous_Action.
+ * Stub for _Beans_Anonymous_Action.
  *
  * @package Beans\Framework\Tests\Unit\API\HTML\Fixtures
  *

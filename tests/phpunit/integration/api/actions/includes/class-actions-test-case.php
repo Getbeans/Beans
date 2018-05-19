@@ -165,7 +165,7 @@ abstract class Actions_Test_Case extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Setup the original action.
+	 * Set up the original action.
 	 *
 	 * @since 1.5.0
 	 *

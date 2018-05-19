@@ -7,7 +7,7 @@
  * @since   1.5.0
  */
 
-namespace Beans\Framework\Tests\Unit\API\Utilities;
+namespace Beans\Framework\Tests\Unit\API\Layout;
 
 use Beans\Framework\Tests\Unit\Test_Case;
 use Brain\Monkey;

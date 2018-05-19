@@ -64,7 +64,7 @@ abstract class Compiler_Test_Case extends Base_Test_Case {
 	}
 
 	/**
-	 * Tear down the test fixture.
+	 * Cleans up the test environment after each test.
 	 */
 	public function tearDown() {
 		wp_dequeue_script( 'test-jquery' );
