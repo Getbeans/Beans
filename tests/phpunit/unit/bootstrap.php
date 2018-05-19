@@ -6,8 +6,6 @@
  * @since       1.5.0
  * @link        http://www.getbeans.io
  * @license     GNU-2.0+
- *
- * @group       unit-tests
  */
 
 if ( version_compare( phpversion(), '5.6.0', '<' ) ) {
