@@ -87,24 +87,6 @@ abstract class Compiler_Test_Case extends Base_Test_Case {
 	}
 
 	/**
-	 * Tear down the test fixture.
-	 */
-	protected function tearDown() {
-		// Reset the global fragments container.
-		global $_beans_compiler_added_fragments;
-		$_beans_compiler_added_fragments = array(
-			'css'  => array(),
-			'less' => array(),
-			'js'   => array(),
-		);
-
-		unset( $GLOBALS['wp_filesystem'] );
-
-		Mockery::close();
-		parent::tearDown();
-	}
-
-	/**
 	 * Set up the virtual filesystem.
 	 */
 	protected function set_up_virtual_filesystem() {

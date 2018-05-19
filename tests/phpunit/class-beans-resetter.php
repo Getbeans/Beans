@@ -78,6 +78,8 @@ class Beans_Resetter {
 			'less' => [],
 			'js'   => [],
 		];
+
+		unset( $GLOBALS['wp_filesystem'] );
 	}
 
 	/**
