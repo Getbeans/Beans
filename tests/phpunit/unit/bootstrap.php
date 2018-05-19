@@ -6,9 +6,9 @@
  * @since       1.5.0
  * @link        http://www.getbeans.io
  * @license     GNU-2.0+
- *
- * @group       unit-tests
  */
+
+namespace Beans\Framework\Tests\Unit;
 
 if ( version_compare( phpversion(), '5.6.0', '<' ) ) {
 	trigger_error( 'Beans Unit Tests require PHP 5.6 or higher.', E_USER_ERROR ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error -- Valid use case for our testing suite.

@@ -6,9 +6,9 @@
  * @since       1.5.0
  * @link        http://www.getbeans.io
  * @license     GNU-2.0+
- *
- * @group       integration-tests
  */
+
+namespace Beans\Framework\Tests\Integration;
 
 if ( ! file_exists( '../../../wp-content' ) ) {
 	trigger_error( 'Unable to run the integration tests, because the wp-content folder does not exist.', E_USER_ERROR ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error -- Valid use case for our testing suite.
