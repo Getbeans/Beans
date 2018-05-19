@@ -286,57 +286,67 @@ function beans_comments_navigation() {
 	}
 
 	beans_open_markup_e(
-		'beans_comments_navigation',
-		'ul',
+		'beans_comments_navigation_nav_container',
+		'nav',
 		array(
-			'class' => 'uk-pagination',
-			'role'  => 'navigation',
+			'role'       => 'navigation',
+			'aria-label' => 'Comments Pagination Navigation',
 		)
 	);
 
-		// Previous.
-	if ( get_previous_comments_link() ) {
-		beans_open_markup_e( 'beans_comments_navigation_item[_previous]', 'li', array( 'class' => 'uk-pagination-previous' ) );
+		beans_open_markup_e(
+			'beans_comments_navigation',
+			'ul',
+			array(
+				'class' => 'uk-pagination',
+			)
+		);
 
-			$previous_icon  = beans_open_markup(
-				'beans_previous_icon[_comments_navigation]',
-				'span',
-				array(
-					'class'       => 'uk-icon-angle-double-left uk-margin-small-right',
-					'aria-hidden' => 'true',
-				)
-			);
-			$previous_icon .= beans_close_markup( 'beans_previous_icon[_comments_navigation]', 'span' );
+			// Previous.
+		if ( get_previous_comments_link() ) {
+			beans_open_markup_e( 'beans_comments_navigation_item[_previous]', 'li', array( 'class' => 'uk-pagination-previous' ) );
 
-			echo get_previous_comments_link( // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
-				$previous_icon . beans_output( 'beans_previous_text[_comments_navigation]', __( 'Previous Comments', 'tm-beans' ) )
-			);
+				$previous_icon  = beans_open_markup(
+					'beans_previous_icon[_comments_navigation]',
+					'span',
+					array(
+						'class'       => 'uk-icon-angle-double-left uk-margin-small-right',
+						'aria-hidden' => 'true',
+					)
+				);
+				$previous_icon .= beans_close_markup( 'beans_previous_icon[_comments_navigation]', 'span' );
 
-		beans_close_markup_e( 'beans_comments_navigation_item[_previous]', 'li' );
-	}
+				echo get_previous_comments_link( // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
+					$previous_icon . beans_output( 'beans_previous_text[_comments_navigation]', __( 'Previous Comments', 'tm-beans' ) )
+				);
 
-		// Next.
-	if ( get_next_comments_link() ) {
-		beans_open_markup_e( 'beans_comments_navigation_item[_next]', 'li', array( 'class' => 'uk-pagination-next' ) );
+			beans_close_markup_e( 'beans_comments_navigation_item[_previous]', 'li' );
+		}
 
-			$next_icon  = beans_open_markup(
-				'beans_next_icon[_comments_navigation]',
-				'span',
-				array(
-					'class'       => 'uk-icon-angle-double-right uk-margin-small-right',
-					'aria-hidden' => 'true',
-				)
-			);
-			$next_icon .= beans_close_markup( 'beans_next_icon[_comments_navigation]', 'span' );
+			// Next.
+		if ( get_next_comments_link() ) {
+			beans_open_markup_e( 'beans_comments_navigation_item[_next]', 'li', array( 'class' => 'uk-pagination-next' ) );
 
-			echo get_next_comments_link( // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
-				beans_output( 'beans_next_text[_comments_navigation]', __( 'Next Comments ', 'tm-beans' ) ) . $next_icon
-			);
+				$next_icon  = beans_open_markup(
+					'beans_next_icon[_comments_navigation]',
+					'span',
+					array(
+						'class'       => 'uk-icon-angle-double-right uk-margin-small-right',
+						'aria-hidden' => 'true',
+					)
+				);
+				$next_icon .= beans_close_markup( 'beans_next_icon[_comments_navigation]', 'span' );
 
-		beans_close_markup_e( 'beans_comments_navigation_item_[_next]', 'li' );
-	}
+				echo get_next_comments_link( // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
+					beans_output( 'beans_next_text[_comments_navigation]', __( 'Next Comments ', 'tm-beans' ) ) . $next_icon
+				);
 
-	beans_close_markup_e( 'beans_comments_navigation', 'ul' );
+			beans_close_markup_e( 'beans_comments_navigation_item_[_next]', 'li' );
+		}
+
+		beans_close_markup_e( 'beans_comments_navigation', 'ul' );
+
+	beans_close_markup_e( 'beans_comments_navigation_nav_container', 'nav' );
 }
 
 beans_add_smart_action( 'beans_after_open_comments', 'beans_comment_form_divider' );

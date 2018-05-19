@@ -22,10 +22,11 @@ function beans_primary_menu() {
 		'beans_primary_menu',
 		'nav',
 		array(
-			'class'     => 'tm-primary-menu uk-float-right uk-navbar',
-			'role'      => 'navigation',
-			'itemscope' => 'itemscope',
-			'itemtype'  => 'http://schema.org/SiteNavigationElement',
+			'class'      => 'tm-primary-menu uk-float-right uk-navbar',
+			'role'       => 'navigation',
+			'itemscope'  => 'itemscope',
+			'itemtype'   => 'http://schema.org/SiteNavigationElement',
+			'aria-label' => 'Primary Navigation Menu',
 		)
 	);
 
@@ -112,8 +113,9 @@ function beans_primary_offcanvas_menu() {
 		'beans_primary_offcanvas_menu',
 		'nav',
 		array(
-			'class' => 'tm-primary-offcanvas-menu uk-margin uk-margin-top',
-			'role'  => 'navigation',
+			'class'      => 'tm-primary-offcanvas-menu uk-margin uk-margin-top',
+			'role'       => 'navigation',
+			'aria-label' => 'Off-Canvas Primary Navigation Menu',
 		)
 	);
 

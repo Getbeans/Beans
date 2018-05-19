@@ -534,39 +534,49 @@ function beans_post_navigation() {
 	}
 
 	beans_open_markup_e(
-		'beans_post_navigation',
-		'ul',
+		'beans_post_navigation_nav_container',
+		'nav',
 		array(
-			'class' => 'uk-pagination',
-			'role'  => 'navigation',
+			'role'       => 'navigation',
+			'aria-label' => 'Pagination Navigation',
 		)
 	);
 
-	if ( $previous ) {
-		beans_open_markup_e( 'beans_post_navigation_item[_previous]', 'li', array( 'class' => 'uk-pagination-previous' ) );
+		beans_open_markup_e(
+			'beans_post_navigation',
+			'ul',
+			array(
+				'class' => 'uk-pagination',
+			)
+		);
 
-			// phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
-			echo get_previous_post_link(
-				'%link',
-				beans_output( 'beans_previous_text[_post_navigation_item]', __( 'Previous Page', 'tm-beans' ) )
-			);
+		if ( $previous ) {
+			beans_open_markup_e( 'beans_post_navigation_item[_previous]', 'li', array( 'class' => 'uk-pagination-previous' ) );
 
-		beans_close_markup_e( 'beans_post_navigation_item[_previous]', 'li' );
-	}
+				// phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
+				echo get_previous_post_link(
+					'%link',
+					beans_output( 'beans_previous_text[_post_navigation_item]', __( 'Previous Page', 'tm-beans' ) )
+				);
 
-	if ( $next ) {
-		beans_open_markup_e( 'beans_post_navigation_item[_next]', 'li', array( 'class' => 'uk-pagination-next' ) );
+			beans_close_markup_e( 'beans_post_navigation_item[_previous]', 'li' );
+		}
 
-			// phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
-			echo get_next_post_link(
-				'%link',
-				beans_output( 'beans_next_text[_post_navigation_item]', __( 'Next Page', 'tm-beans' ) )
-			);
+		if ( $next ) {
+			beans_open_markup_e( 'beans_post_navigation_item[_next]', 'li', array( 'class' => 'uk-pagination-next' ) );
 
-		beans_close_markup_e( 'beans_post_navigation_item[_next]', 'li' );
-	}
+				// phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
+				echo get_next_post_link(
+					'%link',
+					beans_output( 'beans_next_text[_post_navigation_item]', __( 'Next Page', 'tm-beans' ) )
+				);
 
-	beans_close_markup_e( 'beans_post_navigation', 'ul' );
+			beans_close_markup_e( 'beans_post_navigation_item[_next]', 'li' );
+		}
+
+		beans_close_markup_e( 'beans_post_navigation', 'ul' );
+
+	beans_close_markup_e( 'beans_post_navigation_nav_container', 'nav' );
 }
 
 beans_add_smart_action( 'beans_after_posts_loop', 'beans_posts_pagination' );
@@ -600,146 +610,156 @@ function beans_posts_pagination() {
 	$count   = intval( $wp_query->max_num_pages );
 
 	beans_open_markup_e(
-		'beans_posts_pagination',
-		'ul',
+		'beans_posts_pagination_nav_container',
+		'nav',
 		array(
-			'class' => 'uk-pagination uk-grid-margin',
-			'role'  => 'navigation',
+			'role'       => 'navigation',
+			'aria-label' => 'Posts Pagination Navigation'
 		)
 	);
 
-	// Previous.
-	if ( get_previous_posts_link() ) {
-		beans_open_markup_e( 'beans_posts_pagination_item[_previous]', 'li' );
-
-			beans_open_markup_e(
-				'beans_previous_link[_posts_pagination]',
-				'a',
-				array(
-					'href' => previous_posts( false ), // Automatically escaped.
-				),
-				$current
-			);
-
-				beans_open_markup_e(
-					'beans_previous_icon[_posts_pagination]',
-					'span',
-					array(
-						'class'       => 'uk-icon-angle-double-left uk-margin-small-right',
-						'aria-hidden' => 'true',
-					)
-				);
-
-				beans_close_markup_e( 'beans_previous_icon[_posts_pagination]', 'span' );
-
-				beans_output_e( 'beans_previous_text[_posts_pagination]', __( 'Previous Page', 'tm-beans' ) );
-
-			beans_close_markup_e( 'beans_previous_link[_posts_pagination]', 'a' );
-
-		beans_close_markup_e( 'beans_posts_pagination_item[_previous]', 'li' );
-	}
-
-	// Links.
-	foreach ( range( 1, (int) $wp_query->max_num_pages ) as $link ) {
-
-		// Skip if next is set.
-		if ( isset( $next ) && $link !== $next ) {
-			continue;
-		} else {
-			$next = $link + 1;
-		}
-
-		$is_separator = array(
-			1 !== $link, // Not first.
-			1 === $current && 3 === $link ? false : true, // Force first 3 items.
-			$count > 3, // More.
-			$count !== $link, // Not last.
-			( $current - 1 ) !== $link, // Not previous.
-			$current !== $link, // Not current.
-			( $current + 1 ) !== $link, // Not next.
+		beans_open_markup_e(
+			'beans_posts_pagination',
+			'ul',
+			array(
+				'class' => 'uk-pagination uk-grid-margin',
+			)
 		);
 
-		// Separator.
-		if ( ! in_array( false, $is_separator, true ) ) {
-			beans_open_markup_e( 'beans_posts_pagination_item[_separator]', 'li' );
-
-				beans_output_e( 'beans_posts_pagination_item_separator_text', '...' );
-
-			beans_close_markup_e( 'beans_posts_pagination_item[_separator]', 'li' );
-
-			// Jump.
-			if ( $link < $current ) {
-				$next = $current - 1;
-			} elseif ( $link > $current ) {
-				$next = $count;
-			}
-
-			continue;
-		}
-
-		// Integer.
-		if ( $link === $current ) {
-			beans_open_markup_e( 'beans_posts_pagination_item[_active]', 'li', array( 'class' => 'uk-active' ) );
-
-				beans_open_markup_e( 'beans_posts_pagination_item[_active]_wrap', 'span' );
-
-					beans_output_e( 'beans_posts_pagination_item[_active]_text', $link );
-
-				beans_close_markup_e( 'beans_posts_pagination_item[_active]_wrap', 'span' );
-
-			beans_close_markup_e( 'beans_posts_pagination_item[_active]', 'li' );
-		} else {
-			beans_open_markup_e( 'beans_posts_pagination_item', 'li' );
+		// Previous.
+		if ( get_previous_posts_link() ) {
+			beans_open_markup_e( 'beans_posts_pagination_item[_previous]', 'li' );
 
 				beans_open_markup_e(
-					'beans_posts_pagination_item_link',
+					'beans_previous_link[_posts_pagination]',
 					'a',
 					array(
-						'href' => get_pagenum_link( $link ), // Automatically escaped.
+						'href' => previous_posts( false ), // Automatically escaped.
 					),
-					$link
+					$current
 				);
 
-					beans_output_e( 'beans_posts_pagination_item_link_text', $link );
+					beans_open_markup_e(
+						'beans_previous_icon[_posts_pagination]',
+						'span',
+						array(
+							'class'       => 'uk-icon-angle-double-left uk-margin-small-right',
+							'aria-hidden' => 'true',
+						)
+					);
 
-				beans_close_markup_e( 'beans_posts_pagination_item_link', 'a' );
+					beans_close_markup_e( 'beans_previous_icon[_posts_pagination]', 'span' );
 
-			beans_close_markup_e( 'beans_posts_pagination_item', 'li' );
+					beans_output_e( 'beans_previous_text[_posts_pagination]', __( 'Previous Page', 'tm-beans' ) );
+
+				beans_close_markup_e( 'beans_previous_link[_posts_pagination]', 'a' );
+
+			beans_close_markup_e( 'beans_posts_pagination_item[_previous]', 'li' );
 		}
-	}
 
-	// Next.
-	if ( get_next_posts_link() ) {
-		beans_open_markup_e( 'beans_posts_pagination_item[_next]', 'li' );
+		// Links.
+		foreach ( range( 1, (int) $wp_query->max_num_pages ) as $link ) {
 
-			beans_open_markup_e(
-				'beans_next_link[_posts_pagination]',
-				'a',
-				array(
-					'href' => next_posts( $count, false ), // Automatically escaped.
-				),
-				$current
+			// Skip if next is set.
+			if ( isset( $next ) && $link !== $next ) {
+				continue;
+			} else {
+				$next = $link + 1;
+			}
+
+			$is_separator = array(
+				1 !== $link, // Not first.
+				1 === $current && 3 === $link ? false : true, // Force first 3 items.
+				$count > 3, // More.
+				$count !== $link, // Not last.
+				( $current - 1 ) !== $link, // Not previous.
+				$current !== $link, // Not current.
+				( $current + 1 ) !== $link, // Not next.
 			);
 
-				beans_output_e( 'beans_next_text[_posts_pagination]', __( 'Next Page', 'tm-beans' ) );
+			// Separator.
+			if ( ! in_array( false, $is_separator, true ) ) {
+				beans_open_markup_e( 'beans_posts_pagination_item[_separator]', 'li' );
+
+					beans_output_e( 'beans_posts_pagination_item_separator_text', '...' );
+
+				beans_close_markup_e( 'beans_posts_pagination_item[_separator]', 'li' );
+
+				// Jump.
+				if ( $link < $current ) {
+					$next = $current - 1;
+				} elseif ( $link > $current ) {
+					$next = $count;
+				}
+
+				continue;
+			}
+
+			// Integer.
+			if ( $link === $current ) {
+				beans_open_markup_e( 'beans_posts_pagination_item[_active]', 'li', array( 'class' => 'uk-active' ) );
+
+					beans_open_markup_e( 'beans_posts_pagination_item[_active]_wrap', 'span' );
+
+						beans_output_e( 'beans_posts_pagination_item[_active]_text', $link );
+
+					beans_close_markup_e( 'beans_posts_pagination_item[_active]_wrap', 'span' );
+
+				beans_close_markup_e( 'beans_posts_pagination_item[_active]', 'li' );
+			} else {
+				beans_open_markup_e( 'beans_posts_pagination_item', 'li' );
+
+					beans_open_markup_e(
+						'beans_posts_pagination_item_link',
+						'a',
+						array(
+							'href' => get_pagenum_link( $link ), // Automatically escaped.
+						),
+						$link
+					);
+
+						beans_output_e( 'beans_posts_pagination_item_link_text', $link );
+
+					beans_close_markup_e( 'beans_posts_pagination_item_link', 'a' );
+
+				beans_close_markup_e( 'beans_posts_pagination_item', 'li' );
+			}
+		}
+
+		// Next.
+		if ( get_next_posts_link() ) {
+			beans_open_markup_e( 'beans_posts_pagination_item[_next]', 'li' );
 
 				beans_open_markup_e(
-					'beans_next_icon[_posts_pagination]',
-					'span',
+					'beans_next_link[_posts_pagination]',
+					'a',
 					array(
-						'class'       => 'uk-icon-angle-double-right uk-margin-small-left',
-						'aria-hidden' => 'true',
-					)
+						'href' => next_posts( $count, false ), // Automatically escaped.
+					),
+					$current
 				);
 
-				beans_close_markup_e( 'beans_next_icon[_posts_pagination]', 'span' );
+					beans_output_e( 'beans_next_text[_posts_pagination]', __( 'Next Page', 'tm-beans' ) );
 
-			beans_close_markup_e( 'beans_next_link[_posts_pagination]', 'a' );
+					beans_open_markup_e(
+						'beans_next_icon[_posts_pagination]',
+						'span',
+						array(
+							'class'       => 'uk-icon-angle-double-right uk-margin-small-left',
+							'aria-hidden' => 'true',
+						)
+					);
 
-		beans_close_markup_e( 'beans_posts_pagination_item[_next]', 'li' );
-	}
+					beans_close_markup_e( 'beans_next_icon[_posts_pagination]', 'span' );
 
-	beans_close_markup_e( 'beans_posts_pagination', 'ul' );
+				beans_close_markup_e( 'beans_next_link[_posts_pagination]', 'a' );
+
+			beans_close_markup_e( 'beans_posts_pagination_item[_next]', 'li' );
+		}
+
+		beans_close_markup_e( 'beans_posts_pagination', 'ul' );
+
+	beans_close_markup_e( 'beans_posts_pagination_nav_container', 'nav' );
 }
 
 beans_add_smart_action( 'beans_no_post', 'beans_no_post' );
