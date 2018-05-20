@@ -9,6 +9,7 @@
 
 namespace Beans\Framework\Tests\Integration\API\Image\Includes;
 
+use Brain\Monkey;
 use org\bovigo\vfs\vfsStream;
 
 require_once __DIR__ . '/class-base-test-case.php';
@@ -26,6 +27,16 @@ abstract class Image_Test_Case extends Base_Test_Case {
 	 * @var bool
 	 */
 	protected $just_return_path = true;
+
+	/**
+	 * Prepares the test environment before each test.
+	 */
+	public function setUp() {
+		parent::setUp();
+
+		// Return the virtual filesystem's path to avoid wp_normalize_path converting its prefix from vfs::// to vfs:/.
+		Monkey\Functions\when( 'wp_normalize_path' )->returnArg();
+	}
 
 	/**
 	 * Initialize the virtual "edited" image.

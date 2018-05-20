@@ -10,6 +10,7 @@
 namespace Beans\Framework\Tests\Integration\API\Compiler\Includes;
 
 use _Beans_Compiler;
+use Brain\Monkey;
 use Mockery;
 use org\bovigo\vfs\vfsStream;
 
@@ -61,6 +62,16 @@ abstract class Compiler_Test_Case extends Base_Test_Case {
 		static::$fixtures_dir      = basename( __DIR__ ) === 'compiler'
 			? __DIR__ . DIRECTORY_SEPARATOR . 'fixtures' . DIRECTORY_SEPARATOR
 			: dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'fixtures' . DIRECTORY_SEPARATOR;
+	}
+
+	/**
+	 * Prepares the test environment before each test.
+	 */
+	public function setUp() {
+		parent::setUp();
+
+		// Return the virtual filesystem's path to avoid wp_normalize_path converting its prefix from vfs::// to vfs:/.
+		Monkey\Functions\when( 'wp_normalize_path' )->returnArg();
 	}
 
 	/**
