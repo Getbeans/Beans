@@ -33,12 +33,20 @@ class Tests_BeansRegisterWidgetArea extends Beans_Widget_Test_Case {
 	 * Test beans_register_widget_area() should return the widget area id when the widget area is registered.
 	 */
 	public function test_should_return_widget_area_ID_when_widget_area_registered() {
+		global $wp_registered_sidebars;
+
+		// Verify new widget area is not yet added.
+		$this->assertFalse( isset( $wp_registered_sidebars['new-widget-area'] ) );
+
 		$this->assertEquals(
 			'new-widget-area',
 			beans_register_widget_area( array(
 				'id'         => 'new-widget-area',
 				'beans_type' => 'grid',
 			) ) );
-	}
 
+		// Confirm that the sidebar is now in the WP global sidebar array.
+		$this->assertTrue( isset( $wp_registered_sidebars['new-widget-area'] ) );
+		$this->assertContains( 'grid', $wp_registered_sidebars['new-widget-area']);
+	}
 }
