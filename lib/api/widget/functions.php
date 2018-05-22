@@ -182,16 +182,16 @@ function beans_get_widget_area_output( $id ) {
  *
  * @param string|bool $needle Optional. The searched widget area needle.
  *
- * @return string The current widget area data, or field data if the needle is specified. False if not found.
+ * @return string|bool The current widget area data, or field data if the needle is specified. False if not found.
  */
 function beans_get_widget_area( $needle = false ) {
 	global $_beans_widget_area;
 
 	if ( ! $needle ) {
-		return $_beans_widget_area;
+		return $_beans_widget_area ?: false;
 	}
 
-	return beans_get( $needle, $_beans_widget_area );
+	return beans_get( $needle, $_beans_widget_area, false );
 }
 
 /**
