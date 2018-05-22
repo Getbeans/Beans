@@ -33,6 +33,17 @@ class Tests_BeansHasWidgetArea extends Beans_Widget_Test_Case {
 	 * Test beans_has_widget_area() should return true when widget area is registered.
 	 */
 	public function testShouldReturnTrueWhenWidgetAreaRegistered() {
-		$this->assertTrue( beans_has_widget_area( 'sidebar_primary' ) );
+		global $wp_registered_sidebars;
+
+		register_sidebar( array(
+			'id'   => 'test_sidebar',
+			'name' => 'Test Sidebar',
+		) );
+
+		// Confirm we have a test sidebar registered.
+		$this->assertTrue( isset( $wp_registered_sidebars['test_sidebar'] ) );
+
+		// Run test.
+		$this->assertTrue( beans_has_widget_area( 'test_sidebar' ) );
 	}
 }
