@@ -10,6 +10,7 @@
 namespace Beans\Framework\Tests\Integration\API\Compiler\Includes;
 
 use _Beans_Compiler;
+use Brain\Monkey;
 use Mockery;
 use org\bovigo\vfs\vfsStream;
 
@@ -61,6 +62,16 @@ abstract class Compiler_Test_Case extends Base_Test_Case {
 		static::$fixtures_dir      = basename( __DIR__ ) === 'compiler'
 			? __DIR__ . DIRECTORY_SEPARATOR . 'fixtures' . DIRECTORY_SEPARATOR
 			: dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'fixtures' . DIRECTORY_SEPARATOR;
+	}
+
+	/**
+	 * Prepares the test environment before each test.
+	 */
+	public function setUp() {
+		parent::setUp();
+
+		// Return the virtual filesystem's path to avoid wp_normalize_path converting its prefix from vfs::// to vfs:/.
+		Monkey\Functions\when( 'wp_normalize_path' )->returnArg();
 	}
 
 	/**
@@ -146,31 +157,6 @@ abstract class Compiler_Test_Case extends Base_Test_Case {
 		$current_fragment->setAccessible( true );
 		$current_fragment->setValue( $compiler, $fragment );
 		$current_fragment->setAccessible( false );
-	}
-
-	/**
-	 * Fix the compiler's "dir" property, as the wp_normalize_path() converts "vfs://" to "vfs:/".
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param array $config Compiler's configuration.
-	 *
-	 * @return _Beans_Compiler
-	 * @throws \ReflectionException Throws reflection error.
-	 */
-	protected function create_compiler( $config ) {
-		$compiler = new _Beans_Compiler( $config );
-
-		$dir = ( new \ReflectionClass( $compiler ) )->getProperty( 'dir' );
-		$dir->setAccessible( true );
-
-		if ( substr( $compiler->dir, 0, 6 ) !== 'vfs://' ) {
-			$dir->setValue( $compiler, str_replace( 'vfs:/', 'vfs://', $compiler->dir ) );
-		}
-
-		$dir->setAccessible( false );
-
-		return $compiler;
 	}
 
 	/**

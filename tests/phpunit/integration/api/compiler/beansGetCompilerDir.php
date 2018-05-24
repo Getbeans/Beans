@@ -29,7 +29,7 @@ class Test_BeansGetCompilerDir extends Compiler_Test_Case {
 	public function test_should_return_absolute_path_to_compiler_folder() {
 		$this->assertSame(
 			vfsStream::url( 'compiled/beans/compiler/' ),
-			$this->fix_virtual_dir( beans_get_compiler_dir() )
+			beans_get_compiler_dir()
 		);
 	}
 
@@ -39,23 +39,7 @@ class Test_BeansGetCompilerDir extends Compiler_Test_Case {
 	public function test_should_return_absolute_path_to_compiler_admin_folder() {
 		$this->assertSame(
 			vfsStream::url( 'compiled/beans/admin-compiler/' ),
-			$this->fix_virtual_dir( beans_get_compiler_dir( true ) )
+			beans_get_compiler_dir( true )
 		);
-	}
-
-	/**
-	 * Fix the virtual directory. Modify the root, as wp_normalize_path changes it.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param string $path The path to fix.
-	 *
-	 * @return string
-	 */
-	protected function fix_virtual_dir( $path ) {
-		if ( substr( $path, 0, 6 ) === 'vfs://' ) {
-			return $path;
-		}
-		return str_replace( 'vfs:/', 'vfs://', $path );
 	}
 }

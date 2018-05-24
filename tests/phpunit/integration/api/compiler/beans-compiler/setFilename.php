@@ -10,7 +10,9 @@
 namespace Beans\Framework\Tests\Integration\API\Compiler;
 
 use Beans\Framework\Tests\Integration\API\Compiler\Includes\Compiler_Test_Case;
+use _Beans_Compiler;
 use org\bovigo\vfs\vfsStream;
+use Brain\Monkey;
 
 require_once dirname( __DIR__ ) . '/includes/class-compiler-test-case.php';
 
@@ -22,6 +24,16 @@ require_once dirname( __DIR__ ) . '/includes/class-compiler-test-case.php';
  * @group   api-compiler
  */
 class Tests_BeansCompiler_SetFilename extends Compiler_Test_Case {
+
+	/**
+	 * Set up the test fixture.
+	 */
+	public function setUp() {
+		parent::setUp();
+
+		// Return the virtual filesystem's path to avoid wp_normalize_path converting its prefix from vfs::// to vfs:/.
+		Monkey\Functions\when( 'wp_normalize_path' )->returnArg();
+	}
 
 	/**
 	 * Test _Beans_Compiler::set_filename() should return the hash created with the modification time from each of the
@@ -39,7 +51,7 @@ class Tests_BeansCompiler_SetFilename extends Compiler_Test_Case {
 			'minify_js'    => true,
 			'version'      => null,
 		);
-		$compiler = $this->create_compiler( $config );
+		$compiler = new _Beans_Compiler( $config );
 
 		// Set up the mocks.
 		$this->set_dev_mode( true );
@@ -69,7 +81,7 @@ class Tests_BeansCompiler_SetFilename extends Compiler_Test_Case {
 			'minify_js'    => true,
 			'version'      => null,
 		);
-		$compiler = $this->create_compiler( $config );
+		$compiler = new _Beans_Compiler( $config );
 
 		// Set up the mocks.
 		$this->set_dev_mode( true );
@@ -101,7 +113,7 @@ class Tests_BeansCompiler_SetFilename extends Compiler_Test_Case {
 			'minify_js'    => true,
 			'version'      => null,
 		);
-		$compiler = $this->create_compiler( $config );
+		$compiler = new _Beans_Compiler( $config );
 
 		// Set up the mocks.
 		$this->set_dev_mode( true );
