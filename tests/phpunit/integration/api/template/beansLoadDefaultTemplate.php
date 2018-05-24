@@ -10,6 +10,7 @@
 namespace Beans\Framework\Tests\Integration\API\Template;
 
 use Beans\Framework\Tests\Integration\Test_Case;
+use Brain\Monkey;
 
 /**
  * Class Tests_BeansLoadDefaultTemplate
@@ -46,9 +47,16 @@ class Tests_BeansLoadDefaultTemplate extends Test_Case {
 		$this->assertFileExists( BEANS_STRUCTURE_PATH . basename( $file ) );
 
 		// Check that it renders.
+		$this->go_to( '/' );
+		Monkey\Functions\expect( 'do_action' )->once()->with( 'beans_content' )->andReturn();
 		ob_start();
 		$this->assertTrue( beans_load_default_template( $file ) );
-		$this->assertStringStartsWith( '<div class="tm-content"', ob_get_clean() );
+		$html = ob_get_clean();
+
+		$expected = <<<EOB
+<div class="tm-content" role="main" itemprop="mainEntityOfPage" itemscope="itemscope" itemtype="http://schema.org/Blog">
+EOB;
+		$this->assertStringStartsWith( $expected, trim( $html ) );
 
 		// Check with an invalid absolute path.
 		$file = __DIR__ . '/fixtures/structure/header.php';
@@ -61,6 +69,8 @@ class Tests_BeansLoadDefaultTemplate extends Test_Case {
 
 		// Check that it renders.
 		ob_start();
+		Monkey\Functions\expect( 'do_action' )->with( 'beans_head' )->andReturn();
+		Monkey\Functions\expect( 'wp_head' )->andReturn();
 		$this->assertTrue( beans_load_default_template( $file ) );
 		$this->assertStringStartsWith( '<!DOCTYPE html>', ob_get_clean() );
 	}
