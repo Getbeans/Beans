@@ -22,6 +22,9 @@ require_once dirname( __FILE__ ) . '/includes/class-beans-widget-test-case.php';
  */
 class Tests_BeansDeregisterWidgetArea extends Beans_Widget_Test_Case {
 
+	/**
+	 * Test beans_deregister_widget_area should unregister a sidebar.
+	 */
 	public function test_should_unregister_sidebar() {
 		global $wp_registered_sidebars;
 

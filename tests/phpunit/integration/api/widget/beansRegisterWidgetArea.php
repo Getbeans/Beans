@@ -43,10 +43,11 @@ class Tests_BeansRegisterWidgetArea extends Beans_Widget_Test_Case {
 			beans_register_widget_area( array(
 				'id'         => 'new-widget-area',
 				'beans_type' => 'grid',
-			) ) );
+			) )
+		);
 
 		// Confirm that the sidebar is now in the WP global sidebar array.
 		$this->assertTrue( isset( $wp_registered_sidebars['new-widget-area'] ) );
-		$this->assertContains( 'grid', $wp_registered_sidebars['new-widget-area']);
+		$this->assertContains( 'grid', $wp_registered_sidebars['new-widget-area'] );
 	}
 }

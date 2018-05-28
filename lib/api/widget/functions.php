@@ -188,7 +188,7 @@ function beans_get_widget_area( $needle = false ) {
 	global $_beans_widget_area;
 
 	if ( ! $needle ) {
-		return $_beans_widget_area ?: false;
+		return $_beans_widget_area ? $_beans_widget_area : false;
 	}
 
 	return beans_get( $needle, $_beans_widget_area, false );
@@ -202,7 +202,7 @@ function beans_get_widget_area( $needle = false ) {
  *
  * @since 1.0.0
  *
- * @param string $content Content containing the shortcode(s) delimited with curly brackets (e.g. {key}).
+ * @param string|array $content Content containing the shortcode(s) delimited with curly brackets (e.g. {key}).
  *                        Shortcode(s) correspond to the searched array key and will be replaced by the array
  *                        value if found.
  *

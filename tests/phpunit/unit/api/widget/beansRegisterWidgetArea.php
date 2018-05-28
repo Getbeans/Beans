@@ -40,7 +40,13 @@ class Tests_BeansRegisterWidgetArea extends Beans_Widget_Test_Case {
 	 */
 	public function test_should_return_widget_area_ID_when_widget_area_registered() {
 		Monkey\Functions\expect( 'beans_get' )
-			->once()->with( 'id', array( 'id' => 'new-widget-area', 'beans_type' => 'grid', ) )
+			->once()->with(
+				'id',
+				array(
+					'id'         => 'new-widget-area',
+					'beans_type' => 'grid',
+				)
+			)
 			->andReturn( 'new-widget-area' );
 
 		Monkey\Functions\expect( 'beans_apply_filters' )
@@ -58,7 +64,8 @@ class Tests_BeansRegisterWidgetArea extends Beans_Widget_Test_Case {
 			beans_register_widget_area( array(
 				'id'         => 'new-widget-area',
 				'beans_type' => 'grid',
-			) ) );
+			) )
+		);
 	}
 
 	/**

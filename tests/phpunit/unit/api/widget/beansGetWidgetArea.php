@@ -23,9 +23,10 @@ require_once dirname( __FILE__ ) . '/includes/class-beans-widget-test-case.php';
  */
 class Tests_BeansGetWidgetArea extends Beans_Widget_Test_Case {
 
-	public function test_should_return_widget_area_data_when_needle_unspecified() {
+	/**
+	 * Test beans_get_widget_area() should return all widget area data when the needle is unspecified.
+	 */
+	public function test_should_return_all_widget_area_data_when_needle_unspecified() {
 		global $_beans_widget_area;
-
-
 	}
 }
