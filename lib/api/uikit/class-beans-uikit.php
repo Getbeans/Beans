@@ -4,7 +4,7 @@
  *
  * @package Beans\Framework\API\UIkit
  *
- * @since 1.0.0
+ * @since   1.0.0
  */
 
 /**
@@ -197,21 +197,20 @@ final class _Beans_Uikit {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array  $components Array of UIkit Components.
+	 * @param array  $components  Array of UIkit Components.
 	 * @param array  $directories Array of directories containing the UIkit Components.
-	 * @param string $format File format.
+	 * @param string $format      File format.
 	 *
 	 * @return array
 	 */
 	public function get_components_from_directory( $components, $directories, $format ) {
-
 		$extension = 'styles' === $format ? 'less' : 'min.js';
 
 		$return = array();
 
 		foreach ( $components as $component ) {
 
-			// Fectch components from all directories set.
+			// Fetch the components from all directories set.
 			foreach ( $directories as $directory ) {
 				$file = trailingslashit( $directory ) . $component . '.' . $extension;
 
@@ -252,7 +251,10 @@ final class _Beans_Uikit {
 			unset( $scandir[0], $scandir[1] );
 
 			// Only return the filname and remove empty elements.
-			$components = array_merge( $components, array_filter( array_map( array( $this, 'to_filename' ), $scandir ) ) );
+			$components = array_merge( $components, array_filter( array_map( array(
+				$this,
+				'to_filename',
+			), $scandir ) ) );
 		}
 
 		return $components;
