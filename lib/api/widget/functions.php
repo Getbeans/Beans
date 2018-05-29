@@ -267,7 +267,7 @@ function beans_setup_widget() {
 	// Set next current widget integer.
 	$_beans_widget_area['current_widget'] = $_beans_widget_area['current_widget'] + 1;
 
-	_beans_setup_widget( $id );
+	_beans_prepare_widget_data( $id );
 
 	return true;
 }
@@ -485,7 +485,7 @@ function _beans_setup_widgets( $widget_area_content ) {
  *
  * @return void
  */
-function _beans_setup_widget( $id ) {
+function _beans_prepare_widget_data( $id ) {
 	global $_beans_widget;
 	$widgets       = beans_get_widget_area( 'widgets' );
 	$_beans_widget = $widgets[ $id ];
