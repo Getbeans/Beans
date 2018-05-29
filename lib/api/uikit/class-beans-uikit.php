@@ -220,7 +220,7 @@ final class _Beans_Uikit {
 				$file = trailingslashit( $directory ) . $component . '.' . $extension;
 
 				// Make sure the file exists.
-				if ( file_exists( $file ) ) {
+				if ( is_readable( $file ) ) {
 					$return[] = $file;
 				}
 			}
