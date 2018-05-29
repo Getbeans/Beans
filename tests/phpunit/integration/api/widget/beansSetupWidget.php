@@ -39,10 +39,10 @@ class Tests_BeansSetupWidget extends Beans_Widget_Test_Case {
 	}
 
 	/**
-	 * Test beans_setup_widget() should return advance widget pointer and true when a widget ID is found.
+	 * Test beans_setup_widget() should advance widget pointer, prepare widget data, and return true when a widget ID is found.
 	 */
-	public function test_should_return_advance_widget_pointer_and_return_true_when_widget_id_is_found() {
-		global $_beans_widget_area;
+	public function test_should_return_advance_widget_pointer_prepare_widget_data_and_return_true_when_widget_id_is_found() {
+		global $_beans_widget_area, $_beans_widget;
 
 		beans_register_widget_area( array( 'id' => 'test_sidebar' ) );
 		$this->add_test_widget_to_test_sidebar();
@@ -53,6 +53,9 @@ class Tests_BeansSetupWidget extends Beans_Widget_Test_Case {
 
 		// Run test.
 		$this->assertTrue( beans_setup_widget() );
+
+		// Verify widget data has been prepared.
+		$this->assertContains( 'Test Widget', $_beans_widget );
 
 		// Verify widget pointer has advanced to 1.
 		$this->assertEquals( 1, $_beans_widget_area['current_widget'] );
