@@ -19,6 +19,13 @@
 final class _Beans_Uikit {
 
 	/**
+	 * Components to ignore.
+	 *
+	 * @var array
+	 */
+	private $ignored_components = array( 'uikit-customizer', 'uikit' );
+
+	/**
 	 * Compile enqueued items.
 	 *
 	 * @since 1.0.0
@@ -389,17 +396,31 @@ final class _Beans_Uikit {
 	public function to_filename( $file ) {
 		$pathinfo = pathinfo( $file );
 
-		$ignore = array(
-			'uikit-customizer',
-			'uikit',
-		);
+
+		// If the given file is not valid, bail out.
+		if ( ! isset( $pathinfo['filename'] ) ) {
+			return null;
+		}
 
 		// Stop here if it isn't a valid file or if it should be ignored.
-		if ( ! isset( $pathinfo['filename'] ) || in_array( $pathinfo['filename'], $ignore, true ) ) {
+		if ( $this->ignore_component( $pathinfo['filename'] ) ) {
 			return null;
 		}
 
 		// Return the filename without the .min to avoid duplicates.
 		return str_replace( '.min', '', $pathinfo['filename'] );
+	}
+
+	/**
+	 * Checks if the given component's filename should be ignored.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string $filename The filename to check against the ignored components.
+	 *
+	 * @return bool
+	 */
+	private function ignore_component( $filename ) {
+		return in_array( $filename, $this->ignored_components, true );
 	}
 }
