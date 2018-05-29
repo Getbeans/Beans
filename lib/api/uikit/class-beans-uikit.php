@@ -204,6 +204,11 @@ final class _Beans_Uikit {
 	 * @return array
 	 */
 	public function get_components_from_directory( $components, $directories, $format ) {
+
+		if ( empty( $components ) ) {
+			return array();
+		}
+
 		$extension = 'styles' === $format ? 'less' : 'min.js';
 
 		$return = array();
