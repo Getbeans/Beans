@@ -203,7 +203,7 @@ final class _Beans_Uikit {
 	 *
 	 * @return array
 	 */
-	public function get_components_from_directory( $components, $directories, $format ) {
+	public function get_components_from_directory( array $components, array $directories, $format ) {
 
 		if ( empty( $components ) ) {
 			return array();
