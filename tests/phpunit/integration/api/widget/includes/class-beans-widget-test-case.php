@@ -22,6 +22,7 @@ abstract class Beans_Widget_Test_Case extends Test_Case {
 	 * Fixture to clean up after tests.
 	 */
 	public function tearDown() {
+		unset( $GLOBALS['$_beans_widget_area'] );
 		unset( $GLOBALS['current_screen'] );
 		$this->clean_up_global_scope();
 
