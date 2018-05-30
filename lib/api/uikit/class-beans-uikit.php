@@ -26,6 +26,13 @@ final class _Beans_Uikit {
 	private $ignored_components = array( 'uikit-customizer', 'uikit' );
 
 	/**
+	 * The configured components' dependencies.
+	 *
+	 * @var array
+	 */
+	private static $configured_components_dependencies;
+
+	/**
 	 * Compile enqueued items.
 	 *
 	 * @since 1.0.0
@@ -273,120 +280,71 @@ final class _Beans_Uikit {
 	}
 
 	/**
-	 * Auto detect the required components.
+	 * Gets all of the required dependencies for the given components.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $components Array of components to autoload.
+	 * @param array $components The given components to search for dependencies.
 	 *
 	 * @return array
 	 */
-	public function get_autoload_components( $components ) {
-		$autoload = array(
+	public function get_autoload_components( array $components ) {
+		$dependencies = array(
 			'core'    => array(),
 			'add-ons' => array(),
 		);
 
-		$dependencies = array(
-			'panel'     => array(
-				'core' => array(
-					'badge',
-				),
-			),
-			'cover'     => array(
-				'core' => array(
-					'flex',
-				),
-			),
-			'overlay'   => array(
-				'core' => array(
-					'flex',
-				),
-			),
-			'tab'       => array(
-				'core' => array(
-					'switcher',
-				),
-			),
-			'modal'     => array(
-				'core' => array(
-					'close',
-				),
-			),
-			'scrollspy' => array(
-				'core' => array(
-					'animation',
-				),
-			),
-			'lightbox'  => array(
-				'core'    => array(
-					'animation',
-					'flex',
-					'close',
-					'modal',
-					'overlay',
-				),
-				'add-ons' => array(
-					'slidenav',
-				),
-			),
-			'slider'    => array(
-				'add-ons' => array(
-					'slidenav',
-				),
-			),
-			'slideset'  => array(
-				'core'    => array(
-					'animation',
-					'flex',
-				),
-				'add-ons' => array(
-					'dotnav',
-					'slidenav',
-				),
-			),
-			'slideshow' => array(
-				'core'    => array(
-					'animation',
-					'flex',
-				),
-				'add-ons' => array(
-					'dotnav',
-					'slidenav',
-				),
-			),
-			'parallax'  => array(
-				'core' => array(
-					'flex',
-				),
-			),
-			'notify'    => array(
-				'core' => array(
-					'close',
-				),
-			),
-		);
+		$this->init_component_dependencies();
 
 		// Build dependencies for each component.
 		foreach ( (array) $components as $component ) {
-			$this_dependencies = beans_get( $component, $dependencies, array() );
+			$component_dependencies = beans_get( $component, self::$configured_components_dependencies, array() );
 
-			foreach ( $this_dependencies as $type => $dependency ) {
-				$autoload[ $type ] = array_merge( $autoload[ $type ], $dependency );
+			foreach ( $component_dependencies as $type => $dependency ) {
+				$dependencies[ $type ] = array_merge( $dependencies[ $type ], $dependency );
 			}
 		}
 
-		// Remove the duplicates.
-		foreach ( $autoload as $type => $dependencies ) {
+		return $this->remove_duplicate_values( $dependencies );
+	}
 
-			if ( empty( $dependencies ) ) {
+	/**
+	 * Removes duplicate values from the given source array.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param array $source The given array to iterate and remove duplicate values.
+	 *
+	 * @return array
+	 */
+	private function remove_duplicate_values( array $source ) {
+
+		foreach ( $source as $key => $value ) {
+
+			if ( empty( $value ) || ! is_array( $value ) ) {
 				continue;
 			}
 
-			$autoload[ $type ] = array_values( array_unique( $dependencies ) );
+			$source[ $key ] = array_values( array_unique( $value ) );
 		}
 
-		return $autoload;
+		return $source;
+	}
+
+	/**
+	 * Initialize the components' dependencies, by loading from its configuration file when null.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return void
+	 */
+	private function init_component_dependencies() {
+
+		if ( ! is_null( self::$configured_components_dependencies ) ) {
+			return;
+		}
+
+		self::$configured_components_dependencies = require dirname( __FILE__ ) . '/config/component-dependencies.php';
 	}
 
 	/**
