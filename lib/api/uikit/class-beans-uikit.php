@@ -367,19 +367,24 @@ final class _Beans_Uikit {
 			),
 		);
 
+		// Build dependencies for each component.
 		foreach ( (array) $components as $component ) {
-
 			$this_dependencies = beans_get( $component, $dependencies, array() );
 
-			foreach ( $this_dependencies as $dependency ) {
-				$autoload['core']    = array_merge( $autoload['core'], array_flip( beans_get( 'core', $this_dependencies, array() ) ) );
-				$autoload['add-ons'] = array_merge( $autoload['add-ons'], array_flip( beans_get( 'add-ons', $this_dependencies, array() ) ) );
+			foreach ( $this_dependencies as $type => $dependency ) {
+				$autoload[ $type ] = array_merge( $autoload[ $type ], $dependency );
 			}
 		}
 
-		// Format autoload back to associative key value array.
-		$autoload['core']    = array_flip( $autoload['core'] );
-		$autoload['add-ons'] = array_flip( $autoload['add-ons'] );
+		// Remove the duplicates.
+		foreach ( $autoload as $type => $dependencies ) {
+
+			if ( empty( $dependencies ) ) {
+				continue;
+			}
+
+			$autoload[ $type ] = array_values( array_unique( $dependencies ) );
+		}
 
 		return $autoload;
 	}
