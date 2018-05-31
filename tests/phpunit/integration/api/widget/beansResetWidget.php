@@ -22,11 +22,20 @@ require_once dirname( __FILE__ ) . '/includes/class-beans-widget-test-case.php';
  */
 class Tests_BeansResetWidget extends Beans_Widget_Test_Case {
 
+	/**
+	 * Test beans_reset_widget should unset widget data.
+	 */
 	public function test_should_unset_widget_data() {
 		global $_beans_widget;
 
 		// We'll set the data via the function's view of the global since that's how it's ordinarily set in the API.
-		$test_widget   = array( array( 'id' => 'text-2', 'name' => 'Test Widget' ) );
+		$test_widget = array(
+			array(
+				'id'   => 'text-2',
+				'name' => 'Test Widget',
+			),
+		);
+
 		$_beans_widget = $test_widget;
 
 		// Confirm that it's stored in the GLOBALS superglobal.

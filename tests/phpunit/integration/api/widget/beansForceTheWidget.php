@@ -23,6 +23,9 @@ require_once dirname( __FILE__ ) . '/includes/class-beans-widget-test-case.php';
  */
 class Tests_BeansForceTheWidget extends Beans_Widget_Test_Case {
 
+	/**
+	 * Test beans_force_the_widget() should do nothing when not an instance of class WP_Widget.
+	 */
 	public function test_should_do_nothing_when_widget_not_instance_of_WP_Widget() {
 		global $wp_widget_factory;
 
@@ -35,8 +38,10 @@ class Tests_BeansForceTheWidget extends Beans_Widget_Test_Case {
 		$this->assertEmpty( $output );
 	}
 
+	/**
+	 * Test beans_force_the_widget() should do nothing when widget already has an id registered.
+	 */
 	public function test_should_do_nothing_when_widget_has_id_registered() {
-		add_action( 'cg', [$this, 'check']);
 		ob_start();
 		_beans_force_the_widget( 'WP_Widget_Text', array(), array( 'before_widget' => '<div class="widget text-1"' ) );
 		$output = ob_get_clean();
@@ -44,7 +49,9 @@ class Tests_BeansForceTheWidget extends Beans_Widget_Test_Case {
 		$this->assertEmpty( $output );
 	}
 
-
+	/**
+	 * Test beans_force_the_widget() should render widget id html when the widget is registered without an id argument.
+	 */
 	public function test_should_output_widget_id_html_when_widget_registered_without_id_arg() {
 		ob_start();
 		_beans_force_the_widget( 'WP_Widget_Text', '', array() );
@@ -52,9 +59,4 @@ class Tests_BeansForceTheWidget extends Beans_Widget_Test_Case {
 
 		$this->assertEquals( '<!--widget-text-1-->', $output );
 	}
-
-	public function check( $data ) {
-		var_dump( $data );
-	}
-
 }

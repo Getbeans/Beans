@@ -21,7 +21,11 @@ require_once dirname( __FILE__ ) . '/includes/class-beans-widget-test-case.php';
  * @group   api-widget
  */
 class Tests_BeansPrepareWidgetData extends Beans_Widget_Test_Case {
-	public function test_widget_data_should_be_prepared() {
+
+	/**
+	 * Test _beans_prepare_widget_data() should prepare widget data.
+	 */
+	public function test_should_prepared_widget_data() {
 		global $_beans_widget;
 
 		beans_register_widget_area( array( 'id' => 'test_sidebar' ) );
