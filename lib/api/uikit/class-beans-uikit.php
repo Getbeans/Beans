@@ -150,7 +150,10 @@ final class _Beans_Uikit {
 			}
 
 			// Fetch components from directories.
-			$components = array_merge( $components, $this->get_components_from_directory( $items, $this->get_js_directories( $type ), 'scripts' ) );
+			beans_join_arrays(
+				$components,
+				$this->get_components_from_directory( $items, $this->get_js_directories( $type ), 'scripts' )
+			);
 		}
 
 		return $components;
