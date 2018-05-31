@@ -265,13 +265,15 @@ final class _Beans_Uikit {
 				continue;
 			}
 
-			$scandir = $this->get_all_files( $dir_path );
-
-			// Only return the filename (i.e. component name) and remove empty elements.
-			beans_join_arrays(
-				$components,
-				array_filter( array_map( array( $this, 'to_filename' ), $scandir ) )
+			// Build an array of component names (i.e. filenames only).
+			$component_names = array_filter(
+				array_map(
+					array( $this, 'to_filename' ),
+					$this->get_all_files( $dir_path )
+				)
 			);
+
+			beans_join_arrays( $components, $component_names );
 		}
 
 		return $components;
