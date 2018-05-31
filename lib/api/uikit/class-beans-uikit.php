@@ -265,10 +265,7 @@ final class _Beans_Uikit {
 				continue;
 			}
 
-			$scandir = scandir( $dir_path );
-
-			// Unset scandir defaults.
-			unset( $scandir[0], $scandir[1] );
+			$scandir = $this->get_all_files( $dir_path );
 
 			// Only return the filename (i.e. component name) and remove empty elements.
 			beans_join_arrays(
@@ -278,6 +275,27 @@ final class _Beans_Uikit {
 		}
 
 		return $components;
+	}
+
+	/**
+	 * Gets all of the files and folders from the given directory. When on a Linux-based machine,
+	 * removes the '.' and '..' files.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string $directory Absolute path to the source directory.
+	 *
+	 * @return array
+	 */
+	private function get_all_files( $directory ) {
+		$files = scandir( $directory );
+
+		// Get rid of dot files when on Linux environment.
+		if ( '.' === $files[0] ) {
+			unset( $files[0], $files[1] );
+		}
+
+		return $files;
 	}
 
 	/**
