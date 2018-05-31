@@ -25,17 +25,6 @@ require_once dirname( __DIR__ ) . '/includes/class-uikit-test-case.php';
 class Tests_BeansUikit_RegisterJsComponents extends UIkit_Test_Case {
 
 	/**
-	 * Prepares the test environment before each test.
-	 */
-	protected function setUp() {
-		parent::setUp();
-
-		Monkey\Functions\when( 'beans_join_arrays' )->alias( function( &$array1, $array2 ) {
-			$array1 = array_merge( $array1, $array2 );
-		});
-	}
-
-	/**
 	 * Test _Beans_Uikit::register_js_components() should return empty array when no components are registered and no 'core' in the global.
 	 */
 	public function test_should_return_empty_array_when_no_components_registered_and_no_core() {

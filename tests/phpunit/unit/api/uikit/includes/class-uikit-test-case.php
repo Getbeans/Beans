@@ -47,9 +47,6 @@ abstract class UIkit_Test_Case extends Test_Case {
 	protected function setUp() {
 		parent::setUp();
 
-		$this->set_up_virtual_filesystem();
-		$this->set_up_mocked_functions();
-
 		$this->load_original_functions( array(
 			'api/utilities/functions.php',
 			'api/compiler/functions.php',
@@ -57,6 +54,8 @@ abstract class UIkit_Test_Case extends Test_Case {
 			'api/uikit/class-beans-uikit.php',
 		) );
 
+		$this->set_up_virtual_filesystem();
+		$this->set_up_mocked_functions();
 		$this->reset_globals();
 	}
 
@@ -105,6 +104,10 @@ abstract class UIkit_Test_Case extends Test_Case {
 		Monkey\Functions\when( 'trailingslashit' )->alias( function( $file ) {
 			return $file . '/';
 		} );
+
+		Monkey\Functions\when( 'beans_join_arrays' )->alias( function( &$array1, $array2 ) {
+			$array1 = array_merge( $array1, $array2 );
+		});
 	}
 
 	/**

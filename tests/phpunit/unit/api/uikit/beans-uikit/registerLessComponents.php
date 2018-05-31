@@ -11,7 +11,6 @@ namespace Beans\Framework\Tests\Unit\API\UIkit;
 
 use _Beans_Uikit;
 use Beans\Framework\Tests\Unit\API\UIkit\Includes\UIkit_Test_Case;
-use Brain\Monkey;
 
 require_once dirname( __DIR__ ) . '/includes/class-uikit-test-case.php';
 
@@ -23,17 +22,6 @@ require_once dirname( __DIR__ ) . '/includes/class-uikit-test-case.php';
  * @group   api-uikit
  */
 class Tests_BeansUikit_RegisterLessComponents extends UIkit_Test_Case {
-
-	/**
-	 * Prepares the test environment before each test.
-	 */
-	protected function setUp() {
-		parent::setUp();
-
-		Monkey\Functions\when( 'beans_join_arrays' )->alias( function( &$array1, $array2 ) {
-			$array1 = array_merge( $array1, $array2 );
-		});
-	}
 
 	/**
 	 * Test _Beans_Uikit::register_less_components() should return empty array when no theme or components are registered and no 'core' in the global.
