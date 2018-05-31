@@ -102,23 +102,7 @@ final class _Beans_Uikit {
 	 * @return array
 	 */
 	public function register_less_components() {
-		global $_beans_uikit_enqueued_items;
-
-		$components = array();
-
-		foreach ( $_beans_uikit_enqueued_items['components'] as $type => $items ) {
-
-			// Add core before the components.
-			if ( 'core' === $type ) {
-				$items = array_merge( array( 'variables' ), $items );
-			}
-
-			// Fetch components from directories.
-			beans_join_arrays(
-				$components,
-				$this->get_components_from_directory( $items, $this->get_less_directories( $type ), 'styles' )
-			);
-		}
+		$components = $this->get_registered_component_paths( array( 'variables' ) );
 
 		if ( empty( $components ) ) {
 			return array();
@@ -138,6 +122,20 @@ final class _Beans_Uikit {
 	 * @return array
 	 */
 	public function register_js_components() {
+		return $this->get_registered_component_paths( array( 'core', 'utility', 'touch' ), false );
+	}
+
+	/**
+	 * Gets an array of registered component paths, i.e. absolute path to each component file.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param array $core_components Array of core components.
+	 * @param bool  $is_less Optional. When true, registering LESS components; else, registering JavaScript components.
+	 *
+	 * @return array
+	 */
+	private function get_registered_component_paths( array $core_components, $is_less = true ) {
 		global $_beans_uikit_enqueued_items;
 
 		$components = array();
@@ -146,14 +144,16 @@ final class _Beans_Uikit {
 
 			// Add core before the components.
 			if ( 'core' === $type ) {
-				$items = array_merge( array( 'core', 'component', 'utility', 'touch' ), $items );
+				$items = array_merge( $core_components, $items );
 			}
 
 			// Fetch components from directories.
-			beans_join_arrays(
-				$components,
-				$this->get_components_from_directory( $items, $this->get_js_directories( $type ), 'scripts' )
+			$component_directories = $this->get_components_from_directory(
+				$items,
+				$is_less ? $this->get_less_directories( $type ) : $this->get_js_directories( $type ),
+				$is_less ? 'styles' : 'scripts'
 			);
+			beans_join_arrays( $components, $component_directories );
 		}
 
 		return $components;
