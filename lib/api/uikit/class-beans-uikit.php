@@ -113,7 +113,7 @@ final class _Beans_Uikit {
 				$items = array_merge( array( 'variables' ), $items );
 			}
 
-			$this->maybe_join_arrays(
+			beans_join_arrays(
 				$components,
 				$this->get_components_from_directory( $items, $this->get_less_directories( $type ), 'styles' )
 			);
@@ -121,38 +121,10 @@ final class _Beans_Uikit {
 
 		// Add fixes.
 		if ( ! empty( $components ) ) {
-			$this->maybe_join_arrays( $components, array( BEANS_API_PATH . 'uikit/src/fixes.less' ) );
+			beans_join_arrays( $components, array( BEANS_API_PATH . 'uikit/src/fixes.less' ) );
 		}
 
 		return $components;
-	}
-
-	/**
-	 * Maybe joins two arrays together without requiring an additional variable assignment upon return.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param array $array1 Initial array, which becomes the final array.
-	 * @param array $array2 The array to merge into $array1.
-	 *
-	 * @return void Nothing is returned.
-	 */
-	private function maybe_join_arrays( array &$array1, array $array2 ) {
-
-		// Bail out if the 2nd array is empty, as there's no work to do.
-		if ( empty( $array2 ) ) {
-			return;
-		}
-
-		// If the 1st array is empty, set it to the 2nd array.
-		if ( empty( $array1 ) ) {
-			$array1 = $array2;
-
-			return;
-		}
-
-		// Both arrays have elements. Let's join them together.
-		$array1 = array_merge( $array1, $array2 );
 	}
 
 	/**

@@ -515,6 +515,34 @@ function beans_esc_attributes( $attributes ) {
 }
 
 /**
+ * Maybe joins two arrays together without requiring an additional variable assignment upon return.
+ *
+ * @since 1.5.0
+ *
+ * @param array $array1 Initial array (passed by reference), which becomes the final array.
+ * @param array $array2 The array to merge into $array1.
+ *
+ * @return void Nothing is returned.
+ */
+function beans_join_arrays( array &$array1, array $array2 ) {
+
+	// Bail out if the 2nd array is empty, as there's no work to do.
+	if ( empty( $array2 ) ) {
+		return;
+	}
+
+	// If the 1st array is empty, set it to the 2nd array. Then bail out as we're done.
+	if ( empty( $array1 ) ) {
+		$array1 = $array2;
+
+		return;
+	}
+
+	// Both arrays have elements. Let's join them together.
+	$array1 = array_merge( $array1, $array2 );
+}
+
+/**
  * Checks if the given input is a URL or data URI.  It checks that the given input begins with:
  *      - http
  *      - https
