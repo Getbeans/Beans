@@ -266,15 +266,13 @@ final class _Beans_Uikit {
 			}
 
 			// Build an array of component names (i.e. filenames only).
-			$component_names = array_filter(
-				array_map(
-					array( $this, 'to_filename' ),
-					$this->get_all_files( $dir_path )
-				)
-			);
+			$component_names = array_map( array( $this, 'to_filename' ), $this->get_all_files( $dir_path ) );
 
 			beans_join_arrays( $components, $component_names );
 		}
+
+		// Remove empties.
+		$components = array_filter( $components );
 
 		return $components;
 	}
