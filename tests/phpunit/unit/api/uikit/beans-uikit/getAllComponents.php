@@ -24,53 +24,50 @@ require_once dirname( __DIR__ ) . '/includes/class-uikit-test-case.php';
 class Tests_BeansUikit_GetAllComponents extends UIkit_Test_Case {
 
 	/**
-	 * Number of core LESS files.
-	 *
-	 * @var int
+	 * Test _Beans_Uikit::get_all_components() should not return duplicate core components.
 	 */
-	protected static $number_core_less_files = 0;
+	public function test_should_not_return_duplicate_core_components() {
+		$actual = ( new _Beans_Uikit() )->get_all_components( 'core' );
+
+		// Get the number of times each component appears in the array.
+		$num_times_component_in_array = array_count_values( $actual );
+
+		// Spot check the common components that are in both JS and LESS directories, meaning they could be duplicated.
+		$this->assertEquals( 1, $num_times_component_in_array['alert'] );
+		$this->assertEquals( 1, $num_times_component_in_array['button'] );
+		$this->assertEquals( 1, $num_times_component_in_array['cover'] );
+		$this->assertEquals( 1, $num_times_component_in_array['tab'] );
+
+		// By flipping the array, we should only have 1 element when there are no duplicates.
+		$this->assertCount( 1, array_flip( $num_times_component_in_array ) );
+	}
 
 	/**
-	 * Number of core JavaScript files.
-	 *
-	 * @var int
+	 * Test _Beans_Uikit::get_all_components() should not return duplicate add-ons components.
 	 */
-	protected static $number_core_js_files = 0;
+	public function test_should_not_return_duplicate_add_ons_components() {
+		$actual = ( new _Beans_Uikit() )->get_all_components( 'add-ons' );
 
-	/**
-	 * Number of component (add-ons) LESS files.
-	 *
-	 * @var int
-	 */
-	protected static $number_components_less_files = 0;
+		// Get the number of times each component appears in the array.
+		$num_times_component_in_array = array_count_values( $actual );
 
-	/**
-	 * Number of component (add-ons) JavaScript files.
-	 *
-	 * @var int
-	 */
-	protected static $number_components_js_files = 0;
+		// Spot check the common components that are in both JS and LESS directories, meaning they could be duplicated.
+		$this->assertEquals( 1, $num_times_component_in_array['accordion'] );
+		$this->assertEquals( 1, $num_times_component_in_array['autocomplete'] );
+		$this->assertEquals( 1, $num_times_component_in_array['datepicker'] );
+		$this->assertEquals( 1, $num_times_component_in_array['sticky'] );
+		$this->assertEquals( 1, $num_times_component_in_array['tooltip'] );
 
-	/**
-	 * This method is called before the first test of this test class is run.
-	 */
-	public static function setUpBeforeClass() {
-		parent::setUpBeforeClass();
-
-		static::$number_core_less_files       = static::count_files_in_dir( BEANS_API_PATH . 'uikit/src/less/core' );
-		static::$number_core_js_files         = static::count_files_in_dir( BEANS_API_PATH . 'uikit/src/js/core' );
-		static::$number_components_less_files = static::count_files_in_dir( BEANS_API_PATH . 'uikit/src/less/components' );
-		static::$number_components_js_files   = static::count_files_in_dir( BEANS_API_PATH . 'uikit/src/js/components' );
+		// By flipping the array, we should only have 1 element when there are no duplicates.
+		$this->assertCount( 1, array_flip( $num_times_component_in_array ) );
 	}
 
 	/**
 	 * Test _Beans_Uikit::get_all_components() should return all core components.
 	 */
 	public function test_should_return_all_core_components() {
-		$beans_uikit = new _Beans_Uikit();
-
-		$actual = $beans_uikit->get_all_components( 'core' );
-		$this->assertCount( static::$number_core_less_files + static::$number_core_js_files, $actual );
+		$actual = ( new _Beans_Uikit() )->get_all_components( 'core' );
+		$this->assertCount( 42, $actual );
 
 		// Check common components.
 		$this->assertContains( 'alert', $actual );
@@ -108,10 +105,8 @@ class Tests_BeansUikit_GetAllComponents extends UIkit_Test_Case {
 	 * Test _Beans_Uikit::get_all_components() should return all add-ons components.
 	 */
 	public function test_should_return_all_add_ons_components() {
-		$beans_uikit = new _Beans_Uikit();
-
-		$actual = $beans_uikit->get_all_components( 'add-ons' );
-		$this->assertCount( static::$number_components_less_files + static::$number_components_js_files, $actual );
+		$actual = ( new _Beans_Uikit() )->get_all_components( 'add-ons' );
+		$this->assertCount( 29, $actual );
 
 		// Check common components.
 		$this->assertContains( 'accordion', $actual );
@@ -139,24 +134,5 @@ class Tests_BeansUikit_GetAllComponents extends UIkit_Test_Case {
 		$this->assertNotContains( 'badge', $actual );
 		$this->assertNotContains( 'base', $actual );
 		$this->assertNotContains( 'close', $actual );
-	}
-
-	/**
-	 * Counts the files in the given source directory.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param string $dir Given directory to scan.
-	 *
-	 * @return int
-	 */
-	private static function count_files_in_dir( $dir ) {
-		$files = scandir( $dir );
-
-		if ( '.' === $files[0] ) {
-			unset( $files[0], $files[1] );
-		}
-
-		return count( $files );
 	}
 }

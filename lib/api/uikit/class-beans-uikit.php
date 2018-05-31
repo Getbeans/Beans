@@ -271,10 +271,8 @@ final class _Beans_Uikit {
 			beans_join_arrays( $components, $component_names );
 		}
 
-		// Remove empties.
-		$components = array_filter( $components );
-
-		return $components;
+		// Clean up by removing duplicates and empties.
+		return array_filter( $this->get_unique_values( $components ) );
 	}
 
 	/**
@@ -344,10 +342,23 @@ final class _Beans_Uikit {
 				continue;
 			}
 
-			$source[ $key ] = array_values( array_unique( $value ) );
+			$source[ $key ] = $this->get_unique_values( $value );
 		}
 
 		return $source;
+	}
+
+	/**
+	 * Get an array of unique values from the given array.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param array $array The given array to process.
+	 *
+	 * @return array
+	 */
+	private function get_unique_values( array $array ) {
+		return array_values( array_unique( $array ) );
 	}
 
 	/**
