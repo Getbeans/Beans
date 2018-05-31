@@ -36,10 +36,15 @@ class Tests_BeansGetWidgetAreaOutput extends Beans_Widget_Test_Case {
 	}
 
 	/**
-	 * Test beans_get_widget_area_output() should return output when a widget area is registered.
+	 * Test beans_get_widget_area_output() should call required functions and do required actions when a widget area is registered.
 	 */
 	public function test_should_return_widget_output_when_widget_area_is_registered() {
 		Monkey\Functions\expect( 'beans_has_widget_area' )
+			->once()
+			->with( 'primary_sidebar' )
+			->andReturn( true );
+
+		Monkey\Functions\expect( '_beans_setup_widget_area' )
 			->once()
 			->with( 'primary_sidebar' )
 			->andReturn( true );

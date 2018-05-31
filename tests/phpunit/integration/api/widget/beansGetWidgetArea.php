@@ -23,17 +23,6 @@ require_once dirname( __FILE__ ) . '/includes/class-beans-widget-test-case.php';
 class Tests_BeansGetWidgetArea extends Beans_Widget_Test_Case {
 
 	/**
-	 * Test beans_get_widget_area() should return false when widget area data is not found.
-	 */
-	public function test_should_return_false_when_widget_area_data_not_found() {
-		// Test for when needle is given.
-		$this->assertFalse( beans_get_widget_area( 'bogus-needle' ) );
-
-		// Test for when needle is not given.
-		$this->assertFalse( beans_get_widget_area() );
-	}
-
-	/**
 	 * Test beans_get_widget_area() should return all widget area data when needle is not specified.
 	 */
 	public function test_should_return_all_data_when_needle_not_specified() {

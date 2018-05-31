@@ -50,8 +50,6 @@ class Tests_BeansGetWidgetAreaOutput extends Beans_Widget_Test_Case {
 	 * Get the expected output (html) of the beans default primary sidebar.
 	 */
 	protected function get_expected_output() {
-		return <<<OUTPUT
-		<div class="tm-widget uk-panel widget_text text-2"></div>
-OUTPUT;
+		return '<div class="tm-widget uk-panel widget_text text-2"></div>';
 	}
 }
