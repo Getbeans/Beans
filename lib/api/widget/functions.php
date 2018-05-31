@@ -578,7 +578,7 @@ function _beans_force_the_widget( $widget, $instance, $args ) {
 	}
 
 	// Stop here if the widget correctly contains an id.
-	if ( false !== stripos( $widget_obj->id, beans_get( 'before_widget', $args ) ) ) {
+	if ( false !== stripos( beans_get( 'before_widget', $args ), $widget_obj->id ) ) {
 		return;
 	}
 
