@@ -113,16 +113,19 @@ final class _Beans_Uikit {
 				$items = array_merge( array( 'variables' ), $items );
 			}
 
+			// Fetch components from directories.
 			beans_join_arrays(
 				$components,
 				$this->get_components_from_directory( $items, $this->get_less_directories( $type ), 'styles' )
 			);
 		}
 
-		// Add fixes.
-		if ( ! empty( $components ) ) {
-			beans_join_arrays( $components, array( BEANS_API_PATH . 'uikit/src/fixes.less' ) );
+		if ( empty( $components ) ) {
+			return array();
 		}
+
+		// Add fixes.
+		$components[] = BEANS_API_PATH . 'uikit/src/fixes.less';
 
 		return $components;
 	}
