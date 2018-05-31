@@ -146,15 +146,7 @@ final class _Beans_Uikit {
 
 			// Add core before the components.
 			if ( 'core' === $type ) {
-				$items = array_merge(
-					array(
-						'core',
-						'component',
-						'utility',
-						'touch',
-					),
-					$items
-				);
+				$items = array_merge( array( 'core', 'component', 'utility', 'touch' ), $items );
 			}
 
 			// Fetch components from directories.
