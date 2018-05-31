@@ -131,7 +131,8 @@ final class _Beans_Uikit {
 	 * @since 1.5.0
 	 *
 	 * @param array $core_components Array of core components.
-	 * @param bool  $is_less Optional. When true, registering LESS components; else, registering JavaScript components.
+	 * @param bool  $is_less         Optional. When true, registering LESS components; else, registering JavaScript
+	 *                               components.
 	 *
 	 * @return array
 	 */
@@ -269,11 +270,11 @@ final class _Beans_Uikit {
 			// Unset scandir defaults.
 			unset( $scandir[0], $scandir[1] );
 
-			// Only return the filname and remove empty elements.
-			$components = array_merge( $components, array_filter( array_map( array(
-				$this,
-				'to_filename',
-			), $scandir ) ) );
+			// Only return the filename (i.e. component name) and remove empty elements.
+			beans_join_arrays(
+				$components,
+				array_filter( array_map( array( $this, 'to_filename' ), $scandir ) )
+			);
 		}
 
 		return $components;
