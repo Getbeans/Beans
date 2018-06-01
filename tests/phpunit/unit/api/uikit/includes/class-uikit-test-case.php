@@ -77,7 +77,7 @@ abstract class UIkit_Test_Case extends Test_Case {
 		return [
 			'beans-child' => [
 				'assets'        => [
-					'js' => [
+					'js'   => [
 						'alert.min.js' => '',
 					],
 					'less' => [
@@ -107,7 +107,7 @@ abstract class UIkit_Test_Case extends Test_Case {
 
 		Monkey\Functions\when( 'beans_join_arrays' )->alias( function( &$array1, $array2 ) {
 			$array1 = array_merge( $array1, $array2 );
-		});
+		} );
 	}
 
 	/**

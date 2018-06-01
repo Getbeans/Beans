@@ -389,7 +389,6 @@ final class _Beans_Uikit {
 	public function to_filename( $file ) {
 		$pathinfo = pathinfo( $file );
 
-
 		// If the given file is not valid, bail out.
 		if ( ! isset( $pathinfo['filename'] ) ) {
 			return null;

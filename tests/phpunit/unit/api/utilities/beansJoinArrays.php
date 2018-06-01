@@ -34,8 +34,8 @@ class Tests_BeansJoinArrays extends Test_Case {
 	 * Test beans_join_arrays() should do nothing when both arrays are empty.
 	 */
 	public function test_should_do_nothing_when_both_arrays_are_empty() {
-		$array1   = [];
-		$array2   = [];
+		$array1 = [];
+		$array2 = [];
 		$this->assertNull( beans_join_arrays( $array1, $array2 ) );
 		$this->assertSame( [], $array1 );
 	}
