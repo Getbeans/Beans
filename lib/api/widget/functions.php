@@ -279,16 +279,16 @@ function beans_setup_widget() {
  *
  * @param string|bool $needle Optional. The searched widget needle.
  *
- * @return string The current widget data, or field data if the needle is specified. False if not found.
+ * @return string|bool The current widget data, or field data if the needle is specified. False if not found.
  */
 function beans_get_widget( $needle = false ) {
 	global $_beans_widget;
 
 	if ( ! $needle ) {
-		return $_beans_widget;
+		return $_beans_widget ? $_beans_widget : false;
 	}
 
-	return beans_get( $needle, $_beans_widget );
+	return beans_get( $needle, $_beans_widget, false );
 }
 
 /**
@@ -299,7 +299,7 @@ function beans_get_widget( $needle = false ) {
  *
  * @since 1.0.0
  *
- * @param string $content Content containing the shortcode(s) delimited with curly brackets (e.g. {key}).
+ * @param string|array $content Content containing the shortcode(s) delimited with curly brackets (e.g. {key}).
  *                        Shortcode(s) correspond to the searched array key and will be replaced by the array
  *                        value if found.
  *

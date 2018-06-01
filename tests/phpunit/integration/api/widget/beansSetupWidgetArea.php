@@ -23,13 +23,6 @@ require_once dirname( __FILE__ ) . '/includes/class-beans-widget-test-case.php';
 class Tests_BeansSetupWidgetArea extends Beans_Widget_Test_Case {
 
 	/**
-	 * Test _beans_setup_widget_area() should return false when the sidebar ID is not set.
-	 */
-	public function test_should_return_false_when_sidebar_id_not_set() {
-		$this->assertFalse( _beans_setup_widget_area( 'missing_sidebar' ) );
-	}
-
-	/**
 	 * Test _beans_setup_widget_area() should build widget area data and return true when widget area exists.
 	 */
 	public function test_should_build_widget_area_data_and_return_true_when_widget_area_exists() {

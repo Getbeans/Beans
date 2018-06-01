@@ -40,9 +40,9 @@ class Tests_BeansGetWidgetArea extends Beans_Widget_Test_Case {
 	public function test_should_return_all_data_when_needle_not_specified() {
 		global $_beans_widget_area;
 
-		$_beans_widget_area = $this->get_expected_sidebar_data();
+		$_beans_widget_area = $this->get_sidebar_test_data();
 
-		$this->assertSame( $this->get_expected_sidebar_data(), beans_get_widget_area() );
+		$this->assertSame( $this->get_sidebar_test_data(), beans_get_widget_area() );
 	}
 
 	/**
@@ -51,7 +51,12 @@ class Tests_BeansGetWidgetArea extends Beans_Widget_Test_Case {
 	public function test_should_return_specific_widget_data_when_needle_specified() {
 		global $_beans_widget_area;
 
-		$_beans_widget_area = $this->get_expected_sidebar_data();
+		$_beans_widget_area = $this->get_sidebar_test_data();
+
+		Monkey\Functions\expect( 'beans_get' )
+			->once()
+			->with( 'id', $_beans_widget_area, false )
+			->andReturn( 'test_sidebar' );
 
 		$this->assertEquals( 'test_sidebar', beans_get_widget_area( 'id' ) );
 	}
@@ -59,7 +64,7 @@ class Tests_BeansGetWidgetArea extends Beans_Widget_Test_Case {
 	/**
 	 * Return an array of expected sidebar data.
 	 */
-	protected function get_expected_sidebar_data() {
+	protected function get_sidebar_test_data() {
 		return array(
 			'name'           => 'Test Sidebar',
 			'id'             => 'test_sidebar',

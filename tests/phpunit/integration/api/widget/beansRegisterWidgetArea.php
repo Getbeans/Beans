@@ -30,9 +30,9 @@ class Tests_BeansRegisterWidgetArea extends Beans_Widget_Test_Case {
 	}
 
 	/**
-	 * Test beans_register_widget_area() should return the widget area id when the widget area is registered.
+	 * Test beans_register_widget_area() should register a sidebar and return the widget area id when the widget area is registered.
 	 */
-	public function test_should_return_widget_area_ID_when_widget_area_registered() {
+	public function test_should_register_sidebar_and_return_widget_area_ID_when_widget_area_registered() {
 		global $wp_registered_sidebars;
 
 		// Verify new widget area is not yet added.

@@ -23,24 +23,6 @@ require_once dirname( __FILE__ ) . '/includes/class-beans-widget-test-case.php';
 class Tests_BeansSetupWidgets extends Beans_Widget_Test_Case {
 
 	/**
-	 * Test _beans_setup_widgets() should ignore non-widgetized content.
-	 */
-	public function test_should_ignore_non_widgetized_content() {
-		$this->assertEmpty( _beans_setup_widgets( 'random non-widget string' ) );
-	}
-
-	/**
-	 * Test _beans_setup_widgets() should skip a widget if it has not been registered.
-	 */
-	public function test_should_ignore_widget_when_widget_not_registered() {
-		global $wp_registered_widgets;
-
-		$wp_registered_widgets = array(); // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Valid use case: ensures no widgets are registered for this test.
-
-		$this->assertEmpty( _beans_setup_widgets( '<!--widget-text-2-->widget output<!--widget-end-->' ) );
-	}
-
-	/**
 	 * Test _beans_setup_widgets() should return widget data when the widget is registered.
 	 */
 	public function test_should_return_widget_data_when_widget_is_registered() {
@@ -49,8 +31,7 @@ class Tests_BeansSetupWidgets extends Beans_Widget_Test_Case {
 
 		$this->assertSame(
 			$this->get_expected_widget_setup_data(),
-			_beans_setup_widgets( '<!--widget-text-2-->widget output<!--widget-end-->'
-			)
+			_beans_setup_widgets( '<!--widget-text-2-->widget output<!--widget-end-->' )
 		);
 	}
 

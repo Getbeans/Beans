@@ -2,21 +2,22 @@
 /**
  * Tests for _beans_reset_widget()
  *
- * @package Beans\Framework\Tests\Integration\API\Widget
+ * @package Beans\Framework\Tests\Unit\API\Widget
  *
  * @since   1.5.0
  */
 
-namespace Beans\Framework\Tests\Integration\API\Widget;
+namespace Beans\Framework\Tests\Unit\API\Widget;
 
-use Beans\Framework\Tests\Integration\API\Widget\Includes\Beans_Widget_Test_Case;
+use Beans\Framework\Tests\Unit\API\Widget\Includes\Beans_Widget_Test_Case;
+use Brain\Monkey;
 
 require_once dirname( __FILE__ ) . '/includes/class-beans-widget-test-case.php';
 
 /**
  * Class Tests_BeansResetWidget
  *
- * @package Beans\Framework\Tests\Integration\API\Widget
+ * @package Beans\Framework\Tests\Unit\API\Widget
  * @group   api
  * @group   api-widget
  */
