@@ -34,22 +34,24 @@ class Tests_BeansSetupWidgetArea extends Beans_Widget_Test_Case {
 	 * Test _beans_setup_widget_area() should build widget area data and return true when widget area exists.
 	 */
 	public function test_should_build_widget_area_data_and_return_true_when_widget_area_exists() {
-		global $_beans_widget_area, $wp_registered_sidebars;;
+		global $_beans_widget_area, $wp_registered_sidebars;
 
-		$wp_registered_sidebars = array(
-			'sidebar_primary' => array(),
+		$sidebars = array(
+			'sidebar_primary'   => array(),
 			'sidebar_secondary' => array(),
-			'test_sidebar' => array(),
+			'test_sidebar'      => array(),
 		);
 
-		Monkey\Functions\expect( 'beans_render_function')
+		$wp_registered_sidebars = $sidebars; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Valid use case: setting up sidebars outside of WP.
+
+		Monkey\Functions\expect( 'beans_render_function' )
 			->once()
 			->with( 'dynamic_sidebar', 'test_sidebar' )
 			->andReturn( '<!--widget-text-2-->Some widget output<!--widget-end-->' );
 
-		Monkey\Functions\expect('_beans_setup_widgets')
+		Monkey\Functions\expect( '_beans_setup_widgets' )
 			->once()
-			->with('<!--widget-text-2-->Some widget output<!--widget-end-->')
+			->with( '<!--widget-text-2-->Some widget output<!--widget-end-->' )
 			->andReturnFirstArg();
 
 		// Run test.

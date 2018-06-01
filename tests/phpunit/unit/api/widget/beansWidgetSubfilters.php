@@ -32,7 +32,7 @@ class Tests_BeansWidgetSubfilters extends Beans_Widget_Test_Case {
 		$_beans_widget_area = array( 'id' => 'test_sidebar' );
 		$_beans_widget      = array(
 			'id'   => 'text-2',
-			'type' => 'text'
+			'type' => 'text',
 		);
 
 		$this->assertEquals( '[_test_sidebar][_text][_text-2]', _beans_widget_subfilters() );

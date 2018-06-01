@@ -31,7 +31,7 @@ class Tests_BeansHaveWidgets extends Beans_Widget_Test_Case {
 
 		$_beans_widget_area = array();
 
-		Monkey\Functions\expect('beans_get')
+		Monkey\Functions\expect( 'beans_get' )
 			->once()
 			->with( 'widgets', array() )
 			->andReturn( false );
@@ -46,7 +46,7 @@ class Tests_BeansHaveWidgets extends Beans_Widget_Test_Case {
 		global $_beans_widget_area;
 
 		$_beans_widget_area = array(
-			'widgets' => array(
+			'widgets'        => array(
 				'text-1' => array( 'id' => 'text-1' ),
 				'text-2' => array( 'id' => 'text-2' ),
 			),
@@ -68,7 +68,7 @@ class Tests_BeansHaveWidgets extends Beans_Widget_Test_Case {
 		global $_beans_widget_area;
 
 		$_beans_widget_area = array(
-			'widgets' => array(
+			'widgets'        => array(
 				'text-1' => array( 'id' => 'text-1' ),
 				'text-2' => array( 'id' => 'text-2' ),
 			),
@@ -80,8 +80,7 @@ class Tests_BeansHaveWidgets extends Beans_Widget_Test_Case {
 			->with( 'widgets', $_beans_widget_area )
 			->andReturn( $_beans_widget_area['widgets'] );
 
-		Monkey\Functions\expect( '_beans_reset_widget')
-			->once();
+		Monkey\Functions\expect( '_beans_reset_widget' )->once();
 
 		$this->assertFalse( beans_have_widgets() );
 	}

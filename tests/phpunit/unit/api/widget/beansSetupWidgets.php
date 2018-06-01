@@ -26,20 +26,20 @@ class Tests_BeansSetupWidgets extends Beans_Widget_Test_Case {
 	/**
 	 * Test _beans_setup_widgets() should ignore non-widgetized content.
 	 */
-//	public function test_should_ignore_non_widgetized_content() {
-//		$this->assertEmpty( _beans_setup_widgets( 'random non-widget string' ) );
-//	}
+	public function test_should_ignore_non_widgetized_content() {
+		$this->assertEmpty( _beans_setup_widgets( 'random non-widget string' ) );
+	}
 
 	/**
 	 * Test _beans_setup_widgets() should skip a widget if it has not been registered.
 	 */
-//	public function test_should_ignore_widget_when_widget_not_registered() {
-//		global $wp_registered_widgets;
-//
-//		$wp_registered_widgets = array(); // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Valid use case: ensures no widgets are registered for this test.
-//
-//		$this->assertEmpty( _beans_setup_widgets( '<!--widget-text-2-->widget output<!--widget-end-->' ) );
-//	}
+	public function test_should_ignore_widget_when_widget_not_registered() {
+		global $wp_registered_widgets;
+
+		$wp_registered_widgets = array(); // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Valid use case: ensures no widgets are registered for this test.
+
+		$this->assertEmpty( _beans_setup_widgets( '<!--widget-text-2-->widget output<!--widget-end-->' ) );
+	}
 
 	/**
 	 * Test _beans_setup_widgets() should return widget data when the widget is registered.
@@ -51,8 +51,7 @@ class Tests_BeansSetupWidgets extends Beans_Widget_Test_Case {
 		$widget->id_base     = 'text';
 		$widget->option_name = 'text';
 
-		// Prime the $wp_registered widgets and $_beans_widget_area globals.
-		$wp_registered_widgets                            = array(
+		$sidebars = array(
 			'text-2' => array(
 				'id'        => 'text-2',
 				'name'      => 'Test Widget',
@@ -61,6 +60,9 @@ class Tests_BeansSetupWidgets extends Beans_Widget_Test_Case {
 				'params'    => array( 0 => array( 'number' => 2 ) ),
 			),
 		);
+
+		// Prime the $wp_registered widgets and $_beans_widget_area globals.
+		$wp_registered_widgets                            = $sidebars; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Valid use case: setting up sidebars outside of WP.
 		$_beans_widget_area['widgets_count']              = 1;
 		$_beans_widget_area['beans_show_widget_title']    = true;
 		$_beans_widget_area['beans_show_widget_badge']    = false;

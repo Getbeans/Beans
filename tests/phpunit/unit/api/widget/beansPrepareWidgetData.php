@@ -32,7 +32,14 @@ class Tests_BeansPrepareWidgetData extends Beans_Widget_Test_Case {
 		Monkey\Functions\expect( 'beans_get_widget_area' )
 			->once()
 			->with( 'widgets' )
-			->andReturn( array( 'text-2' => array( 'id' => 'text-2', 'name' => 'Test Widget' ) ) );
+			->andReturn(
+				array(
+					'text-2' => array(
+						'id'   => 'text-2',
+						'name' => 'Test Widget',
+					),
+				)
+			);
 
 		// Call the function.
 		_beans_prepare_widget_data( 'text-2' );

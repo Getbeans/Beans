@@ -58,7 +58,6 @@ class Tests_BeansWidgetShortcodes extends Beans_Widget_Test_Case {
 			->with( array( 'someURLparemetername' => 'URL content with a {key}.' ) )
 			->andReturn( 'someURLparemetername=URL content with a {key}.' );
 
-
 		Monkey\Functions\expect( 'beans_array_shortcodes' )
 			->once()
 			->with( 'someURLparemetername=URL content with a {key}.', array( 'Widget Data' ) )
