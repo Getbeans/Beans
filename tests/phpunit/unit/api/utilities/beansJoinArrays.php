@@ -63,7 +63,7 @@ class Tests_BeansJoinArrays extends Test_Case {
 	}
 
 	/**
-	 * Test beans_join_arrays() should do nothing when both arrays are empty.
+	 * Test beans_join_arrays() should set array1 to array2 when array1 is empty.
 	 */
 	public function test_should_set_array1_to_array2_when_array1_is_empty() {
 		// Check with associative array.

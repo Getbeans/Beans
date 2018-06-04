@@ -25,8 +25,7 @@ require_once dirname( __DIR__ ) . '/includes/class-uikit-test-case.php';
 class Tests_BeansUikit_GetJsDirectories extends UIkit_Test_Case {
 
 	/**
-	 * Test _Beans_Uikit::get_js_directories() should return path to type's directory.
-	 * registered.
+	 * Test _Beans_Uikit::get_js_directories() should return the path to the type's directory.
 	 */
 	public function test_should_return_path_to_type_directory() {
 		$beans_uikit = new _Beans_Uikit();
@@ -42,7 +41,7 @@ class Tests_BeansUikit_GetJsDirectories extends UIkit_Test_Case {
 	}
 
 	/**
-	 * Test _Beans_Uikit::get_js_directories() should return path to 'components' directory when the type is
+	 * Test _Beans_Uikit::get_js_directories() should return the path to the 'components' directory when the type is
 	 * 'add-ons'.
 	 */
 	public function test_should_return_path_to_components_directory_when_type_is_add_ons() {

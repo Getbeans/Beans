@@ -126,13 +126,13 @@ final class _Beans_Uikit {
 	}
 
 	/**
-	 * Gets an array of registered component paths, i.e. absolute path to each component file.
+	 * Get an array of registered component paths, i.e. absolute path to each component file.
 	 *
 	 * @since 1.5.0
 	 *
 	 * @param array $core_components Array of core components.
-	 * @param bool  $is_less         Optional. When true, registering LESS components; else, registering JavaScript
-	 *                               components.
+	 * @param bool  $is_less         Optional. When true, get the registered LESS components; else, get the
+	 *                               registered JavaScript components.
 	 *
 	 * @return array
 	 */
@@ -276,7 +276,7 @@ final class _Beans_Uikit {
 	}
 
 	/**
-	 * Gets all of the files and folders from the given directory. When on a Linux-based machine,
+	 * Get all of the files and folders from the given directory. When on a Linux-based machine,
 	 * removes the '.' and '..' files.
 	 *
 	 * @since 1.5.0
@@ -297,7 +297,7 @@ final class _Beans_Uikit {
 	}
 
 	/**
-	 * Gets all of the required dependencies for the given components.
+	 * Get all of the required dependencies for the given components.
 	 *
 	 * @since 1.0.0
 	 *

@@ -25,7 +25,8 @@ require_once dirname( __DIR__ ) . '/includes/class-uikit-test-case.php';
 class Tests_BeansUikit_RegisterJsComponents extends UIkit_Test_Case {
 
 	/**
-	 * Test _Beans_Uikit::register_js_components() should return empty array when no components are registered and no 'core' in the global.
+	 * Test _Beans_Uikit::register_js_components() should return an empty array when no components are registered and
+	 * no 'core' in the global.
 	 */
 	public function test_should_return_empty_array_when_no_components_registered_and_no_core() {
 		// Remove "core" from the components.
@@ -37,8 +38,8 @@ class Tests_BeansUikit_RegisterJsComponents extends UIkit_Test_Case {
 	}
 
 	/**
-	 * Test _Beans_Uikit::register_js_components() should return the base core components when no theme or components are
-	 * registered.
+	 * Test _Beans_Uikit::register_js_components() should return the base core components when no theme or components
+	 * are registered.
 	 */
 	public function test_should_return_base_core_components_when_no_components_registered() {
 		// Check the global.

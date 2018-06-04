@@ -181,7 +181,7 @@ class Tests_BeansUikit_GetComponentsFromDirectory extends UIkit_Test_Case {
 
 	/**
 	 * Test _Beans_Uikit::get_components_from_directory() should return an array of JavaScript files when the component
-	 * exists in child theme.
+	 * exists in the child theme.
 	 */
 	public function test_should_return_array_of_js_files_when_component_exists_in_child_theme() {
 		$child_theme = vfsStream::url( 'themes/beans-child/assets/js' );

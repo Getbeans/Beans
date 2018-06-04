@@ -534,7 +534,6 @@ function beans_join_arrays( array &$array1, array $array2 ) {
 	// If the 1st array is empty, set it to the 2nd array. Then bail out as we're done.
 	if ( empty( $array1 ) ) {
 		$array1 = $array2;
-
 		return;
 	}
 

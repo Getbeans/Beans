@@ -25,7 +25,7 @@ require_once dirname( __DIR__ ) . '/includes/class-uikit-test-case.php';
 class Tests_BeansUikit_ToFilename extends UIkit_Test_Case {
 
 	/**
-	 * Test _Beans_Uikit::to_filename() should return the component's filename when given absolute path.
+	 * Test _Beans_Uikit::to_filename() should return null when given an ignored component.
 	 */
 	public function test_should_return_null_when_given_ignored_component() {
 		$beans_uikit = new _Beans_Uikit();
@@ -37,7 +37,7 @@ class Tests_BeansUikit_ToFilename extends UIkit_Test_Case {
 	/**
 	 * Test _Beans_Uikit::to_filename() should remove the .min extension from the filename.
 	 */
-	public function test_should_return_remove_min_extension_from_filename() {
+	public function test_should_remove_min_extension_from_filename() {
 		$beans_uikit = new _Beans_Uikit();
 
 		$this->assertSame(

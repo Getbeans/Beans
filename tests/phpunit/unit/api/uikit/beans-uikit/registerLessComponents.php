@@ -24,7 +24,8 @@ require_once dirname( __DIR__ ) . '/includes/class-uikit-test-case.php';
 class Tests_BeansUikit_RegisterLessComponents extends UIkit_Test_Case {
 
 	/**
-	 * Test _Beans_Uikit::register_less_components() should return empty array when no theme or components are registered and no 'core' in the global.
+	 * Test _Beans_Uikit::register_less_components() should return an empty array when no theme or components are
+	 * registered and no 'core' in the global.
 	 */
 	public function test_should_return_empty_array_when_no_theme_or_components_registered_and_no_core() {
 		// Remove "core" from the components.

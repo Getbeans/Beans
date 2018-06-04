@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests Case for Beans' UIkit API unit tests.
+ * Test Case for Beans' UIkit API unit tests.
  *
  * @package Beans\Framework\Tests\Unit\API\UIkit\Includes
  *
@@ -98,7 +98,7 @@ abstract class UIkit_Test_Case extends Test_Case {
 	}
 
 	/**
-	 * Sets up the mocked functions.
+	 * Set up the mocked functions.
 	 */
 	protected function set_up_mocked_functions() {
 		Monkey\Functions\when( 'trailingslashit' )->alias( function( $file ) {

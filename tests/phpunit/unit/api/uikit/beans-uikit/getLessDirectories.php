@@ -44,7 +44,7 @@ class Tests_BeansUikit_GetLessDirectories extends UIkit_Test_Case {
 	}
 
 	/**
-	 * Test _Beans_Uikit::get_less_directories() should return path to 'components' directory when the type is
+	 * Test _Beans_Uikit::get_less_directories() should return the path to the 'components' directory when the type is
 	 * 'add-ons'.
 	 */
 	public function test_should_return_path_to_components_directory_when_type_is_add_ons() {
