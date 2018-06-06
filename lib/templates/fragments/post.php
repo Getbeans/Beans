@@ -540,7 +540,7 @@ function beans_post_navigation() {
 		'nav',
 		array(
 			'role'       => 'navigation',
-			'aria-label' => 'Pagination Navigation',
+			'aria-label' => esc_attr__( 'Pagination Navigation', 'tm-beans' ),
 		)
 	);
 
@@ -616,7 +616,7 @@ function beans_posts_pagination() {
 		'nav',
 		array(
 			'role'       => 'navigation',
-			'aria-label' => 'Posts Pagination Navigation',
+			'aria-label' => esc_attr__( 'Posts Pagination Navigation', 'tm-beans' ),
 		)
 	);
 

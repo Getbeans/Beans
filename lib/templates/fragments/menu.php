@@ -26,7 +26,7 @@ function beans_primary_menu() {
 			'role'       => 'navigation',
 			'itemscope'  => 'itemscope',
 			'itemtype'   => 'http://schema.org/SiteNavigationElement',
-			'aria-label' => 'Primary Navigation Menu',
+			'aria-label' => esc_attr__( 'Primary Navigation Menu', 'tm-beans' ),
 		)
 	);
 
@@ -115,7 +115,7 @@ function beans_primary_offcanvas_menu() {
 		array(
 			'class'      => 'tm-primary-offcanvas-menu uk-margin uk-margin-top',
 			'role'       => 'navigation',
-			'aria-label' => 'Off-Canvas Primary Navigation Menu',
+			'aria-label' => esc_attr__( 'Off-Canvas Primary Navigation Menu', 'tm-beans' ),
 		)
 	);
 

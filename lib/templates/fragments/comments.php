@@ -292,7 +292,7 @@ function beans_comments_navigation() {
 		'nav',
 		array(
 			'role'       => 'navigation',
-			'aria-label' => 'Comments Pagination Navigation',
+			'aria-label' => esc_attr__( 'Comments Pagination Navigation', 'tm-beans' ),
 		)
 	);
 
@@ -304,7 +304,7 @@ function beans_comments_navigation() {
 			)
 		);
 
-			// Previous.
+		// Previous.
 		if ( get_previous_comments_link() ) {
 			beans_open_markup_e( 'beans_comments_navigation_item[_previous]', 'li', array( 'class' => 'uk-pagination-previous' ) );
 
@@ -325,7 +325,7 @@ function beans_comments_navigation() {
 			beans_close_markup_e( 'beans_comments_navigation_item[_previous]', 'li' );
 		}
 
-			// Next.
+		// Next.
 		if ( get_next_comments_link() ) {
 			beans_open_markup_e( 'beans_comments_navigation_item[_next]', 'li', array( 'class' => 'uk-pagination-next' ) );
 
