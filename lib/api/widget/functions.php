@@ -28,7 +28,7 @@
  * @param array $args {
  *      Optional. Arguments used by the widget area.
  *
- *      @type string $id                         Optional. The unique identifier by which the widget area will be called.
+ *      @type string $id                         The unique identifier by which the widget area will be called.
  *      @type string $name                       Optional. The name or title of the widget area displayed in the
  *                                               admin dashboard.
  *      @type string $description                Optional. The widget area description.
@@ -39,16 +39,15 @@
  *      @type bool   $beans_widget_badge_content Optional. The badge content. This may contain widget shortcodes
  *                                               {@see beans_widget_shortcodes()}. Default is 'Hello'.
  * }
- * @param array $widget_control Optional.
  *
  * @return string The widget area ID is added to the $wp_registered_sidebars globals when the widget area is setup.
  */
-function beans_register_widget_area( $args = array(), $widget_control = array() ) {
+function beans_register_widget_area( $args = array() ) {
 	// Stop here if the id isn't set.
 	$id = beans_get( 'id', $args );
 
 	if ( ! $id ) {
-		return;
+		return '';
 	}
 
 	/**
@@ -123,23 +122,19 @@ function beans_is_active_widget_area( $id ) {
 function beans_has_widget_area( $id ) {
 	global $wp_registered_sidebars;
 
-	if ( isset( $wp_registered_sidebars[ $id ] ) ) {
-		return true;
-	}
-
-	return false;
+	return isset( $wp_registered_sidebars[ $id ] );
 }
 
 /**
- * Display a widget area.
+ * Get the output of a widget area.
  *
- * @since 1.0.0
+ * @since 1.5.0
  *
  * @param string $id The ID of the registered widget area.
  *
  * @return string|bool The output, if a widget area was found and called. False if not found.
  */
-function beans_widget_area( $id ) {
+function beans_get_widget_area_output( $id ) {
 
 	// Stop here if the widget area is not registered.
 	if ( ! beans_has_widget_area( $id ) ) {
@@ -158,7 +153,7 @@ function beans_widget_area( $id ) {
 	ob_start();
 
 	/**
-	 * Fires when {@see beans_widget_area()} is called.
+	 * Fires when {@see beans_get_widget_area_output()} is called.
 	 *
 	 * @since 1.0.0
 	 */
@@ -186,16 +181,16 @@ function beans_widget_area( $id ) {
  *
  * @param string|bool $needle Optional. The searched widget area needle.
  *
- * @return string The current widget area data, or field data if the needle is specified. False if not found.
+ * @return string|bool The current widget area data, or field data if the needle is specified. False if not found.
  */
 function beans_get_widget_area( $needle = false ) {
 	global $_beans_widget_area;
 
 	if ( ! $needle ) {
-		return $_beans_widget_area;
+		return $_beans_widget_area ? $_beans_widget_area : false;
 	}
 
-	return beans_get( $needle, $_beans_widget_area );
+	return beans_get( $needle, $_beans_widget_area, false );
 }
 
 /**
@@ -206,7 +201,7 @@ function beans_get_widget_area( $needle = false ) {
  *
  * @since 1.0.0
  *
- * @param string $content Content containing the shortcode(s) delimited with curly brackets (e.g. {key}).
+ * @param string|array $content Content containing the shortcode(s) delimited with curly brackets (e.g. {key}).
  *                        Shortcode(s) correspond to the searched array key and will be replaced by the array
  *                        value if found.
  *
@@ -214,11 +209,15 @@ function beans_get_widget_area( $needle = false ) {
  */
 function beans_widget_area_shortcodes( $content ) {
 
+	if ( ! isset( $GLOBALS['_beans_widget_area'] ) ) {
+		return $content;
+	}
+
 	if ( is_array( $content ) ) {
 		$content = build_query( $content );
 	}
 
-	return beans_array_shortcodes( $string, $GLOBALS['_beans_widget_area'] );
+	return beans_array_shortcodes( $content, $GLOBALS['_beans_widget_area'] );
 }
 
 /**
@@ -271,7 +270,7 @@ function beans_setup_widget() {
 	// Set next current widget integer.
 	$_beans_widget_area['current_widget'] = $_beans_widget_area['current_widget'] + 1;
 
-	_beans_setup_widget( $id );
+	_beans_prepare_widget_data( $id );
 
 	return true;
 }
@@ -283,16 +282,16 @@ function beans_setup_widget() {
  *
  * @param string|bool $needle Optional. The searched widget needle.
  *
- * @return string The current widget data, or field data if the needle is specified. False if not found.
+ * @return string|bool The current widget data, or field data if the needle is specified. False if not found.
  */
 function beans_get_widget( $needle = false ) {
 	global $_beans_widget;
 
 	if ( ! $needle ) {
-		return $_beans_widget;
+		return $_beans_widget ? $_beans_widget : false;
 	}
 
-	return beans_get( $needle, $_beans_widget );
+	return beans_get( $needle, $_beans_widget, false );
 }
 
 /**
@@ -303,13 +302,17 @@ function beans_get_widget( $needle = false ) {
  *
  * @since 1.0.0
  *
- * @param string $content Content containing the shortcode(s) delimited with curly brackets (e.g. {key}).
+ * @param string|array $content Content containing the shortcode(s) delimited with curly brackets (e.g. {key}).
  *                        Shortcode(s) correspond to the searched array key and will be replaced by the array
  *                        value if found.
  *
  * @return string Content with shortcodes filtered out.
  */
 function beans_widget_shortcodes( $content ) {
+
+	if ( ! isset( $GLOBALS['_beans_widget'] ) ) {
+		return $content;
+	}
 
 	if ( is_array( $content ) ) {
 		$content = build_query( $content );
@@ -489,7 +492,7 @@ function _beans_setup_widgets( $widget_area_content ) {
  *
  * @return void
  */
-function _beans_setup_widget( $id ) {
+function _beans_prepare_widget_data( $id ) {
 	global $_beans_widget;
 	$widgets       = beans_get_widget_area( 'widgets' );
 	$_beans_widget = $widgets[ $id ];
@@ -582,7 +585,7 @@ function _beans_force_the_widget( $widget, $instance, $args ) {
 	}
 
 	// Stop here if the widget correctly contains an id.
-	if ( false !== stripos( $widget_obj->id, beans_get( 'before_widget', $args ) ) ) {
+	if ( false !== stripos( beans_get( 'before_widget', $args ), $widget_obj->id ) ) {
 		return;
 	}
 
