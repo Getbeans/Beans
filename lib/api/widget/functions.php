@@ -208,6 +208,7 @@ function beans_get_widget_area( $needle = false ) {
  * @return string Content with shortcodes filtered out.
  */
 function beans_widget_area_shortcodes( $content ) {
+	
 	if ( ! isset( $GLOBALS['_beans_widget_area'] ) ) {
 		return $content;
 	}
@@ -308,6 +309,7 @@ function beans_get_widget( $needle = false ) {
  * @return string Content with shortcodes filtered out.
  */
 function beans_widget_shortcodes( $content ) {
+
 	if ( ! isset( $GLOBALS['_beans_widget'] ) ) {
 		return $content;
 	}
