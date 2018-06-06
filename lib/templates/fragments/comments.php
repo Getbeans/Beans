@@ -278,6 +278,8 @@ beans_add_smart_action( 'beans_comments_list_after_markup', 'beans_comments_navi
  * @since 1.0.0
  *
  * @return void
+ *
+ * phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact -- Layout mirrors HTML markup.
  */
 function beans_comments_navigation() {
 
@@ -286,57 +288,67 @@ function beans_comments_navigation() {
 	}
 
 	beans_open_markup_e(
-		'beans_comments_navigation',
-		'ul',
+		'beans_comments_navigation_nav_container',
+		'nav',
 		array(
-			'class' => 'uk-pagination',
-			'role'  => 'navigation',
+			'role'       => 'navigation',
+			'aria-label' => esc_attr__( 'Comments Pagination Navigation', 'tm-beans' ),
 		)
 	);
 
+		beans_open_markup_e(
+			'beans_comments_navigation',
+			'ul',
+			array(
+				'class' => 'uk-pagination',
+			)
+		);
+
 		// Previous.
-	if ( get_previous_comments_link() ) {
-		beans_open_markup_e( 'beans_comments_navigation_item[_previous]', 'li', array( 'class' => 'uk-pagination-previous' ) );
+		if ( get_previous_comments_link() ) {
+			beans_open_markup_e( 'beans_comments_navigation_item[_previous]', 'li', array( 'class' => 'uk-pagination-previous' ) );
 
-			$previous_icon  = beans_open_markup(
-				'beans_previous_icon[_comments_navigation]',
-				'span',
-				array(
-					'class'       => 'uk-icon-angle-double-left uk-margin-small-right',
-					'aria-hidden' => 'true',
-				)
-			);
-			$previous_icon .= beans_close_markup( 'beans_previous_icon[_comments_navigation]', 'span' );
+				$previous_icon  = beans_open_markup(
+					'beans_previous_icon[_comments_navigation]',
+					'span',
+					array(
+						'class'       => 'uk-icon-angle-double-left uk-margin-small-right',
+						'aria-hidden' => 'true',
+					)
+				);
+				$previous_icon .= beans_close_markup( 'beans_previous_icon[_comments_navigation]', 'span' );
 
-			echo get_previous_comments_link( // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
-				$previous_icon . beans_output( 'beans_previous_text[_comments_navigation]', __( 'Previous Comments', 'tm-beans' ) )
-			);
+				echo get_previous_comments_link( // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
+					$previous_icon . beans_output( 'beans_previous_text[_comments_navigation]', __( 'Previous Comments', 'tm-beans' ) )
+				);
 
-		beans_close_markup_e( 'beans_comments_navigation_item[_previous]', 'li' );
-	}
+			beans_close_markup_e( 'beans_comments_navigation_item[_previous]', 'li' );
+		}
 
 		// Next.
-	if ( get_next_comments_link() ) {
-		beans_open_markup_e( 'beans_comments_navigation_item[_next]', 'li', array( 'class' => 'uk-pagination-next' ) );
+		if ( get_next_comments_link() ) {
+			beans_open_markup_e( 'beans_comments_navigation_item[_next]', 'li', array( 'class' => 'uk-pagination-next' ) );
 
-			$next_icon  = beans_open_markup(
-				'beans_next_icon[_comments_navigation]',
-				'span',
-				array(
-					'class'       => 'uk-icon-angle-double-right uk-margin-small-right',
-					'aria-hidden' => 'true',
-				)
-			);
-			$next_icon .= beans_close_markup( 'beans_next_icon[_comments_navigation]', 'span' );
+				$next_icon  = beans_open_markup(
+					'beans_next_icon[_comments_navigation]',
+					'span',
+					array(
+						'class'       => 'uk-icon-angle-double-right uk-margin-small-right',
+						'aria-hidden' => 'true',
+					)
+				);
+				$next_icon .= beans_close_markup( 'beans_next_icon[_comments_navigation]', 'span' );
 
-			echo get_next_comments_link( // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
-				beans_output( 'beans_next_text[_comments_navigation]', __( 'Next Comments ', 'tm-beans' ) ) . $next_icon
-			);
+				echo get_next_comments_link( // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
+					beans_output( 'beans_next_text[_comments_navigation]', __( 'Next Comments ', 'tm-beans' ) ) . $next_icon
+				);
 
-		beans_close_markup_e( 'beans_comments_navigation_item_[_next]', 'li' );
-	}
+			beans_close_markup_e( 'beans_comments_navigation_item_[_next]', 'li' );
+		}
 
-	beans_close_markup_e( 'beans_comments_navigation', 'ul' );
+		beans_close_markup_e( 'beans_comments_navigation', 'ul' );
+
+	beans_close_markup_e( 'beans_comments_navigation_nav_container', 'nav' );
 }
 
 beans_add_smart_action( 'beans_after_open_comments', 'beans_comment_form_divider' );
@@ -432,7 +444,7 @@ beans_add_smart_action( 'comment_form_field_comment', 'beans_comment_form_commen
  * @return string
  */
 function beans_comment_form_comment() {
-	$output = beans_open_markup( 'beans_comment_form[_comment]', 'p', array( 'class' => 'uk-margin-top' ) );
+	$output = beans_open_markup( 'beans_comment_form[_comment]', 'fieldset', array( 'class' => 'uk-margin-top' ) );
 
 		/**
 		 * Filter whether the comment form textarea legend should load or not.
@@ -460,7 +472,7 @@ function beans_comment_form_comment() {
 
 		$output .= beans_close_markup( 'beans_comment_form_field[_comment]', 'textarea' );
 
-	$output .= beans_close_markup( 'beans_comment_form[_comment]', 'p' );
+	$output .= beans_close_markup( 'beans_comment_form[_comment]', 'fieldset' );
 
 	return $output;
 }
