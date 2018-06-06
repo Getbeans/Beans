@@ -4,7 +4,7 @@
  *
  * @package Beans\Framework\API\UIkit
  *
- * @since 1.0.0
+ * @since   1.0.0
  */
 
 /**
@@ -17,6 +17,20 @@
  * @package Beans\Framework\API\UIkit
  */
 final class _Beans_Uikit {
+
+	/**
+	 * Components to ignore.
+	 *
+	 * @var array
+	 */
+	private $ignored_components = array( 'uikit-customizer', 'uikit' );
+
+	/**
+	 * The configured components' dependencies.
+	 *
+	 * @var array
+	 */
+	private static $configured_components_dependencies;
 
 	/**
 	 * Compile enqueued items.
@@ -88,25 +102,14 @@ final class _Beans_Uikit {
 	 * @return array
 	 */
 	public function register_less_components() {
-		global $_beans_uikit_enqueued_items;
+		$components = $this->get_registered_component_paths( array( 'variables' ) );
 
-		$components = array();
-
-		foreach ( $_beans_uikit_enqueued_items['components'] as $type => $items ) {
-
-			// Add core before the components.
-			if ( 'core' === $type ) {
-				$items = array_merge( array( 'variables' ), $items );
-			}
-
-			// Fetch components from directories.
-			$components = array_merge( $components, $this->get_components_from_directory( $items, $this->get_less_directories( $type ), 'styles' ) );
+		if ( empty( $components ) ) {
+			return array();
 		}
 
 		// Add fixes.
-		if ( ! empty( $components ) ) {
-			$components = array_merge( $components, array( BEANS_API_PATH . 'uikit/src/fixes.less' ) );
-		}
+		$components[] = BEANS_API_PATH . 'uikit/src/fixes.less';
 
 		return $components;
 	}
@@ -119,6 +122,21 @@ final class _Beans_Uikit {
 	 * @return array
 	 */
 	public function register_js_components() {
+		return $this->get_registered_component_paths( array( 'core', 'utility', 'touch' ), false );
+	}
+
+	/**
+	 * Get an array of registered component paths, i.e. absolute path to each component file.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param array $core_components Array of core components.
+	 * @param bool  $is_less         Optional. When true, get the registered LESS components; else, get the
+	 *                               registered JavaScript components.
+	 *
+	 * @return array
+	 */
+	private function get_registered_component_paths( array $core_components, $is_less = true ) {
 		global $_beans_uikit_enqueued_items;
 
 		$components = array();
@@ -127,19 +145,16 @@ final class _Beans_Uikit {
 
 			// Add core before the components.
 			if ( 'core' === $type ) {
-				$items = array_merge(
-					array(
-						'core',
-						'component',
-						'utility',
-						'touch',
-					),
-					$items
-				);
+				$items = array_merge( $core_components, $items );
 			}
 
 			// Fetch components from directories.
-			$components = array_merge( $components, $this->get_components_from_directory( $items, $this->get_js_directories( $type ), 'scripts' ) );
+			$component_directories = $this->get_components_from_directory(
+				$items,
+				$is_less ? $this->get_less_directories( $type ) : $this->get_js_directories( $type ),
+				$is_less ? 'styles' : 'scripts'
+			);
+			beans_join_arrays( $components, $component_directories );
 		}
 
 		return $components;
@@ -197,13 +212,17 @@ final class _Beans_Uikit {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array  $components Array of UIkit Components.
+	 * @param array  $components  Array of UIkit Components.
 	 * @param array  $directories Array of directories containing the UIkit Components.
-	 * @param string $format File format.
+	 * @param string $format      File format.
 	 *
 	 * @return array
 	 */
-	public function get_components_from_directory( $components, $directories, $format ) {
+	public function get_components_from_directory( array $components, array $directories, $format ) {
+
+		if ( empty( $components ) ) {
+			return array();
+		}
 
 		$extension = 'styles' === $format ? 'less' : 'min.js';
 
@@ -211,12 +230,12 @@ final class _Beans_Uikit {
 
 		foreach ( $components as $component ) {
 
-			// Fectch components from all directories set.
+			// Fetch the components from all directories set.
 			foreach ( $directories as $directory ) {
 				$file = trailingslashit( $directory ) . $component . '.' . $extension;
 
 				// Make sure the file exists.
-				if ( file_exists( $file ) ) {
+				if ( is_readable( $file ) ) {
 					$return[] = $file;
 				}
 			}
@@ -246,128 +265,116 @@ final class _Beans_Uikit {
 				continue;
 			}
 
-			$scandir = scandir( $dir_path );
+			// Build an array of component names (i.e. filenames only).
+			$component_names = array_map( array( $this, 'to_filename' ), $this->get_all_files( $dir_path ) );
 
-			// Unset scandir defaults.
-			unset( $scandir[0], $scandir[1] );
-
-			// Only return the filname and remove empty elements.
-			$components = array_merge( $components, array_filter( array_map( array( $this, 'to_filename' ), $scandir ) ) );
+			beans_join_arrays( $components, $component_names );
 		}
 
-		return $components;
+		// Clean up by removing duplicates and empties.
+		return array_filter( $this->get_unique_values( $components ) );
 	}
 
 	/**
-	 * Auto detect the required components.
+	 * Get all of the files and folders from the given directory. When on a Linux-based machine,
+	 * removes the '.' and '..' files.
 	 *
-	 * @since 1.0.0
+	 * @since 1.5.0
 	 *
-	 * @param array $components Array of components to autoload.
+	 * @param string $directory Absolute path to the source directory.
 	 *
 	 * @return array
 	 */
-	public function get_autoload_components( $components ) {
-		$autoload = array(
+	private function get_all_files( $directory ) {
+		$files = scandir( $directory );
+
+		// Get rid of dot files when on Linux environment.
+		if ( '.' === $files[0] ) {
+			unset( $files[0], $files[1] );
+		}
+
+		return $files;
+	}
+
+	/**
+	 * Get all of the required dependencies for the given components.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $components The given components to search for dependencies.
+	 *
+	 * @return array
+	 */
+	public function get_autoload_components( array $components ) {
+		$dependencies = array(
 			'core'    => array(),
 			'add-ons' => array(),
 		);
 
-		$dependencies = array(
-			'panel'     => array(
-				'core' => array(
-					'badge',
-				),
-			),
-			'cover'     => array(
-				'core' => array(
-					'flex',
-				),
-			),
-			'overlay'   => array(
-				'core' => array(
-					'flex',
-				),
-			),
-			'tab'       => array(
-				'core' => array(
-					'switcher',
-				),
-			),
-			'modal'     => array(
-				'core' => array(
-					'close',
-				),
-			),
-			'scrollspy' => array(
-				'core' => array(
-					'animation',
-				),
-			),
-			'lightbox'  => array(
-				'core'    => array(
-					'animation',
-					'flex',
-					'close',
-					'modal',
-					'overlay',
-				),
-				'add-ons' => array(
-					'slidenav',
-				),
-			),
-			'slider'    => array(
-				'add-ons' => array(
-					'slidenav',
-				),
-			),
-			'slideset'  => array(
-				'core'    => array(
-					'animation',
-					'flex',
-				),
-				'add-ons' => array(
-					'dotnav',
-					'slidenav',
-				),
-			),
-			'slideshow' => array(
-				'core'    => array(
-					'animation',
-					'flex',
-				),
-				'add-ons' => array(
-					'dotnav',
-					'slidenav',
-				),
-			),
-			'parallax'  => array(
-				'core' => array(
-					'flex',
-				),
-			),
-			'notify'    => array(
-				'core' => array(
-					'close',
-				),
-			),
-		);
+		$this->init_component_dependencies();
 
+		// Build dependencies for each component.
 		foreach ( (array) $components as $component ) {
+			$component_dependencies = beans_get( $component, self::$configured_components_dependencies, array() );
 
-			$this_dependencies = beans_get( $component, $dependencies, array() );
-
-			foreach ( $this_dependencies as $dependency ) {
-				$autoload['core']    = array_merge( $autoload['core'], array_flip( beans_get( 'core', $this_dependencies, array() ) ) );
-				$autoload['add-ons'] = array_merge( $autoload['add-ons'], array_flip( beans_get( 'add-ons', $this_dependencies, array() ) ) );
+			foreach ( $component_dependencies as $type => $dependency ) {
+				$dependencies[ $type ] = array_merge( $dependencies[ $type ], $dependency );
 			}
 		}
 
-		// Format autoload back to associative key value array.
-		$autoload['core']    = array_flip( $autoload['core'] );
-		$autoload['add-ons'] = array_flip( $autoload['add-ons'] );
+		return $this->remove_duplicate_values( $dependencies );
+	}
 
-		return $autoload;
+	/**
+	 * Removes duplicate values from the given source array.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param array $source The given array to iterate and remove duplicate values.
+	 *
+	 * @return array
+	 */
+	private function remove_duplicate_values( array $source ) {
+
+		foreach ( $source as $key => $value ) {
+
+			if ( empty( $value ) || ! is_array( $value ) ) {
+				continue;
+			}
+
+			$source[ $key ] = $this->get_unique_values( $value );
+		}
+
+		return $source;
+	}
+
+	/**
+	 * Get an array of unique values from the given array.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param array $array The given array to process.
+	 *
+	 * @return array
+	 */
+	private function get_unique_values( array $array ) {
+		return array_values( array_unique( $array ) );
+	}
+
+	/**
+	 * Initialize the components' dependencies, by loading from its configuration file when null.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return void
+	 */
+	private function init_component_dependencies() {
+
+		if ( ! is_null( self::$configured_components_dependencies ) ) {
+			return;
+		}
+
+		self::$configured_components_dependencies = require dirname( __FILE__ ) . '/config/component-dependencies.php';
 	}
 
 	/**
@@ -382,17 +389,30 @@ final class _Beans_Uikit {
 	public function to_filename( $file ) {
 		$pathinfo = pathinfo( $file );
 
-		$ignore = array(
-			'uikit-customizer',
-			'uikit',
-		);
+		// If the given file is not valid, bail out.
+		if ( ! isset( $pathinfo['filename'] ) ) {
+			return null;
+		}
 
 		// Stop here if it isn't a valid file or if it should be ignored.
-		if ( ! isset( $pathinfo['filename'] ) || in_array( $pathinfo['filename'], $ignore, true ) ) {
+		if ( $this->ignore_component( $pathinfo['filename'] ) ) {
 			return null;
 		}
 
 		// Return the filename without the .min to avoid duplicates.
 		return str_replace( '.min', '', $pathinfo['filename'] );
+	}
+
+	/**
+	 * Checks if the given component's filename should be ignored.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string $filename The filename to check against the ignored components.
+	 *
+	 * @return bool
+	 */
+	private function ignore_component( $filename ) {
+		return in_array( $filename, $this->ignored_components, true );
 	}
 }

@@ -47,7 +47,7 @@ function beans_load_api_components( $components ) {
 		),
 		'uikit'        => array(
 			$root . 'uikit/functions.php',
-			$root . 'uikit/class.php',
+			$root . 'uikit/class-beans-uikit.php',
 		),
 		'layout'       => $root . 'layout/functions.php',
 		'template'     => $root . 'template/functions.php',
