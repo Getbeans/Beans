@@ -208,7 +208,7 @@ function beans_get_widget_area( $needle = false ) {
  * @return string Content with shortcodes filtered out.
  */
 function beans_widget_area_shortcodes( $content ) {
-	
+
 	if ( ! isset( $GLOBALS['_beans_widget_area'] ) ) {
 		return $content;
 	}
