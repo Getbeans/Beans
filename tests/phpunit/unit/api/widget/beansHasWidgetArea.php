@@ -26,14 +26,14 @@ class Tests_BeansHasWidgetArea extends Beans_Widget_Test_Case {
 	/**
 	 * Test beans_has_widget_area() should return false when widget area is not registered.
 	 */
-	public function testShouldReturnFalseWhenWidgetAreaNotRegistered() {
+	public function test_should_return_false_when_widget_area_not_registered() {
 		$this->assertFalse( beans_has_widget_area( 'unregistered-area' ) );
 	}
 
 	/**
 	 * Test beans_has_widget_area() should return true when widget area is registered.
 	 */
-	public function testShouldReturnTrueWhenWidgetAreaRegistered() {
+	public function test_should_return_true_when_widget_area_registered() {
 		global $wp_registered_sidebars;
 
 		$sidebars = array(

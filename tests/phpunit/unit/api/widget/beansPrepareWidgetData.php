@@ -24,9 +24,9 @@ require_once dirname( __FILE__ ) . '/includes/class-beans-widget-test-case.php';
 class Tests_BeansPrepareWidgetData extends Beans_Widget_Test_Case {
 
 	/**
-	 * Test _beans_prepare_widget_data() should prepare widget data.
+	 * Test _beans_prepare_widget_data() should prepare the widget data.
 	 */
-	public function test_should_prepared_widget_data() {
+	public function test_should_prepare_widget_data() {
 		global $_beans_widget;
 
 		Monkey\Functions\expect( 'beans_get_widget_area' )

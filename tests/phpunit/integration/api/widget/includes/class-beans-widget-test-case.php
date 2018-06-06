@@ -19,7 +19,7 @@ use Beans\Framework\Tests\Integration\Test_Case;
 abstract class Beans_Widget_Test_Case extends Test_Case {
 
 	/**
-	 * Fixture to clean up after tests.
+	 * Fixture to clean up the test environment after each test.
 	 */
 	public function tearDown() {
 		unset( $GLOBALS['$_beans_widget_area'] );

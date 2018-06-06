@@ -23,7 +23,7 @@ require_once dirname( __FILE__ ) . '/includes/class-beans-widget-test-case.php';
 class Tests_BeansWidgetShortcodes extends Beans_Widget_Test_Case {
 
 	/**
-	 * Test beans_widget_shortcodes() should return content with shortcodes filtered out.
+	 * Test beans_widget_shortcodes() should return the content with shortcodes filtered out.
 	 */
 	public function test_should_return_content_with_shortcodes_filetered_out() {
 		global $_beans_widget;

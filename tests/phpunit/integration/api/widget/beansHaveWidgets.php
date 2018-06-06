@@ -14,7 +14,7 @@ use Beans\Framework\Tests\Integration\API\Widget\Includes\Beans_Widget_Test_Case
 require_once dirname( __FILE__ ) . '/includes/class-beans-widget-test-case.php';
 
 /**
- * Class Tests_BeansHaveWidgetArea
+ * Class Tests_BeansHaveWidgets
  *
  * @package Beans\Framework\Tests\Integration\API\Widget
  * @group   api
@@ -23,7 +23,7 @@ require_once dirname( __FILE__ ) . '/includes/class-beans-widget-test-case.php';
 class Tests_BeansHaveWidgets extends Beans_Widget_Test_Case {
 
 	/**
-	 * Test beans_have_widget() should return true when more widgets are available.
+	 * Test beans_have_widgets() should return true when more widgets are available.
 	 */
 	public function test_should_return_true_when_widgets_available() {
 		// Add a test sidebar with a test widget.
@@ -35,7 +35,7 @@ class Tests_BeansHaveWidgets extends Beans_Widget_Test_Case {
 		);
 		$this->add_test_widget_to_test_sidebar();
 
-		// Run the beans widget area setup.
+		// Run the Beans widget area setup.
 		_beans_setup_widget_area( 'test_sidebar' );
 
 		// Run the test.
@@ -43,7 +43,7 @@ class Tests_BeansHaveWidgets extends Beans_Widget_Test_Case {
 	}
 
 	/**
-	 * Test beans_have_widget() should return false when no widgets are available.
+	 * Test beans_have_widgets() should return false when no widgets are available.
 	 */
 	public function test_should_return_false_when_no_widgets_are_available() {
 		// Add a test sidebar with no widgets.
@@ -54,7 +54,7 @@ class Tests_BeansHaveWidgets extends Beans_Widget_Test_Case {
 			)
 		);
 
-		// Run the beans widget area setup.
+		// Run the Beans widget area setup.
 		_beans_setup_widget_area( 'test_sidebar' );
 
 		// Run the test.

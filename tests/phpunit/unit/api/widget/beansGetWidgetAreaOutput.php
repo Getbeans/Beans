@@ -24,7 +24,7 @@ require_once dirname( __FILE__ ) . '/includes/class-beans-widget-test-case.php';
 class Tests_BeansGetWidgetAreaOutput extends Beans_Widget_Test_Case {
 
 	/**
-	 * Test beans_get_widget_area_output should return false when the widget area is not registered.
+	 * Test beans_get_widget_area_output() should return false when the widget area is not registered.
 	 */
 	public function test_should_return_false_when_widget_area_not_registered() {
 		Monkey\Functions\expect( 'beans_has_widget_area' )

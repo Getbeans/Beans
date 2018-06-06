@@ -48,7 +48,7 @@ class Tests_BeansSetupWidget extends Beans_Widget_Test_Case {
 	/**
 	 * Test beans_setup_widget() should advance widget pointer, prepare widget data, and return true when a widget ID is found.
 	 */
-	public function test_should_return_advance_widget_pointer_prepare_widget_data_and_return_true_when_widget_id_is_found() {
+	public function test_should_advance_widget_pointer_prepare_widget_data_and_return_true_when_widget_id_is_found() {
 		global $_beans_widget_area;
 
 		$_beans_widget_area = array(

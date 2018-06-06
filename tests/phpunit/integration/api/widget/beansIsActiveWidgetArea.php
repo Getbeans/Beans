@@ -25,14 +25,14 @@ class Tests_BeansIsActiveWidgetArea extends Beans_Widget_Test_Case {
 	/**
 	 * Test beans_is_active_widget_area() should return false when widget area is not active.
 	 */
-	public function testShouldReturnFalseWhenWidgetAreaNotActive() {
+	public function test_should_return_false_when_widget_area_not_active() {
 		$this->assertFalse( beans_is_active_widget_area( 'inactive-widget-area' ) );
 	}
 
 	/**
 	 * Test beans_is_active_widget_area() should return true when widget area is active.
 	 */
-	public function testShouldReturnTrueWhenWidgetAreaIsActive() {
+	public function test_should_return_true_when_widget_area_is_active() {
 		global $_wp_sidebars_widgets;
 
 		// Clear global widget areas registry so we can start clean.

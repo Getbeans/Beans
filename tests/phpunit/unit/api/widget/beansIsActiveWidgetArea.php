@@ -24,9 +24,9 @@ require_once dirname( __FILE__ ) . '/includes/class-beans-widget-test-case.php';
 class Tests_BeansIsActiveWidgetArea extends Beans_Widget_Test_Case {
 
 	/**
-	 * Test beans_is_active_widget_area() should return false when widget area is not active.
+	 * Test beans_is_active_widget_area() should return false when the widget area is not active.
 	 */
-	public function testShouldReturnFalseWhenWidgetAreaNotActive() {
+	public function test_should_return_false_when_widget_area_not_active() {
 		Monkey\Functions\expect( 'is_active_sidebar' )
 			->once()
 			->with( 'inactive-widget-area' )
@@ -36,9 +36,9 @@ class Tests_BeansIsActiveWidgetArea extends Beans_Widget_Test_Case {
 	}
 
 	/**
-	 * Test beans_is_active_widget_area() should return true when widget area is active.
+	 * Test beans_is_active_widget_area() should return true when the widget area is active.
 	 */
-	public function testShouldReturnTrueWhenWidgetAreaIsActive() {
+	public function test_should_return_true_when_widget_area_is_active() {
 		Monkey\Functions\expect( 'is_active_sidebar' )
 			->once()
 			->with( 'active-sidebar' )

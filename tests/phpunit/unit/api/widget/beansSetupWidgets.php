@@ -42,7 +42,7 @@ class Tests_BeansSetupWidgets extends Beans_Widget_Test_Case {
 	}
 
 	/**
-	 * Test _beans_setup_widgets() should return widget data when the widget is registered.
+	 * Test _beans_setup_widgets() should return the widget data when the widget is registered.
 	 */
 	public function test_should_return_widget_data_when_widget_is_registered() {
 		global $wp_registered_widgets, $_beans_widget_area;

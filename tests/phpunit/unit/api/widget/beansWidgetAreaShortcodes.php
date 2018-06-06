@@ -24,7 +24,7 @@ require_once dirname( __FILE__ ) . '/includes/class-beans-widget-test-case.php';
 class Tests_BeansWidgetAreaShortcodes extends Beans_Widget_Test_Case {
 
 	/**
-	 * Test beans_widget_area_shortcodes() should return content with shortcodes filtered out when content is given as a string.
+	 * Test beans_widget_area_shortcodes() should return the content with shortcodes filtered out when content is given as a string.
 	 */
 	public function test_should_return_content_with_shortcodes_filtered_out_when_content_given_as_string() {
 		global $_beans_widget_area;
@@ -46,9 +46,9 @@ class Tests_BeansWidgetAreaShortcodes extends Beans_Widget_Test_Case {
 	}
 
 	/**
-	 * Test beans_widget_area_shortcodes() should return content with shortcodes filtered out when content is given as an array.
+	 * Test beans_widget_area_shortcodes() should return the content with shortcodes filtered out when content is given as an array.
 	 */
-	public function test_should_return_content_with_shortcodes_filtered_out_when_content_given_as_arrau() {
+	public function test_should_return_content_with_shortcodes_filtered_out_when_content_given_as_array() {
 		global $_beans_widget_area;
 
 		$_beans_widget_area = array( 'Widget Area Data' );

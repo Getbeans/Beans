@@ -26,7 +26,7 @@ class Tests_BeansDeregisterWidgetArea extends Beans_Widget_Test_Case {
 	/**
 	 * Test beans_deregister_widget_area() should call unregister_sidebar() and return null.
 	 */
-	public function test_should_unregister_sidebar() {
+	public function test_should_call_unregister_sidebar_and_return_null() {
 		Monkey\Functions\expect( 'unregister_sidebar' )
 			->once()
 			->with( 'unwanted_sidebar' )

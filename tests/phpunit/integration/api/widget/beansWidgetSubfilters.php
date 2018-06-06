@@ -23,7 +23,7 @@ require_once dirname( __FILE__ ) . '/includes/class-beans-widget-test-case.php';
 class Tests_BeansWidgetSubfilters extends Beans_Widget_Test_Case {
 
 	/**
-	 * Test _beans_widget_subfilters() returns widget subfilters as a string.
+	 * Test _beans_widget_subfilters() should return the widget subfilters as a string.
 	 */
 	public function test_should_return_widget_subfilters_as_string() {
 		beans_register_widget_area( 'test_sidebar' );

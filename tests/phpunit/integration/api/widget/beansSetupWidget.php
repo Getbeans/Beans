@@ -33,7 +33,7 @@ class Tests_BeansSetupWidget extends Beans_Widget_Test_Case {
 
 		_beans_setup_widget_area( 'test_sidebar' );
 
-		// Advance the widget counter to a non-existent widget.
+		// Advance the widget pointer to a non-existent widget.
 		$_beans_widget_area['current_widget'] = 1;
 		$this->assertFalse( beans_setup_widget() );
 	}
@@ -41,7 +41,7 @@ class Tests_BeansSetupWidget extends Beans_Widget_Test_Case {
 	/**
 	 * Test beans_setup_widget() should advance widget pointer, prepare widget data, and return true when a widget ID is found.
 	 */
-	public function test_should_return_advance_widget_pointer_prepare_widget_data_and_return_true_when_widget_id_is_found() {
+	public function test_should_advance_widget_pointer_prepare_widget_data_and_return_true_when_widget_id_is_found() {
 		global $_beans_widget_area, $_beans_widget;
 
 		beans_register_widget_area( array( 'id' => 'test_sidebar' ) );

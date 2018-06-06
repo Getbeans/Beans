@@ -23,14 +23,14 @@ require_once dirname( __FILE__ ) . '/includes/class-beans-widget-test-case.php';
 class Tests_BeansRegisterWidgetArea extends Beans_Widget_Test_Case {
 
 	/**
-	 * Test beans_register_widget_area() should return an empty string when the id is not set.
+	 * Test beans_register_widget_area() should return an empty string when the ID is not set.
 	 */
 	public function test_should_return_empty_string_when_ID_not_set() {
 		$this->assertSame( '', beans_register_widget_area( [] ) );
 	}
 
 	/**
-	 * Test beans_register_widget_area() should register a sidebar and return the widget area id when the widget area is registered.
+	 * Test beans_register_widget_area() should register a sidebar and return the widget area ID when the widget area is registered.
 	 */
 	public function test_should_register_sidebar_and_return_widget_area_ID_when_widget_area_registered() {
 		global $wp_registered_sidebars;

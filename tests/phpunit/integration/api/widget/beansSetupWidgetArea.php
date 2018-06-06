@@ -23,7 +23,7 @@ require_once dirname( __FILE__ ) . '/includes/class-beans-widget-test-case.php';
 class Tests_BeansSetupWidgetArea extends Beans_Widget_Test_Case {
 
 	/**
-	 * Test _beans_setup_widget_area() should build widget area data and return true when widget area exists.
+	 * Test _beans_setup_widget_area() should build the widget area data and return true when widget area exists.
 	 */
 	public function test_should_build_widget_area_data_and_return_true_when_widget_area_exists() {
 		global $_beans_widget_area;
