@@ -39,11 +39,10 @@
  *      @type bool   $beans_widget_badge_content Optional. The badge content. This may contain widget shortcodes
  *                                               {@see beans_widget_shortcodes()}. Default is 'Hello'.
  * }
- * @param array $widget_control Optional.
  *
  * @return string The widget area ID is added to the $wp_registered_sidebars globals when the widget area is setup.
  */
-function beans_register_widget_area( $args = array(), $widget_control = array() ) {
+function beans_register_widget_area( $args = array() ) {
 	// Stop here if the id isn't set.
 	$id = beans_get( 'id', $args );
 
@@ -209,6 +208,9 @@ function beans_get_widget_area( $needle = false ) {
  * @return string Content with shortcodes filtered out.
  */
 function beans_widget_area_shortcodes( $content ) {
+	if ( ! isset( $GLOBALS['_beans_widget_area'] ) ) {
+		return $content;
+	}
 
 	if ( is_array( $content ) ) {
 		$content = build_query( $content );
@@ -306,6 +308,9 @@ function beans_get_widget( $needle = false ) {
  * @return string Content with shortcodes filtered out.
  */
 function beans_widget_shortcodes( $content ) {
+	if ( ! isset( $GLOBALS['_beans_widget'] ) ) {
+		return $content;
+	}
 
 	if ( is_array( $content ) ) {
 		$content = build_query( $content );
