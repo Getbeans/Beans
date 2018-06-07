@@ -9,6 +9,7 @@
  */
 
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Variables are used within a function's scope.
+// phpcs:disable Generic.WhiteSpace.ScopeIndent.Incorrect, Generic.WhiteSpace.ScopeIndent.IncorrectExact -- View file is indented for HTML structure.
 ?>
 
 <button class="bs-add-image button button-small" type="button" <?php echo isset( $hide_add_link ) ? 'style="display: none"' : ''; ?>><?php echo esc_html( $link_text ); ?></button>
@@ -52,5 +53,3 @@ foreach ( $images as $image_id ) :
 	</div>
 <?php endforeach; ?>
 </div>
-<?php
-// phpcs:enable

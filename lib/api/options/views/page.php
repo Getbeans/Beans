@@ -8,6 +8,7 @@
  * @since   1.5.0 Moved to view file.
  */
 
+// phpcs:disable Generic.WhiteSpace.ScopeIndent.Incorrect, Generic.WhiteSpace.ScopeIndent.IncorrectExact -- View file is indented for HTML structure.
 ?>
 
 <form action="" method="post" class="bs-options" data-page="<?php echo esc_attr( beans_get( 'page' ) ); ?>">

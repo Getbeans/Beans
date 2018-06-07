@@ -9,6 +9,7 @@
  */
 
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Variables are used within a function's scope.
+// phpcs:disable Generic.WhiteSpace.ScopeIndent.Incorrect, Generic.WhiteSpace.ScopeIndent.IncorrectExact -- View file is indented for HTML structure.
 ?>
 
 <fieldset class="bs-field-fieldset">
@@ -42,9 +43,5 @@ foreach ( $field['options'] as $value => $radio ) :
 endif;
 ?>
 		</label>
-<?php
-endforeach;
-?>
+<?php endforeach; ?>
 </fieldset>
-<?php
-// phpcs:enable

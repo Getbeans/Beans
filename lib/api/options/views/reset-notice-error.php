@@ -8,6 +8,7 @@
  * @since   1.5.0 Moved to view file.
  */
 
+// phpcs:disable Generic.WhiteSpace.ScopeIndent.Incorrect, Generic.WhiteSpace.ScopeIndent.IncorrectExact -- View file is indented for HTML structure.
 ?>
 
 <div id="message" class="error">
