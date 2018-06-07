@@ -8,6 +8,7 @@
  * @since   1.5.0 Moved to view file.
  */
 
+// phpcs:disable Generic.WhiteSpace.ScopeIndent.Incorrect, Generic.WhiteSpace.ScopeIndent.IncorrectExact -- View file is indented for HTML structure.
 ?>
 
 <input type="hidden" value="0" name="<?php echo esc_attr( $field['name'] ); ?>" />
