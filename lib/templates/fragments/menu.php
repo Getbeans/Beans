@@ -12,6 +12,7 @@ beans_add_smart_action( 'beans_header', 'beans_primary_menu', 15 );
  * Echo primary menu.
  *
  * @since 1.0.0
+ * @since 1.5.0 Added ID for skip links.
  *
  * @return void
  */
@@ -23,10 +24,12 @@ function beans_primary_menu() {
 		'nav',
 		array(
 			'class'      => 'tm-primary-menu uk-float-right uk-navbar',
+			'id'         => 'beans-primary-navigation',
 			'role'       => 'navigation',
 			'itemscope'  => 'itemscope',
 			'itemtype'   => 'http://schema.org/SiteNavigationElement',
 			'aria-label' => esc_attr__( 'Primary Navigation Menu', 'tm-beans' ),
+			'tabindex'   => '-1',
 		)
 	);
 

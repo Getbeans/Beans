@@ -142,18 +142,26 @@ article header > .tm-article-image:first-child {
     margin: 3px 0;
 }
 
-.screen-reader-text {
-    clip: rect(1px, 1px, 1px, 1px);
-    position: absolute !important;
-    height: 1px;
-    width: 1px;
-    overflow: hidden;
+/* Hide visually but not from screen readers */
+.screen-reader-text,
+.screen-reader-text span {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	-webkit-clip-path: inset(50%);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	word-wrap: normal !important; /* many screen reader and browser combinations announce broken words as they would appear visually */
 }
 
 .screen-reader-text:focus {
     background-color: #f1f1f1;
     border-radius: 3px;
-    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 2px 2px rgba(12, 4, 4, 0.6);
     clip: auto !important;
     color: #21759b;
     display: block;
@@ -168,4 +176,52 @@ article header > .tm-article-image:first-child {
     top: 5px;
     width: auto;
     z-index: 100000;
+}
+
+.screen-reader-shortcut {
+	position: absolute;
+	top: -1000em;
+}
+
+.screen-reader-shortcut:focus {
+	left: 6px;
+	top: 15px;
+	height: auto;
+	width: auto;
+	display: block;
+	font-size: 14px;
+	font-weight: 600;
+	padding: 15px 23px 14px;
+	background: #f1f1f1;
+	color: #0073aa;
+	z-index: 100000;
+	line-height: normal;
+	box-shadow: 0 0 2px 2px rgba(0,0,0,.6);
+	text-decoration: none;
+	outline: none;
+}
+
+.beans-skip-links {
+	background-color: #f1f1f1;
+	box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
+	color: #21759b;
+	display: block;
+	left: -9999em;
+	outline: none;
+	text-decoration: none;
+	text-transform: none;
+	top: -9999em;
+	margin: 0;
+}
+
+.beans-skip-links li {
+	height: 0;
+	width: 0;
+	list-style: none;
+}
+
+/* Display outline on focus */
+:focus {
+	color: #333;
+	outline: 1px #ccc solid;
 }

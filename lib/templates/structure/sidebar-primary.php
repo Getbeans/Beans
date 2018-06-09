@@ -5,6 +5,7 @@
  * @package Beans\Framework\Templates\Structure
  *
  * @since   1.0.0
+ * @since   1.5.0 Added ID for skip links.
  */
 
 beans_open_markup_e(
@@ -12,9 +13,11 @@ beans_open_markup_e(
 	'aside',
 	array(
 		'class'     => 'tm-secondary ' . beans_get_layout_class( 'sidebar_primary' ), // Automatically escaped.
+		'id'        => 'beans-primary-sidebar',
 		'role'      => 'complementary',
 		'itemscope' => 'itemscope',
 		'itemtype'  => 'http://schema.org/WPSideBar',
+		'tabindex'  => '-1',
 	)
 );
 
