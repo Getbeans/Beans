@@ -5,7 +5,7 @@
  * @package Beans\Framework\Templates\Structure
  *
  * @since   1.0.0
- * @since   1.5.0 Added ID for skip links.
+ * @since   1.5.0 Added ID and tabindex for skip links.
  */
 
 beans_open_markup_e(

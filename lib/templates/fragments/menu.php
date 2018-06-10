@@ -12,7 +12,7 @@ beans_add_smart_action( 'beans_header', 'beans_primary_menu', 15 );
  * Echo primary menu.
  *
  * @since 1.0.0
- * @since 1.5.0 Added ID for skip links.
+ * @since 1.5.0 Added ID and tabindex for skip links.
  *
  * @return void
  */

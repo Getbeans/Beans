@@ -40,7 +40,7 @@ function beans_build_skip_links() {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param array $links {
+	 * @param array $skip_links {
 	 *     Default skip links.
 	 *
 	 *     @type string HTML ID attribute value to link to.
