@@ -24,12 +24,15 @@ function beans_build_skip_links() {
 
 	$skip_links['beans-content'] = __( 'Skip to the content.', 'tm-beans' );
 
-	if ( in_array( $layout, array( 'c_sp', 'sp_c', 'c_sp_ss', 'sp_c_ss', 'sp_ss_c' ), true ) && beans_is_active_widget_area( 'sidebar_primary' ) ) {
-		$skip_links['beans-primary-sidebar'] = __( 'Skip to the primary sidebar.', 'tm-beans' );
-	}
+	if ( 'c' !== $layout ) {
 
-	if ( in_array( $layout, array( 'c_ss', 'ss_c', 'c_sp_ss', 'sp_c_ss', 'sp_ss_c' ), true ) && beans_is_active_widget_area( 'sidebar_secondary' ) ) {
-		$skip_links['beans-secondary-sidebar'] = __( 'Skip to the secondary sidebar.', 'tm-beans' );
+		if ( in_array( $layout, array( 'c_sp', 'sp_c', 'c_sp_ss', 'sp_c_ss', 'sp_ss_c' ), true ) && beans_is_active_widget_area( 'sidebar_primary' ) ) {
+			$skip_links['beans-primary-sidebar'] = __( 'Skip to the primary sidebar.', 'tm-beans' );
+		}
+
+		if ( in_array( $layout, array( 'c_ss', 'ss_c', 'c_sp_ss', 'sp_c_ss', 'sp_ss_c' ), true ) && beans_is_active_widget_area( 'sidebar_secondary' ) ) {
+			$skip_links['beans-secondary-sidebar'] = __( 'Skip to the secondary sidebar.', 'tm-beans' );
+		}
 	}
 
 	/**
