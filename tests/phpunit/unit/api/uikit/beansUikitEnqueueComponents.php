@@ -110,4 +110,54 @@ class Tests_BeansUikitEnqueueComponents extends UIkit_Test_Case {
 		$expected = array_merge( $components, [ 'notify' ] );
 		$this->assertSame( $expected, $_beans_uikit_enqueued_items['components']['add-ons'] );
 	}
+
+	/**
+	 * Test beans_uikit_enqueue_components() should not add duplicates into the registry.
+	 */
+	public function test_should_not_add_duplicates_into_registry() {
+		global $_beans_uikit_enqueued_items;
+
+		$core                                      = [
+			'alert',
+			'button',
+			'overlay',
+		];
+		$addons                                    = [
+			'accordion',
+			'autocomplete',
+			'datepicker',
+			'sticky',
+			'tooltip',
+		];
+		$_beans_uikit_enqueued_items['components'] = [
+			'core'    => $core,
+			'add-ons' => $addons,
+		];
+
+		// Check the core components.
+		beans_uikit_enqueue_components( 'alert', 'core', false );
+		$this->assertCount( 3, $_beans_uikit_enqueued_items['components']['core'] );
+		$this->assertSame( $core, $_beans_uikit_enqueued_items['components']['core'] );
+
+		// Check when duplicates are in different order.
+		beans_uikit_enqueue_components( [ 'overlay', 'alert', 'button' ], 'core', false );
+		$this->assertCount( 3, $_beans_uikit_enqueued_items['components']['core'] );
+		$this->assertSame( $core, $_beans_uikit_enqueued_items['components']['core'] );
+
+		// Check the add-ons components.
+		beans_uikit_enqueue_components( 'accordion', 'add-ons', false );
+		$this->assertCount( 5, $_beans_uikit_enqueued_items['components']['add-ons'] );
+		$this->assertSame( $addons, $_beans_uikit_enqueued_items['components']['add-ons'] );
+
+		// Check when duplicates are in different order.
+		beans_uikit_enqueue_components( [
+			'datepicker',
+			'sticky',
+			'tooltip',
+			'autocomplete',
+			'accordion',
+		], 'add-ons', false );
+		$this->assertCount( 5, $_beans_uikit_enqueued_items['components']['add-ons'] );
+		$this->assertSame( $addons, $_beans_uikit_enqueued_items['components']['add-ons'] );
+	}
 }
