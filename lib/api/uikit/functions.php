@@ -52,7 +52,7 @@ function beans_uikit_enqueue_components( $components, $type = 'core', $autoload 
 	}
 
 	// Add components into the registry.
-	$_beans_uikit_enqueued_items['components'][ $type ] = array_merge( (array) $_beans_uikit_enqueued_items['components'][ $type ], (array) $components );
+	$_beans_uikit_enqueued_items['components'][ $type ] = beans_join_arrays_clean( (array) $_beans_uikit_enqueued_items['components'][ $type ], (array) $components );
 }
 
 /**
