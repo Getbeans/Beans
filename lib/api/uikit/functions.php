@@ -11,7 +11,7 @@
  *
  * @package Beans\Framework\API\UIkit
  *
- * @since 1.0.0
+ * @since   1.0.0
  */
 
 /**
@@ -27,11 +27,11 @@
  *
  * @since 1.0.0
  *
- * @param string|array $components Name of the component(s) to include as an indexed array. The name(s) must be
- *                                 the UIkit component filename without the extention (e.g. 'grid'). Set to true
- *                                 load all components.
- * @param string       $type       Optional. Type of UIkit components ('core' or 'add-ons').
- * @param bool         $autoload   Optional. Automatically include components dependencies.
+ * @param string|array|bool $components Name of the component(s) to include as an indexed array. The name(s) must be
+ *                                      the UIkit component filename without the extension (e.g. 'grid'). Set to true
+ *                                      load all components.
+ * @param string            $type       Optional. Type of UIkit components ('core' or 'add-ons').
+ * @param bool              $autoload   Optional. Automatically include components dependencies.
  *
  * @return void
  */
@@ -51,7 +51,7 @@ function beans_uikit_enqueue_components( $components, $type = 'core', $autoload 
 		}
 	}
 
-	// Add components.
+	// Add components into the registry.
 	$_beans_uikit_enqueued_items['components'][ $type ] = array_merge( (array) $_beans_uikit_enqueued_items['components'][ $type ], (array) $components );
 }
 
@@ -208,7 +208,7 @@ if ( ! isset( $_beans_uikit_enqueued_items ) ) {
 /**
  * Get registered theme.
  *
- * @since 1.0.0
+ * @since  1.0.0
  * @ignore
  * @access private
  *
@@ -233,7 +233,7 @@ add_action( 'wp_enqueue_scripts', '_beans_uikit_enqueue_assets', 7 );
 /**
  * Enqueue UIkit assets.
  *
- * @since 1.0.0
+ * @since  1.0.0
  * @ignore
  * @access private
  *
@@ -261,7 +261,7 @@ add_action( 'admin_enqueue_scripts', '_beans_uikit_enqueue_admin_assets', 7 );
 /**
  * Enqueue UIkit admin assets.
  *
- * @since 1.0.0
+ * @since  1.0.0
  * @ignore
  * @access private
  *
