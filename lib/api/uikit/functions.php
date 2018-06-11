@@ -40,8 +40,7 @@ function beans_uikit_enqueue_components( $components, $type = 'core', $autoload 
 
 	// Get all uikit components.
 	if ( true === $components ) {
-		$uikit      = new _Beans_Uikit();
-		$components = $uikit->get_all_components( $type );
+		$components = beans_uikit_get_all_components( $type );
 	} elseif ( $autoload ) {
 		$uikit     = new _Beans_Uikit();
 		$autoloads = $uikit->get_autoload_components( (array) $components );
@@ -79,8 +78,7 @@ function beans_uikit_dequeue_components( $components, $type = 'core' ) {
 	global $_beans_uikit_enqueued_items;
 
 	if ( true === $components ) {
-		$uikit      = new _Beans_Uikit();
-		$components = $uikit->get_all_components( $type );
+		$components = beans_uikit_get_all_components( $type );
 	}
 
 	// Remove components.
@@ -166,6 +164,21 @@ function beans_uikit_enqueue_theme( $id, $path = false ) {
 function beans_uikit_dequeue_theme( $id ) {
 	global $_beans_uikit_enqueued_items;
 	unset( $_beans_uikit_enqueued_items['themes'][ $id ] );
+}
+
+/**
+ * Gets all of the UIkit components for the given type, i.e. for core or add-ons.
+ *
+ * @since 1.5.0
+ *
+ * @param string $type Optional. Type of UIkit components ('core' or 'add-ons').
+ *
+ * @return array
+ */
+function beans_uikit_get_all_components( $type = 'core' ) {
+	$uikit = new _Beans_Uikit();
+
+	return $uikit->get_all_components( $type );
 }
 
 /**

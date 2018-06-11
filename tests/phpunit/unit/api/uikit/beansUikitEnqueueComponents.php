@@ -9,8 +9,8 @@
 
 namespace Beans\Framework\Tests\Unit\API\UIkit;
 
-use _Beans_Uikit;
 use Beans\Framework\Tests\Unit\API\UIkit\Includes\UIkit_Test_Case;
+use Brain\Monkey;
 
 require_once __DIR__ . '/includes/class-uikit-test-case.php';
 
@@ -159,5 +159,46 @@ class Tests_BeansUikitEnqueueComponents extends UIkit_Test_Case {
 		], 'add-ons', false );
 		$this->assertCount( 5, $_beans_uikit_enqueued_items['components']['add-ons'] );
 		$this->assertSame( $addons, $_beans_uikit_enqueued_items['components']['add-ons'] );
+	}
+
+	/**
+	 * Test beans_uikit_enqueue_components() should add all core components into the registry when $components is true.
+	 */
+	public function test_should_add_all_core_components_into_registry_when_components_is_true() {
+		$components = [
+			'alert',
+			'animation',
+			'article',
+			'badge',
+			'base',
+		];
+
+		Monkey\Functions\expect( 'beans_uikit_get_all_components' )->once()->with( 'core' )->andReturn( $components );
+
+		beans_uikit_enqueue_components( true );
+
+		global $_beans_uikit_enqueued_items;
+		$this->assertSame( $components, $_beans_uikit_enqueued_items['components']['core'] );
+	}
+
+	/**
+	 * Test beans_uikit_enqueue_components() should add all add-ons components into the registry when $components is true.
+	 */
+	public function test_should_add_all_addons_components_into_registry_when_components_is_true() {
+		$components = [
+			'accordion',
+			'autocomplete',
+			'datepicker',
+			'dotnav',
+			'form-advanced',
+			'sticky',
+		];
+
+		Monkey\Functions\expect( 'beans_uikit_get_all_components' )->once()->with( 'add-ons' )->andReturn( $components );
+
+		beans_uikit_enqueue_components( true, 'add-ons' );
+
+		global $_beans_uikit_enqueued_items;
+		$this->assertSame( $components, $_beans_uikit_enqueued_items['components']['add-ons'] );
 	}
 }
