@@ -29,7 +29,7 @@
  *
  * @param string|array|bool $components Name of the component(s) to include as an indexed array. The name(s) must be
  *                                      the UIkit component filename without the extension (e.g. 'grid'). Set to true
- *                                      load all components.
+ *                                      to load all components.
  * @param string            $type       Optional. Type of UIkit components ('core' or 'add-ons').
  * @param bool              $autoload   Optional. Automatically include components dependencies.
  *
@@ -162,7 +162,7 @@ function beans_uikit_dequeue_theme( $id ) {
 }
 
 /**
- * Gets all of the UIkit components for the given type, i.e. for core or add-ons.
+ * Get all of the UIkit components for the given type, i.e. for core or add-ons.
  *
  * @since 1.5.0
  *
@@ -177,7 +177,7 @@ function beans_uikit_get_all_components( $type = 'core' ) {
 }
 
 /**
- * Gets all of the UIkit dependencies for the given component(s).
+ * Get all of the UIkit dependencies for the given component(s).
  *
  * @since 1.5.0
  *

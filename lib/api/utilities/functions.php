@@ -543,7 +543,7 @@ function beans_join_arrays( array &$array1, array $array2 ) {
 }
 
 /**
- * Removes duplicate values from the given array and re-indexes to start at element 0.  Keys are not preserved.
+ * Remove duplicate values from the given array and re-indexes to start at element 0.  Keys are not preserved.
  *
  * @since 1.5.0
  *

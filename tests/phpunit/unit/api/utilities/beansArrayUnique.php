@@ -31,7 +31,7 @@ class Tests_BeansArrayUnique extends Test_Case {
 	}
 
 	/**
-	 * Test beans_array_unique() should return original array when no duplicates are found.
+	 * Test beans_array_unique() should return the original array when no duplicates are found.
 	 */
 	public function test_should_return_original_array_when_no_duplicates() {
 		$array = [ 'foo', 5, 'bar', 47 ];
@@ -42,9 +42,9 @@ class Tests_BeansArrayUnique extends Test_Case {
 	}
 
 	/**
-	 * Test beans_array_unique() should re-indexed the original array.
+	 * Test beans_array_unique() should re-index the original array.
 	 */
-	public function test_should_reindexed_original_array() {
+	public function test_should_reindex_original_array() {
 		$actual = [
 			'foo',
 			5  => 5,

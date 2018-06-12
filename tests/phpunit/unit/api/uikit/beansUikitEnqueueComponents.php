@@ -24,7 +24,7 @@ require_once __DIR__ . '/includes/class-uikit-test-case.php';
 class Tests_BeansUikitEnqueueComponents extends UIkit_Test_Case {
 
 	/**
-	 * Test beans_uikit_enqueue_components() should add then given core component into registry when given a string.
+	 * Test beans_uikit_enqueue_components() should add the given core component into the registry when given a string.
 	 */
 	public function test_should_add_given_core_component_into_registry_when_given_string() {
 		global $_beans_uikit_enqueued_items;
@@ -45,7 +45,7 @@ class Tests_BeansUikitEnqueueComponents extends UIkit_Test_Case {
 	}
 
 	/**
-	 * Test beans_uikit_enqueue_components() should add then given add-ons component into registry when given a string.
+	 * Test beans_uikit_enqueue_components() should add the given add-ons component into the registry when given a string.
 	 */
 	public function test_should_add_given_addons_component_into_registry_when_given_string() {
 		global $_beans_uikit_enqueued_items;
@@ -66,7 +66,7 @@ class Tests_BeansUikitEnqueueComponents extends UIkit_Test_Case {
 	}
 
 	/**
-	 * Test beans_uikit_enqueue_components() should add the given core components into registry.
+	 * Test beans_uikit_enqueue_components() should add the given core components into the registry.
 	 */
 	public function test_should_add_given_core_components_into_registry() {
 		global $_beans_uikit_enqueued_items;
@@ -88,7 +88,7 @@ class Tests_BeansUikitEnqueueComponents extends UIkit_Test_Case {
 	}
 
 	/**
-	 * Test beans_uikit_enqueue_components() should add the given add-ons components into registry.
+	 * Test beans_uikit_enqueue_components() should add the given add-ons components into the registry.
 	 */
 	public function test_should_add_given_addons_components_into_registry() {
 		global $_beans_uikit_enqueued_items;
