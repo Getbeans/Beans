@@ -42,12 +42,7 @@ function beans_uikit_enqueue_components( $components, $type = 'core', $autoload 
 	if ( true === $components ) {
 		$components = beans_uikit_get_all_components( $type );
 	} elseif ( $autoload ) {
-		$uikit     = new _Beans_Uikit();
-		$autoloads = $uikit->get_autoload_components( (array) $components );
-
-		foreach ( $autoloads as $autotype => $autoload ) {
-			beans_uikit_enqueue_components( $autoload, $autotype, false );
-		}
+		_beans_uikit_autoload_dependencies( $components );
 	}
 
 	// Add components into the registry.
@@ -179,6 +174,41 @@ function beans_uikit_get_all_components( $type = 'core' ) {
 	$uikit = new _Beans_Uikit();
 
 	return $uikit->get_all_components( $type );
+}
+
+/**
+ * Gets all of the UIkit dependencies for the given component(s).
+ *
+ * @since 1.5.0
+ *
+ * @param string|array $components Name of the component(s) to process. The name(s) must be
+ *                                 the UIkit component filename without the extension (e.g. 'grid').
+ *
+ * @return array
+ */
+function beans_uikit_get_all_dependencies( $components ) {
+	$uikit = new _Beans_Uikit();
+
+	return $uikit->get_autoload_components( (array) $components );
+}
+
+/**
+ * Autoload all the component dependencies.
+ *
+ * @since  1.5.0
+ * @ignore
+ * @access private
+ *
+ * @param string|array $components Name of the component(s) to include as an indexed array. The name(s) must be
+ *                                 the UIkit component filename without the extension (e.g. 'grid').
+ *
+ * @return void
+ */
+function _beans_uikit_autoload_dependencies( $components ) {
+
+	foreach ( beans_uikit_get_all_dependencies( $components ) as $type => $autoload ) {
+		beans_uikit_enqueue_components( $autoload, $type, false );
+	}
 }
 
 /**

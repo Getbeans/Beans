@@ -182,7 +182,8 @@ class Tests_BeansUikitEnqueueComponents extends UIkit_Test_Case {
 	}
 
 	/**
-	 * Test beans_uikit_enqueue_components() should add all add-ons components into the registry when $components is true.
+	 * Test beans_uikit_enqueue_components() should add all add-ons components into the registry when $components is
+	 * true.
 	 */
 	public function test_should_add_all_addons_components_into_registry_when_components_is_true() {
 		$components = [
@@ -200,5 +201,54 @@ class Tests_BeansUikitEnqueueComponents extends UIkit_Test_Case {
 
 		global $_beans_uikit_enqueued_items;
 		$this->assertSame( $components, $_beans_uikit_enqueued_items['components']['add-ons'] );
+	}
+
+	/**
+	 * Test beans_uikit_enqueue_components() should add the given core components and each (autoload) dependency into
+	 * the registry.
+	 */
+	public function test_should_add_given_core_components_and_each_dependency_into_registry() {
+		global $_beans_uikit_enqueued_items;
+		$components = [
+			'alert',
+			'button',
+			'overlay',
+			'tab',
+		];
+		Monkey\Functions\expect( '_beans_uikit_autoload_dependencies' )
+			->once()
+			->with( $components )
+			->andReturnUsing( function() {
+				global $_beans_uikit_enqueued_items;
+				$_beans_uikit_enqueued_items['components']['core'] = [ 'flex', 'switcher' ];
+
+				return [ 'flex', 'switcher' ];
+			} );
+
+		beans_uikit_enqueue_components( $components, 'core', true );
+		$expected = array_merge( [ 'flex', 'switcher' ], $components );
+		$this->assertSame( $expected, $_beans_uikit_enqueued_items['components']['core'] );
+	}
+
+	/**
+	 * Test beans_uikit_enqueue_components() should add the given add-ons components and each (autoload) dependency into
+	 * the registry.
+	 */
+	public function test_should_add_given_addons_components_and_each_dependency_into_registry() {
+		global $_beans_uikit_enqueued_items;
+		$components = [ 'accordion', 'autocomplete', 'slideset' ];
+		Monkey\Functions\expect( '_beans_uikit_autoload_dependencies' )
+			->once()
+			->with( $components )
+			->andReturnUsing( function() {
+				global $_beans_uikit_enqueued_items;
+				$_beans_uikit_enqueued_items['components']['add-ons'] = [ 'dotnav' ];
+
+				return [ 'dotnav' ];
+			} );
+
+		beans_uikit_enqueue_components( $components, 'add-ons', true );
+		$expected = array_merge( [ 'dotnav' ], $components );
+		$this->assertSame( $expected, $_beans_uikit_enqueued_items['components']['add-ons'] );
 	}
 }

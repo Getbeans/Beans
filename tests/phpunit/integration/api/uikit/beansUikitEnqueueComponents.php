@@ -62,7 +62,7 @@ class Tests_BeansUikitEnqueueComponents extends UIkit_Test_Case {
 		$this->assertEmpty( $_beans_uikit_enqueued_items['components']['add-ons'] );
 		beans_uikit_enqueue_components( 'lightbox', 'add-ons', true );
 		$expected = [
-			'core' => [
+			'core'    => [
 				'animation',
 				'flex',
 				'close',
