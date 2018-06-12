@@ -64,7 +64,6 @@ class Tests_BeansJoinArraysClean extends Test_Case {
 			2 => 'bar',
 			4 => 'baz',
 		], beans_join_arrays_clean( $array1, $array2, false ) );
-
 	}
 
 	/**

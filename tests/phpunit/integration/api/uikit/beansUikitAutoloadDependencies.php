@@ -49,7 +49,7 @@ class Tests_BeansUikitAutoloadDependencies extends UIkit_Test_Case {
 		global $_beans_uikit_enqueued_items;
 
 		_beans_uikit_autoload_dependencies( [ 'lightbox', 'slideshow' ] );
-		$expected    = [
+		$expected = [
 			'core'    => [
 				'animation',
 				'flex',
