@@ -59,14 +59,17 @@ abstract class HTML_Test_Case extends Test_Case {
 	protected function setUp() {
 		parent::setUp();
 
+		$this->setup_function_mocks();
+		$this->setup_common_wp_stubs();
+
 		$this->load_original_functions( array(
 			'api/html/class-beans-attribute.php',
 			'api/html/functions.php',
+			'api/html/accessibility.php',
 			'api/filters/functions.php',
+			'api/layout/functions.php',
+			'api/widget/functions.php',
 		) );
-
-		$this->setup_function_mocks();
-		$this->setup_common_wp_stubs();
 
 		// Reset the test fixtures.
 		reset( static::$test_markup );
@@ -79,6 +82,7 @@ abstract class HTML_Test_Case extends Test_Case {
 	 */
 	protected function setup_function_mocks() {
 		Monkey\Functions\when( 'beans_esc_attributes' )->alias( array( $this, 'convert_attributes_into_html' ) );
+		Monkey\Functions\when( 'beans_add_smart_action' )->justReturn();
 	}
 
 	/**
