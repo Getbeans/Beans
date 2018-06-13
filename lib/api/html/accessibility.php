@@ -26,11 +26,11 @@ function beans_build_skip_links() {
 
 	if ( 'c' !== $layout ) {
 
-		if ( in_array( $layout, array( 'c_sp', 'sp_c', 'c_sp_ss', 'sp_c_ss', 'sp_ss_c' ), true ) && beans_is_active_widget_area( 'sidebar_primary' ) ) {
+		if ( beans_has_primary_sidebar( $layout ) ) {
 			$skip_links['beans-primary-sidebar'] = __( 'Skip to the primary sidebar.', 'tm-beans' );
 		}
 
-		if ( in_array( $layout, array( 'c_ss', 'ss_c', 'c_sp_ss', 'sp_c_ss', 'sp_ss_c' ), true ) && beans_is_active_widget_area( 'sidebar_secondary' ) ) {
+		if ( beans_has_secondary_sidebar( $layout ) ) {
 			$skip_links['beans-secondary-sidebar'] = __( 'Skip to the secondary sidebar.', 'tm-beans' );
 		}
 	}

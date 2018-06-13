@@ -286,3 +286,39 @@ function beans_get_layouts_for_options( $add_default = false ) {
 
 	return $layouts;
 }
+
+/**
+ * Check if the given layout has a primary sidebar.
+ *
+ * @since 1.5.0
+ *
+ * @param string $layout The layout to check.
+ *
+ * @return bool
+ */
+function beans_has_primary_sidebar( $layout ) {
+
+	if ( ! in_array( $layout, array( 'c_sp', 'sp_c', 'c_sp_ss', 'sp_c_ss', 'sp_ss_c' ), true ) ) {
+		return false;
+	}
+
+	return beans_is_active_widget_area( 'sidebar_primary' );
+}
+
+/**
+ * Check if the given layout has a secondary sidebar.
+ *
+ * @since 1.5.0
+ *
+ * @param string $layout The layout to check.
+ *
+ * @return bool
+ */
+function beans_has_secondary_sidebar( $layout ) {
+
+	if ( ! in_array( $layout, array( 'c_ss', 'ss_c', 'c_sp_ss', 'sp_c_ss', 'sp_ss_c' ), true ) ) {
+		return false;
+	}
+
+	return beans_is_active_widget_area( 'sidebar_secondary' );
+}

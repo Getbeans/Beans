@@ -9,14 +9,14 @@
 
 namespace Beans\Framework\Tests\Integration\API\HTML\Includes;
 
-use WP_UnitTestCase;
+use Beans\Framework\Tests\Integration\Test_Case;
 
 /**
  * Abstract Class HTML_Test_Case
  *
  * @package Beans\Framework\Tests\Integration\API\HTML\Includes
  */
-abstract class HTML_Test_Case extends WP_UnitTestCase {
+abstract class HTML_Test_Case extends Test_Case {
 
 	/**
 	 * An array of markup to test.

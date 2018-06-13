@@ -24,50 +24,41 @@ require_once __DIR__ . '/includes/class-html-test-case.php';
 class Tests_BeansBuildSkipLinks extends HTML_Test_Case {
 
 	/**
-	 * Test beans_build_skip_links() should call beans_is_active_widget_area() once when the layout includes a primary-sidebar.
+	 * Test beans_build_skip_links() should call beans_has_primary_sidebar() and beans_has_secondary_sidebar() when the layout is not full-width('c').
 	 */
-	public function test_should_call_beans_is_active_widget_area_once_when_primary_sidebar_layout() {
+	public function test_should_call_beans_has_primary_sidebar_and_beans_has_secondary_sidebar_when_layout_not_full_width() {
 		Monkey\Functions\expect( 'beans_get_layout' )->once()->andReturn( 'c_sp' );
 		Monkey\Functions\expect( 'has_nav_menu' )
 			->once()
 			->with( 'primary' )
 			->andReturn( 'true' );
-		Monkey\Functions\expect( 'beans_is_active_widget_area' )
+		Monkey\Functions\expect( 'beans_has_primary_sidebar' )
 			->once()
-			->ordered()
-			->with( 'sidebar_primary' )
-			->andReturn( 'true' )
-			->andAlsoExpectIt()
-			->never()
-			->ordered()
-			->with( 'sidebar_secondary' )
-			->andReturn( 'true' );
+			->with( 'c_sp' )
+			->andReturn( true );
+		Monkey\Functions\expect( 'beans_has_secondary_sidebar' )
+			->once()
+			->with( 'c_sp' )
+			->andReturn( false );
 		Monkey\Functions\expect( 'beans_output_skip_links' )
-		->once()
-		->andReturn();
+			->once()
+			->andReturn();
 
 		$this->assertNull( beans_build_skip_links() );
 	}
 
 	/**
-	 * Test beans_build_skip_links() should not call beans_is_active_widget_area() when the layout is full-width.
+	 * Test beans_build_skip_links() should not call beans_has_primary_sidebar() or beans_has_secondary_sidebar() when the layout is full-width.
 	 */
-	public function test_should_not_call_beans_is_active_widget_area_when_fullwith_layout() {
+	public function test_should_not_call_beans_has_primary_sidebar_or_beans_has_secondary_sidebara_when_fullwith_layout() {
 		Monkey\Functions\expect( 'beans_get_layout' )->once()->andReturn( 'c' );
 		Monkey\Functions\expect( 'has_nav_menu' )
 			->once()
 			->with( 'primary' )
 			->andReturn( 'true' );
-		Monkey\Functions\expect( 'beans_is_active_widget_area' )
-			->never()
-			->ordered()
-			->with( 'sidebar_primary' )
-			->andReturn( 'true' )
-			->andAlsoExpectIt()
-			->never()
-			->ordered()
-			->with( 'sidebar_secondary' )
-			->andReturn( 'true' );
+		Monkey\Functions\expect( 'beans_has_primary_sidebar' )->never();
+		Monkey\Functions\expect( 'beans_has_secondary_sidebar' )->never();
+
 		Monkey\Functions\expect( 'beans_output_skip_links' )
 		->once()
 		->andReturn();
@@ -75,29 +66,4 @@ class Tests_BeansBuildSkipLinks extends HTML_Test_Case {
 		$this->assertNull( beans_build_skip_links() );
 	}
 
-	/**
-	 * Test beans_build_skip_links() should call beans_is_active_widget_area() twice when the layout includes a secondary sidebar.
-	 */
-	public function test_should_call_beans_is_active_widget_area_twice_when_secondary_sidebar_layout() {
-		Monkey\Functions\expect( 'beans_get_layout' )->once()->andReturn( 'sp_c_ss' );
-		Monkey\Functions\expect( 'has_nav_menu' )
-			->once()
-			->with( 'primary' )
-			->andReturn( 'true' );
-		Monkey\Functions\expect( 'beans_is_active_widget_area' )
-			->once()
-			->ordered()
-			->with( 'sidebar_primary' )
-			->andReturn( 'true' )
-			->andAlsoExpectIt()
-			->once()
-			->ordered()
-			->with( 'sidebar_secondary' )
-			->andReturn( 'true' );
-		Monkey\Functions\expect( 'beans_output_skip_links' )
-		->once()
-		->andReturn();
-
-		$this->assertNull( beans_build_skip_links() );
-	}
 }
