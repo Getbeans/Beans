@@ -11,7 +11,7 @@
  *
  * @package Beans\Framework\API\UIkit
  *
- * @since 1.0.0
+ * @since   1.0.0
  */
 
 /**
@@ -27,11 +27,11 @@
  *
  * @since 1.0.0
  *
- * @param string|array $components Name of the component(s) to include as an indexed array. The name(s) must be
- *                                 the UIkit component filename without the extention (e.g. 'grid'). Set to true
- *                                 load all components.
- * @param string       $type       Optional. Type of UIkit components ('core' or 'add-ons').
- * @param bool         $autoload   Optional. Automatically include components dependencies.
+ * @param string|array|bool $components Name of the component(s) to include as an indexed array. The name(s) must be
+ *                                      the UIkit component filename without the extension (e.g. 'grid'). Set to true
+ *                                      to load all components.
+ * @param string            $type       Optional. Type of UIkit components ('core' or 'add-ons').
+ * @param bool              $autoload   Optional. Automatically include components dependencies.
  *
  * @return void
  */
@@ -40,19 +40,13 @@ function beans_uikit_enqueue_components( $components, $type = 'core', $autoload 
 
 	// Get all uikit components.
 	if ( true === $components ) {
-		$uikit      = new _Beans_Uikit();
-		$components = $uikit->get_all_components( $type );
+		$components = beans_uikit_get_all_components( $type );
 	} elseif ( $autoload ) {
-		$uikit     = new _Beans_Uikit();
-		$autoloads = $uikit->get_autoload_components( (array) $components );
-
-		foreach ( $autoloads as $autotype => $autoload ) {
-			beans_uikit_enqueue_components( $autoload, $autotype, false );
-		}
+		_beans_uikit_autoload_dependencies( $components );
 	}
 
-	// Add components.
-	$_beans_uikit_enqueued_items['components'][ $type ] = array_merge( (array) $_beans_uikit_enqueued_items['components'][ $type ], (array) $components );
+	// Add components into the registry.
+	$_beans_uikit_enqueued_items['components'][ $type ] = beans_join_arrays_clean( (array) $_beans_uikit_enqueued_items['components'][ $type ], (array) $components );
 }
 
 /**
@@ -79,8 +73,7 @@ function beans_uikit_dequeue_components( $components, $type = 'core' ) {
 	global $_beans_uikit_enqueued_items;
 
 	if ( true === $components ) {
-		$uikit      = new _Beans_Uikit();
-		$components = $uikit->get_all_components( $type );
+		$components = beans_uikit_get_all_components( $type );
 	}
 
 	// Remove components.
@@ -169,6 +162,56 @@ function beans_uikit_dequeue_theme( $id ) {
 }
 
 /**
+ * Get all of the UIkit components for the given type, i.e. for core or add-ons.
+ *
+ * @since 1.5.0
+ *
+ * @param string $type Optional. Type of UIkit components ('core' or 'add-ons').
+ *
+ * @return array
+ */
+function beans_uikit_get_all_components( $type = 'core' ) {
+	$uikit = new _Beans_Uikit();
+
+	return $uikit->get_all_components( $type );
+}
+
+/**
+ * Get all of the UIkit dependencies for the given component(s).
+ *
+ * @since 1.5.0
+ *
+ * @param string|array $components Name of the component(s) to process. The name(s) must be
+ *                                 the UIkit component filename without the extension (e.g. 'grid').
+ *
+ * @return array
+ */
+function beans_uikit_get_all_dependencies( $components ) {
+	$uikit = new _Beans_Uikit();
+
+	return $uikit->get_autoload_components( (array) $components );
+}
+
+/**
+ * Autoload all the component dependencies.
+ *
+ * @since  1.5.0
+ * @ignore
+ * @access private
+ *
+ * @param string|array $components Name of the component(s) to include as an indexed array. The name(s) must be
+ *                                 the UIkit component filename without the extension (e.g. 'grid').
+ *
+ * @return void
+ */
+function _beans_uikit_autoload_dependencies( $components ) {
+
+	foreach ( beans_uikit_get_all_dependencies( $components ) as $type => $autoload ) {
+		beans_uikit_enqueue_components( $autoload, $type, false );
+	}
+}
+
+/**
  * Initialize registered UIkit items global.
  *
  * @ignore
@@ -208,7 +251,7 @@ if ( ! isset( $_beans_uikit_enqueued_items ) ) {
 /**
  * Get registered theme.
  *
- * @since 1.0.0
+ * @since  1.0.0
  * @ignore
  * @access private
  *
@@ -233,7 +276,7 @@ add_action( 'wp_enqueue_scripts', '_beans_uikit_enqueue_assets', 7 );
 /**
  * Enqueue UIkit assets.
  *
- * @since 1.0.0
+ * @since  1.0.0
  * @ignore
  * @access private
  *
@@ -261,7 +304,7 @@ add_action( 'admin_enqueue_scripts', '_beans_uikit_enqueue_admin_assets', 7 );
 /**
  * Enqueue UIkit admin assets.
  *
- * @since 1.0.0
+ * @since  1.0.0
  * @ignore
  * @access private
  *

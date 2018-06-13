@@ -534,11 +534,49 @@ function beans_join_arrays( array &$array1, array $array2 ) {
 	// If the 1st array is empty, set it to the 2nd array. Then bail out as we're done.
 	if ( empty( $array1 ) ) {
 		$array1 = $array2;
+
 		return;
 	}
 
 	// Both arrays have elements. Let's join them together.
 	$array1 = array_merge( $array1, $array2 );
+}
+
+/**
+ * Remove duplicate values from the given array and re-indexes to start at element 0.  Keys are not preserved.
+ *
+ * @since 1.5.0
+ *
+ * @param array $array The given array to filter.
+ *
+ * @return array
+ */
+function beans_array_unique( array $array ) {
+	return array_values( array_unique( $array ) );
+}
+
+/**
+ * Join the given arrays and clean the merged array by removing duplicates and empties. By default, the clean joined
+ * array is re-indexed; however, setting the third parameter to `false` will preserve the keys.
+ *
+ * @since 1.5.0
+ *
+ * @param array $array1  Initial array to join.
+ * @param array $array2  The array to merge into $array1.
+ * @param bool  $reindex When true, re-indexes the clean array; else, preserves the keys.
+ *
+ * @return array
+ */
+function beans_join_arrays_clean( array $array1, array $array2, $reindex = true ) {
+	beans_join_arrays( $array1, $array2 );
+
+	if ( empty( $array1 ) ) {
+		return $array1;
+	}
+
+	$array1 = array_filter( array_unique( $array1 ) );
+
+	return $reindex ? array_values( $array1 ) : $array1;
 }
 
 /**
@@ -563,7 +601,7 @@ function _beans_is_uri( $maybe_uri ) {
 /**
  * Checks if WP is doing ajax.
  *
- * @since 1.5.0
+ * @since  1.5.0
  * @ignore
  * @access private
  *
@@ -576,7 +614,7 @@ function _beans_doing_ajax() {
 /**
  * Checks if WP is doing an autosave.
  *
- * @since 1.5.0
+ * @since  1.5.0
  * @ignore
  * @access private
  *
