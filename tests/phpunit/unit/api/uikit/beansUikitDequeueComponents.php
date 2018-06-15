@@ -150,8 +150,6 @@ class Tests_BeansUikitDequeueComponents extends UIkit_Test_Case {
 		];
 		$_beans_uikit_enqueued_items['components']['core'] = $components;
 
-		Monkey\Functions\expect( 'beans_uikit_get_all_components' )->once()->with( 'core' )->andReturn( $components );
-
 		beans_uikit_dequeue_components( true );
 		$this->assertEmpty( $_beans_uikit_enqueued_items['components']['core'] );
 	}
@@ -171,8 +169,6 @@ class Tests_BeansUikitDequeueComponents extends UIkit_Test_Case {
 			'sticky',
 		];
 		$_beans_uikit_enqueued_items['components']['add-ons'] = $components;
-
-		Monkey\Functions\expect( 'beans_uikit_get_all_components' )->once()->with( 'add-ons' )->andReturn( $components );
 
 		beans_uikit_dequeue_components( true, 'add-ons' );
 		$this->assertEmpty( $_beans_uikit_enqueued_items['components']['add-ons'] );

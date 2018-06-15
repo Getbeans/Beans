@@ -72,8 +72,10 @@ function beans_uikit_enqueue_components( $components, $type = 'core', $autoload 
 function beans_uikit_dequeue_components( $components, $type = 'core' ) {
 	global $_beans_uikit_enqueued_items;
 
+	// When true, remove all of the components from the registry.
 	if ( true === $components ) {
-		$components = beans_uikit_get_all_components( $type );
+		$_beans_uikit_enqueued_items['components'][ $type ] = array();
+		return;
 	}
 
 	// Remove components.
