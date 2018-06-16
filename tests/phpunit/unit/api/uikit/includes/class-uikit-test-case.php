@@ -42,6 +42,13 @@ abstract class UIkit_Test_Case extends Test_Case {
 	protected $mock_filesystem;
 
 	/**
+	 * Array of default themes.
+	 *
+	 * @var array
+	 */
+	protected $themes;
+
+	/**
 	 * Prepares the test environment before each test.
 	 */
 	protected function setUp() {
@@ -108,6 +115,12 @@ abstract class UIkit_Test_Case extends Test_Case {
 		Monkey\Functions\when( 'beans_join_arrays' )->alias( function( &$array1, $array2 ) {
 			$array1 = array_merge( $array1, $array2 );
 		} );
+
+		Monkey\Functions\when( 'beans_get' )->alias( function( $needle, array $haystack, $default = null ) {
+			return isset( $haystack[ $needle ] )
+				? $haystack[ $needle ]
+				: $default;
+		} );
 	}
 
 	/**
@@ -116,21 +129,21 @@ abstract class UIkit_Test_Case extends Test_Case {
 	protected function reset_globals() {
 		global $_beans_uikit_enqueued_items, $_beans_uikit_registered_items;
 
-		$_beans_uikit_enqueued_items = array(
-			'components' => array(
-				'core'    => array(),
-				'add-ons' => array(),
-			),
-			'themes'     => array(),
-		);
+		$_beans_uikit_enqueued_items = [
+			'components' => [
+				'core'    => [],
+				'add-ons' => [],
+			],
+			'themes'     => [],
+		];
 
-		$_beans_uikit_registered_items = array(
-			'themes' => array(
-				'default'         => BEANS_API_PATH . 'uikit/src/themes/default',
-				'almost-flat'     => BEANS_API_PATH . 'uikit/src/themes/almost-flat',
-				'gradient'        => BEANS_API_PATH . 'uikit/src/themes/gradient',
-				'wordpress-admin' => BEANS_API_PATH . 'uikit/themes/wordpress-admin',
-			),
-		);
+		$this->themes = [
+			'default'         => BEANS_API_PATH . 'uikit/src/themes/default',
+			'almost-flat'     => BEANS_API_PATH . 'uikit/src/themes/almost-flat',
+			'gradient'        => BEANS_API_PATH . 'uikit/src/themes/gradient',
+			'wordpress-admin' => BEANS_API_PATH . 'uikit/themes/wordpress-admin',
+		];
+
+		$_beans_uikit_registered_items = [ 'themes' => $this->themes ];
 	}
 }
