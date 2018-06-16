@@ -115,6 +115,12 @@ abstract class UIkit_Test_Case extends Test_Case {
 		Monkey\Functions\when( 'beans_join_arrays' )->alias( function( &$array1, $array2 ) {
 			$array1 = array_merge( $array1, $array2 );
 		} );
+
+		Monkey\Functions\when( 'beans_get' )->alias( function( $needle, array $haystack, $default = null ) {
+			return isset( $haystack[ $needle ] )
+				? $haystack[ $needle ]
+				: $default;
+		} );
 	}
 
 	/**
