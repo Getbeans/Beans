@@ -10,7 +10,6 @@
 namespace Beans\Framework\Tests\Unit\API\UIkit;
 
 use Beans\Framework\Tests\Unit\API\UIkit\Includes\UIkit_Test_Case;
-use Brain\Monkey;
 
 require_once __DIR__ . '/includes/class-uikit-test-case.php';
 
@@ -88,12 +87,12 @@ class Tests_BeansUikitDequeueComponents extends UIkit_Test_Case {
 	 * array.
 	 */
 	public function test_should_remove_given_core_components_from_registry_when_given_array() {
-		global $_beans_uikit_enqueued_items;
-		$components                                        = [
+		$components = [
 			'alert',
 			'button',
 			'overlay',
 		];
+		global $_beans_uikit_enqueued_items;
 		$_beans_uikit_enqueued_items['components']['core'] = $components;
 
 		beans_uikit_dequeue_components( [ 'alert' ] );
@@ -116,12 +115,12 @@ class Tests_BeansUikitDequeueComponents extends UIkit_Test_Case {
 	 * an array.
 	 */
 	public function test_should_remove_given_addons_component_from_registry_when_given_array() {
-		global $_beans_uikit_enqueued_items;
-		$components                                           = [
+		$components = [
 			'accordion',
 			'datepicker',
 			'sticky',
 		];
+		global $_beans_uikit_enqueued_items;
 		$_beans_uikit_enqueued_items['components']['add-ons'] = $components;
 
 		beans_uikit_dequeue_components( [ 'sticky' ], 'add-ons' );
@@ -137,10 +136,10 @@ class Tests_BeansUikitDequeueComponents extends UIkit_Test_Case {
 	}
 
 	/**
-	 * Test beans_uikit_dequeue_components() should remove all core components from the registry when $components is true.
+	 * Test beans_uikit_dequeue_components() should remove all core components from the registry when $components is
+	 * true.
 	 */
 	public function test_should_remove_all_core_components_from_registry_when_components_is_true() {
-		global $_beans_uikit_enqueued_items;
 		$components = [
 			'alert',
 			'animation',
@@ -148,6 +147,7 @@ class Tests_BeansUikitDequeueComponents extends UIkit_Test_Case {
 			'badge',
 			'base',
 		];
+		global $_beans_uikit_enqueued_items;
 		$_beans_uikit_enqueued_items['components']['core'] = $components;
 
 		beans_uikit_dequeue_components( true );
@@ -159,7 +159,6 @@ class Tests_BeansUikitDequeueComponents extends UIkit_Test_Case {
 	 * true.
 	 */
 	public function test_should_remove_all_addons_components_from_registry_when_components_is_true() {
-		global $_beans_uikit_enqueued_items;
 		$components = [
 			'accordion',
 			'autocomplete',
@@ -168,6 +167,7 @@ class Tests_BeansUikitDequeueComponents extends UIkit_Test_Case {
 			'form-advanced',
 			'sticky',
 		];
+		global $_beans_uikit_enqueued_items;
 		$_beans_uikit_enqueued_items['components']['add-ons'] = $components;
 
 		beans_uikit_dequeue_components( true, 'add-ons' );

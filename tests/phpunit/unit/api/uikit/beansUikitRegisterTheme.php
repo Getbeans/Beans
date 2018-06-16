@@ -32,10 +32,9 @@ class Tests_BeansUikitRegisterTheme extends UIkit_Test_Case {
 		Monkey\Functions\expect( 'trailingslashit' )->never();
 
 		// Check the built-in themes.
-		$this->assertTrue( beans_uikit_register_theme( 'default', '' ) );
-		$this->assertTrue( beans_uikit_register_theme( 'almost-flat', '' ) );
-		$this->assertTrue( beans_uikit_register_theme( 'gradient', '' ) );
-		$this->assertTrue( beans_uikit_register_theme( 'wordpress-admin', '' ) );
+		foreach ( [ 'default', 'almost-flat', 'gradient', 'wordpress-admin' ] as $theme_id ) {
+			$this->assertTrue( beans_uikit_register_theme( $theme_id, '' ) );
+		}
 
 		// Check the child theme.
 		global $_beans_uikit_registered_items;
