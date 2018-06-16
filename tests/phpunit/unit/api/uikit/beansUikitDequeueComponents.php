@@ -136,8 +136,8 @@ class Tests_BeansUikitDequeueComponents extends UIkit_Test_Case {
 	}
 
 	/**
-	 * Test beans_uikit_dequeue_components() should remove all core components from the registry when $components is
-	 * true.
+	 * Test beans_uikit_dequeue_components() should remove all core components from the registry when true is passed as
+	 * the argument for $components.
 	 */
 	public function test_should_remove_all_core_components_from_registry_when_components_is_true() {
 		$components = [
@@ -155,8 +155,8 @@ class Tests_BeansUikitDequeueComponents extends UIkit_Test_Case {
 	}
 
 	/**
-	 * Test beans_uikit_enqueue_components() should remove all add-ons components from the registry when $components is
-	 * true.
+	 * Test beans_uikit_enqueue_components() should remove all add-ons components from the registry when true is passed as
+	 * the argument for $components.
 	 */
 	public function test_should_remove_all_addons_components_from_registry_when_components_is_true() {
 		$components = [

@@ -64,7 +64,7 @@ function beans_uikit_enqueue_components( $components, $type = 'core', $autoload 
  *
  * @param string|array $components Name of the component(s) to exclude as an indexed array. The name(s) must be
  *                                 the UIkit component filename without the extention (e.g. 'grid'). Set to true
- *                                 exclude all components.
+ *                                 to exclude all components.
  * @param string       $type       Optional. Type of UIkit components ('core' or 'add-ons').
  *
  * @return void
