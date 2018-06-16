@@ -10,7 +10,6 @@
 namespace Beans\Framework\Tests\Unit\API\UIkit;
 
 use Beans\Framework\Tests\Unit\API\UIkit\Includes\UIkit_Test_Case;
-use Brain\Monkey;
 use org\bovigo\vfs\vfsStream;
 
 require_once __DIR__ . '/includes/class-uikit-test-case.php';
