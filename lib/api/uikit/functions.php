@@ -75,6 +75,7 @@ function beans_uikit_dequeue_components( $components, $type = 'core' ) {
 	// When true, remove all of the components from the registry.
 	if ( true === $components ) {
 		$_beans_uikit_enqueued_items['components'][ $type ] = array();
+
 		return;
 	}
 
@@ -251,27 +252,20 @@ if ( ! isset( $_beans_uikit_enqueued_items ) ) {
 }
 
 /**
- * Get registered theme.
+ * Get the path for the given theme ID, if the theme is registered.
  *
  * @since  1.0.0
  * @ignore
  * @access private
  *
- * @param string $id UIkit theme ID.
+ * @param string $id The theme ID to get.
  *
- * @return mixed
+ * @return string|bool Returns false if the theme is not registered.
  */
 function _beans_uikit_get_registered_theme( $id ) {
 	global $_beans_uikit_registered_items;
 
-	// Stop here if the theme is already registered.
-	$theme = beans_get( $id, $_beans_uikit_registered_items['themes'] );
-
-	if ( $theme ) {
-		return $theme;
-	}
-
-	return false;
+	return beans_get( $id, $_beans_uikit_registered_items['themes'], false );
 }
 
 add_action( 'wp_enqueue_scripts', '_beans_uikit_enqueue_assets', 7 );
