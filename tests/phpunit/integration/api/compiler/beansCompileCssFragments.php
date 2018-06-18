@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for beans_compile_less_fragments()
+ * Tests for beans_compile_css_fragments()
  *
  * @package Beans\Framework\Tests\Integration\API\Compiler
  *
@@ -15,20 +15,20 @@ use org\bovigo\vfs\vfsStream;
 require_once __DIR__ . '/includes/class-compiler-test-case.php';
 
 /**
- * Class Tests_BeansCompileLessFragments
+ * Class Tests_BeansCompileCssFragments
  *
  * @package Beans\Framework\Tests\Integration\API\Compiler
  * @group   api
  * @group   api-compiler
  */
-class Tests_BeansCompileLessFragments extends Compiler_Test_Case {
+class Tests_BeansCompileCssFragments extends Compiler_Test_Case {
 
 	/**
-	 * The Less content.
+	 * The CSS content.
 	 *
 	 * @var string
 	 */
-	protected $less;
+	protected $css;
 
 	/**
 	 * Set up the test fixture.
@@ -36,29 +36,26 @@ class Tests_BeansCompileLessFragments extends Compiler_Test_Case {
 	public function setUp() {
 		parent::setUp();
 
-		$fixtures   = $this->mock_filesystem->getChild( 'fixtures' );
-		$this->less = $fixtures->getChild( 'variables.less' )->getContent() . $fixtures->getChild( 'test.less' )->getContent();
+		$fixtures  = $this->mock_filesystem->getChild( 'fixtures' );
+		$this->css = $fixtures->getChild( 'style.css' )->getContent();
 	}
 
 	/**
-	 * Test beans_compile_less_fragments() should compile the Less fragments, saving it to the virtual filesystem and
+	 * Test beans_compile_css_fragments() should compile the CSS fragments, saving it to the virtual filesystem and
 	 * enqueuing it in WordPress.
 	 */
-	public function test_should_compile_save_and_enqueue_less() {
-		$id        = 'compile-less-fragments';
-		$fragments = array(
-			vfsStream::url( 'compiled/fixtures/test.less' ),
-			vfsStream::url( 'compiled/fixtures/variables.less' ),
-		);
+	public function test_should_compile_save_and_enqueue_css() {
+		$id       = 'compile-css-fragments';
+		$fragment = vfsStream::url( 'compiled/fixtures/style.css' );
 		$this->add_virtual_directory( $id );
 		$path = vfsStream::url( "compiled/beans/compiler/{$id}/" );
 
 		// Run the tests.
 		$this->assertEmpty( $this->get_compiled_filename( $path ) );
-		beans_compile_less_fragments( $id, $fragments );
+		beans_compile_css_fragments( $id, $fragment );
 		$filename = $this->get_compiled_filename( $path );
 		$this->assertFileExists( $path . $filename );
 		$this->assertStringEndsWith( '.css', $filename );
-		$this->assertSame( $this->get_compiled_less(), $this->get_cached_contents( $filename, $id ) );
+		$this->assertSame( $this->get_compiled_css(), $this->get_cached_contents( $filename, $id ) );
 	}
 }

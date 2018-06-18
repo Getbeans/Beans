@@ -28,7 +28,7 @@
  * @param array        $args        {
  *                                  Optional. Array of arguments used by the compiler.
  *
- * @type array         $depedencies An array of registered handles this script depends on. Default false.
+ * @type array         $depedencies An array of registered handles this script depends on. Default is an empty array.
  * }
  *
  * @return void|bool
