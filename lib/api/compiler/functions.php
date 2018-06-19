@@ -21,14 +21,14 @@
  *
  * @since 1.0.0
  *
- * @param string       $id          A unique string used as a reference. Similar to the WordPress scripts
- *                                  $handle argument.
- * @param string|array $fragments   File(s) absolute path. Internal or external file(s) url accepted but may increase
- *                                  compiling time.
- * @param array        $args        {
- *                                  Optional. Array of arguments used by the compiler.
+ * @param string       $id           A unique string used as a reference. Similar to the WordPress scripts
+ *                                   $handle argument.
+ * @param string|array $fragments    File(s) absolute path. Internal or external file(s) url accepted but may increase
+ *                                   compiling time.
+ * @param array        $args         {
+ *                                   Optional. Array of arguments used by the compiler.
  *
- * @type array         $depedencies An array of registered handles this script depends on. Default false.
+ * @type array         $dependencies An array of registered handles this script depends on. Default is an empty array.
  * }
  *
  * @return void|bool
@@ -39,15 +39,7 @@ function beans_compile_css_fragments( $id, $fragments, $args = array() ) {
 		return false;
 	}
 
-	$params = array(
-		'id'        => $id,
-		'type'      => 'style',
-		'format'    => 'css',
-		'fragments' => (array) $fragments,
-	);
-
-	$compiler = new _Beans_Compiler( $params + $args );
-	$compiler->run_compiler();
+	_beans_compile_fragments( $id, 'css', $fragments, $args );
 }
 
 /**
@@ -60,13 +52,13 @@ function beans_compile_css_fragments( $id, $fragments, $args = array() ) {
  *
  * @since 1.0.0
  *
- * @param string       $id          The compiler ID. Similar to the WordPress scripts $handle argument.
- * @param string|array $fragments   File(s) absolute path. Internal or external file(s) url accepted but may increase
- *                                  compiling time.
- * @param array        $args        {
- *                                  Optional. Array of arguments used by the compiler.
+ * @param string       $id           The compiler ID. Similar to the WordPress scripts $handle argument.
+ * @param string|array $fragments    File(s) absolute path. Internal or external file(s) url accepted but may increase
+ *                                   compiling time.
+ * @param array        $args         {
+ *                                   Optional. Array of arguments used by the compiler.
  *
- * @type array         $depedencies An array of registered handles this script depends on. Default false.
+ * @type array         $dependencies An array of registered handles this script depends on. Default is an empty array.
  * }
  *
  * @return void|bool
@@ -77,15 +69,7 @@ function beans_compile_less_fragments( $id, $fragments, $args = array() ) {
 		return false;
 	}
 
-	$params = array(
-		'id'        => $id,
-		'type'      => 'style',
-		'format'    => 'less',
-		'fragments' => (array) $fragments,
-	);
-
-	$compiler = new _Beans_Compiler( $params + $args );
-	$compiler->run_compiler();
+	_beans_compile_fragments( $id, 'less', $fragments, $args );
 }
 
 /**
@@ -98,15 +82,15 @@ function beans_compile_less_fragments( $id, $fragments, $args = array() ) {
  *
  * @since 1.0.0
  *
- * @param string       $id          The compiler ID. Similar to the WordPress scripts $handle argument.
- * @param string|array $fragments   File(s) absolute path. Internal or external file(s) URL accepted but may increase
- *                                  compiling time.
- * @param array        $args        {
- *                                  Optional. Array of arguments used by the compiler.
+ * @param string       $id           The compiler ID. Similar to the WordPress scripts $handle argument.
+ * @param string|array $fragments    File(s) absolute path. Internal or external file(s) URL accepted but may increase
+ *                                   compiling time.
+ * @param array        $args         {
+ *                                   Optional. Array of arguments used by the compiler.
  *
- * @type array         $depedencies An array of registered handles this script depends on. Default false.
- * @type bool          $in_footer   Whether to enqueue the script before </head> or before </body>. Default false.
- * @type bool          $minify_js   Whether the JavaScript should be minified or not. Be aware that minifying
+ * @type array         $dependencies An array of registered handles this script depends on. Default false.
+ * @type bool          $in_footer    Whether to enqueue the script before </head> or before </body>. Default false.
+ * @type bool          $minify_js    Whether the JavaScript should be minified or not. Be aware that minifying
  *                                      the JavaScript can considerably slow down the process of compiling files.
  *                                      Default false.
  * }
@@ -119,14 +103,32 @@ function beans_compile_js_fragments( $id, $fragments, $args = array() ) {
 		return false;
 	}
 
-	$params = array(
+	_beans_compile_fragments( $id, 'js', $fragments, $args, true );
+}
+
+/**
+ * Compile the given fragments.
+ *
+ * @since 1.5.0
+ *
+ * @param string       $id           The ID.
+ * @param string       $format       The format type.
+ * @param string|array $fragments    File(s) absolute path. Internal or external file(s) URL accepted but may increase
+ *                                   compiling time.
+ * @param array        $args         Optional. An array of arguments.
+ * @param bool         $is_script    Optional. When true, the fragment(s) is(are) script(s).
+ *
+ * @return void
+ */
+function _beans_compile_fragments( $id, $format, $fragments, array $args = array(), $is_script = false ) {
+	$config = array(
 		'id'        => $id,
-		'type'      => 'script',
-		'format'    => 'js',
+		'type'      => $is_script ? 'script' : 'style',
+		'format'    => $format,
 		'fragments' => (array) $fragments,
 	);
 
-	$compiler = new _Beans_Compiler( $params + $args );
+	$compiler = new _Beans_Compiler( $config + $args );
 	$compiler->run_compiler();
 }
 
@@ -204,22 +206,20 @@ function beans_flush_compiler( $id, $file_format = false, $admin = false ) {
 		return;
 	}
 
-	// Remove only the specified file format.
-	if ( $file_format ) {
-		$items = scandir( $dir );
-		unset( $items[0], $items[1] );
-
-		foreach ( $items as $item ) {
-			if ( false !== stripos( $item, '.' . $file_format ) ) {
-				@unlink( trailingslashit( $dir ) . $item ); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Valid use case.
-			}
-		}
+	// Remove all file formats.
+	if ( ! $file_format ) {
+		beans_remove_dir( $dir );
 
 		return;
 	}
 
-	// Remove all file formats.
-	beans_remove_dir( $dir );
+	// Remove only the specified file format.
+	foreach ( beans_scandir( $dir ) as $item ) {
+
+		if ( beans_str_ends_with( $item, ".{$file_format}" ) ) {
+			@unlink( trailingslashit( $dir ) . $item ); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Valid use case.
+		}
+	}
 }
 
 /**

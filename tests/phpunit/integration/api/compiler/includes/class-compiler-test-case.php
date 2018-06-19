@@ -70,6 +70,14 @@ abstract class Compiler_Test_Case extends Base_Test_Case {
 	public function setUp() {
 		parent::setUp();
 
+		// Set up the global fragments container.
+		global $_beans_compiler_added_fragments;
+		$_beans_compiler_added_fragments = array(
+			'css'  => array(),
+			'less' => array(),
+			'js'   => array(),
+		);
+
 		// Return the virtual filesystem's path to avoid wp_normalize_path converting its prefix from vfs::// to vfs:/.
 		Monkey\Functions\when( 'wp_normalize_path' )->returnArg();
 	}
@@ -222,6 +230,40 @@ abstract class Compiler_Test_Case extends Base_Test_Case {
 		}
 
 		$GLOBALS['wp_filesystem'] = $mock; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Valid use case, as we are mocking the filesystem.
+	}
+
+	/**
+	 * Get the file's content.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string $filename  Name of the file.
+	 * @param string $id File's ID.
+	 *
+	 * @return string
+	 */
+	protected function get_cached_contents( $filename, $id ) {
+		return $this->mock_filesystem
+			->getChild( 'beans/compiler/' . $id )
+			->getChild( $filename )
+			->getContent();
+	}
+
+	/**
+	 * Get the compiled file's name.
+	 *
+	 * @param string $path The virtual filesystem's path.
+	 *
+	 * @return string
+	 */
+	protected function get_compiled_filename( $path ) {
+		$files = beans_scandir( $path );
+
+		if ( empty( $files ) ) {
+			return '';
+		}
+
+		return array_pop( $files );
 	}
 
 	/**

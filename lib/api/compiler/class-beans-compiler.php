@@ -732,8 +732,7 @@ final class _Beans_Compiler {
 	 * @return void
 	 */
 	private function remove_modified_files( $hash, $filemtime_hash ) {
-		$items = @scandir( $this->dir );  // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Valid use case.
-		unset( $items[0], $items[1] );
+		$items = beans_scandir( $this->dir );
 
 		if ( empty( $items ) ) {
 			return;

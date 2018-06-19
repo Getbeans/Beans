@@ -77,10 +77,7 @@ function beans_remove_dir( $dir_path ) {
 		return false;
 	}
 
-	$items = scandir( $dir_path );
-	unset( $items[0], $items[1] );
-
-	foreach ( $items as $needle => $item ) {
+	foreach ( beans_scandir( $dir_path ) as $needle => $item ) {
 		$path = $dir_path . '/' . $item;
 
 		if ( is_dir( $path ) ) {
@@ -91,6 +88,89 @@ function beans_remove_dir( $dir_path ) {
 	}
 
 	return @rmdir( $dir_path ); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Valid use case.
+}
+
+/**
+ * List files and directories inside of the specified path.
+ *
+ * @since 1.5.0
+ *
+ * @param string $dir_path Path to the directory to scan.
+ *
+ * @return array|bool Returns false upon error.
+ */
+function beans_scandir( $dir_path ) {
+	$items = @scandir( $dir_path ); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Valid use case.
+
+	if ( ! $items ) {
+		return false;
+	}
+
+	// Get rid of dot files when present.
+	if ( '.' === $items[0] ) {
+		unset( $items[0], $items[1] );
+	}
+
+	return $items;
+}
+
+/**
+ * Check if the given string ends with the given substring(s).
+ *
+ * When passing an array of needles, the first needle match returns `true`.  Therefore, only one word in the array
+ * needs to match.
+ *
+ * @since 1.5.0
+ *
+ * @param string       $haystack The given string to check.
+ * @param string|array $needles  The substring(s) to check for at the end of the given string.
+ *
+ * @return bool
+ */
+function beans_str_ends_with( $haystack, $needles ) {
+	$haystack = (string) $haystack;
+
+	foreach ( (array) $needles as $needle ) {
+		$substring = mb_substr( $haystack, -mb_strlen( $needle ) );
+
+		if ( $substring === (string) $needle ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/**
+ * Check if the given string starts with the given substring(s).
+ *
+ * When passing an array of needles, the first needle match returns `true`.  Therefore, only one word in the array
+ * needs to match.
+ *
+ * @since 1.5.0
+ *
+ * @param string       $haystack The given string to check.
+ * @param string|array $needles  The substring(s) to check for at the beginning of the given string.
+ *
+ * @return bool
+ */
+function beans_str_starts_with( $haystack, $needles ) {
+	$haystack = (string) $haystack;
+
+	foreach ( (array) $needles as $needle ) {
+
+		if ( '' === $needle ) {
+			continue;
+		}
+
+		$substring = mb_substr( $haystack, 0, mb_strlen( $needle ) );
+
+		if ( $substring === (string) $needle ) {
+			return true;
+		}
+	}
+
+	return false;
 }
 
 /**
