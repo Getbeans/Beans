@@ -84,4 +84,18 @@ abstract class Base_Test_Case extends Test_Case {
 			),
 		);
 	}
+
+	/**
+	 * Add the virtual directory to the filesystem.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string $dir_name Directory name.
+	 * @param string $root_dir Optional. Root directory(ies) for the new directory.
+	 *
+	 * @return void
+	 */
+	protected function add_virtual_directory( $dir_name, $root_dir = 'compiled/beans/compiler' ) {
+		vfsStream::newDirectory( $dir_name )->at( $this->mock_filesystem->getChild( $root_dir ) );
+	}
 }
