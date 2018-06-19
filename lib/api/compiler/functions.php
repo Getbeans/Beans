@@ -206,21 +206,20 @@ function beans_flush_compiler( $id, $file_format = false, $admin = false ) {
 		return;
 	}
 
-	// Remove only the specified file format.
-	if ( $file_format ) {
-		$items = beans_scandir( $dir );
-
-		foreach ( $items as $item ) {
-			if ( false !== stripos( $item, '.' . $file_format ) ) {
-				@unlink( trailingslashit( $dir ) . $item ); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Valid use case.
-			}
-		}
+	// Remove all file formats.
+	if ( ! $file_format ) {
+		beans_remove_dir( $dir );
 
 		return;
 	}
 
-	// Remove all file formats.
-	beans_remove_dir( $dir );
+	// Remove only the specified file format.
+	foreach ( beans_scandir( $dir ) as $item ) {
+
+		if ( beans_str_ends_with( $item, ".{$file_format}" ) ) {
+			@unlink( trailingslashit( $dir ) . $item ); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Valid use case.
+		}
+	}
 }
 
 /**
