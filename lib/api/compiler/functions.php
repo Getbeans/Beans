@@ -208,8 +208,7 @@ function beans_flush_compiler( $id, $file_format = false, $admin = false ) {
 
 	// Remove only the specified file format.
 	if ( $file_format ) {
-		$items = scandir( $dir );
-		unset( $items[0], $items[1] );
+		$items = beans_scandir( $dir );
 
 		foreach ( $items as $item ) {
 			if ( false !== stripos( $item, '.' . $file_format ) ) {

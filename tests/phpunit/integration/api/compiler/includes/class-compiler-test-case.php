@@ -257,8 +257,7 @@ abstract class Compiler_Test_Case extends Base_Test_Case {
 	 * @return string
 	 */
 	protected function get_compiled_filename( $path ) {
-		$files = scandir( $path );
-		unset( $files[0], $files[1] );
+		$files = beans_scandir( $path );
 
 		if ( empty( $files ) ) {
 			return '';

@@ -286,14 +286,7 @@ final class _Beans_Uikit {
 	 * @return array
 	 */
 	private function get_all_files( $directory ) {
-		$files = scandir( $directory );
-
-		// Get rid of dot files when on Linux environment.
-		if ( '.' === $files[0] ) {
-			unset( $files[0], $files[1] );
-		}
-
-		return $files;
+		return beans_scandir( $directory );
 	}
 
 	/**
