@@ -23,7 +23,7 @@ require_once __DIR__ . '/includes/class-compiler-test-case.php';
 class Test_BeansCompileCssFragments extends Compiler_Test_Case {
 
 	/**
-	 * Test beans_compile_css_fragments() should return false when no fragments when no fragments are given.
+	 * Test beans_compile_css_fragments() should return false when no fragments are given.
 	 */
 	public function test_should_return_false_when_no_fragments_given() {
 		$this->assertFalse( beans_compile_css_fragments( 'foo', '' ) );

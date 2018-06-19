@@ -30,23 +30,23 @@ class Tests_BeansStrEndsWith extends Test_Case {
 	}
 
 	/**
-	 * Test beans_str_ends_with() should return false when case is wrong.
+	 * Test beans_str_ends_with() should return false when case does not match.
 	 */
-	public function test_should_return_false_when_case_is_wrong() {
+	public function test_should_return_false_when_case_does_not_match() {
 		$this->assertFalse( beans_str_ends_with( 'Foo', 'O' ) );
 		$this->assertFalse( beans_str_ends_with( 'Checking the Case?', 'case?' ) );
 	}
 
 	/**
-	 * Test beans_str_ends_with() should return true when the case is correct.
+	 * Test beans_str_ends_with() should return true when the case matches.
 	 */
-	public function test_should_return_true_when_case_is_correct() {
+	public function test_should_return_true_when_case_matches() {
 		$this->assertTrue( beans_str_ends_with( 'Foo', 'o' ) );
 		$this->assertTrue( beans_str_ends_with( 'Checking the Case?', 'Case?' ) );
 	}
 
 	/**
-	 * Test beans_str_ends_with() should correctly identify ending string pattern.
+	 * Test beans_str_ends_with() should correctly identify the ending string pattern.
 	 */
 	public function test_should_correctly_identify_ending_string_pattern() {
 		$this->assertTrue( beans_str_ends_with( 'This is a string test.', '.' ) );
@@ -63,7 +63,7 @@ class Tests_BeansStrEndsWith extends Test_Case {
 	}
 
 	/**
-	 * Test beans_str_ends_with() should correctly identify when different data type is given.
+	 * Test beans_str_ends_with() should correctly identify when a different data type is given.
 	 */
 	public function test_should_correctly_identify_when_different_data_type_given() {
 		$this->assertTrue( beans_str_ends_with( 104, '04' ) );
@@ -82,9 +82,9 @@ class Tests_BeansStrEndsWith extends Test_Case {
 	}
 
 	/**
-	 * Test beans_str_ends_with() should correctly identify when given an array of needles.
+	 * Test beans_str_ends_with() should correctly identify when an array of needles is given.
 	 */
-	public function test_should_correctly_identify_when_given_an_array_of_needles() {
+	public function test_should_correctly_identify_when_array_of_needles_given() {
 		$this->assertTrue( beans_str_ends_with( 'This is a string test', [ 'Test', 'test' ] ) );
 		$this->assertFalse( beans_str_ends_with( 'This is a string test', [ 'string', 'are' ] ) );
 		$this->assertTrue( beans_str_ends_with( 'This is a string test', [ 'tests', 'test!', 'Test', 'test' ] ) );
@@ -106,12 +106,11 @@ class Tests_BeansStrEndsWith extends Test_Case {
 	}
 
 	/**
-	 * Test beans_str_ends_with() should correctly identify when non-Latin given.
+	 * Test beans_str_ends_with() should correctly identify when non-Latin is given.
 	 */
 	public function test_should_correctly_identify_when_non_latin_given() {
 		$string = 'Τάχιστη αλώπηξ βαφής ψημένη γη, δρασκελίζει υπέρ νωθρού κυνός';
 
-		$this->assertFalse( beans_str_ends_with( $string, ' ' ) );
 		$this->assertFalse( beans_str_ends_with( $string, ' ' ) );
 		$this->assertTrue( beans_str_ends_with( $string, 'ς' ) );
 		$this->assertFalse( beans_str_ends_with( $string, 'Δρασκελίζει' ) );

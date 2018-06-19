@@ -27,7 +27,7 @@ class Tests_BeansFlushCompiler extends Compiler_Options_Test_Case {
 	/**
 	 * Test beans_flush_compiler() should bail out when the directory does not exist.
 	 */
-	public function test_should_return_absolute_path_to_compiler_folder() {
+	public function test_should_bail_out_when_directory_does_not_exist() {
 		$compiler_dir = vfsStream::url( 'compiled/beans/compiler/' );
 		Monkey\Functions\expect( 'beans_get_compiler_dir' )
 			->twice()

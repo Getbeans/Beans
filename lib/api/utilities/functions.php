@@ -142,7 +142,7 @@ function beans_str_ends_with( $haystack, $needles ) {
 }
 
 /**
- * Checks if the given string ends with the given substring(s).
+ * Check if the given string starts with the given substring(s).
  *
  * When passing an array of needles, the first needle match returns `true`.  Therefore, only one word in the array
  * needs to match.
@@ -150,7 +150,7 @@ function beans_str_ends_with( $haystack, $needles ) {
  * @since 1.5.0
  *
  * @param string       $haystack The given string to check.
- * @param string|array $needles  The substring(s) to check for at the end of the given string.
+ * @param string|array $needles  The substring(s) to check for at the beginning of the given string.
  *
  * @return bool
  */

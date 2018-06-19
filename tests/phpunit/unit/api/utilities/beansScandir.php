@@ -32,12 +32,12 @@ class Tests_BeansScandir extends Test_Case {
 	/**
 	 * Test beans_scandir() should return false when directory is invalid.
 	 */
-	public function test_should_find_needle_when_array_given() {
+	public function test_should_return_false_when_directory_is_invalid() {
 		$this->assertFalse( beans_scandir( 'directory-does-not-exist' ) );
 	}
 
 	/**
-	 * Test beans_scandir() should return all files in given directory.
+	 * Test beans_scandir() should return all files in the given directory.
 	 */
 	public function test_should_return_all_files_in_given_directory() {
 		$files = beans_scandir( __DIR__ );
