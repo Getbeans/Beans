@@ -24,23 +24,6 @@ require_once __DIR__ . '/includes/class-compiler-test-case.php';
 class Tests_BeansCompileLessFragments extends Compiler_Test_Case {
 
 	/**
-	 * The Less content.
-	 *
-	 * @var string
-	 */
-	protected $less;
-
-	/**
-	 * Set up the test fixture.
-	 */
-	public function setUp() {
-		parent::setUp();
-
-		$fixtures   = $this->mock_filesystem->getChild( 'fixtures' );
-		$this->less = $fixtures->getChild( 'variables.less' )->getContent() . $fixtures->getChild( 'test.less' )->getContent();
-	}
-
-	/**
 	 * Test beans_compile_less_fragments() should compile the Less fragments, saving it to the virtual filesystem and
 	 * enqueuing it in WordPress.
 	 */

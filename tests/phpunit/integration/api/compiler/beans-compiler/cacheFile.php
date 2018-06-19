@@ -26,174 +26,110 @@ require_once dirname( __DIR__ ) . '/includes/class-compiler-test-case.php';
 class Tests_BeansCompiler_CacheFile extends Compiler_Test_Case {
 
 	/**
-	 * Test _Beans_Compiler::cache_file() should not create the file.
-	 */
-	public function test_should_not_create_the_file() {
-		$compiler = new _Beans_Compiler( array(
-			'id'           => 'test-script',
-			'type'         => 'script',
-			'fragments'    => array( vfsStream::url( 'compiled/fixtures/jquery.test.js' ) ),
-			'dependencies' => array( 'jquery' ),
-			'in_footer'    => true,
-			'minify_js'    => true,
-		) );
-
-		// Set up the tests.
-		$this->set_dev_mode( false );
-		$this->mock_filesystem_for_fragments( $compiler );
-		$this->add_virtual_directory( $compiler->config['id'] );
-		$this->set_current_fragment( $compiler, $compiler->config['fragments'][0] );
-		$compiler->set_filename();
-		$compiler->combine_fragments();
-		$this->mock_creating_file( $compiler );
-
-		// Run the tests.
-		$this->assertFalse( $compiler->cache_file() );
-		$this->assertFileNotExists( $compiler->get_filename() );
-	}
-
-	/**
 	 * Test _Beans_Compiler::cache_file() should create the compiled jQuery file.
 	 */
 	public function test_should_create_compiled_jquery_file() {
-		$compiler = new _Beans_Compiler( array(
+		$config   = [
 			'id'           => 'test-jquery',
 			'type'         => 'script',
 			'fragments'    => array( vfsStream::url( 'compiled/fixtures/jquery.test.js' ) ),
 			'dependencies' => array( 'jquery' ),
 			'in_footer'    => true,
 			'minify_js'    => true,
-		) );
-
-		// Set up the tests.
-		$this->set_dev_mode( false );
-		$this->mock_filesystem_for_fragments( $compiler );
-		$this->add_virtual_directory( $compiler->config['id'] );
-		$this->set_current_fragment( $compiler, $compiler->config['fragments'][0] );
-		$compiler->set_filename();
-		$compiler->combine_fragments();
-		$this->mock_creating_file( $compiler, true );
+		];
+		$compiler = $this->initialize_compiler( $config );
 
 		// Run the tests.
 		$this->assertTrue( $compiler->cache_file() );
-		$this->assertSame( $this->get_compiled_jquery(), $this->get_cached_file_contents( $compiler ) );
+		$this->assertSame( $this->get_compiled_jquery(), $this->get_cached_contents( $compiler->filename, $config['id'] ) );
+
+		// Clean Up.
+		remove_filter( 'filesystem_method', array( $compiler, 'modify_filesystem_method' ) );
 	}
 
 	/**
 	 * Test _Beans_Compiler::cache_file() should create the compiled JavaScript file.
 	 */
 	public function test_should_create_compiled_javascript_file() {
-		$compiler = new _Beans_Compiler( array(
+		$config   = [
 			'id'        => 'test-js',
 			'type'      => 'script',
 			'fragments' => array( vfsStream::url( 'compiled/fixtures/my-game-clock.js' ) ),
 			'in_footer' => true,
 			'minify_js' => true,
-		) );
-
-		// Set up the tests.
-		$this->set_dev_mode( false );
-		$this->mock_filesystem_for_fragments( $compiler );
-		$this->add_virtual_directory( $compiler->config['id'] );
-		$this->set_current_fragment( $compiler, $compiler->config['fragments'][0] );
-		$compiler->set_filename();
-		$compiler->combine_fragments();
-		$this->mock_creating_file( $compiler, true );
+		];
+		$compiler = $this->initialize_compiler( $config );
 
 		// Run the tests.
 		$this->assertTrue( $compiler->cache_file() );
-		$this->assertSame( $this->get_compiled_js(), $this->get_cached_file_contents( $compiler ) );
+		$this->assertSame( $this->get_compiled_js(), $this->get_cached_contents( $compiler->filename, $config['id'] ) );
+
+		// Clean Up.
+		remove_filter( 'filesystem_method', array( $compiler, 'modify_filesystem_method' ) );
 	}
 
 	/**
 	 * Test _Beans_Compiler::cache_file() should create the compiled CSS file.
 	 */
 	public function test_should_create_compiled_css_file() {
-		$compiler = new _Beans_Compiler( array(
+		$config   = [
 			'id'        => 'test-css',
 			'type'      => 'style',
 			'fragments' => array( vfsStream::url( 'compiled/fixtures/style.css' ) ),
-		) );
-
-		// Set up the tests.
-		$this->set_dev_mode( false );
-		$this->mock_filesystem_for_fragments( $compiler );
-		$this->add_virtual_directory( $compiler->config['id'] );
-		$this->set_current_fragment( $compiler, $compiler->config['fragments'][0] );
-		$compiler->set_filename();
-		$compiler->combine_fragments();
-		$this->mock_creating_file( $compiler, true );
+		];
+		$compiler = $this->initialize_compiler( $config );
 
 		// Run the tests.
 		$this->assertTrue( $compiler->cache_file() );
-		$this->assertSame( $this->get_compiled_css(), $this->get_cached_file_contents( $compiler ) );
+		$this->assertSame( $this->get_compiled_css(), $this->get_cached_contents( $compiler->filename, $config['id'] ) );
+
+		// Clean Up.
+		remove_filter( 'filesystem_method', array( $compiler, 'modify_filesystem_method' ) );
 	}
 
 	/**
 	 * Test _Beans_Compiler::cache_file() should create the compiled LESS file.
 	 */
 	public function test_should_create_compiled_less_file() {
-		$compiler = new _Beans_Compiler( array(
+		$config   = [
 			'id'        => 'test-css',
 			'type'      => 'style',
 			'format'    => 'less',
-			'fragments' => array(
+			'fragments' => [
 				vfsStream::url( 'compiled/fixtures/variables.less' ),
 				vfsStream::url( 'compiled/fixtures/test.less' ),
-			),
-		) );
-
-		// Set up the tests.
-		$this->set_dev_mode( false );
-		$this->mock_filesystem_for_fragments( $compiler );
-		$this->add_virtual_directory( $compiler->config['id'] );
-		$this->set_current_fragment( $compiler, $compiler->config['fragments'][0] );
-		$compiler->set_filename();
-		$compiler->combine_fragments();
-		$this->mock_creating_file( $compiler, true );
+			],
+		];
+		$compiler = $this->initialize_compiler( $config );
 
 		// Run the tests.
 		$this->assertTrue( $compiler->cache_file() );
-		$this->assertSame( $this->get_compiled_less(), $this->get_cached_file_contents( $compiler ) );
+		$this->assertSame( $this->get_compiled_less(), $this->get_cached_contents( $compiler->filename, $config['id'] ) );
+
+		// Clean Up.
+		remove_filter( 'filesystem_method', array( $compiler, 'modify_filesystem_method' ) );
 	}
 
 	/**
-	 * Mock creating the file.
+	 * Initialize the Compiler for the test.
 	 *
-	 * @since 1.5.0
+	 * @since 1.0.0
 	 *
-	 * @param _Beans_Compiler $compiler      Instance of the compiler.
-	 * @param bool            $should_create Optional. When true, mock creating the file. Default is false.
+	 * @param array $config Array of runtime configuration parameters.
 	 *
-	 * @return void
+	 * @return _Beans_Compiler
+	 * @throws \ReflectionException Throws an error.
 	 */
-	private function mock_creating_file( $compiler, $should_create = false ) {
-		$GLOBALS['wp_filesystem']->shouldReceive( 'put_contents' )
-			->once()
-			->andReturn( $should_create );
+	protected function initialize_compiler( array $config ) {
+		$compiler = new _Beans_Compiler( $config );
 
-		if ( ! $should_create ) {
-			return;
-		}
+		add_filter( 'filesystem_method', array( $compiler, 'modify_filesystem_method' ) );
+		$compiler->filesystem();
+		$this->add_virtual_directory( $config['id'] );
+		$this->set_current_fragment( $compiler, $config['fragments'][0] );
+		$compiler->set_filename();
+		$compiler->combine_fragments();
 
-		vfsStream::newFile( $compiler->filename )
-			->at( $this->mock_filesystem->getChild( 'compiled/beans/compiler/' . $compiler->config['id'] ) )
-			->setContent( $compiler->compiled_content );
-	}
-
-	/**
-	 * Get the file's content.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param _Beans_Compiler $compiler Instance of the compiler.
-	 *
-	 * @return string
-	 */
-	private function get_cached_file_contents( $compiler ) {
-		return $this->mock_filesystem
-			->getChild( 'beans/compiler/' . $compiler->config['id'] )
-			->getChild( $compiler->filename )
-			->getcontent();
+		return $compiler;
 	}
 }

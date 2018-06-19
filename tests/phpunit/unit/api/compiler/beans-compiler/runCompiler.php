@@ -60,8 +60,7 @@ class Tests_BeansCompiler_RunCompiler extends Compiler_Test_Case {
 
 		$fixtures     = $this->mock_filesystem->getChild( 'fixtures' );
 		$this->css    = $fixtures->getChild( 'style.css' )->getContent();
-		$this->less   = $fixtures->getChild( 'variables.less' )->getContent() . $fixtures->getChild( 'test.less' )
-				->getContent();
+		$this->less   = $fixtures->getChild( 'variables.less' )->getContent() . $fixtures->getChild( 'test.less' )->getContent();
 		$this->jquery = $fixtures->getChild( 'jquery.test.js' )->getContent();
 		$this->js     = $fixtures->getChild( 'my-game-clock.js' )->getContent();
 	}

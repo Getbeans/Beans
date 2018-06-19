@@ -51,8 +51,7 @@ class Tests_BeansCompiler_FormatContent extends Compiler_Test_Case {
 		parent::setUp();
 
 		$fixtures     = $this->mock_filesystem->getChild( 'fixtures' );
-		$this->less   = $fixtures->getChild( 'variables.less' )->getContent() . $fixtures->getChild( 'test.less' )
-				->getContent();
+		$this->less   = $fixtures->getChild( 'variables.less' )->getContent() . $fixtures->getChild( 'test.less' )->getContent();
 		$this->jquery = $fixtures->getChild( 'jquery.test.js' )->getContent();
 		$this->js     = $fixtures->getChild( 'my-game-clock.js' )->getContent();
 	}

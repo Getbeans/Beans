@@ -24,23 +24,6 @@ require_once __DIR__ . '/includes/class-compiler-test-case.php';
 class Tests_BeansCompileCssFragments extends Compiler_Test_Case {
 
 	/**
-	 * The CSS content.
-	 *
-	 * @var string
-	 */
-	protected $css;
-
-	/**
-	 * Set up the test fixture.
-	 */
-	public function setUp() {
-		parent::setUp();
-
-		$fixtures  = $this->mock_filesystem->getChild( 'fixtures' );
-		$this->css = $fixtures->getChild( 'style.css' )->getContent();
-	}
-
-	/**
 	 * Test beans_compile_css_fragments() should compile the CSS fragments, saving it to the virtual filesystem and
 	 * enqueuing it in WordPress.
 	 */
