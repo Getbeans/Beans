@@ -110,7 +110,7 @@ function beans_uikit_register_theme( $id, $path ) {
 		return false;
 	}
 
-	if ( false !== stripos( $path, 'http' ) ) {
+	if ( beans_str_starts_with( $path, 'http' ) ) {
 		$path = beans_url_to_path( $path );
 	}
 

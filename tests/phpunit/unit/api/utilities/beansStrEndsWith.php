@@ -12,13 +12,13 @@ namespace Beans\Framework\Tests\Unit\API\Utilities;
 use Beans\Framework\Tests\Unit\Test_Case;
 
 /**
- * Class Tests_BeansEndsWith
+ * Class Tests_BeansStrEndsWith
  *
  * @package Beans\Framework\Tests\Unit\API\Utilities
  * @group   api
  * @group   api-utilities
  */
-class Tests_BeansEndsWith extends Test_Case {
+class Tests_BeansStrEndsWith extends Test_Case {
 
 	/**
 	 * Prepares the test environment before each test.

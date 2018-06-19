@@ -115,7 +115,7 @@ function beans_scandir( $dir_path ) {
 }
 
 /**
- * Check if the given string ends with the given substring.
+ * Check if the given string ends with the given substring(s).
  *
  * When passing an array of needles, the first needle match returns `true`.  Therefore, only one word in the array
  * needs to match.
@@ -128,9 +128,42 @@ function beans_scandir( $dir_path ) {
  * @return bool
  */
 function beans_str_ends_with( $haystack, $needles ) {
+	$haystack = (string) $haystack;
 
 	foreach ( (array) $needles as $needle ) {
-		$substring = mb_substr( $haystack, - mb_strlen( $needle ) );
+		$substring = mb_substr( $haystack, -mb_strlen( $needle ) );
+
+		if ( $substring === (string) $needle ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/**
+ * Checks if the given string ends with the given substring(s).
+ *
+ * When passing an array of needles, the first needle match returns `true`.  Therefore, only one word in the array
+ * needs to match.
+ *
+ * @since 1.5.0
+ *
+ * @param string       $haystack The given string to check.
+ * @param string|array $needles  The substring(s) to check for at the end of the given string.
+ *
+ * @return bool
+ */
+function beans_str_starts_with( $haystack, $needles ) {
+	$haystack = (string) $haystack;
+
+	foreach ( (array) $needles as $needle ) {
+
+		if ( '' === $needle ) {
+			continue;
+		}
+
+		$substring = mb_substr( $haystack, 0, mb_strlen( $needle ) );
 
 		if ( $substring === (string) $needle ) {
 			return true;

@@ -28,6 +28,7 @@ class Tests_BeansUikitRegisterTheme extends UIkit_Test_Case {
 	 * Test beans_uikit_register_theme() should return true when theme is already registered.
 	 */
 	public function test_should_return_true_when_theme_is_already_registered() {
+		Monkey\Functions\expect( 'beans_str_starts_with' )->never();
 		Monkey\Functions\expect( 'beans_url_to_path' )->never();
 		Monkey\Functions\expect( 'trailingslashit' )->never();
 
@@ -47,6 +48,7 @@ class Tests_BeansUikitRegisterTheme extends UIkit_Test_Case {
 	 * Test beans_uikit_register_theme() should return false when the theme is not registered and no path is given.
 	 */
 	public function test_should_return_false_when_theme_not_registered_and_no_path_given() {
+		Monkey\Functions\expect( 'beans_str_starts_with' )->never();
 		Monkey\Functions\expect( 'beans_url_to_path' )->never();
 		Monkey\Functions\expect( 'trailingslashit' )->never();
 
@@ -62,6 +64,10 @@ class Tests_BeansUikitRegisterTheme extends UIkit_Test_Case {
 	public function test_should_register_the_theme_when_given_path() {
 		global $_beans_uikit_registered_items;
 		$path = vfsStream::url( 'virtual-wp-content/themes/beans-child/assets/less/theme' );
+		Monkey\Functions\expect( 'beans_str_starts_with' )
+			->once()
+			->with( $path, 'http' )
+			->andReturn( false );
 		Monkey\Functions\expect( 'beans_url_to_path' )->never();
 		Monkey\Functions\when( 'trailingslashit' )->returnArg();
 
@@ -78,6 +84,10 @@ class Tests_BeansUikitRegisterTheme extends UIkit_Test_Case {
 
 		$path = vfsStream::url( 'virtual-wp-content/themes/beans-child/assets/less/theme' );
 		$url  = 'http://example.com/virtual-wp-content/themes/beans-child/assets/less/theme';
+		Monkey\Functions\expect( 'beans_str_starts_with' )
+			->once()
+			->with( $url, 'http' )
+			->andReturn( true );
 		Monkey\Functions\expect( 'beans_url_to_path' )
 			->once()
 			->with( $url )
