@@ -29,9 +29,9 @@ class Tests_BeansReplaceActionArguments extends Replace_Action_Test_Case {
 	 * Intent: We are testing to ensure Beans is "load order" agnostic.
 	 */
 	public function test_should_store_when_action_is_not_registered() {
-		$replaced_action = array(
+		$replaced_action = [
 			'args' => 10,
-		);
+		];
 
 		// Store the "replaced" action.
 		foreach ( static::$test_ids as $beans_id ) {
@@ -53,9 +53,9 @@ class Tests_BeansReplaceActionArguments extends Replace_Action_Test_Case {
 	 * Intent: We are testing to ensure Beans is "load order" agnostic.
 	 */
 	public function test_should_store_and_then_replace_the_args() {
-		$replaced_action = array(
+		$replaced_action = [
 			'args' => 10,
-		);
+		];
 
 		// Now replace the actions.
 		foreach ( static::$test_ids as $beans_id ) {
@@ -101,9 +101,9 @@ class Tests_BeansReplaceActionArguments extends Replace_Action_Test_Case {
 	 * Test beans_replace_action_arguments() should replace the registered action's args.
 	 */
 	public function test_should_replace_the_action_args() {
-		$replaced_action = array(
+		$replaced_action = [
 			'args' => 14,
-		);
+		];
 
 		$this->go_to_post();
 
