@@ -54,7 +54,7 @@ class Tests_BeansRenderAction extends Test_Case {
 			[ 'foo' ],
 			[ 'foo', 'bar' ],
 			[ 'foo', 'bar', 'baz' ],
-		);
+		];
 		$callback      = function() use ( $expected_args ) {
 			$args = func_get_args();
 			$this->assertTrue( doing_action( 'beans_stub' ) );
