@@ -63,9 +63,9 @@ class Tests_BeansResetAction extends Actions_Test_Case {
 	 * Test beans_reset_action() should reset the original action's hook after it was "modified".
 	 */
 	public function test_should_reset_after_modifying_the_hook() {
-		$modified_action = array(
+		$modified_action = [
 			'hook' => 'foo',
-		);
+		];
 
 		$this->go_to_post();
 
@@ -97,9 +97,9 @@ class Tests_BeansResetAction extends Actions_Test_Case {
 	public function test_should_reset_after_modifying_the_callback() {
 		global $wp_filter;
 
-		$modified_action = array(
+		$modified_action = [
 			'callback' => 'my_callback',
-		);
+		];
 
 		$this->go_to_post();
 
@@ -132,9 +132,9 @@ class Tests_BeansResetAction extends Actions_Test_Case {
 	public function test_should_reset_after_modifying_the_priority() {
 		global $wp_filter;
 
-		$modified_action = array(
+		$modified_action = [
 			'priority' => 9999,
-		);
+		];
 
 		$this->go_to_post();
 
@@ -170,9 +170,9 @@ class Tests_BeansResetAction extends Actions_Test_Case {
 	public function test_should_reset_after_modifying_the_args() {
 		global $wp_filter;
 
-		$modified_action = array(
+		$modified_action = [
 			'args' => 14,
-		);
+		];
 
 		$this->go_to_post();
 
@@ -210,10 +210,10 @@ class Tests_BeansResetAction extends Actions_Test_Case {
 
 		$this->go_to_post();
 
-		$modified_action = array(
+		$modified_action = [
 			'callback' => 'my_callback',
 			'args'     => 14,
-		);
+		];
 
 		foreach ( static::$test_actions as $beans_id => $action ) {
 			// Before we start, check that the action is registered.
@@ -227,10 +227,10 @@ class Tests_BeansResetAction extends Actions_Test_Case {
 			$this->assertFalse( has_action( $action['hook'], $action['callback'] ) );
 			$this->assertTrue( has_action( $action['hook'], $modified_action['callback'] ) !== false );
 			$this->assertEquals(
-				array(
+				[
 					'function'      => $modified_action['callback'],
 					'accepted_args' => $modified_action['args'],
-				),
+				],
 				$wp_filter[ $action['hook'] ]->callbacks[ $action['priority'] ][ $modified_action['callback'] ]
 			);
 
@@ -251,10 +251,10 @@ class Tests_BeansResetAction extends Actions_Test_Case {
 
 		$this->go_to_post();
 
-		$modified_action = array(
+		$modified_action = [
 			'priority' => 79,
 			'args'     => 14,
-		);
+		];
 
 		foreach ( static::$test_actions as $beans_id => $action ) {
 			// Before we start, check that the action is registered.
@@ -266,10 +266,10 @@ class Tests_BeansResetAction extends Actions_Test_Case {
 			// Check that the action was modified.
 			$this->assertSame( $modified_action, _beans_get_action( $beans_id, 'modified' ) );
 			$this->assertEquals(
-				array(
+				[
 					'function'      => $action['callback'],
 					'accepted_args' => $modified_action['args'],
-				),
+				],
 				$wp_filter[ $action['hook'] ]->callbacks[ $modified_action['priority'] ][ $action['callback'] ]
 			);
 
@@ -290,10 +290,10 @@ class Tests_BeansResetAction extends Actions_Test_Case {
 
 		$this->go_to_post();
 
-		$modified_action = array(
+		$modified_action = [
 			'callback' => 'foo',
 			'priority' => 39,
-		);
+		];
 
 		foreach ( static::$test_actions as $beans_id => $action ) {
 			// Before we start, check that the action is registered.
@@ -305,10 +305,10 @@ class Tests_BeansResetAction extends Actions_Test_Case {
 			// Check that the action was modified.
 			$this->assertSame( $modified_action, _beans_get_action( $beans_id, 'modified' ) );
 			$this->assertEquals(
-				array(
+				[
 					'function'      => $modified_action['callback'],
 					'accepted_args' => $action['args'],
-				),
+				],
 				$wp_filter[ $action['hook'] ]->callbacks[ $modified_action['priority'] ][ $modified_action['callback'] ]
 			);
 
@@ -330,11 +330,11 @@ class Tests_BeansResetAction extends Actions_Test_Case {
 
 		$this->go_to_post();
 
-		$modified_action = array(
+		$modified_action = [
 			'callback' => 'foo',
 			'priority' => 39,
 			'args'     => 24,
-		);
+		];
 
 		foreach ( static::$test_actions as $beans_id => $action ) {
 			// Before we start, check that the action is registered.
@@ -346,10 +346,10 @@ class Tests_BeansResetAction extends Actions_Test_Case {
 			// Check that the action was modified.
 			$this->assertSame( $modified_action, _beans_get_action( $beans_id, 'modified' ) );
 			$this->assertEquals(
-				array(
+				[
 					'function'      => $modified_action['callback'],
 					'accepted_args' => $modified_action['args'],
-				),
+				],
 				$wp_filter[ $action['hook'] ]->callbacks[ $modified_action['priority'] ][ $modified_action['callback'] ]
 			);
 
@@ -429,10 +429,10 @@ class Tests_BeansResetAction extends Actions_Test_Case {
 		foreach ( static::$test_actions as $beans_id => $action ) {
 			// Before we start, do a hard check to ensure the original priority is registered.
 			$this->assertEquals(
-				array(
+				[
 					'function'      => $action['callback'],
 					'accepted_args' => $action['args'],
-				),
+				],
 				$wp_filter[ $action['hook'] ]->callbacks[ $action['priority'] ][ $action['callback'] ]
 			);
 
@@ -444,10 +444,10 @@ class Tests_BeansResetAction extends Actions_Test_Case {
 
 			// Check that the action was not reset.
 			$this->assertEquals(
-				array(
+				[
 					'function'      => $action['callback'],
 					'accepted_args' => $action['args'],
-				),
+				],
 				$wp_filter[ $action['hook'] ]->callbacks[ $priority ][ $action['callback'] ]
 			);
 		}
@@ -503,10 +503,10 @@ class Tests_BeansResetAction extends Actions_Test_Case {
 		$this->assertTrue( has_action( $action['hook'], $action['callback'] ) !== false );
 
 		$this->assertEquals(
-			array(
+			[
 				'function'      => $action['callback'],
 				'accepted_args' => $action['args'],
-			),
+			],
 			$wp_filter[ $action['hook'] ]->callbacks[ $action['priority'] ][ $action['callback'] ]
 		);
 	}

@@ -81,10 +81,10 @@ class Tests_BeansResetAction extends Actions_Test_Case {
 	public function test_should_reset_after_modifying_the_action() {
 		Monkey\Functions\when( '_beans_unset_action' );
 
-		$modified_action = array(
+		$modified_action = [
 			'callback' => 'my_new_callback',
 			'priority' => 47,
-		);
+		];
 
 		foreach ( static::$test_actions as $beans_id => $action ) {
 			// Simulate modifying the action.
@@ -125,7 +125,7 @@ class Tests_BeansResetAction extends Actions_Test_Case {
 		Monkey\Functions\when( '_beans_unset_action' );
 
 		foreach ( static::$test_actions as $beans_id => $action ) {
-			$replaced_action = array_merge( $action, array( 'hook' => 'replaced_hook' ) );
+			$replaced_action = array_merge( $action, [ 'hook' => 'replaced_hook' ] );
 
 			// Simulate that the replaced action is registered.
 			Monkey\Functions\expect( '_beans_get_action' )
