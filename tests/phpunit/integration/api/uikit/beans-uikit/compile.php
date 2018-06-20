@@ -111,19 +111,27 @@ EOB;
 		$this->assertContains( $alert_css, $compiled_css );
 
 		$button_css = <<<EOB
-.uk-button::-moz-focus-inner{border:0;padding:0}
-.uk-button{-webkit-appearance:none;margin:0;border:none;overflow:visible;font:inherit;color:#444;text-transform:none;display:inline-block;box-sizing:border-box;padding:012px;background:#eee;vertical-align:middle;line-height:30px;min-height:30px;font-size:1rem;text-decoration:none;text-align:center}
+.uk-button{-webkit-appearance:none;margin:0;border:none;overflow:visible;font:inherit;color:#444;text-transform:none;display:inline-block;box-sizing:border-box;padding:0 12px;background:#eee;vertical-align:middle;line-height:30px;min-height:30px;font-size:1rem;text-decoration:none;text-align:center}
 .uk-button:not(:disabled){cursor:pointer}
 .uk-button:hover,.uk-button:focus{background-color:#f5f5f5;color:#444;outline:none;text-decoration:none}
 .uk-button:active,.uk-button.uk-active{background-color:#ddd;color:#444}
 .uk-button-primary{background-color:#00a8e6;color:#fff}
+.uk-button-primary:hover,.uk-button-primary:focus{background-color:#35b3ee;color:#fff}
+.uk-button-primary:active,.uk-button-primary.uk-active{background-color:#0091ca;color:#fff}
+.uk-button-success{background-color:#8cc14c;color:#fff}
+.uk-button-success:hover,.uk-button-success:focus{background-color:#8ec73b;color:#fff}
+.uk-button-success:active,.uk-button-success.uk-active{background-color:#72ae41;color:#fff}
+.uk-button-danger{background-color:#da314b;color:#fff}
+.uk-button-danger:hover,.uk-button-danger:focus{background-color:#e4354f;color:#fff}
+.uk-button-danger:active,.uk-button-danger.uk-active{background-color:#c91032;color:#fff}
+.uk-button:disabled{background-color:#f5f5f5;color:#999}
 EOB;
 		$this->assertContains( $button_css, $compiled_css );
 
 		$overlay_css = <<<EOB
 .uk-overlay{display:inline-block;position:relative;max-width:100%;vertical-align:middle;overflow:hidden;-webkit-transform:translateZ(0);margin:0}
-.uk-overlay.uk-border-circle{-webkit-mask-image:-webkit-radial-gradient(circle,white100%,black100%)}
-.uk-overlay>:first-child{margin-bottom:0}
+.uk-overlay.uk-border-circle{-webkit-mask-image:-webkit-radial-gradient(circle,white 100%,black 100%)}
+.uk-overlay > :first-child{margin-bottom:0}
 .uk-overlay-panel{position:absolute;top:0;bottom:0;left:0;right:0;padding:20px;color:#fff}
 EOB;
 		$this->assertContains( $overlay_css, $compiled_css );

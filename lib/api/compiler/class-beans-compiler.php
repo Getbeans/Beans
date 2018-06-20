@@ -785,26 +785,28 @@ final class _Beans_Compiler {
 	private function strip_whitespace( $content ) {
 		$replace = array(
 			'#/\*.*?\*/#s' => '', // Strip comments.
+			'#\s\s+#'      => ' ', // Strip excess whitespace.
 		);
 
 		$search  = array_keys( $replace );
 		$content = preg_replace( $search, $replace, $content );
 
-		// Strip all new lines, tabs, and whitespace.
-		$content = str_replace( array( "\r\n", "\r", "\n", "\t", ' ' ), '', $content );
+		// Strip all new lines and tabs.
+		$content = str_replace( array( "\r\n", "\r", "\n", "\t" ), '', $content );
 
 		$replace = array(
-			': '  => ':',
-			'; '  => ';',
-			' {'  => '{',
-			' }'  => '}',
-			', '  => ',',
-			'{ '  => '{',
-			';}'  => '}', // Strip optional semicolons.
-			',\n' => ',', // Don't wrap multiple selectors.
-			'\n}' => '}', // Don't wrap closing braces.
-			'}'   => "}\n", // Put each rule on it's own line.
-			'\n'  => '', // Remove all line breaks.
+			': '   => ':',
+			'; '   => ';',
+			' {'   => '{',
+			' }'   => '}',
+			', '   => ',',
+			'{ '   => '{',
+			';}'   => '}', // Strip optional semicolons.
+			',\n'  => ',', // Don't wrap multiple selectors.
+			'\n}'  => '}', // Don't wrap closing braces.
+			'}'    => "}\n", // Put each rule on it's own line.
+			'\n'   => '', // Remove all line breaks.
+			"}\n " => "}\n", // Remove the whitespace at start of each new line.
 		);
 
 		$search = array_keys( $replace );
