@@ -27,7 +27,7 @@ class Tests_BeansUnsetAction extends Actions_Test_Case {
 	 *
 	 * @var array
 	 */
-	protected $statuses = array( 'added', 'modified', 'removed', 'replaced' );
+	protected $statuses = [ 'added', 'modified', 'removed', 'replaced' ];
 
 	/**
 	 * Test _beans_unset_action() should return false when action is not registered.
