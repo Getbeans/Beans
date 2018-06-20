@@ -80,12 +80,12 @@ abstract class Replace_Action_Test_Case extends Actions_Test_Case {
 	 */
 	protected function merge_action_with_defaults( array $action ) {
 		return array_merge(
-			array(
+			[
 				'hook'     => null,
 				'callback' => null,
 				'priority' => null,
 				'args'     => null,
-			),
+			],
 			$action
 		);
 	}
