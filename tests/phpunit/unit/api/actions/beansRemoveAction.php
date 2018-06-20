@@ -29,12 +29,12 @@ class Tests_BeansRemoveAction extends Replace_Action_Test_Case {
 	 * Intent: We are testing to ensure Beans is "load order" agnostic.
 	 */
 	public function test_should_store_when_action_is_not_registered() {
-		$expected = array(
+		$expected = [
 			'hook'     => null,
 			'callback' => null,
 			'priority' => null,
 			'args'     => null,
-		);
+		];
 
 		foreach ( static::$test_actions as $beans_id => $original_action ) {
 			// Simulate that there is no "added" action.
