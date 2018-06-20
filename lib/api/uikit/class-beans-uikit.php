@@ -61,7 +61,7 @@ final class _Beans_Uikit {
 		 */
 		$styles = apply_filters( 'beans_uikit_euqueued_styles', $this->register_less_components() );
 
-		// If there are not styles to compile, bail out.
+		// If there are no styles to compile, bail out.
 		if ( empty( $styles ) ) {
 			return;
 		}
@@ -95,7 +95,7 @@ final class _Beans_Uikit {
 		 */
 		$scripts = apply_filters( 'beans_uikit_euqueued_scripts', $this->register_js_components() );
 
-		// If there are not styles to compile, bail out.
+		// If there are no scripts to compile, bail out.
 		if ( empty( $scripts ) ) {
 			return;
 		}

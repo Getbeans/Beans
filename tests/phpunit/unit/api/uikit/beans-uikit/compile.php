@@ -25,7 +25,7 @@ require_once dirname( __DIR__ ) . '/includes/class-uikit-test-case.php';
 class Tests_BeansUikit_Compile extends UIkit_Test_Case {
 
 	/**
-	 * Test _Beans_Uikit::compile() should not compile when there are not assets to compile.
+	 * Test _Beans_Uikit::compile() should not compile when there are no assets to compile.
 	 */
 	public function test_should_not_compile_when_no_assets_to_compile() {
 		$beans_uikit = new _Beans_Uikit();

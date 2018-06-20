@@ -169,7 +169,7 @@ EOB;
 	}
 
 	/**
-	 * Test _Beans_Uikit::compile() should compile the styles with thje child theme.
+	 * Test _Beans_Uikit::compile() should compile the styles with the child theme.
 	 */
 	public function test_should_compile_styles_with_child_theme() {
 		$theme_path = dirname( __DIR__ ) . '/fixtures/less/';
