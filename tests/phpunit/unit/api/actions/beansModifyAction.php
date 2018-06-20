@@ -97,8 +97,8 @@ class Tests_BeansModifyAction extends Actions_Test_Case {
 			// When called, return the modified action.
 			Monkey\Functions\expect( '_beans_merge_action' )
 				->once()
-				->with( $beans_id, array( 'hook' => $modified_hook ), 'modified' )
-				->andReturn( array( 'hook' => $modified_hook ) );
+				->with( $beans_id, [ 'hook' => $modified_hook ], 'modified' )
+				->andReturn( [ 'hook' => $modified_hook ] );
 
 			// Expect the modified hook is added, but not the original hook.
 			Monkey\Actions\expectAdded( $original_action['hook'] )->never();
@@ -131,8 +131,8 @@ class Tests_BeansModifyAction extends Actions_Test_Case {
 			// When called, return the modified action.
 			Monkey\Functions\expect( '_beans_merge_action' )
 				->once()
-				->with( $beans_id, array( 'callback' => $modified_callback ), 'modified' )
-				->andReturn( array( 'callback' => $modified_callback ) );
+				->with( $beans_id, [ 'callback' => $modified_callback ], 'modified' )
+				->andReturn( [ 'callback' => $modified_callback ] );
 
 			// Expect the original hook with the modified callback.
 			Monkey\Actions\expectAdded( $original_action['hook'] )
@@ -164,8 +164,8 @@ class Tests_BeansModifyAction extends Actions_Test_Case {
 			// When called, return the modified action.
 			Monkey\Functions\expect( '_beans_merge_action' )
 				->once()
-				->with( $beans_id, array( 'priority' => $modified_priority ), 'modified' )
-				->andReturn( array( 'priority' => $modified_priority ) );
+				->with( $beans_id, [ 'priority' => $modified_priority ], 'modified' )
+				->andReturn( [ 'priority' => $modified_priority ] );
 
 			// Expect the original hook with the modified callback.
 			Monkey\Actions\expectAdded( $original_action['hook'] )
@@ -198,8 +198,8 @@ class Tests_BeansModifyAction extends Actions_Test_Case {
 				// When called, return the modified action.
 				Monkey\Functions\expect( '_beans_merge_action' )
 					->once()
-					->with( $beans_id, array( 'args' => $modified_args ), 'modified' )
-					->andReturn( array( 'args' => $modified_args ) );
+					->with( $beans_id, [ 'args' => $modified_args ], 'modified' )
+					->andReturn( [ 'args' => $modified_args ] );
 
 				// Expect the original hook with the modified callback.
 				Monkey\Actions\expectAdded( $original_action['hook'] )

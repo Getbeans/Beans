@@ -68,9 +68,9 @@ class Tests_BeansModifyAction extends Actions_Test_Case {
 	 * Test beans_modify_action() should modify the registered action's hook.
 	 */
 	public function test_should_modify_the_action_hook() {
-		$modified_action = array(
+		$modified_action = [
 			'hook' => 'foo',
-		);
+		];
 
 		$this->go_to_post();
 
@@ -97,9 +97,9 @@ class Tests_BeansModifyAction extends Actions_Test_Case {
 	 * Test beans_modify_action() should modify the registered action's callback.
 	 */
 	public function test_should_modify_the_action_callback() {
-		$modified_action = array(
+		$modified_action = [
 			'callback' => 'my_callback',
-		);
+		];
 
 		$this->go_to_post();
 
@@ -128,19 +128,19 @@ class Tests_BeansModifyAction extends Actions_Test_Case {
 	public function test_should_modify_the_action_priority() {
 		global $wp_filter;
 
-		$modified_action = array(
+		$modified_action = [
 			'priority' => 20,
-		);
+		];
 
 		$this->go_to_post();
 
 		foreach ( static::$test_actions as $beans_id => $original_action ) {
 			// Check the starting state.
 			$this->assertEquals(
-				array(
+				[
 					'function'      => $original_action['callback'],
 					'accepted_args' => $original_action['args'],
-				),
+				],
 				$wp_filter[ $original_action['hook'] ]->callbacks[ $original_action['priority'] ][ $original_action['callback'] ]
 			);
 
@@ -160,10 +160,10 @@ class Tests_BeansModifyAction extends Actions_Test_Case {
 
 			// Check that the action's priority was modified in WordPress.
 			$this->assertEquals(
-				array(
+				[
 					'function'      => $original_action['callback'],
 					'accepted_args' => $original_action['args'],
-				),
+				],
 				$callbacks_in_wp[ $modified_action['priority'] ][ $original_action['callback'] ]
 			);
 		}
@@ -175,9 +175,9 @@ class Tests_BeansModifyAction extends Actions_Test_Case {
 	public function test_should_modify_the_action_args() {
 		global $wp_filter;
 
-		$modified_action = array(
+		$modified_action = [
 			'args' => 7,
-		);
+		];
 
 		$this->go_to_post();
 
