@@ -25,7 +25,7 @@ class Tests_BeansAddAnonymousAction extends WP_UnitTestCase {
 	 * Test _beans_add_anonymous_action() should register callback to the given hook.
 	 */
 	public function test_should_register_callback_to_hook() {
-		_beans_add_anonymous_action( 'do_foo', array( 'foo_test_callback', array( 'foo' ) ) );
+		_beans_add_anonymous_action( 'do_foo', [ 'foo_test_callback', [ 'foo' ] ] );
 
 		$this->assertTrue( has_action( 'do_foo' ) );
 	}
@@ -34,7 +34,7 @@ class Tests_BeansAddAnonymousAction extends WP_UnitTestCase {
 	 * Test _beans_add_anonymous_action() should call callback on the given hook.
 	 */
 	public function test_should_call_callback() {
-		_beans_add_anonymous_action( 'beans_test_do_foo', array( 'foo_test_callback', array( 'foo' ) ) );
+		_beans_add_anonymous_action( 'beans_test_do_foo', [ 'foo_test_callback', [ 'foo' ] ] );
 
 		Functions\when( 'foo_test_callback' )
 			->justReturn( 'foo' );
