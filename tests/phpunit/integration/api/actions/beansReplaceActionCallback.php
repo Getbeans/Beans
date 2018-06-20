@@ -29,9 +29,9 @@ class Tests_BeansReplaceActionCallback extends Replace_Action_Test_Case {
 	 * Intent: We are testing to ensure Beans is "load order" agnostic.
 	 */
 	public function test_should_store_when_action_is_not_registered() {
-		$replaced_action = array(
+		$replaced_action = [
 			'callback' => 'my_new_callback',
-		);
+		];
 
 		foreach ( static::$test_ids as $beans_id ) {
 			// Test that the original action has not yet been added.
@@ -52,9 +52,9 @@ class Tests_BeansReplaceActionCallback extends Replace_Action_Test_Case {
 	 * Intent: We are testing to ensure Beans is "load order" agnostic.
 	 */
 	public function test_should_store_and_then_replace_the_callback() {
-		$replaced_action = array(
+		$replaced_action = [
 			'callback' => 'foo',
-		);
+		];
 
 		// Now replace the actions.
 		foreach ( static::$test_ids as $beans_id ) {
@@ -100,9 +100,9 @@ class Tests_BeansReplaceActionCallback extends Replace_Action_Test_Case {
 	 * Test beans_replace_action_callback() should replace the registered action's callback.
 	 */
 	public function test_should_replace_the_action_callback() {
-		$replaced_action = array(
+		$replaced_action = [
 			'callback' => 'beans_foo',
-		);
+		];
 
 		$this->go_to_post();
 
