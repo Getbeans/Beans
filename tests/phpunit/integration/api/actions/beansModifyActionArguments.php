@@ -28,12 +28,12 @@ class Tests_BeansModifyActionArguments extends Actions_Test_Case {
 	public function test_should_return_false_when_args_is_non_integer() {
 		global $wp_filter;
 
-		$arguments = array(
+		$arguments = [
 			null,
-			array( 10 ),
+			[ 10 ],
 			false,
 			'',
-		);
+		];
 
 		$this->go_to_post();
 
@@ -66,7 +66,7 @@ class Tests_BeansModifyActionArguments extends Actions_Test_Case {
 	public function test_should_modify_action_when_args_is_zero() {
 		global $wp_filter;
 
-		$arguments = array( 0, 0.0, '0', '0.0' );
+		$arguments = [ 0, 0.0, '0', '0.0' ];
 
 		$this->go_to_post();
 
@@ -82,7 +82,7 @@ class Tests_BeansModifyActionArguments extends Actions_Test_Case {
 				$this->assertTrue( beans_modify_action_arguments( $beans_id, $number_of_args ) );
 
 				// Check that the modified action is registered as "modified" in Beans.
-				$this->assertEquals( array( 'args' => (int) $number_of_args ), _beans_get_action( $beans_id, 'modified' ) );
+				$this->assertEquals( [ 'args' => (int) $number_of_args ], _beans_get_action( $beans_id, 'modified' ) );
 
 				// Check that the action's number of arguments was modified in WordPress.
 				$this->assertEquals(
@@ -107,7 +107,7 @@ class Tests_BeansModifyActionArguments extends Actions_Test_Case {
 			$this->assertFalse( beans_modify_action_arguments( $beans_id, $action['args'] ) );
 
 			// Check that the modified action is registered as "modified" in Beans.
-			$this->assertEquals( array( 'args' => $action['args'] ), _beans_get_action( $beans_id, 'modified' ) );
+			$this->assertEquals( [ 'args' => $action['args'] ], _beans_get_action( $beans_id, 'modified' ) );
 
 			// Check that the action was not added in WordPress.
 			$this->assertFalse( has_action( $action['hook'], $action['callback'] ) );
@@ -120,9 +120,9 @@ class Tests_BeansModifyActionArguments extends Actions_Test_Case {
 	public function test_should_modify_the_action_args() {
 		global $wp_filter;
 
-		$modified_action = array(
+		$modified_action = [
 			'args' => 7,
-		);
+		];
 
 		$this->go_to_post();
 
