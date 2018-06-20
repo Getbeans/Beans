@@ -66,10 +66,10 @@ class Tests_BeansAddAction extends Actions_Test_Case {
 	 * Test beans_add_action() should use the action configuration in "replaced" status, when it's available.
 	 */
 	public function test_should_use_replaced_action_when_available() {
-		$replaced_action = array(
+		$replaced_action = [
 			'callback' => 'my_new_callback',
 			'priority' => 47,
-		);
+		];
 
 		foreach ( static::$test_actions as $beans_id => $original_action ) {
 			// We want to store the "replaced" action first, before we add the original action.
@@ -96,12 +96,12 @@ class Tests_BeansAddAction extends Actions_Test_Case {
 	 * Test beans_add_action() should return false when the ID is registered to the "removed" status.
 	 */
 	public function test_should_return_false_when_removed() {
-		$empty_action = array(
+		$empty_action = [
 			'hook'     => null,
 			'callback' => null,
 			'priority' => null,
 			'args'     => null,
-		);
+		];
 
 		foreach ( static::$test_actions as $beans_id => $action ) {
 			// Store the "removed" action before we call beans_add_action().
@@ -122,10 +122,10 @@ class Tests_BeansAddAction extends Actions_Test_Case {
 	 * Test beans_add_action() should merge the "modified" action configuration parameters.
 	 */
 	public function test_should_merge_modified_action_parameters() {
-		$modified_action = array(
+		$modified_action = [
 			'callback' => 'foo',
 			'priority' => 17,
-		);
+		];
 
 		foreach ( static::$test_actions as $beans_id => $original_action ) {
 			// We want to store the "modified" action first, before we add the original action.
