@@ -10,6 +10,7 @@
 namespace Beans\Framework\Tests\Integration\API\UIkit\Includes;
 
 use Beans\Framework\Tests\Integration\Test_Case;
+use Brain\Monkey;
 use org\bovigo\vfs\vfsStream;
 
 /**
@@ -33,6 +34,7 @@ abstract class UIkit_Test_Case extends Test_Case {
 		parent::setUp();
 
 		$this->set_up_virtual_filesystem();
+		$this->set_up_mocks();
 		$this->set_up_uploads_directory();
 
 		$this->reset_globals();
@@ -78,9 +80,7 @@ abstract class UIkit_Test_Case extends Test_Case {
 			'uploads' => [
 				'beans' => [
 					'compiler' => [
-						'uikit' => [
-							'index.php' => '',
-						],
+						'uikit' => [],
 					],
 				],
 			],
@@ -88,7 +88,15 @@ abstract class UIkit_Test_Case extends Test_Case {
 	}
 
 	/**
-	 * Set the Uploads directory to our virtual filesystem.
+	 * Set up the mocks.
+	 */
+	protected function set_up_mocks() {
+		// Return the virtual filesystem's path to avoid wp_normalize_path converting its prefix from vfs::// to vfs:/.
+		Monkey\Functions\when( 'wp_normalize_path' )->returnArg();
+	}
+
+	/**
+	 * Set up the Uploads directory to our virtual filesystem.
 	 */
 	protected function set_up_uploads_directory() {
 		add_filter( 'upload_dir', function( array $uploads_dir ) {
@@ -117,13 +125,47 @@ abstract class UIkit_Test_Case extends Test_Case {
 			'themes'     => array(),
 		);
 
-		$_beans_uikit_registered_items = array(
-			'themes' => array(
+		$_beans_uikit_registered_items = [
+			'themes' => [
 				'default'         => BEANS_API_PATH . 'uikit/src/themes/default',
 				'almost-flat'     => BEANS_API_PATH . 'uikit/src/themes/almost-flat',
 				'gradient'        => BEANS_API_PATH . 'uikit/src/themes/gradient',
 				'wordpress-admin' => BEANS_API_PATH . 'uikit/themes/wordpress-admin',
-			),
-		);
+			],
+		];
+	}
+
+	/**
+	 * Get the file's content.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string $filename Name of the file.
+	 * @param string $id       File's ID.
+	 *
+	 * @return string
+	 */
+	protected function get_cached_contents( $filename, $id ) {
+		return $this->mock_filesystem
+			->getChild( 'virtual-wp-content/uploads/beans/compiler/' . $id )
+			->getChild( $filename )
+			->getContent();
+	}
+
+	/**
+	 * Get the compiled file's name.
+	 *
+	 * @param string $path The virtual filesystem's path.
+	 *
+	 * @return string
+	 */
+	protected function get_compiled_filename( $path ) {
+		$files = beans_scandir( $path );
+
+		if ( empty( $files ) ) {
+			return '';
+		}
+
+		return array_pop( $files );
 	}
 }
