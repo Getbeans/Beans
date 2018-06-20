@@ -40,6 +40,18 @@ final class _Beans_Uikit {
 	 * @return void
 	 */
 	public function compile() {
+		$this->compile_styles();
+		$this->compile_scripts();
+	}
+
+	/**
+	 * Compile the styles.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return void
+	 */
+	private function compile_styles() {
 		/**
 		 * Filter UIkit enqueued style components.
 		 *
@@ -49,6 +61,31 @@ final class _Beans_Uikit {
 		 */
 		$styles = apply_filters( 'beans_uikit_euqueued_styles', $this->register_less_components() );
 
+		// If there are not styles to compile, bail out.
+		if ( empty( $styles ) ) {
+			return;
+		}
+
+		/**
+		 * Filter UIkit style compiler arguments.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $components An array of UIkit style compiler arguments.
+		 */
+		$args = apply_filters( 'beans_uikit_euqueued_styles_args', array() );
+
+		beans_compile_less_fragments( 'uikit', array_unique( $styles ), $args );
+	}
+
+	/**
+	 * Compile the scripts.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return void
+	 */
+	private function compile_scripts() {
 		/**
 		 * Filter UIkit enqueued script components.
 		 *
@@ -58,14 +95,10 @@ final class _Beans_Uikit {
 		 */
 		$scripts = apply_filters( 'beans_uikit_euqueued_scripts', $this->register_js_components() );
 
-		/**
-		 * Filter UIkit style compiler arguments.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param array $components An array of UIkit style compiler arguments.
-		 */
-		$styles_args = apply_filters( 'beans_uikit_euqueued_styles_args', array() );
+		// If there are not styles to compile, bail out.
+		if ( empty( $scripts ) ) {
+			return;
+		}
 
 		/**
 		 * Filter UIkit script compiler arguments.
@@ -74,22 +107,14 @@ final class _Beans_Uikit {
 		 *
 		 * @param array $components An array of UIkit script compiler arguments.
 		 */
-		$scripts_args = apply_filters(
+		$args = apply_filters(
 			'beans_uikit_euqueued_scripts_args',
 			array(
 				'dependencies' => array( 'jquery' ),
 			)
 		);
 
-		// Compile less.
-		if ( $styles ) {
-			beans_compile_less_fragments( 'uikit', array_unique( $styles ), $styles_args );
-		}
-
-		// Compile js.
-		if ( $scripts ) {
-			beans_compile_js_fragments( 'uikit', array_unique( $scripts ), $scripts_args );
-		}
+		beans_compile_js_fragments( 'uikit', array_unique( $scripts ), $args );
 	}
 
 	/**
