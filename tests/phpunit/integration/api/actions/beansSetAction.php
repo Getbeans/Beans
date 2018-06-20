@@ -27,7 +27,7 @@ class Tests_BeansSetAction extends Actions_Test_Case {
 	 *
 	 * @var array
 	 */
-	protected $statuses = array( 'added', 'modified', 'removed', 'replaced' );
+	protected $statuses = [ 'added', 'modified', 'removed', 'replaced' ];
 
 	/**
 	 * Test _beans_set_action() should set (registered) the action and then return it.
@@ -56,12 +56,12 @@ class Tests_BeansSetAction extends Actions_Test_Case {
 	public function test_should_not_overwrite_existing_registered_action() {
 		global $_beans_registered_actions;
 
-		$new_action = array(
+		$new_action = [
 			'hook'     => 'bar',
 			'callback' => 'callback_bar',
 			'priority' => 20,
 			'args'     => 2,
-		);
+		];
 
 		foreach ( static::$test_actions as $beans_id => $action ) {
 
@@ -84,12 +84,12 @@ class Tests_BeansSetAction extends Actions_Test_Case {
 	public function test_should_overwrite_existing_registered_action() {
 		global $_beans_registered_actions;
 
-		$new_action = array(
+		$new_action = [
 			'hook'     => 'bar',
 			'callback' => 'callback_bar',
 			'priority' => 20,
 			'args'     => 2,
-		);
+		];
 
 		foreach ( static::$test_actions as $beans_id => $action ) {
 
