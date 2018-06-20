@@ -40,8 +40,6 @@ final class _Beans_Uikit {
 	 * @return void
 	 */
 	public function compile() {
-		global $_beans_uikit_enqueued_items;
-
 		/**
 		 * Filter UIkit enqueued style components.
 		 *
@@ -79,7 +77,7 @@ final class _Beans_Uikit {
 		$scripts_args = apply_filters(
 			'beans_uikit_euqueued_scripts_args',
 			array(
-				'depedencies' => array( 'jquery' ),
+				'dependencies' => array( 'jquery' ),
 			)
 		);
 
