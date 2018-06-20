@@ -29,9 +29,9 @@ class Tests_BeansReplaceActionHook extends Replace_Action_Test_Case {
 	 * Intent: We are testing to ensure Beans is "load order" agnostic.
 	 */
 	public function test_should_store_when_action_is_not_registered() {
-		$replaced_action = array(
+		$replaced_action = [
 			'hook' => 'my_new_hook',
-		);
+		];
 
 		foreach ( static::$test_ids as $beans_id ) {
 			// Test that the original action has not yet been added.
@@ -52,9 +52,9 @@ class Tests_BeansReplaceActionHook extends Replace_Action_Test_Case {
 	 * Intent: We are testing to ensure Beans is "load order" agnostic.
 	 */
 	public function test_should_store_and_then_replace_the_hook() {
-		$replaced_action = array(
+		$replaced_action = [
 			'hook' => 'foo',
-		);
+		];
 
 		// Now replace the actions.
 		foreach ( static::$test_ids as $beans_id ) {
@@ -110,9 +110,9 @@ class Tests_BeansReplaceActionHook extends Replace_Action_Test_Case {
 			$this->assertEquals( $action_config['hook'], $original_action['hook'] );
 
 			// Set up what will get stored in Beans.
-			$replaced_action = array(
+			$replaced_action = [
 				'hook' => 'beans_foo',
-			);
+			];
 
 			// Run the replace.
 			$this->assertTrue( beans_replace_action_hook( $beans_id, $replaced_action['hook'] ) );
