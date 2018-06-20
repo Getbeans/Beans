@@ -7,23 +7,23 @@
  * @since   1.5.0
  */
 
-return array(
-	'beans_post_meta'          => array(
+return [
+	'beans_post_meta'          => [
 		'hook'     => 'beans_post_header',
 		'callback' => 'beans_post_meta',
 		'priority' => 15,
 		'args'     => 1,
-	),
-	'beans_post_image'         => array(
+	],
+	'beans_post_image'         => [
 		'hook'     => 'beans_post_body',
 		'callback' => 'beans_post_image',
 		'priority' => 5,
 		'args'     => 1,
-	),
-	'beans_previous_post_link' => array(
+	],
+	'beans_previous_post_link' => [
 		'hook'     => 'previous_post_link',
 		'callback' => 'beans_previous_post_link',
 		'priority' => 10,
 		'args'     => 4,
-	),
-);
+	],
+];
