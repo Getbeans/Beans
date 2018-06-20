@@ -96,11 +96,11 @@ class Tests_BeansGetCurrentAction extends Actions_Test_Case {
 	 * Test _beans_get_current_action() should return the merged "added" and "modified" action.
 	 */
 	public function test_should_return_merged_added_and_modified_action() {
-		$modified_action = array(
+		$modified_action = [
 			'callback' => 'callback',
 			'priority' => 27,
 			'args'     => 14,
-		);
+		];
 
 		foreach ( static::$test_actions as $beans_id => $action ) {
 			Monkey\Functions\expect( '_beans_get_action' )
