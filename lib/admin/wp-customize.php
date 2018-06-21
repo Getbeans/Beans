@@ -70,7 +70,7 @@ function beans_do_register_wp_customize_options() {
 		array(
 			'id'          => 'beans_viewport_width_group',
 			'label'       => __( 'Viewport Width - for Previewing Only', 'tm-beans' ),
-			'description' => __( 'Slide left or right to change the viewport width. Publishing will not change the height of your website.', 'tm-beans' ),
+			'description' => __( 'Slide left or right to change the viewport width. Publishing will not change the width of your website.', 'tm-beans' ),
 			'type'        => 'group',
 			'fields'      => array(
 				array(
