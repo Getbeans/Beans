@@ -69,13 +69,13 @@ function beans_do_register_wp_customize_options() {
 	$fields = array(
 		array(
 			'id'          => 'beans_viewport_width_group',
-			'label'       => __( 'Viewport Width', 'tm-beans' ),
-			'description' => __( 'Slide left or right to change the viewport width.', 'tm-beans' ),
+			'label'       => __( 'Viewport Width - for Previewing Only', 'tm-beans' ),
+			'description' => __( 'Slide left or right to change the viewport width. Publishing will not change the height of your website.', 'tm-beans' ),
 			'type'        => 'group',
 			'fields'      => array(
 				array(
 					'id'      => 'beans_enable_viewport_width',
-					'label'   => __( 'Enable changing of the viewport width.', 'tm-beans' ),
+					'label'   => __( 'Enable to change the viewport width.', 'tm-beans' ),
 					'type'    => 'activation',
 					'default' => false,
 				),
@@ -92,13 +92,13 @@ function beans_do_register_wp_customize_options() {
 		),
 		array(
 			'id'          => 'beans_viewport_height_group',
-			'label'       => __( 'Viewport Height', 'tm-beans' ),
-			'description' => __( 'Slide left or right to change the viewport height.', 'tm-beans' ),
+			'label'       => __( 'Viewport Height - for Previewing Only', 'tm-beans' ),
+			'description' => __( 'Slide left or right to change the viewport height. Publishing will not change the height of your website.', 'tm-beans' ),
 			'type'        => 'group',
 			'fields'      => array(
 				array(
 					'id'      => 'beans_enable_viewport_height',
-					'label'   => __( 'Enable changing of the viewport height.', 'tm-beans' ),
+					'label'   => __( 'Enable to change the viewport height.', 'tm-beans' ),
 					'type'    => 'activation',
 					'default' => false,
 				),
