@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Beans v.1.5.0-beta\n"
-"POT-Creation-Date: 2018-06-20 08:14-0500\n"
+"POT-Creation-Date: 2018-06-20 20:46-0500\n"
 "PO-Revision-Date: 2018-06-20 08:10-0500\n"
 "Last-Translator: \n"
 "Language-Team: Beans Team\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.0.8\n"
-"X-Poedit-Basepath: ..\n"
+"X-Poedit-Basepath: ../..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -20,8 +20,9 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
-"X-Poedit-SearchPathExcluded-1: vendor\n"
+"X-Poedit-SearchPathExcluded-1: bin\n"
 "X-Poedit-SearchPathExcluded-2: tests\n"
+"X-Poedit-SearchPathExcluded-3: vendor\n"
 
 #: lib/admin/options.php:30
 msgctxt "term meta"
@@ -37,27 +38,47 @@ msgstr ""
 msgid "Post Options"
 msgstr ""
 
-#: lib/admin/wp-customize.php:34
+#: lib/admin/wp-customize.php:37
 msgid "Logo Image"
 msgstr ""
 
-#: lib/admin/wp-customize.php:39
+#: lib/admin/wp-customize.php:42
 msgid "Branding"
 msgstr ""
 
-#: lib/admin/wp-customize.php:49 lib/admin/wp-customize.php:60
+#: lib/admin/wp-customize.php:52 lib/admin/wp-customize.php:63
 msgid "Default Layout"
 msgstr ""
 
-#: lib/admin/wp-customize.php:69
-msgid "Viewport Width"
+#: lib/admin/wp-customize.php:72
+msgid "Viewport Width - for Previewing Only"
 msgstr ""
 
-#: lib/admin/wp-customize.php:90
-msgid "Viewport Height"
+#: lib/admin/wp-customize.php:73
+msgid ""
+"Slide left or right to change the viewport width. Publishing will not change "
+"the width of your website."
 msgstr ""
 
-#: lib/admin/wp-customize.php:115
+#: lib/admin/wp-customize.php:78
+msgid "Enable to change the viewport width."
+msgstr ""
+
+#: lib/admin/wp-customize.php:95
+msgid "Viewport Height - for Previewing Only"
+msgstr ""
+
+#: lib/admin/wp-customize.php:96
+msgid ""
+"Slide left or right to change the viewport height. Publishing will not "
+"change the height of your website."
+msgstr ""
+
+#: lib/admin/wp-customize.php:101
+msgid "Enable to change the viewport height."
+msgstr ""
+
+#: lib/admin/wp-customize.php:122
 msgid "Preview Tools"
 msgstr ""
 
