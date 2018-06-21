@@ -38,7 +38,7 @@ class Tests_BeansRenderAction extends Test_Case {
 	public function test_should_return_false_when_a_callback_is_not_registered() {
 		$this->assertFalse( _beans_render_action( 'foo' ) );
 		$this->assertFalse( _beans_render_action( 'foo', 'bar' ) );
-		$this->assertFalse( _beans_render_action( 'foo', 'bar', array( 'baz' => 'zab' ) ) );
+		$this->assertFalse( _beans_render_action( 'foo', 'bar', [ 'baz' => 'zab' ] ) );
 		$this->assertFalse( _beans_render_action( 'foo_bar' ) );
 		$this->assertFalse( _beans_render_action( 'foo.bar' ) );
 		$this->assertFalse( _beans_render_action( 'beans_footer_before_markup' ) );
@@ -50,11 +50,11 @@ class Tests_BeansRenderAction extends Test_Case {
 	 */
 	public function test_should_return_after_calling_hook_with_no_subhook() {
 		// Testing with a closure.
-		$expected_args = array(
-			array( 'foo' ),
-			array( 'foo', 'bar' ),
-			array( 'foo', 'bar', 'baz' ),
-		);
+		$expected_args = [
+			[ 'foo' ],
+			[ 'foo', 'bar' ],
+			[ 'foo', 'bar', 'baz' ],
+		];
 		$callback      = function() use ( $expected_args ) {
 			$args = func_get_args();
 			$this->assertTrue( doing_action( 'beans_stub' ) );
@@ -73,16 +73,16 @@ class Tests_BeansRenderAction extends Test_Case {
 		// Testing with a stubbed method.
 		$stub    = new Actions_Stub();
 		$message = 'Beans rocks!';
-		add_action( 'beans_stub_with_object', array( $stub, 'echo_static' ) );
+		add_action( 'beans_stub_with_object', [ $stub, 'echo_static' ] );
 		$this->assertTrue( has_action( 'beans_stub_with_object' ) );
-		Actions\expectDone( 'beans_stub_with_object' )->whenHappen( array( $stub, 'echo_static' ) );
+		Actions\expectDone( 'beans_stub_with_object' )->whenHappen( [ $stub, 'echo_static' ] );
 		$this->assertEquals( $message, _beans_render_action( 'beans_stub_with_object', $message ) );
 
 		// Testing with a stubbed static method.
 		$stub = Actions_Stub::class;
-		add_action( 'beans_stub_with_static_method', array( $stub, 'echo_static' ) );
+		add_action( 'beans_stub_with_static_method', [ $stub, 'echo_static' ] );
 		$this->assertTrue( has_action( 'beans_stub_with_static_method' ) );
-		Actions\expectDone( 'beans_stub_with_static_method' )->times( 3 )->whenHappen( array( $stub, 'echo_static' ) );
+		Actions\expectDone( 'beans_stub_with_static_method' )->times( 3 )->whenHappen( [ $stub, 'echo_static' ] );
 
 		$message = 'Calling the static method...and Beans rocks!';
 		$this->assertEquals( $message, _beans_render_action( 'beans_stub_with_static_method', $message ) );
@@ -108,28 +108,28 @@ class Tests_BeansRenderAction extends Test_Case {
 		$stub = Actions_Stub::class;
 
 		// Test with a single sub-hook.
-		add_action( 'foo', array( $stub, 'echo_static' ) );
-		Actions\expectDone( 'foo' )->whenHappen( array( $stub, 'echo_static' ) );
+		add_action( 'foo', [ $stub, 'echo_static' ] );
+		Actions\expectDone( 'foo' )->whenHappen( [ $stub, 'echo_static' ] );
 		Actions\expectDone( 'bar' )->never();
 		$this->assertEquals( 'Called foo.', _beans_render_action( 'foo[bar]', 'Called foo.' ) );
 
 		// Test with a suffix.
-		add_action( 'foo_bar', array( $stub, 'echo_static' ) );
-		Actions\expectDone( 'foo_bar' )->whenHappen( array( $stub, 'echo_static' ) );
+		add_action( 'foo_bar', [ $stub, 'echo_static' ] );
+		Actions\expectDone( 'foo_bar' )->whenHappen( [ $stub, 'echo_static' ] );
 		Actions\expectDone( 'baz_bar' )->never();
 		$this->assertEquals( 'Called foo_bar.', _beans_render_action( 'foo[baz]_bar', 'Called foo_bar.' ) );
 
 		// Test with multiple sub-hooks.
-		add_action( 'beans_stub', array( $stub, 'echo_static' ) );
-		Actions\expectDone( 'beans_stub' )->whenHappen( array( $stub, 'echo_static' ) );
+		add_action( 'beans_stub', [ $stub, 'echo_static' ] );
+		Actions\expectDone( 'beans_stub' )->whenHappen( [ $stub, 'echo_static' ] );
 		Actions\expectDone( 'beans_stub[_pre]' )->never();
 		Actions\expectDone( 'beans_stub[_before]' )->never();
 		Actions\expectDone( 'beans_stub[_pre][_before]' )->never();
 		$this->assertEquals( 'Beans rocks!', _beans_render_action( 'beans_stub[_pre][_before]', 'Beans rocks!' ) );
 
 		// Test with multiple sub-hooks.
-		add_action( 'beans_stub_after', array( $stub, 'echo_static' ) );
-		Actions\expectDone( 'beans_stub_after' )->whenHappen( array( $stub, 'echo_static' ) );
+		add_action( 'beans_stub_after', [ $stub, 'echo_static' ] );
+		Actions\expectDone( 'beans_stub_after' )->whenHappen( [ $stub, 'echo_static' ] );
 		Actions\expectDone( 'beans_stub[_pre]_after' )->never();
 		Actions\expectDone( 'beans_stub[_before]_after' )->never();
 		Actions\expectDone( 'beans_stub[_pre][_before]_after' )->never();
@@ -145,13 +145,13 @@ class Tests_BeansRenderAction extends Test_Case {
 		$message = 'Called me. ';
 
 		// The root hook renders.
-		add_action( 'foo', array( $stub, 'echo_static' ) );
-		Actions\expectDone( 'foo' )->once()->whenHappen( array( $stub, 'echo_static' ) );
+		add_action( 'foo', [ $stub, 'echo_static' ] );
+		Actions\expectDone( 'foo' )->once()->whenHappen( [ $stub, 'echo_static' ] );
 		$expected = $message;
 
 		// The 1st sub-hook renders.
-		add_action( 'foo[bar]', array( $stub, 'echo_static' ) );
-		Actions\expectDone( 'foo[bar]' )->once()->whenHappen( array( $stub, 'echo_static' ) );
+		add_action( 'foo[bar]', [ $stub, 'echo_static' ] );
+		Actions\expectDone( 'foo[bar]' )->once()->whenHappen( [ $stub, 'echo_static' ] );
 		$expected .= $message;
 
 		// Run the test.
@@ -168,13 +168,13 @@ class Tests_BeansRenderAction extends Test_Case {
 		$message = 'Called me. ';
 
 		// The root hook renders.
-		add_action( 'foo', array( $stub, 'echo_static' ) );
-		Actions\expectDone( 'foo' )->once()->whenHappen( array( $stub, 'echo_static' ) );
+		add_action( 'foo', [ $stub, 'echo_static' ] );
+		Actions\expectDone( 'foo' )->once()->whenHappen( [ $stub, 'echo_static' ] );
 		$expected = $message;
 
 		// The 1st sub-hook renders.
-		add_action( 'foo[bar]', array( $stub, 'echo_static' ) );
-		Actions\expectDone( 'foo[bar]' )->once()->whenHappen( array( $stub, 'echo_static' ) );
+		add_action( 'foo[bar]', [ $stub, 'echo_static' ] );
+		Actions\expectDone( 'foo[bar]' )->once()->whenHappen( [ $stub, 'echo_static' ] );
 		$expected .= $message;
 
 		// These hooks will not render as they are not registered.
@@ -194,23 +194,23 @@ class Tests_BeansRenderAction extends Test_Case {
 		$message = 'Called me. ';
 
 		// The root hook renders.
-		add_action( 'foo', array( $stub, 'echo_static' ) );
-		Actions\expectDone( 'foo' )->once()->whenHappen( array( $stub, 'echo_static' ) );
+		add_action( 'foo', [ $stub, 'echo_static' ] );
+		Actions\expectDone( 'foo' )->once()->whenHappen( [ $stub, 'echo_static' ] );
 		$expected = $message;
 
 		// The 1st sub-hook renders.
-		add_action( 'foo[bar]', array( $stub, 'echo_static' ) );
-		Actions\expectDone( 'foo[bar]' )->once()->whenHappen( array( $stub, 'echo_static' ) );
+		add_action( 'foo[bar]', [ $stub, 'echo_static' ] );
+		Actions\expectDone( 'foo[bar]' )->once()->whenHappen( [ $stub, 'echo_static' ] );
 		$expected .= $message;
 
 		// The 2nd sub-hook renders.
-		add_action( 'foo[baz]', array( $stub, 'echo_static' ) );
-		Actions\expectDone( 'foo[baz]' )->once()->whenHappen( array( $stub, 'echo_static' ) );
+		add_action( 'foo[baz]', [ $stub, 'echo_static' ] );
+		Actions\expectDone( 'foo[baz]' )->once()->whenHappen( [ $stub, 'echo_static' ] );
 		$expected .= $message;
 
 		// The original hook renders.
-		add_action( 'foo[bar][baz]', array( $stub, 'echo_static' ) );
-		Actions\expectDone( 'foo[bar][baz]' )->once()->whenHappen( array( $stub, 'echo_static' ) );
+		add_action( 'foo[bar][baz]', [ $stub, 'echo_static' ] );
+		Actions\expectDone( 'foo[bar][baz]' )->once()->whenHappen( [ $stub, 'echo_static' ] );
 		$expected .= $message;
 
 		// Run the test.

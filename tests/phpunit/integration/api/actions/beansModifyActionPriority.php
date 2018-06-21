@@ -28,22 +28,22 @@ class Tests_BeansModifyActionPriority extends Actions_Test_Case {
 	public function test_should_return_false_when_priority_is_non_integer() {
 		global $wp_filter;
 
-		$priorities = array(
+		$priorities = [
 			null,
-			array( 10 ),
+			[ 10 ],
 			false,
 			'',
-		);
+		];
 
 		$this->go_to_post();
 
 		foreach ( static::$test_actions as $beans_id => $original_action ) {
 			// Check the starting state.
 			$this->assertEquals(
-				array(
+				[
 					'function'      => $original_action['callback'],
 					'accepted_args' => $original_action['args'],
-				),
+				],
 				$wp_filter[ $original_action['hook'] ]->callbacks[ $original_action['priority'] ][ $original_action['callback'] ]
 			);
 
@@ -56,10 +56,10 @@ class Tests_BeansModifyActionPriority extends Actions_Test_Case {
 
 				// Check that the priority did not change in WordPress.
 				$this->assertEquals(
-					array(
+					[
 						'function'      => $original_action['callback'],
 						'accepted_args' => $original_action['args'],
-					),
+					],
 					$wp_filter[ $original_action['hook'] ]->callbacks[ $original_action['priority'] ][ $original_action['callback'] ]
 				);
 			}
@@ -72,17 +72,17 @@ class Tests_BeansModifyActionPriority extends Actions_Test_Case {
 	public function test_should_modify_action_when_priority_is_zero() {
 		global $wp_filter;
 
-		$priorities = array( 0, 0.0, '0', '0.0' );
+		$priorities = [ 0, 0.0, '0', '0.0' ];
 
 		$this->go_to_post();
 
 		foreach ( static::$test_actions as $beans_id => $original_action ) {
 			// Check the starting state.
 			$this->assertEquals(
-				array(
+				[
 					'function'      => $original_action['callback'],
 					'accepted_args' => $original_action['args'],
-				),
+				],
 				$wp_filter[ $original_action['hook'] ]->callbacks[ $original_action['priority'] ][ $original_action['callback'] ]
 			);
 
@@ -91,7 +91,7 @@ class Tests_BeansModifyActionPriority extends Actions_Test_Case {
 				$this->assertTrue( beans_modify_action_priority( $beans_id, $priority ) );
 
 				// Check that the modified action is registered as "modified" in Beans.
-				$this->assertEquals( array( 'priority' => (int) $priority ), _beans_get_action( $beans_id, 'modified' ) );
+				$this->assertEquals( [ 'priority' => (int) $priority ], _beans_get_action( $beans_id, 'modified' ) );
 
 				// Check that the priority did change in WordPress.
 				$this->check_modified_in_wp( $original_action, (int) $priority );
@@ -113,7 +113,7 @@ class Tests_BeansModifyActionPriority extends Actions_Test_Case {
 			$this->assertFalse( beans_modify_action_priority( $beans_id, $action['priority'] ) );
 
 			// Check that it did register as "modified" in Beans.
-			$this->assertEquals( array( 'priority' => $action['priority'] ), _beans_get_action( $beans_id, 'modified' ) );
+			$this->assertEquals( [ 'priority' => $action['priority'] ], _beans_get_action( $beans_id, 'modified' ) );
 
 			// Check that the action was not added in WordPress.
 			$this->assertFalse( has_action( $action['hook'], $action['callback'] ) );
@@ -126,19 +126,19 @@ class Tests_BeansModifyActionPriority extends Actions_Test_Case {
 	public function test_should_modify_the_action_priority() {
 		global $wp_filter;
 
-		$modified_action = array(
+		$modified_action = [
 			'priority' => 20,
-		);
+		];
 
 		$this->go_to_post();
 
 		foreach ( static::$test_actions as $beans_id => $original_action ) {
 			// Check the starting state.
 			$this->assertEquals(
-				array(
+				[
 					'function'      => $original_action['callback'],
 					'accepted_args' => $original_action['args'],
-				),
+				],
 				$wp_filter[ $original_action['hook'] ]->callbacks[ $original_action['priority'] ][ $original_action['callback'] ]
 			);
 
@@ -177,10 +177,10 @@ class Tests_BeansModifyActionPriority extends Actions_Test_Case {
 
 		// Check that the action's priority was modified in WordPress.
 		$this->assertEquals(
-			array(
+			[
 				'function'      => $original_action['callback'],
 				'accepted_args' => $original_action['args'],
-			),
+			],
 			$callbacks_in_wp[ $new_priority ][ $original_action['callback'] ]
 		);
 	}

@@ -109,10 +109,10 @@ class Tests_BeansAddAction extends Actions_Test_Case {
 	 */
 	public function test_should_use_replaced_action_when_available() {
 		global $_beans_registered_actions;
-		$replaced_action = array(
+		$replaced_action = [
 			'callback' => 'my_new_callback',
 			'priority' => 47,
-		);
+		];
 
 		foreach ( static::$test_actions as $beans_id => $original_action ) {
 			// Set up the mocks.
@@ -164,12 +164,12 @@ class Tests_BeansAddAction extends Actions_Test_Case {
 	 */
 	public function test_should_return_false_when_removed() {
 		global $_beans_registered_actions;
-		$empty_action = array(
+		$empty_action = [
 			'hook'     => null,
 			'callback' => null,
 			'priority' => null,
 			'args'     => null,
-		);
+		];
 
 		foreach ( static::$test_actions as $beans_id => $action ) {
 			// Set up the mocks.
@@ -214,10 +214,10 @@ class Tests_BeansAddAction extends Actions_Test_Case {
 	 */
 	public function test_should_merge_modified_action_parameters() {
 		global $_beans_registered_actions;
-		$modified_action = array(
+		$modified_action = [
 			'callback' => 'foo',
 			'priority' => 17,
-		);
+		];
 
 		foreach ( static::$test_actions as $beans_id => $original_action ) {
 			// Set up the mocks.

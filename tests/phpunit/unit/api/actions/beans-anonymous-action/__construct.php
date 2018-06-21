@@ -36,24 +36,24 @@ class Tests_BeansAnonymousAction_Construct extends Actions_Test_Case {
 	 * Test __construct() should set the callback and arguments.
 	 */
 	public function test_should_set_callback_and_arguments() {
-		$anonymous_action = new _Beans_Anonymous_Action( 'beans_test_do_foo', array(
+		$anonymous_action = new _Beans_Anonymous_Action( 'beans_test_do_foo', [
 			'foo_test_callback',
-			array( 'foo', 'bar', 'baz' ),
-		) );
+			[ 'foo', 'bar', 'baz' ],
+		] );
 
 		$this->assertSame( 'foo_test_callback', $anonymous_action->callback[0] );
-		$this->assertSame( array( 'foo', 'bar', 'baz' ), $anonymous_action->callback[1] );
+		$this->assertSame( [ 'foo', 'bar', 'baz' ], $anonymous_action->callback[1] );
 	}
 
 	/**
 	 * Test __construct() should add the action's hook.
 	 */
 	public function test_should_add_action_hook() {
-		$anonymous_action = new _Beans_Anonymous_Action( 'beans_test_do_foo', array(
+		$anonymous_action = new _Beans_Anonymous_Action( 'beans_test_do_foo', [
 			'foo_test_callback',
-			array( 'foo' ),
-		), 50, 3 );
+			[ 'foo' ],
+		], 50, 3 );
 
-		$this->assertTrue( has_action( 'beans_test_do_foo', array( $anonymous_action, 'callback' ) ) );
+		$this->assertTrue( has_action( 'beans_test_do_foo', [ $anonymous_action, 'callback' ] ) );
 	}
 }

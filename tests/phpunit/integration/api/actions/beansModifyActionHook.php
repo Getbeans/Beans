@@ -26,15 +26,15 @@ class Tests_BeansModifyActionHook extends Actions_Test_Case {
 	 * Test beans_modify_action_hook() should not modify the action when the hook is invalid.
 	 */
 	public function test_should_not_modify_when_invalid_hook() {
-		$hooks = array(
+		$hooks = [
 			null,
 			false,
-			array( 'foo' ),
+			[ 'foo' ],
 			'',
 			0,
 			0.0,
 			'0',
-		);
+		];
 
 		$this->go_to_post();
 
@@ -69,7 +69,7 @@ class Tests_BeansModifyActionHook extends Actions_Test_Case {
 			$this->assertFalse( beans_modify_action_hook( $beans_id, $action['hook'] ) );
 
 			// Check that it did register as "modified" in Beans.
-			$this->assertEquals( array( 'hook' => $action['hook'] ), _beans_get_action( $beans_id, 'modified' ) );
+			$this->assertEquals( [ 'hook' => $action['hook'] ], _beans_get_action( $beans_id, 'modified' ) );
 
 			// Check that the action was not added in WordPress.
 			$this->assertFalse( has_action( $action['hook'], $action['callback'] ) );
@@ -80,9 +80,9 @@ class Tests_BeansModifyActionHook extends Actions_Test_Case {
 	 * Test beans_modify_action_hook() should modify the registered action's hook.
 	 */
 	public function test_should_modify_the_action_hook() {
-		$modified_action = array(
+		$modified_action = [
 			'hook' => 'foo',
-		);
+		];
 
 		$this->go_to_post();
 

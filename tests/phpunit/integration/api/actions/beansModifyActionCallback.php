@@ -26,11 +26,11 @@ class Tests_BeansModifyActionCallback extends Actions_Test_Case {
 	 * Test beans_modify_action_callback() should not modify when the callback is invalid.
 	 */
 	public function test_should_not_modify_when_invalid_callback() {
-		$callbacks = array(
+		$callbacks = [
 			null,
 			false,
 			'',
-		);
+		];
 
 		$this->go_to_post();
 
@@ -65,7 +65,7 @@ class Tests_BeansModifyActionCallback extends Actions_Test_Case {
 			$this->assertFalse( beans_modify_action_callback( $beans_id, $action['callback'] ) );
 
 			// Check that it did register as "modified" in Beans.
-			$this->assertEquals( array( 'callback' => $action['callback'] ), _beans_get_action( $beans_id, 'modified' ) );
+			$this->assertEquals( [ 'callback' => $action['callback'] ], _beans_get_action( $beans_id, 'modified' ) );
 
 			// Check that the action was not added in WordPress.
 			$this->assertFalse( has_action( $action['hook'], $action['callback'] ) );
@@ -76,9 +76,9 @@ class Tests_BeansModifyActionCallback extends Actions_Test_Case {
 	 * Test beans_modify_action_callback() should modify the registered action's callback.
 	 */
 	public function test_should_modify_the_action_callback() {
-		$modified_action = array(
+		$modified_action = [
 			'callback' => 'my_callback',
-		);
+		];
 
 		$this->go_to_post();
 

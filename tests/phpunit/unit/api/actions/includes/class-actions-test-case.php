@@ -50,12 +50,12 @@ abstract class Actions_Test_Case extends Test_Case {
 		parent::tearDownAfterClass();
 
 		global $_beans_registered_actions;
-		$_beans_registered_actions = array(
-			'added'    => array(),
-			'modified' => array(),
-			'removed'  => array(),
-			'replaced' => array(),
-		);
+		$_beans_registered_actions = [
+			'added'    => [],
+			'modified' => [],
+			'removed'  => [],
+			'replaced' => [],
+		];
 
 		// Remove the test actions.
 		foreach ( static::$test_actions as $beans_id => $action ) {
@@ -72,10 +72,10 @@ abstract class Actions_Test_Case extends Test_Case {
 	protected function setUp() {
 		parent::setUp();
 
-		$this->load_original_functions( array(
+		$this->load_original_functions( [
 			'api/actions/functions.php',
 			'api/utilities/functions.php',
-		) );
+		] );
 
 		Monkey\Functions\when( 'beans_get' )->alias( function ( $needle, $haystack ) {
 

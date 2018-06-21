@@ -29,9 +29,9 @@ class Tests_BeansReplaceActionPriority extends Replace_Action_Test_Case {
 	 * Intent: We are testing to ensure Beans is "load order" agnostic.
 	 */
 	public function test_should_store_when_action_is_not_registered() {
-		$replaced_action = array(
+		$replaced_action = [
 			'priority' => 99,
-		);
+		];
 
 		foreach ( static::$test_ids as $beans_id ) {
 			// Test that the original action has not yet been added.
@@ -52,9 +52,9 @@ class Tests_BeansReplaceActionPriority extends Replace_Action_Test_Case {
 	 * Intent: We are testing to ensure Beans is "load order" agnostic.
 	 */
 	public function test_should_store_and_then_replace_the_priority() {
-		$replaced_action = array(
+		$replaced_action = [
 			'priority' => 10000,
-		);
+		];
 
 		// Now replace the actions.
 		foreach ( static::$test_ids as $beans_id ) {
@@ -100,9 +100,9 @@ class Tests_BeansReplaceActionPriority extends Replace_Action_Test_Case {
 	 * Test beans_replace_action_priority() should replace the registered action's priority.
 	 */
 	public function test_should_replace_the_action_priority() {
-		$replaced_action = array(
+		$replaced_action = [
 			'priority' => 999,
-		);
+		];
 
 		$this->go_to_post();
 

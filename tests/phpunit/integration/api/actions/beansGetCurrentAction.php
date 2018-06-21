@@ -75,11 +75,11 @@ class Tests_BeansGetCurrentAction extends Actions_Test_Case {
 	public function test_should_return_merged_added_and_modified_action() {
 		global $_beans_registered_actions;
 
-		$modified_action = array(
+		$modified_action = [
 			'callback' => 'callback',
 			'priority' => 27,
 			'args'     => 14,
-		);
+		];
 
 		foreach ( static::$test_actions as $beans_id => $action ) {
 			// Store the action in the registry.

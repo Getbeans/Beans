@@ -52,17 +52,17 @@ class Tests_BeansUniqueActionId extends Test_Case {
 	public function test_should_convert_static_method() {
 		$this->assertEquals(
 			'Foo::bar',
-			_beans_unique_action_id( array( 'Foo', 'bar' ) )
+			_beans_unique_action_id( [ 'Foo', 'bar' ] )
 		);
 		$this->assertEquals(
 			'Tests_BeansUniqueActionId::test_should_return_when_string',
-			_beans_unique_action_id( array( 'Tests_BeansUniqueActionId', 'test_should_return_when_string' ) )
+			_beans_unique_action_id( [ 'Tests_BeansUniqueActionId', 'test_should_return_when_string' ] )
 		);
 
 		$stub_classname = __NAMESPACE__ . '\Actions_Stub';
 		$this->assertEquals(
 			$stub_classname . '::dummy_static_method',
-			_beans_unique_action_id( array( $stub_classname, 'dummy_static_method' ) )
+			_beans_unique_action_id( [ $stub_classname, 'dummy_static_method' ] )
 		);
 		$this->assertEquals(
 			$stub_classname . '::dummy_static_method',
@@ -72,15 +72,15 @@ class Tests_BeansUniqueActionId extends Test_Case {
 		$stub = new Actions_Stub();
 		$this->assertNotEquals(
 			$stub_classname . '::dummy_static_method',
-			_beans_unique_action_id( array( $stub, 'dummy_static_method' ) )
+			_beans_unique_action_id( [ $stub, 'dummy_static_method' ] )
 		);
 		$this->assertStringEndsWith(
 			'dummy_static_method',
-			_beans_unique_action_id( array( $stub, 'dummy_static_method' ) )
+			_beans_unique_action_id( [ $stub, 'dummy_static_method' ] )
 		);
 		$this->assertEquals(
 			spl_object_hash( $stub ) . 'dummy_static_method',
-			_beans_unique_action_id( array( $stub, 'dummy_static_method' ) )
+			_beans_unique_action_id( [ $stub, 'dummy_static_method' ] )
 		);
 	}
 
@@ -96,7 +96,7 @@ class Tests_BeansUniqueActionId extends Test_Case {
 		$this->assertEquals( spl_object_hash( $stub ), _beans_unique_action_id( $stub ) );
 		$this->assertEquals(
 			spl_object_hash( $stub ) . 'dummy_method',
-			_beans_unique_action_id( array( $stub, 'dummy_method' ) )
+			_beans_unique_action_id( [ $stub, 'dummy_method' ] )
 		);
 	}
 

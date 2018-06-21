@@ -46,7 +46,7 @@ class Tests_BeansReplaceAction extends Replace_Action_Test_Case {
 	 */
 	public function test_should_store_when_action_is_not_registered() {
 		$replaced_callback = 'my_new_callback';
-		$replaced_action   = array( 'callback' => $replaced_callback );
+		$replaced_action   = [ 'callback' => $replaced_callback ];
 
 		foreach ( static::$test_ids as $beans_id ) {
 			Monkey\Functions\expect( '_beans_merge_action' )
@@ -75,7 +75,7 @@ class Tests_BeansReplaceAction extends Replace_Action_Test_Case {
 	 */
 	public function test_should_replace_the_action_hook() {
 		$replaced_hook   = 'foo';
-		$replaced_action = array( 'hook' => $replaced_hook );
+		$replaced_action = [ 'hook' => $replaced_hook ];
 
 		foreach ( static::$test_ids as $beans_id ) {
 			Monkey\Functions\expect( '_beans_merge_action' )
@@ -104,7 +104,7 @@ class Tests_BeansReplaceAction extends Replace_Action_Test_Case {
 	 */
 	public function test_should_replace_the_action_callback() {
 		$replaced_callback = 'my_replaced_callback';
-		$replaced_action   = array( 'callback' => $replaced_callback );
+		$replaced_action   = [ 'callback' => $replaced_callback ];
 
 		foreach ( static::$test_ids as $beans_id ) {
 			Monkey\Functions\expect( '_beans_merge_action' )
@@ -133,7 +133,7 @@ class Tests_BeansReplaceAction extends Replace_Action_Test_Case {
 	 */
 	public function test_should_replace_the_action_priority() {
 		$replaced_priority = - 2;
-		$replaced_action   = array( 'priority' => $replaced_priority );
+		$replaced_action   = [ 'priority' => $replaced_priority ];
 
 		foreach ( static::$test_ids as $beans_id ) {
 			Monkey\Functions\expect( '_beans_merge_action' )
@@ -162,7 +162,7 @@ class Tests_BeansReplaceAction extends Replace_Action_Test_Case {
 	 */
 	public function test_should_replace_the_action_args() {
 		$replaced_args   = 6;
-		$replaced_action = array( 'args' => $replaced_args );
+		$replaced_action = [ 'args' => $replaced_args ];
 
 		foreach ( static::$test_ids as $beans_id ) {
 			Monkey\Functions\expect( '_beans_merge_action' )

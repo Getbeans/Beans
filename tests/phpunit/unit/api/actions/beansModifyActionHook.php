@@ -32,7 +32,7 @@ class Tests_BeansModifyActionHook extends Actions_Test_Case {
 			Monkey\Functions\expect( 'beans_modify_action' )->never();
 
 			$this->assertFalse( beans_modify_action_hook( $beans_id, '' ) );
-			$this->assertFalse( beans_modify_action_hook( $beans_id, array( 'not-a-string' ) ) );
+			$this->assertFalse( beans_modify_action_hook( $beans_id, [ 'not-a-string' ] ) );
 		}
 	}
 

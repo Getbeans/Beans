@@ -27,7 +27,7 @@ class Tests_BeansMergeAction extends Actions_Test_Case {
 	 *
 	 * @var array
 	 */
-	protected $statuses = array( 'added', 'modified', 'removed', 'replaced' );
+	protected $statuses = [ 'added', 'modified', 'removed', 'replaced' ];
 
 	/**
 	 * Test _beans_set_action() should merge the new action's configuration with the registered one and then return it.
@@ -35,9 +35,9 @@ class Tests_BeansMergeAction extends Actions_Test_Case {
 	public function test_should_merge_and_return() {
 		global $_beans_registered_actions;
 
-		$modified_action = array(
+		$modified_action = [
 			'priority' => 29,
-		);
+		];
 
 		foreach ( static::$test_actions as $beans_id => $action ) {
 			$merged_action = array_merge( $action, $modified_action );

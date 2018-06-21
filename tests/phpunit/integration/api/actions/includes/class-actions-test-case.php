@@ -56,12 +56,12 @@ abstract class Actions_Test_Case extends WP_UnitTestCase {
 		parent::tearDownAfterClass();
 
 		global $_beans_registered_actions;
-		$_beans_registered_actions = array(
-			'added'    => array(),
-			'modified' => array(),
-			'removed'  => array(),
-			'replaced' => array(),
-		);
+		$_beans_registered_actions = [
+			'added'    => [],
+			'modified' => [],
+			'removed'  => [],
+			'replaced' => [],
+		];
 
 		// Remove the test actions.
 		foreach ( static::$test_actions as $beans_id => $action ) {
@@ -82,12 +82,12 @@ abstract class Actions_Test_Case extends WP_UnitTestCase {
 		}
 
 		global $_beans_registered_actions;
-		$_beans_registered_actions = array(
-			'added'    => array(),
-			'modified' => array(),
-			'removed'  => array(),
-			'replaced' => array(),
-		);
+		$_beans_registered_actions = [
+			'added'    => [],
+			'modified' => [],
+			'removed'  => [],
+			'replaced' => [],
+		];
 
 		parent::tearDown();
 	}
@@ -174,12 +174,12 @@ abstract class Actions_Test_Case extends WP_UnitTestCase {
 	 * @return array
 	 */
 	protected function setup_original_action( $id = 'foo' ) {
-		$action = array(
+		$action = [
 			'hook'     => "{$id}_hook",
 			'callback' => "callback_{$id}",
 			'priority' => 10,
 			'args'     => 1,
-		);
+		];
 
 		$this->check_not_added( $id, $action['hook'] );
 
@@ -208,7 +208,7 @@ abstract class Actions_Test_Case extends WP_UnitTestCase {
 			$this->restore_original( $beans_id );
 		}
 
-		$post_id = self::factory()->post->create( array( 'post_title' => 'Hello Beans' ) );
+		$post_id = self::factory()->post->create( [ 'post_title' => 'Hello Beans' ] );
 		$this->go_to( get_permalink( $post_id ) );
 		do_action( 'template_redirect' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Valid use case as we need to fire this action as part of our tests.
 	}

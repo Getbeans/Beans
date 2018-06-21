@@ -30,7 +30,7 @@ class Tests_BeansReplaceAction extends Replace_Action_Test_Case {
 	 */
 	public function test_should_store_when_action_is_not_registered() {
 		$replaced_callback = 'my_replaced_callback';
-		$replaced_action   = array( 'callback' => $replaced_callback );
+		$replaced_action   = [ 'callback' => $replaced_callback ];
 
 		foreach ( static::$test_ids as $beans_id ) {
 			// Test that the original action has not yet been added.
@@ -55,7 +55,7 @@ class Tests_BeansReplaceAction extends Replace_Action_Test_Case {
 	 */
 	public function test_should_store_and_then_replace_action() {
 		$replaced_callback = 'my_replaced_callback';
-		$replaced_action   = array( 'callback' => $replaced_callback );
+		$replaced_action   = [ 'callback' => $replaced_callback ];
 
 		// Store the "replaced" action.
 		foreach ( static::$test_ids as $beans_id ) {
@@ -103,9 +103,9 @@ class Tests_BeansReplaceAction extends Replace_Action_Test_Case {
 	 * Test beans_replace_action() should replace the registered action's hook.
 	 */
 	public function test_should_replace_the_action_hook() {
-		$replaced_action = array(
+		$replaced_action = [
 			'hook' => 'foo',
-		);
+		];
 
 		$this->go_to_post();
 
@@ -134,9 +134,9 @@ class Tests_BeansReplaceAction extends Replace_Action_Test_Case {
 	 * Test beans_replace_action() should replace the registered action's callback.
 	 */
 	public function test_should_replace_the_action_callback() {
-		$replaced_action = array(
+		$replaced_action = [
 			'callback' => 'foo',
-		);
+		];
 
 		$this->go_to_post();
 
@@ -165,9 +165,9 @@ class Tests_BeansReplaceAction extends Replace_Action_Test_Case {
 	 * Test beans_replace_action() should replace the registered action's priority level.
 	 */
 	public function test_should_replace_the_action_priority() {
-		$replaced_action = array(
+		$replaced_action = [
 			'priority' => 52,
-		);
+		];
 
 		$this->go_to_post();
 
@@ -196,9 +196,9 @@ class Tests_BeansReplaceAction extends Replace_Action_Test_Case {
 	 * Test beans_replace_action() should replace the registered action's number of arguments.
 	 */
 	public function test_should_replace_the_action_args() {
-		$replaced_action = array(
+		$replaced_action = [
 			'args' => 6,
-		);
+		];
 
 		$this->go_to_post();
 
@@ -227,12 +227,12 @@ class Tests_BeansReplaceAction extends Replace_Action_Test_Case {
 	 * Test beans_replace_action() should replace the original registered action.
 	 */
 	public function test_should_replace_the_action() {
-		$replaced_action = array(
+		$replaced_action = [
 			'hook'     => 'new_hook',
 			'callback' => 'new_callback',
 			'priority' => 99,
 			'args'     => 10,
-		);
+		];
 
 		$this->go_to_post();
 
