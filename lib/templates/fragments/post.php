@@ -71,7 +71,7 @@ function beans_post_search_title() {
 
 	beans_open_markup_e( 'beans_search_title', 'h1', array( 'class' => 'uk-article-title' ) );
 
-		printf( '%1$s%2$s', beans_output( 'beans_search_title_text', __( 'Search results for: ', 'tm-beans' ) ), get_search_query() ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Pending security audit.
+		printf( '%1$s%2$s', beans_output( 'beans_search_title_text', esc_html__( 'Search results for: ', 'tm-beans' ) ), get_search_query() ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Each placeholder is escaped.
 
 	beans_close_markup_e( 'beans_search_title', 'h1' );
 }
