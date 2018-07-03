@@ -95,7 +95,7 @@ function beans_comment_badges() {
 	if ( 'trackback' === $comment->comment_type ) {
 		beans_open_markup_e( 'beans_trackback_badge', 'span', array( 'class' => 'uk-badge uk-margin-small-left' ) );
 
-			beans_output_e( 'beans_trackback_text', __( 'Trackback', 'tm-beans' ) );
+			beans_output_e( 'beans_trackback_text', esc_html__( 'Trackback', 'tm-beans' ) );
 
 		beans_close_markup_e( 'beans_trackback_badge', 'span' );
 	}
@@ -104,7 +104,7 @@ function beans_comment_badges() {
 	if ( 'pingback' === $comment->comment_type ) {
 		beans_open_markup_e( 'beans_pingback_badge', 'span', array( 'class' => 'uk-badge uk-margin-small-left' ) );
 
-			beans_output_e( 'beans_pingback_text', __( 'Pingback', 'tm-beans' ) );
+			beans_output_e( 'beans_pingback_text', esc_html__( 'Pingback', 'tm-beans' ) );
 
 		beans_close_markup_e( 'beans_pingback_badge', 'span' );
 	}
@@ -113,7 +113,7 @@ function beans_comment_badges() {
 	if ( '0' === $comment->comment_approved ) {
 		beans_open_markup_e( 'beans_moderation_badge', 'span', array( 'class' => 'uk-badge uk-margin-small-left uk-badge-warning' ) );
 
-			beans_output_e( 'beans_moderation_text', __( 'Awaiting Moderation', 'tm-beans' ) );
+			beans_output_e( 'beans_moderation_text', esc_html__( 'Awaiting Moderation', 'tm-beans' ) );
 
 		beans_close_markup_e( 'beans_moderation_badge', 'span' );
 	}
@@ -122,7 +122,7 @@ function beans_comment_badges() {
 	if ( user_can( $comment->user_id, 'moderate_comments' ) ) {
 		beans_open_markup_e( 'beans_moderator_badge', 'span', array( 'class' => 'uk-badge uk-margin-small-left' ) );
 
-			beans_output_e( 'beans_moderator_text', __( 'Moderator', 'tm-beans' ) );
+			beans_output_e( 'beans_moderator_text', esc_html__( 'Moderator', 'tm-beans' ) );
 
 		beans_close_markup_e( 'beans_moderator_badge', 'span' );
 	}
@@ -212,7 +212,7 @@ function beans_comment_links() {
 				)
 			);
 
-				beans_output_e( 'beans_comment_edit_text', __( 'Edit', 'tm-beans' ) );
+				beans_output_e( 'beans_comment_edit_text', esc_html__( 'Edit', 'tm-beans' ) );
 
 			beans_close_markup_e( 'beans_comment_item_link[_edit]', 'a' );
 
@@ -230,7 +230,7 @@ endif;
 				)
 			);
 
-				beans_output_e( 'beans_comment_link_text', __( 'Link', 'tm-beans' ) );
+				beans_output_e( 'beans_comment_link_text', esc_html__( 'Link', 'tm-beans' ) );
 
 			beans_close_markup_e( 'beans_comment_item_link[_link]', 'a' );
 
@@ -250,7 +250,7 @@ beans_add_smart_action( 'beans_no_comment', 'beans_no_comment' );
 function beans_no_comment() {
 	beans_open_markup_e( 'beans_no_comment', 'p', 'class=uk-text-muted' );
 
-		beans_output_e( 'beans_no_comment_text', __( 'No comment yet, add your voice below!', 'tm-beans' ) );
+		beans_output_e( 'beans_no_comment_text', esc_html__( 'No comment yet, add your voice below!', 'tm-beans' ) );
 
 	beans_close_markup_e( 'beans_no_comment', 'p' );
 }
@@ -266,7 +266,7 @@ beans_add_smart_action( 'beans_comments_closed', 'beans_comments_closed' );
 function beans_comments_closed() {
 	beans_open_markup_e( 'beans_comments_closed', 'p', array( 'class' => 'uk-alert uk-alert-warning uk-margin-bottom-remove' ) );
 
-		beans_output_e( 'beans_comments_closed_text', __( 'Comments are closed for this article!', 'tm-beans' ) );
+		beans_output_e( 'beans_comments_closed_text', esc_html__( 'Comments are closed for this article!', 'tm-beans' ) );
 
 	beans_close_markup_e( 'beans_comments_closed', 'p' );
 }
@@ -387,12 +387,12 @@ function beans_comment_form() {
 		)
 	);
 
-		$submit .= beans_output( 'beans_comment_form_submit_text', __( 'Post Comment', 'tm-beans' ) );
+		$submit .= beans_output( 'beans_comment_form_submit_text', esc_html__( 'Post Comment', 'tm-beans' ) );
 
 	$submit .= beans_close_markup( 'beans_comment_form_submit', 'button' );
 
 	// WordPress, please make it easier for us.
-	echo preg_replace( '#<input[^>]+type="submit"[^>]+>#', $submit, $output ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Pending security audit.
+	echo preg_replace( '#<input[^>]+type="submit"[^>]+>#', $submit, $output ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Escaped above or as an attribute.
 }
 
 // Filter.
@@ -455,7 +455,7 @@ function beans_comment_form_comment() {
 
 		$output .= beans_open_markup( 'beans_comment_form_legend[_comment]', 'legend' );
 
-			$output .= beans_output( 'beans_comment_form_legend_text[_comment]', __( 'Comment *', 'tm-beans' ) );
+			$output .= beans_output( 'beans_comment_form_legend_text[_comment]', esc_html__( 'Comment *', 'tm-beans' ) );
 
 		$output .= beans_close_markup( 'beans_comment_form_legend[_comment]', 'legend' );
 	}
@@ -530,7 +530,7 @@ function beans_comment_form_fields( $fields ) {
 		if ( beans_apply_filters( 'beans_comment_form_legend[_name]', true ) ) {
 			$author .= beans_open_markup( 'beans_comment_form_legend[_name]', 'legend' );
 
-				$author .= beans_output( 'beans_comment_form_legend_text[_name]', __( 'Name *', 'tm-beans' ) );
+				$author .= beans_output( 'beans_comment_form_legend_text[_name]', esc_html__( 'Name *', 'tm-beans' ) );
 
 			$author .= beans_close_markup( 'beans_comment_form_legend[_name]', 'legend' );
 		}
@@ -599,7 +599,7 @@ function beans_comment_form_fields( $fields ) {
 		if ( beans_apply_filters( 'beans_comment_form_legend[_url]', true ) ) {
 			$url .= beans_open_markup( 'beans_comment_form_legend', 'legend' );
 
-				$url .= beans_output( 'beans_comment_form_legend_text[_url]', __( 'Website', 'tm-beans' ) );
+				$url .= beans_output( 'beans_comment_form_legend_text[_url]', esc_html__( 'Website', 'tm-beans' ) );
 
 			$url .= beans_close_markup( 'beans_comment_form_legend[_url]', 'legend' );
 		}

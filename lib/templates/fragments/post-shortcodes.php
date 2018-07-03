@@ -16,7 +16,7 @@ beans_add_smart_action( 'beans_post_meta_date', 'beans_post_meta_date_shortcode'
  * @return void
  */
 function beans_post_meta_date_shortcode() {
-	beans_output_e( 'beans_post_meta_date_prefix', __( 'Posted on ', 'tm-beans' ) );
+	beans_output_e( 'beans_post_meta_date_prefix', esc_html__( 'Posted on ', 'tm-beans' ) );
 
 	beans_open_markup_e(
 		'beans_post_meta_date',
@@ -41,7 +41,7 @@ beans_add_smart_action( 'beans_post_meta_author', 'beans_post_meta_author_shortc
  * @return void
  */
 function beans_post_meta_author_shortcode() {
-	beans_output_e( 'beans_post_meta_author_prefix', __( 'By ', 'tm-beans' ) );
+	beans_output_e( 'beans_post_meta_author_prefix', esc_html__( 'By ', 'tm-beans' ) );
 
 	beans_open_markup_e(
 		'beans_post_meta_author',
@@ -78,29 +78,29 @@ beans_add_smart_action( 'beans_post_meta_comments', 'beans_post_meta_comments_sh
  * @return void
  */
 function beans_post_meta_comments_shortcode() {
-	global $post;
 
 	if ( post_password_required() || ! comments_open() ) {
 		return;
 	}
 
+	global $post;
 	$comments_number = (int) get_comments_number( $post->ID );
 
 	if ( $comments_number < 1 ) {
-		$comment_text = beans_output( 'beans_post_meta_empty_comment_text', __( 'Leave a comment', 'tm-beans' ) );
+		$comment_text = beans_output( 'beans_post_meta_empty_comment_text', esc_html__( 'Leave a comment', 'tm-beans' ) );
 	} elseif ( 1 === $comments_number ) {
-		$comment_text = beans_output( 'beans_post_meta_comments_text_singular', __( '1 comment', 'tm-beans' ) );
+		$comment_text = beans_output( 'beans_post_meta_comments_text_singular', esc_html__( '1 comment', 'tm-beans' ) );
 	} else {
 		$comment_text = beans_output(
 			'beans_post_meta_comments_text_plural',
-			// translators: Number of comments. Plural.
-			__( '%s comments', 'tm-beans' )
+			// translators: %s: Number of comments. Plural.
+			esc_html__( '%s comments', 'tm-beans' )
 		);
 	}
 
 	beans_open_markup_e( 'beans_post_meta_comments', 'a', array( 'href' => get_comments_link() ) ); // Automatically escaped.
 
-		printf( $comment_text, (int) get_comments_number( $post->ID ) ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Pending security audit.
+		printf( $comment_text, (int) get_comments_number( $post->ID ) ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Escaping handled prior to this printf.
 
 	beans_close_markup_e( 'beans_post_meta_comments', 'a' );
 }
@@ -114,14 +114,13 @@ beans_add_smart_action( 'beans_post_meta_tags', 'beans_post_meta_tags_shortcode'
  * @return void
  */
 function beans_post_meta_tags_shortcode() {
-
 	$tags = get_the_tag_list( null, ', ' );
 
 	if ( ! $tags || is_wp_error( $tags ) ) {
 		return;
 	}
 
-	printf( '%1$s%2$s', beans_output( 'beans_post_meta_tags_prefix', __( 'Tagged with: ', 'tm-beans' ) ), $tags ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Pending security audit.
+	printf( '%1$s%2$s', beans_output( 'beans_post_meta_tags_prefix', esc_html__( 'Tagged with: ', 'tm-beans' ) ), $tags ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Tags are escaped by WordPress.
 }
 
 beans_add_smart_action( 'beans_post_meta_categories', 'beans_post_meta_categories_shortcode' );
@@ -139,5 +138,5 @@ function beans_post_meta_categories_shortcode() {
 		return;
 	}
 
-	printf( '%1$s%2$s', beans_output( 'beans_post_meta_categories_prefix', __( 'Filed under: ', 'tm-beans' ) ), $categories ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Pending security audit.
+	printf( '%1$s%2$s', beans_output( 'beans_post_meta_categories_prefix', esc_html__( 'Filed under: ', 'tm-beans' ) ), $categories ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Categories are escaped by WordPress.
 }
