@@ -93,7 +93,7 @@ function beans_primary_menu_offcanvas_button() {
 
 		beans_close_markup_e( 'beans_primary_menu_offcanvas_button_icon', 'span' );
 
-		beans_output_e( 'beans_offcanvas_menu_button', __( 'Menu', 'tm-beans' ) );
+		beans_output_e( 'beans_offcanvas_menu_button', esc_html__( 'Menu', 'tm-beans' ) );
 
 	beans_close_markup_e( 'beans_primary_menu_offcanvas_button', 'a' );
 }
@@ -155,7 +155,7 @@ function beans_primary_offcanvas_menu() {
 function beans_no_menu_notice() {
 	beans_open_markup_e( 'beans_no_menu_notice', 'p', array( 'class' => 'uk-alert uk-alert-warning' ) );
 
-		beans_output_e( 'beans_no_menu_notice_text', __( 'Whoops, your site does not have a menu!', 'tm-beans' ) );
+		beans_output_e( 'beans_no_menu_notice_text', esc_html__( 'Whoops, your site does not have a menu!', 'tm-beans' ) );
 
 	beans_close_markup_e( 'beans_no_menu_notice', 'p' );
 }

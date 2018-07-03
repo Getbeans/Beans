@@ -336,7 +336,7 @@ function beans_post_more_link() {
 		)
 	);
 
-		$output .= beans_output( 'beans_post_more_link_text', __( 'Continue reading', 'tm-beans' ) );
+		$output .= beans_output( 'beans_post_more_link_text', esc_html__( 'Continue reading', 'tm-beans' ) );
 
 		$output .= beans_open_markup(
 			'beans_next_icon[_more_link]',
@@ -388,7 +388,7 @@ function beans_post_meta_categories() {
 
 	beans_open_markup_e( 'beans_post_meta_categories', 'span', array( 'class' => 'uk-text-small uk-text-muted uk-clearfix' ) );
 
-		echo $categories; // // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Pending security audit.
+		echo $categories; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Shortcode's callback handles the escaping. See beans_post_meta_categories_shortcode().
 
 	beans_close_markup_e( 'beans_post_meta_categories', 'span' );
 }
@@ -408,7 +408,7 @@ function beans_post_meta_tags() {
 
 	beans_open_markup_e( 'beans_post_meta_tags', 'span', array( 'class' => 'uk-text-small uk-text-muted uk-clearfix' ) );
 
-		echo $tags; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Pending security audit.
+		echo $tags; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Shortcode's callback handles the escaping. See beans_post_meta_tags_shortcode().
 
 	beans_close_markup_e( 'beans_post_meta_tags', 'span' );
 }
@@ -540,7 +540,7 @@ function beans_post_navigation() {
 		'nav',
 		array(
 			'role'       => 'navigation',
-			'aria-label' => esc_attr__( 'Pagination Navigation', 'tm-beans' ),
+			'aria-label' => __( 'Pagination Navigation', 'tm-beans' ), // Attributes are automatically escaped.
 		)
 	);
 
@@ -616,7 +616,7 @@ function beans_posts_pagination() {
 		'nav',
 		array(
 			'role'       => 'navigation',
-			'aria-label' => esc_attr__( 'Posts Pagination Navigation', 'tm-beans' ),
+			'aria-label' => __( 'Posts Pagination Navigation', 'tm-beans' ), // Attributes are automatically escaped.
 		)
 	);
 
@@ -636,7 +636,7 @@ function beans_posts_pagination() {
 					'beans_previous_link[_posts_pagination]',
 					'a',
 					array(
-						'href' => previous_posts( false ), // Automatically escaped.
+						'href' => previous_posts( false ), // Attributes are automatically escaped.
 					),
 					$current
 				);
@@ -652,7 +652,7 @@ function beans_posts_pagination() {
 
 					beans_close_markup_e( 'beans_previous_icon[_posts_pagination]', 'span' );
 
-					beans_output_e( 'beans_previous_text[_posts_pagination]', __( 'Previous Page', 'tm-beans' ) );
+					beans_output_e( 'beans_previous_text[_posts_pagination]', esc_html__( 'Previous Page', 'tm-beans' ) );
 
 				beans_close_markup_e( 'beans_previous_link[_posts_pagination]', 'a' );
 
@@ -715,7 +715,7 @@ function beans_posts_pagination() {
 						'beans_posts_pagination_item_link',
 						'a',
 						array(
-							'href' => get_pagenum_link( $link ), // Automatically escaped.
+							'href' => get_pagenum_link( $link ), // Attributes are automatically escaped.
 						),
 						$link
 					);
@@ -736,12 +736,12 @@ function beans_posts_pagination() {
 					'beans_next_link[_posts_pagination]',
 					'a',
 					array(
-						'href' => next_posts( $count, false ), // Automatically escaped.
+						'href' => next_posts( $count, false ), // Attributes are automatically escaped.
 					),
 					$current
 				);
 
-					beans_output_e( 'beans_next_text[_posts_pagination]', __( 'Next Page', 'tm-beans' ) );
+					beans_output_e( 'beans_next_text[_posts_pagination]', esc_html__( 'Next Page', 'tm-beans' ) );
 
 					beans_open_markup_e(
 						'beans_next_icon[_posts_pagination]',
@@ -779,7 +779,7 @@ function beans_no_post() {
 
 			beans_open_markup_e( 'beans_post_title', 'h1', array( 'class' => 'uk-article-title' ) );
 
-				beans_output_e( 'beans_no_post_article_title_text', __( 'Whoops, no result found!', 'tm-beans' ) );
+				beans_output_e( 'beans_no_post_article_title_text', esc_html__( 'Whoops, no result found!', 'tm-beans' ) );
 
 			beans_close_markup_e( 'beans_post_title', 'h1' );
 
@@ -791,7 +791,7 @@ function beans_no_post() {
 
 				beans_open_markup_e( 'beans_no_post_article_content', 'p', array( 'class' => 'uk-alert uk-alert-warning' ) );
 
-					beans_output_e( 'beans_no_post_article_content_text', __( 'It looks like nothing was found at this location. Maybe try a search?', 'tm-beans' ) );
+					beans_output_e( 'beans_no_post_article_content_text', esc_html__( 'It looks like nothing was found at this location. Maybe try a search?', 'tm-beans' ) );
 
 				beans_close_markup_e( 'beans_no_post_article_content', 'p' );
 
@@ -821,7 +821,7 @@ function beans_post_password_form() {
 	// Notice.
 	$output = beans_open_markup( 'beans_password_form_notice', 'p', array( 'class' => 'uk-alert uk-alert-warning' ) );
 
-		$output .= beans_output( 'beans_password_form_notice_text', __( 'This post is protected. To view it, enter the password below!', 'tm-beans' ) );
+		$output .= beans_output( 'beans_password_form_notice_text', esc_html__( 'This post is protected. To view it, enter the password below!', 'tm-beans' ) );
 
 	$output .= beans_close_markup( 'beans_password_form_notice', 'p' );
 
@@ -832,7 +832,7 @@ function beans_post_password_form() {
 		array(
 			'class'  => 'uk-form uk-margin-bottom',
 			'method' => 'post',
-			'action' => site_url( 'wp-login.php?action=postpass', 'login_post' ), // Automatically escaped.
+			'action' => site_url( 'wp-login.php?action=postpass', 'login_post' ), // Attributes are automatically escaped.
 		)
 	);
 
@@ -842,7 +842,7 @@ function beans_post_password_form() {
 			array(
 				'class'       => 'uk-margin-small-top uk-margin-small-right',
 				'type'        => 'password',
-				'placeholder' => apply_filters( 'beans_password_form_input_placeholder', __( 'Password', 'tm-beans' ) ), // Automatically escaped.
+				'placeholder' => apply_filters( 'beans_password_form_input_placeholder', __( 'Password', 'tm-beans' ) ), // Attributes are automatically escaped.
 				'name'        => 'post_password',
 			)
 		);
@@ -854,7 +854,7 @@ function beans_post_password_form() {
 				'class' => 'uk-button uk-margin-small-top',
 				'type'  => 'submit',
 				'name'  => 'submit',
-				'value' => esc_attr( apply_filters( 'beans_password_form_submit_text', __( 'Submit', 'tm-beans' ) ) ),
+				'value' => apply_filters( 'beans_password_form_submit_text', __( 'Submit', 'tm-beans' ) ), // Attributes are automatically escaped.
 			)
 		);
 
@@ -897,7 +897,7 @@ function beans_post_gallery( $output, $attr, $instance ) {
 	$atts     = shortcode_atts( $defaults, $attr, 'gallery' );
 	$id       = intval( $atts['id'] );
 
-	// Set attachements.
+	// Set attachments.
 	if ( ! empty( $atts['include'] ) ) {
 		$_attachments = get_posts(
 			array(
@@ -979,7 +979,7 @@ function beans_post_gallery( $output, $attr, $instance ) {
 		"beans_post_gallery[_{$id}]",
 		'div',
 		array(
-			'class'               => "uk-grid uk-grid-width-small-1-{$columns} gallery galleryid-{$id} gallery-columns-{$columns} gallery-size-{$size_class}", // Automatically escaped.
+			'class'               => "uk-grid uk-grid-width-small-1-{$columns} gallery galleryid-{$id} gallery-columns-{$columns} gallery-size-{$size_class}", // Attributes are automatically escaped.
 			'data-uk-grid-margin' => false,
 		),
 		$id,
@@ -1005,7 +1005,7 @@ function beans_post_gallery( $output, $attr, $instance ) {
 			$orientation = ( $image_meta['height'] > $image_meta['width'] ) ? 'portrait' : 'landscape';
 		}
 
-			// Set the image output.
+		// Set the image output.
 		if ( 'none' === $atts['link'] ) {
 			$image_output = wp_get_attachment_image( $attachment_id, $atts['size'], false, $attr );
 		} else {
@@ -1014,7 +1014,7 @@ function beans_post_gallery( $output, $attr, $instance ) {
 
 			$output .= beans_open_markup( "beans_post_gallery_item[_{$attachment_id}]", $atts['itemtag'], array( 'class' => 'gallery-item' ) );
 
-				$output .= beans_open_markup( "beans_post_gallery_icon[_{$attachment_id}]", $atts['icontag'], array( 'class' => "gallery-icon {$orientation}" ) ); // Automatically escaped.
+				$output .= beans_open_markup( "beans_post_gallery_icon[_{$attachment_id}]", $atts['icontag'], array( 'class' => "gallery-icon {$orientation}" ) ); // Attributes are automatically escaped.
 
 					$output .= beans_output( "beans_post_gallery_icon[_{$attachment_id}]", $image_output, $attachment_id, $atts );
 

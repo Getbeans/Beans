@@ -86,7 +86,7 @@ function beans_no_widget() {
 		beans_output_e(
 			'beans_no_widget_notice_text',
 			// translators: Name of the widget area.
-			sprintf( __( '%s does not have any widget assigned!', 'tm-beans' ), beans_get_widget_area( 'name' ) )
+			sprintf( esc_html__( '%s does not have any widget assigned!', 'tm-beans' ), beans_get_widget_area( 'name' ) )
 		);
 
 	beans_close_markup_e( 'beans_no_widget_notice', 'p' );
@@ -101,10 +101,9 @@ beans_add_filter( 'beans_widget_content_rss_output', 'beans_widget_rss_content' 
  * @return string The RSS widget content.
  */
 function beans_widget_rss_content() {
-
 	$options = beans_get_widget( 'options' );
 
-	return '<p><a class="uk-button" href="' . beans_get( 'url', $options ) . '" target="_blank">' . __( 'Read feed', 'tm-beans' ) . '</a><p>';
+	return '<p><a class="uk-button" href="' . beans_get( 'url', $options ) . '" target="_blank">' . esc_html__( 'Read feed', 'tm-beans' ) . '</a><p>';
 }
 
 beans_add_filter( 'beans_widget_content_attributes', 'beans_modify_widget_content_attributes' );
