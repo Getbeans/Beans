@@ -4,14 +4,16 @@
  * 'widget_area' as it is more appropriate when using it to define an area which is not besides the main
  * content (e.g. a mega footer widget area).
  *
- * @package API\Widgets
+ * @package Beans\Framework\API\Widgets
+ *
+ * @since 1.0.0
  */
 
 /**
  * Register a widget area.
  *
  * Since a Beans widget area is using the WordPress sidebar, this function registers a WordPress sidebar using
- * {@link http://codex.wordpress.org/Function_Reference/register_sidebar register_sidebar()}, with additional
+ * {@link https://codex.wordpress.org/Function_Reference/register_sidebar register_sidebar()}, with additional
  * arguments.
  *
  * Note that the 'class', before_widget', 'after_widget', 'before_title' and 'after_title' arguments are not
@@ -24,26 +26,28 @@
  * @since 1.0.0
  *
  * @param array $args {
- *     Optional. Arguments used by the widget area.
+ *      Optional. Arguments used by the widget area.
  *
- *     @type string $id                      Optional. The unique identifier by which the widget area will be called.
- *     @type string $name                    Optional. The name or title of the widget area displayed in the
- *                                           admin dashboard.
- *     @type string $description             Optional. The widget area description.
- *     @type string $beans_type                 Optional. The widget area type. Accepts 'stack', 'grid' or 'offcanvas'.
- *                                           Default stack.
- *     @type bool   $beans_show_widget_title    Optional. Whether to show the widget title or not. Default true.
- *     @type bool   $beans_show_widget_badge    Optional. Whether to show the widget badge or not. Default false.
- *     @type bool   $beans_widget_badge_content Optional. The badge content. This may contain widget shortcodes
- *                                           {@see beans_widget_shortcodes()}. Default 'Hello'.
+ *      @type string $id                         The unique identifier by which the widget area will be called.
+ *      @type string $name                       Optional. The name or title of the widget area displayed in the
+ *                                               admin dashboard.
+ *      @type string $description                Optional. The widget area description.
+ *      @type string $beans_type                 Optional. The widget area type. Accepts 'stack', 'grid' or 'offcanvas'.
+ *                                               Default is stack.
+ *      @type bool   $beans_show_widget_title    Optional. Whether to show the widget title or not. Default true.
+ *      @type bool   $beans_show_widget_badge    Optional. Whether to show the widget badge or not. Default false.
+ *      @type bool   $beans_widget_badge_content Optional. The badge content. This may contain widget shortcodes
+ *                                               {@see beans_widget_shortcodes()}. Default is 'Hello'.
  * }
+ *
  * @return string The widget area ID is added to the $wp_registered_sidebars globals when the widget area is setup.
  */
-function beans_register_widget_area( $args = array(), $widget_control = array() ) {
-
+function beans_register_widget_area( $args = array() ) {
 	// Stop here if the id isn't set.
-	if ( ! $id = beans_get( 'id', $args ) ) {
-		return;
+	$id = beans_get( 'id', $args );
+
+	if ( ! $id ) {
+		return '';
 	}
 
 	/**
@@ -68,7 +72,6 @@ function beans_register_widget_area( $args = array(), $widget_control = array() 
 	$args = beans_apply_filters( "beans_widgets_area_args[_{$id}]", array_merge( $defaults, $args ) );
 
 	return register_sidebar( $args );
-
 }
 
 /**
@@ -76,23 +79,23 @@ function beans_register_widget_area( $args = array(), $widget_control = array() 
  *
  * Since a Beans widget area is using the WordPress sidebar, this function deregisters the defined
  * WordPress sidebar using
- * {@link http://codex.wordpress.org/Function_Reference/unregister_sidebar unregister_sidebar()}.
+ * {@link https://codex.wordpress.org/Function_Reference/unregister_sidebar unregister_sidebar()}.
  *
  * @since 1.0.0
  *
  * @param string $id The ID of the registered widget area.
+ *
+ * @return void
  */
 function beans_deregister_widget_area( $id ) {
-
 	unregister_sidebar( $id );
-
 }
 
 /**
  * Check whether a widget area is in use.
  *
  * Since a Beans widget area is using the WordPress sidebar, this function checks if the defined sidebar
- * is in use using {@link http://codex.wordpress.org/Function_Reference/is_active_sidebar is_active_sidebar()}.
+ * is in use using {@link https://codex.wordpress.org/Function_Reference/is_active_sidebar is_active_sidebar()}.
  *
  * @since 1.0.0
  *
@@ -101,16 +104,14 @@ function beans_deregister_widget_area( $id ) {
  * @return bool True if the widget area is in use, false otherwise.
  */
 function beans_is_active_widget_area( $id ) {
-
 	return is_active_sidebar( $id );
-
 }
 
 /**
  * Check whether a widget area is registered.
  *
- * While {@see beans_is_active_widget_area()} checks if a widget area contains widgets, this function only checks if a widget
- * area is registered.
+ * While {@see beans_is_active_widget_area()} checks if a widget area contains widgets, this function only checks if a
+ * widget area is registered.
  *
  * @since 1.0.0
  *
@@ -119,27 +120,21 @@ function beans_is_active_widget_area( $id ) {
  * @return bool True if the widget area is registered, false otherwise.
  */
 function beans_has_widget_area( $id ) {
-
 	global $wp_registered_sidebars;
 
-	if ( isset( $wp_registered_sidebars[ $id ] ) ) {
-		return true;
-	}
-
-	return false;
-
+	return isset( $wp_registered_sidebars[ $id ] );
 }
 
 /**
- * Display a widget area.
+ * Get the output of a widget area.
  *
- * @since 1.0.0
+ * @since 1.5.0
  *
  * @param string $id The ID of the registered widget area.
  *
  * @return string|bool The output, if a widget area was found and called. False if not found.
  */
-function beans_widget_area( $id ) {
+function beans_get_widget_area_output( $id ) {
 
 	// Stop here if the widget area is not registered.
 	if ( ! beans_has_widget_area( $id ) ) {
@@ -155,16 +150,16 @@ function beans_widget_area( $id ) {
 	 */
 	do_action( 'beans_widget_area_init' );
 
-		ob_start();
+	ob_start();
 
-			/**
-			 * Fires when {@see beans_widget_area()} is called.
-			 *
-			 * @since 1.0.0
-			 */
-			do_action( 'beans_widget_area' );
+	/**
+	 * Fires when {@see beans_get_widget_area_output()} is called.
+	 *
+	 * @since 1.0.0
+	 */
+	do_action( 'beans_widget_area' );
 
-		$output = ob_get_clean();
+	$output = ob_get_clean();
 
 	// Reset widget area global to reduce memory usage.
 	_beans_reset_widget_area();
@@ -177,7 +172,6 @@ function beans_widget_area( $id ) {
 	do_action( 'beans_widget_area_reset' );
 
 	return $output;
-
 }
 
 /**
@@ -187,18 +181,16 @@ function beans_widget_area( $id ) {
  *
  * @param string|bool $needle Optional. The searched widget area needle.
  *
- * @return string The current widget area data, or field data if the needle is specified. False if not found.
+ * @return string|bool The current widget area data, or field data if the needle is specified. False if not found.
  */
 function beans_get_widget_area( $needle = false ) {
-
 	global $_beans_widget_area;
 
 	if ( ! $needle ) {
-		return $_beans_widget_area;
+		return $_beans_widget_area ? $_beans_widget_area : false;
 	}
 
-	return beans_get( $needle, $_beans_widget_area );
-
+	return beans_get( $needle, $_beans_widget_area, false );
 }
 
 /**
@@ -209,7 +201,7 @@ function beans_get_widget_area( $needle = false ) {
  *
  * @since 1.0.0
  *
- * @param string $content Content containing the shortcode(s) delimited with curly brackets (e.g. {key}).
+ * @param string|array $content Content containing the shortcode(s) delimited with curly brackets (e.g. {key}).
  *                        Shortcode(s) correspond to the searched array key and will be replaced by the array
  *                        value if found.
  *
@@ -217,12 +209,15 @@ function beans_get_widget_area( $needle = false ) {
  */
 function beans_widget_area_shortcodes( $content ) {
 
+	if ( ! isset( $GLOBALS['_beans_widget_area'] ) ) {
+		return $content;
+	}
+
 	if ( is_array( $content ) ) {
 		$content = build_query( $content );
 	}
 
-	return beans_array_shortcodes( $string, $GLOBALS['_beans_widget_area'] );
-
+	return beans_array_shortcodes( $content, $GLOBALS['_beans_widget_area'] );
 }
 
 /**
@@ -233,7 +228,6 @@ function beans_widget_area_shortcodes( $content ) {
  * @return bool True if widgets are available, false if end of loop.
  */
 function beans_have_widgets() {
-
 	global $_beans_widget_area;
 
 	if ( ! beans_get( 'widgets', $_beans_widget_area ) ) {
@@ -250,7 +244,6 @@ function beans_have_widgets() {
 	_beans_reset_widget();
 
 	return false;
-
 }
 
 /**
@@ -263,23 +256,23 @@ function beans_have_widgets() {
  * @return bool True on success, false on failure.
  */
 function beans_setup_widget() {
-
 	global $_beans_widget_area;
 
 	$widgets = array_keys( $_beans_widget_area['widgets'] );
 
 	// Retrieve widget id if exists.
-	if ( ! $id = beans_get( $_beans_widget_area['current_widget'], $widgets ) ) {
+	$id = beans_get( $_beans_widget_area['current_widget'], $widgets );
+
+	if ( ! $id ) {
 		return false;
 	}
 
 	// Set next current widget integer.
 	$_beans_widget_area['current_widget'] = $_beans_widget_area['current_widget'] + 1;
 
-	_beans_setup_widget( $id );
+	_beans_prepare_widget_data( $id );
 
 	return true;
-
 }
 
 /**
@@ -289,18 +282,16 @@ function beans_setup_widget() {
  *
  * @param string|bool $needle Optional. The searched widget needle.
  *
- * @return string The current widget data, or field data if the needle is specified. False if not found.
+ * @return string|bool The current widget data, or field data if the needle is specified. False if not found.
  */
 function beans_get_widget( $needle = false ) {
-
 	global $_beans_widget;
 
 	if ( ! $needle ) {
-		return $_beans_widget;
+		return $_beans_widget ? $_beans_widget : false;
 	}
 
-	return beans_get( $needle, $_beans_widget );
-
+	return beans_get( $needle, $_beans_widget, false );
 }
 
 /**
@@ -311,7 +302,7 @@ function beans_get_widget( $needle = false ) {
  *
  * @since 1.0.0
  *
- * @param string $content Content containing the shortcode(s) delimited with curly brackets (e.g. {key}).
+ * @param string|array $content Content containing the shortcode(s) delimited with curly brackets (e.g. {key}).
  *                        Shortcode(s) correspond to the searched array key and will be replaced by the array
  *                        value if found.
  *
@@ -319,21 +310,29 @@ function beans_get_widget( $needle = false ) {
  */
 function beans_widget_shortcodes( $content ) {
 
+	if ( ! isset( $GLOBALS['_beans_widget'] ) ) {
+		return $content;
+	}
+
 	if ( is_array( $content ) ) {
 		$content = build_query( $content );
 	}
 
 	return beans_array_shortcodes( $content, $GLOBALS['_beans_widget'] );
-
 }
 
 /**
  * Set up widget area global data.
  *
+ * @since  1.0.0
  * @ignore
+ * @access private
+ *
+ * @param string $id Widget area ID.
+ *
+ * @return bool
  */
 function _beans_setup_widget_area( $id ) {
-
 	global $_beans_widget_area, $wp_registered_sidebars;
 
 	if ( ! isset( $wp_registered_sidebars[ $id ] ) ) {
@@ -341,12 +340,15 @@ function _beans_setup_widget_area( $id ) {
 	}
 
 	// Add widget area delimiters. This is used to split wp sidebar as well as the widgets title.
-	$wp_registered_sidebars[ $id ] = array_merge( $wp_registered_sidebars[ $id ], array(
-		'before_widget' => '<!--widget-%1$s-->',
-		'after_widget'  => '<!--widget-end-->',
-		'before_title'  => '<!--title-start-->',
-		'after_title'   => '<!--title-end-->',
-	) );
+	$wp_registered_sidebars[ $id ] = array_merge( // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Valid use case.
+		$wp_registered_sidebars[ $id ],
+		array(
+			'before_widget' => '<!--widget-%1$s-->',
+			'after_widget'  => '<!--widget-end-->',
+			'before_title'  => '<!--title-start-->',
+			'after_title'   => '<!--title-end-->',
+		)
+	);
 
 	// Start building widget area global before dynamic_sidebar is called.
 	$_beans_widget_area = $wp_registered_sidebars[ $id ];
@@ -363,30 +365,32 @@ function _beans_setup_widget_area( $id ) {
 	// Prepare widgets count.
 	preg_match_all( '#<!--widget-end-->#', $sidebar, $counter );
 
-	// Continue building widget area global with the splited sidebar elements.
-	$_beans_widget_area['widgets_count'] = count( $counter[0] );
+	// Continue building widget area global with the split sidebar elements.
+	$_beans_widget_area['widgets_count']  = count( $counter[0] );
 	$_beans_widget_area['current_widget'] = 0;
 
 	// Only add widgets if exists.
-	if ( 3 == count( $splited_sidebar ) ) {
-
+	if ( 3 === count( $splited_sidebar ) ) {
 		$_beans_widget_area['before_widgets'] = $splited_sidebar[0];
-		$_beans_widget_area['widgets'] = _beans_setup_widgets( $splited_sidebar[1] );
-		$_beans_widget_area['after_widgets'] = $splited_sidebar[2];
-
+		$_beans_widget_area['widgets']        = _beans_setup_widgets( $splited_sidebar[1] );
+		$_beans_widget_area['after_widgets']  = $splited_sidebar[2];
 	}
 
 	return true;
-
 }
 
 /**
  * Setup widget area global widgets data.
  *
+ * @since  1.0.0
  * @ignore
+ * @access private
+ *
+ * @param string $widget_area_content Content of the widget area.
+ *
+ * @return array
  */
 function _beans_setup_widgets( $widget_area_content ) {
-
 	global $wp_registered_widgets, $_beans_widget_area;
 
 	$_beans_widgets = array();
@@ -401,7 +405,9 @@ function _beans_setup_widgets( $widget_area_content ) {
 		$id = $matches[1];
 
 		// Stop here if the widget can't be found.
-		if ( ! $data = beans_get( $id, $wp_registered_widgets ) ) {
+		$data = beans_get( $id, $wp_registered_widgets );
+
+		if ( ! $data ) {
 			continue;
 		}
 
@@ -410,8 +416,8 @@ function _beans_setup_widgets( $widget_area_content ) {
 
 		// Set defaults.
 		$widget['options'] = array();
-		$widget['type'] = null;
-		$widget['title'] = '';
+		$widget['type']    = null;
+		$widget['title']   = '';
 
 		// Add total count.
 		$widget['count'] = $_beans_widget_area['widgets_count'];
@@ -421,15 +427,15 @@ function _beans_setup_widgets( $widget_area_content ) {
 			$widget[ $var ] = isset( $data[ $var ] ) ? $data[ $var ] : null;
 		}
 
-		// Add type and options
-		if ( isset( $data['callback'] ) && is_array( $data['callback'] ) && ( $object = current( $data['callback'] ) ) ) {
+		// Add type and options.
+		$object = current( $data['callback'] );
+
+		if ( isset( $data['callback'] ) && is_array( $data['callback'] ) && $object ) {
 
 			if ( is_a( $object, 'WP_Widget' ) ) {
-
 				$widget['type'] = $object->id_base;
 
 				if ( isset( $data['params'][0]['number'] ) ) {
-
 					$number = $data['params'][0]['number'];
 					$params = get_option( $object->option_name );
 
@@ -442,10 +448,8 @@ function _beans_setup_widgets( $widget_area_content ) {
 					}
 				}
 			}
-		} elseif ( 'nav_menu-0' == $id ) { // Widget type fallback.
-
+		} elseif ( 'nav_menu-0' === $id ) { // Widget type fallback.
 			$widget['type'] = 'nav_menu';
-
 		}
 
 		// Widget fallback name.
@@ -454,7 +458,7 @@ function _beans_setup_widgets( $widget_area_content ) {
 		}
 
 		// Extract and add title.
-		if ( preg_match( '#<!--title-start-->(.*)<!--title-end-->#s' , $content, $matches ) ) {
+		if ( preg_match( '#<!--title-start-->(.*)<!--title-end-->#s', $content, $matches ) ) {
 			$widget['title'] = strip_tags( $matches[1] );
 		}
 
@@ -472,71 +476,80 @@ function _beans_setup_widgets( $widget_area_content ) {
 			'badge'         => $_beans_widget_area['beans_show_widget_badge'],
 			'badge_content' => $_beans_widget_area['beans_widget_badge_content'],
 		) );
-
 	}
 
 	return $_beans_widgets;
-
 }
 
 /**
  * Setup widget global data.
  *
+ * @since  1.0.0
  * @ignore
+ * @access private
+ *
+ * @param string $id Widget ID.
+ *
+ * @return void
  */
-function _beans_setup_widget( $id ) {
-
+function _beans_prepare_widget_data( $id ) {
 	global $_beans_widget;
-
-	$widgets = beans_get_widget_area( 'widgets' );
-
+	$widgets       = beans_get_widget_area( 'widgets' );
 	$_beans_widget = $widgets[ $id ];
-
 }
 
 /**
  * Reset widget area global data.
  *
+ * @since  1.0.0
  * @ignore
+ * @access private
+ *
+ * @return void
  */
 function _beans_reset_widget_area() {
-
 	unset( $GLOBALS['_beans_widget_area'] );
-
 }
 
 /**
  * Reset widget global data.
  *
+ * @since  1.0.0
  * @ignore
+ * @access private
+ *
+ * @return void
  */
 function _beans_reset_widget() {
-
 	unset( $GLOBALS['_beans_widget'] );
-
 }
 
 /**
- * Build widget area subfilters.
+ * Build widget area sub-filters.
  *
+ * @since  1.0.0
  * @ignore
+ * @access private
+ *
+ * @return string
  */
 function _beans_widget_area_subfilters() {
-
 	global $_beans_widget_area;
 
 	// Add sidebar id.
 	return '[_' . $_beans_widget_area['id'] . ']';
-
 }
 
 /**
- * Build widget subfilters.
+ * Build widget sub-filters.
  *
+ * @since  1.0.0
  * @ignore
+ * @access private
+ *
+ * @return string
  */
 function _beans_widget_subfilters() {
-
 	global $_beans_widget_area, $_beans_widget;
 
 	$subfilters = array(
@@ -546,17 +559,23 @@ function _beans_widget_subfilters() {
 	);
 
 	return '[_' . implode( '][_', $subfilters ) . ']';
-
 }
 
 add_action( 'the_widget', '_beans_force_the_widget', 10, 3 );
 /**
  * Force atypical widget added using the_widget() to have a correctly registered id.
  *
+ * @since  1.0.0
  * @ignore
+ * @access private
+ *
+ * @param string $widget   The widget's PHP class name (see class-wp-widget.php).
+ * @param array  $instance Optional. The widget's instance settings. Default empty array.
+ * @param array  $args     Array of arguments to configure the display of the widget.
+ *
+ * @return void
  */
 function _beans_force_the_widget( $widget, $instance, $args ) {
-
 	global $wp_widget_factory;
 
 	$widget_obj = $wp_widget_factory->widgets[ $widget ];
@@ -565,11 +584,10 @@ function _beans_force_the_widget( $widget, $instance, $args ) {
 		return;
 	}
 
-	// Stop here if the widget correctly contain an id.
-	if ( false !== stripos( $widget_obj->id, beans_get( 'before_widget', $args ) ) ) {
+	// Stop here if the widget correctly contains an id.
+	if ( false !== stripos( beans_get( 'before_widget', $args ), $widget_obj->id ) ) {
 		return;
 	}
 
-	printf( '<!--widget-%1$s-->', $widget_obj->id );
-
+	printf( '<!--widget-%1$s-->', esc_attr( $widget_obj->id ) );
 }

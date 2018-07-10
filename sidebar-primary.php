@@ -1,14 +1,14 @@
 <?php
 /**
- * This file content is situated in /lib/templates/structure/sidebar-primary.php and should
- * strictly be overwritten via your child theme.
+ * This file's content is located in /lib/templates/structure/sidebar-primary.php and should
+ * only be overwritten via your child theme.
  *
- * We strongly recommend to read Beans documentation to find out more how to
- * customize Beans theme.
+ * We strongly recommend to read the Beans documentation to find out more about
+ * how to customize the Beans theme.
  *
  * @author Beans
- * @link   http://www.getbeans.io
+ * @link   https://www.getbeans.io
+ * @package Beans\Framework
  */
 
-// Template situated in /lib/templates/structure/sidebar-primary.php
 beans_load_default_template( __FILE__ );

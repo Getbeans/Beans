@@ -2,16 +2,17 @@
 msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"Project-Id-Version: Beans\n"
-"POT-Creation-Date: 2015-11-28 12:29+0200\n"
-"PO-Revision-Date: 2015-11-28 12:29+0200\n"
+"Project-Id-Version: Beans v.1.5.0\n"
+"POT-Creation-Date: 2018-06-20 20:46-0500\n"
+"PO-Revision-Date: 2018-06-20 08:10-0500\n"
 "Last-Translator: \n"
-"Language-Team: \n"
+"Language-Team: Beans Team\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 2.0.8\n"
 "X-Poedit-Basepath: ../..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
@@ -19,394 +20,601 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SearchPathExcluded-1: bin\n"
+"X-Poedit-SearchPathExcluded-2: tests\n"
+"X-Poedit-SearchPathExcluded-3: vendor\n"
 
-#: lib/admin/options.php:27
+#: lib/admin/options.php:30
 msgctxt "term meta"
 msgid "Layout"
 msgstr ""
 
-#: lib/admin/options.php:58
+#: lib/admin/options.php:60
 msgctxt "post meta"
 msgid "Layout"
 msgstr ""
 
-#: lib/admin/options.php:65
+#: lib/admin/options.php:67
 msgid "Post Options"
 msgstr ""
 
-#: lib/admin/wp-customize.php:34
+#: lib/admin/wp-customize.php:37
 msgid "Logo Image"
 msgstr ""
 
-#: lib/admin/wp-customize.php:40
+#: lib/admin/wp-customize.php:42
 msgid "Branding"
 msgstr ""
 
-#: lib/admin/wp-customize.php:51 lib/admin/wp-customize.php:59
+#: lib/admin/wp-customize.php:52 lib/admin/wp-customize.php:63
 msgid "Default Layout"
 msgstr ""
 
-#: lib/admin/wp-customize.php:66
-msgid "Viewport Width"
+#: lib/admin/wp-customize.php:72
+msgid "Viewport Width - for Previewing Only"
 msgstr ""
 
-#: lib/admin/wp-customize.php:87
-msgid "Viewport Height"
+#: lib/admin/wp-customize.php:73
+msgid ""
+"Slide left or right to change the viewport width. Publishing will not change "
+"the width of your website."
 msgstr ""
 
-#: lib/admin/wp-customize.php:108
+#: lib/admin/wp-customize.php:78
+msgid "Enable to change the viewport width."
+msgstr ""
+
+#: lib/admin/wp-customize.php:95
+msgid "Viewport Height - for Previewing Only"
+msgstr ""
+
+#: lib/admin/wp-customize.php:96
+msgid ""
+"Slide left or right to change the viewport height. Publishing will not "
+"change the height of your website."
+msgstr ""
+
+#: lib/admin/wp-customize.php:101
+msgid "Enable to change the viewport height."
+msgstr ""
+
+#: lib/admin/wp-customize.php:122
 msgid "Preview Tools"
 msgstr ""
 
-#: lib/api/admin-menu.php:25
+#: lib/api/admin-menu.php:37
 msgid "Settings"
 msgstr ""
 
-#: lib/api/admin-menu.php:37
+#: lib/api/admin-menu.php:50
 msgid "Beans Settings"
 msgstr ""
 
-#: lib/api/admin-menu.php:37
+#: lib/api/admin-menu.php:50
 msgid "Version "
 msgstr ""
 
-#: lib/api/admin-menu.php:56
+#: lib/api/admin-menu.php:69
 msgid "Enable development mode"
 msgstr ""
 
-#: lib/api/admin-menu.php:58
+#: lib/api/admin-menu.php:70
+msgid "Select to activate development mode."
+msgstr ""
+
+#: lib/api/admin-menu.php:72
 msgid "This option should be enabled while your website is in development."
 msgstr ""
 
-#: lib/api/admin-menu.php:63
+#: lib/api/admin-menu.php:81
 msgid "Mode options"
 msgstr ""
 
-#: lib/api/compiler/class-options.php:35
+#: lib/api/compiler/class-beans-compiler-options.php:56
+msgid "Compiler options"
+msgstr ""
+
+#: lib/api/compiler/class-beans-compiler-options.php:165
+msgid "Styles are not compiled in development mode."
+msgstr ""
+
+#: lib/api/compiler/class-beans-compiler-options.php:187
+msgid "Scripts are not compiled in development mode."
+msgstr ""
+
+#: lib/api/compiler/class-beans-compiler.php:848
+msgid "Not cool, Beans cannot work its magic :("
+msgstr ""
+
+#: lib/api/compiler/class-beans-compiler.php:853
+msgid ""
+"Your current install or file permission prevents Beans from working its "
+"magic. Please get in touch with Beans support. We will gladly get you "
+"started within 24 - 48 hours (working days)."
+msgstr ""
+
+#: lib/api/compiler/class-beans-compiler.php:858
+msgid "Contact Beans Support"
+msgstr ""
+
+#: lib/api/compiler/class-beans-compiler.php:863
+msgid "Send us an automatic report"
+msgstr ""
+
+#: lib/api/compiler/class-beans-compiler.php:864
+msgid ""
+"We respect your time and understand you might not be able to contact us."
+msgstr ""
+
+#: lib/api/compiler/class-beans-compiler.php:898
+msgid ""
+"Thanks for your contribution by reporting this issue. We hope to hear from "
+"you again."
+msgstr ""
+
+#: lib/api/compiler/config/fields.php:14
 msgid ""
 "Clear CSS and Javascript cached files. New cached versions will be compiled "
 "on page load."
 msgstr ""
 
-#: lib/api/compiler/class-options.php:45
+#: lib/api/compiler/config/fields.php:18
 msgid "Compile all WordPress styles"
 msgstr ""
 
-#: lib/api/compiler/class-options.php:48
+#: lib/api/compiler/config/fields.php:19
+msgid "Select to compile styles."
+msgstr ""
+
+#: lib/api/compiler/config/fields.php:22
 msgid ""
 "Compile and cache all the CSS files that have been enqueued to the WordPress "
 "head."
 msgstr ""
 
-#: lib/api/compiler/class-options.php:58
+#: lib/api/compiler/config/fields.php:26
 msgid "Compile all WordPress scripts"
 msgstr ""
 
-#: lib/api/compiler/class-options.php:61
+#: lib/api/compiler/config/fields.php:32
+msgid "Select to compile scripts."
+msgstr ""
+
+#: lib/api/compiler/config/fields.php:38
+msgid "Choose the level of compilation."
+msgstr ""
+
+#: lib/api/compiler/config/fields.php:41
+msgid "Aggressive"
+msgstr ""
+
+#: lib/api/compiler/config/fields.php:42
+msgid "Standard"
+msgstr ""
+
+#: lib/api/compiler/config/fields.php:46
 msgid ""
-"Compile and cache all the Javascript files that have been enqueued to the "
-"WordPress head."
+"Compile and cache all the JavaScript files that have been enqueued to the "
+"WordPress head. <br/> JavaScript is outputted in the footer if the level is "
+"set to <strong>Aggressive</strong> and might conflict with some third-party "
+"plugins which are not following WordPress standards."
 msgstr ""
 
-#: lib/api/compiler/class-options.php:66
-msgid "Compiler options"
-msgstr ""
-
-#: lib/api/compiler/class-options.php:94
-msgid "Cache flushed successfully!"
-msgstr ""
-
-#: lib/api/compiler/class-options.php:107
+#: lib/api/compiler/views/flush-button.php:12
 msgid "Flush assets cache"
 msgstr ""
 
-#: lib/api/compiler/class-options.php:118
-msgid "Styles are not compiled in development mode."
+#: lib/api/compiler/views/flushed-notice.php:13
+msgid "Cache flushed successfully!"
 msgstr ""
 
-#: lib/api/compiler/class-options.php:128
-msgid "Scripts are not compiled in development mode."
+#: lib/api/fields/types/checkbox.php:27
+msgid "Enable"
 msgstr ""
 
-#: lib/api/fields/types/field.php:61
-msgid "More..."
-msgstr ""
-
-#: lib/api/fields/types/image.php:52
+#: lib/api/fields/types/image.php:43
 msgid "Add Image"
 msgid_plural "Add Images"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/api/image/class-options.php:36
-msgid "Clear all edited images. New images will be created on page load."
+#: lib/api/fields/types/image.php:127
+msgid "Sorry, no description was given for this image."
 msgstr ""
 
-#: lib/api/image/class-options.php:41
+#: lib/api/fields/types/views/field-description.php:13
+msgid "More..."
+msgstr ""
+
+#: lib/api/fields/types/views/image.php:48
+msgid "Manage Images"
+msgstr ""
+
+#: lib/api/fields/types/views/image.php:50
+msgid "Edit Image"
+msgstr ""
+
+#: lib/api/fields/types/views/image.php:51
+msgid "Delete Image"
+msgstr ""
+
+#: lib/api/html/accessibility.php:22
+msgid "Skip to the primary navigation."
+msgstr ""
+
+#: lib/api/html/accessibility.php:25
+msgid "Skip to the content."
+msgstr ""
+
+#: lib/api/html/accessibility.php:30
+msgid "Skip to the primary sidebar."
+msgstr ""
+
+#: lib/api/html/accessibility.php:34
+msgid "Skip to the secondary sidebar."
+msgstr ""
+
+#: lib/api/image/class-beans-image-options.php:48
 msgid "Images options"
 msgstr ""
 
-#: lib/api/image/class-options.php:69
-msgid "Images flushed successfully!"
+#: lib/api/image/config/fields.php:14
+msgid "Clear all edited images. New images will be created on page load."
 msgstr ""
 
-#: lib/api/image/class-options.php:82
+#: lib/api/image/views/flush-button.php:12
 msgid "Flush images"
 msgstr ""
 
-#: lib/api/layout/functions.php:276
+#: lib/api/image/views/flushed-notice.php:13
+msgid "Images flushed successfully!"
+msgstr ""
+
+#: lib/api/layout/functions.php:229
+msgid "Full-Width Content Layout"
+msgstr ""
+
+#: lib/api/layout/functions.php:230
+msgid "Option for the Full-Width Content Layout."
+msgstr ""
+
+#: lib/api/layout/functions.php:239
+msgid "Content and Primary Sidebar Layout"
+msgstr ""
+
+#: lib/api/layout/functions.php:240
+msgid "Option for the Content and Primary Sidebar Layout."
+msgstr ""
+
+#: lib/api/layout/functions.php:243
+msgid "Primary Sidebar and Content Layout"
+msgstr ""
+
+#: lib/api/layout/functions.php:244
+msgid "Option for the Primary Sidebar and Content Layout."
+msgstr ""
+
+#: lib/api/layout/functions.php:250
+msgid "Content, Primary Sidebar and Secondary Sidebar Layout"
+msgstr ""
+
+#: lib/api/layout/functions.php:251
+msgid "Option for the Content, Primary Sidebar and Secondary Sidebar Layout."
+msgstr ""
+
+#: lib/api/layout/functions.php:254
+msgid "Primary Sidebar, Secondary Sidebar and Content Layout"
+msgstr ""
+
+#: lib/api/layout/functions.php:255
+msgid "Option for the Primary Sidebar, Secondary Sidebar and Content Layout."
+msgstr ""
+
+#: lib/api/layout/functions.php:258
+msgid "Primary Sidebar, Content and Secondary Sidebar Layout"
+msgstr ""
+
+#: lib/api/layout/functions.php:259
+msgid "Option for the Primary Sidebar, Content and Secondary Sidebar Layout."
+msgstr ""
+
+#. translators: The (%s) placeholder is for the "Modify" hyperlink.
+#: lib/api/layout/functions.php:282
 #, php-format
 msgid "Use Default Layout (%s)"
 msgstr ""
 
-#: lib/api/layout/functions.php:277
+#: lib/api/layout/functions.php:283
 msgctxt "Default layout"
 msgid "Modify"
 msgstr ""
 
-#: lib/api/options/class.php:39 lib/api/post-meta/class.php:32
-#: lib/api/wp-customize/class.php:25
+#: lib/api/options/class-beans-options.php:54
+#: lib/api/post-meta/class-beans-post-meta.php:43
+#: lib/api/wp-customize/class-beans-wp-customize.php:43
 msgid "Undefined"
 msgstr ""
 
-#: lib/api/options/class.php:196
-msgid "Settings saved successfully!"
+#: lib/api/options/views/page.php:28
+msgid "Save"
 msgstr ""
 
-#: lib/api/options/class.php:198
-msgid "Settings could not be saved, please try again."
+#: lib/api/options/views/page.php:29
+msgid "Reset"
 msgstr ""
 
-#: lib/api/options/class.php:210
-msgid "Settings reset successfully!"
-msgstr ""
-
-#: lib/api/options/class.php:212
+#: lib/api/options/views/reset-notice-error.php:15
 msgid "Settings could not be reset, please try again."
 msgstr ""
 
-#: lib/api/widget/functions.php:57
+#: lib/api/options/views/reset-notice-success.php:15
+msgid "Settings reset successfully!"
+msgstr ""
+
+#: lib/api/options/views/save-notice-error.php:15
+msgid "Settings could not be saved, please try again."
+msgstr ""
+
+#: lib/api/options/views/save-notice-success.php:15
+msgid "Settings saved successfully!"
+msgstr ""
+
+#: lib/api/widget/functions.php:62
 msgid "Hello"
 msgstr ""
 
-#: lib/render/menu.php:23
+#: lib/render/menu.php:25
 msgid "Navigation"
 msgstr ""
 
-#: lib/render/menu.php:26 lib/templates/fragments/breadcrumb.php:25
+#: lib/render/menu.php:33 lib/templates/fragments/breadcrumb.php:30
 msgid "Home"
 msgstr ""
 
-#: lib/render/menu.php:46
+#: lib/render/menu.php:52
 msgid "Primary Menu"
 msgstr ""
 
-#: lib/render/widget-area.php:19
+#: lib/render/widget-area.php:21
 msgid "Sidebar Primary"
 msgstr ""
 
-#: lib/render/widget-area.php:24
+#: lib/render/widget-area.php:26
 msgid "Sidebar Secondary"
 msgstr ""
 
-#: lib/render/widget-area.php:30
+#: lib/render/widget-area.php:32
 msgid "Off-Canvas Menu"
 msgstr ""
 
-#: lib/templates/fragments/breadcrumb.php:83
+#: lib/templates/fragments/breadcrumb.php:80
 msgid "Results:"
 msgstr ""
 
-#: lib/templates/fragments/breadcrumb.php:92
+#: lib/templates/fragments/breadcrumb.php:83
 msgid "Author Archives:"
 msgstr ""
 
-#: lib/templates/fragments/breadcrumb.php:99
+#: lib/templates/fragments/breadcrumb.php:85
 msgid "Tag Archives:"
 msgstr ""
 
-#: lib/templates/fragments/breadcrumb.php:106
+#: lib/templates/fragments/breadcrumb.php:87
 msgid "Archives:"
 msgstr ""
 
-#: lib/templates/fragments/breadcrumb.php:113
+#: lib/templates/fragments/breadcrumb.php:89
 msgid "404"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:20
+#. translators: Number of comments, one or many.
+#: lib/templates/fragments/comments.php:25
 #, php-format
 msgid "%s Comment"
 msgid_plural "%s Comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/templates/fragments/comments.php:92
+#: lib/templates/fragments/comments.php:98
 msgid "Trackback"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:103
+#: lib/templates/fragments/comments.php:107
 msgid "Pingback"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:115
+#: lib/templates/fragments/comments.php:116
 msgid "Awaiting Moderation"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:127
+#: lib/templates/fragments/comments.php:125
 msgid "Moderator"
 msgstr ""
 
+#. translators: Date of the comment, time of the comment.
 #: lib/templates/fragments/comments.php:154
 #, php-format
 msgctxt "1: date, 2: time"
 msgid "%1$s at %2$s"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:211
+#: lib/templates/fragments/comments.php:215
 msgid "Edit"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:226
+#: lib/templates/fragments/comments.php:233
 msgid "Link"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:248
+#: lib/templates/fragments/comments.php:253
 msgid "No comment yet, add your voice below!"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:266
+#: lib/templates/fragments/comments.php:269
 msgid "Comments are closed for this article!"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:301
-#: lib/templates/fragments/post.php:435 lib/templates/fragments/post.php:504
-msgid "Previous"
+#: lib/templates/fragments/comments.php:295
+msgid "Comments Pagination Navigation"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:319
-#: lib/templates/fragments/post.php:446 lib/templates/fragments/post.php:590
-msgid "Next"
+#: lib/templates/fragments/comments.php:322
+msgid "Previous Comments"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:361
+#: lib/templates/fragments/comments.php:343
+msgid "Next Comments "
+msgstr ""
+
+#: lib/templates/fragments/comments.php:377
 msgid "Add a Comment"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:368
+#: lib/templates/fragments/comments.php:390
 msgid "Post Comment"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:435
-msgid "Name"
+#: lib/templates/fragments/comments.php:458
+msgid "Comment *"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:463
+#: lib/templates/fragments/comments.php:533
+msgid "Name *"
+msgstr ""
+
+#. translators: Whether or not submitting an email address is required.
+#: lib/templates/fragments/comments.php:568
 #, php-format
 msgid "Email %s"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:492
+#: lib/templates/fragments/comments.php:602
 msgid "Website"
 msgstr ""
 
-#: lib/templates/fragments/comments.php:542
-msgid "Comment *"
-msgstr ""
-
-#: lib/templates/fragments/deprecated.php:57
+#. translators: Page number.
+#: lib/templates/fragments/deprecated.php:59
 #, php-format
 msgid "Page %s"
 msgstr ""
 
-#: lib/templates/fragments/footer.php:24
+#. translators: Footer credits. Date followed by the name of the website.
+#: lib/templates/fragments/footer.php:27
 #, php-format
 msgid "&#x000A9; %1$s - %2$s. All rights reserved."
 msgstr ""
 
-#: lib/templates/fragments/footer.php:45
+#. translators: Link to the Beans website.
+#: lib/templates/fragments/footer.php:54
 #, php-format
 msgid "%1$s theme for WordPress."
 msgstr ""
 
-#: lib/templates/fragments/menu.php:67
+#: lib/templates/fragments/menu.php:31
+msgid "Primary Navigation Menu"
+msgstr ""
+
+#: lib/templates/fragments/menu.php:96
 msgid "Menu"
 msgstr ""
 
-#: lib/templates/fragments/menu.php:115
+#: lib/templates/fragments/menu.php:121
+msgid "Off-Canvas Primary Navigation Menu"
+msgstr ""
+
+#: lib/templates/fragments/menu.php:158
 msgid "Whoops, your site does not have a menu!"
 msgstr ""
 
-#: lib/templates/fragments/post-shortcodes.php:17
+#: lib/templates/fragments/post-shortcodes.php:19
 msgid "Posted on "
 msgstr ""
 
-#: lib/templates/fragments/post-shortcodes.php:40
+#: lib/templates/fragments/post-shortcodes.php:44
 msgid "By "
 msgstr ""
 
-#: lib/templates/fragments/post-shortcodes.php:73
+#: lib/templates/fragments/post-shortcodes.php:90
 msgid "Leave a comment"
 msgstr ""
 
-#: lib/templates/fragments/post-shortcodes.php:75
+#: lib/templates/fragments/post-shortcodes.php:92
 msgid "1 comment"
 msgstr ""
 
-#: lib/templates/fragments/post-shortcodes.php:77
+#. translators: Number of comments. Plural.
+#: lib/templates/fragments/post-shortcodes.php:97
 #, php-format
 msgid "%s comments"
 msgstr ""
 
-#: lib/templates/fragments/post-shortcodes.php:104
+#: lib/templates/fragments/post-shortcodes.php:124
 msgid "Tagged with: "
 msgstr ""
 
-#: lib/templates/fragments/post-shortcodes.php:124
+#: lib/templates/fragments/post-shortcodes.php:142
 msgid "Filed under: "
 msgstr ""
 
-#: lib/templates/fragments/post.php:67
+#: lib/templates/fragments/post.php:74
 msgid "Search results for: "
 msgstr ""
 
-#: lib/templates/fragments/post.php:254
+#: lib/templates/fragments/post.php:339
 msgid "Continue reading"
 msgstr ""
 
-#: lib/templates/fragments/post.php:278
+#: lib/templates/fragments/post.php:367
 msgid "Pages:"
 msgstr ""
 
-#: lib/templates/fragments/post.php:624
+#: lib/templates/fragments/post.php:543
+msgid "Pagination Navigation"
+msgstr ""
+
+#: lib/templates/fragments/post.php:561 lib/templates/fragments/post.php:655
+msgid "Previous Page"
+msgstr ""
+
+#: lib/templates/fragments/post.php:573 lib/templates/fragments/post.php:744
+msgid "Next Page"
+msgstr ""
+
+#: lib/templates/fragments/post.php:619
+msgid "Posts Pagination Navigation"
+msgstr ""
+
+#: lib/templates/fragments/post.php:782
 msgid "Whoops, no result found!"
 msgstr ""
 
-#: lib/templates/fragments/post.php:636
+#: lib/templates/fragments/post.php:794
 msgid "It looks like nothing was found at this location. Maybe try a search?"
 msgstr ""
 
-#: lib/templates/fragments/post.php:670
+#: lib/templates/fragments/post.php:824
 msgid "This post is protected. To view it, enter the password below!"
 msgstr ""
 
-#: lib/templates/fragments/post.php:684
+#: lib/templates/fragments/post.php:845
 msgid "Password"
 msgstr ""
 
-#: lib/templates/fragments/post.php:692
+#: lib/templates/fragments/post.php:857
 msgid "Submit"
 msgstr ""
 
-#: lib/templates/fragments/searchform.php:30
+#: lib/templates/fragments/searchform.php:37
 msgid "Search"
 msgstr ""
 
-#: lib/templates/fragments/widget.php:83
+#. translators: Name of the widget area.
+#: lib/templates/fragments/widget.php:89
 #, php-format
 msgid "%s does not have any widget assigned!"
 msgstr ""
 
-#: lib/templates/fragments/widget.php:103
+#: lib/templates/fragments/widget.php:107
 msgid "Read feed"
 msgstr ""
 
@@ -416,11 +624,14 @@ msgid "Beans"
 msgstr ""
 
 #. Theme URI of the plugin/theme
-#. Author URI of the plugin/theme
-msgid "http://www.getbeans.io"
+msgid "https://www.getbeans.io/themes/beans/"
 msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
 "The most innovative theme for WordPress. The real magic is under the hood."
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://www.getbeans.io"
 msgstr ""

@@ -1,0 +1,75 @@
+{
+  "name": "beans/beans",
+  "description": "The most innovative theme for WordPress. The real magic is under the hood.",
+  "type": "wordpress-theme",
+  "license": "GPL-2.0+",
+  "homepage": "http://www.getbeans.io/",
+  "support": {
+    "issues": "https://github.com/GetBeans/Beans/issues",
+    "source": "https://github.com/GetBeans/Beans"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "exclude-from-classmap": [
+      "/tests/"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Beans\\Framework\\Tests\\Unit\\": "tests/phpunit/unit/",
+      "Beans\\Framework\\Tests\\Integration\\": "tests/phpunit/integration/"
+    }
+  },
+  "repositories": [
+    {
+      "type": "package",
+      "package": {
+      "name": "xwp/wp-dev-lib",
+      "version": "1.0.1",
+        "source": {
+          "url": "https://github.com/xwp/wp-dev-lib.git",
+          "type": "git",
+          "reference": "master"
+        }
+      }
+    }
+  ],
+  "require": {
+    "php": "^5.2|^7",
+    "composer/installers": "^1.4",
+    "roave/security-advisories": "dev-master"
+  },
+  "require-dev": {
+    "php": "^5.6|^7",
+    "brain/monkey": "^2.2",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
+    "mikey179/vfsStream": "^1.6",
+    "phpunit/phpunit": "~5.7.9",
+    "sirbrillig/phpcs-variable-analysis": "^2.0",
+    "squizlabs/php_codesniffer": "^3.2",
+    "wimg/php-compatibility": "^8.0",
+    "wp-coding-standards/wpcs": "^0.14.1",
+    "xwp/wp-dev-lib": "^1.0.1"
+  },
+  "config": {
+    "sort-order": true
+  },
+  "scripts": {
+    "install-codestandards": [
+      "Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\Plugin::run"
+    ],
+    "phpcs-src": "\"vendor/bin/phpcs\"",
+    "phpcs-tests": "\"vendor/bin/phpcs\" --runtime-set testVersion 5.6 tests/phpunit/",
+    "run-phpcs": [
+      "@phpcs-src",
+      "@phpcs-tests"
+    ],
+    "test-unit": "\"vendor/bin/phpunit\" --testsuite unit --color=always",
+    "test-integration": "\"vendor/bin/phpunit\" --testsuite integration --configuration tests/phpunit/integration/phpunit.xml.dist --color=always",
+    "run-tests": [
+      "@test-unit",
+      "@test-integration"
+    ]
+  }
+}
