@@ -34,9 +34,9 @@ class Tests_BeansFieldImage extends Fields_Test_Case {
 	}
 
 	/**
-	 * Test beans_field_image() should render a single image field.
+	 * Test beans_field_image() should render a single image field and hide the upload button when an image exists.
 	 */
-	public function test_should_render_single_image_field() {
+	public function test_should_render_single_image_field_and_hide_upload_button_when_image_exists() {
 		Monkey\Functions\expect( 'wp_get_attachment_image_src' )
 			->with( 1, 'thumbnail' )
 			->once()
@@ -49,7 +49,7 @@ class Tests_BeansFieldImage extends Fields_Test_Case {
 			'id'    => 'beans_image_test',
 			'type'  => 'image',
 			'label' => 'Image Test',
-			'value' => 1, // attachment ID.
+			'value' => 1, // Attachment ID.
 		], false );
 
 		// Run the function and grab the HTML out of the buffer.
@@ -85,9 +85,9 @@ EOB;
 	}
 
 	/**
-	 * Test beans_field_image() should render a multiple images field.
+	 * Test beans_field_image() should render a multiple images field and show the upload button when images exist.
 	 */
-	public function test_should_render_multiple_images_field() {
+	public function test_should_render_multiple_images_field_and_show_upload_button_when_images_exist() {
 		Monkey\Functions\expect( 'wp_get_attachment_image_src' )
 			->times( 2 )
 			->andReturnUsing( function ( $image_id ) {
@@ -105,7 +105,7 @@ EOB;
 			'id'       => 'beans_image_test',
 			'type'     => 'image',
 			'label'    => 'Image Test',
-			'value'    => [ 1, 2 ], // attachment IDs.
+			'value'    => [ 1, 2 ], // Attachment IDs.
 			'multiple' => true,
 		], false );
 
@@ -115,7 +115,7 @@ EOB;
 		$html = ob_get_clean();
 
 		$expected = <<<EOB
-<button class="bs-add-image button button-small" type="button" style="display: none">Add Images</button>
+<button class="bs-add-image button button-small" type="button" >Add Images</button>
 <input id="beans_image_test" type="hidden" name="beans_fields[beans_image_test]" value="">
 <div class="bs-images-wrap" data-multiple="1">
     <div class="bs-image-wrap">
@@ -167,7 +167,7 @@ EOB;
 			'id'    => 'beans_image_test',
 			'type'  => 'image',
 			'label' => 'Image Test',
-			'value' => 1, // attachment ID.
+			'value' => 1, // Attachment ID.
 		], false );
 
 		// Run the function and grab the HTML out of the buffer.
@@ -191,6 +191,88 @@ EOB;
         <input class="image-id" type="hidden" name="beans_fields[beans_image_test]" value="" disabled="disabled" />
         <img src="" alt="">
         <div class="bs-toolbar">
+        	<button aria-label="Edit Image" type="button" class="button bs-button-edit dashicons dashicons-edit"></button>
+            <button aria-label="Delete Image" type="button" class="button bs-button-trash dashicons dashicons-post-trash"></button>
+        </div>
+    </div>
+</div>
+EOB;
+		// Run the test.
+		$this->assertSame( $this->format_the_html( $expected ), $this->format_the_html( $html ) );
+	}
+
+	/**
+	 * Test beans_field_image() should show the upload button for a single image field without image.
+	 *
+	 * @ticket #305
+	 * @link https://github.com/Getbeans/Beans/issues/305
+	 */
+	public function test_should_show_upload_button_for_single_image_field_without_image() {
+		$field = $this->merge_field_with_default( [
+			'id'    => 'beans_image_test',
+			'type'  => 'image',
+			'label' => 'Image Test',
+			'value' => null, // Attachment ID.
+		], false );
+
+		Monkey\Functions\expect( 'wp_get_attachment_image_src' )->never();
+		Monkey\Functions\expect( 'get_post_meta' )->never();
+
+		// Run the function and grab the HTML out of the buffer.
+		ob_start();
+		beans_field_image( $field );
+		$html = ob_get_clean();
+
+		$expected = <<<EOB
+<button class="bs-add-image button button-small" type="button" >Add Image</button>
+<input id="beans_image_test" type="hidden" name="beans_fields[beans_image_test]" value="">
+<div class="bs-images-wrap" data-multiple="">
+    <div class="bs-image-wrap bs-image-template">
+        <input class="image-id" type="hidden" name="beans_fields[beans_image_test]" value="" disabled="disabled" />
+        <img src="" alt="">
+        <div class="bs-toolbar">
+        	<button aria-label="Edit Image" type="button" class="button bs-button-edit dashicons dashicons-edit"></button>
+            <button aria-label="Delete Image" type="button" class="button bs-button-trash dashicons dashicons-post-trash"></button>
+        </div>
+    </div>
+</div>
+EOB;
+		// Run the test.
+		$this->assertSame( $this->format_the_html( $expected ), $this->format_the_html( $html ) );
+	}
+
+	/**
+	 * Test beans_field_image() should show the upload button for a multiple image field without image.
+	 *
+	 * @ticket #305
+	 * @link https://github.com/Getbeans/Beans/issues/305
+	 */
+	public function test_should_show_upload_button_for_multiple_image_field_without_image() {
+		$field = $this->merge_field_with_default( [
+			'id'       => 'beans_image_test',
+			'type'     => 'image',
+			'label'    => 'Image Test',
+			'multiple' => true,
+			'value'    => null, // Attachment ID.
+		], false );
+
+		Monkey\Functions\expect( 'wp_get_attachment_image_src' )->never();
+		Monkey\Functions\expect( 'get_post_meta' )->never();
+
+		// Run the function and grab the HTML out of the buffer.
+		ob_start();
+		beans_field_image( $field );
+		$html = ob_get_clean();
+
+		$expected = <<<EOB
+<button class="bs-add-image button button-small" type="button" >Add Images</button>
+<input id="beans_image_test" type="hidden" name="beans_fields[beans_image_test]" value="">
+<div class="bs-images-wrap" data-multiple="1">
+    <div class="bs-image-wrap bs-image-template">
+        <input class="image-id" type="hidden" name="beans_fields[beans_image_test][]" value="" disabled="disabled" />
+        <img src="" alt="">
+		<div class="bs-toolbar">
+			<button aria-label="Manage Images" type="button" class="button bs-button-menu dashicons dashicons-menu"></button>
         	<button aria-label="Edit Image" type="button" class="button bs-button-edit dashicons dashicons-edit"></button>
             <button aria-label="Delete Image" type="button" class="button bs-button-trash dashicons dashicons-post-trash"></button>
         </div>
