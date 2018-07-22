@@ -12,7 +12,7 @@
 // phpcs:disable Generic.WhiteSpace.ScopeIndent.Incorrect, Generic.WhiteSpace.ScopeIndent.IncorrectExact -- View file is indented for HTML structure.
 ?>
 
-<button class="bs-add-image button button-small" type="button" <?php echo isset( $hide_add_link ) ? 'style="display: none"' : ''; ?>><?php echo esc_html( $link_text ); ?></button>
+<button class="bs-add-image button button-small" type="button" <?php echo isset( $hide_add_link ) && $hide_add_link ? 'style="display: none"' : ''; ?>><?php echo esc_html( $link_text ); ?></button>
 <input id="<?php echo esc_attr( $field['id'] ); ?>" type="hidden" name="<?php echo esc_attr( $field['name'] ); ?>" value="">
 <div class="bs-images-wrap" data-multiple="<?php echo esc_attr( $is_multiple ); ?>">
 <?php

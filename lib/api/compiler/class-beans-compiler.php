@@ -78,6 +78,7 @@ final class _Beans_Compiler {
 	 * Run the compiler.
 	 *
 	 * @since 1.5.0
+	 * @since 1.5.1 Recompile when in development mode.
 	 *
 	 * @return void
 	 */
@@ -88,7 +89,7 @@ final class _Beans_Compiler {
 		$this->set_fragments();
 		$this->set_filename();
 
-		if ( ! $this->cache_file_exist() ) {
+		if ( _beans_is_compiler_dev_mode() || ! $this->cache_file_exist() ) {
 			$this->filesystem();
 			$this->maybe_make_dir();
 			$this->combine_fragments();
