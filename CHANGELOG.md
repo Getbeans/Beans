@@ -1,8 +1,18 @@
 # Beans Changelog
 
+## 2018.07.22 - version 1.5.1
+
+This release fixes the following bugs:
+
+* Fixed #305 - re-enabled displaying the image field upload button.
+* Fixed #307 - added functionality to recompile when in development mode.
+* Fixed #304 - changed the screenshot to a .png file
+
+This release adds a new screenshot design too, just for fun!
+
 ## 2018.07.10 - version 1.5.0
 
-This release candidate includes security, web accessibility, code quality improvements, performance improvements, and bug fixes.  The entire framework is now WPCS compliant.  The APIs are now fully and thoroughly well-tested. All found issues are resolved.  New functionality is added. 
+This release includes security, web accessibility, code quality improvements, performance improvements, and bug fixes.  The entire framework is now WPCS compliant.  The APIs are now fully and thoroughly well-tested. All found issues are resolved.  New functionality is added. 
 
 ### Improved
 * Improved web accessibility by adding skip links, ARIA, labels, tabs, and more.

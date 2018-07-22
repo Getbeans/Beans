@@ -78,6 +78,7 @@ final class _Beans_Compiler {
 	 * Run the compiler.
 	 *
 	 * @since 1.5.0
+	 * @since 1.5.1 Recompile when in development mode.
 	 *
 	 * @return void
 	 */
