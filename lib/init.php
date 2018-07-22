@@ -18,7 +18,7 @@ add_action( 'beans_init', 'beans_define_constants', -1 );
  */
 function beans_define_constants() {
 	// Define version.
-	define( 'BEANS_VERSION', '1.5.0' );
+	define( 'BEANS_VERSION', '1.5.1' );
 
 	// Define paths.
 	if ( ! defined( 'BEANS_THEME_PATH' ) ) {
