@@ -4,9 +4,9 @@
 
 This release fixes the following bugs:
 
-* Fixed #305 displaying the image field upload button.
-* Fixed #307 which require flushing the cache when in development mode. Beans now recompiles when in development mode.
-* Fixed #304 by changing the screenshot to a .png file
+* Fixed #305 - re-enabled displaying the image field upload button.
+* Fixed #307 - added functionality to recompile when in development mode.
+* Fixed #304 - changed the screenshot to a .png file
 
 This release adds a new screenshot design too, just for fun!
 
