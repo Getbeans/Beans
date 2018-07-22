@@ -105,6 +105,7 @@ class Tests_BeansCompiler_RunCompiler extends Compiler_Test_Case {
 				$config['in_footer']
 			)
 			->andReturnNull();
+		Monkey\Functions\when( '_beans_is_compiler_dev_mode' )->justReturn( false );
 
 		// Check that the file is cached before we start the compiler.
 		$this->assertFileExists( $cached_file );

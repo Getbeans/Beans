@@ -88,7 +88,7 @@ final class _Beans_Compiler {
 		$this->set_fragments();
 		$this->set_filename();
 
-		if ( ! $this->cache_file_exist() ) {
+		if ( _beans_is_compiler_dev_mode() || ! $this->cache_file_exist() ) {
 			$this->filesystem();
 			$this->maybe_make_dir();
 			$this->combine_fragments();
