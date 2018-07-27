@@ -36,6 +36,6 @@ class Actions_Stub {
 	 * @param string|int $message Message to echo.
 	 */
 	public static function echo_static( $message ) {
-		echo $message; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Not testing escaping functionality.
+		echo $message; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Not testing escaping functionality.
 	}
 }

@@ -10,6 +10,6 @@
 
 ?>
 <script type='text/javascript'>
-	<?php echo $localized; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Previously cleaned by WP. ?>
+	<?php echo $localized; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Previously cleaned by WP. ?>
 </script>
 

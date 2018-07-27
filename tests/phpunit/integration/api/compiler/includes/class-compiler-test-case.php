@@ -229,7 +229,7 @@ abstract class Compiler_Test_Case extends Base_Test_Case {
 				->andReturn( file_get_contents( $fragment ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents, WordPress.WP.AlternativeFunctions.file_system_read_file_get_contents -- Valid in this edge case.
 		}
 
-		$GLOBALS['wp_filesystem'] = $mock; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Valid use case, as we are mocking the filesystem.
+		$GLOBALS['wp_filesystem'] = $mock; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited -- Valid use case, as we are mocking the filesystem.
 	}
 
 	/**

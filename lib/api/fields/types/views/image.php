@@ -29,7 +29,7 @@ foreach ( $images as $image_id ) :
 	$image_alt  = $image_url ? _beans_get_image_alt( $image_id ) : '';
 ?>
 	<div class="bs-image-wrap<?php echo 'placeholder' === $image_id ? ' bs-image-template' : ''; ?>">
-		<input <?php echo beans_esc_attributes( $attributes ); ?> /><?php // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Escaping is handled in the function. ?>
+		<input <?php echo beans_esc_attributes( $attributes ); ?> /><?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaping is handled in the function. ?>
 		<img src="<?php echo $image_url ? esc_url( $image_url ) : ''; ?>" alt="<?php echo $image_alt ? esc_attr( $image_alt ) : ''; ?>">
 		<div class="bs-toolbar">
 			<?php

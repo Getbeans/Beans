@@ -50,7 +50,7 @@ abstract class Beans_Widget_Test_Case extends Test_Case {
 			'classname' => $widget_object->widget_options['classname'],
 		];
 
-		$wp_registered_widgets[ $widget_object->id ] = $widget_registration_args; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Valid use case: we need to explicitly set the widget registration for widget API tests.
+		$wp_registered_widgets[ $widget_object->id ] = $widget_registration_args; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited -- Valid use case: we need to explicitly set the widget registration for widget API tests.
 
 		add_filter( 'sidebars_widgets', [ $this, 'add_a_widget' ] );
 	}

@@ -58,7 +58,7 @@ function beans_output( $id, $output ) {
  */
 function beans_output_e( $id, $output ) {
 	$args = func_get_args();
-	echo call_user_func_array( 'beans_output', $args ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Escaped in beans_output.
+	echo call_user_func_array( 'beans_output', $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in beans_output.
 }
 
 /**
@@ -164,7 +164,7 @@ function beans_open_markup( $id, $tag, $attributes = array() ) {
  */
 function beans_open_markup_e( $id, $tag, $attributes = array() ) {
 	$args = func_get_args();
-	echo call_user_func_array( 'beans_open_markup', $args ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Escaped in beans_open_markup().
+	echo call_user_func_array( 'beans_open_markup', $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in beans_open_markup().
 }
 
 /**
@@ -220,7 +220,7 @@ function beans_selfclose_markup( $id, $tag, $attributes = array() ) {
  */
 function beans_selfclose_markup_e( $id, $tag, $attributes = array() ) {
 	$args = func_get_args();
-	echo call_user_func_array( 'beans_selfclose_markup', $args ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Escaped in beans_open_markup().
+	echo call_user_func_array( 'beans_selfclose_markup', $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in beans_open_markup().
 }
 
 /**
@@ -285,7 +285,7 @@ function beans_close_markup( $id, $tag ) {
  */
 function beans_close_markup_e( $id, $tag ) {
 	$args = func_get_args();
-	echo call_user_func_array( 'beans_close_markup', $args ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Escaped in beans_close_markup().
+	echo call_user_func_array( 'beans_close_markup', $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in beans_close_markup().
 }
 
 /**

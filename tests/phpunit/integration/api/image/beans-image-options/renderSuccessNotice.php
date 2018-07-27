@@ -28,7 +28,7 @@ class Tests_BeansImageOptions_RenderSuccessNotice extends Options_Test_Case {
 	 */
 	public function test_should_not_render_when_not_flushing_edited_images_cache() {
 		$this->go_to_settings_page();
-		$this->assertArrayNotHasKey( 'beans_flush_edited_images', $_POST ); // phpcs:ignore WordPress.CSRF.NonceVerification.NoNonceVerification -- No need for nonce in this test.
+		$this->assertArrayNotHasKey( 'beans_flush_edited_images', $_POST ); // phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification -- No need for nonce in this test.
 
 		ob_start();
 		( new _Beans_Image_Options() )->render_success_notice();

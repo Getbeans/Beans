@@ -340,7 +340,7 @@ function _beans_setup_widget_area( $id ) {
 	}
 
 	// Add widget area delimiters. This is used to split wp sidebar as well as the widgets title.
-	$wp_registered_sidebars[ $id ] = array_merge( // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Valid use case.
+	$wp_registered_sidebars[ $id ] = array_merge( // phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited -- Valid use case.
 		$wp_registered_sidebars[ $id ],
 		array(
 			'before_widget' => '<!--widget-%1$s-->',
@@ -459,7 +459,7 @@ function _beans_setup_widgets( $widget_area_content ) {
 
 		// Extract and add title.
 		if ( preg_match( '#<!--title-start-->(.*)<!--title-end-->#s', $content, $matches ) ) {
-			$widget['title'] = strip_tags( $matches[1] );
+			$widget['title'] = strip_tags( $matches[1] ); // phpcs:ignore WordPress.WP.AlternativeFunctions.strip_tags_strip_tags -- We want to strip the tags and keep the content.
 		}
 
 		// Remove title from content.

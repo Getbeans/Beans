@@ -184,6 +184,8 @@ function beans_str_starts_with( $haystack, $needles ) {
  * @param bool   $force_rebuild Optional. Forces the rebuild of the root url and path.
  *
  * @return string Url.
+ *
+ * phpcs:disable WordPress.PHP.PregQuoteDelimiter.Missing -- We are using `#` as delimiter.
  */
 function beans_path_to_url( $path, $force_rebuild = false ) {
 	static $root_path, $root_url;
@@ -374,7 +376,7 @@ function beans_sanitize_path( $path ) {
 function beans_get( $needle, $haystack = false, $default = null ) {
 
 	if ( false === $haystack ) {
-		$haystack = $_GET; // phpcs:ignore WordPress.CSRF.NonceVerification.NoNonceVerification -- The nonce verification check should be at the form processing level.
+		$haystack = $_GET; // phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification -- The nonce verification check should be at the form processing level.
 	}
 
 	$haystack = (array) $haystack;
@@ -397,7 +399,7 @@ function beans_get( $needle, $haystack = false, $default = null ) {
  * @return string Returns the value if found; else $default is returned.
  */
 function beans_post( $needle, $default = null ) {
-	return beans_get( $needle, $_POST, $default ); // phpcs:ignore WordPress.CSRF.NonceVerification.NoNonceVerification -- The nonce verification check should be at the form processing level.
+	return beans_get( $needle, $_POST, $default ); // phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification -- The nonce verification check should be at the form processing level.
 }
 
 /**

@@ -209,7 +209,7 @@ EOB;
 		$wp_scripts_mock->registered = $registered;
 
 		global $wp_scripts;
-		$wp_scripts = $wp_scripts_mock; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Valid use case to load mocks for tests.
+		$wp_scripts = $wp_scripts_mock; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited -- Valid use case to load mocks for tests.
 
 		return $wp_scripts_mock;
 	}

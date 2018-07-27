@@ -9,7 +9,7 @@
  */
 
 // This includes everything added to wp hooks before the widgets.
-echo beans_get_widget_area( 'before_widgets' ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Widget area has to be echoed.
+echo beans_get_widget_area( 'before_widgets' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Widget area has to be echoed.
 
 	// phpcs:disable Generic.WhiteSpace.ScopeIndent -- Code structure mirrors HTML markup.
 	if ( 'grid' === beans_get_widget_area( 'beans_type' ) ) {
@@ -102,6 +102,6 @@ echo beans_get_widget_area( 'before_widgets' ); // phpcs:ignore WordPress.XSS.Es
 	}
 
 // This includes everything added to wp hooks after the widgets.
-echo beans_get_widget_area( 'after_widgets' ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Widget area has to be echoed.
+echo beans_get_widget_area( 'after_widgets' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Widget area has to be echoed.
 
 // phpcs:enable Generic.WhiteSpace.ScopeIndent -- Code structure mirrors HTML markup.

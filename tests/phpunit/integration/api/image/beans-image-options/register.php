@@ -55,7 +55,7 @@ class Tests_BeansImageOptions_Register extends Options_Test_Case {
 		$this->go_to_settings_page();
 
 		global $wp_meta_boxes;
-		$wp_meta_boxes = [ 'beans_settings' => [ 'foo' ] ]; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Valid use case to set up the test.
+		$wp_meta_boxes = [ 'beans_settings' => [ 'foo' ] ]; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited -- Valid use case to set up the test.
 
 		$this->assertTrue( ( new _Beans_Image_Options() )->register() );
 

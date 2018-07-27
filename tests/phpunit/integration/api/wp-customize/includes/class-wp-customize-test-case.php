@@ -54,7 +54,7 @@ abstract class WP_Customize_Test_Case extends Test_Case {
 
 		global $wp_customize;
 		$this->wp_customize = new WP_Customize_Manager();
-		$wp_customize       = $this->wp_customize; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Limited to test function scope.
+		$wp_customize       = $this->wp_customize; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited -- Limited to test function scope.
 	}
 
 	/**
@@ -62,7 +62,7 @@ abstract class WP_Customize_Test_Case extends Test_Case {
 	 */
 	public function tearDown() {
 		global $wp_customize;
-		$wp_customize = null; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Limited to test function scope.
+		$wp_customize = null; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited -- Limited to test function scope.
 
 		parent::tearDown();
 	}

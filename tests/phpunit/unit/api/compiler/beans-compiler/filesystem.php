@@ -31,7 +31,7 @@ class Tests_BeansCompiler_Filesystem extends Compiler_Test_Case {
 	public function test_should_return_true_when_wp_filesystem_is_init() {
 		// Initialize the wp_filesystem global variable.
 		Mockery::mock( 'WP_Filesystem_Direct' );
-		$GLOBALS['wp_filesystem'] = new \WP_Filesystem_Direct(); // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Valid use case as we are mocking the filesystem.
+		$GLOBALS['wp_filesystem'] = new \WP_Filesystem_Direct(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited -- Valid use case as we are mocking the filesystem.
 
 		Monkey\Functions\when( 'WP_Filesystem' )->justReturn( true );
 

@@ -59,7 +59,7 @@ abstract class WP_Customize_Test_Case extends Test_Case {
 
 		$this->wp_customize_mock = Mockery::mock( 'WP_Customize_Manager' );
 		global $wp_customize;
-		$wp_customize = $this->wp_customize_mock; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Limited to test function scope.
+		$wp_customize = $this->wp_customize_mock; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited -- Limited to test function scope.
 	}
 
 	/**

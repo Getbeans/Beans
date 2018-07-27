@@ -117,7 +117,7 @@ function _beans_is_post_meta_conditions( $conditions ) {
 	}
 
 	// Check if it is a new post and treat it as such.
-	if ( false !== stripos( $_SERVER['REQUEST_URI'], 'post-new.php' ) ) {
+	if ( false !== stripos( $_SERVER['REQUEST_URI'], 'post-new.php' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput -- We are checking if the request path includes a certain sting in an admin request. No other processing is done.
 		$current_post_type = beans_get( 'post_type' );
 
 		if ( ! $current_post_type ) {

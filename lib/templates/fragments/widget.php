@@ -23,7 +23,7 @@ function beans_widget_badge() {
 
 	beans_open_markup_e( 'beans_widget_badge' . _beans_widget_subfilters(), 'div', 'class=uk-panel-badge uk-badge' );
 
-		echo beans_widget_shortcodes( beans_get_widget( 'badge_content' ) ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
+		echo beans_widget_shortcodes( beans_get_widget( 'badge_content' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
 
 	beans_close_markup_e( 'beans_widget_badge' . _beans_widget_subfilters(), 'div' );
 }

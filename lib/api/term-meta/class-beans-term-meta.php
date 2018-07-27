@@ -128,7 +128,7 @@ final class _Beans_Term_Meta {
 	public function delete( $term_id ) {
 		global $wpdb;
 
-		$wpdb->query(
+		$wpdb->query( // phpcs:ignore WordPress.DB.DirectDatabaseQuery -- Pending update to term meta handling.
 			$wpdb->prepare(
 				"DELETE FROM $wpdb->options WHERE option_name LIKE %s",
 				"beans_term_{$term_id}_%"

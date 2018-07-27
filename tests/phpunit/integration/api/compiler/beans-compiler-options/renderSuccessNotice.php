@@ -29,7 +29,7 @@ class Tests_BeansCompilerOptions_RenderSuccessNotice extends Compiler_Options_Te
 	 */
 	public function test_should_not_render_when_not_flushing_compiler_cache() {
 		$this->go_to_settings_page();
-		$this->assertArrayNotHasKey( 'beans_flush_compiler_cache', $_POST ); // phpcs:ignore WordPress.CSRF.NonceVerification.NoNonceVerification -- No need for nonce in this test.
+		$this->assertArrayNotHasKey( 'beans_flush_compiler_cache', $_POST ); // phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification -- No need for nonce in this test.
 
 		ob_start();
 		( new _Beans_Compiler_Options() )->render_success_notice();

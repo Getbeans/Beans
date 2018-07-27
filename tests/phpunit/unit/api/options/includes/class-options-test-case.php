@@ -57,7 +57,7 @@ abstract class Options_Test_Case extends Test_Case {
 	 */
 	protected function tearDown() {
 		global $wp_meta_boxes;
-		$wp_meta_boxes = []; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Resetting global here for tests.
+		$wp_meta_boxes = []; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited -- Resetting global here for tests.
 
 		parent::tearDown();
 	}
@@ -73,7 +73,7 @@ abstract class Options_Test_Case extends Test_Case {
 				$screen = 'beans';
 			}
 
-			// phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Mocking global here for tests.
+			// phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited -- Mocking global here for tests.
 			$wp_meta_boxes = [
 				$screen => [
 					$context => [
