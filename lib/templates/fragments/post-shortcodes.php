@@ -100,7 +100,7 @@ function beans_post_meta_comments_shortcode() {
 
 	beans_open_markup_e( 'beans_post_meta_comments', 'a', array( 'href' => get_comments_link() ) ); // Automatically escaped.
 
-		printf( $comment_text, (int) get_comments_number( $post->ID ) ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Escaping handled prior to this printf.
+		printf( $comment_text, (int) get_comments_number( $post->ID ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaping handled prior to this printf.
 
 	beans_close_markup_e( 'beans_post_meta_comments', 'a' );
 }
@@ -120,7 +120,7 @@ function beans_post_meta_tags_shortcode() {
 		return;
 	}
 
-	printf( '%1$s%2$s', beans_output( 'beans_post_meta_tags_prefix', esc_html__( 'Tagged with: ', 'tm-beans' ) ), $tags ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Tags are escaped by WordPress.
+	printf( '%1$s%2$s', beans_output( 'beans_post_meta_tags_prefix', esc_html__( 'Tagged with: ', 'tm-beans' ) ), $tags ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Tags are escaped by WordPress.
 }
 
 beans_add_smart_action( 'beans_post_meta_categories', 'beans_post_meta_categories_shortcode' );
@@ -138,5 +138,5 @@ function beans_post_meta_categories_shortcode() {
 		return;
 	}
 
-	printf( '%1$s%2$s', beans_output( 'beans_post_meta_categories_prefix', esc_html__( 'Filed under: ', 'tm-beans' ) ), $categories ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Categories are escaped by WordPress.
+	printf( '%1$s%2$s', beans_output( 'beans_post_meta_categories_prefix', esc_html__( 'Filed under: ', 'tm-beans' ) ), $categories ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Categories are escaped by WordPress.
 }

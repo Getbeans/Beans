@@ -6,7 +6,7 @@
  *
  * @since   1.5.0
  *
- * phpcs:disable WordPress.CSRF.NonceVerification.NoNonceVerification -- Nonce verification is not needed in the test
+ * phpcs:disable WordPress.Security.NonceVerification.NoNonceVerification -- Nonce verification is not needed in the test
  * suite.
  */
 

@@ -50,7 +50,7 @@ function beans_post_title() {
 		)
 	);
 
-		echo $title; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
+		echo $title; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
 
 	beans_close_markup_e( 'beans_post_title', $title_tag );
 }
@@ -71,7 +71,7 @@ function beans_post_search_title() {
 
 	beans_open_markup_e( 'beans_search_title', 'h1', array( 'class' => 'uk-article-title' ) );
 
-		printf( '%1$s%2$s', beans_output( 'beans_search_title_text', esc_html__( 'Search results for: ', 'tm-beans' ) ), get_search_query() ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Each placeholder is escaped.
+		printf( '%1$s%2$s', beans_output( 'beans_search_title_text', esc_html__( 'Search results for: ', 'tm-beans' ) ), get_search_query() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Each placeholder is escaped.
 
 	beans_close_markup_e( 'beans_search_title', 'h1' );
 }
@@ -388,7 +388,7 @@ function beans_post_meta_categories() {
 
 	beans_open_markup_e( 'beans_post_meta_categories', 'span', array( 'class' => 'uk-text-small uk-text-muted uk-clearfix' ) );
 
-		echo $categories; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Shortcode's callback handles the escaping. See beans_post_meta_categories_shortcode().
+		echo $categories; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Shortcode's callback handles the escaping. See beans_post_meta_categories_shortcode().
 
 	beans_close_markup_e( 'beans_post_meta_categories', 'span' );
 }
@@ -408,7 +408,7 @@ function beans_post_meta_tags() {
 
 	beans_open_markup_e( 'beans_post_meta_tags', 'span', array( 'class' => 'uk-text-small uk-text-muted uk-clearfix' ) );
 
-		echo $tags; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Shortcode's callback handles the escaping. See beans_post_meta_tags_shortcode().
+		echo $tags; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Shortcode's callback handles the escaping. See beans_post_meta_tags_shortcode().
 
 	beans_close_markup_e( 'beans_post_meta_tags', 'span' );
 }
@@ -429,7 +429,7 @@ beans_add_smart_action( 'previous_post_link', 'beans_previous_post_link', 10, 4 
  */
 function beans_previous_post_link( $output, $format, $link, $post ) {
 	// Using $link won't apply wp filters, so rather strip tags the $output.
-	$text = strip_tags( $output );
+	$text = strip_tags( $output ); // phpcs:ignore WordPress.WP.AlternativeFunctions.strip_tags_strip_tags -- We want to strip the tags and keep the content.
 
 	$output = beans_open_markup(
 		'beans_previous_link[_post_navigation]',
@@ -475,7 +475,7 @@ beans_add_smart_action( 'next_post_link', 'beans_next_post_link', 10, 4 );
  */
 function beans_next_post_link( $output, $format, $link, $post ) {
 	// Using $link won't apply WP filters, so rather strip tags the $output.
-	$text = strip_tags( $output );
+	$text = strip_tags( $output ); // phpcs:ignore WordPress.WP.AlternativeFunctions.strip_tags_strip_tags -- We want to strip the tags and keep the content.
 
 	$output = beans_open_markup(
 		'beans_next_link[_post_navigation]',
@@ -555,7 +555,7 @@ function beans_post_navigation() {
 		if ( $previous ) {
 			beans_open_markup_e( 'beans_post_navigation_item[_previous]', 'li', array( 'class' => 'uk-pagination-previous' ) );
 
-				// phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
 				echo get_previous_post_link(
 					'%link',
 					beans_output( 'beans_previous_text[_post_navigation_item]', __( 'Previous Page', 'tm-beans' ) )
@@ -567,7 +567,7 @@ function beans_post_navigation() {
 		if ( $next ) {
 			beans_open_markup_e( 'beans_post_navigation_item[_next]', 'li', array( 'class' => 'uk-pagination-next' ) );
 
-				// phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
 				echo get_next_post_link(
 					'%link',
 					beans_output( 'beans_next_text[_post_navigation_item]', __( 'Next Page', 'tm-beans' ) )
@@ -816,7 +816,7 @@ beans_add_smart_action( 'the_password_form', 'beans_post_password_form' );
 function beans_post_password_form() {
 	global $post;
 
-	$label = 'pwbox-' . ( empty( $post->ID ) ? rand() : $post->ID );
+	$label = 'pwbox-' . ( empty( $post->ID ) ? rand() : $post->ID ); // phpcs:ignore WordPress.WP.AlternativeFunctions.rand_rand -- Used as fallback in a label when no post ID exists.
 
 	// Notice.
 	$output = beans_open_markup( 'beans_password_form_notice', 'p', array( 'class' => 'uk-alert uk-alert-warning' ) );

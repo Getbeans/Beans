@@ -92,7 +92,7 @@ class Tests_BeansRegisterWPCustomizeOptions extends WP_Customize_Test_Case {
 
 		$mocked_wp_customize = Mockery::mock( 'WP_Customize_Manager' );
 		global $wp_customize;
-		$wp_customize = $mocked_wp_customize; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Limited to test function scope.
+		$wp_customize = $mocked_wp_customize; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited -- Limited to test function scope.
 		$mocked_wp_customize->shouldReceive( 'get_section' )->andReturn( true );
 
 		Monkey\Functions\expect( 'is_customize_preview' )

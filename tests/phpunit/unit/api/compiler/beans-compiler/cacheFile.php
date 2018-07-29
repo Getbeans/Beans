@@ -183,6 +183,6 @@ class Tests_BeansCompiler_CacheFile extends Compiler_Test_Case {
 
 				return true;
 			} );
-		$GLOBALS['wp_filesystem'] = $mock; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Valid use case as we are mocking the filesystem.
+		$GLOBALS['wp_filesystem'] = $mock; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited -- Valid use case as we are mocking the filesystem.
 	}
 }

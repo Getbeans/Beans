@@ -42,7 +42,7 @@ class Tests_BeansSetupWidgetArea extends Beans_Widget_Test_Case {
 			'test_sidebar'      => [],
 		];
 
-		$wp_registered_sidebars = $sidebars; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Valid use case: setting up sidebars outside of WP.
+		$wp_registered_sidebars = $sidebars; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited -- Valid use case: setting up sidebars outside of WP.
 
 		Monkey\Functions\expect( 'beans_render_function' )
 			->once()

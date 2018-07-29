@@ -36,7 +36,7 @@ class Tests_BeansSetupWidgets extends Beans_Widget_Test_Case {
 	public function test_should_ignore_widget_when_widget_not_registered() {
 		global $wp_registered_widgets;
 
-		$wp_registered_widgets = []; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Valid use case: ensures no widgets are registered for this test.
+		$wp_registered_widgets = []; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited -- Valid use case: ensures no widgets are registered for this test.
 
 		$this->assertEmpty( _beans_setup_widgets( '<!--widget-text-2-->widget output<!--widget-end-->' ) );
 	}
@@ -62,7 +62,7 @@ class Tests_BeansSetupWidgets extends Beans_Widget_Test_Case {
 		];
 
 		// Prime the $wp_registered widgets and $_beans_widget_area globals.
-		$wp_registered_widgets                            = $sidebars; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited -- Valid use case: setting up sidebars outside of WP.
+		$wp_registered_widgets                            = $sidebars; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited -- Valid use case: setting up sidebars outside of WP.
 		$_beans_widget_area['widgets_count']              = 1;
 		$_beans_widget_area['beans_show_widget_title']    = true;
 		$_beans_widget_area['beans_show_widget_badge']    = false;

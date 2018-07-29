@@ -50,7 +50,7 @@ function beans_comment_avatar() {
 
 	beans_open_markup_e( 'beans_comment_avatar', 'div', array( 'class' => 'uk-comment-avatar' ) );
 
-		echo $avatar; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Echoes get_avatar().
+		echo $avatar; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Echoes get_avatar().
 
 	beans_close_markup_e( 'beans_comment_avatar', 'div' );
 }
@@ -188,7 +188,7 @@ function beans_comment_links() {
 	beans_open_markup_e( 'beans_comment_links', 'ul', array( 'class' => 'tm-comment-links uk-subnav uk-subnav-line' ) );
 
 		// Reply.
-		echo get_comment_reply_link( // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
+		echo get_comment_reply_link( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
 			array_merge(
 				$comment->args, array(
 					'add_below' => 'comment-content',
@@ -318,7 +318,7 @@ function beans_comments_navigation() {
 				);
 				$previous_icon .= beans_close_markup( 'beans_previous_icon[_comments_navigation]', 'span' );
 
-				echo get_previous_comments_link( // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
+				echo get_previous_comments_link( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
 					$previous_icon . beans_output( 'beans_previous_text[_comments_navigation]', __( 'Previous Comments', 'tm-beans' ) )
 				);
 
@@ -339,7 +339,7 @@ function beans_comments_navigation() {
 				);
 				$next_icon .= beans_close_markup( 'beans_next_icon[_comments_navigation]', 'span' );
 
-				echo get_next_comments_link( // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
+				echo get_next_comments_link( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Echoes HTML output.
 					beans_output( 'beans_next_text[_comments_navigation]', __( 'Next Comments ', 'tm-beans' ) ) . $next_icon
 				);
 
@@ -392,7 +392,7 @@ function beans_comment_form() {
 	$submit .= beans_close_markup( 'beans_comment_form_submit', 'button' );
 
 	// WordPress, please make it easier for us.
-	echo preg_replace( '#<input[^>]+type="submit"[^>]+>#', $submit, $output ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped -- Escaped above or as an attribute.
+	echo preg_replace( '#<input[^>]+type="submit"[^>]+>#', $submit, $output ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped above or as an attribute.
 }
 
 // Filter.
@@ -419,7 +419,7 @@ function beans_comment_cancel_reply_link( $html, $link, $text ) {
 			'rel'   => 'nofollow',
 			'id'    => 'cancel-comment-reply-link',
 			'class' => 'uk-button uk-button-small uk-button-danger uk-margin-small-right',
-			// phpcs:ignore WordPress.CSRF.NonceVerification.NoNonceVerification -- Used to determine inline style.
+			// phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification -- Used to determine inline style.
 			'style' => isset( $_GET['replytocom'] ) ? '' : 'display:none;',
 			'href'  => $link, // Automatically escaped.
 		)
