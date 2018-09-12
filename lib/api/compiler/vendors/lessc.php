@@ -1772,7 +1772,7 @@ class Beans_Lessc {
 	// inject array of unparsed strings into environment as variables
 	protected function injectVariables($args) {
 		$this->pushEnv();
-		$parser = new lessc_parser($this, __METHOD__);
+		$parser = new beans_lessc_parser($this, __METHOD__);
 		foreach ($args as $name => $strValue) {
 			if ($name{0} != '@') $name = '@'.$name;
 			$parser->count = 0;
@@ -1948,7 +1948,7 @@ class Beans_Lessc {
 	}
 
 	protected function makeParser($name) {
-		$parser = new lessc_parser($this, $name);
+		$parser = new beans_lessc_parser($this, $name);
 		$parser->writeComments = $this->preserveComments;
 
 		return $parser;
@@ -1959,11 +1959,11 @@ class Beans_Lessc {
 	}
 
 	protected function newFormatter() {
-		$className = "lessc_formatter_lessjs";
+		$className = "beans_lessc_formatter_lessjs";
 		if (!empty($this->formatterName)) {
 			if (!is_string($this->formatterName))
 				return $this->formatterName;
-			$className = "lessc_formatter_$this->formatterName";
+			$className = "beans_lessc_formatter_$this->formatterName";
 		}
 
 		return new $className;
@@ -2189,7 +2189,7 @@ class Beans_Lessc {
 /**
  * @ignore
  */
-class lessc_parser {
+class beans_lessc_parser {
 	static protected $nextBlockId = 0; // used to uniquely identify blocks
 
 	static protected $precedence = array(
@@ -3572,7 +3572,7 @@ class lessc_parser {
 /**
  * @ignore
  */
-class lessc_formatter_classic {
+class beans_lessc_formatter_classic {
 	public $indentChar = "  ";
 
 	public $break = "\n";
@@ -3670,7 +3670,7 @@ class lessc_formatter_classic {
 /**
  * @ignore
  */
-class lessc_formatter_compressed extends lessc_formatter_classic {
+class beans_lessc_formatter_compressed extends beans_lessc_formatter_classic {
 	public $disableSingle = true;
 	public $open = "{";
 	public $selectorSeparator = ",";
@@ -3686,7 +3686,7 @@ class lessc_formatter_compressed extends lessc_formatter_classic {
 /**
  * @ignore
  */
-class lessc_formatter_lessjs extends lessc_formatter_classic {
+class beans_lessc_formatter_lessjs extends beans_lessc_formatter_classic {
 	public $disableSingle = true;
 	public $breakSelectors = true;
 	public $assignSeparator = ": ";
