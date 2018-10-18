@@ -242,13 +242,15 @@ class Tests_BeansReplaceAction extends Replace_Action_Test_Case {
 			$this->assertSame( $original_action, _beans_get_action( $beans_id, 'added' ) );
 
 			// Run the replace.
-			$this->assertTrue( beans_replace_action(
-				$beans_id,
-				$replaced_action['hook'],
-				$replaced_action['callback'],
-				$replaced_action['priority'],
-				$replaced_action['args']
-			) );
+			$this->assertTrue(
+				beans_replace_action(
+					$beans_id,
+					$replaced_action['hook'],
+					$replaced_action['callback'],
+					$replaced_action['priority'],
+					$replaced_action['args']
+				)
+			);
 
 			// Check that the "replaced" action has been stored in Beans.
 			$this->assertSame( $replaced_action, _beans_get_action( $beans_id, 'added' ) );

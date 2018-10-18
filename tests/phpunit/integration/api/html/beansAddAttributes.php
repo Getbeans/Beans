@@ -63,9 +63,11 @@ class Tests_BeansAddAttributes extends HTML_Test_Case {
 		Monkey\Functions\expect( 'foo_attributes_callback' )
 			->with( $attributes )
 			->once()
-			->andReturnUsing( function ( $attributes ) {
-				return [ 'class' => 'changed-me' ];
-			} );
+			->andReturnUsing(
+				function ( $attributes ) {
+					return [ 'class' => 'changed-me' ];
+				}
+			);
 		add_action( 'foo_attributes', 'foo_attributes_callback' );
 
 		// Run the test.

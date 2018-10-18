@@ -62,7 +62,7 @@ class Tests_BeansImageEditor_CreateEditedImage extends Image_Test_Case {
 			$this->assertTrue( $created_edited_image->invoke( $editor ) );
 			$this->assertFileExists( $edited_image_src );
 
-			list( $width, $height ) = @getimagesize( $edited_image_src ); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Valid use case.
+			list( $width, $height ) = @getimagesize( $edited_image_src ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- Valid use case.
 			$this->assertEquals( 800, $width );
 			$this->assertEquals( 420, $height );
 		}

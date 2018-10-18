@@ -61,10 +61,13 @@ class Tests_BeansPageCompiler_DequeueScripts extends Page_Compiler_Test_Case {
 	public function test_should_dequeue_scripts() {
 		$compiler         = new _Beans_Page_Compiler();
 		$dequeued_scripts = $this->get_reflective_property( 'dequeued_scripts', '_Beans_Page_Compiler' );
-		$dequeued_scripts->setValue( $compiler, [
-			'test-compiler-js' => '/foo/tests/compiler.js',
-			'test-uikit-js'    => '/foo/tests/uikit.js',
-		] );
+		$dequeued_scripts->setValue(
+			$compiler,
+			[
+				'test-compiler-js' => '/foo/tests/compiler.js',
+				'test-uikit-js'    => '/foo/tests/uikit.js',
+			]
+		);
 
 		// Set up the scripts.
 		wp_enqueue_script( 'test-compiler-js', '/foo/tests/compiler.js' );
@@ -82,10 +85,13 @@ class Tests_BeansPageCompiler_DequeueScripts extends Page_Compiler_Test_Case {
 	public function test_should_not_print_inline_when_no_scripts_have_localized_data() {
 		$compiler         = new _Beans_Page_Compiler();
 		$dequeued_scripts = $this->get_reflective_property( 'dequeued_scripts', '_Beans_Page_Compiler' );
-		$dequeued_scripts->setValue( $compiler, [
-			'test-compiler-js' => '/foo/tests/compiler.js',
-			'test-uikit-js'    => '/foo/tests/uikit.js',
-		] );
+		$dequeued_scripts->setValue(
+			$compiler,
+			[
+				'test-compiler-js' => '/foo/tests/compiler.js',
+				'test-uikit-js'    => '/foo/tests/uikit.js',
+			]
+		);
 
 		// Set up the scripts.
 		wp_enqueue_script( 'test-compiler-js', '/foo/tests/compiler.js' );
@@ -103,10 +109,13 @@ class Tests_BeansPageCompiler_DequeueScripts extends Page_Compiler_Test_Case {
 	public function test_should_print_inline_localization_content() {
 		$compiler         = new _Beans_Page_Compiler();
 		$dequeued_scripts = $this->get_reflective_property( 'dequeued_scripts', '_Beans_Page_Compiler' );
-		$dequeued_scripts->setValue( $compiler, [
-			'test-compiler-js' => '/foo/tests/compiler.js',
-			'test-uikit-js'    => '/foo/tests/uikit.js',
-		] );
+		$dequeued_scripts->setValue(
+			$compiler,
+			[
+				'test-compiler-js' => '/foo/tests/compiler.js',
+				'test-uikit-js'    => '/foo/tests/uikit.js',
+			]
+		);
 
 		// Set up the scripts.
 		wp_enqueue_script( 'test-compiler-js', '/foo/tests/compiler.js' );

@@ -27,9 +27,12 @@ class Tests_BeansBuildSkipLinks extends HTML_Test_Case {
 	 * Test beans_build_skip_links() should not output sidebar skip links when the full-width layout ('c') is selected.
 	 */
 	public function test_should_not_output_sidebar_skip_links_when_layout_c_selected() {
-		add_filter( 'beans_default_layout', function( $default_layout ) {
-			return 'c';
-		});
+		add_filter(
+			'beans_default_layout',
+			function( $default_layout ) {
+				return 'c';
+			}
+		);
 
 		$this->assertEquals( beans_get_layout(), 'c' );
 
@@ -58,9 +61,12 @@ EOB;
 			->with( 'c_sp' )
 			->andReturn( false );
 
-		add_filter( 'beans_default_layout', function( $default_layout ) {
-			return 'c_sp';
-		});
+		add_filter(
+			'beans_default_layout',
+			function( $default_layout ) {
+				return 'c_sp';
+			}
+		);
 
 		$this->assertEquals( beans_get_layout(), 'c_sp' );
 
@@ -90,9 +96,12 @@ EOB;
 			->with( 'c_ss' )
 			->andReturn( true );
 
-		add_filter( 'beans_default_layout', function( $default_layout ) {
-			return 'c_ss';
-		});
+		add_filter(
+			'beans_default_layout',
+			function( $default_layout ) {
+				return 'c_ss';
+			}
+		);
 
 		$this->assertEquals( beans_get_layout(), 'c_ss' );
 
@@ -123,9 +132,12 @@ EOB;
 			->with( 'c_sp_ss' )
 			->andReturn( true );
 
-		add_filter( 'beans_default_layout', function( $default_layout ) {
-			return 'c_sp_ss';
-		});
+		add_filter(
+			'beans_default_layout',
+			function( $default_layout ) {
+				return 'c_sp_ss';
+			}
+		);
 
 		$this->assertEquals( beans_get_layout(), 'c_sp_ss' );
 
@@ -156,9 +168,12 @@ EOB;
 			->with( 'c_sp_ss' )
 			->andReturn( false );
 
-		add_filter( 'beans_default_layout', function( $default_layout ) {
-			return 'c_sp_ss';
-		});
+		add_filter(
+			'beans_default_layout',
+			function( $default_layout ) {
+				return 'c_sp_ss';
+			}
+		);
 
 		$this->assertEquals( beans_get_layout(), 'c_sp_ss' );
 
@@ -188,9 +203,12 @@ EOB;
 			->with( 'c_sp_ss' )
 			->andReturn( true );
 
-		add_filter( 'beans_default_layout', function( $default_layout ) {
-			return 'c_sp_ss';
-		});
+		add_filter(
+			'beans_default_layout',
+			function( $default_layout ) {
+				return 'c_sp_ss';
+			}
+		);
 
 		$this->assertEquals( beans_get_layout(), 'c_sp_ss' );
 
@@ -224,9 +242,12 @@ EOB;
 			->with( 'c_sp_ss' )
 			->andReturn( true );
 
-		add_filter( 'beans_default_layout', function( $default_layout ) {
-			return 'c_sp_ss';
-		});
+		add_filter(
+			'beans_default_layout',
+			function( $default_layout ) {
+				return 'c_sp_ss';
+			}
+		);
 
 		$this->assertEquals( beans_get_layout(), 'c_sp_ss' );
 

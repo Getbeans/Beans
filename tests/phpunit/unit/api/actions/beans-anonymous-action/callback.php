@@ -37,10 +37,15 @@ class Tests_BeansAnonymousAction_Callback extends Actions_Test_Case {
 	 * Test _Beans_Anonymous_Action::callback() should invoke the given callback, passing the arguments to it.
 	 */
 	public function test_should_invoke_callback() {
-		$anonymous_action = new _Beans_Anonymous_Action( 'beans_test_do_foo', [
-			'foo_test_callback',
-			[ 'foo', 'bar' ],
-		], 20, 2 );
+		$anonymous_action = new _Beans_Anonymous_Action(
+			'beans_test_do_foo',
+			[
+				'foo_test_callback',
+				[ 'foo', 'bar' ],
+			],
+			20,
+			2
+		);
 
 		// Check that the callback is invoked with each of its parameters.
 		Monkey\Functions\expect( 'foo_test_callback' )
@@ -60,14 +65,19 @@ class Tests_BeansAnonymousAction_Callback extends Actions_Test_Case {
 	 * Test _Beans_Anonymous_Action::callback() should echo the returned content.
 	 */
 	public function test_should_echo_returned_content() {
-		$anonymous_action = new _Beans_Anonymous_Action( 'beans_test_do_foo', [
-			'foo_test_callback',
-			[ 'Cool Beans!', 'It worked!' ],
-		] );
+		$anonymous_action = new _Beans_Anonymous_Action(
+			'beans_test_do_foo',
+			[
+				'foo_test_callback',
+				[ 'Cool Beans!', 'It worked!' ],
+			]
+		);
 
-		Monkey\Functions\when( 'foo_test_callback' )->alias( function( $arg1, $arg2 ) {
-			return "{$arg1} {$arg2}";
-		} );
+		Monkey\Functions\when( 'foo_test_callback' )->alias(
+			function( $arg1, $arg2 ) {
+				return "{$arg1} {$arg2}";
+			}
+		);
 
 		ob_start();
 		$anonymous_action->callback();

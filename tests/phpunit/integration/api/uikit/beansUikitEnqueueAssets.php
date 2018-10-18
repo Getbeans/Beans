@@ -73,11 +73,15 @@ class Tests_BeansUikitEnqueueAssets extends UIkit_Test_Case {
 		add_action( 'beans_uikit_enqueue_scripts', '__return_false' );
 
 		// Register some components.
-		beans_uikit_enqueue_components( [
-			'alert',
-			'button',
-			'overlay',
-		], 'core', false );
+		beans_uikit_enqueue_components(
+			[
+				'alert',
+				'button',
+				'overlay',
+			],
+			'core',
+			false
+		);
 
 		// Disable the scripts from running.
 		add_filter( 'beans_uikit_euqueued_scripts', '__return_empty_array' );
@@ -99,10 +103,14 @@ class Tests_BeansUikitEnqueueAssets extends UIkit_Test_Case {
 		add_action( 'beans_uikit_enqueue_scripts', '__return_false' );
 
 		// Register some components.
-		beans_uikit_enqueue_components( [
-			'alert',
-			'button',
-		], 'core', false );
+		beans_uikit_enqueue_components(
+			[
+				'alert',
+				'button',
+			],
+			'core',
+			false
+		);
 
 		// Disable the styles from running.
 		add_filter( 'beans_uikit_euqueued_styles', '__return_empty_array' );

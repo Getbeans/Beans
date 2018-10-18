@@ -45,12 +45,15 @@ class Tests_BeansFieldImage extends Fields_Test_Case {
 			->once()
 			->andReturn( 'This is the image alt value.' );
 
-		$field = $this->merge_field_with_default( [
-			'id'    => 'beans_image_test',
-			'type'  => 'image',
-			'label' => 'Image Test',
-			'value' => 1, // Attachment ID.
-		], false );
+		$field = $this->merge_field_with_default(
+			[
+				'id'    => 'beans_image_test',
+				'type'  => 'image',
+				'label' => 'Image Test',
+				'value' => 1, // Attachment ID.
+			],
+			false
+		);
 
 		// Run the function and grab the HTML out of the buffer.
 		ob_start();
@@ -90,24 +93,30 @@ EOB;
 	public function test_should_render_multiple_images_field_and_show_upload_button_when_images_exist() {
 		Monkey\Functions\expect( 'wp_get_attachment_image_src' )
 			->times( 2 )
-			->andReturnUsing( function ( $image_id ) {
-				if ( 'placeholder' === $image_id ) {
-					return '';
-				}
+			->andReturnUsing(
+				function ( $image_id ) {
 
-				return "image-{$image_id}.png";
-			} );
+					if ( 'placeholder' === $image_id ) {
+						return '';
+					}
+
+					return "image-{$image_id}.png";
+				}
+			);
 		Monkey\Functions\expect( 'get_post_meta' )
 			->times( 2 )
 			->andReturn( 'This is the image alt value.' );
 
-		$field = $this->merge_field_with_default( [
-			'id'       => 'beans_image_test',
-			'type'     => 'image',
-			'label'    => 'Image Test',
-			'value'    => [ 1, 2 ], // Attachment IDs.
-			'multiple' => true,
-		], false );
+		$field = $this->merge_field_with_default(
+			[
+				'id'       => 'beans_image_test',
+				'type'     => 'image',
+				'label'    => 'Image Test',
+				'value'    => [ 1, 2 ], // Attachment IDs.
+				'multiple' => true,
+			],
+			false
+		);
 
 		// Run the function and grab the HTML out of the buffer.
 		ob_start();
@@ -163,12 +172,15 @@ EOB;
 			->once()
 			->andReturn( '' );
 
-		$field = $this->merge_field_with_default( [
-			'id'    => 'beans_image_test',
-			'type'  => 'image',
-			'label' => 'Image Test',
-			'value' => 1, // Attachment ID.
-		], false );
+		$field = $this->merge_field_with_default(
+			[
+				'id'    => 'beans_image_test',
+				'type'  => 'image',
+				'label' => 'Image Test',
+				'value' => 1, // Attachment ID.
+			],
+			false
+		);
 
 		// Run the function and grab the HTML out of the buffer.
 		ob_start();
@@ -208,12 +220,15 @@ EOB;
 	 * @link https://github.com/Getbeans/Beans/issues/305
 	 */
 	public function test_should_show_upload_button_for_single_image_field_without_image() {
-		$field = $this->merge_field_with_default( [
-			'id'    => 'beans_image_test',
-			'type'  => 'image',
-			'label' => 'Image Test',
-			'value' => null, // Attachment ID.
-		], false );
+		$field = $this->merge_field_with_default(
+			[
+				'id'    => 'beans_image_test',
+				'type'  => 'image',
+				'label' => 'Image Test',
+				'value' => null, // Attachment ID.
+			],
+			false
+		);
 
 		Monkey\Functions\expect( 'wp_get_attachment_image_src' )->never();
 		Monkey\Functions\expect( 'get_post_meta' )->never();
@@ -248,13 +263,16 @@ EOB;
 	 * @link https://github.com/Getbeans/Beans/issues/305
 	 */
 	public function test_should_show_upload_button_for_multiple_image_field_without_image() {
-		$field = $this->merge_field_with_default( [
-			'id'       => 'beans_image_test',
-			'type'     => 'image',
-			'label'    => 'Image Test',
-			'multiple' => true,
-			'value'    => null, // Attachment ID.
-		], false );
+		$field = $this->merge_field_with_default(
+			[
+				'id'       => 'beans_image_test',
+				'type'     => 'image',
+				'label'    => 'Image Test',
+				'multiple' => true,
+				'value'    => null, // Attachment ID.
+			],
+			false
+		);
 
 		Monkey\Functions\expect( 'wp_get_attachment_image_src' )->never();
 		Monkey\Functions\expect( 'get_post_meta' )->never();

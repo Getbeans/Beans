@@ -40,9 +40,11 @@ class Tests_BeansCompiler_GetInternalContent extends Compiler_Test_Case {
 	public function test_should_return_false_when_file_does_not_exist() {
 		// Set up the compiler.
 		$fragment = vfsStream::url( 'compiled/fixtures/' ) . 'invalid-file.js';
-		$compiler = new _Beans_Compiler( [
-			'fragments' => [ $fragment ],
-		] );
+		$compiler = new _Beans_Compiler(
+			[
+				'fragments' => [ $fragment ],
+			]
+		);
 		$this->set_current_fragment( $compiler, $fragment );
 
 		// Run the test.
@@ -55,9 +57,11 @@ class Tests_BeansCompiler_GetInternalContent extends Compiler_Test_Case {
 	public function test_should_return_fragment_contents() {
 		// Set up the compiler.
 		$fragment = vfsStream::url( 'compiled/fixtures/test.less' );
-		$compiler = new _Beans_Compiler( [
-			'fragments' => [ $fragment ],
-		] );
+		$compiler = new _Beans_Compiler(
+			[
+				'fragments' => [ $fragment ],
+			]
+		);
 		$this->set_current_fragment( $compiler, $fragment );
 
 		// Set the WP Filesystem.

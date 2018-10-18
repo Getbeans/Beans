@@ -36,13 +36,15 @@ class Tests_BeansFieldCheckbox extends Fields_Test_Case {
 	 * Test beans_field_checkbox() should render the checkbox with the label when given.
 	 */
 	public function test_should_render_checkbox_with_label_when_given() {
-		$field = $this->merge_field_with_default( [
-			'id'             => 'beans_compile_all_styles',
-			'label'          => false,
-			'checkbox_label' => 'Compile all WordPress styles',
-			'type'           => 'checkbox',
-			'default'        => false,
-		] );
+		$field = $this->merge_field_with_default(
+			[
+				'id'             => 'beans_compile_all_styles',
+				'label'          => false,
+				'checkbox_label' => 'Compile all WordPress styles',
+				'type'           => 'checkbox',
+				'default'        => false,
+			]
+		);
 
 		// Run the function and grab the HTML out of the buffer.
 		ob_start();
@@ -62,11 +64,13 @@ EOB;
 	 * Test beans_field_checkbox() should render the checkbox with the default label when none is given.
 	 */
 	public function test_should_render_checkbox_with_default_label_when_none_is_given() {
-		$field = $this->merge_field_with_default( [
-			'id'      => 'beans_compile_all_styles',
-			'type'    => 'checkbox',
-			'default' => false,
-		] );
+		$field = $this->merge_field_with_default(
+			[
+				'id'      => 'beans_compile_all_styles',
+				'type'    => 'checkbox',
+				'default' => false,
+			]
+		);
 
 		// Run the function and grab the HTML out of the buffer.
 		ob_start();
@@ -86,15 +90,17 @@ EOB;
 	 * Test beans_field_checkbox() should render the checkbox with attributes when given.
 	 */
 	public function test_should_render_checkbox_with_attributes_when_given() {
-		$field = $this->merge_field_with_default( [
-			'id'             => 'beans_compile_all_styles',
-			'checkbox_label' => 'Compile all WordPress styles',
-			'type'           => 'checkbox',
-			'default'        => false,
-			'attributes'     => [
-				'data-test' => 'foo',
-			],
-		] );
+		$field = $this->merge_field_with_default(
+			[
+				'id'             => 'beans_compile_all_styles',
+				'checkbox_label' => 'Compile all WordPress styles',
+				'type'           => 'checkbox',
+				'default'        => false,
+				'attributes'     => [
+					'data-test' => 'foo',
+				],
+			]
+		);
 
 		// Run the function and grab the HTML out of the buffer.
 		ob_start();

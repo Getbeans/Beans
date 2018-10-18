@@ -36,11 +36,13 @@ class Tests_BeansFieldLabel extends Fields_Test_Case {
 	 * Test beans_field_label() should not render the field's label when none is given.
 	 */
 	public function test_should_not_render_field_label_when_none_given() {
-		$field = $this->merge_field_with_default( [
-			'id'      => 'beans_text_test',
-			'type'    => 'text',
-			'default' => '',
-		] );
+		$field = $this->merge_field_with_default(
+			[
+				'id'      => 'beans_text_test',
+				'type'    => 'text',
+				'default' => '',
+			]
+		);
 
 		$this->assertNull( beans_field_label( $field ) );
 
@@ -52,12 +54,14 @@ class Tests_BeansFieldLabel extends Fields_Test_Case {
 	 * Test beans_field_label() should render the field's label.
 	 */
 	public function test_should_render_field_label() {
-		$field = $this->merge_field_with_default( [
-			'id'      => 'beans_text_test',
-			'type'    => 'text',
-			'label'   => 'Testing the text field.',
-			'default' => '',
-		] );
+		$field = $this->merge_field_with_default(
+			[
+				'id'      => 'beans_text_test',
+				'type'    => 'text',
+				'label'   => 'Testing the text field.',
+				'default' => '',
+			]
+		);
 
 		// Run the function and grab the HTML out of the buffer.
 		ob_start();
@@ -75,29 +79,31 @@ EOB;
 	 * Test beans_field_label() should not render the radio field's group label.
 	 */
 	public function test_should_not_render_radio_group_label() {
-		$field = $this->merge_field_with_default( [
-			'id'          => 'beans_layout',
-			'label'       => 'Layout',
-			'description' => 'The layout settings.',
-			'type'        => 'radio',
-			'default'     => 'default_fallback',
-			'options'     => [
-				'default_fallback' => 'Use Default Layout',
-				'c'                => [
-					'src'                => 'http://example.com/images/layouts/c.png',
-					'alt'                => 'Content Only Layout',
-					'screen_reader_text' => 'Option for the Content Only Layout',
+		$field = $this->merge_field_with_default(
+			[
+				'id'          => 'beans_layout',
+				'label'       => 'Layout',
+				'description' => 'The layout settings.',
+				'type'        => 'radio',
+				'default'     => 'default_fallback',
+				'options'     => [
+					'default_fallback' => 'Use Default Layout',
+					'c'                => [
+						'src'                => 'http://example.com/images/layouts/c.png',
+						'alt'                => 'Content Only Layout',
+						'screen_reader_text' => 'Option for the Content Only Layout',
+					],
+					'c_sp'             => [
+						'src'                => 'http://example.com/images/layouts/c_sp.png',
+						'screen_reader_text' => 'Option for the Content + Sidebar Primary Layout',
+					],
+					'sp_c'             => [
+						'src' => 'http://example.com/images/layouts/sp_c.png',
+						'alt' => 'Sidebar Primary + Content Layout',
+					],
 				],
-				'c_sp'             => [
-					'src'                => 'http://example.com/images/layouts/c_sp.png',
-					'screen_reader_text' => 'Option for the Content + Sidebar Primary Layout',
-				],
-				'sp_c'             => [
-					'src' => 'http://example.com/images/layouts/sp_c.png',
-					'alt' => 'Sidebar Primary + Content Layout',
-				],
-			],
-		] );
+			]
+		);
 
 		// Run the function and grab the HTML out of the buffer.
 		ob_start();

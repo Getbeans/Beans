@@ -43,9 +43,11 @@ class Tests_BeansCompiler_Filesystem extends Compiler_Test_Case {
 			->once()
 			->andReturn( __NAMESPACE__ . '\mock_wp_die_handler' );
 		Functions\when( __NAMESPACE__ . '\mock_wp_die_handler' )
-			->alias( function( $message ) {
-				$this->assertContains( 'Beans cannot work its magic', $message );
-			} );
+			->alias(
+				function( $message ) {
+					$this->assertContains( 'Beans cannot work its magic', $message );
+				}
+			);
 
 		add_filter( 'wp_die_handler', __NAMESPACE__ . '\set_wp_die_handler' );
 

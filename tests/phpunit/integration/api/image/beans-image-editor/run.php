@@ -62,7 +62,7 @@ class Tests_BeansImageEditor_Run extends Image_Test_Case {
 			$this->assertSame( beans_path_to_url( $edited_image_src ), $image_info );
 
 			// Check the edited image's dimensions.
-			list( $width, $height ) = @getimagesize( $edited_image_src ); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Valid use case.
+			list( $width, $height ) = @getimagesize( $edited_image_src ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- Valid use case.
 			$this->assertEquals( 800, $width );
 			$this->assertEquals( 420, $height );
 		}
@@ -128,7 +128,7 @@ class Tests_BeansImageEditor_Run extends Image_Test_Case {
 			$this->assertSame( [ beans_path_to_url( $edited_image_src ), 800, 420 ], $image_info );
 
 			// Check the edited image's dimensions.
-			list( $width, $height ) = @getimagesize( $edited_image_src ); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Valid use case.
+			list( $width, $height ) = @getimagesize( $edited_image_src ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- Valid use case.
 			$this->assertEquals( 800, $width );
 			$this->assertEquals( 420, $height );
 		}
@@ -197,7 +197,7 @@ class Tests_BeansImageEditor_Run extends Image_Test_Case {
 			$this->assertSame( 210, $image_info->height );
 
 			// Check the edited image's dimensions.
-			list( $width, $height ) = @getimagesize( $edited_image_src ); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Valid use case.
+			list( $width, $height ) = @getimagesize( $edited_image_src ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- Valid use case.
 			$this->assertEquals( 400, $width );
 			$this->assertEquals( 210, $height );
 		}
@@ -279,7 +279,7 @@ class Tests_BeansImageEditor_Run extends Image_Test_Case {
 			);
 
 			// Check the edited image's dimensions.
-			list( $width, $height ) = @getimagesize( $edited_image_src ); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Valid use case.
+			list( $width, $height ) = @getimagesize( $edited_image_src ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- Valid use case.
 			$this->assertEquals( 600, $width );
 			$this->assertEquals( 315, $height );
 		}

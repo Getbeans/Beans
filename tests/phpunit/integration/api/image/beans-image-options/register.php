@@ -62,10 +62,13 @@ class Tests_BeansImageOptions_Register extends Options_Test_Case {
 		// Check that the right fields did get registered.
 		$registered_fields = beans_get_fields( 'option', 'images_options' );
 		$this->assertCount( 1, $registered_fields );
-		$this->assertArraySubset( [
-			'id'   => 'beans_edited_images_directories',
-			'type' => 'flush_edited_images',
-		], current( $registered_fields ) );
+		$this->assertArraySubset(
+			[
+				'id'   => 'beans_edited_images_directories',
+				'type' => 'flush_edited_images',
+			],
+			current( $registered_fields )
+		);
 
 		// Check that the metabox did get registered.
 		global $wp_meta_boxes;
@@ -88,10 +91,13 @@ class Tests_BeansImageOptions_Register extends Options_Test_Case {
 		// Check that the right fields did get registered.
 		$registered_fields = beans_get_fields( 'option', 'images_options' );
 		$this->assertCount( 1, $registered_fields );
-		$this->assertArraySubset( [
-			'id'   => 'beans_edited_images_directories',
-			'type' => 'flush_edited_images',
-		], current( $registered_fields ) );
+		$this->assertArraySubset(
+			[
+				'id'   => 'beans_edited_images_directories',
+				'type' => 'flush_edited_images',
+			],
+			current( $registered_fields )
+		);
 
 		// Check that the metabox did get registered.
 		global $wp_meta_boxes;

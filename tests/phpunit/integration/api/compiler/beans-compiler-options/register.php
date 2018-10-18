@@ -69,10 +69,13 @@ class Tests_BeansCompilerOptions_Register extends Compiler_Options_Test_Case {
 		$registered_fields = beans_get_fields( 'option', 'compiler_options' );
 		$this->assertNotEmpty( $registered_fields );
 		$this->assertCount( 1, $registered_fields );
-		$this->assertArraySubset( [
-			'id'   => 'beans_compiler_items',
-			'type' => 'flush_cache',
-		], current( $registered_fields ) );
+		$this->assertArraySubset(
+			[
+				'id'   => 'beans_compiler_items',
+				'type' => 'flush_cache',
+			],
+			current( $registered_fields )
+		);
 
 		// Check that the metabox did get registered.
 		global $wp_meta_boxes;
@@ -98,15 +101,21 @@ class Tests_BeansCompilerOptions_Register extends Compiler_Options_Test_Case {
 		// Check that the right fields did get registered.
 		$registered_fields = beans_get_fields( 'option', 'compiler_options' );
 		$this->assertCount( 2, $registered_fields );
-		$this->assertArraySubset( [
-			'id'   => 'beans_compiler_items',
-			'type' => 'flush_cache',
-		], current( $registered_fields ) );
-		$this->assertArraySubset( [
-			'id'    => 'beans_compile_all_scripts_group',
-			'label' => 'Compile all WordPress scripts',
-			'type'  => 'group',
-		], next( $registered_fields ) );
+		$this->assertArraySubset(
+			[
+				'id'   => 'beans_compiler_items',
+				'type' => 'flush_cache',
+			],
+			current( $registered_fields )
+		);
+		$this->assertArraySubset(
+			[
+				'id'    => 'beans_compile_all_scripts_group',
+				'label' => 'Compile all WordPress scripts',
+				'type'  => 'group',
+			],
+			next( $registered_fields )
+		);
 
 		// Check that the metabox did get registered.
 		global $wp_meta_boxes;
@@ -132,17 +141,23 @@ class Tests_BeansCompilerOptions_Register extends Compiler_Options_Test_Case {
 		// Check that the right fields did get registered.
 		$registered_fields = beans_get_fields( 'option', 'compiler_options' );
 		$this->assertCount( 2, $registered_fields );
-		$this->assertArraySubset( [
-			'id'   => 'beans_compiler_items',
-			'type' => 'flush_cache',
-		], current( $registered_fields ) );
-		$this->assertArraySubset( [
-			'id'             => 'beans_compile_all_styles',
-			'label'          => 'Compile all WordPress styles',
-			'checkbox_label' => 'Select to compile styles.',
-			'type'           => 'checkbox',
-			'default'        => false,
-		], next( $registered_fields ) );
+		$this->assertArraySubset(
+			[
+				'id'   => 'beans_compiler_items',
+				'type' => 'flush_cache',
+			],
+			current( $registered_fields )
+		);
+		$this->assertArraySubset(
+			[
+				'id'             => 'beans_compile_all_styles',
+				'label'          => 'Compile all WordPress styles',
+				'checkbox_label' => 'Select to compile styles.',
+				'type'           => 'checkbox',
+				'default'        => false,
+			],
+			next( $registered_fields )
+		);
 
 		// Check that the metabox did get registered.
 		global $wp_meta_boxes;
@@ -168,22 +183,31 @@ class Tests_BeansCompilerOptions_Register extends Compiler_Options_Test_Case {
 		// Check that the right fields did get registered.
 		$registered_fields = beans_get_fields( 'option', 'compiler_options' );
 		$this->assertCount( 3, $registered_fields );
-		$this->assertArraySubset( [
-			'id'   => 'beans_compiler_items',
-			'type' => 'flush_cache',
-		], current( $registered_fields ) );
-		$this->assertArraySubset( [
-			'id'             => 'beans_compile_all_styles',
-			'label'          => 'Compile all WordPress styles',
-			'checkbox_label' => 'Select to compile styles.',
-			'type'           => 'checkbox',
-			'default'        => false,
-		], next( $registered_fields ) );
-		$this->assertArraySubset( [
-			'id'    => 'beans_compile_all_scripts_group',
-			'label' => 'Compile all WordPress scripts',
-			'type'  => 'group',
-		], next( $registered_fields ) );
+		$this->assertArraySubset(
+			[
+				'id'   => 'beans_compiler_items',
+				'type' => 'flush_cache',
+			],
+			current( $registered_fields )
+		);
+		$this->assertArraySubset(
+			[
+				'id'             => 'beans_compile_all_styles',
+				'label'          => 'Compile all WordPress styles',
+				'checkbox_label' => 'Select to compile styles.',
+				'type'           => 'checkbox',
+				'default'        => false,
+			],
+			next( $registered_fields )
+		);
+		$this->assertArraySubset(
+			[
+				'id'    => 'beans_compile_all_scripts_group',
+				'label' => 'Compile all WordPress scripts',
+				'type'  => 'group',
+			],
+			next( $registered_fields )
+		);
 
 		// Check that the metabox did get registered.
 		global $wp_meta_boxes;

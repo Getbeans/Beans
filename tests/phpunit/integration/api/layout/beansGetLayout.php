@@ -49,9 +49,11 @@ class Tests_BeansGetLayout extends Test_Case {
 	 */
 	public function test_should_return_layout_for_static_posts_page() {
 		// Configure the Posts Page for our static page.
-		$posts_page_id = self::factory()->post->create( [
-			'post_type' => 'page',
-		] );
+		$posts_page_id = self::factory()->post->create(
+			[
+				'post_type' => 'page',
+			]
+		);
 		update_option( 'show_on_front', 'page' );
 		update_option( 'page_for_posts', $posts_page_id );
 
@@ -148,10 +150,12 @@ class Tests_BeansGetLayout extends Test_Case {
 	public function test_should_return_layout_for_custom_tax() {
 		register_taxonomy( 'test_tax', 'post', [ 'public' => true ] );
 		$post_id = self::factory()->post->create();
-		$term_id = self::factory()->term->create( [
-			'taxonomy' => 'test_tax',
-			'slug'     => 'custom-term',
-		] );
+		$term_id = self::factory()->term->create(
+			[
+				'taxonomy' => 'test_tax',
+				'slug'     => 'custom-term',
+			]
+		);
 		wp_set_object_terms( $post_id, $term_id, 'test_tax' );
 		$meta_key = "beans_term_{$term_id}_beans_layout";
 

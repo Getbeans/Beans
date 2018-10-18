@@ -60,9 +60,11 @@ class Tests_BeansCompiler_FormatContent extends Compiler_Test_Case {
 	 * a style or script (per the configuration).
 	 */
 	public function test_should_return_original_content_when_type_not_style_or_script() {
-		$compiler = new \_Beans_Compiler( [
-			'type' => 'foo',
-		] );
+		$compiler = new \_Beans_Compiler(
+			[
+				'type' => 'foo',
+			]
+		);
 
 		// Run the tests.
 		$this->assertSame( $this->less, $compiler->format_content( $this->less ) );
@@ -75,11 +77,13 @@ class Tests_BeansCompiler_FormatContent extends Compiler_Test_Case {
 	 * fragments.
 	 */
 	public function test_should_return_compiled_css() {
-		$compiler = new \_Beans_Compiler( [
-			'id'     => 'test',
-			'type'   => 'style',
-			'format' => 'less',
-		] );
+		$compiler = new \_Beans_Compiler(
+			[
+				'id'     => 'test',
+				'type'   => 'style',
+				'format' => 'less',
+			]
+		);
 
 		// Turn on development mode.
 		update_option( 'beans_dev_mode', true );
@@ -101,11 +105,13 @@ EOB;
 	 * Test _Beans_Compiler::format_content() should return minified, compiled CSS from the Less combined fragments.
 	 */
 	public function test_should_return_minified_compiled_css() {
-		$compiler = new \_Beans_Compiler( [
-			'id'     => 'test',
-			'type'   => 'style',
-			'format' => 'less',
-		] );
+		$compiler = new \_Beans_Compiler(
+			[
+				'id'     => 'test',
+				'type'   => 'style',
+				'format' => 'less',
+			]
+		);
 
 		// Turn off development mode.
 		update_option( 'beans_dev_mode', false );
@@ -123,11 +129,13 @@ EOB;
 	 * but "minify_js" is disabled.
 	 */
 	public function test_should_return_original_jquery_when_minify_js_disabled() {
-		$compiler = new \_Beans_Compiler( [
-			'id'        => 'test',
-			'type'      => 'script',
-			'minify_js' => false,
-		] );
+		$compiler = new \_Beans_Compiler(
+			[
+				'id'        => 'test',
+				'type'      => 'script',
+				'minify_js' => false,
+			]
+		);
 
 		// Turn off development mode.
 		update_option( 'beans_dev_mode', false );
@@ -141,11 +149,13 @@ EOB;
 	 * but the site is in development mode.
 	 */
 	public function test_should_always_return_original_jquery_when_in_dev_mode() {
-		$compiler = new \_Beans_Compiler( [
-			'id'        => 'test',
-			'type'      => 'script',
-			'minify_js' => true,
-		] );
+		$compiler = new \_Beans_Compiler(
+			[
+				'id'        => 'test',
+				'type'      => 'script',
+				'minify_js' => true,
+			]
+		);
 
 		// Turn on development mode.
 		update_option( 'beans_dev_mode', true );
@@ -159,11 +169,13 @@ EOB;
 	 * and the site is not in development mode.
 	 */
 	public function test_should_return_minified_jquery_when_not_in_dev_mode_and_minify_js_enabled() {
-		$compiler = new \_Beans_Compiler( [
-			'id'        => 'test',
-			'type'      => 'script',
-			'minify_js' => true,
-		] );
+		$compiler = new \_Beans_Compiler(
+			[
+				'id'        => 'test',
+				'type'      => 'script',
+				'minify_js' => true,
+			]
+		);
 
 		// Turn off development mode.
 		update_option( 'beans_dev_mode', false );
@@ -182,11 +194,13 @@ EOB;
 	 * mode, but "minify_js" is disabled.
 	 */
 	public function test_should_return_original_js_when_minify_js_disabled() {
-		$compiler = new \_Beans_Compiler( [
-			'id'        => 'test',
-			'type'      => 'script',
-			'minify_js' => false,
-		] );
+		$compiler = new \_Beans_Compiler(
+			[
+				'id'        => 'test',
+				'type'      => 'script',
+				'minify_js' => false,
+			]
+		);
 
 		// Turn off development mode.
 		update_option( 'beans_dev_mode', false );
@@ -200,11 +214,13 @@ EOB;
 	 * but the site is in development mode.
 	 */
 	public function test_should_always_return_original_js_when_in_dev_mode() {
-		$compiler = new \_Beans_Compiler( [
-			'id'        => 'test',
-			'type'      => 'script',
-			'minify_js' => true,
-		] );
+		$compiler = new \_Beans_Compiler(
+			[
+				'id'        => 'test',
+				'type'      => 'script',
+				'minify_js' => true,
+			]
+		);
 
 		// Turn on development mode.
 		update_option( 'beans_dev_mode', true );
@@ -218,11 +234,13 @@ EOB;
 	 * and the site is not in development mode.
 	 */
 	public function test_should_return_minified_js_when_not_in_dev_mode_and_minify_js_enabled() {
-		$compiler = new \_Beans_Compiler( [
-			'id'        => 'test',
-			'type'      => 'script',
-			'minify_js' => true,
-		] );
+		$compiler = new \_Beans_Compiler(
+			[
+				'id'        => 'test',
+				'type'      => 'script',
+				'minify_js' => true,
+			]
+		);
 
 		// Turn off development mode.
 		update_option( 'beans_dev_mode', false );

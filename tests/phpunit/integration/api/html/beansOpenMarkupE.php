@@ -62,12 +62,18 @@ class Tests_BeansOpenMarkupE extends HTML_Test_Case {
 	 * the "_before_markup" and "_prepend_markup" hooks.
 	 */
 	public function test_should_echo_before_element_prepend_html_when_before_or_prepend_hooks() {
-		add_action( 'beans_archive_title_before_markup', function() {
-			echo '<!-- _before_markup fired -->';
-		} );
-		add_action( 'beans_archive_title_prepend_markup', function() {
-			echo '<!-- _prepend_markup fired -->';
-		} );
+		add_action(
+			'beans_archive_title_before_markup',
+			function() {
+				echo '<!-- _before_markup fired -->';
+			}
+		);
+		add_action(
+			'beans_archive_title_prepend_markup',
+			function() {
+				echo '<!-- _prepend_markup fired -->';
+			}
+		);
 
 		ob_start();
 		beans_open_markup_e( 'beans_archive_title', 'h1', [ 'class' => 'uk-article-title' ] );

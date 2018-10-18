@@ -74,23 +74,34 @@ class Tests_BeansUikit_Compile extends UIkit_Test_Case {
 	 * Test _Beans_Uikit::compile() should compile the styles.
 	 */
 	public function test_should_compile_styles() {
-		beans_uikit_enqueue_components( [
-			'alert',
-			'button',
-			'overlay',
-		], 'core', false );
+		beans_uikit_enqueue_components(
+			[
+				'alert',
+				'button',
+				'overlay',
+			],
+			'core',
+			false
+		);
 
-		add_filter( 'beans_uikit_euqueued_styles', function( $styles ) {
-			$this->assertSame( [
-				BEANS_API_PATH . 'uikit/src/less/core/variables.less',
-				BEANS_API_PATH . 'uikit/src/less/core/alert.less',
-				BEANS_API_PATH . 'uikit/src/less/core/button.less',
-				BEANS_API_PATH . 'uikit/src/less/core/overlay.less',
-				BEANS_API_PATH . 'uikit/src/fixes.less',
-			], $styles );
+		add_filter(
+			'beans_uikit_euqueued_styles',
+			function( $styles ) {
+				$this->assertSame(
+					[
+						BEANS_API_PATH . 'uikit/src/less/core/variables.less',
+						BEANS_API_PATH . 'uikit/src/less/core/alert.less',
+						BEANS_API_PATH . 'uikit/src/less/core/button.less',
+						BEANS_API_PATH . 'uikit/src/less/core/overlay.less',
+						BEANS_API_PATH . 'uikit/src/fixes.less',
+					],
+					$styles
+				);
 
-			return $styles;
-		}, 9999 );
+				return $styles;
+			},
+			9999
+		);
 		add_filter( 'beans_uikit_euqueued_scripts', '__return_empty_array' );
 		Monkey\Functions\expect( 'beans_compile_js_fragments' )->never();
 
@@ -145,17 +156,24 @@ EOB;
 		beans_uikit_enqueue_theme( 'default', $theme_path );
 		beans_uikit_enqueue_components( 'alert', 'core', false );
 
-		add_filter( 'beans_uikit_euqueued_styles', function( $styles ) use ( $theme_path ) {
-			$this->assertSame( [
-				BEANS_API_PATH . 'uikit/src/less/core/variables.less',
-				$theme_path . 'variables.less',
-				BEANS_API_PATH . 'uikit/src/less/core/alert.less',
-				$theme_path . 'alert.less',
-				BEANS_API_PATH . 'uikit/src/fixes.less',
-			], $styles );
+		add_filter(
+			'beans_uikit_euqueued_styles',
+			function( $styles ) use ( $theme_path ) {
+				$this->assertSame(
+					[
+						BEANS_API_PATH . 'uikit/src/less/core/variables.less',
+						$theme_path . 'variables.less',
+						BEANS_API_PATH . 'uikit/src/less/core/alert.less',
+						$theme_path . 'alert.less',
+						BEANS_API_PATH . 'uikit/src/fixes.less',
+					],
+					$styles
+				);
 
-			return $styles;
-		}, 9999 );
+				return $styles;
+			},
+			9999
+		);
 		add_filter( 'beans_uikit_euqueued_scripts', '__return_empty_array' );
 		Monkey\Functions\expect( 'beans_compile_js_fragments' )->never();
 
@@ -184,21 +202,28 @@ EOB;
 		beans_uikit_enqueue_theme( 'beans-child', $theme_path );
 		beans_uikit_enqueue_components( [ 'alert', 'close', 'panel' ], 'core', false );
 
-		add_filter( 'beans_uikit_euqueued_styles', function( $styles ) use ( $theme_path ) {
-			$this->assertSame( [
-				BEANS_API_PATH . 'uikit/src/less/core/variables.less',
-				$theme_path . 'variables.less',
-				BEANS_API_PATH . 'uikit/src/less/core/alert.less',
-				$theme_path . 'alert.less',
-				BEANS_API_PATH . 'uikit/src/less/core/close.less',
-				$theme_path . 'close.less',
-				BEANS_API_PATH . 'uikit/src/less/core/panel.less',
-				$theme_path . 'panel.less',
-				BEANS_API_PATH . 'uikit/src/fixes.less',
-			], $styles );
+		add_filter(
+			'beans_uikit_euqueued_styles',
+			function( $styles ) use ( $theme_path ) {
+				$this->assertSame(
+					[
+						BEANS_API_PATH . 'uikit/src/less/core/variables.less',
+						$theme_path . 'variables.less',
+						BEANS_API_PATH . 'uikit/src/less/core/alert.less',
+						$theme_path . 'alert.less',
+						BEANS_API_PATH . 'uikit/src/less/core/close.less',
+						$theme_path . 'close.less',
+						BEANS_API_PATH . 'uikit/src/less/core/panel.less',
+						$theme_path . 'panel.less',
+						BEANS_API_PATH . 'uikit/src/fixes.less',
+					],
+					$styles
+				);
 
-			return $styles;
-		}, 9999 );
+				return $styles;
+			},
+			9999
+		);
 		add_filter( 'beans_uikit_euqueued_scripts', '__return_empty_array' );
 		Monkey\Functions\expect( 'beans_compile_js_fragments' )->never();
 
@@ -246,24 +271,35 @@ EOB;
 	 * Test _Beans_Uikit::compile() should compile the scripts.
 	 */
 	public function test_should_compile_scripts() {
-		beans_uikit_enqueue_components( [
-			'alert',
-			'button',
-		], 'core', false );
+		beans_uikit_enqueue_components(
+			[
+				'alert',
+				'button',
+			],
+			'core',
+			false
+		);
 
 		add_filter( 'beans_uikit_euqueued_styles', '__return_empty_array' );
 		Monkey\Functions\expect( 'beans_compile_less_fragments' )->never();
-		add_filter( 'beans_uikit_euqueued_scripts', function( $scripts ) {
-			$this->assertSame( [
-				BEANS_API_PATH . 'uikit/src/js/core/core.min.js',
-				BEANS_API_PATH . 'uikit/src/js/core/utility.min.js',
-				BEANS_API_PATH . 'uikit/src/js/core/touch.min.js',
-				BEANS_API_PATH . 'uikit/src/js/core/alert.min.js',
-				BEANS_API_PATH . 'uikit/src/js/core/button.min.js',
-			], $scripts );
+		add_filter(
+			'beans_uikit_euqueued_scripts',
+			function( $scripts ) {
+				$this->assertSame(
+					[
+						BEANS_API_PATH . 'uikit/src/js/core/core.min.js',
+						BEANS_API_PATH . 'uikit/src/js/core/utility.min.js',
+						BEANS_API_PATH . 'uikit/src/js/core/touch.min.js',
+						BEANS_API_PATH . 'uikit/src/js/core/alert.min.js',
+						BEANS_API_PATH . 'uikit/src/js/core/button.min.js',
+					],
+					$scripts
+				);
 
-			return $scripts;
-		}, 9999 );
+				return $scripts;
+			},
+			9999
+		);
 
 		$this->assertEmpty( $this->get_compiled_filename( $this->compiled_uikit_path ) );
 		( new _Beans_Uikit() )->compile();

@@ -93,15 +93,17 @@ class Tests_BeansCompiler_CombineFragments extends Compiler_Test_Case {
 	 * Test _Beans_Compiler::combine_fragments() should compile the Less fragments and return the compiled CSS.
 	 */
 	public function test_should_compile_less_and_return_css() {
-		$compiler = new _Beans_Compiler( [
-			'id'        => 'test',
-			'type'      => 'style',
-			'format'    => 'less',
-			'fragments' => [
-				vfsStream::url( 'compiled/fixtures/variables.less' ),
-				vfsStream::url( 'compiled/fixtures/test.less' ),
-			],
-		] );
+		$compiler = new _Beans_Compiler(
+			[
+				'id'        => 'test',
+				'type'      => 'style',
+				'format'    => 'less',
+				'fragments' => [
+					vfsStream::url( 'compiled/fixtures/variables.less' ),
+					vfsStream::url( 'compiled/fixtures/test.less' ),
+				],
+			]
+		);
 
 		// Set up the test.
 		$this->set_up_wp_filesystem( $compiler );
@@ -124,15 +126,17 @@ EOB;
 	 * Test _Beans_Compiler::combine_fragments() should return minified, compiled Less from the Less combined fragments.
 	 */
 	public function test_should_return_minified_compiled_less() {
-		$compiler = new _Beans_Compiler( [
-			'id'        => 'test',
-			'type'      => 'style',
-			'format'    => 'less',
-			'fragments' => [
-				vfsStream::url( 'compiled/fixtures/variables.less' ),
-				vfsStream::url( 'compiled/fixtures/test.less' ),
-			],
-		] );
+		$compiler = new _Beans_Compiler(
+			[
+				'id'        => 'test',
+				'type'      => 'style',
+				'format'    => 'less',
+				'fragments' => [
+					vfsStream::url( 'compiled/fixtures/variables.less' ),
+					vfsStream::url( 'compiled/fixtures/test.less' ),
+				],
+			]
+		);
 
 		// Set up the test.
 		$this->set_up_wp_filesystem( $compiler );
@@ -148,15 +152,17 @@ EOB;
 	 * but "minify_js" is disabled.
 	 */
 	public function test_should_return_original_jquery_when_minify_js_disabled() {
-		$compiler = new _Beans_Compiler( [
-			'id'           => 'test',
-			'type'         => 'script',
-			'minify_js'    => false,
-			'fragments'    => [
-				vfsStream::url( 'compiled/fixtures/jquery.test.js' ),
-			],
-			'dependencies' => [ 'jquery' ],
-		] );
+		$compiler = new _Beans_Compiler(
+			[
+				'id'           => 'test',
+				'type'         => 'script',
+				'minify_js'    => false,
+				'fragments'    => [
+					vfsStream::url( 'compiled/fixtures/jquery.test.js' ),
+				],
+				'dependencies' => [ 'jquery' ],
+			]
+		);
 
 		// Set up the test.
 		$this->set_up_wp_filesystem( $compiler );
@@ -172,15 +178,17 @@ EOB;
 	 * but the site is in development mode.
 	 */
 	public function test_should_always_return_original_jquery_when_in_dev_mode() {
-		$compiler = new _Beans_Compiler( [
-			'id'           => 'test',
-			'type'         => 'script',
-			'minify_js'    => true,
-			'fragments'    => [
-				vfsStream::url( 'compiled/fixtures/jquery.test.js' ),
-			],
-			'dependencies' => [ 'jquery' ],
-		] );
+		$compiler = new _Beans_Compiler(
+			[
+				'id'           => 'test',
+				'type'         => 'script',
+				'minify_js'    => true,
+				'fragments'    => [
+					vfsStream::url( 'compiled/fixtures/jquery.test.js' ),
+				],
+				'dependencies' => [ 'jquery' ],
+			]
+		);
 
 		// Set up the test.
 		$this->set_up_wp_filesystem( $compiler );
@@ -195,15 +203,17 @@ EOB;
 	 * Test _Beans_Compiler::combine_fragments() should return minified jQuery.
 	 */
 	public function test_should_return_minified_jquery() {
-		$compiler = new _Beans_Compiler( [
-			'id'           => 'test',
-			'type'         => 'script',
-			'minify_js'    => true,
-			'fragments'    => [
-				vfsStream::url( 'compiled/fixtures/jquery.test.js' ),
-			],
-			'dependencies' => [ 'jquery' ],
-		] );
+		$compiler = new _Beans_Compiler(
+			[
+				'id'           => 'test',
+				'type'         => 'script',
+				'minify_js'    => true,
+				'fragments'    => [
+					vfsStream::url( 'compiled/fixtures/jquery.test.js' ),
+				],
+				'dependencies' => [ 'jquery' ],
+			]
+		);
 
 		// Set up the test.
 		$this->set_up_wp_filesystem( $compiler );
@@ -219,14 +229,16 @@ EOB;
 	 * mode, but "minify_js" is disabled.
 	 */
 	public function test_should_return_original_js_when_minify_js_disabled() {
-		$compiler = new _Beans_Compiler( [
-			'id'        => 'test',
-			'type'      => 'script',
-			'minify_js' => false,
-			'fragments' => [
-				vfsStream::url( 'compiled/fixtures/my-game-clock.js' ),
-			],
-		] );
+		$compiler = new _Beans_Compiler(
+			[
+				'id'        => 'test',
+				'type'      => 'script',
+				'minify_js' => false,
+				'fragments' => [
+					vfsStream::url( 'compiled/fixtures/my-game-clock.js' ),
+				],
+			]
+		);
 
 		// Set up the test.
 		$this->set_up_wp_filesystem( $compiler );
@@ -246,14 +258,16 @@ EOB;
 	 * but the site is in development mode.
 	 */
 	public function test_should_always_return_original_js_when_in_dev_mode() {
-		$compiler = new _Beans_Compiler( [
-			'id'        => 'test',
-			'type'      => 'script',
-			'minify_js' => true,
-			'fragments' => [
-				vfsStream::url( 'compiled/fixtures/my-game-clock.js' ),
-			],
-		] );
+		$compiler = new _Beans_Compiler(
+			[
+				'id'        => 'test',
+				'type'      => 'script',
+				'minify_js' => true,
+				'fragments' => [
+					vfsStream::url( 'compiled/fixtures/my-game-clock.js' ),
+				],
+			]
+		);
 
 		// Set up the test.
 		$this->set_up_wp_filesystem( $compiler );
@@ -271,14 +285,16 @@ EOB;
 	 * Test _Beans_Compiler::combine_fragments() should return minified JavaScript.
 	 */
 	public function test_should_return_minified_javascript() {
-		$compiler = new _Beans_Compiler( [
-			'id'        => 'test',
-			'type'      => 'script',
-			'minify_js' => true,
-			'fragments' => [
-				vfsStream::url( 'compiled/fixtures/my-game-clock.js' ),
-			],
-		] );
+		$compiler = new _Beans_Compiler(
+			[
+				'id'        => 'test',
+				'type'      => 'script',
+				'minify_js' => true,
+				'fragments' => [
+					vfsStream::url( 'compiled/fixtures/my-game-clock.js' ),
+				],
+			]
+		);
 
 		// Set up the test.
 		$this->set_up_wp_filesystem( $compiler );

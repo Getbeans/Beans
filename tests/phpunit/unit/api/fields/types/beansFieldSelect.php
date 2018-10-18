@@ -36,15 +36,17 @@ class Tests_BeansFieldSelect extends Fields_Test_Case {
 	 * Test beans_field_checkbox() should render the select field.
 	 */
 	public function test_should_render_select_field() {
-		$field = $this->merge_field_with_default( [
-			'id'      => 'beans_compile_all_scripts_mode',
-			'type'    => 'select',
-			'default' => 'aggressive',
-			'options' => [
-				'aggressive' => 'Aggressive',
-				'standard'   => 'Standard',
-			],
-		] );
+		$field = $this->merge_field_with_default(
+			[
+				'id'      => 'beans_compile_all_scripts_mode',
+				'type'    => 'select',
+				'default' => 'aggressive',
+				'options' => [
+					'aggressive' => 'Aggressive',
+					'standard'   => 'Standard',
+				],
+			]
+		);
 
 		// Run the function and grab the HTML out of the buffer.
 		ob_start();
@@ -65,18 +67,20 @@ EOB;
 	 * Test beans_field_select() should render the select field with attributes when given.
 	 */
 	public function test_should_render_select_field_with_attributes_when_given() {
-		$field = $this->merge_field_with_default( [
-			'id'         => 'beans_compile_all_scripts_mode',
-			'type'       => 'select',
-			'default'    => 'standard',
-			'options'    => [
-				'aggressive' => 'Aggressive',
-				'standard'   => 'Standard',
-			],
-			'attributes' => [
-				'style' => 'margin: -3px 0 0 -8px;',
-			],
-		] );
+		$field = $this->merge_field_with_default(
+			[
+				'id'         => 'beans_compile_all_scripts_mode',
+				'type'       => 'select',
+				'default'    => 'standard',
+				'options'    => [
+					'aggressive' => 'Aggressive',
+					'standard'   => 'Standard',
+				],
+				'attributes' => [
+					'style' => 'margin: -3px 0 0 -8px;',
+				],
+			]
+		);
 
 		// Run the function and grab the HTML out of the buffer.
 		ob_start();

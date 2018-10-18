@@ -37,18 +37,25 @@ class Tests_BeansFieldImage extends Fields_Test_Case {
 	 */
 	public function test_should_render_single_image_field_and_hide_upload_button_when_image_exists() {
 		$post_id  = self::factory()->post->create();
-		$image_id = self::factory()->attachment->create_object( 'image.png', $post_id, [
-			'post_mime_type' => 'image/jpeg',
-			'post_type'      => 'attachment',
-		] );
+		$image_id = self::factory()->attachment->create_object(
+			'image.png',
+			$post_id,
+			[
+				'post_mime_type' => 'image/jpeg',
+				'post_type'      => 'attachment',
+			]
+		);
 		update_post_meta( $image_id, '_wp_attachment_image_alt', 'This is the alt value.', true );
 
-		$field = $this->merge_field_with_default( [
-			'id'    => 'beans_image_test',
-			'type'  => 'image',
-			'label' => 'Image Test',
-			'value' => $image_id,
-		], false );
+		$field = $this->merge_field_with_default(
+			[
+				'id'    => 'beans_image_test',
+				'type'  => 'image',
+				'label' => 'Image Test',
+				'value' => $image_id,
+			],
+			false
+		);
 
 		// Run the function and grab the HTML out of the buffer.
 		ob_start();
@@ -89,24 +96,35 @@ EOB;
 	public function test_should_render_multiple_images_field_and_show_upload_button_when_images_exist() {
 		$images   = [];
 		$post_id  = self::factory()->post->create();
-		$images[] = self::factory()->attachment->create_object( 'image-1.png', $post_id, [
-			'post_mime_type' => 'image/jpeg',
-			'post_type'      => 'attachment',
-		] );
+		$images[] = self::factory()->attachment->create_object(
+			'image-1.png',
+			$post_id,
+			[
+				'post_mime_type' => 'image/jpeg',
+				'post_type'      => 'attachment',
+			]
+		);
 		update_post_meta( $images[0], '_wp_attachment_image_alt', 'Image 1 alt.', true );
-		$images[] = self::factory()->attachment->create_object( 'image-2.png', $post_id, [
-			'post_mime_type' => 'image/jpeg',
-			'post_type'      => 'attachment',
-		] );
+		$images[] = self::factory()->attachment->create_object(
+			'image-2.png',
+			$post_id,
+			[
+				'post_mime_type' => 'image/jpeg',
+				'post_type'      => 'attachment',
+			]
+		);
 		update_post_meta( $images[1], '_wp_attachment_image_alt', 'Image 2 alt.', true );
 
-		$field = $this->merge_field_with_default( [
-			'id'       => 'beans_image_test',
-			'type'     => 'image',
-			'label'    => 'Image Test',
-			'value'    => $images,
-			'multiple' => true,
-		], false );
+		$field = $this->merge_field_with_default(
+			[
+				'id'       => 'beans_image_test',
+				'type'     => 'image',
+				'label'    => 'Image Test',
+				'value'    => $images,
+				'multiple' => true,
+			],
+			false
+		);
 
 		// Run the function and grab the HTML out of the buffer.
 		ob_start();
@@ -158,17 +176,24 @@ EOB;
 	 */
 	public function test_should_render_single_image_field_with_default_alt_when_none_exists() {
 		$post_id  = self::factory()->post->create();
-		$image_id = self::factory()->attachment->create_object( 'image.png', $post_id, [
-			'post_mime_type' => 'image/jpeg',
-			'post_type'      => 'attachment',
-		] );
+		$image_id = self::factory()->attachment->create_object(
+			'image.png',
+			$post_id,
+			[
+				'post_mime_type' => 'image/jpeg',
+				'post_type'      => 'attachment',
+			]
+		);
 
-		$field = $this->merge_field_with_default( [
-			'id'    => 'beans_image_test',
-			'type'  => 'image',
-			'label' => 'Image Test',
-			'value' => $image_id,
-		], false );
+		$field = $this->merge_field_with_default(
+			[
+				'id'    => 'beans_image_test',
+				'type'  => 'image',
+				'label' => 'Image Test',
+				'value' => $image_id,
+			],
+			false
+		);
 
 		// Run the function and grab the HTML out of the buffer.
 		ob_start();
@@ -211,12 +236,15 @@ EOB;
 	 */
 	public function test_should_show_upload_button_for_single_image_field_without_image() {
 		$post_id = self::factory()->post->create();
-		$field   = $this->merge_field_with_default( [
-			'id'    => 'beans_image_test',
-			'type'  => 'image',
-			'label' => 'Image Test',
-			'value' => null, // Attachment ID.
-		], false );
+		$field   = $this->merge_field_with_default(
+			[
+				'id'    => 'beans_image_test',
+				'type'  => 'image',
+				'label' => 'Image Test',
+				'value' => null, // Attachment ID.
+			],
+			false
+		);
 
 		// Run the function and grab the HTML out of the buffer.
 		ob_start();
@@ -249,13 +277,16 @@ EOB;
 	 */
 	public function test_should_show_upload_button_for_multiple_image_field_without_image() {
 		$post_id = self::factory()->post->create();
-		$field   = $this->merge_field_with_default( [
-			'id'       => 'beans_image_test',
-			'type'     => 'image',
-			'label'    => 'Image Test',
-			'multiple' => true,
-			'value'    => null, // Attachment ID.
-		], false );
+		$field   = $this->merge_field_with_default(
+			[
+				'id'       => 'beans_image_test',
+				'type'     => 'image',
+				'label'    => 'Image Test',
+				'multiple' => true,
+				'value'    => null, // Attachment ID.
+			],
+			false
+		);
 
 		// Run the function and grab the HTML out of the buffer.
 		ob_start();

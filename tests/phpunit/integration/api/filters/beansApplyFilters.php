@@ -52,14 +52,20 @@ class Tests_BeansApplyFilters extends Filters_Test_Case {
 	public function test_should_return_value_after_calling_two_levels_of_sub_hooks() {
 		add_filter( 'beans_test_query_args', 'beans_test_query_args_base' );
 		add_filter( 'beans_test_query_args[_main]', 'beans_test_query_args_main' );
-		add_filter( 'beans_test_query_args[_second]', function( $args ) {
-			$args[] = '_second';
-			return $args;
-		} );
-		add_filter( 'beans_test_query_args[_main][_second]', function( $args ) {
-			$args[] = '[_main][_second]';
-			return $args;
-		} );
+		add_filter(
+			'beans_test_query_args[_second]',
+			function( $args ) {
+				$args[] = '_second';
+				return $args;
+			}
+		);
+		add_filter(
+			'beans_test_query_args[_main][_second]',
+			function( $args ) {
+				$args[] = '[_main][_second]';
+				return $args;
+			}
+		);
 
 		$this->assertSame(
 			[ 'base', '_main', '_second', '[_main][_second]' ],
@@ -73,22 +79,34 @@ class Tests_BeansApplyFilters extends Filters_Test_Case {
 	public function test_should_return_value_after_calling_three_levels_of_sub_hooks() {
 		add_filter( 'beans_test_query_args', 'beans_test_query_args_base' );
 		add_filter( 'beans_test_query_args[_main]', 'beans_test_query_args_main' );
-		add_filter( 'beans_test_query_args[_second]', function( $args ) {
-			$args[] = '_second';
-			return $args;
-		} );
-		add_filter( 'beans_test_query_args[_main][_second]', function( $args ) {
-			$args[] = '[_main][_second]';
-			return $args;
-		} );
-		add_filter( 'beans_test_query_args[_third]', function( $args ) {
-			$args[] = '_third';
-			return $args;
-		} );
-		add_filter( 'beans_test_query_args[_main][_second][_third]', function( $args ) {
-			$args[] = '[_main][_second][_third]';
-			return $args;
-		} );
+		add_filter(
+			'beans_test_query_args[_second]',
+			function( $args ) {
+				$args[] = '_second';
+				return $args;
+			}
+		);
+		add_filter(
+			'beans_test_query_args[_main][_second]',
+			function( $args ) {
+				$args[] = '[_main][_second]';
+				return $args;
+			}
+		);
+		add_filter(
+			'beans_test_query_args[_third]',
+			function( $args ) {
+				$args[] = '_third';
+				return $args;
+			}
+		);
+		add_filter(
+			'beans_test_query_args[_main][_second][_third]',
+			function( $args ) {
+				$args[] = '[_main][_second][_third]';
+				return $args;
+			}
+		);
 
 		$this->assertSame(
 			[ 'base', '_main', '_second', '[_main][_second]', '_third', '[_main][_second][_third]' ],

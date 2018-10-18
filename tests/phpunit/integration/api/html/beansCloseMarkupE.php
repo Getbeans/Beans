@@ -51,12 +51,18 @@ class Tests_BeansCloseMarkupE extends HTML_Test_Case {
 	 * to the "_append_markup" and "_after_markup" hooks.
 	 */
 	public function test_should_echo_built_html_when_append_or_after_hooks() {
-		add_action( 'beans_archive_title_append_markup', function() {
-			echo '<!-- _append_markup fired -->';
-		} );
-		add_action( 'beans_archive_title_after_markup', function() {
-			echo '<!-- _after_markup fired -->';
-		} );
+		add_action(
+			'beans_archive_title_append_markup',
+			function() {
+				echo '<!-- _append_markup fired -->';
+			}
+		);
+		add_action(
+			'beans_archive_title_after_markup',
+			function() {
+				echo '<!-- _after_markup fired -->';
+			}
+		);
 
 		ob_start();
 		beans_close_markup_e( 'beans_archive_title', 'h1' );

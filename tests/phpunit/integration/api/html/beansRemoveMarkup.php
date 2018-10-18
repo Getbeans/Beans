@@ -36,10 +36,16 @@ class Tests_BeansRemoveMarkup extends HTML_Test_Case {
 	public function test_should_register_callback_to_id_markup_filter() {
 		$anonymous_filter = beans_remove_markup( 'beans_archive_title' );
 
-		$this->assertSame( 10, has_filter( 'beans_archive_title_markup', [
-			$anonymous_filter,
-			'callback',
-		] ) );
+		$this->assertSame(
+			10,
+			has_filter(
+				'beans_archive_title_markup',
+				[
+					$anonymous_filter,
+					'callback',
+				]
+			)
+		);
 	}
 
 	/**
@@ -49,12 +55,18 @@ class Tests_BeansRemoveMarkup extends HTML_Test_Case {
 		beans_remove_markup( 'beans_archive_title' );
 
 		// Let's test it out by running the markup for this ID.
-		add_action( 'beans_archive_title_before_markup', function() {
-			echo '<!-- _before_markup fired -->';
-		} );
-		add_action( 'beans_archive_title_prepend_markup', function() {
-			echo '<!-- _prepend_markup fired -->';
-		} );
+		add_action(
+			'beans_archive_title_before_markup',
+			function() {
+				echo '<!-- _before_markup fired -->';
+			}
+		);
+		add_action(
+			'beans_archive_title_prepend_markup',
+			function() {
+				echo '<!-- _prepend_markup fired -->';
+			}
+		);
 		$actual = beans_open_markup( 'beans_archive_title', 'h1', [ 'class' => 'uk-article-title' ] );
 		$this->assertSame( '<!-- _before_markup fired --><!-- _prepend_markup fired -->', $actual );
 		$this->assertSame( '', beans_close_markup( 'beans_archive_title', 'h1' ) );

@@ -37,9 +37,11 @@ class Tests_BeansCloseMarkup extends HTML_Test_Case {
 		Monkey\Functions\expect( '__beans_render_title_append_markup' )
 			->once()
 			->with( '' )
-			->andReturnUsing( function() {
-				echo '<!-- _append_markup fired -->';
-			} );
+			->andReturnUsing(
+				function() {
+					echo '<!-- _append_markup fired -->';
+				}
+			);
 		add_action( 'beans_archive_title_append_markup', '__beans_render_title_append_markup' );
 
 		// Run the tests.
@@ -55,9 +57,11 @@ class Tests_BeansCloseMarkup extends HTML_Test_Case {
 		Monkey\Functions\expect( '__beans_render_title_after_markup' )
 			->once()
 			->with( '' )
-			->andReturnUsing( function() {
-				echo '<!-- _after_markup fired -->';
-			} );
+			->andReturnUsing(
+				function() {
+					echo '<!-- _after_markup fired -->';
+				}
+			);
 		add_action( 'beans_archive_title_after_markup', '__beans_render_title_after_markup' );
 
 		// Run the tests.
@@ -82,12 +86,18 @@ class Tests_BeansCloseMarkup extends HTML_Test_Case {
 	 * to the "_append_markup" and "_after_markup" hooks.
 	 */
 	public function test_should_return_built_html_when_callback_registered_to_hooks() {
-		add_action( 'beans_archive_title_append_markup', function() {
-			echo '<!-- _append_markup fired -->';
-		} );
-		add_action( 'beans_archive_title_after_markup', function() {
-			echo '<!-- _after_markup fired -->';
-		} );
+		add_action(
+			'beans_archive_title_append_markup',
+			function() {
+				echo '<!-- _append_markup fired -->';
+			}
+		);
+		add_action(
+			'beans_archive_title_after_markup',
+			function() {
+				echo '<!-- _after_markup fired -->';
+			}
+		);
 
 		// Run the tests.
 		$actual   = beans_close_markup( 'beans_archive_title', 'h1' );
@@ -113,12 +123,18 @@ EOB;
 	 * the tag is empty.
 	 */
 	public function test_should_return_hooked_callbacks_output_and_not_closing_tag_when_tag_is_empty() {
-		add_action( 'beans_archive_title_append_markup', function() {
-			echo '<!-- _append_markup fired -->';
-		} );
-		add_action( 'beans_archive_title_after_markup', function() {
-			echo '<!-- _after_markup fired -->';
-		} );
+		add_action(
+			'beans_archive_title_append_markup',
+			function() {
+				echo '<!-- _append_markup fired -->';
+			}
+		);
+		add_action(
+			'beans_archive_title_after_markup',
+			function() {
+				echo '<!-- _after_markup fired -->';
+			}
+		);
 
 		// Check with an empty string.
 		$actual = beans_close_markup( 'beans_archive_title', '' );
@@ -144,9 +160,12 @@ EOB;
 		$this->assertSame( $expected, beans_close_markup( 'beans_post_title', '<script>alert("Should escape me.")</script>' ) );
 
 		// Check when tag is filtered.
-		add_filter( 'beans_post_title_markup', function() {
-			return '<script>alert("Should escape me.")</script>';
-		});
+		add_filter(
+			'beans_post_title_markup',
+			function() {
+				return '<script>alert("Should escape me.")</script>';
+			}
+		);
 		$this->assertSame( $expected, beans_close_markup( 'beans_post_title', 'h1' ) );
 	}
 }

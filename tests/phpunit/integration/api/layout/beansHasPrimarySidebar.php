@@ -25,9 +25,12 @@ class Tests_BeansHasPrimarySidebar extends Test_Case {
 	 * Test beans_has_primary_sidebar() should return false when the layout is full-width.
 	 */
 	public function test_should_return_false_when_full_width_layout() {
-		add_filter( 'beans_default_layout', function( $default_layout ) {
-			return 'c';
-		});
+		add_filter(
+			'beans_default_layout',
+			function( $default_layout ) {
+				return 'c';
+			}
+		);
 
 		$this->assertEquals( beans_get_layout(), 'c' );
 
@@ -38,9 +41,12 @@ class Tests_BeansHasPrimarySidebar extends Test_Case {
 	 * Test beans_has_primary_sidebar() should return false when the layout is content-secondary sidebar.
 	 */
 	public function test_should_return_false_when_content_sidebar_secondary_layout() {
-		add_filter( 'beans_default_layout', function( $default_layout ) {
-			return 'c_ss';
-		});
+		add_filter(
+			'beans_default_layout',
+			function( $default_layout ) {
+				return 'c_ss';
+			}
+		);
 
 		$this->assertEquals( beans_get_layout(), 'c_ss' );
 
@@ -53,9 +59,12 @@ class Tests_BeansHasPrimarySidebar extends Test_Case {
 	public function test_should_return_false_when_content_primary_sidebar_layout_without_active_widget() {
 		Monkey\Functions\when( 'beans_is_active_widget_area' )->justReturn( false );
 
-		add_filter( 'beans_default_layout', function( $default_layout ) {
-			return 'c_sp';
-		});
+		add_filter(
+			'beans_default_layout',
+			function( $default_layout ) {
+				return 'c_sp';
+			}
+		);
 
 		$this->assertEquals( beans_get_layout(), 'c_sp' );
 
@@ -68,9 +77,12 @@ class Tests_BeansHasPrimarySidebar extends Test_Case {
 	public function test_should_return_true_when_content_primary_sidebar_layout_with_active_widget() {
 		Monkey\Functions\when( 'beans_is_active_widget_area' )->justReturn( true );
 
-		add_filter( 'beans_default_layout', function( $default_layout ) {
-			return 'c_sp';
-		});
+		add_filter(
+			'beans_default_layout',
+			function( $default_layout ) {
+				return 'c_sp';
+			}
+		);
 
 		$this->assertEquals( beans_get_layout(), 'c_sp' );
 

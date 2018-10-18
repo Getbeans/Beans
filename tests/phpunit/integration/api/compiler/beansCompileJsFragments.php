@@ -35,11 +35,15 @@ class Tests_BeansCompileJsFragments extends Compiler_Test_Case {
 
 		// Run the tests.
 		$this->assertEmpty( $this->get_compiled_filename( $path ) );
-		beans_compile_js_fragments( $id, $fragment, [
-			'dependencies' => [ 'jquery' ],
-			'in_footer'    => true,
-			'minify_js'    => true,
-		] );
+		beans_compile_js_fragments(
+			$id,
+			$fragment,
+			[
+				'dependencies' => [ 'jquery' ],
+				'in_footer'    => true,
+				'minify_js'    => true,
+			]
+		);
 		$filename = $this->get_compiled_filename( $path );
 		$this->assertFileExists( $path . $filename );
 		$this->assertStringEndsWith( '.js', $filename );
@@ -58,10 +62,14 @@ class Tests_BeansCompileJsFragments extends Compiler_Test_Case {
 
 		// Run the tests.
 		$this->assertEmpty( $this->get_compiled_filename( $path ) );
-		beans_compile_js_fragments( $id, $fragment, [
-			'in_footer' => true,
-			'minify_js' => true,
-		] );
+		beans_compile_js_fragments(
+			$id,
+			$fragment,
+			[
+				'in_footer' => true,
+				'minify_js' => true,
+			]
+		);
 		$filename = $this->get_compiled_filename( $path );
 		$this->assertFileExists( $path . $filename );
 		$this->assertStringEndsWith( '.js', $filename );
@@ -83,11 +91,15 @@ class Tests_BeansCompileJsFragments extends Compiler_Test_Case {
 
 		// Run the tests.
 		$this->assertEmpty( $this->get_compiled_filename( $path ) );
-		beans_compile_js_fragments( $id, $fragments, [
-			'dependencies' => [ 'jquery' ],
-			'in_footer'    => true,
-			'minify_js'    => true,
-		] );
+		beans_compile_js_fragments(
+			$id,
+			$fragments,
+			[
+				'dependencies' => [ 'jquery' ],
+				'in_footer'    => true,
+				'minify_js'    => true,
+			]
+		);
 		$filename = $this->get_compiled_filename( $path );
 		$this->assertFileExists( $path . $filename );
 		$this->assertStringEndsWith( '.js', $filename );

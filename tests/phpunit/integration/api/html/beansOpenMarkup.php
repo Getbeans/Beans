@@ -37,9 +37,11 @@ class Tests_BeansOpenMarkup extends HTML_Test_Case {
 		Monkey\Functions\expect( '__beans_render_title_before_markup' )
 			->once()
 			->with( '' )
-			->andReturnUsing( function() {
-				echo '<!-- _before_markup fired -->';
-			} );
+			->andReturnUsing(
+				function() {
+					echo '<!-- _before_markup fired -->';
+				}
+			);
 		add_action( 'beans_archive_title_before_markup', '__beans_render_title_before_markup' );
 
 		// Run the tests.
@@ -55,9 +57,11 @@ class Tests_BeansOpenMarkup extends HTML_Test_Case {
 		Monkey\Functions\expect( '__beans_render_title_prepend_markup' )
 			->once()
 			->with( '' )
-			->andReturnUsing( function() {
-				echo '<!-- _prepend_markup fired -->';
-			} );
+			->andReturnUsing(
+				function() {
+					echo '<!-- _prepend_markup fired -->';
+				}
+			);
 		add_action( 'beans_archive_title_prepend_markup', '__beans_render_title_prepend_markup' );
 
 		// Run the tests.
@@ -74,9 +78,11 @@ class Tests_BeansOpenMarkup extends HTML_Test_Case {
 		Monkey\Functions\expect( '__beans_render_title_after_markup' )
 			->once()
 			->with( '' )
-			->andReturnUsing( function() {
-				echo '<!-- _after_markup fired -->';
-			} );
+			->andReturnUsing(
+				function() {
+					echo '<!-- _after_markup fired -->';
+				}
+			);
 		add_action( 'beans_archive_title_after_markup', '__beans_render_title_after_markup' );
 
 		global $_beans_is_selfclose_markup;
@@ -116,12 +122,18 @@ class Tests_BeansOpenMarkup extends HTML_Test_Case {
 	 * Test beans_open_markup() should return the built HTML when before and prepend hooks are registered.
 	 */
 	public function test_should_return_built_html_when_before_or_prepend_hooks() {
-		add_action( 'beans_archive_title_before_markup', function() {
-			echo '<!-- _before_markup fired -->';
-		} );
-		add_action( 'beans_archive_title_prepend_markup', function() {
-			echo '<!-- _prepend_markup fired -->';
-		} );
+		add_action(
+			'beans_archive_title_before_markup',
+			function() {
+				echo '<!-- _before_markup fired -->';
+			}
+		);
+		add_action(
+			'beans_archive_title_prepend_markup',
+			function() {
+				echo '<!-- _prepend_markup fired -->';
+			}
+		);
 
 		// Run the tests.
 		$actual   = beans_open_markup( 'beans_archive_title', 'h1', [ 'class' => 'uk-article-title' ] );
@@ -178,12 +190,18 @@ EOB;
 	 * the tag is empty.
 	 */
 	public function test_should_return_only_hooked_callbacks_output_and_no_html_element_when_tag_is_empty() {
-		add_action( 'beans_archive_title_before_markup', function() {
-			echo '<!-- _before_markup fired -->';
-		} );
-		add_action( 'beans_archive_title_prepend_markup', function() {
-			echo '<!-- _prepend_markup fired -->';
-		} );
+		add_action(
+			'beans_archive_title_before_markup',
+			function() {
+				echo '<!-- _before_markup fired -->';
+			}
+		);
+		add_action(
+			'beans_archive_title_prepend_markup',
+			function() {
+				echo '<!-- _prepend_markup fired -->';
+			}
+		);
 
 		// Check with an empty string.
 		$actual = beans_open_markup( 'beans_archive_title', '', [ 'class' => 'uk-article-title' ] );
@@ -207,30 +225,48 @@ EOB;
 <&lt;script&gt;alert(&quot;Should escape me.&quot;)&lt;/script&gt; class="uk-article-title" itemprop="headline">
 EOB;
 		// Check when given as the tag.
-		$actual = beans_open_markup( 'beans_post_title', '<script>alert("Should escape me.")</script>', [
-			'class'    => 'uk-article-title',
-			'itemprop' => 'headline',
-		] );
+		$actual = beans_open_markup(
+			'beans_post_title',
+			'<script>alert("Should escape me.")</script>',
+			[
+				'class'    => 'uk-article-title',
+				'itemprop' => 'headline',
+			]
+		);
 		$this->assertSame( $expected, $actual );
 
 		// Check when tag is filtered.
-		add_filter( 'beans_post_title_markup', function() {
-			return '<script>alert("Should escape me.")</script>';
-		} );
-		$actual = beans_open_markup( 'beans_post_title', 'h1', [
-			'class'    => 'uk-article-title',
-			'itemprop' => 'headline',
-		] );
+		add_filter(
+			'beans_post_title_markup',
+			function() {
+				return '<script>alert("Should escape me.")</script>';
+			}
+		);
+		$actual = beans_open_markup(
+			'beans_post_title',
+			'h1',
+			[
+				'class'    => 'uk-article-title',
+				'itemprop' => 'headline',
+			]
+		);
 		$this->assertSame( $expected, $actual );
 
 		// Check the attributes too.
 		$expected = <<<EOB
 <a href="http://example.com/testing-ensure-safe?val=scriptalert(Should%20escape%20me.);/script" title="Testing to ensure safe." rel="bookmark">
 EOB;
-		$this->assertSame( $expected, beans_open_markup( 'beans_post_title_link', 'a', [
-			'href'  => 'http://example.com/testing-ensure-safe?val=<script>alert("Should escape me.");</script>',
-			'title' => 'Testing to ensure safe.',
-			'rel'   => 'bookmark',
-		] ) );
+		$this->assertSame(
+			$expected,
+			beans_open_markup(
+				'beans_post_title_link',
+				'a',
+				[
+					'href'  => 'http://example.com/testing-ensure-safe?val=<script>alert("Should escape me.");</script>',
+					'title' => 'Testing to ensure safe.',
+					'rel'   => 'bookmark',
+				]
+			)
+		);
 	}
 }

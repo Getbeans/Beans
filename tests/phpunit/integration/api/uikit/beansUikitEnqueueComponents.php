@@ -81,12 +81,15 @@ class Tests_BeansUikitEnqueueComponents extends UIkit_Test_Case {
 		$this->assertSame( $expected, $_beans_uikit_enqueued_items['components'] );
 
 		beans_uikit_enqueue_components( [ 'accordion', 'autocomplete', 'slideset' ], 'add-ons', true );
-		$expected['add-ons'] = array_merge( $expected['add-ons'], [
-			'dotnav',
-			'accordion',
-			'autocomplete',
-			'slideset',
-		] );
+		$expected['add-ons'] = array_merge(
+			$expected['add-ons'],
+			[
+				'dotnav',
+				'accordion',
+				'autocomplete',
+				'slideset',
+			]
+		);
 		$this->assertSame( $expected, $_beans_uikit_enqueued_items['components'] );
 	}
 

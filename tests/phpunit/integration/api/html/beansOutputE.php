@@ -91,9 +91,11 @@ EOB;
 		Monkey\Functions\expect( 'return_fired_output' )
 			->twice()
 			->with( 'Beans rocks!', 47, 'Hello' )
-			->andReturnUsing( function( $output, $arg1, $arg2 ) {
-				return $arg2;
-			} );
+			->andReturnUsing(
+				function( $output, $arg1, $arg2 ) {
+					return $arg2;
+				}
+			);
 
 		// Check with HTML dev mode disabled.
 		add_option( 'beans_dev_mode', 0 );
